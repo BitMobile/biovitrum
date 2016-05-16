@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:VerticalLayout>
+    <c:Button Id="BackButton" OnClick="BackButton_OnClick" />
+    <c:Button Id="ClientInfoButton" OnClick="ClientInfoButton_OnClick" />
+    <c:TextView Id="TaskCounterNameTextView" />
+    <c:TextView Id="TaskCounterTextView" />
+    <c:TextView Id="CertificateOfCompletionNameTextView" />
+    <c:TextView Id="CertificateOfCompletionTextView" />
+    <c:TextView Id="CheckListCounterNameTextView" />
+    <c:TextView Id="CheckListCounterTextView" />
+    <c:Button Id="StartButton" OnClick="StartButton_OnClick" />
+    <c:Button Id="CancelButton" OnClick="CancelButton_OnClick" />
+  </c:VerticalLayout>
+</c:Screen>
