@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c:Screen xmlns:c="Bitmobile.ClientModel3.UI">
+  <c:Text Text="Map"/>
+</c:Screen>
