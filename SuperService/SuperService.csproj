@@ -60,7 +60,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BusinessProcess\" />
     <Folder Include="Components\" />
     <Folder Include="Controllers\" />
     <Folder Include="Entities\" />
@@ -68,6 +67,9 @@
     <Folder Include="Model\" />
     <Folder Include="Screen\" />
     <Folder Include="Style\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BusinessProcess\BusinessProcess.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

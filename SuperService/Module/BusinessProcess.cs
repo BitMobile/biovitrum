@@ -4,6 +4,7 @@ using System.Xml;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using XmlDocument = BitMobile.ClientModel3.XmlDocument;
+
 // ReSharper disable PossibleNullReferenceException
 
 namespace Test
@@ -11,8 +12,12 @@ namespace Test
     public static class BusinessProcess
     {
         private static XmlDocument _doc;
-        private static readonly Stack StackNodes = new Stack();
-        private static readonly Stack StackScreens = new Stack();
+
+//        private static readonly Stack StackNodes = new Stack();
+//        private static readonly Stack StackScreens = new Stack();
+
+        public static XmlNode CurrentNode { get; private set; }
+        public static Screen CurrentScreen { get; private set; }
 
         public static Dictionary<string, object> GlobalVariables { get; } = new Dictionary<string, object>();
 
@@ -36,8 +41,11 @@ namespace Test
             DConsole.WriteLine($"Loading controler: ${stepController}");
             var scr = GetScreenByControllerName(stepController);
 
-            StackScreens.Push(scr);
-            StackNodes.Push(n);
+//            StackScreens.Push(scr);
+//            StackNodes.Push(n);
+
+            CurrentScreen = scr;
+            CurrentNode = n;
 
             scr.LoadStyleSheet(Application.GetResourceStream(styleSheet));
             scr.Show();
@@ -46,26 +54,15 @@ namespace Test
         public static void DoAction(string actionName)
         {
             DConsole.WriteLine($"Doing action: {actionName}");
-            var currentNode = (XmlNode)StackNodes.Peek();
-            var n = currentNode.SelectSingleNode($"Action[@Name='{actionName}']");
+            //          var currentNode = StackNodes.peek();
+            var n = CurrentNode.SelectSingleNode($"Action[@Name='{actionName}']");
             var stepName = n.Attributes["NextStep"].Value;
             MoveTo(stepName);
         }
 
-        public static void DoBack()
-        {
-            DConsole.WriteLine("Moving back");
-            //remove current
-            StackNodes.Pop();
-            StackScreens.Pop();
-
-            var scr = (Screen)StackScreens.Peek();
-            scr.Show();
-        }
-
         private static Screen GetScreenByControllerName(string name)
         {
-            var scr = (Screen)Application.CreateInstance("Test." + name);
+            var scr = (Screen) Application.CreateInstance("Test." + name);
             //full type name should be specified   
 
             Stream s = null;

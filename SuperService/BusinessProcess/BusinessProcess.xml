@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<BusinessProcess>
+  <Workflow Name="Main">
+    <Step Name="Authorization" Controller="AuthScreen" StyleSheet="Style\style.css">
+      <Action Name="Auth" NextStep="OrderList"></Action>
+    </Step>
+    <Step Name="Map" Controller="MapScreen" StyleSheet="Style\style.css">
+      <Action Name="BackToOrderList" NextStep="OrderList" />
+    </Step>
+
+    <!-- MAIN SCREENS -->
+    <Step Name="OrderList" Controller="OrderListScreen" StyleSheet="Style\style.css">
+      <Action Name="ViewMap" NextStep="Map"></Action>
+      <Action Name="ViewOrder" NextStep="Order"></Action>
+      <!--      <Action Name="OrderList" NextStep="OrderList"></Action>-->
+      <Action Name="Backpack" NextStep="Backpack"></Action>
+      <Action Name="Settings" NextStep="Settings"></Action>
+      <Action Name="ClientList" NextStep="ClientList"></Action>
+    </Step>
+
+    <Step Name="Backpack" Controller="BackpackScreen" StyleSheet="Style\style.css">
+      <Action Name="OrderList" NextStep="OrderList"></Action>
+      <!--      <Action Name="Backpack" NextStep="Backpack"></Action>-->
+      <Action Name="Settings" NextStep="Settings"></Action>
+      <Action Name="ClientList" NextStep="ClientList"></Action>
+    </Step>
+
+    <Step Name="ClientList" Controller="ClientListScreen" StyleSheet="Style\style.css">
+      <Action Name="OrderList" NextStep="OrderList"></Action>
+      <Action Name="Backpack" NextStep="Backpack"></Action>
+      <Action Name="Settings" NextStep="Settings"></Action>
+      <!--      <Action Name="ClientList" NextStep="ClientList"></Action>-->
+    </Step>
+
+    <Step Name="Settings" Controller="SettingsScreen" StyleSheet="Style\style.css">
+      <Action Name="OrderList" NextStep="OrderList"></Action>
+      <Action Name="Backpack" NextStep="Backpack"></Action>
+      <!--      <Action Name="Settings" NextStep="Settings"></Action>-->
+      <Action Name="ClientList" NextStep="ClientList"></Action>
+      <Action Name="Logout" NextStep="Authorization"></Action>
+    </Step>
+    <!-- / MAIN SCREENS -->
+
+    <Step Name="Order" Controller="OrderScreen" StyleSheet="Style\style.css">
+      <Action Name="OrderList" NextStep="OrderList"></Action>
+      <Action Name="Client" NextStep="Client"></Action>
+    </Step>
+
+    <Step Name="Client" Controller="ClientScreen" StyleSheet="Style\style.css">
+      <Action Name="ClientList" NextStep="ClientList"></Action>
+    </Step>
+  </Workflow>
+</BusinessProcess>
