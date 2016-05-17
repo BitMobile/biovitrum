@@ -67,6 +67,7 @@
     <EmbeddedResource Include="Translation\ru.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Components\" />
     <Folder Include="Image\" />
   </ItemGroup>
   <ItemGroup>
