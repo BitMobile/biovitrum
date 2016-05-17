@@ -70,11 +70,11 @@
     <Folder Include="Style\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BusinessProcess\BusinessProcess.xml" />
+    <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
     <EmbeddedResource Include="Model\metadata.xml" />
-    <Content Include="Screen\MapScreen.xml" />
-    <Content Include="Screen\OrderScreen.xml" />
-    <Content Include="Screen\OrderListScreen.xml" />
+    <EmbeddedResource Include="Screen\MapScreen.xml" />
+    <EmbeddedResource Include="Screen\OrderScreen.xml" />
+    <EmbeddedResource Include="Screen\OrderListScreen.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
