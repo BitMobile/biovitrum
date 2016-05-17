@@ -26,23 +26,42 @@ namespace Test
             VerticalLayout _vlPriority;
             VerticalLayout _vlRightSideTemp;
 
+            _vlLeftSideTemp = FillLeftSideTemp();
 
-
-            #region Заполнения времени и начала работы.
-            _vlLeftSideTemp = new VerticalLayout();
-            _vlLeftSideTemp.AddChild(new TextView("Time to start"));
-            _vlLeftSideTemp.AddChild(new TextView("Is start"));
-            #endregion
-
-            #region Добавление приоритета наряда.
             _vlPriority = new VerticalLayout();
             _vlPriority.AddChild(new Image());
-            #endregion
 
-            #region Добавление имени компании, адреса, типа работ
+
             _vlRightSideTemp = new VerticalLayout();
-            _vlRightSideTemp.AddChild(new TextView("Name of company"));
+            FillRIghtSideTemp(_vlRightSideTemp);
 
+            _hlTemp = new HorizontalLayout();
+            FillHorizontalLayout(_hlTemp, _vlLeftSideTemp, _vlPriority, _vlRightSideTemp);
+
+            _svlOrderList.AddChild(_hlTemp);
+        }
+
+        private void FillHorizontalLayout(HorizontalLayout _hlTemp, VerticalLayout _vlLeftSideTemp, VerticalLayout _vlPriority, VerticalLayout _vlRightSideTemp)
+        {
+            _hlTemp.AddChild(_vlLeftSideTemp);
+            _hlTemp.AddChild(_vlPriority);
+            _hlTemp.AddChild(_vlRightSideTemp);
+            _hlTemp.OnClick += GoToOrderScreen_OnClick;
+        }
+
+        private static void FillRIghtSideTemp(VerticalLayout _vlRightSideTemp)
+        {
+            _vlRightSideTemp.AddChild(new TextView("Name of company"));
+            _vlRightSideTemp.AddChild(new TextView("Adress"));
+            _vlRightSideTemp.AddChild(new TextView("Type"));
+        }
+
+        private static VerticalLayout FillLeftSideTemp()
+        {
+            VerticalLayout _vlLeftSideTemp = new VerticalLayout();
+            _vlLeftSideTemp.AddChild(new TextView("Time to start"));
+            _vlLeftSideTemp.AddChild(new TextView("Is start"));
+            return _vlLeftSideTemp;
         }
 
         internal void GoToMap_OnClick(object sender, EventArgs e)
