@@ -68,12 +68,14 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
-    <EmbeddedResource Include="Model\metadata.xml" />
     <EmbeddedResource Include="Style\style.css" />
     <EmbeddedResource Include="Screen\OrderScreen.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Translation\en.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model\metadata.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
