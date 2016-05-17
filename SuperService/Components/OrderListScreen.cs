@@ -42,7 +42,19 @@ namespace Test
             #region Добавление имени компании, адреса, типа работ
             _vlRightSideTemp = new VerticalLayout();
             _vlRightSideTemp.AddChild(new TextView("Name of company"));
+            _vlRightSideTemp.AddChild(new TextView("Adress"));
+            _vlRightSideTemp.AddChild(new TextView("Type"));
+            #endregion
 
+            #region Добавление элементов в Horizontal Layout
+            _hlTemp = new HorizontalLayout();
+            _hlTemp.AddChild(_vlLeftSideTemp);
+            _hlTemp.AddChild(_vlPriority);
+            _hlTemp.AddChild(_vlRightSideTemp);
+            _hlTemp.OnClick += GoToOrderScreen_OnClick;
+            #endregion
+
+            _svlOrderList.AddChild(_hlTemp);
         }
 
         internal void GoToMap_OnClick(object sender, EventArgs e)
