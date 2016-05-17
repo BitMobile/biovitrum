@@ -55,21 +55,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\OrderScreen.cs" />
     <Compile Include="Module\BusinessProcess.cs" />
     <Compile Include="Module\Solution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Translation\ru.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Entities\" />
     <Folder Include="Image\" />
-    <Folder Include="Model\" />
-    <Folder Include="Screen\" />
-    <Folder Include="Style\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BusinessProcess\BusinessProcess.xml" />
+    <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
+    <EmbeddedResource Include="Model\metadata.xml" />
+    <EmbeddedResource Include="Style\style.css" />
+    <EmbeddedResource Include="Screen\OrderScreen.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Translation\en.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

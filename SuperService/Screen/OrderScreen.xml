@@ -2,15 +2,16 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout>
-    <c:Button Id="BackButton" OnClick="BackButton_OnClick" />
-    <c:Button Id="ClientInfoButton" OnClick="ClientInfoButton_OnClick" />
-    <c:TextView Id="TaskCounterNameTextView" />
-    <c:TextView Id="TaskCounterTextView" />
-    <c:TextView Id="CertificateOfCompletionNameTextView" />
-    <c:TextView Id="CertificateOfCompletionTextView" />
-    <c:TextView Id="CheckListCounterNameTextView" />
-    <c:TextView Id="CheckListCounterTextView" />
-    <c:Button Id="StartButton" OnClick="StartButton_OnClick" />
-    <c:Button Id="CancelButton" OnClick="CancelButton_OnClick" />
+    <c:Button Text="#back#" Id="BackButton" OnClick="BackButton_OnClick" />
+    <c:TextView Text="contactInfo" Id="ContactInfoTextView" />
+    <c:Button Text="cinfo" Id="ClientInfoButton" OnClick="ClientInfoButton_OnClick" />
+    <c:TextView Text="tasks" Id="TaskCounterNameTextView" />
+    <c:TextView Text="1/3" Id="TaskCounterTextView" />
+    <c:TextView Text="coc" Id="CertificateOfCompletionNameTextView" />
+    <c:TextView Text="123" Id="CertificateOfCompletionTextView" />
+    <c:TextView Text="clist" Id="CheckListCounterNameTextView" />
+    <c:TextView Text="1/5" Id="CheckListCounterTextView" />
+    <c:Button Text="#start#" Id="StartButton" OnClick="StartButton_OnClick" />
+    <c:Button Text="#refuse#" Id="CancelButton" OnClick="CancelButton_OnClick" />
   </c:VerticalLayout>
 </c:Screen>
