@@ -60,7 +60,7 @@ namespace Test
         {
             VerticalLayout _vlLeftSideTemp = new VerticalLayout();
             _vlLeftSideTemp.AddChild(new TextView("Time to start"));
-            _vlLeftSideTemp.AddChild(new TextView("Is start"));
+            _vlLeftSideTemp.AddChild(new TextView("Is start?"));
             return _vlLeftSideTemp;
         }
 
