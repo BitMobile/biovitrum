@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<c:Screen xmlns:c="Bitmobile.ClientModel3.UI">
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI">
 
   <!--VerticalLayout для нарядов-->
   <c:VerticalLayout Id="SlideVerticalLayout">
     <c:HorizontalLayout>
       <c:Button Id="Filter" OnClick=""/>
-      <c:TextView Text="Orders"/>
+      <c:TextView Text=""/>
       <c:Button Id="Map" OnClick="GoToMap_OnClick"/>
     </c:HorizontalLayout>
   </c:VerticalLayout>

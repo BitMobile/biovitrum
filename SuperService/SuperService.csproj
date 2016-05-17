@@ -58,19 +58,20 @@
     <Compile Include="Components\MapScreen.cs" />
     <Compile Include="Components\OrderScreen.cs" />
     <Compile Include="Components\OrderListScreen.cs" />
+    <Compile Include="Entities\Document\Event.cs" />
     <Compile Include="Module\BusinessProcess.cs" />
     <Compile Include="Module\Solution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Entities\" />
+    <Folder Include="Entities\Catalog\" />
     <Folder Include="Image\" />
-    <Folder Include="Model\" />
     <Folder Include="Style\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BusinessProcess\BusinessProcess.xml" />
+    <EmbeddedResource Include="Model\metadata.xml" />
     <Content Include="Screen\MapScreen.xml" />
     <Content Include="Screen\OrderScreen.xml" />
     <Content Include="Screen\OrderListScreen.xml" />
