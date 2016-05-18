@@ -21,6 +21,7 @@ namespace Test
             FillingOrderList();
         }
 
+
         private void FillingOrderList()
         {
 
@@ -36,7 +37,8 @@ namespace Test
 
         internal void GoToMap_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("Map");
+            DConsole.WriteLine("GO to map");
+            BusinessProcess.DoAction("ViewMap");
         }
 
         internal void GoToOrderScreen_OnClick(object sender, EventArgs e)

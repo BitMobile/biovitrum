@@ -8,7 +8,11 @@ using BitMobile.ClientModel3.UI;
 
 namespace Test
 {
-    class CapMapScreen : Screen
+  public  class MapScreen : Screen
     {
+        public override void OnLoading()
+        {
+            DConsole.WriteLine("MapScreen");
+        }
     }
 }

@@ -55,26 +55,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\MapScreen.cs" />
-    <Compile Include="Components\OrderScreen.cs" />
-    <Compile Include="Components\OrderListScreen.cs" />
+    <Compile Include="Controllers\MapScreen.cs" />
+    <Compile Include="Controllers\OrderScreen.cs" />
+    <Compile Include="Controllers\OrderListScreen.cs" />
+    <Compile Include="Entities\Catalog\Client.cs" />
     <Compile Include="Entities\Document\Event.cs" />
     <Compile Include="Module\BusinessProcess.cs" />
     <Compile Include="Module\Solution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Entities\Catalog\" />
+    <Folder Include="Components\" />
     <Folder Include="Image\" />
-    <Folder Include="Style\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
+    <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Model\metadata.xml" />
     <EmbeddedResource Include="Screen\MapScreen.xml" />
     <EmbeddedResource Include="Screen\OrderScreen.xml" />
-    <EmbeddedResource Include="Screen\OrderListScreen.xml" />
+    <EmbeddedResource Include="Screen\OrderListScreen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Style\style.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

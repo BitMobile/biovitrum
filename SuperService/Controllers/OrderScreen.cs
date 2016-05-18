@@ -7,8 +7,11 @@ using BitMobile.ClientModel3.UI;
 
 namespace Test
 {
-    class CapOrderScreen : Screen
+   public class OrderScreen : Screen
     {
-
+        public override void OnLoading()
+        {
+           
+        }
     }
 }
