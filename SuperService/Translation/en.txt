@@ -1,0 +1,10 @@
+﻿about		MORE ABOUT THE APPLICATION
+test		THIS IS TEST
+greeting		Welcome To Bitmobile!
+back		Back
+refuse		Refuse
+start		Start
+finish		Finish
+tasks		Tasks
+coc		Certificate of Complition
+clist		Check-list

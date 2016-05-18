@@ -1,0 +1,10 @@
+﻿about		MORE ABOUT THE APPLICATION
+test		ЭТО ТЕСТ
+greeting		Добро Пожаловать!
+back		Назад
+refuse		Отказаться
+start		Начать
+finish		Завершить
+tasks		Задачи
+coc		АВР
+clist		Чек-лист

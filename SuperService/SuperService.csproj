@@ -55,21 +55,48 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Controllers\AuthScreen.cs" />
+=======
+    <Compile Include="Controllers\ClientScreen.cs" />
+    <Compile Include="Controllers\OrderListScreen.cs" />
+    <Compile Include="Controllers\OrderScreen.cs" />
+    <Compile Include="Entities\Catalog\Client.cs" />
+    <Compile Include="Entities\Catalog\TypesDepartures.cs" />
+    <Compile Include="Entities\Document\Event.cs" />
+>>>>>>> develop
     <Compile Include="Module\BusinessProcess.cs" />
     <Compile Include="Module\Solution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Translation\ru.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\" />
+<<<<<<< HEAD
     <Folder Include="Entities\" />
+=======
+>>>>>>> develop
     <Folder Include="Image\" />
-    <Folder Include="Model\" />
-    <Folder Include="Screen\" />
-    <Folder Include="Style\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BusinessProcess\BusinessProcess.xml" />
+    <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
+    <EmbeddedResource Include="Style\style.css" />
+    <EmbeddedResource Include="Screen\OrderScreen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Translation\en.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model\metadata.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Screen\ClientScreen.xml" />
+    <EmbeddedResource Include="Screen\OrderListScreen.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

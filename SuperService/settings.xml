@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <resource>
+    <version version="0.1.0.0" />
+  </resource>
+
+  <client>
+    <supportedCore version="3.0.0.1" />
+  </client>
+
+  <server>
+    <supportedMeta version="3.0.0.0"/>
+  </server>
+</configuration>
