@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿/* ReSharper disable CssNotResolved */
 /* ReSharper disable Html.TagNotResolved */
 /* ReSharper disable InvalidValue */
@@ -35,4 +36,10 @@ TextView {
     border-width: 3px;
     color: #333333;
     font-size: 90%;
+=======
+﻿vl {
+    height: 100%;
+    width: 100%;
+    background-color: #ff0000;
+>>>>>>> Stashed changes
 }
