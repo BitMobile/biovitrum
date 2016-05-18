@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 ﻿/* ReSharper disable CssNotResolved */
 /* ReSharper disable Html.TagNotResolved */
 /* ReSharper disable InvalidValue */
@@ -16,7 +15,7 @@ body {
     width: 100%;
 }
 
-Button {
+button {
     margin-top: 1sp;
     width: 100%;
     height: 7sp;
@@ -36,10 +35,41 @@ TextView {
     border-width: 3px;
     color: #333333;
     font-size: 90%;
-=======
-﻿vl {
-    height: 100%;
+}
+
+/*EditText {
+    margin-top: 1sp;
     width: 100%;
-    background-color: #ff0000;
->>>>>>> Stashed changes
+    height: 7sp;
+    background-color: #ffffff;
+    border-style: solid;
+    border-color: #0000cd;
+    border-width: 3px;
+    color: #333333;
+    font-size: 90%;
+}*/
+
+.LoginEditText{
+    width: 60%;
+    height: 10%;
+    margin-top: 20%;
+    margin-left: 20%;
+    background-color: #0000cd;
+    color: #ffffff;
+}
+.PasswordEditText{
+    width: 60%;
+    height: 10%;
+    margin-top: 1%;
+    margin-left: 20%;
+    background-color: #0000cd;
+    color: #ffffff;
+}
+
+.AuthScreenButton {
+    width: 50%;
+    height: 10%;
+    margin-top: 15%;
+    margin-left: 25%;
+    text-align: center;
 }

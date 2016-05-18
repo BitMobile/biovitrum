@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\" />
-    <Folder Include="Entities\" />
     <Folder Include="Image\" />
   </ItemGroup>
   <ItemGroup>
@@ -86,12 +85,14 @@
   <ItemGroup>
     <EmbeddedResource Include="Screen\ClientScreen.xml" />
     <EmbeddedResource Include="Screen\OrderListScreen.xml" />
-    <Folder Include="Screen\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
     <EmbeddedResource Include="Model\metadata.xml" />
     <EmbeddedResource Include="Style\style.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Screen\AuthScreen.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

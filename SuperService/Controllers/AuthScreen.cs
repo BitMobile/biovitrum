@@ -8,43 +8,94 @@ namespace Test
 {
     public class AuthScreen : Screen
     {
-        //private ScrollView _scrollView;
+        private EditText _loginEditText;
+        private EditText _passwordEditText;
+
         public override void OnLoading()
         {
-            DConsole.WriteLine("init onloading");
-            Initialize();
+            DConsole.WriteLine("Onloading Init");
+            DConsole.WriteLine("Loading controls");
+
+            _loginEditText = (EditText)GetControl("loginEditText", true);
+            _passwordEditText = (EditText)GetControl("passwordEditText", true);
+            //Initialize();
         }
 
         void Initialize()
         {
             DConsole.WriteLine("Init begin");
 
-            var vl = new VerticalLayout();
-            
-            //Button btn = new Button();
-            //btn.CssClass = "Auth";
+            //var vl = new VerticalLayout
+            //{
+            //    CssClass = "RootLayout"
+            //};
 
-            //vl.AddChild(btn);
-            ////vl.AddChild(new Button("Back", Back_OnClick));
-            //vl.AddChild(new Button("Exit", ExitButton_OnClick));
+            //_loginEditText = new EditText()
+            //{
+            //    Placeholder = "Введите логин",
+            //    CssClass = "loginEditText"
+            //};
 
-            AddChild(vl);
+            //_passwordEditText = new EditText()
+            //{
+            //    CssClass = "passwordEditText",
+            //    Placeholder = "Введите пароль"
+            //};
+            //Button ConnectButton = new Button("Подключиться", ConnectButton_OnClick)
+            //{
+            //    CssClass = "ConnectButton"
+            //};
+            //Button ExitButton = new Button("Выход", ExitButton_OnClick)
+            //{
+            //    CssClass = "ExitButton"
+            //};
+
+            //vl.AddChild(_loginEditText);
+            //vl.AddChild(_passwordEditText);
+            //vl.AddChild(ConnectButton);
+            //vl.AddChild(ExitButton);
+
+            //AddChild(vl);
         }
 
-        //private void ExitButton_OnClick(object sender, EventArgs e)
-        //{
-        //    Application.Terminate();
-        //}
+        internal void exitButton_OnClick(object sender, EventArgs e)
+        {
+            Application.Terminate();
+        }
 
-        //void Back_OnClick(object sender, EventArgs e)
-        //{
-        //    BusinessProcess.DoBack();
-        //}
+        internal void connectButton_OnClick(object sender, EventArgs e)
+        {
+            //BusinessProcess.DoAction("Auth");
+            var req = WebRequest.Create("http://bitmobile1.bt/bitmobileX/platform/device/GetClientMetadata");
+            DConsole.WriteLine("Web Request Created");
+            //var svcCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("sr" + ":" + "sr"));
+            var svcCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(_loginEditText.Text + ":" + _passwordEditText.Text));
+            req.Headers.Add("Authorization", "Basic " + svcCredentials);
+            DConsole.WriteLine("Headers added");
 
-        //private void mtest_OnClick(object sender, EventArgs e)
-        //{
-        //    BusinessProcess.DoAction("Auth");
-        //}
-
+            WebResponse resp = null;
+            bool flag = false;
+            try
+            {
+                resp = req.GetResponse();
+                flag = true;
+                DConsole.WriteLine("Стучимся по URL");
+            }
+            catch (Exception AuthException)
+            {
+                DConsole.WriteLine("Неверный логин/пароль\n" + AuthException.Message);
+                Dialog.Message("Неверный логин/пароль\n" + AuthException.Message);
+            }
+            finally
+            {
+                resp?.Dispose();
+            }
+            if (flag)
+            {
+                DConsole.WriteLine("Вход выполнен");
+                Dialog.Message("Вход выполнен");
+                BusinessProcess.DoAction("Auth");
+            }
+        }
     }
 }
