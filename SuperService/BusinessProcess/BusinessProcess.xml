@@ -42,7 +42,7 @@
     </Step>
     <!-- / MAIN SCREENS -->
 
-    <Step Name="Order" Controller="OrderScreen" StyleSheet="Style\style.css">
+    <Step Name="Order" Controller="OrderScreen" StyleSheet="Style\fancy.css">
       <Action Name="OrderList" NextStep="OrderList"></Action>
       <Action Name="Client" NextStep="Client"></Action>
     </Step>
