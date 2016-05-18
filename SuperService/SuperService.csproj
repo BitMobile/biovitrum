@@ -56,11 +56,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ClientScreen.cs" />
+    <Compile Include="Controllers\MapScreen.cs" />
     <Compile Include="Controllers\OrderListScreen.cs" />
     <Compile Include="Controllers\OrderScreen.cs" />
     <Compile Include="Entities\Catalog\Client.cs" />
     <Compile Include="Entities\Catalog\TypesDepartures.cs" />
     <Compile Include="Entities\Document\Event.cs" />
+    <Compile Include="Entities\Enum\StatusImportance.cs" />
     <Compile Include="Module\BusinessProcess.cs" />
     <Compile Include="Module\Solution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,7 +76,6 @@
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Style\style.css" />
     <EmbeddedResource Include="Screen\OrderScreen.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -96,6 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Style\style.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Screen\MapScreen.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

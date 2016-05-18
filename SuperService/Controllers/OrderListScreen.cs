@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
-using System.Text;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using Test.Document;
 
 namespace Test
 {
@@ -28,9 +27,13 @@ namespace Test
             if (_ordersList == null)
                 return;
 
-            foreach(var item in _ordersList)
+            Button btn;
+
+            foreach (var item in _ordersList)
             {
-                //Filling Order List
+                btn = new Button() { Text = ((Event)item).Comment };
+                btn.OnClick += GoToOrderScreen_OnClick;
+                _svlOrderList.AddChild(btn);
             }
 
         }
@@ -49,7 +52,14 @@ namespace Test
         private ArrayList GetOrdersFromDb()
         {
             //Получение данных из БД.
-            return new ArrayList();
+            ArrayList data = new ArrayList();
+            for (int i = 0; i < 10; i++)
+            {
+                data.Add(new Event { Comment = i.ToString() });
+            }
+
+            return data;
+
         }
     }
 }

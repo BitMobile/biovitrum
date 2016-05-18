@@ -36,3 +36,13 @@ TextView {
     color: #333333;
     font-size: 90%;
 }
+
+.SWL {
+    height: 100%;
+    width: 100%;
+}
+
+.VL {
+    height: 40%;
+    width: 100%;
+}
