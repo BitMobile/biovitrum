@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:SwipeVerticalLayout CssClass="RootLayout">
+    <c:EditText Id="loginEditText" Placeholder="Введите логин" CssClass = "LoginEditText"/>
+    <c:EditText Id="passwordEditText" Placeholder="Введите пароль" CssClass = "PasswordEditText"/>
+    <c:Button Id="connectButton" Text="Подключиться" OnClick="connectButton_OnClick" CssClass = "AuthScreenButton"/>
+    <c:Button Id="exitButton" Text="Выход" OnClick="exitButton_OnClick" CssClass = "AuthScreenButton"/>
+  </c:SwipeVerticalLayout>
+</c:Screen>

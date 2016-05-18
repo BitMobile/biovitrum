@@ -55,8 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ClientScreen.cs" />
+    <Compile Include="Controllers\AuthScreen.cs" />
     <Compile Include="Controllers\MapScreen.cs" />
+    <Compile Include="Controllers\ClientScreen.cs" />
     <Compile Include="Controllers\OrderListScreen.cs" />
     <Compile Include="Controllers\OrderScreen.cs" />
     <Compile Include="Entities\Catalog\Client.cs" />
@@ -74,8 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Screen\OrderScreen.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -84,22 +83,19 @@
     <EmbeddedResource Include="Translation\en.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Model\metadata.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Screen\ClientScreen.xml" />
-    <EmbeddedResource Include="Screen\OrderListScreen.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Screen\OrderListScreen.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
+    <EmbeddedResource Include="Model\metadata.xml" />
     <EmbeddedResource Include="Style\style.css" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Screen\MapScreen.xml" />
+    <EmbeddedResource Include="Screen\AuthScreen.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

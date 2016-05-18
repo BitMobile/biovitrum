@@ -2,9 +2,11 @@
 
 <BusinessProcess>
   <Workflow Name="Main">
+    
     <Step Name="Authorization" Controller="AuthScreen" StyleSheet="Style\style.css">
       <Action Name="Auth" NextStep="OrderList"></Action>
     </Step>
+    
     <Step Name="Map" Controller="MapScreen" StyleSheet="Style\style.css">
       <Action Name="BackToOrderList" NextStep="OrderList" />
     </Step>
