@@ -60,6 +60,7 @@
     <Compile Include="Controllers\OrderListScreen.cs" />
     <Compile Include="Entities\Catalog\Client.cs" />
     <Compile Include="Entities\Document\Event.cs" />
+    <Compile Include="Entities\Enum\StatusImportance.cs" />
     <Compile Include="Module\BusinessProcess.cs" />
     <Compile Include="Module\Solution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
