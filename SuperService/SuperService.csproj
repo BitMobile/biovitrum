@@ -74,7 +74,6 @@
     <Folder Include="Image\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml">
     <EmbeddedResource Include="Screen\OrderScreen.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
