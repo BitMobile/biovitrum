@@ -1,7 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  <c:VerticalLayout CssClass="RootLayout">
-    <c:TextView Text="Order List" />
+  <c:VerticalLayout>
+    <!--VerticalLayout для нарядов-->
+    <c:VerticalLayout Id="SlideVerticalLayout" CssClass="Vl">
+      <!--<c:HorizontalLayout CssClass="HL"> -->
+      <c:Button Id="Filter" Text="Filter" />
+      <c:TextView Text="" CssClass="TV"/>
+      <c:Button Id="Map" Text="Map" OnClick="GoToMap_OnClick"/>
+      <!--</c:HorizontalLayout>-->
+    </c:VerticalLayout>
+
+
+    <!--Список для нарядов-->
+    <c:SwipeVerticalLayout Id="OrderList" CssClass="SWL">
+    </c:SwipeVerticalLayout>
+
+    <!--Линия отделяет SwipeVerticalLayout от Tap Bar-->
+    <c:HorizontalLine/>
+
   </c:VerticalLayout>
 </c:Screen>
