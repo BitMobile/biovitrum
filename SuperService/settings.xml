@@ -5,7 +5,7 @@
   </resource>
 
   <client>
-    <supportedCore version="3.0.0.1" />
+    <supportedCore version="3.0.0.4" />
   </client>
 
   <server>
