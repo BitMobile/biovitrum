@@ -3,16 +3,16 @@
 <BusinessProcess>
   <Workflow Name="Main">
     <Step Name="Authorization" Controller="AuthScreen" StyleSheet="Style\style.css">
-      <Action Name="Auth" NextStep="OrderList"></Action>
+      <Action Name="Auth" NextStep="EventList"></Action>
     </Step>
     <Step Name="Map" Controller="MapScreen" StyleSheet="Style\style.css">
-      <Action Name="BackToOrderList" NextStep="OrderList" />
+      <Action Name="BackToEventList" NextStep="EventList" />
     </Step>
 
     <!-- MAIN SCREENS -->
-    <Step Name="OrderList" Controller="OrderListScreen" StyleSheet="Style\style.css">
+    <Step Name="EventList" Controller="EventListScreen" StyleSheet="Style\style.css">
       <Action Name="ViewMap" NextStep="Map"></Action>
-      <Action Name="ViewOrder" NextStep="Order"></Action>
+      <Action Name="ViewEvent" NextStep="Event"></Action>
       <!--      <Action Name="OrderList" NextStep="OrderList"></Action>-->
       <Action Name="Backpack" NextStep="Backpack"></Action>
       <Action Name="Settings" NextStep="Settings"></Action>
@@ -20,21 +20,21 @@
     </Step>
 
     <Step Name="Backpack" Controller="BackpackScreen" StyleSheet="Style\style.css">
-      <Action Name="OrderList" NextStep="OrderList"></Action>
+      <Action Name="EventList" NextStep="EventList"></Action>
       <!--      <Action Name="Backpack" NextStep="Backpack"></Action>-->
       <Action Name="Settings" NextStep="Settings"></Action>
       <Action Name="ClientList" NextStep="ClientList"></Action>
     </Step>
 
     <Step Name="ClientList" Controller="ClientListScreen" StyleSheet="Style\style.css">
-      <Action Name="OrderList" NextStep="OrderList"></Action>
+      <Action Name="EventList" NextStep="EventList"></Action>
       <Action Name="Backpack" NextStep="Backpack"></Action>
       <Action Name="Settings" NextStep="Settings"></Action>
       <!--      <Action Name="ClientList" NextStep="ClientList"></Action>-->
     </Step>
 
     <Step Name="Settings" Controller="SettingsScreen" StyleSheet="Style\style.css">
-      <Action Name="OrderList" NextStep="OrderList"></Action>
+      <Action Name="EventList" NextStep="EventList"></Action>
       <Action Name="Backpack" NextStep="Backpack"></Action>
       <!--      <Action Name="Settings" NextStep="Settings"></Action>-->
       <Action Name="ClientList" NextStep="ClientList"></Action>
@@ -42,8 +42,8 @@
     </Step>
     <!-- / MAIN SCREENS -->
 
-    <Step Name="Order" Controller="OrderScreen" StyleSheet="Style\style.css">
-      <Action Name="OrderList" NextStep="OrderList"></Action>
+    <Step Name="Event" Controller="EventScreen" StyleSheet="Style\style.css">
+      <Action Name="EventList" NextStep="EventList"></Action>
       <Action Name="Client" NextStep="Client"></Action>
     </Step>
 

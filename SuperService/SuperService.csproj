@@ -57,14 +57,16 @@
   <ItemGroup>
     <Compile Include="Controllers\ClientScreen.cs" />
     <Compile Include="Controllers\MapScreen.cs" />
-    <Compile Include="Controllers\OrderListScreen.cs" />
-    <Compile Include="Controllers\OrderScreen.cs" />
+    <Compile Include="Controllers\EventListScreen.cs" />
+    <Compile Include="Controllers\EventScreen.cs" />
     <Compile Include="Entities\Catalog\Client.cs" />
     <Compile Include="Entities\Catalog\TypesDepartures.cs" />
     <Compile Include="Entities\Document\Event.cs" />
     <Compile Include="Entities\Enum\StatusImportance.cs" />
     <Compile Include="Module\BusinessProcess.cs" />
+    <Compile Include="Module\DBHelper.cs" />
     <Compile Include="Module\Solution.cs" />
+    <Compile Include="Objects\EventListElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Translation\ru.txt" />
   </ItemGroup>
@@ -76,7 +78,7 @@
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screen\OrderScreen.xml">
+    <EmbeddedResource Include="Screen\EventScreen.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -91,7 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Screen\ClientScreen.xml" />
-    <EmbeddedResource Include="Screen\OrderListScreen.xml">
+    <EmbeddedResource Include="Screen\EventListScreen.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
