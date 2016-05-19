@@ -113,7 +113,11 @@ namespace Test.Module
 
         public static Event GetEventByID(long EventID)
         {
-            var query = new Query("select * from ");
+            var query = new Query("select * " +
+                                "from " +
+                                "   _Document_Event as event " +
+                                "where " + 
+                                "    event.id = '" + EventID + "'");
             var result = query.Execute();
             var @event = new Event();
 
