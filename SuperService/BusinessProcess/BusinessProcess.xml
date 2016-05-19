@@ -15,7 +15,6 @@
     <Step Name="EventList" Controller="EventListScreen" StyleSheet="Style\style.css">
       <Action Name="ViewMap" NextStep="Map"></Action>
       <Action Name="ViewEvent" NextStep="Event"></Action>
-      <!--      <Action Name="OrderList" NextStep="OrderList"></Action>-->
       <Action Name="Backpack" NextStep="Backpack"></Action>
       <Action Name="Settings" NextStep="Settings"></Action>
       <Action Name="ClientList" NextStep="ClientList"></Action>

@@ -31,16 +31,38 @@ namespace Test.Module
             var events = new ArrayList();
             var query = new Query("select " +
                                   "  event.Id, " +
-                                  "  event.StartDatePlan, " + 
-                                  "  null as TypeDeparture, " +
+                                  "  event.StartDatePlan, " +
+                                  "  TypeDeparturesTable.description as TypeDeparture, " +
                                   "  event.ActualStartDate, " +
-                                  "  null as Importance, " +
+                                  "  _Enum_StatusImportance.Description as Importance, " +
                                   "  client.Description, " +
                                   "  client.Address " + 
                                   "from " + 
                                   "  _Document_Event as event " +
                                   "    left join _Catalog_Client as client " +
-                                  "    on event.client = client.Id ");
+                                  "    on event.client = client.Id " + 
+                                  "      left join " +   
+                                  "         (select " +
+                                  "             _Document_Event_TypeDepartures.Ref, " + 
+                                  "             _Catalog_TypesDepartures.description " +
+                                  "          from " +
+                                  "             (select " + 
+                                  "                 ref, " +
+                                  "                 min(lineNumber) as lineNumber " +
+                                  "              from " +
+                                  "                 _Document_Event_TypeDepartures " +
+                                  "              where " + 
+                                  "                 active = 1 " +
+                                  "              group by " +
+                                  "                 ref) as t1 " +
+                                  "                       left join _Document_Event_TypeDepartures " +
+                                  "                             on t1.ref= _Document_Event_TypeDepartures.ref " +
+                                  "                                     and t1.lineNumber = _Document_Event_TypeDepartures.lineNumber " +
+                                  "                       left join _Catalog_TypesDepartures " +
+                                  "                             on _Document_Event_TypeDepartures.typeDeparture = _Catalog_TypesDepartures.id) as TypeDeparturesTable " +
+                                  "     on event.id = TypeDeparturesTable.Ref " +
+                                  "          left join _Enum_StatusImportance " +
+                                  "               on event.Importance = _Enum_StatusImportance.Id");
 
             var querryResult = query.Execute();
 
