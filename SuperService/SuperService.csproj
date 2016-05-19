@@ -55,17 +55,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AuthScreen.cs" />
+    <Compile Include="Controllers\ClientScreen.cs" />
     <Compile Include="Controllers\MapScreen.cs" />
     <Compile Include="Controllers\ClientScreen.cs" />
-    <Compile Include="Controllers\OrderListScreen.cs" />
-    <Compile Include="Controllers\OrderScreen.cs" />
+    <Compile Include="Controllers\EventScreen.cs" />
     <Compile Include="Entities\Catalog\Client.cs" />
     <Compile Include="Entities\Catalog\TypesDepartures.cs" />
     <Compile Include="Entities\Document\Event.cs" />
     <Compile Include="Entities\Enum\StatusImportance.cs" />
     <Compile Include="Module\BusinessProcess.cs" />
+    <Compile Include="Module\DBHelper.cs" />
     <Compile Include="Module\Solution.cs" />
+    <Compile Include="Objects\EventListElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Translation\ru.txt" />
   </ItemGroup>
@@ -74,7 +75,10 @@
     <Folder Include="Image\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Screen\OrderScreen.xml">
+    <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Screen\EventScreen.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -82,11 +86,16 @@
     <EmbeddedResource Include="Translation\en.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Model\metadata.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Screen\ClientScreen.xml" />
-    <EmbeddedResource Include="Screen\OrderListScreen.xml" />
+    <EmbeddedResource Include="Screen\EventListScreen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
@@ -95,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Screen\AuthScreen.xml" />
+    <EmbeddedResource Include="Screen\MapScreen.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

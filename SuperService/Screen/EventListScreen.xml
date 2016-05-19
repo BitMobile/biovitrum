@@ -13,7 +13,7 @@
 
 
     <!--Список для нарядов-->
-    <c:SwipeVerticalLayout Id="OrderList" CssClass="SWL">
+    <c:SwipeVerticalLayout Id="EventList" CssClass="SWL">
     </c:SwipeVerticalLayout>
 
   </c:VerticalLayout>
