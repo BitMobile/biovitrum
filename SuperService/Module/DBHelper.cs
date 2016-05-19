@@ -75,7 +75,43 @@ namespace Test.Module
             return events;
         }
 
-        public static Event getEventByID(long EventID)
+        public static EventsStatistic GetEventsStatistic()
+        {
+            var statistic = new EventsStatistic();
+            var query = new Query("select " +
+                                  "  COUNT(CASE " +
+                                  "        when ActualStartDate > '0001-01-01 00:00:00' then 1 " +
+                                  "        else 0 " +
+                                  "   End) as DayTotalAmount, " +
+                                  "    COUNT(CASE " +
+                                  "        when ActualStartDate > '0001-01-01 00:00:00' then 1 " +
+                                  "        else 0 " +
+                                  "   End) as DayCompleteAmout, " +
+                                  "   COUNT(CASE " +
+                                  "        when ActualStartDate > '0001-01-01 00:00:00' then 1 " +
+                                  "        else 0 " +
+                                  "   End) as MonthCompleteAmout, " +
+                                  "    COUNT(CASE " +
+                                  "        when ActualStartDate > '0001-01-01 00:00:00' then 1 " +
+                                  "        else 0 " +
+                                  "   End) as MonthTotalAmount " +
+                                  "  from " +
+                                  "    _Document_Event as event");
+            var result = query.Execute();
+
+            if (result.Next())
+            {
+                statistic.DayTotalAmount = result.GetInt32(1);
+                statistic.DayCompleteAmout = result.GetInt32(2);
+                statistic.MonthTotalAmount = result.GetInt32(3);
+                statistic.MonthCompleteAmout = result.GetInt32(4);            
+            }
+
+            return statistic;
+        }
+           
+
+        public static Event GetEventByID(long EventID)
         {
             var query = new Query("select * from ");
             var result = query.Execute();

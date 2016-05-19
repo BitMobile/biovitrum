@@ -68,6 +68,7 @@
     <Compile Include="Module\DBHelper.cs" />
     <Compile Include="Module\Solution.cs" />
     <Compile Include="Objects\EventListElement.cs" />
+    <Compile Include="Objects\EventsStatistic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Translation\ru.txt" />
   </ItemGroup>
