@@ -3,7 +3,7 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   
   <c:VerticalLayout CssClass="RootLayout">
-    <c:TextView Text="Client Screen" />
+    <c:TextView Text="ClientListScreen here"/>
   </c:VerticalLayout>
   
 </c:Screen>

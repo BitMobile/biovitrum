@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<c:Component xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:HorizontalLayout CssClass="TapBarHL">
+    
+    <c:VerticalLayout CssClass="TabScreenVL" Id ="lay">
+      <c:Image Source="Image\1 blue.png" CssClass="TabImage"/>
+      <c:TextView Text="Наряды"/>
+    </c:VerticalLayout>
+    
+    <c:VerticalLayout CssClass="TabScreenVL">
+      <c:Image Source="Image\2 white.png" CssClass="TabImage"/>
+      <c:TextView Text="Рюкзак"/>
+    </c:VerticalLayout>
+    
+    <c:VerticalLayout CssClass="TabScreenVL">
+      <c:Image Source="Image\3 white.png" CssClass="TabImage"/>
+      <c:TextView Text="Клиенты"/>
+    </c:VerticalLayout>
+    
+    <c:VerticalLayout CssClass="TabScreenVL">
+      <c:Image Source="Image\4 white.png" CssClass="TabImage"/>
+      <c:TextView Text="Настройки"/>
+    </c:VerticalLayout>
+    
+    <!--<c:Button Id="eventsTabButton" Text="Наряды" OnClick="eventsTabButton_OnClick" CssClass = "TapBarButton"/>
+    <c:Button Id="bagTabButton" Text="Рюкзак" OnClick="bagTabButton_OnClick" CssClass = "TapBarButton"/>
+    <c:Button Id="clientsTabButton" Text="Клиенты" OnClick="clientsTabButton_OnClick" CssClass = "TapBarButton"/>
+    <c:Button Id="settingsTabButton" Text="Настройки" OnClick="settingsTabButton_OnClick" CssClass = "TapBarButton"/>-->
+  </c:HorizontalLayout>
+  <!--наряды рюкзак клиенты настройки-->
+</c:Component>

@@ -67,7 +67,25 @@ TextView {
 .AuthScreenButton {
     width: 50%;
     height: 10%;
-    margin-top: 15%;
+    /*margin-top: 15%;*/
+    margin-top: 2%;
     margin-left: 25%;
     text-align: center;
+}
+
+.TapBarHL {
+    width: 100%;
+    height: 20%;
+    margin-top: 2%;
+    background-color: #ff0000;
+}
+
+.TabScreenVL {
+    width: 25%;
+    height: 100%;
+}
+
+.TabImage {
+    width: 50%;
+    height: 50%;
 }
