@@ -1,0 +1,66 @@
+﻿
+
+body {
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+}
+
+.RootLayout {
+    background-color: #808080;
+    height: 100%;
+    width: 100%;
+}
+
+Button {
+    margin-top: 1sp;
+    width: 100%;
+    height: 7sp;
+    background-color: #0000cd;
+    color: #ffffe0;
+    text-align: center;
+    selected-background: #0000ff;
+}
+
+.TopInfoLeftButton {
+    height: 100%;
+    width: 5%;
+}
+
+.TopInfoRightButton {
+    height: 100%;
+    width: 5%;
+}
+
+.TopInfoHeading {
+    height: 100%;
+    width: 40%;
+    font-size: 95%;
+    background-color: #ffffff;
+    color: #ffffff;
+    vertical-align: center;
+    text-align: center;
+}
+
+.TopHorizontalLayout {
+    width: 100%;
+    height: 40%;
+    background-color: #0e8a9c;
+}
+
+.TopInfoLayout {
+    height: 20%;
+    width: 100%;
+    background-color: #0e8a9c;
+}
+
+.BottomInfoTV {
+    height: 0%;
+    width: 0%;
+}
+
+.TopInfoDownArrowLayout {
+    height: auto;
+    width: 100%;
+    background-color: #0e8a9c;
+}

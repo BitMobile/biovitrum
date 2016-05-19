@@ -68,10 +68,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Translation\ru.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\" />
-    <Folder Include="Image\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml">
       <SubType>Designer</SubType>
@@ -100,6 +97,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Screen\MapScreen.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Components\TopInfoComponent.xml" />
+    <Content Include="Image\down_arrow.png" />
+    <EmbeddedResource Include="Style\fancystyle.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

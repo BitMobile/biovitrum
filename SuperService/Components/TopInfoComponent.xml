@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Component xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:VerticalLayout CssClass="TopInfoLayout">
+    <c:HorizontalLayout CssClass="TopHorizontalLayout">
+      <c:Button Id="TopInfoLeftButton" Text="F" CssClass="TopInfoLeftButton" />
+      <c:TextView Id="TopInfoHeadingTextView" Text="#orders#" CssClass="TopInfoHeading" />
+      <c:Button Id="TopInfoRightButton" Text="M" CssClass="TopInfoRightButton" />
+    </c:HorizontalLayout>
+    <c:TextView Id="TopInfoCommentTextView" CssClass="BottomInfoTV" />
+    <c:HorizontalLayout CssClass="TopInfoDownArrowLayout" />
+  </c:VerticalLayout>
+</c:Component>

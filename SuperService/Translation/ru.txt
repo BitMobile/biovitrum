@@ -8,3 +8,4 @@ finish		Завершить
 tasks		Задачи
 coc		АВР
 clist		Чек-лист
+orders		Наряды

@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<c:Screen xmlns:c="BitMobile.ClientModel3.UI">
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
     <!--VerticalLayout для нарядов-->
-    <c:VerticalLayout Id="SlideVerticalLayout" CssClass="VL">
-      <!--<c:HorizontalLayout CssClass="HL"> -->
+    <!--<c:VerticalLayout Id="SlideVerticalLayout" CssClass="VL">
+      --><!--<c:HorizontalLayout CssClass="HL"> --><!--
       <c:Button Id="Filter" Text="Filter" />
       <c:TextView Text="Test" />
       <c:Button Id="Map" Text="Map" OnClick="GoToMap_OnClick"/>
-      <!--</c:HorizontalLayout>-->
-    </c:VerticalLayout>
-
+      --><!--</c:HorizontalLayout>--><!--
+    </c:VerticalLayout>-->
+     <s:Include File="Components\TopInfoComponent.xml"/>
 
     <!--Список для нарядов-->
     <c:SwipeVerticalLayout Id="OrderList" CssClass="SWL">

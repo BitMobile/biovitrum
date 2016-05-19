@@ -8,3 +8,4 @@ finish		Finish
 tasks		Tasks
 coc		Certificate of Complition
 clist		Check-list
+orders		Orders

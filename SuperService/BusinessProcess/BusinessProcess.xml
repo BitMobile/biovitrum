@@ -10,7 +10,7 @@
     </Step>
 
     <!-- MAIN SCREENS -->
-    <Step Name="OrderList" Controller="OrderListScreen" StyleSheet="Style\style.css">
+    <Step Name="OrderList" Controller="OrderListScreen" StyleSheet="Style\fancystyle.css">
       <Action Name="ViewMap" NextStep="Map"></Action>
       <Action Name="ViewOrder" NextStep="Order"></Action>
       <!--      <Action Name="OrderList" NextStep="OrderList"></Action>-->
