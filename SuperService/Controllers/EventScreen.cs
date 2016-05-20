@@ -46,6 +46,16 @@ namespace Test
             _checkListCounterTextView.Text = $"{GetCheckListDone()}/{GetCheckListNumber()}";
             _startTimeTextView.Text = $"{_currentOrder.StartDatePlan}";
             _departureTypeTextView.Text = $"{_departyreType.Description}";
+
+
+
+
+            ///
+            DConsole.WriteLine("get events");
+            var events = DBHelper.GetEvents();
+            DConsole.WriteLine("get events = " + events.Count);
+
+
         }
 
 

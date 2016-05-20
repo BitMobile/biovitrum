@@ -3,7 +3,6 @@ using System.Collections;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Document;
-using Test.Module;
 
 namespace Test
 {

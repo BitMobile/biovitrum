@@ -6,8 +6,11 @@ namespace Test
     {
         public override void OnCreate()
         {
+            DConsole.WriteLine("DB init...");
+            DBHelper.Init();
             DConsole.WriteLine("Starting application...");
             BusinessProcess.Init();
+            
         }
     }
 }
