@@ -43,13 +43,8 @@
     </Step>
     <!-- / MAIN SCREENS -->
 
-<<<<<<< HEAD
-    <Step Name="Order" Controller="OrderScreen" StyleSheet="Style\fancy.css">
-      <Action Name="OrderList" NextStep="OrderList"></Action>
-=======
     <Step Name="Event" Controller="EventScreen" StyleSheet="Style\style.css">
       <Action Name="EventList" NextStep="EventList"></Action>
->>>>>>> develop
       <Action Name="Client" NextStep="Client"></Action>
     </Step>
 
