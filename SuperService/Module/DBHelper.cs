@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using BitMobile.ClientModel3;
 using Test.Document;
 using Test.Objects;
-using BitMobile.DbEngine;
 using Database = BitMobile.ClientModel3.Database;
 
-namespace Test.Module
+namespace Test
 {
     public static class DBHelper
     {
         private static Database _db;
 
-        public static void init()
+        public static void Init()
         {
             _db = new Database();
             if (!_db.Exists)
@@ -31,38 +26,41 @@ namespace Test.Module
             var events = new ArrayList();
             var query = new Query("select " +
                                   "  event.Id, " +
-                                  "  event.StartDatePlan, " +
+                                  "  event.StartDatePlan, " + //full date
+                                  "  date(event.StartDatePlan) as startDatePlanDate, " + //date only
                                   "  TypeDeparturesTable.description as TypeDeparture, " +
                                   "  event.ActualStartDate, " +
-                                  "  _Enum_StatusImportance.Description as Importance, " +
+                                  "  Enum_StatusImportance.Description as Importance, " +
                                   "  client.Description, " +
                                   "  client.Address " + 
                                   "from " + 
-                                  "  _Document_Event as event " +
-                                  "    left join _Catalog_Client as client " +
+                                  "  Document_Event as event " +
+                                  "    left join Catalog_Client as client " +
                                   "    on event.client = client.Id " + 
                                   "      left join " +   
                                   "         (select " +
-                                  "             _Document_Event_TypeDepartures.Ref, " + 
-                                  "             _Catalog_TypesDepartures.description " +
+                                  "             Document_Event_TypeDepartures.Ref, " + 
+                                  "             Catalog_TypesDepartures.description " +
                                   "          from " +
                                   "             (select " + 
                                   "                 ref, " +
                                   "                 min(lineNumber) as lineNumber " +
                                   "              from " +
-                                  "                 _Document_Event_TypeDepartures " +
+                                  "                 Document_Event_TypeDepartures " +
                                   "              where " + 
                                   "                 active = 1 " +
                                   "              group by " +
                                   "                 ref) as t1 " +
-                                  "                       left join _Document_Event_TypeDepartures " +
-                                  "                             on t1.ref= _Document_Event_TypeDepartures.ref " +
-                                  "                                     and t1.lineNumber = _Document_Event_TypeDepartures.lineNumber " +
-                                  "                       left join _Catalog_TypesDepartures " +
-                                  "                             on _Document_Event_TypeDepartures.typeDeparture = _Catalog_TypesDepartures.id) as TypeDeparturesTable " +
+                                  "                       left join Document_Event_TypeDepartures " +
+                                  "                             on t1.ref= Document_Event_TypeDepartures.ref " +
+                                  "                                     and t1.lineNumber = Document_Event_TypeDepartures.lineNumber " +
+                                  "                       left join Catalog_TypesDepartures " +
+                                  "                             on Document_Event_TypeDepartures.typeDeparture = Catalog_TypesDepartures.id) as TypeDeparturesTable " +
                                   "     on event.id = TypeDeparturesTable.Ref " +
-                                  "          left join _Enum_StatusImportance " +
-                                  "               on event.Importance = _Enum_StatusImportance.Id");
+                                  "          left join Enum_StatusImportance " +
+                                  "               on event.Importance = Enum_StatusImportance.Id " + 
+                                  "order by " +
+                                  "  event.StartDatePlan");
 
             var querryResult = query.Execute();
 
@@ -79,24 +77,26 @@ namespace Test.Module
         {
             var statistic = new EventsStatistic();
             var query = new Query("select " +
-                                  "  COUNT(CASE " +
-                                  "        when ActualStartDate > '0001-01-01 00:00:00' then 1 " +
+                                  "  SUM(CASE " +
+                                  "        when StartDatePlan > date('now','start of day') then 1 " +
                                   "        else 0 " +
                                   "   End) as DayTotalAmount, " +
-                                  "    COUNT(CASE " +
-                                  "        when ActualStartDate > '0001-01-01 00:00:00' then 1 " +
+                                  "    SUM(CASE " +
+                                  "        when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now','start of day') then 1 " +
                                   "        else 0 " +
                                   "   End) as DayCompleteAmout, " +
-                                  "   COUNT(CASE " +
-                                  "        when ActualStartDate > '0001-01-01 00:00:00' then 1 " +
+                                  "   SUM(CASE " +
+                                  "        when StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 " +
                                   "        else 0 " +
                                   "   End) as MonthCompleteAmout, " +
-                                  "    COUNT(CASE " +
-                                  "        when ActualStartDate > '0001-01-01 00:00:00' then 1 " +
+                                  "    SUM(CASE " +
+                                  "        when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 " +
                                   "        else 0 " +
                                   "   End) as MonthTotalAmount " +
                                   "  from " +
-                                  "    _Document_Event as event");
+                                  "      Document_Event as event " + 
+                                  "       left join Enum_StatusyEvents " + 
+                                  "         on event.Status = Enum_StatusyEvents.Id");
             var result = query.Execute();
 
             if (result.Next())
