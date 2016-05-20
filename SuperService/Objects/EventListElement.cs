@@ -23,14 +23,14 @@ namespace Test
         public static EventListElement CreateFromRecordSet(DbRecordset recordSet)
         {
             var eventElement = new EventListElement();
-            eventElement.Id = recordSet.GetString(1);
-            eventElement.StartDatePlan = recordSet.GetDateTime(2);
-            eventElement.StartDatePlanDate = recordSet.GetDateTime(3);
-            eventElement.TypeDeparture = recordSet.GetString(4);
-            eventElement.ActualStartDate = recordSet.GetDateTime(5);
-            eventElement.Importance = recordSet.GetString(6);
-            eventElement.ClientDescription = recordSet.GetString(7);
-            eventElement.ClientAddress = recordSet.GetString(8);
+            eventElement.Id = recordSet.GetString(0);
+            eventElement.StartDatePlan = recordSet.GetDateTime(1);
+            eventElement.StartDatePlanDate = recordSet.GetDateTime(2);
+            eventElement.TypeDeparture = recordSet.GetString(3);
+            eventElement.ActualStartDate = recordSet.GetDateTime(4);
+            eventElement.Importance = recordSet.GetString(5);
+            eventElement.ClientDescription = recordSet.GetString(6);
+            eventElement.ClientAddress = recordSet.GetString(7);
 
             return eventElement;
         }
