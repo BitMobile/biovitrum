@@ -2,9 +2,9 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:SwipeVerticalLayout CssClass="RootLayout">
-    <s:Include File="\Components\TopInfoComponent.xml" />
+    <s:Include File="Components\TopInfoComponent.xml" />
     <c:Button Text="#back#" Id="BackButton" OnClick="BackButton_OnClick" />
-    <c:TextView Text="$client.Description" Id="ContactDescriptionTextView" />
+    <c:TextView Id="ContactDescriptionTextView" />
     <c:TextView Id="ContactAddressTextView" />
     <c:TextView Id="StartTimeTextView" />
     <c:TextView Id="DepartureTypeTextView" />

@@ -2,12 +2,16 @@
 
 <c:Component xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="TopInfoLayout">
-    <c:HorizontalLayout>
-      <c:Button Id="TopInfoLeftButton" CssClass="TopInfoLeftButton" />
+    <c:HorizontalLayout CssClass="TopInfoHeadingLayout">
+      <c:Button Text="ЛК" Id="TopInfoLeftButton" CssClass="TopInfoButton" OnClick="Test2" />
       <c:TextView Id="TopInfoHeadingTextView" CssClass="TopInfoHeading" />
-      <c:Button Id="TopInfoRightButton" CssClass="TopInfoRightButton" />
+      <c:Button Text="ПК" Id="TopInfoRightButton" CssClass="TopInfoButton" OnClick="Test2" />
     </c:HorizontalLayout>
-    <c:TextView Id="TopInfoCommentTextView" CssClass="" />
-    <c:HorizontalLayout CssClass="TopInfoDownArrowLayout" />
+  </c:VerticalLayout>
+  <c:VerticalLayout Id="TopInfoExtraLayout" CssClass="TopInfoExtraLayout" OnClick="Test">
+    <c:TextView Id="TopInfoCommentTextView" CssClass="TopInfoComment" />
+  </c:VerticalLayout>
+  <c:VerticalLayout CssClass="TopInfoImageLayout" OnClick="Test">
+    <c:Image Source="Image\down_arrow_full_width.png" CssClass="TopInfoArrowDown" />
   </c:VerticalLayout>
 </c:Component>

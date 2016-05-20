@@ -8,22 +8,57 @@ namespace Test
 {
     public class EventScreen : Screen
     {
-        private TextView _contactDescriptionTextView;
-        private TextView _contactAddressTextView;
-        private TextView _taskCounterTextView;
-        private TextView _cocTextView;
         private TextView _checkListCounterTextView;
-        private TextView _startTimeTextView;
-        private TextView _departureTypeTextView;
-        private Button _startButton;
+        private TextView _cocTextView;
+        private TextView _contactAddressTextView;
+        private TextView _contactDescriptionTextView;
 
         private Event _currentOrder;
-        private Client _orderClient;
+        private TextView _departureTypeTextView;
         private TypesDepartures _departyreType;
+        private Client _orderClient;
+        private Button _startButton;
+        private TextView _startTimeTextView;
+        private TextView _taskCounterTextView;
+        private TextView _topInfoCommenTextView;
+
+        private TextView _topInfoHeadingTextView;
 
         public override void OnLoading()
         {
             DConsole.WriteLine("Loading controls");
+            LoadControls();
+
+            DConsole.WriteLine("Loading model info");
+            LoadModelInfo();
+
+            DConsole.WriteLine("Writing info to controls");
+            FillControlsWithInfo();
+        }
+
+        private void FillControlsWithInfo()
+        {
+            _contactDescriptionTextView.Text = _orderClient.Description;
+            _contactAddressTextView.Text = _orderClient.Address;
+            _taskCounterTextView.Text = $"{GetTaskNumberDone()}/{GetTaskNumber()}";
+            _cocTextView.Text = $"{GetCertificateOfCompletion()}";
+            _checkListCounterTextView.Text = $"{GetCheckListDone()}/{GetCheckListNumber()}";
+            _startTimeTextView.Text = $"{_currentOrder.StartDatePlan}";
+            _departureTypeTextView.Text = $"{_departyreType.Description}";
+
+            _topInfoHeadingTextView.Text = _orderClient.Description;
+            _topInfoCommenTextView.Text = _orderClient.Address;
+        }
+
+        private void LoadModelInfo()
+        {
+            _currentOrder = GetCurrentOrder();
+            _orderClient = GetOrderClient();
+            _departyreType = GetDepartureType();
+        }
+
+        private void LoadControls()
+        {
             _contactDescriptionTextView = (TextView) GetControl("ContactDescriptionTextView", true);
             _contactAddressTextView = (TextView) GetControl("ContactAddressTextView", true);
             _taskCounterTextView = (TextView) GetControl("TaskCounterTextView", true);
@@ -32,20 +67,9 @@ namespace Test
             _startTimeTextView = (TextView) GetControl("StartTimeTextView", true);
             _departureTypeTextView = (TextView) GetControl("DepartureTypeTextView", true);
             _startButton = (Button) GetControl("StartButton", true);
- 
-            DConsole.WriteLine("Loading model info");
-            _currentOrder = GetCurrentOrder();
-            _orderClient = GetOrderClient();
-            _departyreType = GetDepartureType();
 
-            DConsole.WriteLine("Writing info to controls");
-            _contactDescriptionTextView.Text = _orderClient.Description;
-            _contactAddressTextView.Text = _orderClient.Address;
-            _taskCounterTextView.Text = $"{GetTaskNumberDone()}/{GetTaskNumber()}";
-            _cocTextView.Text = $"{GetCertificateOfCompletion()}";
-            _checkListCounterTextView.Text = $"{GetCheckListDone()}/{GetCheckListNumber()}";
-            _startTimeTextView.Text = $"{_currentOrder.StartDatePlan}";
-            _departureTypeTextView.Text = $"{_departyreType.Description}";
+            _topInfoHeadingTextView = (TextView) GetControl("TopInfoHeadingTextView", true);
+            _topInfoCommenTextView = (TextView) GetControl("TopInfoCommentTextView", true);
         }
 
 
@@ -70,6 +94,15 @@ namespace Test
             BusinessProcess.DoAction("EventList");
         }
 
+        internal void Test(object sender, EventArgs eventArgs)
+        {
+            DConsole.WriteLine("TEST TEST TEST");
+        }
+
+        internal void Test2(object sender, EventArgs eventArgs)
+        {
+            DConsole.WriteLine("TEST 2 TEST 2 TEST 2");
+        }
 
         // TODO: Работа с базой данных
         private Event GetCurrentOrder()
@@ -83,7 +116,7 @@ namespace Test
 
         private TypesDepartures GetDepartureType()
         {
-            return new TypesDepartures()
+            return new TypesDepartures
             {
                 Description = "Монтаж"
             };

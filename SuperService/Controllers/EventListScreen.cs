@@ -3,7 +3,6 @@ using System.Collections;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Document;
-using Test.Module;
 
 namespace Test
 {
@@ -53,14 +52,14 @@ namespace Test
         private ArrayList GetEventsFromDb()
         {
             //Получение данных из БД.
-            //ArrayList data = new ArrayList();
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    data.Add(new Event { Comment = i.ToString() });
-            //}
+            ArrayList data = new ArrayList();
+            for (int i = 0; i < 10; i++)
+            {
+                data.Add(new Event { Comment = i.ToString() });
+            }
 
-            
-            return DBHelper.GetEvents(); 
+            return data;
+            //return DBHelper.GetEvents(); 
 
         }
     }

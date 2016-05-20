@@ -43,7 +43,7 @@
     </Step>
     <!-- / MAIN SCREENS -->
 
-    <Step Name="Event" Controller="EventScreen" StyleSheet="Style\style.css">
+    <Step Name="Event" Controller="EventScreen" StyleSheet="Style\fancy.css">
       <Action Name="EventList" NextStep="EventList"></Action>
       <Action Name="Client" NextStep="Client"></Action>
     </Step>
