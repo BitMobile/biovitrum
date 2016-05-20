@@ -49,6 +49,11 @@ namespace Test
             BusinessProcess.DoAction("ViewOrder");
         }
 
+        internal void SomeEvent_OnClick(object sender, EventArgs e)
+        {
+            DConsole.WriteLine("You click on me!!!!!");
+        }
+
         private ArrayList GetOrdersFromDb()
         {
             //Получение данных из БД.

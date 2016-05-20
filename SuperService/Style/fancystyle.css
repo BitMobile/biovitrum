@@ -158,7 +158,8 @@ Button {
 
 .ClientHorizontalLine {
     height: 2%;
-    width: 85%;
+    width: 100%;
+    margin-left: 5%;
     background-color: #8c8383;
     horizontal-align: right;
 }

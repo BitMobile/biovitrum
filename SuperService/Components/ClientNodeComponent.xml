@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <c:Component xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  <c:HorizontalLayout Id="Client" CssClass="OrderInfoContainer">
+  <c:HorizontalLayout Id="Client" CssClass="OrderInfoContainer" OnClick="SomeEvent_OnClick">
 
     <!--Контейнер содержащий время начала и выполнения наряда -->
     <c:VerticalLayout Id="Time" CssClass="OrderTimeContainer">
