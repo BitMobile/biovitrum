@@ -37,8 +37,7 @@ Button {
     width: 40%;
     font-size: 95%;
     background-color: #ffffff;
-    color: #ffffff;
-    vertical-align: center;
+    color: #000000;
     text-align: center;
 }
 
