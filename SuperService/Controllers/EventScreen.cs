@@ -6,7 +6,7 @@ using Test.Document;
 
 namespace Test
 {
-    public class OrderScreen : Screen
+    public class EventScreen : Screen
     {
         private TextView _contactDescriptionTextView;
         private TextView _contactAddressTextView;
@@ -52,7 +52,7 @@ namespace Test
         // TODO: Сделать это работать
         internal void BackButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("OrderList");
+            BusinessProcess.DoAction("EventList");
         }
 
         internal void ClientInfoButton_OnClick(object sender, EventArgs eventArgs)
@@ -67,7 +67,7 @@ namespace Test
 
         internal void CancelButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("OrderList");
+            BusinessProcess.DoAction("EventList");
         }
 
 

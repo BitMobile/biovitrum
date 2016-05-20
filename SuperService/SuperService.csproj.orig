@@ -56,10 +56,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AuthScreen.cs" />
-    <Compile Include="Controllers\EventListScreen.cs" />
     <Compile Include="Controllers\MapScreen.cs" />
+<<<<<<< HEAD
     <Compile Include="Controllers\ClientScreen.cs" />
+    <Compile Include="Controllers\OrderListScreen.cs" />
+    <Compile Include="Controllers\OrderScreen.cs" />
+=======
+    <Compile Include="Controllers\EventListScreen.cs" />
     <Compile Include="Controllers\EventScreen.cs" />
+>>>>>>> SUPS-631
     <Compile Include="Entities\Catalog\Client.cs" />
     <Compile Include="Entities\Catalog\TypesDepartures.cs" />
     <Compile Include="Entities\Document\Event.cs" />
@@ -68,15 +73,22 @@
     <Compile Include="Module\DBHelper.cs" />
     <Compile Include="Module\Solution.cs" />
     <Compile Include="Objects\EventListElement.cs" />
-    <Compile Include="Objects\EventsStatistic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Translation\ru.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Components\" />
     <Folder Include="Image\" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <EmbeddedResource Include="Screen\OrderScreen.xml">
+=======
+    <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Screen\EventScreen.xml">
+>>>>>>> SUPS-631
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -88,9 +100,13 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Screen\ClientScreen.xml" />
+<<<<<<< HEAD
+    <EmbeddedResource Include="Screen\OrderListScreen.xml" />
+=======
     <EmbeddedResource Include="Screen\EventListScreen.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+>>>>>>> SUPS-631
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
@@ -99,10 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Screen\AuthScreen.xml" />
-    <EmbeddedResource Include="Screen\MapScreen.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Components\TopInfoComponent.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

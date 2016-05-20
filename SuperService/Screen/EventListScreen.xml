@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI">
+  <c:VerticalLayout CssClass="RootLayout">
+    <!--VerticalLayout для нарядов-->
+    <c:VerticalLayout Id="SlideVerticalLayout" CssClass="VL">
+      <!--<c:HorizontalLayout CssClass="HL"> -->
+      <c:Button Id="Filter" Text="Filter" />
+      <c:TextView Text="Test" />
+      <c:Button Id="Map" Text="Map" OnClick="GoToMap_OnClick"/>
+      <!--</c:HorizontalLayout>-->
+    </c:VerticalLayout>
+
+
+    <!--Список для нарядов-->
+    <c:SwipeVerticalLayout Id="EventList" CssClass="SWL">
+    </c:SwipeVerticalLayout>
+
+  </c:VerticalLayout>
+</c:Screen>
