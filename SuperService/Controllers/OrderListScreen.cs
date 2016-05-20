@@ -15,9 +15,9 @@ namespace Test
         public override void OnLoading()
         {
             _vlSlideVerticalLayout = (VerticalLayout)GetControl("SlideVerticalLayout", true);
-            _svlOrderList = (SwipeVerticalLayout)GetControl("OrderList", true);
-            _ordersList = GetOrdersFromDb();
-            FillingOrderList();
+            //_svlOrderList = (SwipeVerticalLayout)GetControl("OrderList", true);
+            //_ordersList = GetOrdersFromDb();
+            //FillingOrderList();
         }
 
 

@@ -61,7 +61,7 @@
     <Compile Include="Entities\**" />
     <EmbeddedResource Include="Image\**" />
     <EmbeddedResource Include="Model\metadata.xml" />
-    <Compile Include="Module\**" />	
+    <Compile Include="Module\**" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Screen\**" />
     <EmbeddedResource Include="Style\**" />

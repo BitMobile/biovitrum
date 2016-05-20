@@ -1,56 +1,56 @@
-﻿
-
-body {
+﻿body {
     background-color: #ffffff;
     height: 100%;
     width: 100%;
 }
 
 .RootLayout {
-    background-color: #808080;
+    background-color: #ffffff;
     height: 100%;
     width: 100%;
 }
 
 Button {
-    margin-top: 1sp;
-    width: 100%;
-    height: 7sp;
     background-color: #0000cd;
     color: #ffffe0;
-    text-align: center;
+    height: 7sp;
+    margin-top: 1sp;
     selected-background: #0000ff;
+    text-align: center;
+    width: 100%;
 }
 
 .TopInfoLeftButton {
     height: 100%;
-    width: 5%;
+    text-align: left;
+    width: 20%;
 }
 
 .TopInfoRightButton {
     height: 100%;
-    width: 5%;
+    text-align: center;
+    width: 20%;
 }
 
 .TopInfoHeading {
-    height: 100%;
-    width: 40%;
-    font-size: 95%;
     background-color: #ffffff;
     color: #000000;
+    font-size: 95%;
+    height: 100%;
     text-align: center;
+    width: 5%;
 }
 
 .TopHorizontalLayout {
-    width: 100%;
-    height: 40%;
     background-color: #0e8a9c;
+    height: 40%;
+    width: 100%;
 }
 
 .TopInfoLayout {
-    height: 20%;
-    width: 100%;
     background-color: #0e8a9c;
+    height: 40sp;
+    width: 100%;
 }
 
 .BottomInfoTV {
@@ -59,7 +59,106 @@ Button {
 }
 
 .TopInfoDownArrowLayout {
+    background-color: #0e8a9c;
     height: auto;
     width: 100%;
-    background-color: #0e8a9c;
+}
+
+
+/* Order List Screen Order List CssClases*/
+
+.SWL {
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.OrderInfoContainer {
+    background-color: #ffffff;
+    height: 10%;
+    width: 100%;
+    ;
+}
+
+.OrderTimeContainer {
+    background-color: #000000;
+    height: 100%;
+    width: 20%;
+}
+
+.StartDatePlane {
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 80%;
+    height: 60%;
+    text-align: center;
+    width: 100%;
+    padding-top: 10%;
+}
+
+.ActualStartDate {
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 60%;
+    height: auto;
+    text-align: center;
+    width: 100%;
+}
+
+.ImportanceContainer {
+    background-color: #ffffff;
+    height: 100%;
+    width: 5%;
+}
+
+.ImportanceIndicator {
+    background-color: #ff0000;
+    height: 25%;
+    margin-top: 10%;
+    width: 100%;
+}
+
+.OrderInfo {
+    background-color: #ffffff;
+    height: 100%;
+    width: auto;
+}
+
+.ClientDescription {
+    height: 35%;
+    width: 100%;
+    text-align: left;
+    background-color: #ffffff;
+    color: #000000;
+    font: 70% arial;
+    padding-top: 10%;
+    margin-left: 5%;
+}
+
+.ClientAdress {
+    height: 30%;
+    width: 100%;
+    text-align: left;
+    background-color: #ffffff;
+    color: #000000;
+    font: 75% arial;
+    margin-left: 5%;
+}
+
+.TypesDepartures {
+    height: 30%;
+    width: 100%;
+    text-align: left;
+    background-color: #ffffff;
+    color: #7d7777;
+    font: 75% arial;
+    margin-bottom: 2%;
+    margin-left: 5%;
+}
+
+.ClientHorizontalLine {
+    height: 2%;
+    width: 85%;
+    background-color: #8c8383;
+    horizontal-align: right;
 }

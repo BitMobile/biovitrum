@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Component xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:HorizontalLayout Id="Client" CssClass="OrderInfoContainer">
+
+    <!--Контейнер содержащий время начала и выполнения наряда -->
+    <c:VerticalLayout Id="Time" CssClass="OrderTimeContainer">
+      <c:TextView Id="StartDatePlane" Text="10:00" CssClass="StartDatePlane" />
+      <c:TextView Id="ActualStartDate" Text="1:00" CssClass="ActualStartDate" />
+    </c:VerticalLayout>
+
+    <!--Контейнер содержащий индикатор важности задания-->
+    <c:VerticalLayout Id="ImportanceContainer" CssClass="ImportanceContainer">
+      <c:HorizontalLayout Id="Importance" CssClass="ImportanceIndicator" />
+    </c:VerticalLayout>
+
+    <!--Контейнер содержащий информацию о клиенте, его адресе, типа задачи-->
+    <c:VerticalLayout Id="OrderInfo" CssClass="OrderInfo">
+      <c:TextView Id="ClientDescription" CssClass="ClientDescription" Text="Client Description" />
+      <c:TextView Id="ClientAdress" CssClass="ClientAdress" Text="Client Adress" />
+      <c:TextView Id="TypesDepartures" CssClass="TypesDepartures" Text="Types Departures" />
+      <c:HorizontalLine CssClass="ClientHorizontalLine" />
+    </c:VerticalLayout>
+
+  </c:HorizontalLayout>
+</c:Component>
