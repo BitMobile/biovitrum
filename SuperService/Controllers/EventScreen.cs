@@ -21,6 +21,7 @@ namespace Test
         private TextView _startTimeTextView;
         private TextView _taskCounterTextView;
         private TextView _topInfoCommenTextView;
+        private TextView _eventCommentTextView;
 
         private TextView _topInfoHeadingTextView;
 
@@ -45,6 +46,7 @@ namespace Test
             _checkListCounterTextView.Text = $"{GetCheckListDone()}/{GetCheckListNumber()}";
             _startTimeTextView.Text = $"{_currentOrder.StartDatePlan}";
             _departureTypeTextView.Text = $"{_departyreType.Description}";
+            _eventCommentTextView.Text = $"{_currentOrder.Comment}";
 
             _topInfoHeadingTextView.Text = _orderClient.Description;
             _topInfoCommenTextView.Text = _orderClient.Address;
@@ -67,6 +69,7 @@ namespace Test
             _startTimeTextView = (TextView) GetControl("StartTimeTextView", true);
             _departureTypeTextView = (TextView) GetControl("DepartureTypeTextView", true);
             _startButton = (Button) GetControl("StartButton", true);
+            _eventCommentTextView = (TextView) GetControl("EventCommentTextView", true);
 
             _topInfoHeadingTextView = (TextView) GetControl("TopInfoHeadingTextView", true);
             _topInfoCommenTextView = (TextView) GetControl("TopInfoCommentTextView", true);

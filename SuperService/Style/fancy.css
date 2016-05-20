@@ -11,9 +11,7 @@ body {
 	width: 100%;
 }
 
-.NoHeight {
-	height: 0mm;
-}
+.NoHeight { height: 0mm; }
 
 .RootLayout {
 	background-color: #ffffff;
@@ -59,27 +57,114 @@ body {
 
 .TopInfoComment {
 	color: #c4c4c9;
+	font: 2.4sp arial;
 	height: 8sp auto;
 	horizontal-align: center;
 	text-align: center;
 	white-space: normal;
-	font: 2.4sp arial;
 	width: 58%;
 }
 
 .TopInfoArrowDown {
+	horizontal-align: center;
 	width: 100sp;
-	horizontal-align: center;	
 }
 
 .TopInfoExtraLayout {
 	background-color: #4a4b5e;
-	width: 100%;
 	height: 1sp auto;
+	width: 100%;
 }
 
 .TopInfoImageLayout {
 	background-color: #ffffff;
-	width: 100%;
 	height: 1sp auto;
+	width: 100%;
+}
+
+.LightInfoLayout {
+	/*background-color: #ff0000;*/
+	height: 5sp auto;
+	width: 100%;
+}
+
+.LightInfoBox {
+	/*background-color: #008000;*/
+	height: 5sp auto;
+	margin-left: 5%;
+	margin-right: 5%;
+	width: 40%;
+}
+
+.LightInfoTitle {
+	color: #a4a8a9;
+	font: 2sp arial;
+	height: 3sp;
+	horizontal-align: center;
+	text-align: center;
+	width: 100%;
+}
+
+.LightInfoContent {
+	color: #51595b;
+	font: 2.5sp arial;
+	height: 4sp auto;
+	horizontal-align: center;
+	text-align: center;
+	white-space: normal;
+	width: 100%;
+}
+
+.LayoutBreaker {
+	background-color: #a4a8a9;
+	height: 0.1sp;
+	horizontal-align: center;
+	width: 80%;
+}
+
+.CommentLayout {
+	height: 10sp auto;
+	horizontal-align: center;
+	margin-top: 2sp;
+	width: 80%;
+}
+
+.Comment {
+	color: #51595b;
+	font: 2.5sp arial;
+	height: 7.5sp auto;
+	horizontal-align: center;
+	text-align: center;
+	white-space: normal;
+	width: 100%;
+	width: 100%;
+}
+
+.InfoLayout {
+	border-color: #a4a8a9;
+	border-style: solid;
+	border-width: 2px;
+	height: 7sp;
+	horizontal-align: center;
+	margin-top: 4sp;
+	width: 90%;
+}
+
+.InfoTitle {
+	color: #51595b;
+	font: 4sp arial;
+	height: 100%;
+	margin-left: 10%;
+	vertical-align: bottom;
+	width: 60%;
+}
+
+.InfoContent {
+	color: #a4a8a9;
+	font: 4sp arial;
+	height: 100%;
+	margin-right: 5%;
+	text-align: right;
+	vertical-align: bottom;
+	width: 25%;
 }
