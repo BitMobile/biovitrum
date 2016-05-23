@@ -8,3 +8,7 @@ finish		Завершить
 tasks		Задачи
 coc		АВР
 clist		Чек-лист
+time		Время
+workType		Тип Работ
+comment		Описание
+onmap		Посмотреть на карте

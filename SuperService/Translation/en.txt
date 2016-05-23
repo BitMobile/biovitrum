@@ -8,3 +8,7 @@ finish		Finish
 tasks		Tasks
 coc		Certificate of Complition
 clist		Check-list
+time		Time
+workType		Type of Work
+comment		Commentary
+onmap		View on map
