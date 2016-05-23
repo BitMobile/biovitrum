@@ -8,10 +8,20 @@
       <c:Button Text="ПК" Id="TopInfoRightButton" CssClass="TopInfoButton" OnClick="Test2" />
     </c:HorizontalLayout>
   </c:VerticalLayout>
-  <c:VerticalLayout Id="TopInfoExtraLayout" CssClass="TopInfoExtraLayout" OnClick="Test">
+  <c:VerticalLayout Id="TopInfoExtraLayout" CssClass="TopInfoExtraLayout">
     <c:TextView Id="TopInfoCommentTextView" CssClass="TopInfoComment" />
+    <c:HorizontalLayout Id="TopInfoExtraButtonsLayout" CssClass="NoHeight">
+      <c:VerticalLayout Id="TopInfoLeftExtraLayout" CssClass="TopInfoSideExtraLayout">
+        <c:Image Id="TopInfoLeftImage" Source="Image\top_map.png" CssClass="TopInfoSideImage" />
+        <c:TextView Text="#onmap#" CssClass="TopInfoSideText"/>
+      </c:VerticalLayout>
+      <c:VerticalLayout Id="TopInfoRightExtraLayout" CssClass="TopInfoSideExtraLayout">
+        <c:Image Id="TopInfoRightImage" Source="Image\top_person.png" CssClass="TopInfoSideImage" />
+        <c:TextView Text="#onmap#" CssClass="TopInfoSideText"/>
+      </c:VerticalLayout>
+    </c:HorizontalLayout>
   </c:VerticalLayout>
-  <c:VerticalLayout CssClass="TopInfoImageLayout" OnClick="Test">
-    <c:Image Source="Image\down_arrow_full_width.png" CssClass="TopInfoArrowDown" />
+  <c:VerticalLayout CssClass="TopInfoImageLayout" OnClick="TopInfo_Arrow_OnClick">
+    <c:Image Id="TopInfoArrowImage" Source="Image\down_arrow_full_width.png" CssClass="TopInfoArrowDown" />
   </c:VerticalLayout>
 </c:Component>

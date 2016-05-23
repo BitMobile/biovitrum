@@ -8,23 +8,33 @@ namespace Test
 {
     public class EventScreen : Screen
     {
+        private DockLayout _rootLayout;
+
+        private TextView _startTimeTextView;
+        private TextView _departureTypeTextView;
+
+        private TextView _eventCommentTextView;
+
+        private TextView _taskCounterTextView;
         private TextView _checkListCounterTextView;
         private TextView _cocTextView;
 
+        private Button _startFinishButton;
+
         private Event _currentOrder;
-        private TextView _departureTypeTextView;
-        private TypesDepartures _departyreType;
         private Client _orderClient;
-        private Button _startButton;
-        private TextView _startTimeTextView;
-        private TextView _taskCounterTextView;
+        private TypesDepartures _departyreType;
+
         private TextView _topInfoCommenTextView;
-        private TextView _eventCommentTextView;
 
         private TextView _topInfoHeadingTextView;
 
+        private TopInfoComponent _topInfoComponent;
+        private bool _started = false;
+
         public override void OnLoading()
         {
+            _topInfoComponent = new TopInfoComponent(this);
             DConsole.WriteLine("Loading controls");
             LoadControls();
 
@@ -56,13 +66,16 @@ namespace Test
 
         private void LoadControls()
         {
+            _rootLayout = (DockLayout) GetControl("RootLayout");
+
             _taskCounterTextView = (TextView) GetControl("TaskCounterTextView", true);
             _cocTextView = (TextView) GetControl("CertificateOfCompletionTextView", true);
             _checkListCounterTextView = (TextView) GetControl("CheckListCounterTextView", true);
             _startTimeTextView = (TextView) GetControl("StartTimeTextView", true);
             _departureTypeTextView = (TextView) GetControl("DepartureTypeTextView", true);
-            _startButton = (Button) GetControl("StartButton", true);
             _eventCommentTextView = (TextView) GetControl("EventCommentTextView", true);
+
+            _startFinishButton = (Button) GetControl("StartFinishButton", true);
 
             _topInfoHeadingTextView = (TextView) GetControl("TopInfoHeadingTextView", true);
             _topInfoCommenTextView = (TextView) GetControl("TopInfoCommentTextView", true);
@@ -80,9 +93,22 @@ namespace Test
             BusinessProcess.DoAction("Client");
         }
 
-        internal void StartButton_OnClick(object sender, EventArgs eventArgs)
+        internal void StartFinishButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _startButton.Text = Translator.Translate("finish");
+            if (!_started)
+            {
+                _startFinishButton.CssClass = "FinishButton";
+                _startFinishButton.Refresh();
+                _startFinishButton.Text = Translator.Translate("finish");
+                _started = true;
+            }
+            else
+            {
+                _startFinishButton.CssClass = "StartButton";
+                _startFinishButton.Refresh();
+                _startFinishButton.Text = Translator.Translate("start");
+                _started = false;
+            }
         }
 
         internal void CancelButton_OnClick(object sender, EventArgs eventArgs)
@@ -93,6 +119,12 @@ namespace Test
         internal void Test(object sender, EventArgs eventArgs)
         {
             DConsole.WriteLine("TEST TEST TEST");
+        }
+
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
+        {
+            _topInfoComponent.Arrow_OnClick(sender, eventArgs);
+            _rootLayout.Refresh();
         }
 
         internal void Test2(object sender, EventArgs eventArgs)

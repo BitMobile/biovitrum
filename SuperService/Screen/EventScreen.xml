@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  <c:VerticalLayout CssClass="RootLayout">
+  <c:DockLayout Id="RootLayout" CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
-    <c:SwipeVerticalLayout CssClass="RootLayout">
+    <c:Button Id="StartFinishButton" Text="#start#" CssClass="StartButton" OnClick="StartFinishButton_OnClick" />
+    <c:SwipeVerticalLayout CssClass="EventScreenMainLayout">
       <c:HorizontalLayout CssClass="LightInfoLayout">
         <c:VerticalLayout CssClass="LightInfoBox">
           <c:TextView Text="#time#" CssClass="LightInfoTitle" />
@@ -34,7 +35,6 @@
         <c:TextView Text="#clist#" Id="CheckListCounterNameTextView" CssClass="InfoTitle" />
         <c:TextView Id="CheckListCounterTextView" CssClass="InfoContent" />
       </c:HorizontalLayout>
-      <c:TextView Visible="False" />
     </c:SwipeVerticalLayout>
-  </c:VerticalLayout>
+  </c:DockLayout>
 </c:Screen>
