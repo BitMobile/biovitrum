@@ -20,6 +20,17 @@ Button {
     width: 100%;
 }
 
+TextView {
+  color: #51595b;
+  font: 3sp arial;
+  height: 4sp auto;
+  horizontal-align: center;
+  text-align: center;
+  vertical-align: center;
+  white-space: normal;
+  width: 100%;
+}
+
 .TopInfoLeftButton {
     height: 100%;
     text-align: left;
@@ -65,7 +76,7 @@ Button {
 }
 
 
-/* Order List Screen Order List CssClases*/
+/* Order List Screen */
 
 .SWL {
     height: 100%;
@@ -89,20 +100,21 @@ Button {
 .StartDatePlane {
     background-color: #ffffff;
     color: #000000;
-    font-size: 80%;
     height: 60%;
     text-align: center;
     width: 100%;
     padding-top: 10%;
+    font: 2.5sp arial;
 }
 
 .ActualStartDate {
     background-color: #ffffff;
-    color: #000000;
-    font-size: 60%;
+    color: #feb3a3;
     height: auto;
     text-align: center;
     width: 100%;
+    padding-top: 15%;
+    font: 2sp arial;
 }
 
 .ImportanceContainer {
@@ -129,8 +141,8 @@ Button {
     width: 100%;
     text-align: left;
     background-color: #ffffff;
-    color: #000000;
-    font: 70% arial;
+    color: #51595b;
+    font: 3sp arial;
     padding-top: 10%;
     margin-left: 5%;
 }
@@ -140,8 +152,8 @@ Button {
     width: 100%;
     text-align: left;
     background-color: #ffffff;
-    color: #000000;
-    font: 75% arial;
+    color: #51595b;
+    font: 2sp arial;
     margin-left: 5%;
 }
 
@@ -151,7 +163,7 @@ Button {
     text-align: left;
     background-color: #ffffff;
     color: #7d7777;
-    font: 75% arial;
+    font: 2sp arial;
     margin-bottom: 2%;
     margin-left: 5%;
 }
@@ -160,6 +172,8 @@ Button {
     height: 2%;
     width: 100%;
     margin-left: 5%;
-    background-color: #8c8383;
+    background-color: #fbf6f6;
     horizontal-align: right;
 }
+
+/* --------------------------------------------- */
