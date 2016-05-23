@@ -9,12 +9,13 @@
       <c:TextView Text="Test" />
       <c:Button Id="Map" Text="Map" OnClick="GoToMap_OnClick"/>
       <!--</c:HorizontalLayout>-->
-      <s:Include File="Components\TapBar.xml" />
+      
     </c:VerticalLayout>
-
+    <s:Include File="Components\TabBar.xml" />
     <!--Список для нарядов-->
     <c:SwipeVerticalLayout Id="OrderList" CssClass="SWL">
     </c:SwipeVerticalLayout>
-
+    
+    
   </c:VerticalLayout>
 </c:Screen>

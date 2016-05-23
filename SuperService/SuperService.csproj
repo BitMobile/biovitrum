@@ -63,7 +63,7 @@
     <Compile Include="Controllers\OrderListScreen.cs" />
     <Compile Include="Controllers\OrderScreen.cs" />
     <Compile Include="Controllers\SettingsScreen.cs" />
-    <Compile Include="Controllers\TapEvents.cs" />
+    <Compile Include="Controllers\TabEventsComponent.cs" />
     <Compile Include="Entities\Catalog\Client.cs" />
     <Compile Include="Entities\Catalog\TypesDepartures.cs" />
     <Compile Include="Entities\Document\Event.cs" />
@@ -71,7 +71,6 @@
     <Compile Include="Module\BusinessProcess.cs" />
     <Compile Include="Module\Solution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Translation\ru.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Objects\" />
@@ -80,9 +79,8 @@
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Translation\en.txt" />
+    <EmbeddedResource Include="Translation\ru.txt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -99,18 +97,20 @@
     <EmbeddedResource Include="Screen\MapScreen.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Components\TapBar.xml" />
+    <EmbeddedResource Include="Components\TabBar.xml" />
     <EmbeddedResource Include="Screen\OrderListScreen.xml" />
     <EmbeddedResource Include="Screen\OrderScreen.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Image\1 blue.png" />
-    <EmbeddedResource Include="Image\2 white.png" />
-    <EmbeddedResource Include="Image\3 white.png" />
-    <EmbeddedResource Include="Image\4 white.png" />
-    <Content Include="Screen\BagListScreen.xml" />
-    <Content Include="Screen\ClientListScreen.xml" />
-    <Content Include="Screen\SettingsScreen.xml" />
+    <EmbeddedResource Include="Screen\BagListScreen.xml" />
+    <EmbeddedResource Include="Screen\ClientListScreen.xml" />
+    <EmbeddedResource Include="Screen\SettingsScreen.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Image\bag.png" />
+    <EmbeddedResource Include="Image\clients.png" />
+    <EmbeddedResource Include="Image\orders.png" />
+    <EmbeddedResource Include="Image\settings.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -31,7 +31,7 @@ TextView {
     height: 7sp;
     background-color: #ffffff;
     border-style: solid;
-    border-color: #0000cd;
+    border-color: #ffffff;
     border-width: 3px;
     color: #333333;
     font-size: 90%;
@@ -73,19 +73,39 @@ TextView {
     text-align: center;
 }
 
-.TapBarHL {
+.TabBarHL {
     width: 100%;
-    height: 20%;
+    height: 15%;
     margin-top: 2%;
-    background-color: #ff0000;
+    background-color: #ffffff;
+    horizontal-align: center;
 }
 
-.TabScreenVL {
+.TabBarVL {
     width: 25%;
     height: 100%;
+    margin-bottom: 0%;
+    color: #ffffff;
+    background-color: #ffffff;
+    horizontal-align: center;
+    vertical-align: center;
 }
 
 .TabImage {
-    width: 50%;
+    /*width: 50%;*/
     height: 50%;
+    color: #ffffff;
+    background-color: #ffffff;
+    horizontal-align: center;
+    vertical-align: center;
+}
+
+.TabTextViewActive {
+    background-color: #ffffff;
+    text-align: center;
+    color: #fd724c;
+}.TabTextViewNotActive {
+    background-color: #ffffff;
+    text-align: center;
+    color: #9b9fa0;
 }

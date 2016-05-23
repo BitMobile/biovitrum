@@ -16,28 +16,28 @@
       <Action Name="ViewMap" NextStep="Map"></Action>
       <Action Name="ViewOrder" NextStep="Order"></Action>
       <!--      <Action Name="OrderList" NextStep="OrderList"></Action>-->
-      <Action Name="Backpack" NextStep="Backpack"></Action>
+      <Action Name="Bag" NextStep="Bag"></Action>
       <Action Name="Settings" NextStep="Settings"></Action>
       <Action Name="ClientList" NextStep="ClientList"></Action>
     </Step>
 
-    <Step Name="Backpack" Controller="BackpackScreen" StyleSheet="Style\style.css">
+    <Step Name="Bag" Controller="BagListScreen" StyleSheet="Style\style.css">
       <Action Name="OrderList" NextStep="OrderList"></Action>
-      <!--      <Action Name="Backpack" NextStep="Backpack"></Action>-->
+      <!--      <Action Name="Bag" NextStep="Bag"></Action>-->
       <Action Name="Settings" NextStep="Settings"></Action>
       <Action Name="ClientList" NextStep="ClientList"></Action>
     </Step>
 
     <Step Name="ClientList" Controller="ClientListScreen" StyleSheet="Style\style.css">
       <Action Name="OrderList" NextStep="OrderList"></Action>
-      <Action Name="Backpack" NextStep="Backpack"></Action>
+      <Action Name="Bag" NextStep="Bag"></Action>
       <Action Name="Settings" NextStep="Settings"></Action>
       <!--      <Action Name="ClientList" NextStep="ClientList"></Action>-->
     </Step>
 
     <Step Name="Settings" Controller="SettingsScreen" StyleSheet="Style\style.css">
       <Action Name="OrderList" NextStep="OrderList"></Action>
-      <Action Name="Backpack" NextStep="Backpack"></Action>
+      <Action Name="Bag" NextStep="Bag"></Action>
       <!--      <Action Name="Settings" NextStep="Settings"></Action>-->
       <Action Name="ClientList" NextStep="ClientList"></Action>
       <Action Name="Logout" NextStep="Authorization"></Action>

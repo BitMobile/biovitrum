@@ -10,64 +10,19 @@ namespace Test
     {
         private EditText _loginEditText;
         private EditText _passwordEditText;
-        //private TapEvents te = new TapEvents();
-        private VerticalLayout vl;
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("Onloading Init");
-            DConsole.WriteLine("Loading controls");
+            DConsole.WriteLine("AuthScreen init");
 
             _loginEditText = (EditText)GetControl("loginEditText", true);
             _passwordEditText = (EditText)GetControl("passwordEditText", true);
-            //Initialize();
-            vl = (VerticalLayout) GetControl("lay", true);
-            vl.OnClick += TapEvents.TabEventsButton_OnClick;
-        }
-
-        void Initialize()
-        {
-            DConsole.WriteLine("Init begin");
-
-            //var vl = new VerticalLayout
-            //{
-            //    CssClass = "RootLayout"
-            //};
-
-            //_loginEditText = new EditText()
-            //{
-            //    Placeholder = "Введите логин",
-            //    CssClass = "loginEditText"
-            //};
-
-            //_passwordEditText = new EditText()
-            //{
-            //    CssClass = "passwordEditText",
-            //    Placeholder = "Введите пароль"
-            //};
-            //Button ConnectButton = new Button("Подключиться", ConnectButton_OnClick)
-            //{
-            //    CssClass = "ConnectButton"
-            //};
-            //Button ExitButton = new Button("Выход", ExitButton_OnClick)
-            //{
-            //    CssClass = "ExitButton"
-            //};
-
-            //vl.AddChild(_loginEditText);
-            //vl.AddChild(_passwordEditText);
-            //vl.AddChild(ConnectButton);
-            //vl.AddChild(ExitButton);
-
-            //AddChild(vl);
         }
 
         internal void exitButton_OnClick(object sender, EventArgs e)
         {
             Application.Terminate();
         }
-
-        
 
         internal void connectButton_OnClick(object sender, EventArgs e)
         {
@@ -103,11 +58,6 @@ namespace Test
             //    Dialog.Message("Вход выполнен");
             //    BusinessProcess.DoAction("Auth");
             //}
-        }
-
-        public void eventsTabButton_OnClick(object sender, EventArgs e)
-        {
-            BusinessProcess.DoAction("Auth");
         }
     }
 }
