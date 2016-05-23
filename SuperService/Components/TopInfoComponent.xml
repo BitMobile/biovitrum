@@ -8,7 +8,7 @@
       </c:VerticalLayout>
       <c:TextView Id="TopInfoHeadingTextView" CssClass="TopInfoHeading" />
       <c:VerticalLayout Id="TopInfoRightButton" CssClass="TopInfoButton" OnClick="TopInfo_RightButton_OnClick">
-        <c:Image Id="TopInfoRightButtonImage" Source="Image\top_back.png" CssClass="TopInfoButtonImage" />
+        <c:Image Id="TopInfoRightButtonImage" Source="Image\top_info.png" CssClass="TopInfoButtonImage" />
       </c:VerticalLayout>
     </c:HorizontalLayout>
   </c:VerticalLayout>
