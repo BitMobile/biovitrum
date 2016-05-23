@@ -37,9 +37,9 @@ TextView {
 
 .TopInfoLayout {
 	background-color: #4a4b5e;
+	dock-align: top;
 	height: 3sp auto;
 	width: 100%;
-	dock-align: top;
 }
 
 .TopInfoHeadingLayout {
@@ -72,10 +72,16 @@ TextView {
 	width: 16%;
 }
 
+.TopInfoButtonImage {
+	height: 60%;
+	horizontal-align: center;
+	margin-top: 20%;
+}
+
 .TopInfoComment {
 	color: #c4c4c9;
 	font: 2.4sp arial;
-	height: 8sp auto;
+	height: 0sp auto;
 	horizontal-align: center;
 	text-align: center;
 	white-space: normal;
@@ -89,16 +95,16 @@ TextView {
 
 .TopInfoExtraLayout {
 	background-color: #4a4b5e;
+	dock-align: top;
 	height: 1sp auto;
 	width: 100%;
-	dock-align: top;
 }
 
 .TopInfoImageLayout {
 	background-color: #ffffff;
+	dock-align: top;
 	height: 1sp auto;
 	width: 100%;
-	dock-align: top;
 }
 
 .TopInfoExtraButtonsLayout {
@@ -122,9 +128,9 @@ TextView {
 /* Event Screen */
 
 .EventScreenMainLayout {
+	dock-align: top;
 	height: auto;
 	width: 100%;
-	dock-align: top;
 }
 
 .LightInfoLayout {
@@ -203,19 +209,19 @@ TextView {
 }
 
 .StartButton {
-	width: 100%;
-	height: 10sp;
 	background-color: #94da4f;
 	color: #d0ffa1;
-	font: 3.5sp arial;
 	dock-align: bottom;
+	font: 3.5sp arial;
+	height: 10sp;
+	width: 100%;
 }
 
 .FinishButton {
-	width: 100%;
-	height: 10sp;
 	background-color: #fe9c81;
 	color: #fecbc0;
-	font: 3.5sp arial;
 	dock-align: bottom;
+	font: 3.5sp arial;
+	height: 10sp;
+	width: 100%;
 }

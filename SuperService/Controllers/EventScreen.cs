@@ -25,36 +25,54 @@ namespace Test
         private Client _orderClient;
         private TypesDepartures _departyreType;
 
-        private TextView _topInfoCommenTextView;
-
-        private TextView _topInfoHeadingTextView;
-
         private TopInfoComponent _topInfoComponent;
         private bool _started = false;
 
         public override void OnLoading()
         {
             _topInfoComponent = new TopInfoComponent(this);
-            DConsole.WriteLine("Loading controls");
+            
             LoadControls();
-
-            DConsole.WriteLine("Loading model info");
             LoadModelInfo();
-
-            DConsole.WriteLine("Writing info to controls");
-            FillControlsWithInfo();
+            FillControls();
         }
 
-        private void FillControlsWithInfo()
+        private void FillControls()
         {
             _taskCounterTextView.Text = $"{GetTaskNumberDone()}/{GetTaskNumber()}";
             _cocTextView.Text = $"{GetCertificateOfCompletion()}";
             _checkListCounterTextView.Text = $"{GetCheckListDone()}/{GetCheckListNumber()}";
-            _startTimeTextView.Text = $"{_currentOrder.StartDatePlan}";
+            _startTimeTextView.Text = $"{_currentOrder.StartDatePlan.ToShortTimeString()}";
             _departureTypeTextView.Text = $"{_departyreType.Description}";
             _eventCommentTextView.Text = $"{_currentOrder.Comment}";
-            _topInfoHeadingTextView.Text = _orderClient.Description;
-            _topInfoCommenTextView.Text = _orderClient.Address;
+
+            _topInfoComponent.HeadingTextView.Text = _orderClient.Description;
+            _topInfoComponent.CommentTextView.Text = _orderClient.Address;
+            _topInfoComponent.LeftButtonImage.Source = @"Image\top_back.png";
+            _topInfoComponent.RightButtonImage.Source = @"Image\top_info.png";
+
+            _topInfoComponent.LeftExtraLayout.AddChild(new Image()
+            {
+                CssClass = "TopInfoSideImage",
+                Source = @"Image\top_map.png"
+            });
+            _topInfoComponent.LeftExtraLayout.AddChild(new TextView()
+            {
+                Text = Translator.Translate("onmap"),
+                CssClass = "TopInfoSideText"
+            });
+
+            _topInfoComponent.RightExtraLayout.AddChild(new Image()
+            {
+                CssClass = "TopInfoSideImage",
+                Source = @"Image\top_person.png"
+            });
+            _topInfoComponent.RightExtraLayout.AddChild(new TextView()
+            {
+                // TODO: Заменить тут текст
+                Text = "Временный текст",
+                CssClass = "TopInfoSideText"
+            });
         }
 
         private void LoadModelInfo()
@@ -76,9 +94,6 @@ namespace Test
             _eventCommentTextView = (TextView) GetControl("EventCommentTextView", true);
 
             _startFinishButton = (Button) GetControl("StartFinishButton", true);
-
-            _topInfoHeadingTextView = (TextView) GetControl("TopInfoHeadingTextView", true);
-            _topInfoCommenTextView = (TextView) GetControl("TopInfoCommentTextView", true);
         }
 
 
@@ -116,20 +131,10 @@ namespace Test
             BusinessProcess.DoAction("EventList");
         }
 
-        internal void Test(object sender, EventArgs eventArgs)
-        {
-            DConsole.WriteLine("TEST TEST TEST");
-        }
-
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
         {
             _topInfoComponent.Arrow_OnClick(sender, eventArgs);
             _rootLayout.Refresh();
-        }
-
-        internal void Test2(object sender, EventArgs eventArgs)
-        {
-            DConsole.WriteLine("TEST 2 TEST 2 TEST 2");
         }
 
         // TODO: Работа с базой данных
