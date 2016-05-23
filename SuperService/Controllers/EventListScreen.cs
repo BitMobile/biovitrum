@@ -6,34 +6,34 @@ using Test.Document;
 
 namespace Test
 {
-    public class OrderListScreen : Screen
+    public class EventListScreen : Screen
     {
         private VerticalLayout _vlSlideVerticalLayout;
-        private SwipeVerticalLayout _svlOrderList;
-        private ArrayList _ordersList;
+        private SwipeVerticalLayout _svlEventList;
+        private ArrayList _eventsList;
 
         public override void OnLoading()
         {
             _vlSlideVerticalLayout = (VerticalLayout)GetControl("SlideVerticalLayout", true);
-            //_svlOrderList = (SwipeVerticalLayout)GetControl("OrderList", true);
-            //_ordersList = GetOrdersFromDb();
-            //FillingOrderList();
+            _svlEventList = (SwipeVerticalLayout)GetControl("EventList", true);
+            _eventsList = GetEventsFromDb();
+            FillingOrderList();
         }
 
 
         private void FillingOrderList()
         {
 
-            if (_ordersList == null)
+            if (_eventsList == null)
                 return;
 
             Button btn;
 
-            foreach (var item in _ordersList)
+            foreach (var item in _eventsList)
             {
                 btn = new Button() { Text = ((Event)item).Comment };
-                btn.OnClick += GoToOrderScreen_OnClick;
-                _svlOrderList.AddChild(btn);
+                btn.OnClick += GoToEventScreen_OnClick;
+                _svlEventList.AddChild(btn);
             }
 
         }
@@ -44,17 +44,12 @@ namespace Test
             BusinessProcess.DoAction("ViewMap");
         }
 
-        internal void GoToOrderScreen_OnClick(object sender, EventArgs e)
+        internal void GoToEventScreen_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("ViewOrder");
+            BusinessProcess.DoAction("ViewEvent");
         }
 
-        internal void SomeEvent_OnClick(object sender, EventArgs e)
-        {
-            DConsole.WriteLine("You click on me!!!!!");
-        }
-
-        private ArrayList GetOrdersFromDb()
+        private ArrayList GetEventsFromDb()
         {
             //Получение данных из БД.
             ArrayList data = new ArrayList();
@@ -64,6 +59,7 @@ namespace Test
             }
 
             return data;
+            //return DBHelper.GetEvents(); 
 
         }
     }

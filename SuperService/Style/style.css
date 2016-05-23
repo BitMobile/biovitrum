@@ -46,3 +46,28 @@ TextView {
     height: 40%;
     width: 100%;
 }
+
+.LoginEditText{
+    width: 60%;
+    height: 10%;
+    margin-top: 20%;
+    margin-left: 20%;
+    background-color: #0000cd;
+    color: #ffffff;
+}
+.PasswordEditText{
+    width: 60%;
+    height: 10%;
+    margin-top: 1%;
+    margin-left: 20%;
+    background-color: #0000cd;
+    color: #ffffff;
+}
+
+.AuthScreenButton {
+    width: 50%;
+    height: 10%;
+    margin-top: 15%;
+    margin-left: 25%;
+    text-align: center;
+}
