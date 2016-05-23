@@ -20,30 +20,20 @@
         <c:TextView Id="EventCommentTextView" CssClass="LightInfoContent" />
       </c:VerticalLayout>
       <c:HorizontalLayout CssClass="InfoLayout">
+        <c:Image Source="Image\es_tasks.png" CssClass="InfoImage" />
         <c:TextView Text="#tasks#" Id="TaskCounterNameTextView" CssClass="InfoTitle" />
         <c:TextView Id="TaskCounterTextView" CssClass="InfoContent" />
       </c:HorizontalLayout>
       <c:HorizontalLayout CssClass="InfoLayout">
+        <c:Image Source="Image\es_coc.png" CssClass="InfoImage" />
         <c:TextView Text="#coc#" Id="CertificateOfCompletionNameTextView" CssClass="InfoTitle" />
         <c:TextView Id="CertificateOfCompletionTextView" CssClass="InfoContent" />
       </c:HorizontalLayout>
       <c:HorizontalLayout CssClass="InfoLayout">
+        <c:Image Source="Image\es_clist.png" CssClass="InfoImage" />
         <c:TextView Text="#clist#" Id="CheckListCounterNameTextView" CssClass="InfoTitle" />
         <c:TextView Id="CheckListCounterTextView" CssClass="InfoContent" />
       </c:HorizontalLayout>
-
-      <c:Button Text="#back#" Id="BackButton" OnClick="BackButton_OnClick" />
-      <c:TextView Id="ContactDescriptionTextView" />
-      <c:TextView Id="ContactAddressTextView" />
-      <c:Button Text="client_info" Id="ClientInfoButton" OnClick="ClientInfoButton_OnClick" />
-      <c:TextView Text="#tasks#" Id="TaskCounterNameTextView" />
-      <c:TextView Id="TaskCounterTextView" />
-      <c:TextView Text="#coc#" Id="CertificateOfCompletionNameTextView" />
-      <c:TextView Id="CertificateOfCompletionTextView" />
-      <c:TextView Text="#clist#" Id="CheckListCounterNameTextView" />
-      <c:TextView Id="CheckListCounterTextView" />
-      <c:Button Text="#start#" Id="StartButton" OnClick="StartButton_OnClick" />
-      <c:Button Text="#refuse#" Id="CancelButton" OnClick="CancelButton_OnClick" />
       <c:TextView Visible="False" />
     </c:SwipeVerticalLayout>
   </c:VerticalLayout>

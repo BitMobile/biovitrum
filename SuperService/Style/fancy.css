@@ -11,13 +11,26 @@ body {
 	width: 100%;
 }
 
-.NoHeight { height: 0mm; }
+TextView {
+	color: #51595b;
+	font: 2.5sp arial;
+	height: 3.5sp auto;
+	horizontal-align: center;
+	text-align: center;
+	vertical-align: center;
+	white-space: normal;
+	width: 100%;
+}
+
+.NoHeight { height: 0%; }
 
 .RootLayout {
 	background-color: #ffffff;
 	height: 100%;
 	width: 100%;
 }
+
+/* Top Info Component */
 
 .TopInfoLayout {
 	background-color: #4a4b5e;
@@ -82,14 +95,15 @@ body {
 	width: 100%;
 }
 
+/* Event Screen */
+
 .LightInfoLayout {
-	/*background-color: #ff0000;*/
 	height: 5sp auto;
-	width: 100%;
+	horizontal-align: center;
+	width: 90%;
 }
 
 .LightInfoBox {
-	/*background-color: #008000;*/
 	height: 5sp auto;
 	margin-left: 5%;
 	margin-right: 5%;
@@ -100,20 +114,9 @@ body {
 	color: #a4a8a9;
 	font: 2sp arial;
 	height: 3sp;
-	horizontal-align: center;
-	text-align: center;
-	width: 100%;
 }
 
-.LightInfoContent {
-	color: #51595b;
-	font: 2.5sp arial;
-	height: 4sp auto;
-	horizontal-align: center;
-	text-align: center;
-	white-space: normal;
-	width: 100%;
-}
+.LightInfoContent { height: 4sp auto; }
 
 .LayoutBreaker {
 	background-color: #a4a8a9;
@@ -127,44 +130,44 @@ body {
 	horizontal-align: center;
 	margin-top: 2sp;
 	width: 80%;
+	margin-bottom: 3sp;
 }
 
-.Comment {
-	color: #51595b;
-	font: 2.5sp arial;
-	height: 7.5sp auto;
-	horizontal-align: center;
-	text-align: center;
-	white-space: normal;
-	width: 100%;
-	width: 100%;
-}
+.Comment { height: 7.5sp auto; }
 
 .InfoLayout {
 	border-color: #a4a8a9;
 	border-style: solid;
 	border-width: 2px;
-	height: 7sp;
+	height: 10sp;
 	horizontal-align: center;
-	margin-top: 4sp;
+	padding-top: 2sp;
+	padding-bottom: 2sp;
+	margin-bottom: 2sp;
 	width: 90%;
 }
 
+.InfoImage {
+	height: 80%;
+	margin-left: 5%;
+	vertical-align: center;
+}
+
 .InfoTitle {
-	color: #51595b;
+	padding-top: 1sp;
 	font: 4sp arial;
-	height: 100%;
-	margin-left: 10%;
-	vertical-align: bottom;
-	width: 60%;
+	height: 80%;
+	text-align: left;
+	width: 50%;
+	margin-left: 2%;
 }
 
 .InfoContent {
+	padding-top: 1sp;
 	color: #a4a8a9;
 	font: 4sp arial;
-	height: 100%;
+	height: 80%;
 	margin-right: 5%;
 	text-align: right;
-	vertical-align: bottom;
-	width: 25%;
+	width: 35%;
 }

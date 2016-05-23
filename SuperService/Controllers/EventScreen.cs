@@ -10,8 +10,6 @@ namespace Test
     {
         private TextView _checkListCounterTextView;
         private TextView _cocTextView;
-        private TextView _contactAddressTextView;
-        private TextView _contactDescriptionTextView;
 
         private Event _currentOrder;
         private TextView _departureTypeTextView;
@@ -39,15 +37,12 @@ namespace Test
 
         private void FillControlsWithInfo()
         {
-            _contactDescriptionTextView.Text = _orderClient.Description;
-            _contactAddressTextView.Text = _orderClient.Address;
             _taskCounterTextView.Text = $"{GetTaskNumberDone()}/{GetTaskNumber()}";
             _cocTextView.Text = $"{GetCertificateOfCompletion()}";
             _checkListCounterTextView.Text = $"{GetCheckListDone()}/{GetCheckListNumber()}";
             _startTimeTextView.Text = $"{_currentOrder.StartDatePlan}";
             _departureTypeTextView.Text = $"{_departyreType.Description}";
             _eventCommentTextView.Text = $"{_currentOrder.Comment}";
-
             _topInfoHeadingTextView.Text = _orderClient.Description;
             _topInfoCommenTextView.Text = _orderClient.Address;
         }
@@ -61,8 +56,6 @@ namespace Test
 
         private void LoadControls()
         {
-            _contactDescriptionTextView = (TextView) GetControl("ContactDescriptionTextView", true);
-            _contactAddressTextView = (TextView) GetControl("ContactAddressTextView", true);
             _taskCounterTextView = (TextView) GetControl("TaskCounterTextView", true);
             _cocTextView = (TextView) GetControl("CertificateOfCompletionTextView", true);
             _checkListCounterTextView = (TextView) GetControl("CheckListCounterTextView", true);
