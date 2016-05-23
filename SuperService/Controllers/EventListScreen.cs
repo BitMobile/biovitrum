@@ -14,9 +14,11 @@ namespace Test
 
         public override void OnLoading()
         {
+            DConsole.WriteLine("1");
             _vlSlideVerticalLayout = (VerticalLayout)GetControl("SlideVerticalLayout", true);
             _svlEventList = (SwipeVerticalLayout)GetControl("EventList", true);
             _eventsList = GetEventsFromDb();
+
             FillingOrderList();
         }
 
@@ -31,10 +33,12 @@ namespace Test
 
             foreach (var item in _eventsList)
             {
+
                 btn = new Button() { Text = ((Event)item).Comment };
                 btn.OnClick += GoToEventScreen_OnClick;
                 _svlEventList.AddChild(btn);
             }
+            DConsole.WriteLine("2");
 
         }
 

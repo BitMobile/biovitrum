@@ -8,30 +8,31 @@ namespace Test
 {
     public class EventScreen : Screen
     {
-        private DockLayout _rootLayout;
-
-        private TextView _startTimeTextView;
-        private TextView _departureTypeTextView;
-
-        private TextView _eventCommentTextView;
-
-        private TextView _taskCounterTextView;
         private TextView _checkListCounterTextView;
         private TextView _cocTextView;
 
-        private Button _startFinishButton;
-
         private Event _currentOrder;
-        private Client _orderClient;
+        private TextView _departureTypeTextView;
         private TypesDepartures _departyreType;
 
-        private TopInfoComponent _topInfoComponent;
+        private TextView _eventCommentTextView;
+        private Client _orderClient;
+        private DockLayout _rootLayout;
         private bool _started;
+
+        private Button _startFinishButton;
+
+        private TextView _startTimeTextView;
+
+        private TextView _taskCounterTextView;
+
+        private TopInfoComponent _topInfoComponent;
+        private DbRecordset _currentEventRecordset;
 
         public override void OnLoading()
         {
             _topInfoComponent = new TopInfoComponent(this);
-            
+
             LoadControls();
             LoadModelInfo();
             FillControls();
@@ -39,38 +40,37 @@ namespace Test
 
         private void FillControls()
         {
-            _taskCounterTextView.Text = $"{GetTaskNumberDone()}/{GetTaskNumber()}";
-            _cocTextView.Text = $"{GetCertificateOfCompletion()}";
-            _checkListCounterTextView.Text = $"{GetCheckListDone()}/{GetCheckListNumber()}";
-            _startTimeTextView.Text = $"{_currentOrder.StartDatePlan.ToShortTimeString()}";
-            _departureTypeTextView.Text = $"{_departyreType.Description}";
-            _eventCommentTextView.Text = $"{_currentOrder.Comment}";
+//            _taskCounterTextView.Text = $"{GetTaskNumberDone()}/{GetTaskNumber()}";
+//            _cocTextView.Text = $"{GetCertificateOfCompletion()}";
+//            _checkListCounterTextView.Text = $"{GetCheckListDone()}/{GetCheckListNumber()}";
+//            _startTimeTextView.Text = $"{_currentOrder.StartDatePlan.ToShortTimeString()}";
+//            _departureTypeTextView.Text = $"{_departyreType.Description}";
+//            _eventCommentTextView.Text = $"{_currentOrder.Comment}";
 
-            _topInfoComponent.HeadingTextView.Text = _orderClient.Description;
-            _topInfoComponent.CommentTextView.Text = _orderClient.Address;
+            _topInfoComponent.HeadingTextView.Text = (string) _currentEventRecordset["clientDescription"];
+            _topInfoComponent.CommentTextView.Text = (string) _currentEventRecordset["clientAddress"];
             _topInfoComponent.LeftButtonImage.Source = @"Image\top_back.png";
             _topInfoComponent.RightButtonImage.Source = @"Image\top_info.png";
 
-            _topInfoComponent.LeftExtraLayout.AddChild(new Image()
+            _topInfoComponent.LeftExtraLayout.AddChild(new Image
             {
                 CssClass = "TopInfoSideImage",
                 Source = @"Image\top_map.png"
             });
-            _topInfoComponent.LeftExtraLayout.AddChild(new TextView()
+            _topInfoComponent.LeftExtraLayout.AddChild(new TextView
             {
                 Text = Translator.Translate("onmap"),
                 CssClass = "TopInfoSideText"
             });
 
-            _topInfoComponent.RightExtraLayout.AddChild(new Image()
+            _topInfoComponent.RightExtraLayout.AddChild(new Image
             {
                 CssClass = "TopInfoSideImage",
                 Source = @"Image\top_person.png"
             });
-            _topInfoComponent.RightExtraLayout.AddChild(new TextView()
+            _topInfoComponent.RightExtraLayout.AddChild(new TextView
             {
-                // TODO: Заменить тут текст
-                Text = "Временный текст",
+                Text = (string) _currentEventRecordset["clientDescription"],
                 CssClass = "TopInfoSideText"
             });
         }
@@ -135,6 +135,18 @@ namespace Test
             _rootLayout.Refresh();
         }
 
+
+        internal DbRecordset GetCurrentEvent()
+        {
+            object eventId;
+            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
+            {
+                eventId = "@ref[Document_Event]:6422e731-149a-11e6-80e3-005056011152";
+            }
+            _currentEventRecordset = DBHelper.GetEventByID((string) eventId);
+            return _currentEventRecordset;
+        }
+
         // TODO: Работа с базой данных
         private Event GetCurrentOrder()
         {
@@ -143,6 +155,11 @@ namespace Test
                 Comment = "Плановое подключение к третьей сети, при монтаже быть аккуратным с текущей коммуникацией.",
                 StartDatePlan = new DateTime(2017, 05, 17, 10, 00, 00)
             };
+        }
+
+        internal string GetStringPartOfTotal(int part, int total)
+        {
+            return $"{part}/{total}" == "/" ? "0/0" : $"{part}/{total}";
         }
 
         private TypesDepartures GetDepartureType()
