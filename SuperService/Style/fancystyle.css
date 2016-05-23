@@ -86,9 +86,8 @@ TextView {
 
 .OrderInfoContainer {
     background-color: #ffffff;
-    height: 10%;
+    height: 10sp;
     width: 100%;
-    ;
 }
 
 .OrderTimeContainer {
@@ -176,4 +175,26 @@ TextView {
     horizontal-align: right;
 }
 
+.DateContainer {
+    height: 15% auto;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.DateText {
+    height: 5sp;
+    width: 100%;
+    background-color: #ffffff;
+    text-align: left;
+    font: 2.5sp arial;
+    color: #9b9fa0;
+    padding-top: 45%;
+
+}
+
+.FinalDateLine {
+    height: 2%;
+    width: 100%;
+    background-color: #fbf6f6;
+}
 /* --------------------------------------------- */
