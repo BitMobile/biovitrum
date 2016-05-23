@@ -6,27 +6,27 @@
 
 
     <!--Список для нарядов-->
-    <c:SwipeVerticalLayout Id="OrderList" CssClass="SWL">
+    <c:ScrollView Id="OrderList" CssClass="SWL">
 
       <c:VerticalLayout CssClass="DateContainer">
-        <c:TextView CssClass="DateText" Text="Сегодня"/>
-        <c:HorizontalLine CssClass="FinalDateLine"/>
+        <c:TextView CssClass="DateText" Text="Сегодня" />
+        <c:HorizontalLine CssClass="FinalDateLine" />
         <s:Include File="Components\ClientNodeComponent.xml" />
         <s:Include File="Components\ClientNodeComponent.xml" />
         <s:Include File="Components\ClientNodeComponent.xml" />
       </c:VerticalLayout>
 
       <c:VerticalLayout CssClass="DateContainer">
-        <c:TextView CssClass="DateText" Text="Вторник, 22 мая"/>
-        <c:HorizontalLine CssClass="FinalDateLine"/>
+        <c:TextView CssClass="DateText" Text="Вторник, 22 мая" />
+        <c:HorizontalLine CssClass="FinalDateLine" />
         <s:Include File="Components\ClientNodeComponent.xml" />
         <s:Include File="Components\ClientNodeComponent.xml" />
         <s:Include File="Components\ClientNodeComponent.xml" />
       </c:VerticalLayout>
 
       <c:VerticalLayout CssClass="DateContainer">
-        <c:TextView CssClass="DateText" Text="Среда, 23 мая"/>
-        <c:HorizontalLine CssClass="FinalDateLine"/>
+        <c:TextView CssClass="DateText" Text="Среда, 23 мая" />
+        <c:HorizontalLine CssClass="FinalDateLine" />
         <s:Include File="Components\ClientNodeComponent.xml" />
         <s:Include File="Components\ClientNodeComponent.xml" />
         <s:Include File="Components\ClientNodeComponent.xml" />
@@ -35,16 +35,16 @@
       </c:VerticalLayout>
 
       <c:VerticalLayout CssClass="DateContainer">
-        <c:TextView CssClass="DateText" Text="Четверг, 24 мая"/>
-        <c:HorizontalLine CssClass="FinalDateLine"/>
+        <c:TextView CssClass="DateText" Text="Четверг, 24 мая" />
+        <c:HorizontalLine CssClass="FinalDateLine" />
         <s:Include File="Components\ClientNodeComponent.xml" />
         <s:Include File="Components\ClientNodeComponent.xml" />
         <s:Include File="Components\ClientNodeComponent.xml" />
         <s:Include File="Components\ClientNodeComponent.xml" />
         <s:Include File="Components\ClientNodeComponent.xml" />
       </c:VerticalLayout>
-     
-    </c:SwipeVerticalLayout>
+
+    </c:ScrollView>
 
   </c:VerticalLayout>
 </c:Screen>
