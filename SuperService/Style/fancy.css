@@ -38,7 +38,8 @@ TextView {
 .TopInfoLayout {
 	background-color: #4a4b5e;
 	dock-align: top;
-	height: 3sp auto;
+	height: 4sp auto;
+	padding-top: 1sp;
 	width: 100%;
 }
 
@@ -140,8 +141,8 @@ TextView {
 }
 
 .LightInfoBox {
-	margin-top: 1sp;
 	height: 5sp auto;
+	margin-top: 1sp;
 	width: 50%;
 }
 
