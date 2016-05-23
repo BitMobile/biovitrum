@@ -1,20 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<c:Screen xmlns:c="BitMobile.ClientModel3.UI">
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
-    <!--VerticalLayout для нарядов-->
-    <c:VerticalLayout Id="SlideVerticalLayout" CssClass="VL">
-      <!--<c:HorizontalLayout CssClass="HL"> -->
-      <c:Button Id="Filter" Text="Filter" />
-      <c:TextView Text="Test" />
-      <c:Button Id="Map" Text="Map" OnClick="GoToMap_OnClick"/>
-      <!--</c:HorizontalLayout>-->
-    </c:VerticalLayout>
 
-
+    <!-- Добавление верхней панели -->
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <!---->
+    
     <!--Список для нарядов-->
-    <c:SwipeVerticalLayout Id="EventList" CssClass="SWL">
-    </c:SwipeVerticalLayout>
+    <c:ScrollView Id="EventListScrollView" CssClass="SWL">
+      <c:VerticalLayout CssClass="DateContainer">
+        <c:TextView CssClass="DateText" Text="Сегодня" />
+        <c:HorizontalLine CssClass="FinalDateLine" />
+        <s:Include File="Components\EventNodeComponent.xml" />
+        <s:Include File="Components\EventNodeComponent.xml" />
+        <s:Include File="Components\EventNodeComponent.xml" />
+
+        <c:TextView CssClass="DateText" Text="Вторник, 24 мая" />
+        <c:HorizontalLine CssClass="FinalDateLine" />
+        <s:Include File="Components\EventNodeComponent.xml" />
+        <s:Include File="Components\EventNodeComponent.xml" />
+        <s:Include File="Components\EventNodeComponent.xml" />
+
+        <c:TextView CssClass="DateText" Text="Среда, 25 мая" />
+        <c:HorizontalLine CssClass="FinalDateLine" />
+        <s:Include File="Components\EventNodeComponent.xml" />
+        <s:Include File="Components\EventNodeComponent.xml" />
+        <s:Include File="Components\EventNodeComponent.xml" />
+
+        <c:TextView CssClass="DateText" Text="Четверг, 26 мая" />
+        <c:HorizontalLine CssClass="FinalDateLine" />
+        <s:Include File="Components\EventNodeComponent.xml" />
+        <s:Include File="Components\EventNodeComponent.xml" />
+        <s:Include File="Components\EventNodeComponent.xml" />
+      </c:VerticalLayout>
+    </c:ScrollView>
 
   </c:VerticalLayout>
 </c:Screen>

@@ -56,14 +56,23 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
-    <EmbeddedResource Include="Components\**" />
+    <EmbeddedResource Include="Components\EventNodeComponent.xml" />
+    <EmbeddedResource Include="Components\TopInfoComponent.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Compile Include="Controllers\**" />
     <Compile Include="Entities\**" />
     <EmbeddedResource Include="Image\**" />
     <EmbeddedResource Include="Model\metadata.xml" />
     <Compile Include="Module\**" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Screen\**" />
+    <EmbeddedResource Include="Screen\AuthScreen.xml" />
+    <EmbeddedResource Include="Screen\ClientScreen.xml" />
+    <EmbeddedResource Include="Screen\EventListScreen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Screen\EventScreen.xml" />
+    <EmbeddedResource Include="Screen\MapScreen.xml" />
     <EmbeddedResource Include="Style\**" />
     <EmbeddedResource Include="Translation\*" />
   </ItemGroup>

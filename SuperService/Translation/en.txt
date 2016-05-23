@@ -13,3 +13,5 @@ workType		Type of Work
 comment		Commentary
 onmap		View on map
 orders		Orders
+today		today
+per_month		per month

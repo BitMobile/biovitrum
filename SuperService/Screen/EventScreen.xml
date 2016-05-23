@@ -20,6 +20,8 @@
         <c:TextView Text="#comment#" CssClass="LightInfoTitle" />
         <c:TextView Id="EventCommentTextView" CssClass="LightInfoContent" />
       </c:VerticalLayout>
+      <c:HorizontalLine CssClass="LayoutBreaker" />
+      <c:TextView Visible="False" />
       <c:HorizontalLayout CssClass="InfoLayout">
         <c:Image Source="Image\es_tasks.png" CssClass="InfoImage" />
         <c:TextView Text="#tasks#" Id="TaskCounterNameTextView" CssClass="InfoTitle" />

@@ -13,3 +13,5 @@ workType		Тип Работ
 comment		Описание
 onmap		Посмотреть на карте
 orders		Наряды
+today		сегодня
+per_month		завтра
