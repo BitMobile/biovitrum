@@ -26,7 +26,7 @@ namespace Test
         private TypesDepartures _departyreType;
 
         private TopInfoComponent _topInfoComponent;
-        private bool _started = false;
+        private bool _started;
 
         public override void OnLoading()
         {
@@ -96,13 +96,6 @@ namespace Test
             _startFinishButton = (Button) GetControl("StartFinishButton", true);
         }
 
-
-        // TODO: Сделать это работать
-        internal void BackButton_OnClick(object sender, EventArgs eventArgs)
-        {
-            BusinessProcess.DoAction("EventList");
-        }
-
         internal void ClientInfoButton_OnClick(object sender, EventArgs eventArgs)
         {
             BusinessProcess.DoAction("Client");
@@ -126,9 +119,14 @@ namespace Test
             }
         }
 
-        internal void CancelButton_OnClick(object sender, EventArgs eventArgs)
+        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
             BusinessProcess.DoAction("EventList");
+        }
+
+        internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            DConsole.WriteLine("Nothing to see here");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)

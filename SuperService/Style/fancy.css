@@ -29,7 +29,7 @@ TextView {
 
 .RootLayout {
 	background-color: #ffffff;
-	height: 97%;
+	height: 100%;
 	width: 100%;
 }
 
@@ -140,10 +140,9 @@ TextView {
 }
 
 .LightInfoBox {
+	margin-top: 1sp;
 	height: 5sp auto;
-	margin-left: 5%;
-	margin-right: 5%;
-	width: 40%;
+	width: 50%;
 }
 
 .LightInfoTitle {
@@ -158,7 +157,7 @@ TextView {
 	background-color: #a4a8a9;
 	height: 0.1sp;
 	horizontal-align: center;
-	width: 80%;
+	width: 90%;
 }
 
 .CommentLayout {
