@@ -57,7 +57,19 @@
   <ItemGroup>
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
     <EmbeddedResource Include="Components\**" />
-    <Compile Include="Controllers\**" />
+    <Compile Include="Controllers\AuthScreen.cs" />
+    <Compile Include="Controllers\BagListScreen.cs" />
+    <Compile Include="Controllers\ClientListScreen.cs" />
+    <Compile Include="Controllers\ClientScreen.cs" />
+    <Compile Include="Controllers\CloseEventScreen.cs" />
+    <Compile Include="Controllers\Components\TabEventsComponent.cs" />
+    <Compile Include="Controllers\Components\TabEventsComponent.cs" />
+    <Compile Include="Controllers\Components\TopInfoComponent.cs" />
+    <Compile Include="Controllers\Components\TopInfoComponent.cs" />
+    <Compile Include="Controllers\EventListScreen.cs" />
+    <Compile Include="Controllers\EventScreen.cs" />
+    <Compile Include="Controllers\MapScreen.cs" />
+    <Compile Include="Controllers\SettingsScreen.cs" />
     <Compile Include="Entities\**" />
     <EmbeddedResource Include="Image\**" />
     <EmbeddedResource Include="Model\metadata.xml" />
