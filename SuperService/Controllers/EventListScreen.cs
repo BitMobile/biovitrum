@@ -6,11 +6,11 @@ using Test.Document;
 
 namespace Test
 {
-    public class OrderListScreen : Screen
+    public class EventListScreen : Screen
     {
         private VerticalLayout _vlSlideVerticalLayout;
-        private SwipeVerticalLayout _svlOrderList;
-        private ArrayList _ordersList;
+        private SwipeVerticalLayout _svlEventList;
+        private ArrayList _eventsList;
         private TabEventsComponent _tabEventsComponent;
 
         public override void OnLoading()
@@ -18,10 +18,10 @@ namespace Test
             _tabEventsComponent = new TabEventsComponent(this);
 
             _vlSlideVerticalLayout = (VerticalLayout)GetControl("SlideVerticalLayout", true);
-            _svlOrderList = (SwipeVerticalLayout)GetControl("OrderList", true);
+            _svlEventList = (SwipeVerticalLayout)GetControl("EventList", true);
 
-            _ordersList = GetOrdersFromDb();
-            FillingOrderList();
+            _eventsList = GetEventsFromDb();
+            FillingEventList();
         }
 
         internal void TabEventsButton_OnClick(object sender, EventArgs eventArgs)
@@ -49,19 +49,19 @@ namespace Test
         }
 
 
-        private void FillingOrderList()
+        private void FillingEventList()
         {
 
-            if (_ordersList == null)
+            if (_eventsList == null)
                 return;
 
             Button btn;
 
-            foreach (var item in _ordersList)
+            foreach (var item in _eventsList)
             {
                 btn = new Button() { Text = ((Event)item).Comment };
-                btn.OnClick += GoToOrderScreen_OnClick;
-                _svlOrderList.AddChild(btn);
+                btn.OnClick += GoToEventScreen_OnClick;
+                _svlEventList.AddChild(btn);
             }
 
         }
@@ -72,12 +72,12 @@ namespace Test
             BusinessProcess.DoAction("ViewMap");
         }
 
-        internal void GoToOrderScreen_OnClick(object sender, EventArgs e)
+        internal void GoToEventScreen_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("ViewOrder");
+            BusinessProcess.DoAction("ViewEvent");
         }
 
-        private ArrayList GetOrdersFromDb()
+        private ArrayList GetEventsFromDb()
         {
             //Получение данных из БД.
             ArrayList data = new ArrayList();

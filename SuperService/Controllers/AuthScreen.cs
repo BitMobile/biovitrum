@@ -26,38 +26,38 @@ namespace Test
 
         internal void connectButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("Auth");
+            //BusinessProcess.DoAction("Auth");
 
-            //var req = WebRequest.Create("http://bitmobile1.bt/bitmobileX/platform/device/GetClientMetadata");
-            //DConsole.WriteLine("Web Request Created");
-            ////var svcCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("sr" + ":" + "sr"));
-            //var svcCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(_loginEditText.Text + ":" + _passwordEditText.Text));
-            //req.Headers.Add("Authorization", "Basic " + svcCredentials);
-            //DConsole.WriteLine("Headers added");
+            var req = WebRequest.Create("http://bitmobile1.bt/bitmobileX/platform/device/GetClientMetadata");
+            DConsole.WriteLine("Web Request Created");
+            //var svcCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("sr" + ":" + "sr"));
+            var svcCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(_loginEditText.Text + ":" + _passwordEditText.Text));
+            req.Headers.Add("Authorization", "Basic " + svcCredentials);
+            DConsole.WriteLine("Headers added");
 
-            //WebResponse resp = null;
-            //bool flag = false;
-            //try
-            //{
-            //    resp = req.GetResponse();
-            //    flag = true;
-            //    DConsole.WriteLine("Стучимся по URL");
-            //}
-            //catch (Exception authException)
-            //{
-            //    DConsole.WriteLine("Неверный логин/пароль\n" + authException.Message);
-            //    Dialog.Message("Неверный логин/пароль\n" + authException.Message);
-            //}
-            //finally
-            //{
-            //    resp?.Dispose();
-            //}
-            //if (flag)
-            //{
-            //    DConsole.WriteLine("Вход выполнен");
-            //    Dialog.Message("Вход выполнен");
-            //    BusinessProcess.DoAction("Auth");
-            //}
+            WebResponse resp = null;
+            bool flag = false;
+            try
+            {
+                resp = req.GetResponse();
+                flag = true;
+                DConsole.WriteLine("Стучимся по URL");
+            }
+            catch (Exception authException)
+            {
+                DConsole.WriteLine("Неверный логин/пароль\n" + authException.Message);
+                Dialog.Message("Неверный логин/пароль\n" + authException.Message);
+            }
+            finally
+            {
+                resp?.Dispose();
+            }
+            if (flag)
+            {
+                DConsole.WriteLine("Вход выполнен");
+                Dialog.Message("Вход выполнен");
+                BusinessProcess.DoAction("Auth");
+            }
         }
     }
 }

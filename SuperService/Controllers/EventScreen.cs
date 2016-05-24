@@ -6,7 +6,7 @@ using Test.Document;
 
 namespace Test
 {
-    public class OrderScreen : Screen
+    public class EventScreen : Screen
     {
         private TextView _contactDescriptionTextView;
         private TextView _contactAddressTextView;
@@ -17,8 +17,8 @@ namespace Test
         private TextView _departureTypeTextView;
         private Button _startButton;
 
-        private Event _currentOrder;
-        private Client _orderClient;
+        private Event _currentEvent;
+        private Client _eventClient;
         private TypesDepartures _departyreType;
 
         public override void OnLoading()
@@ -34,17 +34,17 @@ namespace Test
             _startButton = (Button) GetControl("StartButton", true);
  
             DConsole.WriteLine("Loading model info");
-            _currentOrder = GetCurrentOrder();
-            _orderClient = GetOrderClient();
+            _currentEvent = GetCurrentEvent();
+            _eventClient = GetEventClient();
             _departyreType = GetDepartureType();
 
             DConsole.WriteLine("Writing info to controls");
-            _contactDescriptionTextView.Text = _orderClient.Description;
-            _contactAddressTextView.Text = _orderClient.Address;
+            _contactDescriptionTextView.Text = _eventClient.Description;
+            _contactAddressTextView.Text = _eventClient.Address;
             _taskCounterTextView.Text = $"{GetTaskNumberDone()}/{GetTaskNumber()}";
             _cocTextView.Text = $"{GetCertificateOfCompletion()}";
             _checkListCounterTextView.Text = $"{GetCheckListDone()}/{GetCheckListNumber()}";
-            _startTimeTextView.Text = $"{_currentOrder.StartDatePlan}";
+            _startTimeTextView.Text = $"{_currentEvent.StartDatePlan}";
             _departureTypeTextView.Text = $"{_departyreType.Description}";
         }
 
@@ -52,7 +52,7 @@ namespace Test
         // TODO: Сделать это работать
         internal void BackButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("OrderList");
+            BusinessProcess.DoAction("EventList");
         }
 
         internal void ClientInfoButton_OnClick(object sender, EventArgs eventArgs)
@@ -67,12 +67,12 @@ namespace Test
 
         internal void CancelButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("OrderList");
+            BusinessProcess.DoAction("EventList");
         }
 
 
         // TODO: Работа с базой данных
-        private Event GetCurrentOrder()
+        private Event GetCurrentEvent()
         {
             return new Event
             {
@@ -119,7 +119,7 @@ namespace Test
             return true;
         }
 
-        private Client GetOrderClient()
+        private Client GetEventClient()
         {
             return new Client
             {

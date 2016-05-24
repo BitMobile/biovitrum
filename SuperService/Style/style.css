@@ -104,7 +104,9 @@ TextView {
     background-color: #ffffff;
     text-align: center;
     color: #fd724c;
-}.TabTextViewNotActive {
+}
+
+.TabTextViewNotActive {
     background-color: #ffffff;
     text-align: center;
     color: #9b9fa0;

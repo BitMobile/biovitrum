@@ -4,29 +4,24 @@
   <c:HorizontalLayout CssClass="TabBarHL">
     
     <c:VerticalLayout CssClass="TabBarVL" Id ="VLEvents" OnClick="TabEventsButton_OnClick">
-      <c:Image CssClass="TabImage" Source="Image\orders.png" Id ="ImgEvents"/>
-      <c:TextView Text="Наряды" CssClass="TabTextViewActive"/>
+      <c:Image CssClass="TabImage" Source="Image\Events.png" Id ="ImgEvents"/>
+      <c:TextView Text="Наряды" CssClass="TabTextViewNotActive" Id ="TextViewEvents"/>
     </c:VerticalLayout>
     
     <c:VerticalLayout CssClass="TabBarVL" Id ="VLBag" OnClick="TabBagButton_OnClick">
-      <c:Image CssClass="TabImage" Source="Image\bag.png" Id ="ImgBag"/>
-      <c:TextView Text="Рюкзак" CssClass="TabTextViewNotActive"/>
+      <c:Image CssClass="TabImage" Source="Image\Bag.png" Id ="ImgBag"/>
+      <c:TextView Text="Рюкзак" CssClass="TabTextViewNotActive" Id ="TextViewBag"/>
     </c:VerticalLayout>
     
     <c:VerticalLayout CssClass="TabBarVL" Id ="VLClients" OnClick="TabClientsButton_OnClick">
-      <c:Image CssClass="TabImage" Source="Image\clients.png" Id ="ImgClients"/>
-      <c:TextView Text="Клиенты" CssClass="TabTextViewNotActive"/>
+      <c:Image CssClass="TabImage" Source="Image\Clients.png" Id ="ImgClients"/>
+      <c:TextView Text="Клиенты" CssClass="TabTextViewNotActive" Id ="TextViewClients"/>
     </c:VerticalLayout>
     
     <c:VerticalLayout CssClass="TabBarVL" Id ="VLSettings" OnClick="TabSettingsButton_OnClick">
-      <c:Image CssClass="TabImage" Source="Image\settings.png" Id ="ImgSettings"/>
-      <c:TextView Text="Настройки" CssClass="TabTextViewNotActive"/>
+      <c:Image CssClass="TabImage" Source="Image\Settings.png" Id ="ImgSettings"/>
+      <c:TextView Text="Настройки" CssClass="TabTextViewNotActive" Id ="TextViewSettings"/>
     </c:VerticalLayout>
     
-    <!--<c:Button Id="eventsTabButton" Text="Наряды" OnClick="eventsTabButton_OnClick" CssClass = "TabBarButton"/>
-    <c:Button Id="bagTabButton" Text="Рюкзак" OnClick="bagTabButton_OnClick" CssClass = "TabBarButton"/>
-    <c:Button Id="clientsTabButton" Text="Клиенты" OnClick="clientsTabButton_OnClick" CssClass = "TabBarButton"/>
-    <c:Button Id="settingsTabButton" Text="Настройки" OnClick="settingsTabButton_OnClick" CssClass = "TabBarButton"/>-->
   </c:HorizontalLayout>
-  <!--наряды рюкзак клиенты настройки-->
 </c:Component>

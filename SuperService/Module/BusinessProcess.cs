@@ -12,9 +12,9 @@ namespace Test
     public static class BusinessProcess
     {
         private static XmlDocument _doc;
-
-//        private static readonly Stack StackNodes = new Stack();
-//        private static readonly Stack StackScreens = new Stack();
+        
+        //private static readonly Stack StackNodes = new Stack();
+        //private static readonly Stack StackScreens = new Stack();
 
         public static XmlNode CurrentNode { get; private set; }
         public static Screen CurrentScreen { get; private set; }
@@ -40,9 +40,9 @@ namespace Test
 
             DConsole.WriteLine($"Loading controler: ${stepController}");
             var scr = GetScreenByControllerName(stepController);
-
-//            StackScreens.Push(scr);
-//            StackNodes.Push(n);
+            
+            //StackScreens.Push(scr);
+            //StackNodes.Push(n);
 
             CurrentScreen = scr;
             CurrentNode = n;
@@ -54,7 +54,7 @@ namespace Test
         public static void DoAction(string actionName)
         {
             DConsole.WriteLine($"Doing action: {actionName}");
-            //          var currentNode = StackNodes.peek();
+            //var currentNode = StackNodes.peek();
             var n = CurrentNode.SelectSingleNode($"Action[@Name='{actionName}']");
             var stepName = n.Attributes["NextStep"].Value;
             MoveTo(stepName);
