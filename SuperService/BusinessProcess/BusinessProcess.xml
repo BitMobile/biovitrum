@@ -50,7 +50,7 @@
       <Action Name="ViewTasks" NextStep="TaskList"></Action>
     </Step>
 
-    <Step Name="TaskList" Controller="TaskListScreen" StyleSheet="Style\style.css">
+    <Step Name="TaskList" Controller="TaskListScreen" StyleSheet="Style\fancy_taskList.css">
       <Action Name="BackToEvent" NextStep="Event"></Action>
     </Step>
 

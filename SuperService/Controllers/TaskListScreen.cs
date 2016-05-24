@@ -18,27 +18,31 @@ namespace Test
             {
                 new Dictionary<string, object>
                 {
-                    {"Id", "1" },
+                    {"Id", "1"},
                     {"Name", "Ремонт"},
-                    {"Comment", "Маршрутизатор"}
+                    {"Comment", "Маршрутизатор"},
+                    {"Done", "False"}
                 },
                 new Dictionary<string, object>
                 {
-                    {"Id", "2" },
+                    {"Id", "2"},
                     {"Name", "Монтаж"},
-                    {"Comment", "Сервер"}
+                    {"Comment", "Сервер"},
+                    {"Done", "False"}
                 },
                 new Dictionary<string, object>
                 {
-                    {"Id", "3" },
+                    {"Id", "3"},
                     {"Name", "Настройка"},
-                    {"Comment", "Роутер"}
+                    {"Comment", "Роутер"},
+                    {"Done", "False"}
                 },
                 new Dictionary<string, object>
                 {
-                    {"Id", "4" },
+                    {"Id", "4"},
                     {"Name", "Монтаж"},
-                    {"Comment", "Сервер"}
+                    {"Comment", "Сервер"},
+                    {"Done", "False"}
                 }
             };
         }
