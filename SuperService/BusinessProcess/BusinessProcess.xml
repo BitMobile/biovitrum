@@ -47,6 +47,11 @@
       <Action Name="EventList" NextStep="EventList"></Action>
       <Action Name="Client" NextStep="Client"></Action>
       <Action Name="CloseEvent" NextStep="CloseEvent"></Action>
+      <Action Name="ViewTasks" NextStep="TaskList"></Action>
+    </Step>
+
+    <Step Name="TaskList" Controller="TaskListScreen" StyleSheet="Style\style.css">
+      <Action Name="BackToEvent" NextStep="Event"></Action>
     </Step>
 
     <Step Name="Client" Controller="ClientScreen" StyleSheet="Style\style.css">

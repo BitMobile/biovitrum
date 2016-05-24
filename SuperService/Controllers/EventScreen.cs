@@ -112,6 +112,10 @@ namespace Test
             _rootLayout.Refresh();
         }
 
+        internal void TaskCounterLayout_OnClick(object sender, EventArgs eventArgs)
+        {
+            BusinessProcess.DoAction("ViewTasks");
+        }
 
         internal DbRecordset GetCurrentEvent()
         {
