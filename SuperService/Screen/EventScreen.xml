@@ -26,7 +26,8 @@
       <c:HorizontalLayout CssClass="InfoLayout">
         <c:Image Source="Image\es_tasks.png" CssClass="InfoImage" />
         <c:TextView Text="#tasks#" Id="TaskCounterNameTextView" CssClass="InfoTitle" />
-        <c:TextView Text="$GetStringPartOfTotal($event.equipmentAnswered, $event.equipmentTotal)" Id="TaskCounterTextView" CssClass="InfoContent" />
+        <c:TextView Text="$GetStringPartOfTotal($event.equipmentAnswered, $event.equipmentTotal)"
+                    Id="TaskCounterTextView" CssClass="InfoContent" />
       </c:HorizontalLayout>
       <c:HorizontalLayout CssClass="InfoLayout">
         <c:Image Source="Image\es_coc.png" CssClass="InfoImage" />
@@ -36,7 +37,8 @@
       <c:HorizontalLayout CssClass="InfoLayout">
         <c:Image Source="Image\es_clist.png" CssClass="InfoImage" />
         <c:TextView Text="#clist#" Id="CheckListCounterNameTextView" CssClass="InfoTitle" />
-        <c:TextView Text="$GetStringPartOfTotal($event.checkListAnswered, $event.checkListTotal)" Id="CheckListCounterTextView" CssClass="InfoContent" />
+        <c:TextView Text="$GetStringPartOfTotal($event.checkListAnswered, $event.checkListTotal)"
+                    Id="CheckListCounterTextView" CssClass="InfoContent" />
       </c:HorizontalLayout>
     </c:SwipeVerticalLayout>
   </c:DockLayout>

@@ -2,11 +2,11 @@
 
 <BusinessProcess>
   <Workflow Name="Main">
-    
+
     <Step Name="Authorization" Controller="AuthScreen" StyleSheet="Style\style.css">
       <Action Name="Auth" NextStep="EventList"></Action>
     </Step>
-    
+
     <Step Name="Map" Controller="MapScreen" StyleSheet="Style\style.css">
       <Action Name="BackToEventList" NextStep="EventList" />
     </Step>
@@ -46,10 +46,15 @@
     <Step Name="Event" Controller="EventScreen" StyleSheet="Style\fancy.css">
       <Action Name="EventList" NextStep="EventList"></Action>
       <Action Name="Client" NextStep="Client"></Action>
+      <Action Name="CloseEvent" NextStep="CloseEvent"></Action>
     </Step>
 
     <Step Name="Client" Controller="ClientScreen" StyleSheet="Style\style.css">
       <Action Name="ClientList" NextStep="ClientList"></Action>
+    </Step>
+
+    <Step Name="CloseEvent" Controller="CloseEventScreen" StyleSheet="Style\fancy_closeeventscreen.css">
+      <Action Name="FinishEvent" NextStep="EventList"></Action>
     </Step>
   </Workflow>
 </BusinessProcess>

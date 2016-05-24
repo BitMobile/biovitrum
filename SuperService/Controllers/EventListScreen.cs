@@ -14,7 +14,6 @@ namespace Test
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("1");
             _vlSlideVerticalLayout = (VerticalLayout)GetControl("SlideVerticalLayout", true);
             _svlEventList = (SwipeVerticalLayout)GetControl("EventList", true);
             _eventsList = GetEventsFromDb();
@@ -33,23 +32,24 @@ namespace Test
 
             foreach (var item in _eventsList)
             {
-
-                btn = new Button() { Text = ((Event)item).Comment };
+                btn = new Button()
+                {
+                    Text = ((EventListElement)item).ClientDescription,
+                    Id = ((EventListElement) item).Id
+                };
                 btn.OnClick += GoToEventScreen_OnClick;
                 _svlEventList.AddChild(btn);
             }
-            DConsole.WriteLine("2");
-
         }
 
         internal void GoToMap_OnClick(object sender, EventArgs e)
         {
-            DConsole.WriteLine("GO to map");
             BusinessProcess.DoAction("ViewMap");
         }
 
         internal void GoToEventScreen_OnClick(object sender, EventArgs e)
         {
+            BusinessProcess.GlobalVariables["currentEventId"] = ((Button)sender).Id;
             BusinessProcess.DoAction("ViewEvent");
         }
 

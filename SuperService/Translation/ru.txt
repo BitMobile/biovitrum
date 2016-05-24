@@ -12,3 +12,10 @@ time		Время
 workType		Тип Работ
 comment		Описание
 onmap		Посмотреть на карте
+closeeventquestion		Закрыть наряд?
+yes		Да
+no		Нет
+finishing		Завершение
+comment...		Комментарий...
+wanttobuy		Желание покупки
+thereisaproblem		Возникла проблема
