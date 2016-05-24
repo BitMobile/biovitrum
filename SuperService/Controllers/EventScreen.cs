@@ -1,6 +1,7 @@
 ﻿using System;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using Test.Components;
 
 namespace Test
 {

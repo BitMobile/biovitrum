@@ -29,9 +29,7 @@ namespace Test
             DConsole.WriteLine("Loaded BP.xml");
             var firstStepName = _doc.DocumentElement.ChildNodes[0].ChildNodes[0].Attributes["Name"].Value;
             MoveTo(firstStepName);
-            //var firstStepName = _doc.DocumentElement.ChildNodes[0].ChildNodes[0].Attributes["Name"].Value;
-            //MoveTo(firstStepName);
-            MoveTo("CloseEvent");
+//            MoveTo("CloseEvent");
         }
 
         private static void MoveTo(string stepName)

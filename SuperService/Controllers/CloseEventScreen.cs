@@ -1,5 +1,4 @@
 ﻿using System;
-using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 
 namespace Test
@@ -9,11 +8,11 @@ namespace Test
         private bool _problem;
         private HorizontalLayout _problemButton;
         private VerticalLayout _problemCommentLayout;
+        private Image _problemImage;
         private bool _wantToBuy;
         private HorizontalLayout _wantToBuyButton;
         private VerticalLayout _wantToBuyCommentLayout;
         private Image _wantToBuyImage;
-        private Image _problemImage;
 
         public override void OnLoading()
         {
@@ -30,17 +29,20 @@ namespace Test
         {
             if (!_wantToBuy)
             {
-                UpdateButtonCSS(_wantToBuyButton, _wantToBuyCommentLayout, _wantToBuyImage, "BigButtonPressed", "CommentLayout", "Pokupka_Selected.png");
+                UpdateButtonCSS(_wantToBuyButton, _wantToBuyCommentLayout, _wantToBuyImage, "BigButtonPressed",
+                    "CommentLayout", "Pokupka_Selected.png");
                 _wantToBuy = true;
             }
             else
             {
-                UpdateButtonCSS(_wantToBuyButton, _wantToBuyCommentLayout, _wantToBuyImage, "BigButton", "NoHeight", "Pokupka.png");
+                UpdateButtonCSS(_wantToBuyButton, _wantToBuyCommentLayout, _wantToBuyImage, "BigButton", "NoHeight",
+                    "Pokupka.png");
                 _wantToBuy = false;
             }
         }
 
-        private void UpdateButtonCSS(HorizontalLayout buttonLayout, VerticalLayout commentLayout, Image image, string buttonCSS,
+        private void UpdateButtonCSS(HorizontalLayout buttonLayout, VerticalLayout commentLayout, Image image,
+            string buttonCSS,
             string commentCSS, string name)
         {
             buttonLayout.CssClass = buttonCSS;
@@ -56,12 +58,14 @@ namespace Test
         {
             if (!_problem)
             {
-                UpdateButtonCSS(_problemButton, _problemCommentLayout, _problemImage, "BigButtonPressed", "CommentLayout", "Problema_Selected.png");
+                UpdateButtonCSS(_problemButton, _problemCommentLayout, _problemImage, "BigButtonPressed",
+                    "CommentLayout", "Problema_Selected.png");
                 _problem = true;
             }
             else
             {
-                UpdateButtonCSS(_problemButton, _problemCommentLayout, _problemImage, "BigButton", "NoHeight", "Problema.png");
+                UpdateButtonCSS(_problemButton, _problemCommentLayout, _problemImage, "BigButton", "NoHeight",
+                    "Problema.png");
                 _problem = false;
             }
         }

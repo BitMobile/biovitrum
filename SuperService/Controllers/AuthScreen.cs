@@ -27,7 +27,6 @@ namespace Test
         internal void connectButton_OnClick(object sender, EventArgs e)
         {
             //BusinessProcess.DoAction("Auth");
-
             var req = WebRequest.Create("http://bitmobile1.bt/bitmobileX/platform/device/GetClientMetadata");
             DConsole.WriteLine("Web Request Created");
             //var svcCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("sr" + ":" + "sr"));

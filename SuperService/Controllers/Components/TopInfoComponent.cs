@@ -1,7 +1,7 @@
 ﻿using System;
 using BitMobile.ClientModel3.UI;
 
-namespace Test
+namespace Test.Components
 {
     public class TopInfoComponent
     {

@@ -20,3 +20,7 @@ comment...		Commentary...
 wanttobuy		Want to buy
 thereisaproblem		I have a problem
 send		Send
+orders		Orders
+bag		Bag
+clients		Clients
+settings		Settings

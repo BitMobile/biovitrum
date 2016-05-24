@@ -3,6 +3,7 @@ using System.Net;
 using System.Text;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using Test.Components;
 
 namespace Test
 {

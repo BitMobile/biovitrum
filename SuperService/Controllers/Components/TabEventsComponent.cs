@@ -2,12 +2,12 @@
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 
-namespace Test
+namespace Test.Components
 {
     public class TabEventsComponent
     {
-        private Screen _parentScreen;
-        public TextView _textView;
+        private readonly Screen _parentScreen;
+        private TextView _textView;
         private Image _image;
 
         public TabEventsComponent(Screen parentScreen)
