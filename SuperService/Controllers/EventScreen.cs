@@ -8,51 +8,92 @@ namespace Test
 {
     public class EventScreen : Screen
     {
-        private TextView _contactDescriptionTextView;
-        private TextView _contactAddressTextView;
-        private TextView _taskCounterTextView;
-        private TextView _cocTextView;
         private TextView _checkListCounterTextView;
-        private TextView _startTimeTextView;
-        private TextView _departureTypeTextView;
-        private Button _startButton;
+        private TextView _cocTextView;
 
-        private Event _currentEvent;
-        private Client _eventClient;
+        private Event _currentOrder;
+        private TextView _departureTypeTextView;
         private TypesDepartures _departyreType;
+
+        private TextView _eventCommentTextView;
+        private Client _orderClient;
+        private DockLayout _rootLayout;
+        private bool _started;
+
+        private Button _startFinishButton;
+
+        private TextView _startTimeTextView;
+
+        private TextView _taskCounterTextView;
+
+        private TopInfoComponent _topInfoComponent;
+        private DbRecordset _currentEventRecordset;
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("Loading controls");
-            _contactDescriptionTextView = (TextView) GetControl("ContactDescriptionTextView", true);
-            _contactAddressTextView = (TextView) GetControl("ContactAddressTextView", true);
+            _topInfoComponent = new TopInfoComponent(this);
+
+            LoadControls();
+            LoadModelInfo();
+            FillControls();
+        }
+
+        private void FillControls()
+        {
+//            _taskCounterTextView.Text = $"{GetTaskNumberDone()}/{GetTaskNumber()}";
+//            _cocTextView.Text = $"{GetCertificateOfCompletion()}";
+//            _checkListCounterTextView.Text = $"{GetCheckListDone()}/{GetCheckListNumber()}";
+//            _startTimeTextView.Text = $"{_currentOrder.StartDatePlan.ToShortTimeString()}";
+//            _departureTypeTextView.Text = $"{_departyreType.Description}";
+//            _eventCommentTextView.Text = $"{_currentOrder.Comment}";
+
+            _topInfoComponent.HeadingTextView.Text = (string) _currentEventRecordset["clientDescription"];
+            _topInfoComponent.CommentTextView.Text = (string) _currentEventRecordset["clientAddress"];
+            _topInfoComponent.LeftButtonImage.Source = @"Image\top_back.png";
+            _topInfoComponent.RightButtonImage.Source = @"Image\top_info.png";
+
+            _topInfoComponent.LeftExtraLayout.AddChild(new Image
+            {
+                CssClass = "TopInfoSideImage",
+                Source = @"Image\top_map.png"
+            });
+            _topInfoComponent.LeftExtraLayout.AddChild(new TextView
+            {
+                Text = Translator.Translate("onmap"),
+                CssClass = "TopInfoSideText"
+            });
+
+            _topInfoComponent.RightExtraLayout.AddChild(new Image
+            {
+                CssClass = "TopInfoSideImage",
+                Source = @"Image\top_person.png"
+            });
+            _topInfoComponent.RightExtraLayout.AddChild(new TextView
+            {
+                Text = (string) _currentEventRecordset["clientDescription"],
+                CssClass = "TopInfoSideText"
+            });
+        }
+
+        private void LoadModelInfo()
+        {
+            _currentOrder = GetCurrentOrder();
+            _orderClient = GetOrderClient();
+            _departyreType = GetDepartureType();
+        }
+
+        private void LoadControls()
+        {
+            _rootLayout = (DockLayout) GetControl("RootLayout");
+
             _taskCounterTextView = (TextView) GetControl("TaskCounterTextView", true);
             _cocTextView = (TextView) GetControl("CertificateOfCompletionTextView", true);
             _checkListCounterTextView = (TextView) GetControl("CheckListCounterTextView", true);
             _startTimeTextView = (TextView) GetControl("StartTimeTextView", true);
             _departureTypeTextView = (TextView) GetControl("DepartureTypeTextView", true);
-            _startButton = (Button) GetControl("StartButton", true);
- 
-            DConsole.WriteLine("Loading model info");
-            _currentEvent = GetCurrentEvent();
-            _eventClient = GetEventClient();
-            _departyreType = GetDepartureType();
+            _eventCommentTextView = (TextView) GetControl("EventCommentTextView", true);
 
-            DConsole.WriteLine("Writing info to controls");
-            _contactDescriptionTextView.Text = _eventClient.Description;
-            _contactAddressTextView.Text = _eventClient.Address;
-            _taskCounterTextView.Text = $"{GetTaskNumberDone()}/{GetTaskNumber()}";
-            _cocTextView.Text = $"{GetCertificateOfCompletion()}";
-            _checkListCounterTextView.Text = $"{GetCheckListDone()}/{GetCheckListNumber()}";
-            _startTimeTextView.Text = $"{_currentEvent.StartDatePlan}";
-            _departureTypeTextView.Text = $"{_departyreType.Description}";
-        }
-
-
-        // TODO: Сделать это работать
-        internal void BackButton_OnClick(object sender, EventArgs eventArgs)
-        {
-            BusinessProcess.DoAction("EventList");
+            _startFinishButton = (Button) GetControl("StartFinishButton", true);
         }
 
         internal void ClientInfoButton_OnClick(object sender, EventArgs eventArgs)
@@ -60,19 +101,54 @@ namespace Test
             BusinessProcess.DoAction("Client");
         }
 
-        internal void StartButton_OnClick(object sender, EventArgs eventArgs)
+        internal void StartFinishButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _startButton.Text = Translator.Translate("finish");
+            if (!_started)
+            {
+                _startFinishButton.CssClass = "FinishButton";
+                _startFinishButton.Refresh();
+                _startFinishButton.Text = Translator.Translate("finish");
+                _started = true;
+            }
+            else
+            {
+                _startFinishButton.CssClass = "StartButton";
+                _startFinishButton.Refresh();
+                _startFinishButton.Text = Translator.Translate("start");
+                _started = false;
+            }
         }
 
-        internal void CancelButton_OnClick(object sender, EventArgs eventArgs)
+        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
             BusinessProcess.DoAction("EventList");
         }
 
+        internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            DConsole.WriteLine("Nothing to see here");
+        }
+
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
+        {
+            _topInfoComponent.Arrow_OnClick(sender, eventArgs);
+            _rootLayout.Refresh();
+        }
+
+
+        internal DbRecordset GetCurrentEvent()
+        {
+            object eventId;
+            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
+            {
+                eventId = "@ref[Document_Event]:6422e731-149a-11e6-80e3-005056011152";
+            }
+            _currentEventRecordset = DBHelper.GetEventByID((string) eventId);
+            return _currentEventRecordset;
+        }
 
         // TODO: Работа с базой данных
-        private Event GetCurrentEvent()
+        private Event GetCurrentOrder()
         {
             return new Event
             {
@@ -81,9 +157,14 @@ namespace Test
             };
         }
 
+        internal string GetStringPartOfTotal(int part, int total)
+        {
+            return $"{part}/{total}" == "/" ? "0/0" : $"{part}/{total}";
+        }
+
         private TypesDepartures GetDepartureType()
         {
-            return new TypesDepartures()
+            return new TypesDepartures
             {
                 Description = "Монтаж"
             };
@@ -119,7 +200,7 @@ namespace Test
             return true;
         }
 
-        private Client GetEventClient()
+        private Client GetOrderClient()
         {
             return new Client
             {

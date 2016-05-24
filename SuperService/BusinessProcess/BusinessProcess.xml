@@ -22,6 +22,7 @@
     </Step>
     <Step Name="Bag" Controller="BagListScreen" StyleSheet="Style\style.css">
       <Action Name="EventList" NextStep="EventList"></Action>
+
       <!--      <Action Name="Bag" NextStep="Bag"></Action>-->
       <Action Name="Settings" NextStep="Settings"></Action>
       <Action Name="ClientList" NextStep="ClientList"></Action>
@@ -42,7 +43,7 @@
       <Action Name="Logout" NextStep="Authorization"></Action>
     </Step>
     <!-- / MAIN SCREENS -->
-    <Step Name="Event" Controller="EventScreen" StyleSheet="Style\style.css">
+    <Step Name="Event" Controller="EventScreen" StyleSheet="Style\fancy.css">
       <Action Name="EventList" NextStep="EventList"></Action>
       <Action Name="Client" NextStep="Client"></Action>
     </Step>
