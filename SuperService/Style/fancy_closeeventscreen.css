@@ -65,9 +65,10 @@ TextView {
 }
 
 .CommentLayout {
+	height: 4sp auto;
 	horizontal-align: center;
 	width: 90%;
-	height: 4sp auto;
+	margin-top: 3sp;
 }
 
 .Comment {
@@ -75,10 +76,10 @@ TextView {
 	color: #ffffff;
 	height: 4sp auto;
 	margin-bottom: 0.5sp;
-	placeholder-color: #a2a2aa;
-	width: 100%;
 	padding-left: 3sp;
 	padding-right: 3sp;
+	placeholder-color: #a2a2aa;
+	width: 100%;
 }
 
 .CommentEndLine {
@@ -87,6 +88,32 @@ TextView {
 	width: 100%;
 }
 
-.BigButtonLayout {
+.BigButton {
 	background-color: #fd724c;
+	height: 12sp;
+	width: 90%;
+	horizontal-align: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #b84f33;
+	margin-top: 2sp;
+}
+
+.BigButtonPressed {
+	background-color: #b75439;
+	height: 12sp;
+	width: 90%;
+	horizontal-align: center;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #732611;
+	margin-top: 2sp;
+}
+
+.BigButtonTextView {
+	color: #ffffff;
+	font: 3sp arial;
+	margin-left: 5sp;
+	vertical-align: center;
+	width: 60% auto;
 }

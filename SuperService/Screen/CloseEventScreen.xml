@@ -13,11 +13,19 @@
       <c:HorizontalLine CssClass="CommentEndLine" />
     </c:VerticalLayout>
     <c:HorizontalLayout CssClass="EmptySpace4sp" />
-    <c:HorizontalLayout Id="WantToBuyButton" CssClass="BigButtonLayout" OnClick="WantToBuyButton_OnClick">
+    <c:HorizontalLayout Id="WantToBuyButton" CssClass="BigButton" OnClick="WantToBuyButton_OnClick">
       <c:TextView Text="#wanttobuy#" CssClass="BigButtonTextView" />
     </c:HorizontalLayout>
-    <c:MemoEdit Placeholder="#comment...#" Id="WantToBuyCommentMemoEdit" />
-    <c:Button Text="#thereisaproblem#" Id="ProblemButton" OnClick="ProblemButton_OnClick" />
-    <c:MemoEdit Placeholder="#comment...#" Id="ProblemCommentMemoEdit" />
+    <c:VerticalLayout Id="WantToBuyCommentLayout" CssClass="NoHeight">
+      <c:MemoEdit Placeholder="#comment...#" Id="WantToBuyCommentMemoEdit" CssClass="Comment" />
+      <c:HorizontalLine CssClass="CommentEndLine" />
+    </c:VerticalLayout>
+    <c:HorizontalLayout Id="ProblemButton" CssClass="BigButton" OnClick="ProblemButton_OnClick">
+      <c:TextView Text="#thereisaproblem#" CssClass="BigButtonTextView" />
+    </c:HorizontalLayout>
+    <c:VerticalLayout Id="ProblemCommentLayout" CssClass="NoHeight">
+      <c:MemoEdit Placeholder="#comment...#" Id="ProblemCommentMemoEdit" CssClass="Comment" />
+      <c:HorizontalLine CssClass="CommentEndLine" />
+    </c:VerticalLayout>
   </c:VerticalLayout>
 </c:Screen>
