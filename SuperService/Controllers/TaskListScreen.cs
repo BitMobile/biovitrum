@@ -1,9 +1,46 @@
-﻿using BitMobile.ClientModel3.UI;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using BitMobile.ClientModel3.UI;
 
 namespace Test
 {
     public class TaskListScreen : Screen
     {
-        
+        internal void BackButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            BusinessProcess.DoAction("BackToEvent");
+        }
+
+        internal IEnumerable GetTasks()
+        {
+            return new ArrayList
+            {
+                new Dictionary<string, object>
+                {
+                    {"Id", "1" },
+                    {"Name", "Ремонт"},
+                    {"Comment", "Маршрутизатор"}
+                },
+                new Dictionary<string, object>
+                {
+                    {"Id", "2" },
+                    {"Name", "Монтаж"},
+                    {"Comment", "Сервер"}
+                },
+                new Dictionary<string, object>
+                {
+                    {"Id", "3" },
+                    {"Name", "Настройка"},
+                    {"Comment", "Роутер"}
+                },
+                new Dictionary<string, object>
+                {
+                    {"Id", "4" },
+                    {"Name", "Монтаж"},
+                    {"Comment", "Сервер"}
+                }
+            };
+        }
     }
 }

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:VerticalLayout CssClass="RootLayout">
+    <c:Button Text="#back#" Id="BackButton" OnClick="BackButton_OnClick" />
+    <c:TextView Text="#tasks#" Id="HeadingTextView" />
+    <s:Iterator Id="task" Value="$GetTasks()">
+      <c:TextView Text="$task.Name" />
+      <c:TextView Text="$task.Thing" />
+    </s:Iterator>
+  </c:VerticalLayout>
+</c:Screen>

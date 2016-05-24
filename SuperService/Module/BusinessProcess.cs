@@ -27,9 +27,9 @@ namespace Test
             _doc = new XmlDocument();
             _doc.Load(Application.GetResourceStream("BusinessProcess.BusinessProcess.xml"));
             DConsole.WriteLine("Loaded BP.xml");
-            var firstStepName = _doc.DocumentElement.ChildNodes[0].ChildNodes[0].Attributes["Name"].Value;
-            MoveTo(firstStepName);
-//            MoveTo("CloseEvent");
+//            var firstStepName = _doc.DocumentElement.ChildNodes[0].ChildNodes[0].Attributes["Name"].Value;
+//            MoveTo(firstStepName);
+            MoveTo("TaskList");
         }
 
         private static void MoveTo(string stepName)

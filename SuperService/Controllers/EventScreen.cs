@@ -122,7 +122,9 @@ namespace Test
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
             {
+#if DEBUG
                 eventId = "@ref[Document_Event]:6422e731-149a-11e6-80e3-005056011152";
+#endif
             }
             _currentEventRecordset = DBHelper.GetEventByID((string) eventId);
             return _currentEventRecordset;
