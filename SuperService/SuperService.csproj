@@ -101,9 +101,22 @@
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
     <EmbeddedResource Include="Model\metadata.xml" />
     <EmbeddedResource Include="Style\style.css" />
+    <Compile Include="Module\**" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Screen\**" />
+    <EmbeddedResource Include="Style\**" />
+    <EmbeddedResource Include="Translation\*" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Screen\AuthScreen.xml" />
+    <EmbeddedResource Include="Image\Bag.png" />
+    <EmbeddedResource Include="Image\BagActive.png" />
+    <EmbeddedResource Include="Image\Clients.png" />
+    <EmbeddedResource Include="Image\ClientsActive.png" />
+    <EmbeddedResource Include="Image\Events.png" />
+    <EmbeddedResource Include="Image\EventsActive.png" />
+    <EmbeddedResource Include="Image\Settings.png" />
+    <EmbeddedResource Include="Image\SettingsActive.png" />
     <EmbeddedResource Include="Screen\MapScreen.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

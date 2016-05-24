@@ -13,49 +13,10 @@ namespace Test
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("Onloading Init");
-            DConsole.WriteLine("Loading controls");
+            DConsole.WriteLine("AuthScreen init");
 
             _loginEditText = (EditText)GetControl("loginEditText", true);
             _passwordEditText = (EditText)GetControl("passwordEditText", true);
-            //Initialize();
-        }
-
-        void Initialize()
-        {
-            DConsole.WriteLine("Init begin");
-
-            //var vl = new VerticalLayout
-            //{
-            //    CssClass = "RootLayout"
-            //};
-
-            //_loginEditText = new EditText()
-            //{
-            //    Placeholder = "Введите логин",
-            //    CssClass = "loginEditText"
-            //};
-
-            //_passwordEditText = new EditText()
-            //{
-            //    CssClass = "passwordEditText",
-            //    Placeholder = "Введите пароль"
-            //};
-            //Button ConnectButton = new Button("Подключиться", ConnectButton_OnClick)
-            //{
-            //    CssClass = "ConnectButton"
-            //};
-            //Button ExitButton = new Button("Выход", ExitButton_OnClick)
-            //{
-            //    CssClass = "ExitButton"
-            //};
-
-            //vl.AddChild(_loginEditText);
-            //vl.AddChild(_passwordEditText);
-            //vl.AddChild(ConnectButton);
-            //vl.AddChild(ExitButton);
-
-            //AddChild(vl);
         }
 
         internal void exitButton_OnClick(object sender, EventArgs e)
@@ -66,6 +27,7 @@ namespace Test
         internal void connectButton_OnClick(object sender, EventArgs e)
         {
             //BusinessProcess.DoAction("Auth");
+
             var req = WebRequest.Create("http://bitmobile1.bt/bitmobileX/platform/device/GetClientMetadata");
             DConsole.WriteLine("Web Request Created");
             //var svcCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("sr" + ":" + "sr"));
@@ -81,10 +43,10 @@ namespace Test
                 flag = true;
                 DConsole.WriteLine("Стучимся по URL");
             }
-            catch (Exception AuthException)
+            catch (Exception authException)
             {
-                DConsole.WriteLine("Неверный логин/пароль\n" + AuthException.Message);
-                Dialog.Message("Неверный логин/пароль\n" + AuthException.Message);
+                DConsole.WriteLine("Неверный логин/пароль\n" + authException.Message);
+                Dialog.Message("Неверный логин/пароль\n" + authException.Message);
             }
             finally
             {
