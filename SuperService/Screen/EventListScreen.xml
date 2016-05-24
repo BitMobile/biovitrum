@@ -9,31 +9,14 @@
     
     <!--Список для нарядов-->
     <c:ScrollView Id="EventListScrollView" CssClass="SWL">
-      <c:VerticalLayout CssClass="DateContainer">
+      
+      <!--<c:VerticalLayout CssClass="DateContainer">
         <c:TextView CssClass="DateText" Text="Сегодня" />
         <c:HorizontalLine CssClass="FinalDateLine" />
         <s:Include File="Components\EventNodeComponent.xml" />
         <s:Include File="Components\EventNodeComponent.xml" />
         <s:Include File="Components\EventNodeComponent.xml" />
-
-        <c:TextView CssClass="DateText" Text="Вторник, 24 мая" />
-        <c:HorizontalLine CssClass="FinalDateLine" />
-        <s:Include File="Components\EventNodeComponent.xml" />
-        <s:Include File="Components\EventNodeComponent.xml" />
-        <s:Include File="Components\EventNodeComponent.xml" />
-
-        <c:TextView CssClass="DateText" Text="Среда, 25 мая" />
-        <c:HorizontalLine CssClass="FinalDateLine" />
-        <s:Include File="Components\EventNodeComponent.xml" />
-        <s:Include File="Components\EventNodeComponent.xml" />
-        <s:Include File="Components\EventNodeComponent.xml" />
-
-        <c:TextView CssClass="DateText" Text="Четверг, 26 мая" />
-        <c:HorizontalLine CssClass="FinalDateLine" />
-        <s:Include File="Components\EventNodeComponent.xml" />
-        <s:Include File="Components\EventNodeComponent.xml" />
-        <s:Include File="Components\EventNodeComponent.xml" />
-      </c:VerticalLayout>
+      </c:VerticalLayout>-->
     </c:ScrollView>
 
   </c:VerticalLayout>

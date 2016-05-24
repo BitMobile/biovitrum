@@ -5,13 +5,13 @@
 
     <!--Контейнер содержащий время начала и выполнения наряда -->
     <c:VerticalLayout Id="TimeLayout" CssClass="OrderTimeContainer">
-      <c:TextView Id="StartDatePlanTextView" Text="10:00" CssClass="StartDatePlane" />
+      <c:TextView Id="StartDatePlanTextView" Text="10:00" CssClass="StartDatePlan" />
       <c:TextView Id="ActualStartDateTextView" Text="1:00" CssClass="ActualStartDate" />
     </c:VerticalLayout>
 
     <!--Контейнер содержащий индикатор важности задания-->
     <c:VerticalLayout Id="ImportanceLayout" CssClass="ImportanceContainer">
-      <c:HorizontalLayout Id="ImportanceIndicatorLayout" CssClass="ImportanceIndicator" />
+      <c:HorizontalLayout Id="ImportanceIndicatorLayout" CssClass="ImportanceIndicatorCritical" />
     </c:VerticalLayout>
 
     <!--Контейнер содержащий информацию о клиенте, его адресе, типа задачи-->

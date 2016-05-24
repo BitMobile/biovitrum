@@ -29,6 +29,7 @@ namespace Test
                                   "  ifnull(TypeDeparturesTable.description, '') as TypeDeparture, " +
                                   "  event.ActualStartDate as ActualStartDate, " + //4
                                   "  Enum_StatusImportance.Description as Importance, " +
+                                  "  Enum_StatusImportance.Name as ImportanceName, " +
                                   "  ifnull(client.Description, '') as Description, " +
                                   "  ifnull(client.Address, '') as Address " +
                                   "from " +

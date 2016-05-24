@@ -246,7 +246,7 @@ TextView {
     width: 20%;
 }
 
-.StartDatePlane {
+.StartDatePlan {
     background-color: #ffffff;
     color: #000000;
     height: 60%;
@@ -272,8 +272,22 @@ TextView {
     width: 5%;
 }
 
-.ImportanceIndicator {
+.ImportanceIndicatorCritical {
     background-color: #ff0000;
+    height: 25%;
+    margin-top: 10%;
+    width: 100%;
+}
+
+.ImportanceIndicatorHigh {
+    background-color: #e79a1a;
+    height: 25%;
+    margin-top: 10%;
+    width: 100%;
+}
+
+.ImportanceIndicatorStandart {
+    background-color: #bca5a5;
     height: 25%;
     margin-top: 10%;
     width: 100%;
