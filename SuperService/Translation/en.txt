@@ -19,3 +19,4 @@ finishing		Finishing
 comment...		Commentary...
 wanttobuy		Want to buy
 thereisaproblem		I have a problem
+send		Send

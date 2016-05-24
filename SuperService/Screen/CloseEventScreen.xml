@@ -5,11 +5,17 @@
     <c:HorizontalLayout CssClass="TopLayout">
       <c:Button CssClass="TopButton" Visible="False" />
       <c:TextView Text="#finishing#" Id="HeadingTextView" CssClass="TopHeading" />
-      <c:Button Text="#finish#" Id="FinishButton" OnClick="FinishButton_OnClick" CssClass="TopButton" />
+      <c:Button Text="#send#" Id="FinishButton" OnClick="FinishButton_OnClick" CssClass="TopButton" />
     </c:HorizontalLayout>
-
-    <c:MemoEdit Placeholder="#comment...#" Id="CommentaryMemoEdit" />
-    <c:Button Text="#wanttobuy#" Id="WantToBuyButton" OnClick="WantToBuyButton_OnClick" />
+    <c:HorizontalLayout CssClass="EmptySpace4sp" />
+    <c:VerticalLayout CssClass="CommentLayout">
+      <c:MemoEdit Placeholder="#comment...#" Id="CommentaryMemoEdit" CssClass="Comment" />
+      <c:HorizontalLine CssClass="CommentEndLine" />
+    </c:VerticalLayout>
+    <c:HorizontalLayout CssClass="EmptySpace4sp" />
+    <c:HorizontalLayout Id="WantToBuyButton" CssClass="BigButtonLayout" OnClick="WantToBuyButton_OnClick">
+      <c:TextView Text="#wanttobuy#" CssClass="BigButtonTextView" />
+    </c:HorizontalLayout>
     <c:MemoEdit Placeholder="#comment...#" Id="WantToBuyCommentMemoEdit" />
     <c:Button Text="#thereisaproblem#" Id="ProblemButton" OnClick="ProblemButton_OnClick" />
     <c:MemoEdit Placeholder="#comment...#" Id="ProblemCommentMemoEdit" />

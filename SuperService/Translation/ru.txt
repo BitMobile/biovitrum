@@ -19,3 +19,4 @@ finishing		Завершение
 comment...		Комментарий...
 wanttobuy		Желание покупки
 thereisaproblem		Возникла проблема
+send		Отправить

@@ -43,16 +43,50 @@ TextView {
 
 .TopButton {
 	color: #fd724c;
-	font: 40% arial;
-	selected-color: #ff8766;
+	font: 3sp arial;
+	height: 0% auto;
 	text-align: center;
+	vertical-align: center;
 	width: 33%;
 }
 
 .TopHeading {
 	color: #ffffff;
-	font: 40% arial;
-	height: 100%;
+	font: 3sp arial;
+	height: 0% auto;
 	text-align: center;
+	vertical-align: center;
 	width: 33%;
+}
+
+.EmptySpace4sp {
+	height: 4sp;
+	width: 100%;
+}
+
+.CommentLayout {
+	horizontal-align: center;
+	width: 90%;
+	height: 4sp auto;
+}
+
+.Comment {
+	background-color: #4a4b5e;
+	color: #ffffff;
+	height: 4sp auto;
+	margin-bottom: 0.5sp;
+	placeholder-color: #a2a2aa;
+	width: 100%;
+	padding-left: 3sp;
+	padding-right: 3sp;
+}
+
+.CommentEndLine {
+	background-color: #777886;
+	height: 2px;
+	width: 100%;
+}
+
+.BigButtonLayout {
+	background-color: #fd724c;
 }
