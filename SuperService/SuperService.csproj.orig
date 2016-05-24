@@ -55,21 +55,77 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
-    <EmbeddedResource Include="Components\**" />
-    <Compile Include="Controllers\**" />
-    <Compile Include="Entities\**" />
-    <EmbeddedResource Include="Image\**" />
-    <EmbeddedResource Include="Model\metadata.xml" />
-    <Compile Include="Module\**" />	
+    <Compile Include="Controllers\AuthScreen.cs" />
+    <Compile Include="Controllers\MapScreen.cs" />
+<<<<<<< HEAD
+    <Compile Include="Controllers\ClientScreen.cs" />
+    <Compile Include="Controllers\OrderListScreen.cs" />
+    <Compile Include="Controllers\OrderScreen.cs" />
+=======
+    <Compile Include="Controllers\EventListScreen.cs" />
+    <Compile Include="Controllers\EventScreen.cs" />
+>>>>>>> SUPS-631
+    <Compile Include="Entities\Catalog\Client.cs" />
+    <Compile Include="Entities\Catalog\TypesDepartures.cs" />
+    <Compile Include="Entities\Document\Event.cs" />
+    <Compile Include="Entities\Enum\StatusImportance.cs" />
+    <Compile Include="Module\BusinessProcess.cs" />
+    <Compile Include="Module\DBHelper.cs" />
+    <Compile Include="Module\Solution.cs" />
+    <Compile Include="Objects\EventListElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Screen\**" />
-    <EmbeddedResource Include="Style\**" />
-    <EmbeddedResource Include="Translation\*" />
+    <EmbeddedResource Include="Translation\ru.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\" />
+    <Folder Include="Image\" />
+  </ItemGroup>
+  <ItemGroup>
+<<<<<<< HEAD
+    <EmbeddedResource Include="Screen\OrderScreen.xml">
+=======
+    <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Screen\EventScreen.xml">
+>>>>>>> SUPS-631
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Translation\en.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Screen\ClientScreen.xml" />
+<<<<<<< HEAD
+    <EmbeddedResource Include="Screen\OrderListScreen.xml" />
+=======
+    <EmbeddedResource Include="Screen\EventListScreen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+>>>>>>> SUPS-631
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
+    <EmbeddedResource Include="Model\metadata.xml" />
+    <EmbeddedResource Include="Style\style.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Screen\AuthScreen.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)..\SDK\BitMobileSDK\BitMobileSDK.exe $(TargetPath)
 echo $(TargetPath).zip &gt; "$(TargetDir)package.txt</PostBuildEvent>
   </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>

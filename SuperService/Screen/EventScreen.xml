@@ -2,40 +2,41 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:DockLayout Id="RootLayout" CssClass="RootLayout">
+    <s:Push Id="event" Value="$GetCurrentEvent()" />
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:Button Id="StartFinishButton" Text="#start#" CssClass="StartButton" OnClick="StartFinishButton_OnClick" />
     <c:SwipeVerticalLayout CssClass="EventScreenMainLayout">
       <c:HorizontalLayout CssClass="LightInfoLayout">
         <c:VerticalLayout CssClass="LightInfoBox">
           <c:TextView Text="#time#" CssClass="LightInfoTitle" />
-          <c:TextView Id="StartTimeTextView" CssClass="LightInfoContent" />
+          <c:TextView Text="$event.StartDatePlanTime" Id="StartTimeTextView" CssClass="LightInfoContent" />
         </c:VerticalLayout>
         <c:VerticalLayout CssClass="LightInfoBox">
           <c:TextView Text="#workType#" CssClass="LightInfoTitle" />
-          <c:TextView Id="DepartureTypeTextView" CssClass="LightInfoContent" />
+          <c:TextView Text="$event.TypeDeparture" Id="DepartureTypeTextView" CssClass="LightInfoContent" />
         </c:VerticalLayout>
       </c:HorizontalLayout>
       <c:HorizontalLine CssClass="LayoutBreaker" />
       <c:VerticalLayout CssClass="CommentLayout">
         <c:TextView Text="#comment#" CssClass="LightInfoTitle" />
-        <c:TextView Id="EventCommentTextView" CssClass="LightInfoContent" />
+        <c:TextView Text="$event.Comment" Id="EventCommentTextView" CssClass="LightInfoContent" />
       </c:VerticalLayout>
       <c:HorizontalLine CssClass="LayoutBreaker" />
       <c:TextView Visible="False" />
       <c:HorizontalLayout CssClass="InfoLayout">
         <c:Image Source="Image\es_tasks.png" CssClass="InfoImage" />
         <c:TextView Text="#tasks#" Id="TaskCounterNameTextView" CssClass="InfoTitle" />
-        <c:TextView Id="TaskCounterTextView" CssClass="InfoContent" />
+        <c:TextView Text="$GetStringPartOfTotal($event.equipmentAnswered, $event.equipmentTotal)" Id="TaskCounterTextView" CssClass="InfoContent" />
       </c:HorizontalLayout>
       <c:HorizontalLayout CssClass="InfoLayout">
         <c:Image Source="Image\es_coc.png" CssClass="InfoImage" />
         <c:TextView Text="#coc#" Id="CertificateOfCompletionNameTextView" CssClass="InfoTitle" />
-        <c:TextView Id="CertificateOfCompletionTextView" CssClass="InfoContent" />
+        <c:TextView Text="$event.sumFact" Id="CertificateOfCompletionTextView" CssClass="InfoContent" />
       </c:HorizontalLayout>
       <c:HorizontalLayout CssClass="InfoLayout">
         <c:Image Source="Image\es_clist.png" CssClass="InfoImage" />
         <c:TextView Text="#clist#" Id="CheckListCounterNameTextView" CssClass="InfoTitle" />
-        <c:TextView Id="CheckListCounterTextView" CssClass="InfoContent" />
+        <c:TextView Text="$GetStringPartOfTotal($event.checkListAnswered, $event.checkListTotal)" Id="CheckListCounterTextView" CssClass="InfoContent" />
       </c:HorizontalLayout>
     </c:SwipeVerticalLayout>
   </c:DockLayout>
