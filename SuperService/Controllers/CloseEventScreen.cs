@@ -1,4 +1,5 @@
 ﻿using System;
+using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 
 namespace Test
@@ -11,36 +12,43 @@ namespace Test
         private bool _wantToBuy;
         private HorizontalLayout _wantToBuyButton;
         private VerticalLayout _wantToBuyCommentLayout;
+        private Image _wantToBuyImage;
+        private Image _problemImage;
 
         public override void OnLoading()
         {
             _wantToBuyButton = (HorizontalLayout) GetControl("WantToBuyButton", true);
             _wantToBuyCommentLayout = (VerticalLayout) GetControl("WantToBuyCommentLayout", true);
+            _wantToBuyImage = (Image) GetControl("WantToBuyImage", true);
+
             _problemButton = (HorizontalLayout) GetControl("ProblemButton", true);
             _problemCommentLayout = (VerticalLayout) GetControl("ProblemCommentLayout", true);
+            _problemImage = (Image) GetControl("ProblemImage", true);
         }
 
         internal void WantToBuyButton_OnClick(object sender, EventArgs eventArgs)
         {
             if (!_wantToBuy)
             {
-                UpdateButtonCSS(_wantToBuyButton, _wantToBuyCommentLayout, "BigButtonPressed", "CommentLayout");
+                UpdateButtonCSS(_wantToBuyButton, _wantToBuyCommentLayout, _wantToBuyImage, "BigButtonPressed", "CommentLayout", "Pokupka_Selected.png");
                 _wantToBuy = true;
             }
             else
             {
-                UpdateButtonCSS(_wantToBuyButton, _wantToBuyCommentLayout, "BigButton", "NoHeight");
+                UpdateButtonCSS(_wantToBuyButton, _wantToBuyCommentLayout, _wantToBuyImage, "BigButton", "NoHeight", "Pokupka.png");
                 _wantToBuy = false;
             }
         }
 
-        private void UpdateButtonCSS(HorizontalLayout buttonLayout, VerticalLayout commentLayout, string buttonCSS,
-            string commentCSS)
+        private void UpdateButtonCSS(HorizontalLayout buttonLayout, VerticalLayout commentLayout, Image image, string buttonCSS,
+            string commentCSS, string name)
         {
             buttonLayout.CssClass = buttonCSS;
             buttonLayout.Refresh();
             commentLayout.CssClass = commentCSS;
             commentLayout.Refresh();
+            image.Source = @"Image\CloseEvent\" + name;
+            image.Refresh();
         }
 
 
@@ -48,12 +56,12 @@ namespace Test
         {
             if (!_problem)
             {
-                UpdateButtonCSS(_problemButton, _problemCommentLayout, "BigButtonPressed", "CommentLayout");
+                UpdateButtonCSS(_problemButton, _problemCommentLayout, _problemImage, "BigButtonPressed", "CommentLayout", "Problema_Selected.png");
                 _problem = true;
             }
             else
             {
-                UpdateButtonCSS(_problemButton, _problemCommentLayout, "BigButton", "NoHeight");
+                UpdateButtonCSS(_problemButton, _problemCommentLayout, _problemImage, "BigButton", "NoHeight", "Problema.png");
                 _problem = false;
             }
         }

@@ -14,6 +14,7 @@
     </c:VerticalLayout>
     <c:HorizontalLayout CssClass="EmptySpace4sp" />
     <c:HorizontalLayout Id="WantToBuyButton" CssClass="BigButton" OnClick="WantToBuyButton_OnClick">
+      <c:Image Id="WantToBuyImage" Source="Image\CloseEvent\Pokupka.png" CssClass="BigButtonImage" />
       <c:TextView Text="#wanttobuy#" CssClass="BigButtonTextView" />
     </c:HorizontalLayout>
     <c:VerticalLayout Id="WantToBuyCommentLayout" CssClass="NoHeight">
@@ -21,6 +22,7 @@
       <c:HorizontalLine CssClass="CommentEndLine" />
     </c:VerticalLayout>
     <c:HorizontalLayout Id="ProblemButton" CssClass="BigButton" OnClick="ProblemButton_OnClick">
+      <c:Image Id="ProblemImage" Source="Image\CloseEvent\Problema.png" CssClass="BigButtonImage" />
       <c:TextView Text="#thereisaproblem#" CssClass="BigButtonTextView" />
     </c:HorizontalLayout>
     <c:VerticalLayout Id="ProblemCommentLayout" CssClass="NoHeight">

@@ -67,8 +67,8 @@ TextView {
 .CommentLayout {
 	height: 4sp auto;
 	horizontal-align: center;
-	width: 90%;
 	margin-top: 3sp;
+	width: 90%;
 }
 
 .Comment {
@@ -89,31 +89,38 @@ TextView {
 }
 
 .BigButton {
-	background-color: #fd724c;
-	height: 12sp;
-	width: 90%;
-	horizontal-align: center;
+	background-color: #4a4b5e;
+	border-color: #ffffff;
 	border-style: solid;
-	border-width: 1px;
-	border-color: #b84f33;
+	border-width: 2px;
+	height: 12sp;
+	horizontal-align: center;
 	margin-top: 2sp;
+	width: 90%;
 }
 
 .BigButtonPressed {
-	background-color: #b75439;
-	height: 12sp;
-	width: 90%;
-	horizontal-align: center;
+	background-color: #fd724c;
 	border-style: solid;
-	border-width: 2px;
-	border-color: #732611;
+	height: 12sp;
+	horizontal-align: center;
+	/*border-width: 2px;
+	border-color: #732611;*/
 	margin-top: 2sp;
+	width: 90%;
+}
+
+.BigButtonImage {
+	height: 6sp;
+	margin-left: 5sp;
+	vertical-align: center;
 }
 
 .BigButtonTextView {
 	color: #ffffff;
 	font: 3sp arial;
-	margin-left: 5sp;
+	margin-left: 2sp;
+	text-align: left;
 	vertical-align: center;
 	width: 60% auto;
 }
