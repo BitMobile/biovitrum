@@ -8,13 +8,11 @@ namespace Test
     public class EventListScreen : Screen
     {
         private ArrayList _eventsList;
-        //private VerticalLayout _vlSlideVerticalLayout;
         private ScrollView _svlEventList;
         private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
-            //_vlSlideVerticalLayout = (VerticalLayout)GetControl("SlideVerticalLayout", true);
             _svlEventList = (ScrollView) GetControl("EventListScrollView", true);
             _eventsList = GetEventsFromDb();
 
