@@ -63,8 +63,6 @@
     <Compile Include="Controllers\ClientScreen.cs" />
     <Compile Include="Controllers\CloseEventScreen.cs" />
     <Compile Include="Controllers\Components\TabEventsComponent.cs" />
-    <Compile Include="Controllers\Components\TabEventsComponent.cs" />
-    <Compile Include="Controllers\Components\TopInfoComponent.cs" />
     <Compile Include="Controllers\Components\TopInfoComponent.cs" />
     <Compile Include="Controllers\EventListScreen.cs" />
     <Compile Include="Controllers\EventScreen.cs" />
