@@ -33,6 +33,21 @@ TextView {
 	width: 100%;
 }
 
+.EmptySpace3sp {
+	height: 3sp;
+	width: 100%;
+}
+
+.EmptySpace4sp {
+	height: 4sp;
+	width: 100%;
+}
+
+.EmptySpace5sp {
+	height: 5sp;
+	width: 100%;
+}
+
 /* Top Info Component */
 
 .TopInfoLayout {
@@ -209,12 +224,29 @@ TextView {
 }
 
 .StartButton {
-	background-color: #94da4f;
-	color: #d0ffa1;
-	dock-align: bottom;
-	font: 3.5sp arial;
+	background-color: #fd724c;
+	border-color: #fd724c;
+	border-style: solid;
+	border-width: 2px;
+	color: #ffffff;
+	font: 4sp arial;
 	height: 10sp;
-	width: 100%;
+	horizontal-align: center;
+	margin-top: 2sp;
+	width: 90%;
+}
+
+.RefuseButton {
+	background-color: #ffffff;
+	border-color: #a4a8a9;
+	border-style: solid;
+	border-width: 2px;
+	color: #fd724c;
+	font: 4sp arial;
+	height: 10sp;
+	horizontal-align: center;
+	margin-top: 2sp;
+	width: 90%;
 }
 
 .FinishButton {

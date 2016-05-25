@@ -2,11 +2,11 @@
 
 <BusinessProcess>
   <Workflow Name="Main">
-    
+
     <Step Name="Authorization" Controller="AuthScreen" StyleSheet="Style\style.css">
       <Action Name="Auth" NextStep="EventList"></Action>
     </Step>
-    
+
     <Step Name="Map" Controller="MapScreen" StyleSheet="Style\style.css">
       <Action Name="BackToEventList" NextStep="EventList" />
     </Step>
@@ -15,41 +15,56 @@
     <Step Name="EventList" Controller="EventListScreen" StyleSheet="Style\fancystyle.css">
       <Action Name="ViewMap" NextStep="Map"></Action>
       <Action Name="ViewEvent" NextStep="Event"></Action>
-      <Action Name="Backpack" NextStep="Backpack"></Action>
+      <!--      <Action Name="EventList" NextStep="EventList"></Action>-->
+      <Action Name="Bag" NextStep="Bag"></Action>
       <Action Name="Settings" NextStep="Settings"></Action>
       <Action Name="ClientList" NextStep="ClientList"></Action>
     </Step>
-
-    <Step Name="Backpack" Controller="BackpackScreen" StyleSheet="Style\style.css">
+    <Step Name="Bag" Controller="BagListScreen" StyleSheet="Style\style.css">
       <Action Name="EventList" NextStep="EventList"></Action>
-      <!--      <Action Name="Backpack" NextStep="Backpack"></Action>-->
+
+      <!--      <Action Name="Bag" NextStep="Bag"></Action>-->
       <Action Name="Settings" NextStep="Settings"></Action>
       <Action Name="ClientList" NextStep="ClientList"></Action>
     </Step>
 
     <Step Name="ClientList" Controller="ClientListScreen" StyleSheet="Style\style.css">
       <Action Name="EventList" NextStep="EventList"></Action>
-      <Action Name="Backpack" NextStep="Backpack"></Action>
+      <Action Name="Bag" NextStep="Bag"></Action>
       <Action Name="Settings" NextStep="Settings"></Action>
       <!--      <Action Name="ClientList" NextStep="ClientList"></Action>-->
     </Step>
 
     <Step Name="Settings" Controller="SettingsScreen" StyleSheet="Style\style.css">
       <Action Name="EventList" NextStep="EventList"></Action>
-      <Action Name="Backpack" NextStep="Backpack"></Action>
+      <Action Name="Bag" NextStep="Bag"></Action>
       <!--      <Action Name="Settings" NextStep="Settings"></Action>-->
       <Action Name="ClientList" NextStep="ClientList"></Action>
       <Action Name="Logout" NextStep="Authorization"></Action>
     </Step>
     <!-- / MAIN SCREENS -->
-
-    <Step Name="Event" Controller="EventScreen" StyleSheet="Style\fancy.css">
+    <Step Name="Event" Controller="EventScreen" StyleSheet="Style\fancy_event.css">
       <Action Name="EventList" NextStep="EventList"></Action>
       <Action Name="Client" NextStep="Client"></Action>
+      <Action Name="CloseEvent" NextStep="CloseEvent"></Action>
+      <Action Name="ViewTasks" NextStep="TaskList"></Action>
+    </Step>
+
+    <Step Name="TaskList" Controller="TaskListScreen" StyleSheet="Style\fancy_taskList.css">
+      <Action Name="BackToEvent" NextStep="Event"></Action>
+      <Action Name="ViewTask" NextStep="Task"></Action>
+    </Step>
+
+    <Step Name="Task" Controller="TaskScreen" StyleSheet="Style\style.css">
+      <Action Name="BackToTaskList" NextStep="TaskList"></Action>
     </Step>
 
     <Step Name="Client" Controller="ClientScreen" StyleSheet="Style\style.css">
       <Action Name="ClientList" NextStep="ClientList"></Action>
+    </Step>
+
+    <Step Name="CloseEvent" Controller="CloseEventScreen" StyleSheet="Style\fancy_closeeventscreen.css">
+      <Action Name="FinishEvent" NextStep="EventList"></Action>
     </Step>
   </Workflow>
 </BusinessProcess>

@@ -12,7 +12,18 @@ time		Время
 workType		Тип Работ
 comment		Описание
 onmap		Посмотреть на карте
+closeeventquestion		Закрыть наряд?
+yes		Да
+no		Нет
+finishing		Завершение
+comment...		Комментарий...
+wanttobuy		Желание покупки
+thereisaproblem		Возникла проблема
+send		Отправить
 orders		Наряды
+bag		Рюкзак
+clients		Клиенты
+settings		Настройки
 today		сегодня
 per_month		завтра
-today_eventListNode		Сегодня
+

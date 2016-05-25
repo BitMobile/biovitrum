@@ -12,7 +12,18 @@ time		Time
 workType		Type of Work
 comment		Commentary
 onmap		View on map
+closeeventquestion		Are you sure you want to close this order?
+yes		Yes
+no		No
+finishing		Finishing
+comment...		Commentary...
+wanttobuy		Want to buy
+thereisaproblem		I have a problem
+send		Send
 orders		Orders
+bag		Bag
+clients		Clients
+settings		Settings
 today		today
 per_month		per month
-today_eventListNode		Today
+

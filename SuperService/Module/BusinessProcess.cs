@@ -13,8 +13,8 @@ namespace Test
     {
         private static XmlDocument _doc;
 
-//        private static readonly Stack StackNodes = new Stack();
-//        private static readonly Stack StackScreens = new Stack();
+        //private static readonly Stack StackNodes = new Stack();
+        //private static readonly Stack StackScreens = new Stack();
 
         public static XmlNode CurrentNode { get; private set; }
         public static Screen CurrentScreen { get; private set; }
@@ -27,9 +27,14 @@ namespace Test
             _doc = new XmlDocument();
             _doc.Load(Application.GetResourceStream("BusinessProcess.BusinessProcess.xml"));
             DConsole.WriteLine("Loaded BP.xml");
-            //var firstStepName = _doc.DocumentElement.ChildNodes[0].ChildNodes[0].Attributes["Name"].Value;
-            //MoveTo(firstStepName);
-            MoveTo("EventList");
+
+#if DEBUG
+            GlobalVariables["currentEventId"] = "@ref[Document_Event]:6422e731-149a-11e6-80e3-005056011152";
+#endif
+
+            var firstStepName = _doc.DocumentElement.ChildNodes[0].ChildNodes[0].Attributes["Name"].Value;
+            MoveTo(firstStepName);
+//            MoveTo("TaskList");
         }
 
         private static void MoveTo(string stepName)
@@ -42,8 +47,8 @@ namespace Test
             DConsole.WriteLine($"Loading controler: ${stepController}");
             var scr = GetScreenByControllerName(stepController);
 
-//            StackScreens.Push(scr);
-//            StackNodes.Push(n);
+            //StackScreens.Push(scr);
+            //StackNodes.Push(n);
 
             CurrentScreen = scr;
             CurrentNode = n;
@@ -55,7 +60,7 @@ namespace Test
         public static void DoAction(string actionName)
         {
             DConsole.WriteLine($"Doing action: {actionName}");
-            //          var currentNode = StackNodes.peek();
+            //var currentNode = StackNodes.peek();
             var n = CurrentNode.SelectSingleNode($"Action[@Name='{actionName}']");
             var stepName = n.Attributes["NextStep"].Value;
             MoveTo(stepName);

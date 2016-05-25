@@ -179,5 +179,34 @@ namespace Test
 
             return result;
         }
+
+
+        public static DbRecordset GetTasksByEventID(string eventID)
+        {
+            var query = new Query("select " +
+                                  "    tasks.Id,  " +
+                                  "    tasks.Ref, " +
+                                  "    tasks.Terget, " +
+                                  "    equipment.Description as equipmentDescription, " +
+                                  "    ResultEvent.Description as ResultEventDescription, " +
+                                  "    ResultEvent.Name as ResultEventName, " +
+                                  "    case  " +
+                                  "        when ResultEvent.Name like 'Done' then 1 " +
+                                  "        else 0 " +
+                                  "    end as isDone " +
+                                  "  from " +
+                                  "     Document_Event_Equipments as tasks " +
+                                  "      left join Catalog_Equipment as equipment " +
+                                  "       on tasks.Equipment = equipment.Id " +
+                                  " " +
+                                  "      left join _Enum_ResultEvent as ResultEvent " +
+                                  "       on tasks.Result = ResultEvent.Id " +
+                                  "       " +
+                                  " where " +
+                                  "   tasks.Ref = '" + eventID + "'  ");
+            var result = query.Execute();
+
+            return result;
+        }
     }
 }

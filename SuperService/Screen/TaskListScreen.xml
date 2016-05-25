@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:VerticalLayout CssClass="RootLayout">
+    <c:HorizontalLayout CssClass="TopLayout">
+      <c:VerticalLayout Id="BackButton" CssClass="TopButton" OnClick="BackButton_OnClick">
+        <c:Image Source="Image\top_back.png" CssClass="BackButton" />
+      </c:VerticalLayout>
+      <c:TextView Text="#tasks#" CssClass="TopHeading" Id="HeadingTextView" />
+    </c:HorizontalLayout>
+    <c:SwipeVerticalLayout CssClass="TaskListLayout">
+      <s:Iterator Id="task" Value="$GetTasks()">
+        <c:HorizontalLayout Id="$task.Id" CssClass="TaskLayout" OnClick="TaskLayout_OnClick">
+          <c:VerticalLayout CssClass="TaskInfoLayout">
+            <c:TextView Text="$task.Terget" CssClass="TaskName" />
+            <c:TextView Text="$task.equipmentDescription" CssClass="TaskDescription" />
+          </c:VerticalLayout>
+          <c:VerticalLayout CssClass="TaskDoneImageContainer">
+            <s:If Test="$task.isDone">
+              <c:Image Source="Image\TaskList\done.png" CssClass="TaskDoneImage" />
+            </s:If>
+            <s:Else>
+              <c:Image Source="Image\TaskList\notDone.png" CssClass="TaskDoneImage" />
+            </s:Else>
+          </c:VerticalLayout>
+        </c:HorizontalLayout>
+        <c:HorizontalLine CssClass="TaskBreaker" />
+      </s:Iterator>
+    </c:SwipeVerticalLayout>
+  </c:VerticalLayout>
+</c:Screen>
