@@ -12,7 +12,7 @@ namespace Test
     public static class BusinessProcess
     {
         private static XmlDocument _doc;
-        
+
         //private static readonly Stack StackNodes = new Stack();
         //private static readonly Stack StackScreens = new Stack();
 
@@ -27,9 +27,14 @@ namespace Test
             _doc = new XmlDocument();
             _doc.Load(Application.GetResourceStream("BusinessProcess.BusinessProcess.xml"));
             DConsole.WriteLine("Loaded BP.xml");
+
+#if DEBUG
+            GlobalVariables["currentEventId"] = "@ref[Document_Event]:6422e731-149a-11e6-80e3-005056011152";
+#endif
+
             var firstStepName = _doc.DocumentElement.ChildNodes[0].ChildNodes[0].Attributes["Name"].Value;
             MoveTo(firstStepName);
-//            MoveTo("CloseEvent");
+//            MoveTo("TaskList");
         }
 
         private static void MoveTo(string stepName)
@@ -41,7 +46,7 @@ namespace Test
 
             DConsole.WriteLine($"Loading controler: ${stepController}");
             var scr = GetScreenByControllerName(stepController);
-            
+
             //StackScreens.Push(scr);
             //StackNodes.Push(n);
 

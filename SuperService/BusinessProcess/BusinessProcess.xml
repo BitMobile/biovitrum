@@ -43,10 +43,20 @@
       <Action Name="Logout" NextStep="Authorization"></Action>
     </Step>
     <!-- / MAIN SCREENS -->
-    <Step Name="Event" Controller="EventScreen" StyleSheet="Style\fancy.css">
+    <Step Name="Event" Controller="EventScreen" StyleSheet="Style\fancy_event.css">
       <Action Name="EventList" NextStep="EventList"></Action>
       <Action Name="Client" NextStep="Client"></Action>
       <Action Name="CloseEvent" NextStep="CloseEvent"></Action>
+      <Action Name="ViewTasks" NextStep="TaskList"></Action>
+    </Step>
+
+    <Step Name="TaskList" Controller="TaskListScreen" StyleSheet="Style\fancy_taskList.css">
+      <Action Name="BackToEvent" NextStep="Event"></Action>
+      <Action Name="ViewTask" NextStep="Task"></Action>
+    </Step>
+
+    <Step Name="Task" Controller="TaskScreen" StyleSheet="Style\style.css">
+      <Action Name="BackToTaskList" NextStep="TaskList"></Action>
     </Step>
 
     <Step Name="Client" Controller="ClientScreen" StyleSheet="Style\style.css">
