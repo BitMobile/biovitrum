@@ -12,7 +12,7 @@
       <s:Iterator Id="task" Value="$GetTasks()">
         <c:HorizontalLayout Id="$task.Id" CssClass="TaskLayout" OnClick="TaskLayout_OnClick">
           <c:VerticalLayout CssClass="TaskInfoLayout">
-            <c:TextView Text="$task.Name" CssClass="TaskName" />
+            <c:TextView Text="$task.Terget" CssClass="TaskName" />
             <c:TextView Text="$task.equipmentDescription" CssClass="TaskDescription" />
           </c:VerticalLayout>
           <c:VerticalLayout CssClass="TaskDoneImageContainer">
