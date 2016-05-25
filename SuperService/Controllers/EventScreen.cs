@@ -12,6 +12,8 @@ namespace Test
         private bool _started;
 
         private Button _startFinishButton;
+        private Button _startButton;
+        private Button _refuseButton;
 
         private TopInfoComponent _topInfoComponent;
 
@@ -57,6 +59,8 @@ namespace Test
         {
             _rootLayout = (DockLayout) GetControl("RootLayout");
             _startFinishButton = (Button) GetControl("StartFinishButton", true);
+            _startButton = (Button) GetControl("StartButton", true);
+            _refuseButton = (Button) GetControl("RefuseButton", true);
         }
 
         internal void ClientInfoButton_OnClick(object sender, EventArgs eventArgs)
@@ -64,17 +68,31 @@ namespace Test
             BusinessProcess.DoAction("Client");
         }
 
+        internal void RefuseButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            BusinessProcess.DoAction("EventList");
+        }
+
+        internal void StartButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            _startButton.CssClass = "NoHeight";
+            _startButton.Visible = false;
+            _startButton.Refresh();
+            _refuseButton.CssClass = "NoHeight";
+            _refuseButton.Visible = false;
+            _refuseButton.Refresh();
+
+            _startFinishButton.CssClass = "FinishButton";
+            _startFinishButton.Refresh();
+            _startFinishButton.Text = Translator.Translate("finish");
+            _started = true;
+            _rootLayout.Refresh();
+            Event_OnStart();
+        }
+
         internal void StartFinishButton_OnClick(object sender, EventArgs eventArgs)
         {
-            if (!_started)
-            {
-                _startFinishButton.CssClass = "FinishButton";
-                _startFinishButton.Refresh();
-                _startFinishButton.Text = Translator.Translate("finish");
-                _started = true;
-                Event_OnStart();
-            }
-            else
+            if (_started)
             {
                 Dialog.Alert(Translator.Translate("closeeventquestion"), (o, args) =>
                 {

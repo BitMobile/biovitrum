@@ -18,6 +18,11 @@ namespace Test
             BusinessProcess.DoAction("ViewTask");
         }
 
+        internal object GetEvent()
+        {
+            return DBHelper.GetEventByID((string) BusinessProcess.GlobalVariables["currentEventId"]);
+        }
+
         internal IEnumerable GetTasks()
         {
 //            return new ArrayList
