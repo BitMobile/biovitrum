@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Globalization;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 
@@ -16,24 +15,24 @@ namespace Test
         public override void OnLoading()
         {
             //_vlSlideVerticalLayout = (VerticalLayout)GetControl("SlideVerticalLayout", true);
-            _svlEventList = (ScrollView)GetControl("EventListScrollView", true);
+            _svlEventList = (ScrollView) GetControl("EventListScrollView", true);
             _eventsList = GetEventsFromDb();
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                LeftButtonImage = { Source = @"Image\top_eventlist_filtr_button.png" },
-                RightButtonImage = { Source = @"Image\top_eventlist_map_button.png" },
-                HeadingTextView = { Text = Translator.Translate("orders") },
-                LeftExtraLayout = { CssClass = "ExtraLeftLayoutCss" },
-                RightExtraLayout = { CssClass = "ExtraRightLayoutCss" }
+                LeftButtonImage = {Source = @"Image\top_eventlist_filtr_button.png"},
+                RightButtonImage = {Source = @"Image\top_eventlist_map_button.png"},
+                HeadingTextView = {Text = Translator.Translate("orders")},
+                LeftExtraLayout = {CssClass = "ExtraLeftLayoutCss"},
+                RightExtraLayout = {CssClass = "ExtraRightLayoutCss"}
             };
 
-            _topInfoComponent.LeftExtraLayout.AddChild(new TextView(@"7/9") { CssClass = "ExtraInfo" });
+            _topInfoComponent.LeftExtraLayout.AddChild(new TextView(@"7/9") {CssClass = "ExtraInfo"});
             _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("today"))
             {
                 CssClass = "BottonExtraInfo"
             });
-            _topInfoComponent.RightExtraLayout.AddChild(new TextView(@"14/29") { CssClass = "ExtraInfo" });
+            _topInfoComponent.RightExtraLayout.AddChild(new TextView(@"14/29") {CssClass = "ExtraInfo"});
             _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
             {
                 CssClass = "BottonExtraInfo"
@@ -54,36 +53,33 @@ namespace Test
 
             foreach (var VARIABLE in _eventsList)
             {
-                var itemElement = (EventListElement)VARIABLE;
+                var itemElement = (EventListElement) VARIABLE;
 
 
                 if (itemElement.StartDatePlan.Date <= currenDate.Date)
                 {
                     if (orderInfoLayout != null)
                     {
-                        orderInfoLayout.AddChild(new HorizontalLine() {CssClass = "ClientHorizontalLine" });;
+                        orderInfoLayout.AddChild(new HorizontalLine {CssClass = "ClientHorizontalLine"});
+                        ;
                     }
 
-                    DConsole.WriteLine("StartDatePlan = currentDate");
-                   FillEventList(ref isHeaderAdded,ref itemElement,ref orderInfoLayout);
+                    FillEventList(ref isHeaderAdded, ref itemElement, ref orderInfoLayout);
                 }
                 else
                 {
-                    DConsole.WriteLine("Not Equals");
-                    _svlEventList.AddChild(new HorizontalLine { CssClass = "FinalDateLine" });
+                    _svlEventList.AddChild(new HorizontalLine {CssClass = "FinalDateLine"});
                     currenDate = itemElement.StartDatePlan;
                     isHeaderAdded = false;
-                    FillEventList(ref isHeaderAdded, ref itemElement,ref orderInfoLayout);
+                    FillEventList(ref isHeaderAdded, ref itemElement, ref orderInfoLayout);
                 }
             }
-
         }
 
 
-        private void FillEventList(ref bool isHeaderAdded,ref EventListElement itemElement,
+        private void FillEventList(ref bool isHeaderAdded, ref EventListElement itemElement,
             ref VerticalLayout orderInfoRefLayout)
         {
-
             TextView dateText;
             HorizontalLine finalDateLine;
             HorizontalLayout eventLayout;
@@ -97,16 +93,13 @@ namespace Test
             TextView clientAdressTextView;
             TextView typeDeparturesTextView;
 
-            
 
             if (!isHeaderAdded)
             {
                 if (itemElement.StartDatePlan.Date <= DateTime.Now.Date)
                 {
-                    dateText = new TextView(Translator.Translate("today_eventListNode")) { CssClass = "DateText" };
-                    DConsole.WriteLine("CssClass: DateText");
-                    finalDateLine = new HorizontalLine { CssClass = "FinalDateLine" };
-                    DConsole.WriteLine("CssClass: FinalDateLine");
+                    dateText = new TextView(Translator.Translate("today_eventListNode")) {CssClass = "DateText"};
+                    finalDateLine = new HorizontalLine {CssClass = "FinalDateLine"};
                     _svlEventList.AddChild(dateText);
                     _svlEventList.AddChild(finalDateLine);
                     isHeaderAdded = true;
@@ -114,41 +107,33 @@ namespace Test
 
                 else
                 {
-                    DConsole.WriteLine("Else");
                     dateText = new TextView
                     {
                         CssClass = "DateText",
                         Text = itemElement.StartDatePlan.Date.ToString("dddd, dd MMMM")
                     };
-                    DConsole.WriteLine("CssClass: DateText");
-                    finalDateLine = new HorizontalLine { CssClass = "FinalDateLine" };
-                    DConsole.WriteLine("CssClass: FinalDateLine");
+                    finalDateLine = new HorizontalLine {CssClass = "FinalDateLine"};
                     _svlEventList.AddChild(dateText);
                     _svlEventList.AddChild(finalDateLine);
-                    DConsole.WriteLine(itemElement.StartDatePlan.Date.ToString("dddd, dd MMMM"));
                     isHeaderAdded = true;
                 }
             }
 
-            eventLayout = new HorizontalLayout() { CssClass = "OrderInfoContainer" };
-            DConsole.WriteLine("CssClass: OrderInfoContainer");
+            eventLayout = new HorizontalLayout {CssClass = "OrderInfoContainer",Id = itemElement.Id};
             eventLayout.OnClick += EventLayout_OnClick;
 
-            timeLayout = new VerticalLayout() { CssClass = "OrderTimeContainer" };
-            DConsole.WriteLine("CssClass: OrderTimeContainer");
-            startDatePlaneTextView = new TextView()
+            timeLayout = new VerticalLayout {CssClass = "OrderTimeContainer"};
+            startDatePlaneTextView = new TextView
             {
                 Text = itemElement.StartDatePlan.ToString("HH:mm"),
                 CssClass = "StartDatePlan"
             };
-            DConsole.WriteLine("CssClass: StartDatePlan");
 
-            actualStartDateTextView = new TextView()
+            actualStartDateTextView = new TextView
             {
                 CssClass = "ActualStartDate"
             };
-            DConsole.WriteLine("CssClass: ActualStartDate");
-            DConsole.WriteLine("Warning");
+
             if (itemElement.ActualStartDate != default(DateTime))
             {
                 actualStartDateTextView.Text = (DateTime.Now - itemElement.ActualStartDate).ToString("HH:mm");
@@ -161,54 +146,47 @@ namespace Test
             timeLayout.AddChild(startDatePlaneTextView);
             timeLayout.AddChild(actualStartDateTextView);
 
-            importanceLayout = new VerticalLayout() { CssClass = "ImportanceContainer" };
-            DConsole.WriteLine("CssClass: ImportanceContainer");
+            importanceLayout = new VerticalLayout {CssClass = "ImportanceContainer"};
             importanceIndicatorLayout = new HorizontalLayout();
 
             switch (itemElement.ImportanceName)
             {
                 case "Critical":
                     importanceIndicatorLayout.CssClass = "ImportanceIndicatorCritical";
-                    DConsole.WriteLine("CssClass: ImportanceIndicatorCritical");
-                    // importanceIndicatorLayout.Refresh();
-                    DConsole.WriteLine("CssClass: OK");
                     break;
                 case "High":
                     importanceIndicatorLayout.CssClass = "ImportanceIndicatorHigh";
-                    DConsole.WriteLine("CssClass: ImportanceIndicatorHigh");
-                    //importanceIndicatorLayout.Refresh();
-                    DConsole.WriteLine("CssClass: OK");
                     break;
                 case "Standart":
                     importanceIndicatorLayout.CssClass = "ImportanceIndicatorStandart";
-                    DConsole.WriteLine("CssClass: ImportanceIndicatorStandart");
-                    //importanceIndicatorLayout.Refresh();
-                    DConsole.WriteLine("CssClass: OK");
+                    break;
+                default:
+                    importanceIndicatorLayout.CssClass = "ImportanceIndicatorStandart";
                     break;
             }
 
             importanceLayout.AddChild(importanceIndicatorLayout);
 
-            orderInfoLayout = new VerticalLayout() { CssClass = "OrderInfo" };
+            orderInfoLayout = new VerticalLayout {CssClass = "OrderInfo"};
             orderInfoRefLayout = orderInfoLayout;
-            clientDescriptionTextView = new TextView()
+            clientDescriptionTextView = new TextView
             {
                 CssClass = "ClientDescription",
                 Text = itemElement.ClientDescription
             };
-            DConsole.WriteLine("CssClass: ClientDescription");
-            clientAdressTextView = new TextView()
+
+            clientAdressTextView = new TextView
             {
                 CssClass = "ClientAdress",
                 Text = itemElement.ClientAddress
             };
-            DConsole.WriteLine("CssClass: ClientAdress");
-            typeDeparturesTextView = new TextView()
+
+            typeDeparturesTextView = new TextView
             {
                 CssClass = "TypesDepartures",
                 Text = itemElement.TypeDeparture
             };
-            DConsole.WriteLine("CssClass: TypesDepartures");
+
 
             orderInfoLayout.AddChild(clientDescriptionTextView);
             orderInfoLayout.AddChild(clientAdressTextView);
@@ -242,6 +220,8 @@ namespace Test
         internal void EventLayout_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("Go To View Event");
+            HorizontalLayout currentEvent = (HorizontalLayout) sender;
+            BusinessProcess.GlobalVariables["currentEventId"] = currentEvent.Id;
             BusinessProcess.DoAction("ViewEvent");
         }
 
