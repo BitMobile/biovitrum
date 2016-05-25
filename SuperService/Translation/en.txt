@@ -24,3 +24,4 @@ orders		Orders
 bag		Bag
 clients		Clients
 settings		Settings
+areYouSure		Are you sure?

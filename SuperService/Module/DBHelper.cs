@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using BitMobile.ClientModel3;
 
 namespace Test
@@ -206,6 +207,42 @@ namespace Test
             var result = query.Execute();
 
             return result;
+        }
+
+        public static void UpdateActualStartDateByEventId(DateTime dateTime, string eventId)
+        {
+            var query = new Query("update _Document_Event " +
+                                  "    set ActualStartDate = @dateTime, " +
+                                  "        Status = @inWork" +
+                                  "    where Id=@id");
+            DConsole.WriteLine($"{dateTime}");
+            query.AddParameter("dateTime", dateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+            query.AddParameter("id", eventId);
+            query.AddParameter("inWork", "@ref[Enum_StatusyEvents]:a00d846a-3d09-46c0-4a19-b6a10e055c9e");
+            query.Execute();
+        }
+
+        public static void UpdateActualEndDateByEnetId(DateTime dateTime, string eventId)
+        {
+            var query = new Query("update _Document_Event " +
+                                  "    set ActualEndDate = @dateTime, " +
+                                  "        Status = @done" +
+                                  "    where Id=@id");
+            DConsole.WriteLine($"{dateTime}");
+            query.AddParameter("dateTime", dateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+            query.AddParameter("id", eventId);
+            query.AddParameter("done", "@ref[Enum_StatusyEvents]:81998d6c-e971-8f4d-4fbb-bd4d3b61e737");
+            query.Execute();
+        }
+
+        public static void UpdateCancelEventById(string eventId)
+        {
+            var query = new Query("update _Document_Event " +
+                                  "    set Status = @cancel" +
+                                  "    where Id=@id");
+            query.AddParameter("id", eventId);
+            query.AddParameter("cancel", "@ref[Enum_StatusyEvents]:81ec69ec-e546-b95d-4879-1cb04ea0a1e6");
+            query.Execute();
         }
     }
 }

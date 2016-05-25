@@ -4,7 +4,12 @@
   <c:DockLayout Id="RootLayout" CssClass="RootLayout">
     <s:Push Id="event" Value="$GetCurrentEvent()" />
     <s:Include File="Components\TopInfoComponent.xml" />
-    <c:Button Id="StartFinishButton" Text="#finish#" CssClass="NoHeight" OnClick="StartFinishButton_OnClick" />
+    <s:If Test="$IsEmptyDateTime($event.ActualStartDate)" >
+      <c:Button Id="StartFinishButton" Text="#finish#" CssClass="NoHeight" OnClick="StartFinishButton_OnClick" />
+    </s:If>
+    <s:Else>
+      <c:Button Id="StartFinishButton" Text="#finish#" CssClass="FinishButton" OnClick="StartFinishButton_OnClick" />
+    </s:Else>
     <c:SwipeVerticalLayout CssClass="EventScreenMainLayout">
       <c:HorizontalLayout CssClass="LightInfoLayout">
         <c:VerticalLayout CssClass="LightInfoBox">
@@ -41,11 +46,12 @@
                     Id="CheckListCounterTextView" CssClass="InfoContent" />
       </c:HorizontalLayout>
 
-      <c:HorizontalLayout CssClass="EmptySpace2sp" />
-      <c:Button Id="StartButton" Text="#start#" CssClass="StartButton" OnClick="StartButton_OnClick" />
-      <c:Button Id="RefuseButton" Text="#refuse#" CssClass="RefuseButton" OnClick="RefuseButton_OnClick" />
-      <c:HorizontalLayout CssClass="EmptySpace5sp" />
-
+      <s:If Test="$IsEmptyDateTime($event.ActualStartDate)" >
+        <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        <c:Button Id="StartButton" Text="#start#" CssClass="StartButton" OnClick="StartButton_OnClick" />
+        <c:Button Id="RefuseButton" Text="#refuse#" CssClass="RefuseButton" OnClick="RefuseButton_OnClick" />
+        <c:HorizontalLayout CssClass="EmptySpace5sp" />
+      </s:If>
     </c:SwipeVerticalLayout>
   </c:DockLayout>
 </c:Screen>
