@@ -2,7 +2,7 @@
 using System.Collections;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
-using Test;
+using Test.Components;
 namespace Test
 {
     public class EventListScreen : Screen
@@ -10,11 +10,14 @@ namespace Test
         private ArrayList _eventsList;
         private ScrollView _svlEventList;
         private TopInfoComponent _topInfoComponent;
+        private TabEventsComponent _tabEventsComponent;
 
         public override void OnLoading()
         {
             _svlEventList = (ScrollView) GetControl("EventListScrollView", true);
             _eventsList = GetEventsFromDb();
+            _tabEventsComponent = new TabEventsComponent(this);
+
 
             _topInfoComponent = new TopInfoComponent(this)
             {
@@ -25,14 +28,16 @@ namespace Test
                 RightExtraLayout = {CssClass = "ExtraRightLayoutCss"}
             };
 
-            EventsStatistic statistic = DBHelper.GetEventsStatistic();
+            var statistic = DBHelper.GetEventsStatistic();
 
-            _topInfoComponent.LeftExtraLayout.AddChild(new TextView($"{statistic.DayCompleteAmout}/{statistic.DayTotalAmount}" ) {CssClass = "ExtraInfo"});
+            _topInfoComponent.LeftExtraLayout.AddChild(
+                new TextView($"{statistic.DayCompleteAmout}/{statistic.DayTotalAmount}") {CssClass = "ExtraInfo"});
             _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("today"))
             {
                 CssClass = "BottonExtraInfo"
             });
-            _topInfoComponent.RightExtraLayout.AddChild(new TextView($"{statistic.MonthCompleteAmout}/{statistic.MonthTotalAmount}") {CssClass = "ExtraInfo"});
+            _topInfoComponent.RightExtraLayout.AddChild(
+                new TextView($"{statistic.MonthCompleteAmout}/{statistic.MonthTotalAmount}") {CssClass = "ExtraInfo"});
             _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
             {
                 CssClass = "BottonExtraInfo"
@@ -119,7 +124,7 @@ namespace Test
                 }
             }
 
-            eventLayout = new HorizontalLayout {CssClass = "OrderInfoContainer",Id = itemElement.Id};
+            eventLayout = new HorizontalLayout {CssClass = "OrderInfoContainer", Id = itemElement.Id};
             eventLayout.OnClick += EventLayout_OnClick;
 
             timeLayout = new VerticalLayout {CssClass = "OrderTimeContainer"};
@@ -220,9 +225,33 @@ namespace Test
         internal void EventLayout_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("Go To View Event");
-            HorizontalLayout currentEvent = (HorizontalLayout) sender;
+            var currentEvent = (HorizontalLayout) sender;
             BusinessProcess.GlobalVariables["currentEventId"] = currentEvent.Id;
             BusinessProcess.DoAction("ViewEvent");
+        }
+
+        internal void TabEventsButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            //_tabEventsComponent.Events_OnClick(sender, eventArgs);
+            DConsole.WriteLine("Settings Events");
+        }
+
+        internal void TabBagButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            _tabEventsComponent.Bag_OnClick(sender, eventArgs);
+            DConsole.WriteLine("Settings Bag");
+        }
+
+        internal void TabClientsButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            _tabEventsComponent.Clients_OnClick(sender, eventArgs);
+            DConsole.WriteLine("Settings Clients");
+        }
+
+        internal void TabSettingsButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            _tabEventsComponent.Settings_OnClick(sender, eventArgs);
+            DConsole.WriteLine("Settings Settings");
         }
 
         private ArrayList GetEventsFromDb()

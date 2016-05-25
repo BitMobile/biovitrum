@@ -6,122 +6,122 @@
 
 
 body {
-	background-color: #ffffff;
-	height: 100%;
-	width: 100%;
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
 }
 
 TextView {
-	color: #51595b;
-	font: 2.5sp arial;
-	height: 3.5sp auto;
-	horizontal-align: center;
-	text-align: center;
-	vertical-align: center;
-	white-space: normal;
-	width: 100%;
+    color: #51595b;
+    font: 2.5sp arial;
+    height: 3.5sp auto;
+    horizontal-align: center;
+    text-align: center;
+    vertical-align: center;
+    white-space: normal;
+    width: 100%;
 }
 
 .NoHeight {
-	height: 0%;
-	width: 100%;
+    height: 0%;
+    width: 100%;
 }
 
 .RootLayout {
-	background-color: #ffffff;
-	height: 100%;
-	width: 100%;
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
 }
 
 /* Top Info Component */
 
 .TopInfoLayout {
-	background-color: #4a4b5e;
-	dock-align: top;
-	height: 4sp auto;
-	padding-top: 1sp;
-	width: 100%;
+    background-color: #4a4b5e;
+    dock-align: top;
+    height: 4sp auto;
+    padding-top: 1sp;
+    width: 100%;
 }
 
 .TopInfoHeadingLayout {
-	height: 7sp;
-	/*margin-top: 2.5sp;*/
-	width: 100%;
+    height: 7sp;
+    /*margin-top: 2.5sp;*/
+    width: 100%;
 }
 
 .TopInfoHeading {
-	background-color: #4a4b5e;
-	border-style: none;
-	border-width: 0px;
-	color: #ffffff;
-	font: 40% arial;
-	height: 100%;
-	padding-top: 26%;
-	text-align: center;
-	width: 68%;
+    background-color: #4a4b5e;
+    border-style: none;
+    border-width: 0px;
+    color: #ffffff;
+    font: 40% arial;
+    height: 100%;
+    padding-top: 26%;
+    text-align: center;
+    width: 68%;
 }
 
 .TopInfoButton {
-	background-color: #4a4b5e;
-	border-style: none;
-	border-width: 0px;
-	color: #ffffff;
-	font: 40% arial;
-	height: 100%;
-	selected-background: #64657e;
-	text-align: center;
-	width: 16%;
+    background-color: #4a4b5e;
+    border-style: none;
+    border-width: 0px;
+    color: #ffffff;
+    font: 40% arial;
+    height: 100%;
+    selected-background: #64657e;
+    text-align: center;
+    width: 16%;
 }
 
 .TopInfoButtonImage {
-	height: 60%;
-	horizontal-align: center;
-	margin-top: 20%;
+    height: 60%;
+    horizontal-align: center;
+    margin-top: 20%;
 }
 
 .TopInfoComment {
-	color: #c4c4c9;
-	font: 2.4sp arial;
-	height: 0sp auto;
-	horizontal-align: center;
-	text-align: center;
-	white-space: normal;
-	width: 58%;
+    color: #c4c4c9;
+    font: 2.4sp arial;
+    height: 0sp auto;
+    horizontal-align: center;
+    text-align: center;
+    white-space: normal;
+    width: 58%;
 }
 
 .TopInfoArrowDown {
-	horizontal-align: center;
-	width: 100sp;
+    horizontal-align: center;
+    width: 100sp;
 }
 
 .TopInfoExtraLayout {
-	background-color: #4a4b5e;
-	dock-align: top;
-	height: 1sp auto;
-	width: 100%;
+    background-color: #4a4b5e;
+    dock-align: top;
+    height: 1sp auto;
+    width: 100%;
 }
 
 .TopInfoImageLayout {
-	background-color: #ffffff;
-	dock-align: top;
-	height: 1sp auto;
-	width: 100%;
+    background-color: #ffffff;
+    dock-align: top;
+    height: 1sp auto;
+    width: 100%;
 }
 
 .TopInfoExtraButtonsLayout {
-	height: 10sp auto;
-	horizontal-align: center;
-	width: 80%;
+    height: 10sp auto;
+    horizontal-align: center;
+    width: 80%;
 }
 
 .TopInfoSideExtraLayout {
-	height: 100% auto;
-	width: 50%;
+    height: 100% auto;
+    width: 50%;
 }
 
 .TopInfoSideImage {
-	height: 50%;
-	horizontal-align: center;
+    height: 50%;
+    horizontal-align: center;
 }
 
 .TopInfoSideText { color: #ffffff; }
@@ -129,109 +129,110 @@ TextView {
 /* Event Screen */
 
 .EventScreenMainLayout {
-	dock-align: top;
-	height: auto;
-	width: 100%;
+    dock-align: top;
+    height: auto;
+    width: 100%;
 }
 
 .LightInfoLayout {
-	height: 5sp auto;
-	horizontal-align: center;
-	width: 90%;
+    height: 5sp auto;
+    horizontal-align: center;
+    width: 90%;
 }
 
 .LightInfoBox {
-	height: 5sp auto;
-	margin-top: 1sp;
-	width: 50%;
+    height: 5sp auto;
+    margin-top: 1sp;
+    width: 50%;
 }
 
 .LightInfoTitle {
-	color: #a4a8a9;
-	font: 2sp arial;
-	height: 3sp;
+    color: #a4a8a9;
+    font: 2sp arial;
+    height: 3sp;
 }
 
 .LightInfoContent { height: 4sp auto; }
 
+
 .LayoutBreaker {
-	background-color: #a4a8a9;
-	height: 0.1sp;
-	horizontal-align: center;
-	width: 90%;
+    background-color: #a4a8a9;
+    height: 0.1sp;
+    horizontal-align: center;
+    width: 90%;
 }
 
 .CommentLayout {
-	height: 10sp auto;
-	horizontal-align: center;
-	margin-bottom: 3sp;
-	margin-top: 2sp;
-	width: 80%;
+    height: 10sp auto;
+    horizontal-align: center;
+    margin-bottom: 3sp;
+    margin-top: 2sp;
+    width: 80%;
 }
 
 .Comment { height: 7.5sp auto; }
 
 .InfoLayout {
-	border-color: #a4a8a9;
-	border-style: solid;
-	border-width: 2px;
-	height: 10sp;
-	horizontal-align: center;
-	margin-bottom: 2sp;
-	padding-bottom: 2sp;
-	padding-top: 2sp;
-	width: 90%;
+    border-color: #a4a8a9;
+    border-style: solid;
+    border-width: 2px;
+    height: 10sp;
+    horizontal-align: center;
+    margin-bottom: 2sp;
+    padding-bottom: 2sp;
+    padding-top: 2sp;
+    width: 90%;
 }
 
 .InfoImage {
-	height: 80%;
-	margin-left: 5%;
-	vertical-align: center;
+    height: 80%;
+    margin-left: 5%;
+    vertical-align: center;
 }
 
 .InfoTitle {
-	font: 4sp arial;
-	height: 80%;
-	margin-left: 2%;
-	padding-top: 1sp;
-	text-align: left;
-	width: 50%;
+    font: 4sp arial;
+    height: 80%;
+    margin-left: 2%;
+    padding-top: 1sp;
+    text-align: left;
+    width: 50%;
 }
 
 .InfoContent {
-	color: #a4a8a9;
-	font: 4sp arial;
-	height: 80%;
-	margin-right: 5%;
-	padding-top: 1sp;
-	text-align: right;
-	width: 35%;
+    color: #a4a8a9;
+    font: 4sp arial;
+    height: 80%;
+    margin-right: 5%;
+    padding-top: 1sp;
+    text-align: right;
+    width: 35%;
 }
 
 .StartButton {
-	background-color: #94da4f;
-	color: #d0ffa1;
-	dock-align: bottom;
-	font: 3.5sp arial;
-	height: 10sp;
-	width: 100%;
+    background-color: #94da4f;
+    color: #d0ffa1;
+    dock-align: bottom;
+    font: 3.5sp arial;
+    height: 10sp;
+    width: 100%;
 }
 
 .FinishButton {
-	background-color: #fe9c81;
-	color: #fecbc0;
-	dock-align: bottom;
-	font: 3.5sp arial;
-	height: 10sp;
-	width: 100%;
+    background-color: #fe9c81;
+    color: #fecbc0;
+    dock-align: bottom;
+    font: 3.5sp arial;
+    height: 10sp;
+    width: 100%;
 }
 
 /* Order List Screen */
 
 .SWL {
+    background-color: #ffffff;
     height: 100%;
     width: 100%;
-    background-color: #ffffff;
 }
 
 .OrderInfoContainer {
@@ -246,20 +247,20 @@ TextView {
 
 .StartDatePlan {
     color: #000000;
+    font: 2.5sp arial;
     height: 60%;
+    padding-top: 10%;
     text-align: center;
     width: 100%;
-    padding-top: 10%;
-    font: 2.5sp arial;
 }
 
 .ActualStartDate {
     color: #feb3a3;
+    font: 2sp arial;
     height: auto;
+    padding-top: 15%;
     text-align: center;
     width: 100%;
-    padding-top: 15%;
-    font: 2sp arial;
 }
 
 .ImportanceContainer {
@@ -294,40 +295,40 @@ TextView {
 }
 
 .ClientDescription {
-    height: 35%;
-    width: 100%;
-    text-align: left;
     color: #51595b;
     font: 3sp arial;
-    padding-top: 10%;
+    height: 35%;
     margin-left: 5%;
+    padding-top: 10%;
+    text-align: left;
+    width: 100%;
 }
 
 .ClientAdress {
-    height: 30%;
-    width: 100%;
-    text-align: left;
     color: #51595b;
     font: 2sp arial;
+    height: 30%;
     margin-left: 5%;
+    text-align: left;
+    width: 100%;
 }
 
 .TypesDepartures {
-    height: 30%;
-    width: 100%;
-    text-align: left;
     color: #7d7777;
     font: 2sp arial;
+    height: 30%;
     margin-bottom: 2%;
     margin-left: 5%;
+    text-align: left;
+    width: 100%;
 }
 
 .ClientHorizontalLine {
-    height: 2%;
-    width: 100%;
-    margin-left: 5%;
     background-color: #fbf6f6;
+    height: 2%;
     horizontal-align: right;
+    margin-left: 5%;
+    width: 100%;
 }
 
 .DateContainer {
@@ -336,54 +337,97 @@ TextView {
 }
 
 .DateText {
-    height: 5sp;
-    width: 80%;
-    text-align: left;
-    font: 2.5sp arial;
     color: #9b9fa0;
-    padding-top: 40%;
+    font: 2.5sp arial;
+    height: 5sp;
     padding-left: 3sp;
+    padding-top: 40%;
+    text-align: left;
+    width: 80%;
 }
 
 .FinalDateLine {
+    background-color: #fbf6f6;
     height: 0.1sp;
     width: 100%;
-    background-color: #fbf6f6;
 }
+
 /* --------------------------------------------- */
 
 /* Top Info Bar LeftExtraLayout and RightExtraLayout*/
 
 .ExtraLeftLayoutCss {
+    background-color: #4a4b5e;
     height: 15sp;
-    width: 15sp;
     margin-left: 25%;
     margin-top: 25%;
-    background-color: #4a4b5e;
+    width: 15sp;
 }
 
 .ExtraRightLayoutCss {
+    background-color: #4a4b5e;
     height: 15sp;
-    width: 15sp;
     margin-right: 25%;
     margin-top: 25%;
-    background-color: #4a4b5e;
+    width: 15sp;
 }
 
 .ExtraInfo {
-    height: 50%;
-    width: 100%;
-    text-align: center;
-    font: 3sp arial;
     background-color: #4a4b5e;
     color: #9595a3;
+    font: 3sp arial;
+    height: 50%;
+    text-align: center;
+    width: 100%;
 }
 
 .BottonExtraInfo {
-    height: 50%;
-    width: 100%;
-    text-align: center;
-    font: 2sp arial;
     background-color: #4a4b5e;
     color: #9595a3;
+    font: 2sp arial;
+    height: 50%;
+    text-align: center;
+    width: 100%;
+}
+
+/* Tap Bar style */
+
+.TabBarHL {
+    background-color: #ffffff;
+    dock-align: bottom;
+    height: 15%;
+    horizontal-align: center;
+    margin-top: 2%;
+    width: 100%;
+}
+
+.TabBarVL {
+    background-color: #ffffff;
+    color: #ffffff;
+    height: 100%;
+    horizontal-align: center;
+    margin-bottom: 0%;
+    vertical-align: center;
+    width: 25%;
+}
+
+.TabImage {
+    background-color: #ffffff;
+    color: #ffffff;
+    /*width: 50%;*/
+    height: 50%;
+    horizontal-align: center;
+    vertical-align: center;
+}
+
+.TabTextViewActive {
+    background-color: #ffffff;
+    color: #fd724c;
+    text-align: center;
+}
+
+.TabTextViewNotActive {
+    background-color: #ffffff;
+    color: #9b9fa0;
+    text-align: center;
 }
