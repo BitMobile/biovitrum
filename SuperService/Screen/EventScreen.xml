@@ -40,6 +40,8 @@
         <c:TextView Text="$GetStringPartOfTotal($event.checkListAnswered, $event.checkListTotal)"
                     Id="CheckListCounterTextView" CssClass="InfoContent" />
       </c:HorizontalLayout>
+      
+      
     </c:SwipeVerticalLayout>
   </c:DockLayout>
 </c:Screen>

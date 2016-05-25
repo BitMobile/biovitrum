@@ -13,10 +13,10 @@ namespace Test.Components
         public TabEventsComponent(Screen parentScreen)
         {
             _parentScreen = parentScreen;
-            SwichScreen(parentScreen);
+            SwitchScreen(parentScreen);
         }
 
-        internal void SwichScreen(Screen parentScreen)
+        internal void SwitchScreen(Screen parentScreen)
         {
             DConsole.WriteLine(BusinessProcess.CurrentNode.Attributes?["Name"].Value);
             switch (BusinessProcess.CurrentNode.Attributes?["Name"].Value)

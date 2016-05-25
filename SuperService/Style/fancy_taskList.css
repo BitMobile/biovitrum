@@ -109,3 +109,15 @@ TextView {
 	horizontal-align: center;
 	margin-top: 20%;
 }
+
+.TaskDoneImageContainer {
+	height: 0sp auto;
+	width: auto;
+	vertical-align: center;
+	padding-right: 2sp;
+}
+
+.TaskDoneImage {
+	height: 4sp;
+	horizontal-align: right;
+}
