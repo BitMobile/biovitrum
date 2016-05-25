@@ -9,7 +9,7 @@
       <c:HorizontalLayout CssClass="LightInfoLayout">
         <c:VerticalLayout CssClass="LightInfoBox">
           <c:TextView Text="#time#" CssClass="LightInfoTitle" />
-          <c:TextView Text="$event.StartDatePlanTime" Id="StartTimeTextView" CssClass="LightInfoContent" />
+          <c:TextView Text="$FormatEventStartDatePlanTime($event.StartDatePlanTime)" Id="StartTimeTextView" CssClass="LightInfoContent" />
         </c:VerticalLayout>
         <c:VerticalLayout CssClass="LightInfoBox">
           <c:TextView Text="#workType#" CssClass="LightInfoTitle" />

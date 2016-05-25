@@ -73,8 +73,14 @@ namespace Test
             BusinessProcess.DoAction("EventList");
         }
 
+        internal string FormatEventStartDatePlanTime(string eventStartDatePlanTime)
+        {
+            return eventStartDatePlanTime.Substring(0, 5);
+        }
+
         internal void StartButton_OnClick(object sender, EventArgs eventArgs)
         {
+
             _startButton.CssClass = "NoHeight";
             _startButton.Visible = false;
             _startButton.Refresh();
@@ -148,7 +154,18 @@ namespace Test
 
         internal string GetStringPartOfTotal(int part, int total)
         {
-            return $"{part}/{total}" == "/" ? "0/0" : $"{part}/{total}";
+            if (part == default(int))
+            {
+                if (total == default(int))
+                {
+                    return "0";
+                }
+                else
+                {
+                    return $"{total}";
+                }
+            }
+            return $"{part}/{total}";
         }
     }
 }
