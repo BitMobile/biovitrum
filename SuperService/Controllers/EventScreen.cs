@@ -80,7 +80,6 @@ namespace Test
 
         internal void StartButton_OnClick(object sender, EventArgs eventArgs)
         {
-
             _startButton.CssClass = "NoHeight";
             _startButton.Visible = false;
             _startButton.Refresh();
@@ -152,20 +151,11 @@ namespace Test
             return _currentEventRecordset;
         }
 
-        internal string GetStringPartOfTotal(int part, int total)
+        internal string GetStringPartOfTotal(long part, long total)
         {
-            if (part == default(int))
-            {
-                if (total == default(int))
-                {
-                    return "0";
-                }
-                else
-                {
-                    return $"{total}";
-                }
-            }
-            return $"{part}/{total}";
+            if (Convert.ToInt64(part) != 0) return $"{part}/{total}";
+            DConsole.WriteLine($"{part == 0}, {total == 0}, {part}, {total}");
+            return $"{total}";
         }
     }
 }
