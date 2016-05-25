@@ -26,4 +26,4 @@ clients		Clients
 settings		Settings
 today		today
 per_month		per month
-
+today_eventListNode		Today

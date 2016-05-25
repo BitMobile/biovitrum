@@ -2,7 +2,7 @@
 using System.Collections;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
-
+using Test;
 namespace Test
 {
     public class EventListScreen : Screen
@@ -25,12 +25,14 @@ namespace Test
                 RightExtraLayout = {CssClass = "ExtraRightLayoutCss"}
             };
 
-            _topInfoComponent.LeftExtraLayout.AddChild(new TextView(@"7/9") {CssClass = "ExtraInfo"});
+            EventsStatistic statistic = DBHelper.GetEventsStatistic();
+
+            _topInfoComponent.LeftExtraLayout.AddChild(new TextView($"{statistic.DayCompleteAmout}/{statistic.DayTotalAmount}" ) {CssClass = "ExtraInfo"});
             _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("today"))
             {
                 CssClass = "BottonExtraInfo"
             });
-            _topInfoComponent.RightExtraLayout.AddChild(new TextView(@"14/29") {CssClass = "ExtraInfo"});
+            _topInfoComponent.RightExtraLayout.AddChild(new TextView($"{statistic.MonthCompleteAmout}/{statistic.MonthTotalAmount}") {CssClass = "ExtraInfo"});
             _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
             {
                 CssClass = "BottonExtraInfo"

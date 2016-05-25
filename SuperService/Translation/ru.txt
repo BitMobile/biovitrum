@@ -26,4 +26,4 @@ clients		Клиенты
 settings		Настройки
 today		сегодня
 per_month		завтра
-
+today_eventListNode		Сегодня
