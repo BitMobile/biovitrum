@@ -49,6 +49,7 @@ namespace Test
 
             var currenDate = DateTime.Now;
             var isHeaderAdded = false;
+            VerticalLayout orderInfoLayout = null;
 
 
             foreach (var VARIABLE in _eventsList)
@@ -58,35 +59,31 @@ namespace Test
 
                 if (itemElement.StartDatePlan.Date <= currenDate.Date)
                 {
+                    if (orderInfoLayout != null)
+                    {
+                        orderInfoLayout.AddChild(new HorizontalLine() {CssClass = "ClientHorizontalLine" });;
+                    }
+
                     DConsole.WriteLine("StartDatePlan = currentDate");
-                   FillEventList(ref isHeaderAdded,ref itemElement,ref currenDate);
+                   FillEventList(ref isHeaderAdded,ref itemElement,ref orderInfoLayout);
                 }
                 else
                 {
                     DConsole.WriteLine("Not Equals");
+                    _svlEventList.AddChild(new HorizontalLine { CssClass = "FinalDateLine" });
                     currenDate = itemElement.StartDatePlan;
                     isHeaderAdded = false;
-                    FillEventList(ref isHeaderAdded, ref itemElement, ref currenDate);
+                    FillEventList(ref isHeaderAdded, ref itemElement,ref orderInfoLayout);
                 }
             }
 
-            foreach (var VARIABLE in _eventsList)
-            {
-                var itemElement = (EventListElement)VARIABLE;
-
-                DConsole.WriteLine($"{itemElement.StartDatePlan.Date}");
-                DConsole.WriteLine($"{itemElement.ClientDescription}");
-                DConsole.WriteLine($"{itemElement.ClientAddress}");
-                DConsole.WriteLine($"{itemElement.TypeDeparture}");
-            }
         }
 
 
         private void FillEventList(ref bool isHeaderAdded,ref EventListElement itemElement,
-            ref DateTime currentDate)
+            ref VerticalLayout orderInfoRefLayout)
         {
 
-            VerticalLayout dateContainer;
             TextView dateText;
             HorizontalLine finalDateLine;
             HorizontalLayout eventLayout;
@@ -99,11 +96,6 @@ namespace Test
             TextView clientDescriptionTextView;
             TextView clientAdressTextView;
             TextView typeDeparturesTextView;
-            HorizontalLine clientHorizontalLine;
-            var buf = string.Empty;
-
-            //dateContainer = new VerticalLayout() { CssClass = "DateContainer" };
-            //DConsole.WriteLine("CssClass: DateContainer");
 
             
 
@@ -115,8 +107,6 @@ namespace Test
                     DConsole.WriteLine("CssClass: DateText");
                     finalDateLine = new HorizontalLine { CssClass = "FinalDateLine" };
                     DConsole.WriteLine("CssClass: FinalDateLine");
-                    //dateContainer.AddChild(dateText);
-                    //dateContainer.AddChild(finalDateLine);
                     _svlEventList.AddChild(dateText);
                     _svlEventList.AddChild(finalDateLine);
                     isHeaderAdded = true;
@@ -133,8 +123,6 @@ namespace Test
                     DConsole.WriteLine("CssClass: DateText");
                     finalDateLine = new HorizontalLine { CssClass = "FinalDateLine" };
                     DConsole.WriteLine("CssClass: FinalDateLine");
-                    //dateContainer.AddChild(dateText);
-                    //dateContainer.AddChild(finalDateLine);
                     _svlEventList.AddChild(dateText);
                     _svlEventList.AddChild(finalDateLine);
                     DConsole.WriteLine(itemElement.StartDatePlan.Date.ToString("dddd, dd MMMM"));
@@ -202,6 +190,7 @@ namespace Test
             importanceLayout.AddChild(importanceIndicatorLayout);
 
             orderInfoLayout = new VerticalLayout() { CssClass = "OrderInfo" };
+            orderInfoRefLayout = orderInfoLayout;
             clientDescriptionTextView = new TextView()
             {
                 CssClass = "ClientDescription",
@@ -230,7 +219,6 @@ namespace Test
             eventLayout.AddChild(importanceLayout);
             eventLayout.AddChild(orderInfoLayout);
 
-            //dateContainer.AddChild(eventLayout);
 
             _svlEventList.AddChild(eventLayout);
         }

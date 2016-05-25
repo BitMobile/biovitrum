@@ -337,12 +337,12 @@ TextView {
 
 .DateText {
     height: 5sp;
-    width: 100%;
+    width: 80%;
     text-align: left;
     font: 2.5sp arial;
     color: #9b9fa0;
-    padding-top: 45%;
-
+    padding-top: 40%;
+    padding-left: 3sp;
 }
 
 .FinalDateLine {
