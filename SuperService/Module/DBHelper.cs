@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using System;
 using BitMobile.ClientModel3;
+//using Database = BitMobile.ClientModel3.Database;
+
 
 namespace Test
 {
+    /// <summary>
+    /// Обеспечивает работу с базой данных приложения</summary>
+    /// <remarks>
+    /// </remarks>
     public static class DBHelper
     {
+
         private static Database _db;
+
 
         public static void Init()
         {
@@ -19,7 +27,19 @@ namespace Test
             }
         }
 
+        /// <summary>
+        /// Method returns list of all events 
+        /// Возвращает список всех событий </summary>
         public static ArrayList GetEvents()
+        {
+            return GetEvents(new DateTime());
+        }
+
+        /// <summary>
+        /// Method returns list of events which plan start date biger then param
+        /// Получает список событий плановая дата начала которых больше передаваемого параметра</summary>
+        /// <param name="eventSinceDate"> Дата начания с которой необходимо получить события</param>
+        public static ArrayList GetEvents(DateTime eventSinceDate)
         {
             var events = new ArrayList();
 
@@ -28,7 +48,7 @@ namespace Test
                                   "  event.StartDatePlan, " + //full date
                                   "  date(event.StartDatePlan) as startDatePlanDate, " + //date only
                                   "  ifnull(TypeDeparturesTable.description, '') as TypeDeparture, " +
-                                  "  event.ActualStartDate as ActualStartDate, " + //4
+                                  "  event.ActualStartDate as ActualStartDate, " +//4
                                   "  Enum_StatusImportance.Description as Importance, " +
                                   "  Enum_StatusImportance.Name as ImportanceName, " +
                                   "  ifnull(client.Description, '') as Description, " +
@@ -59,7 +79,8 @@ namespace Test
                                   "     on event.id = TypeDeparturesTable.Ref " +
                                   "          left join Enum_StatusImportance " +
                                   "               on event.Importance = Enum_StatusImportance.Id " +
-                                  "  " +
+                                  "  where " +
+                                  "      event.StartDatePlan > '" + eventSinceDate.ToString() + "'" +
                                   " order by " +
                                   "  event.StartDatePlan");
 
@@ -74,6 +95,10 @@ namespace Test
             return events;
         }
 
+        /// <summary>
+        /// Полуает статистику по нарядам (событиям). Возвращает объект содержащий: количество нарядов на день, количество закрытых 
+        /// нарядов за день, количество нарядов с начала месяца, количество закрытых нарядов с начала месяца
+        /// </summary>
         public static EventsStatistic GetEventsStatistic()
         {
             var statistic = new EventsStatistic();
@@ -81,7 +106,7 @@ namespace Test
                                   "  SUM(CASE " +
                                   "        when StartDatePlan > date('now','start of day') then 1 " +
                                   "        else 0 " +
-                                  "   End) as DayTotalAmount, " +
+                                  "   End) as DayTotalAmount, " + 
                                   "    SUM(CASE " +
                                   "        when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now','start of day') then 1 " +
                                   "        else 0 " +
@@ -111,7 +136,9 @@ namespace Test
             return statistic;
         }
 
-
+        /// <summary>
+        /// Получает полную информацию по событию</summary>
+        /// <param name="eventID"> Идентификатор события</param>
         public static DbRecordset GetEventByID(string eventID)
         {
             var queryText = "select " +
@@ -136,7 +163,7 @@ namespace Test
                             "    _Document_Event as event  " +
                             "    left join  " +
                             "    _Catalog_Client as client  " +
-                            "    on  event.id = '__EVENT_ID_PARAMETER__' and event.client = client.Id  " +
+                            "    on  event.id = @id and event.client = client.Id  " +
                             "      " +
                             "    left join  " +
                             "   (select  " +
@@ -148,7 +175,7 @@ namespace Test
                             "    from  " +
                             "    _Document_Event_TypeDepartures  " +
                             "   where   " +
-                            "    ref = '__EVENT_ID_PARAMETER__'   " +
+                            "    ref = @id   " +
                             "    and active = 1   " +
                             "   group by " +
                             "       ref) as t1  " +
@@ -163,31 +190,34 @@ namespace Test
                             "   left join _Enum_StatusImportance  " +
                             "           on event.Importance = _Enum_StatusImportance.Id  " +
                             "    " +
-                            "   left join (select Document_Event_ServicesMaterials.Ref, sum(SumFact) as sumFact from Document_Event_ServicesMaterials where Document_Event_ServicesMaterials.Ref = '__EVENT_ID_PARAMETER__' group by Document_Event_ServicesMaterials.Ref ) as docSum  " +
+                            "   left join (select Document_Event_ServicesMaterials.Ref, sum(SumFact) as sumFact from Document_Event_ServicesMaterials where Document_Event_ServicesMaterials.Ref = @id group by Document_Event_ServicesMaterials.Ref ) as docSum  " +
                             "   on event.id = docSUm.ref " +
                             "    " +
-                            "   left join (select Document_Event_CheckList.Ref, count(Document_Event_CheckList.Ref) as Total, sum(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_CheckList where Document_Event_CheckList.Ref = '__EVENT_ID_PARAMETER__' group by Document_Event_CheckList.Ref ) as docCheckList " +
+                            "   left join (select Document_Event_CheckList.Ref, count(Document_Event_CheckList.Ref) as Total, sum(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_CheckList where Document_Event_CheckList.Ref = @id group by Document_Event_CheckList.Ref ) as docCheckList " +
                             "   on event.id = docCheckList.ref " +
                             "    " +
-                            "    left join (select Document_Event_Equipments.Ref, count(Document_Event_Equipments.Ref) as Total, sum(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_Equipments where Document_Event_Equipments.Ref = '__EVENT_ID_PARAMETER__' group by Document_Event_Equipments.Ref ) as docEquipment " +
+                            "    left join (select Document_Event_Equipments.Ref, count(Document_Event_Equipments.Ref) as Total, sum(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_Equipments where Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment " +
                             "   on event.id = docEquipment.ref " +
                             "    " +
                             "   where  " +
-                            "   event.id = '__EVENT_ID_PARAMETER__'  ";
+                            "   event.id = @id  ";
 
-            var query = new Query(queryText.Replace("__EVENT_ID_PARAMETER__", eventID));
+            var query = new Query(queryText);
+            query.AddParameter("id", eventID);
             var result = query.Execute();
 
             return result;
         }
 
-
+        /// <summary>
+        /// Получает список задач события</summary>
+        /// <param name="eventID"> Идентификатор события</param>
         public static DbRecordset GetTasksByEventID(string eventID)
         {
             var query = new Query("select " +
-                                  "    tasks.Id,  " +
-                                  "    tasks.Ref, " +
-                                  "    tasks.Terget, " +
+                                  "    tasks.Id,  " + //ид задачи
+                                  "    tasks.Ref, " + //ид документа События
+                                  "    tasks.Terget, " + //цель
                                   "    equipment.Description as equipmentDescription, " +
                                   "    ResultEvent.Description as ResultEventDescription, " +
                                   "    ResultEvent.Name as ResultEventName, " +
@@ -204,50 +234,107 @@ namespace Test
                                   "       on tasks.Result = ResultEvent.Id " +
                                   "       " +
                                   " where " +
-                                  "   tasks.Ref = '" + eventID + "'  ");
+                                  "   tasks.Ref = @id  ");
+            query.AddParameter("id", eventID);
             var result = query.Execute();
 
             return result;
         }
 
+        /// <summary>
+        /// Устанавливает фактическое время начала события</summary>
+        /// <param name="dateTime"> Дата время начала события</param>
+        /// <param name="eventId"> Дата время начала наряда (события)</param>
         public static void UpdateActualStartDateByEventId(DateTime dateTime, string eventId)
         {
             var query = new Query("update _Document_Event " +
                                   "    set ActualStartDate = @dateTime, " +
-                                  "        Status = @inWork" +
+                                  "        Status = (select Enum_StatusyEvents.id from Enum_StatusyEvents where Enum_StatusyEvents.name like 'InWork')" +
                                   "    where Id=@id");
             DConsole.WriteLine($"{dateTime}");
             query.AddParameter("dateTime", dateTime.ToString("yyyy-MM-dd HH:mm:ss"));
             query.AddParameter("id", eventId);
-            query.AddParameter("inWork", "@ref[Enum_StatusyEvents]:a00d846a-3d09-46c0-4a19-b6a10e055c9e");
             query.Execute();
             _db.Commit();
         }
 
-        public static void UpdateActualEndDateByEnetId(DateTime dateTime, string eventId)
+        /// <summary>
+        /// Устанавливает фактическое время завершения наряда (события)</summary>
+        /// <param name="dateTime"> Дата время начала события</param>
+        /// <param name="eventId"> Дата время начала события</param>
+        public static void UpdateActualEndDateByEventId(DateTime dateTime, string eventId)
         {
             var query = new Query("update _Document_Event " +
                                   "    set ActualEndDate = @dateTime, " +
-                                  "        Status = @done" +
+                                  "        Status = (select Enum_StatusyEvents.id from Enum_StatusyEvents where Enum_StatusyEvents.name like 'Done')" +
                                   "    where Id=@id");
             DConsole.WriteLine($"{dateTime}");
             query.AddParameter("dateTime", dateTime.ToString("yyyy-MM-dd HH:mm:ss"));
             query.AddParameter("id", eventId);
-            query.AddParameter("done", "@ref[Enum_StatusyEvents]:81998d6c-e971-8f4d-4fbb-bd4d3b61e737");
             query.Execute();
             _db.Commit();
         }
 
+        /// <summary>
+        /// Устанавливает признак отмены наряда (события) (события)</summary>
+        /// <param name="eventId"> Дата время начала события</param>
         public static void UpdateCancelEventById(string eventId)
         {
             var query = new Query("update _Document_Event " +
-                                  "    set Status = @cancel" +
+                                  "    set Status = (select Enum_StatusyEvents.id from Enum_StatusyEvents where Enum_StatusyEvents.name like 'Cancel')" +
                                   "    where Id=@id");
             query.AddParameter("id", eventId);
-            query.AddParameter("cancel", "@ref[Enum_StatusyEvents]:81ec69ec-e546-b95d-4879-1cb04ea0a1e6");
             query.Execute();
             _db.Commit();
 
         }
+
+
+        /// <summary>
+        /// Получает список вопросов чек-листов по идентификаторы события</summary>
+        /// <param name="eventID"> Идентификатор события</param>
+        public static DbRecordset GetCheckListByEventID(string eventID)
+        {
+            var query = new Query("select " + 
+                                  "   checkList.Id as CheckListId, " +
+                                  "   checkList.Ref as EventId, " +
+                                  "   checkList.Required as Required, " + //признак обязательности
+                                  "   checkList.Result as Result, " + //значение результата
+                                  "   checkList.Action as ActionId, " +
+                                  "   actions.Description as Description, " + //название пункта чек-листа
+                                  "   typesDataParameters.Name as TypeName " +  //Тип значения чек-листа: ValList - выбор из списка значений; Snapshot - фото; остальное понятно из названий
+                                  "from " +
+                                  "   Document_Event_CheckList as checkList " +
+                                  "   left join Catalog_Actions as actions " +
+                                  "     ON checkList.Ref = @eventId " +
+                                  "       AND checkList.Action = actions.Id " +
+                                  "    " +
+                                  "   left join Enum_TypesDataParameters as typesDataParameters " +
+                                  "     ON checkList.ActionType = TypesDataParameters.Id " +
+                                  "    " +
+                                  "where " +
+                                  "    checkList.Ref = @eventId");
+
+            query.AddParameter("eventId", eventID);
+            return query.Execute();
+        }
+
+        /// <summary>
+        /// Получает список вариантов ответов для действий (вопросов)  с типом результата "выбор из списка"</summary>
+        /// <param name="actionID"> Идентификатор действия</param>
+        public static DbRecordset GetActionValuesList(string actionID)
+        {
+            var query = new Query("select " +
+                                  "     Catalog_Actions_ValueList.Id, " + //идентификатор ответа
+                                  "     Catalog_Actions_ValueList.Val " + //представление ответа
+                                  "from " +
+                                  "     Catalog_Actions_ValueList " +
+                                  "where " +
+                                  "     Catalog_Actions_ValueList.Ref = @actionID");
+            query.AddParameter("actionID", actionID);
+            return query.Execute();
+
+        }
+
     }
 }

@@ -112,7 +112,7 @@ namespace Test
             {
                 if (CheckEventBeforeClosing() && args.Result == 0)
                 {
-                    DBHelper.UpdateActualEndDateByEnetId(DateTime.Now,
+                    DBHelper.UpdateActualEndDateByEventId(DateTime.Now,
                         (string) BusinessProcess.GlobalVariables["currentEventId"]);
                     BusinessProcess.DoAction("CloseEvent");
                 }
