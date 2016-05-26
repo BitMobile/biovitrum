@@ -34,7 +34,7 @@
         <c:TextView Text="#coc#" Id="CertificateOfCompletionNameTextView" CssClass="InfoTitle" />
         <c:TextView Text="$event.sumFact" Id="CertificateOfCompletionTextView" CssClass="InfoContent" />
       </c:HorizontalLayout>
-      <c:HorizontalLayout CssClass="InfoLayout">
+      <c:HorizontalLayout CssClass="InfoLayout" OnClick="CheckListCounterLayout_OnClick">
         <c:Image Source="Image\es_clist.png" CssClass="InfoImage" />
         <c:TextView Text="#clist#" Id="CheckListCounterNameTextView" CssClass="InfoTitle" />
         <c:TextView Text="$GetStringPartOfTotal($event.checkListAnswered, $event.checkListTotal)"

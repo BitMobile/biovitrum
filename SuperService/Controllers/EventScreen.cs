@@ -135,6 +135,11 @@ namespace Test
             BusinessProcess.DoAction("ViewTasks");
         }
 
+        internal void CheckListCounterLayout_OnClick(object sender, EventArgs eventArgs)
+        {
+            BusinessProcess.DoAction("ViewCheckList");
+        }
+
         internal DbRecordset GetCurrentEvent()
         {
             object eventId;
