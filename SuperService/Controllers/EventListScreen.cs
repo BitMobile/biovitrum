@@ -3,17 +3,19 @@ using System.Collections;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
+
 namespace Test
 {
     public class EventListScreen : Screen
     {
         private ArrayList _eventsList;
         private ScrollView _svlEventList;
-        private TopInfoComponent _topInfoComponent;
         private TabEventsComponent _tabEventsComponent;
+        private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
+            DConsole.WriteLine("OnLoanding EventList");
             _svlEventList = (ScrollView) GetControl("EventListScrollView", true);
             _eventsList = GetEventsFromDb();
             _tabEventsComponent = new TabEventsComponent(this);
@@ -29,7 +31,6 @@ namespace Test
             };
 
             var statistic = DBHelper.GetEventsStatistic();
-
             _topInfoComponent.LeftExtraLayout.AddChild(
                 new TextView($"{statistic.DayCompleteAmout}/{statistic.DayTotalAmount}") {CssClass = "ExtraInfo"});
             _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("today"))
@@ -42,6 +43,8 @@ namespace Test
             {
                 CssClass = "BottonExtraInfo"
             });
+
+            DConsole.WriteLine("FillingOrderList");
             FillingOrderList();
         }
 
@@ -141,7 +144,7 @@ namespace Test
 
             if (itemElement.ActualStartDate != default(DateTime))
             {
-                actualStartDateTextView.Text = (DateTime.Now - itemElement.ActualStartDate).ToString("HH:mm");
+                actualStartDateTextView.Text = (DateTime.Now - itemElement.ActualStartDate).ToString(@"hh\:mm");
             }
             else
             {
