@@ -221,6 +221,7 @@ namespace Test
             query.AddParameter("id", eventId);
             query.AddParameter("inWork", "@ref[Enum_StatusyEvents]:a00d846a-3d09-46c0-4a19-b6a10e055c9e");
             query.Execute();
+            _db.Commit();
         }
 
         public static void UpdateActualEndDateByEnetId(DateTime dateTime, string eventId)
@@ -234,6 +235,7 @@ namespace Test
             query.AddParameter("id", eventId);
             query.AddParameter("done", "@ref[Enum_StatusyEvents]:81998d6c-e971-8f4d-4fbb-bd4d3b61e737");
             query.Execute();
+            _db.Commit();
         }
 
         public static void UpdateCancelEventById(string eventId)
@@ -244,6 +246,8 @@ namespace Test
             query.AddParameter("id", eventId);
             query.AddParameter("cancel", "@ref[Enum_StatusyEvents]:81ec69ec-e546-b95d-4879-1cb04ea0a1e6");
             query.Execute();
+            _db.Commit();
+
         }
     }
 }
