@@ -17,7 +17,7 @@ namespace Test
 
         private void Camera_OnClick(object sender, EventArgs e)
         {
-            //Camera.MakeSnapshot("//private//test.jpg", 5,);
+            Camera.MakeSnapshot("//private//test.jpg", 5);
         }
     }
 }

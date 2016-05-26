@@ -8,12 +8,11 @@ namespace Test
     public class EventScreen : Screen
     {
         private DbRecordset _currentEventRecordset;
+        private Button _refuseButton;
         private DockLayout _rootLayout;
-        private bool _started;
+        private Button _startButton;
 
         private Button _startFinishButton;
-        private Button _startButton;
-        private Button _refuseButton;
 
         private TopInfoComponent _topInfoComponent;
 
@@ -23,6 +22,8 @@ namespace Test
 
             LoadControls();
             FillControls();
+
+            IsEmptyDateTime((string) _currentEventRecordset["ActualStartDate"]);
         }
 
         private void FillControls()
@@ -70,10 +71,27 @@ namespace Test
 
         internal void RefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
+            DBHelper.UpdateCancelEventById((string) BusinessProcess.GlobalVariables["currentEventId"]);
             BusinessProcess.DoAction("EventList");
         }
 
+        internal string FormatEventStartDatePlanTime(string eventStartDatePlanTime)
+        {
+            return eventStartDatePlanTime.Substring(0, 5);
+        }
+
         internal void StartButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            Dialog.Ask(Translator.Translate("areYouSure"), (o, args) =>
+            {
+                if (args.Result == Dialog.Result.Yes)
+                {
+                    ChangeLayoutToStartedEvent();
+                }
+            });
+        }
+
+        private void ChangeLayoutToStartedEvent()
         {
             _startButton.CssClass = "NoHeight";
             _startButton.Visible = false;
@@ -81,26 +99,26 @@ namespace Test
             _refuseButton.CssClass = "NoHeight";
             _refuseButton.Visible = false;
             _refuseButton.Refresh();
-
             _startFinishButton.CssClass = "FinishButton";
-            _startFinishButton.Refresh();
+            _startFinishButton?.Refresh();
             _startFinishButton.Text = Translator.Translate("finish");
-            _started = true;
             _rootLayout.Refresh();
             Event_OnStart();
         }
 
         internal void StartFinishButton_OnClick(object sender, EventArgs eventArgs)
         {
-            if (_started)
+            Dialog.Alert(Translator.Translate("closeeventquestion"), (o, args) =>
             {
-                Dialog.Alert(Translator.Translate("closeeventquestion"), (o, args) =>
+                if (CheckEventBeforeClosing() && args.Result == 0)
                 {
-                    if (CheckEventBeforeClosing() && args.Result == 0)
-                        BusinessProcess.DoAction("CloseEvent");
-                }, null,
-                    Translator.Translate("yes"), Translator.Translate("no"));
-            }
+                    DBHelper.UpdateActualEndDateByEventId(DateTime.Now,
+                        (string) BusinessProcess.GlobalVariables["currentEventId"]);
+                    BusinessProcess.DoAction("CloseEvent");
+                }
+
+            }, null,
+                Translator.Translate("yes"), Translator.Translate("no"));
         }
 
         private bool CheckEventBeforeClosing()
@@ -111,7 +129,8 @@ namespace Test
 
         private void Event_OnStart()
         {
-            // TODO: Логика на старт наряда
+            DBHelper.UpdateActualStartDateByEventId(DateTime.Now,
+                (string) BusinessProcess.GlobalVariables["currentEventId"]);
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
@@ -151,9 +170,16 @@ namespace Test
             return _currentEventRecordset;
         }
 
-        internal string GetStringPartOfTotal(int part, int total)
+        internal string GetStringPartOfTotal(long part, long total)
         {
-            return $"{part}/{total}" == "/" ? "0/0" : $"{part}/{total}";
+            if (Convert.ToInt64(part) != 0) return $"{part}/{total}";
+//            DConsole.WriteLine($"{part == 0L}, {Convert.ToInt64(total) == 0L}, {part}, {total}");
+            return $"{total}";
+        }
+
+        internal bool IsEmptyDateTime(string dateTime)
+        {
+            return dateTime == "0001-01-01 00:00:00";
         }
     }
 }

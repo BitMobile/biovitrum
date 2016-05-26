@@ -25,3 +25,8 @@ bag		Bag
 clients		Clients
 settings		Settings
 checklist		Check-list
+areYouSure		Are you sure?
+today		today
+per_month		per month
+today_eventListNode		Today
+
