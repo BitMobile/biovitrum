@@ -140,7 +140,7 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
         {
-            DConsole.WriteLine("Nothing to see here");
+           BusinessProcess.DoAction("Client");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)

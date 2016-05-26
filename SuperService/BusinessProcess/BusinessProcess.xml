@@ -59,8 +59,9 @@
       <Action Name="BackToTaskList" NextStep="TaskList"></Action>
     </Step>
 
-    <Step Name="Client" Controller="ClientScreen" StyleSheet="Style\style.css">
+    <Step Name="Client" Controller="ClientScreen" StyleSheet="Style\clientscreen_style.css">
       <Action Name="ClientList" NextStep="ClientList"></Action>
+      <Action Name="ViewEvent" NextStep="Event"></Action>
     </Step>
 
     <Step Name="CloseEvent" Controller="CloseEventScreen" StyleSheet="Style\fancy_closeeventscreen.css">

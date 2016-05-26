@@ -32,9 +32,9 @@ namespace Test
             GlobalVariables["currentEventId"] = "@ref[Document_Event]:6422e731-149a-11e6-80e3-005056011152";
 #endif
 
-            var firstStepName = _doc.DocumentElement.ChildNodes[0].ChildNodes[0].Attributes["Name"].Value;
-            MoveTo(firstStepName);
-            //MoveTo("EventList");
+            //var firstStepName = _doc.DocumentElement.ChildNodes[0].ChildNodes[0].Attributes["Name"].Value;
+            //MoveTo(firstStepName);
+            MoveTo("Client");
         }
 
         private static void MoveTo(string stepName)
