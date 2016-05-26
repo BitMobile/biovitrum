@@ -1,0 +1,139 @@
+﻿/* ReSharper disable CssNotResolved */
+/* ReSharper disable Html.TagNotResolved */
+/* ReSharper disable InvalidValue */
+/* ReSharper disable RedundantUnits */
+/* ReSharper disable UnexpectedValue */
+
+
+body {
+	background-color: #ffffff;
+	height: 100%;
+	width: 100%;
+}
+
+.testlay {
+	background-color: #ffffff;
+	height: 100%;
+	width: 100%;
+}
+
+.testbtn {
+    margin-top: 1sp;
+    width: 100%;
+    height: 7sp;
+    background-color: #0000cd;
+    color: #ffffe0;
+    text-align: center;
+    selected-background: #0000ff;
+}
+
+TextView {
+	color: #51595b;
+	font: 2.5sp arial;
+	height: 3.5sp auto;
+	horizontal-align: center;
+	text-align: center;
+	vertical-align: center;
+	white-space: normal;
+	width: 100%;
+}
+
+.NoHeight {
+	height: 0%;
+	width: 100%;
+}
+
+.RootLayout {
+	background-color: #ffffff;
+	height: 100%;
+	width: 100%;
+}
+
+/*  TaskList */
+
+.TopLayout {
+	background-color: #4a4b5e;
+	height: 7sp auto;
+	padding-bottom: 2sp;
+	padding-top: 1sp;
+	width: 100%;
+}
+
+.TopButton {
+	background-color: #4a4b5e;
+	border-style: none;
+	border-width: 0px;
+	color: #ffffff;
+	font: 40% arial;
+	height: 100%;
+	selected-background: #64657e;
+	text-align: center;
+	width: 16%;
+}
+
+.TopHeading {
+	background-color: #4a4b5e;
+	border-style: none;
+	border-width: 0px;
+	color: #ffffff;
+	font: 40% arial;
+	height: 100%;
+	padding-top: 26%;
+	text-align: center;
+	width: 68%;
+}
+
+.TaskListLayout {
+	height: auto;
+	width: 100%;
+}
+
+.TaskLayout {
+	height: 10sp;
+	horizontal-align: center;
+	width: 90%;
+}
+
+.TaskInfoLayout {
+	height: 100%;
+	width: 80%;
+}
+
+.TaskName {
+	color: #4a4b5e;
+	font: 3sp arial;
+	margin-top: 2sp;
+	text-align: left;
+}
+
+.TaskDescription {
+	color: #4a4b5e;
+	font: 2sp arial;
+	margin-top: 1sp;
+	text-align: left;
+}
+
+.TaskBreaker {
+	background-color: #f3f3f4;
+	height: 3px;
+	horizontal-align: center;
+	width: 90%;
+}
+
+.BackButton {
+	height: 60%;
+	horizontal-align: center;
+	margin-top: 20%;
+}
+
+.TaskDoneImageContainer {
+	height: 0sp auto;
+	width: auto;
+	vertical-align: center;
+	padding-right: 2sp;
+}
+
+.TaskDoneImage {
+	height: 4sp;
+	horizontal-align: right;
+}

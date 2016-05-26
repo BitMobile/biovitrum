@@ -64,9 +64,27 @@
     <Compile Include="Module\**" />
     <Compile Include="Objects\**" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Screen\**" />
+    <EmbeddedResource Include="Screen\AuthScreen.xml" />
+    <EmbeddedResource Include="Screen\BagListScreen.xml" />
+    <EmbeddedResource Include="Screen\CheckListScreen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Screen\ClientListScreen.xml" />
+    <EmbeddedResource Include="Screen\ClientScreen.xml" />
+    <EmbeddedResource Include="Screen\CloseEventScreen.xml" />
+    <EmbeddedResource Include="Screen\EventListScreen.xml" />
+    <EmbeddedResource Include="Screen\EventScreen.xml" />
+    <EmbeddedResource Include="Screen\MapScreen.xml" />
+    <EmbeddedResource Include="Screen\SettingsScreen.xml" />
+    <EmbeddedResource Include="Screen\TaskListScreen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Screen\TaskScreen.xml" />
     <EmbeddedResource Include="Style\**" />
     <EmbeddedResource Include="Translation\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Style\CheckListScreen.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -57,7 +57,7 @@
       <Action Name="ViewTask" NextStep="Task"></Action>
     </Step>
 
-    <Step Name="CheckList" Controller="CheckListScreen" StyleSheet="Style\style.css">
+    <Step Name="CheckList" Controller="CheckListScreen" StyleSheet="Style\CheckListScreen.css">
       <Action Name="BackToEvent" NextStep="Event"></Action>
     </Step>
 
