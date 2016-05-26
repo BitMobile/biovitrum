@@ -80,10 +80,11 @@ namespace Test
                                   "          left join Enum_StatusImportance " +
                                   "               on event.Importance = Enum_StatusImportance.Id " +
                                   "  where " +
-                                  "      event.StartDatePlan > '" + eventSinceDate.ToString() + "'" +
+                                  "      event.StartDatePlan > @eventDate" +
                                   " order by " +
                                   "  event.StartDatePlan");
 
+            query.AddParameter("eventDate", eventSinceDate);
             var querryResult = query.Execute();
 
             while (querryResult.Next())
