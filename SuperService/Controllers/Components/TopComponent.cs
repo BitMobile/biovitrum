@@ -5,6 +5,10 @@ using Test;
 
 namespace Test.Components
 {
+    /// <summary>
+    /// Класс представляет верхнюю компоненту
+    /// с двумя кнопками и заголовком.
+    /// </summary>
     class TopComponent
     {
         private readonly Screen _parentScreen;
@@ -16,6 +20,8 @@ namespace Test.Components
         public TextView TopHeadingTextView { get; private set; }
         
 
+        /// <param name="parentScreen">
+        /// ссылка на родительский экран.</param>
         public TopComponent(Screen parentScreen)
         {
             _parentScreen = parentScreen;
@@ -34,11 +40,23 @@ namespace Test.Components
 
         }
 
+        /// <summary>
+        /// Событие левой кнопки компонента.
+        /// Отвечает за перемещение между экранами.
+        /// </summary>
+        /// <param name="nextAction">
+        /// Переход на заданное действие.</param>
         internal void LeftButton_OnClick(string nextAction)
         {
             BusinessProcess.DoAction(nextAction);
         }
 
+        /// <summary>
+        /// Событие правой кнопки компонента.
+        /// Отвечает за перемещение между экранами.
+        /// </summary>
+        /// <param name="nextAction">
+        /// Переход на следующее действие.</param>
         internal void RightButton_OnClick(string nextAction)
         {
              BusinessProcess.DoAction(nextAction);
