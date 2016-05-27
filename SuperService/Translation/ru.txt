@@ -24,7 +24,6 @@ orders		Наряды
 bag		Рюкзак
 clients		Клиенты
 settings		Настройки
-checklist		Чек-лист
 areYouSure		Вы уверены?
 today		сегодня
 per_month		завтра

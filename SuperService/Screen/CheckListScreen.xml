@@ -7,32 +7,32 @@
       <c:VerticalLayout Id="BackButton" CssClass="TopButton" OnClick="BackButton_OnClick">
         <c:Image Source="Image\top_back.png" CssClass="BackButton" />
       </c:VerticalLayout>
-      <c:TextView Text="#checklist#" CssClass="TopHeading" Id="HeadingTextView" />
+      <c:TextView Text="#clist#" CssClass="TopHeading" Id="HeadingTextView" />
     </c:HorizontalLayout>
-    
-    <c:VerticalLayout CssClass="testlay">
+
+    <c:SwipeVerticalLayout CssClass="testlay">
       <c:Button Text="Выход" CssClass="testbtn"/>
+      
+      <s:Iterator Id="CheckList" Value="$GetCheckList()">
+        <c:HorizontalLayout Id="$CheckListId" CssClass="TaskLayout" OnClick="TaskLayout_OnClick">
+          <c:VerticalLayout CssClass="TaskInfoLayout">
+            <!--<c:TextView Text="$task.Terget" CssClass="TaskName" />-->
+            <c:TextView Text="$Result" CssClass="TaskDescription" />
+          </c:VerticalLayout>
+          <c:VerticalLayout CssClass="TaskDoneImageContainer">
+            <s:If Test="$CheckList.Required">
+              <c:Image Source="Image\TaskList\done.png" CssClass="TaskDoneImage" />
+            </s:If>
+            <s:Else>
+              <c:Image Source="Image\TaskList\notDone.png" CssClass="TaskDoneImage" />
+            </s:Else>
+          </c:VerticalLayout>
+        </c:HorizontalLayout>
+        <c:HorizontalLine CssClass="TaskBreaker" />
+      </s:Iterator>
+      
       <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-      <c:Button Text="Выход" CssClass="testbtn"/>
-    </c:VerticalLayout>
+    </c:SwipeVerticalLayout>
   
   </c:VerticalLayout>
 </c:Screen>

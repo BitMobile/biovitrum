@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,16 @@ namespace Test
         private void Camera_OnClick(object sender, EventArgs e)
         {
             Camera.MakeSnapshot("//private//test.jpg", 5);
+        }
+
+        //internal object GetEvent()
+        //{
+        //    return DBHelper.GetEventByID((string)BusinessProcess.GlobalVariables["currentEventId"]);
+        //}
+
+        internal IEnumerable GetCheckList()
+        {
+            return DBHelper.GetCheckListByEventID((string)BusinessProcess.GlobalVariables["currentEventId"]);
         }
     }
 }
