@@ -2,5 +2,6 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI">
   <c:VerticalLayout CssClass="RootLayout">
     <c:TextView Text="Map"/>
+    <c:Button Id="BackButton" OnClick="BackButton_OnClick" />
   </c:VerticalLayout>
 </c:Screen>

@@ -16,6 +16,7 @@ namespace Test
         public string TypeDeparture { get; set; }
         public DateTime ActualStartDate { get; set; }
         public string Importance { get; set; }
+        public string ImportanceName { get; set; }
         public string ClientDescription { get; set; }
         public string ClientAddress { get; set; }
 
@@ -29,8 +30,9 @@ namespace Test
             eventElement.TypeDeparture = recordSet.GetString(3);
             eventElement.ActualStartDate = recordSet.GetDateTime(4);
             eventElement.Importance = recordSet.GetString(5);
-            eventElement.ClientDescription = recordSet.GetString(6);
-            eventElement.ClientAddress = recordSet.GetString(7);
+            eventElement.ImportanceName = recordSet.GetString(6);
+            eventElement.ClientDescription = recordSet.GetString(7);
+            eventElement.ClientAddress = recordSet.GetString(8);
 
             return eventElement;
         }

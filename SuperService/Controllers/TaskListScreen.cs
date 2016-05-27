@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections;
-using BitMobile.Application.Translator;
+using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
-using Translator = BitMobile.ClientModel3.Translator;
 
 namespace Test
 {
@@ -40,6 +39,7 @@ namespace Test
 
         internal void TopInfo_Arrow_OnClick(object sernder, EventArgs eventArgs)
         {
+            _topInfoComponent.Arrow_OnClick(sernder, eventArgs);
         }
 
         internal object GetEvent()
