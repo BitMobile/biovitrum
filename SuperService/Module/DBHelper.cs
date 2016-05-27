@@ -100,6 +100,7 @@ namespace Test
             return events;
         }
 
+
         /// <summary>
         ///     Полуает статистику по нарядам (событиям). Возвращает объект содержащий: количество нарядов на день, количество
         ///     закрытых
@@ -237,6 +238,7 @@ namespace Test
             return result;
         }
 
+
         /// <summary>
         ///     Получает список задач события
         /// </summary>
@@ -288,6 +290,7 @@ namespace Test
             _db.Commit();
         }
 
+
         /// <summary>
         ///     Устанавливает фактическое время завершения наряда (события)
         /// </summary>
@@ -318,11 +321,10 @@ namespace Test
             query.AddParameter("id", eventId);
             query.Execute();
             _db.Commit();
-        }
-
-        /// <summary>
-        ///     Возвращает перечень контактных лиц клиента
-        /// </summary>
+        /// Получает список вариантов ответов для действий (вопросов)  с типом результата "выбор из списка"</summary>
+        /// <param name="actionID"> Идентификатор действия</param>
+        /// Возвращает перечень контактных лиц клиента</summary>
+        /// <param name="actionID"> Идентификатор действия</param>
         public static DbRecordset GetContactsByClientID(string clientID)
         {
             var query = new Query("select " +
@@ -350,6 +352,7 @@ namespace Test
         /// <summary>
         ///     Возвращает перечень оборудования клиента. Возвращается все оборудование во всех статусах
         /// </summary>
+        /// <param name="clientID"> Идентификатор клиента</param>
         public static DbRecordset GetEquipmentByClientID(string clientID)
         {
             var query = new Query("select " +
@@ -399,6 +402,187 @@ namespace Test
 
             var queryResult = query.Execute();
             return queryResult;
+        }
+
+        /// <summary>
+        ///     Получает список вопросов чек-листов по идентификаторы события
+        /// </summary>
+        /// <param name="eventID"> Идентификатор события</param>
+        public static DbRecordset GetCheckListByEventID(string eventID)
+        {
+            var query = new Query("select " +
+                                  "   checkList.Id as CheckListId, " +
+                                  "   checkList.Ref as EventId, " +
+                                  "   checkList.Required as Required, " + //признак обязательности
+                                  "   checkList.Result as Result, " + //значение результата
+                                  "   checkList.Action as ActionId, " +
+                                  "   actions.Description as Description, " + //название пункта чек-листа
+                                  "   typesDataParameters.Name as TypeName " +  //Тип значения чек-листа: ValList - выбор из списка значений; Snapshot - фото; остальное понятно из названий
+                                  "from " +
+                                  "   Document_Event_CheckList as checkList " +
+                                  "   left join Catalog_Actions as actions " +
+                                  "     ON checkList.Ref = @eventId " +
+                                  "       AND checkList.Action = actions.Id " +
+                                  "    " +
+                                  "   left join Enum_TypesDataParameters as typesDataParameters " +
+                                  "     ON checkList.ActionType = TypesDataParameters.Id " +
+                                  "    " +
+                                  "where " +
+                                  "    checkList.Ref = @eventId");
+
+            query.AddParameter("eventId", eventID);
+            return query.Execute();
+        }
+
+
+        /// <summary>
+        ///     Получает список вариантов ответов для действий (вопросов)  с типом результата "выбор из списка"
+        /// </summary>
+        /// <param name="actionID"> Идентификатор действия</param>
+        public static DbRecordset GetActionValuesList(string actionID)
+        {
+            var query = new Query("select " +
+                                  "     Catalog_Actions_ValueList.Id, " + //идентификатор ответа
+                                  "     Catalog_Actions_ValueList.Val " + //представление ответа
+                                  "from " +
+                                  "     Catalog_Actions_ValueList " +
+                                  "where " +
+                                  "     Catalog_Actions_ValueList.Ref = @actionID");
+            query.AddParameter("actionID", actionID);
+            return query.Execute();
+
+        }
+
+        /// <summary>
+        ///     Добавляет комментарий о желании купить в таблицу
+        /// </summary>
+        /// <param name="eventID">
+        ///     Идентификатор события (наряда)
+        /// </param>
+        /// <param name="message">
+        ///     Комментарий
+        /// </param>
+        public static void InsertClosingEventSale(string eventID, string message)
+        {
+            var query = new Query("insert " +
+                                  "    into _Document_Reminder(Id, Date, Reminders, ViewReminder, Comment, IsTombstone, IsDirty) " +
+                                  "    values(@id, " +
+                                  "           @date, " +
+                                  "           @eventId, " +
+                                  "           (select Id from _Enum_FoReminders where Name like 'Sale'), " +
+                                  "           @message, " +
+                                  "           0," +
+                                  "           1)");
+            query.AddParameter("id", $"@ref[Document_Reminder]:{Guid.NewGuid()}");
+            query.AddParameter("date", DateTime.Now.ToString(DateTimeFormat));
+            query.AddParameter("eventId", eventID);
+            query.AddParameter("message", message);
+            query.Execute();
+            _db.Commit();
+        }
+
+        /// <summary>
+        ///     Добавляет комментарий о проблеме в таблицу
+        /// </summary>
+        /// <param name="eventID">
+        ///     Идентификатор события (наряда)
+        /// </param>
+        /// <param name="message">
+        ///     Комментарий
+        /// </param>
+        public static void InsertClosingEventProblem(string eventID, string message)
+        {
+            var query = new Query("insert " +
+                                  "    into _Document_Reminder(Id, Date, Reminders, ViewReminder, Comment, IsTombstone, IsDirty) " +
+                                  "    values(@id, " +
+                                  "           @date, " +
+                                  "           @eventId, " +
+                                  "           (select Id from _Enum_FoReminders where Name like 'Problem'), " +
+                                  "           @message, " +
+                                  "           0," +
+                                  "           1)");
+            query.AddParameter("id", $"@ref[Document_Reminder]:{Guid.NewGuid()}");
+            query.AddParameter("date", DateTime.Now.ToString(DateTimeFormat));
+            query.AddParameter("eventId", eventID);
+            query.AddParameter("message", message);
+            query.Execute();
+            _db.Commit();
+        }
+
+        /// <summary>
+        ///     Добавляет комментарий к событию (наряду)
+        /// </summary>
+        /// <param name="eventID">
+        ///     Идентификатор события (наряда)
+        /// </param>
+        /// <param name="message">
+        ///     Комментарий
+        /// </param>
+        public static void UpdateClosingEventComment(string eventID, string message)
+        {
+            var query = new Query("update _Document_Event " +
+                                  "    set CommentContractor = @message " +
+                                  "    where Id=@eventID");
+            query.AddParameter("message", message);
+            query.AddParameter("eventID", eventID);
+            query.Execute();
+            _db.Commit();
+        }
+
+
+        /// <summary>
+        /// Возвращает задачу по ее идентификатору</summary>
+        public static DbRecordset GetTaskById(string taskID)
+        {
+            var query = new Query("select  " +
+                                  "      tasks.id as taskID, " + //гуид задачи
+                                  "      tasks.Ref as EventID, " + //гуид наряда (события) к которому относится задача
+                                  "      tasks.terget as Target, " + //Цель
+                                  "      tasks.Comment as Comment, " + // комментарий
+                                  "      equipment.Description as EquipmentDescription, " + //наименование оборудование
+                                  "      Enum_ResultEvent.Name as resultName, " + //результат имя
+                                  "      Enum_ResultEvent.Description as resultDescription, " + //результат представление
+                                  "      TypeDeparturesTable.TypeDepartures " + //вид работ - выбирается первая активная из списка наряда
+                                  " " +
+                                  "from " +
+                                  "    Document_Event_Equipments as tasks " +
+                                  "       left join _Catalog_Equipment as equipment " +
+                                  "         on tasks.Id = @taskID " +
+                                  "         and tasks.Equipment = equipment.Id " +
+                                  " " +
+                                  "       left join Enum_ResultEvent " +
+                                  "          on tasks.Result = Enum_ResultEvent.Id " +
+                                  " " +
+                                  "        left join " +
+                                  "                (select " +
+                                  "                     Document_Event_TypeDepartures.Ref, " +
+                                  "                     Catalog_TypesDepartures.description as TypeDepartures " +
+                                  "                from " +
+                                  "                    (select " +
+                                  "                          ref, " +
+                                  "                          min(lineNumber) as lineNumber " +
+                                  "                     from " +
+                                  "                          Document_Event_TypeDepartures " +
+                                  "                     where " +
+                                  "                          ref = (select Ref from Document_Event_Equipments where id = @taskID limit 1) " +
+                                  "                          and active = 1 " +
+                                  "                     group by " +
+                                  "                          ref) as trueTypeDepartures " +
+                                  " " +
+                                  "                        left join Document_Event_TypeDepartures " +
+                                  "                             on trueTypeDepartures.ref = Document_Event_TypeDepartures.ref " +
+                                  "                                and trueTypeDepartures.lineNumber = Document_Event_TypeDepartures.lineNumber " +
+                                  " " +
+                                  "                        left join Catalog_TypesDepartures " +
+                                  "                             on Document_Event_TypeDepartures.typeDeparture = Catalog_TypesDepartures.id) as TypeDeparturesTable " +
+                                  " " +
+                                  "            on tasks.Ref = TypeDeparturesTable.Ref " +
+                                  " " +
+                                  "where " +
+                                  "      tasks.Id = @taskID");
+            query.AddParameter("taskID", taskID);
+
+            return query.Execute();
         }
 
 
