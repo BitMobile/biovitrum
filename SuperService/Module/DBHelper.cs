@@ -143,64 +143,78 @@ namespace Test
         public static DbRecordset GetEventByID(string eventID)
         {
             var queryText = "select " +
-                            "    event.Id,  " +
-                            "    event.StartDatePlan,  " +
-                            "    Date(event.StartDatePlan) as StartDatePlanDate,  " +
+                            "    event.Id,  " + //гуид события
+                            "    event.StartDatePlan,  " + //плановая дата начала
+                            "    Date(event.StartDatePlan) as StartDatePlanDate,  " + 
                             "    Time(event.StartDatePlan) as StartDatePlanTime,  " +
-                            "    TypeDeparturesTable.description as TypeDeparture,  " +
-                            "    event.ActualStartDate,  " +
-                            "    _Enum_StatusImportance.Description as Importance,  " +
-                            "    event.Comment,  " +
-                            "    docSUm.sumFact,  " +
-                            "    docCheckList.Total as checkListTotal,  " +
-                            "    docCheckList.Answered as checkListAnswered,  " +
-                            "    docEquipment.Total as equipmentTotal,  " +
-                            "    docEquipment.Answered as equipmentAnswered,  " +
-                            "    client.id as clientId,  " +
-                            "    client.Description as clientDescription,  " +
-                            "    client.Address as clientAddress  " +
-                            "    " +
-                            " from  " +
+                            "    TypeDeparturesTable.description as TypeDeparture,  " + //вид работ - выбирается одна из табличной части
+                            "    event.ActualStartDate,  " + //фактическая дата начала
+                            "    _Enum_StatusImportance.Description as Importance,  " + //важность
+                            "    event.Comment,  " + 
+                            "    docSUm.sumFact,  " + 
+                            "    docCheckList.Total as checkListTotal,  " + //общее количество вопросов в чеклисте
+                            "    docCheckList.Answered as checkListAnswered,  " + //количество отвеченных вопросов в чеклисте
+                            "    docEquipment.Total as equipmentTotal,  " +  //количество оборудования (задач)
+                            "    docEquipment.Answered as equipmentAnswered,  " + //количество оборудования (задач) с заполненным результатом
+                            "    client.id as clientId,  " + 
+                            "    client.Description as clientDescription,  " + //имя клиента
+                            "    client.Address as clientAddress,  " + //адрес клиента
+                            "    docCheckList.Required as checkListRequired, " +  // количество обязательных вопросов в чеклистах 
+                            "    docCheckList.RequiredAnswered as checkListRequiredAnswered, " + //количество отвеченных обязательных вопросов в чеклистах
+                            "    case  " +
+                            "        when ifnull(docCheckList.Required, 0) = ifnull(docCheckList.RequiredAnswered, 0) then 1 " +
+                            "        else 0 " +
+                            "    end as checkListAllRequiredIsAnswered " + //признак, что все обязательные вопросы в чеклистах отвечены
+                            "from  " + 
                             "    _Document_Event as event  " +
-                            "    left join  " +
-                            "    _Catalog_Client as client  " +
-                            "    on  event.id = @id and event.client = client.Id  " +
+                            "        left join _Catalog_Client as client  " +
+                            "        on  event.id = @id and event.client = client.Id  " +
                             "      " +
-                            "    left join  " +
-                            "   (select  " +
-                            "    _Document_Event_TypeDepartures.Ref,   " +
-                            "    _Catalog_TypesDepartures.description  " +
-                            "   from  " +
-                            "    (select ref,  " +
-                            "    min(lineNumber) as lineNumber  " +
-                            "    from  " +
-                            "    _Document_Event_TypeDepartures  " +
-                            "   where   " +
-                            "    ref = @id   " +
-                            "    and active = 1   " +
-                            "   group by " +
-                            "       ref) as t1  " +
+                            "        left join  " +
+                            "            (select  " +
+                            "                  _Document_Event_TypeDepartures.Ref,   " +
+                            "                  _Catalog_TypesDepartures.description  " +
+                            "             from  " +
+                            "                 (select   " +
+                            "                      ref,  " +
+                            "                      min(lineNumber) as lineNumber  " +
+                            "                  from  " +
+                            "                      _Document_Event_TypeDepartures  " +
+                            "                  where   " +
+                            "                      ref = @id   " +
+                            "                      and active = 1   " +
+                            "                  group by " +
+                            "                      ref) as t1  " +
                             "    " +
-                            "    left join  " +
-                            "    _Document_Event_TypeDepartures on t1.ref= _Document_Event_TypeDepartures.ref " +
-                            "    and t1.lineNumber = _Document_Event_TypeDepartures.lineNumber  " +
-                            "    left join  " +
-                            "    _Catalog_TypesDepartures on _Document_Event_TypeDepartures.typeDeparture =  _Catalog_TypesDepartures.id) as TypeDeparturesTable  " +
-                            "    on event.id = TypeDeparturesTable.Ref  " +
+                            "               left join _Document_Event_TypeDepartures " + 
+                            "                    on t1.ref= _Document_Event_TypeDepartures.ref " +
+                            "                       and t1.lineNumber = _Document_Event_TypeDepartures.lineNumber  " +
+                            "               left join _Catalog_TypesDepartures  " +
+                            "                    on _Document_Event_TypeDepartures.typeDeparture =  _Catalog_TypesDepartures.id) as TypeDeparturesTable  " +
+                            "        on event.id = TypeDeparturesTable.Ref  " +
                             "    " +
-                            "   left join _Enum_StatusImportance  " +
+                            "        left join _Enum_StatusImportance  " +
                             "           on event.Importance = _Enum_StatusImportance.Id  " +
                             "    " +
-                            "   left join (select Document_Event_ServicesMaterials.Ref, sum(SumFact) as sumFact from Document_Event_ServicesMaterials where Document_Event_ServicesMaterials.Ref = @id group by Document_Event_ServicesMaterials.Ref ) as docSum  " +
-                            "   on event.id = docSUm.ref " +
+                            "        left join (select Document_Event_ServicesMaterials.Ref, sum(SumFact) as sumFact from Document_Event_ServicesMaterials where Document_Event_ServicesMaterials.Ref = @id group by Document_Event_ServicesMaterials.Ref ) as docSum  " +
+                            "           on event.id = docSUm.ref " +
                             "    " +
-                            "   left join (select Document_Event_CheckList.Ref, count(Document_Event_CheckList.Ref) as Total, sum(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_CheckList where Document_Event_CheckList.Ref = @id group by Document_Event_CheckList.Ref ) as docCheckList " +
-                            "   on event.id = docCheckList.ref " +
+                            "        left join (select " +
+                            "                       Document_Event_CheckList.Ref,  " +
+                            "                       count(Document_Event_CheckList.Ref) as Total,  " +
+                            "                       sum(case when result = '' then 0 else 1 end) as Answered, " +
+                            "                       sum(case when Required = 1 then 1 else 0 end) as Required, " +
+                            "                       sum(case when Required = 1 and result <> ''  then 1 else 0 end) as RequiredAnswered " +
+                            "                   from  " +
+                            "                       Document_Event_CheckList  " +
+                            "                   where  " +
+                            "                       Document_Event_CheckList.Ref = @id group by Document_Event_CheckList.Ref ) as docCheckList " +
+                            "           on event.id = docCheckList.ref " +
                             "    " +
-                            "    left join (select Document_Event_Equipments.Ref, count(Document_Event_Equipments.Ref) as Total, sum(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_Equipments where Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment " +
-                            "   on event.id = docEquipment.ref " +
+                            "        left join (select Document_Event_Equipments.Ref, count(Document_Event_Equipments.Ref) as Total, sum(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_Equipments where Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment " +
+                            "           on event.id = docEquipment.ref " +
                             "    " +
-                            "   where  " +
+                            "where  " +
                             "   event.id = @id  ";
 
             var query = new Query(queryText);
