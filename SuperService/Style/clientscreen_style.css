@@ -141,7 +141,7 @@ TextView {
     color: #ffffff;
     font: 3sp arial;
     height: 6sp;
-    margin-left: 11%;
+    /*margin-left: 5%;*/
     padding-top: 25%;
     text-align: center;
     width: 26% auto;
@@ -150,11 +150,16 @@ TextView {
 .ClientSV {
     background-color: #ffffff;
     height: auto;
-    width: auto;
+    width: 100%;
+}
+
+.MapContainerHL {
+    height: 25sp;
+    width: 100%;
 }
 
 .MapStyleClient {
-    height: 15%;
+    height: 100%;
     width: 100%
 }
 
@@ -164,20 +169,22 @@ TextView {
 }
 
 .ClientAdressTV {
+    background-color: #000000;
     color: #51595b;
     font: 2sp arial;
     height: 50%;
-    padding-left: 5%;
-    text-align:left;
+    horizontal-align: left;
     padding-top: 25%;
+    text-align: left;
     width: 80%;
 }
 
 .ClientCityTV {
+    background-color: #000000;
     color: #9b9fa0;
     font: 2sp arial;
     height: 50%;
-    padding-left: 5%;
+    horizontal-align: left;
     padding-top: 5%;
     text-align: left;
     width: 80%;
@@ -185,15 +192,17 @@ TextView {
 
 .DistanceVL {
     height: 100%;
-    width: auto;
+    horizontal-align: left;
+    width: 100%;
 }
 
 .ClientDistanceTV {
+    color: #000000;
     font: 2sp arial;
-    height: 100%;
+    height: auto;
     padding-top: 25%;
     text-align: center;
-    width: 100%;
+    width: auto;
 }
 
 .ContactsTV {
@@ -220,7 +229,6 @@ TextView {
     color: #51595b;
     font: 2sp arial;
     height: 50%;
-    padding-left: 5%;
     padding-top: 25%;
     text-align: left;
     width: 80%;
@@ -230,7 +238,6 @@ TextView {
     color: #9b9fa0;
     font: 2sp arial;
     height: 50%;
-    padding-left: 5%;
     padding-top: 5%;
     text-align: left;
     width: 80%;
@@ -274,19 +281,17 @@ TextView {
     color: #51595b;
     font: 2sp arial;
     height: 50%;
-    padding-left: 5%;
     padding-top: 25%;
     text-align: left;
-    width: 100;
+    width: 100%;
 }
 
 .EquipmentNameTV {
     color: #a6a9aa;
     font: 2sp arial;
     height: 50%;
-    padding-left: 5%;
     padding-top: 5%;
     text-align: left;
-    width: 100;
+    width: 100%;
 }
 /* ------------------------------------ */

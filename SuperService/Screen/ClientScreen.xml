@@ -15,13 +15,14 @@
         <c:WebMapGoogle Id="MapClient" CssClass="MapStyleClient"/>
       </c:HorizontalLayout>
       
-      <c:VerticalLayout CssClass="ClientAdressVL">
+      <c:HorizontalLayout CssClass="ClientAdressVL">
+        <!--!!!!!-->
         <c:TextView CssClass="ClientAdressTV" Text="Test"/>
         <c:TextView CssClass="ClientCityTV" Text="test"/>
-        <c:VerticalLayout CssClass="DistanceVL">
+        <!--<c:VerticalLayout CssClass="DistanceVL">-->
         <c:TextView CssClass="ClientDistanceTV" Text="5"/>
-        </c:VerticalLayout>
-      </c:VerticalLayout>
+        <!--</c:VerticalLayout>-->
+      </c:HorizontalLayout>
 
       <c:TextView CssClass="ContactsTV" Text="#contacts#"/>
 
