@@ -80,7 +80,7 @@ namespace Test
                                   "          left join Enum_StatusImportance " +
                                   "               on event.Importance = Enum_StatusImportance.Id " +
                                   "  where " +
-                                  "      event.StartDatePlan > @eventDate" +
+                                  "      event.StartDatePlan >= @eventDate" +
                                   " order by " +
                                   "  event.StartDatePlan");
 
@@ -335,6 +335,67 @@ namespace Test
             query.AddParameter("actionID", actionID);
             return query.Execute();
 
+        }
+
+        /// <summary>
+        /// Возвращает перечень контактных лиц клиента</summary>
+        /// <param name="actionID"> Идентификатор действия</param>
+        public static DbRecordset GetContactsByClientID(string clientID)
+        {
+            var query = new Query("select " +
+                                  "     Contacts.Id, " + //гиуд контакноголица
+                                  "     Contacts.DeletionMark, " + // признак пометки удаления
+                                  "     Contacts.Description, " + //имя
+                                  "     Contacts.Position, " + // должность
+                                  "     Contacts.Tel " + //телефон
+                                  "from " +
+                                  "  Catalog_Client_Contacts as ClientContacts " +
+                                  "    left join Catalog_Contacts as Contacts " +
+                                  "      on ClientContacts.Ref = @clientID " +
+                                  "        and  ClientContacts.Contact = Contacts.Id " +
+                                  " " + 
+                                  "where " +
+                                  "    ClientContacts.Ref = @clientID " + 
+                                  "    and and ClientContacts.Actual = 0 "); //выбираем только неактуальных сотрудников, потому что актуальные являются уволенными
+
+            query.AddParameter("clientID", clientID);
+
+            return query.Execute();
+        }
+
+        /// <summary>
+        /// Возвращает перечень оборудования клиента. Возвращается все оборудование во всех статусах</summary>
+        /// <param name="actionID"> Идентификатор действия</param>
+        public static DbRecordset GetEquipmentByClientID(string clientID)
+        {
+            var query = new Query("select " +
+                                  "    equipmentLastChangeDate.Equiement as equipmentID, " +
+                                  "    equipmentLastChangeDate.period as lastChange, " +
+                                  "    Catalog_Equipment.Description " +
+                                  "" +
+                                  "from " +
+                                  "       (select " +
+                                  "            clients, " +
+                                  "            Equiement, " +
+                                  "            MAX(period) as period " +
+                                  "        from " +
+                                  "            Catalog_Equipment_Equiements " +
+                                  "        where " +
+                                  "            clients = @clientID " +
+                                  "        group by " +
+                                  "            clients, Equiement) as equipmentLastChangeDate " +
+                                  "" + 
+                                  "        left join Catalog_Equipment_Equiements " +
+                                  "        on equipmentLastChangeDate.clients = Catalog_Equipment_Equiements.clients " +
+                                  "        and equipmentLastChangeDate.Equiement = Catalog_Equipment_Equiements.Equiement " +
+                                  "        and equipmentLastChangeDate.Period = Catalog_Equipment_Equiements.Period " +
+                                  "" + 
+                                  "        left join Catalog_Equipment " + 
+                                  "        on equipmentLastChangeDate.Equiement = Catalog_Equipment.id");
+
+            query.AddParameter("clientID", clientID);
+
+            return query.Execute();
         }
 
     }
