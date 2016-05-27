@@ -5,11 +5,15 @@
   <c:VerticalLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
 
-    <c:VerticalLayout Id="ClientDescriptionVL" CssStyle="ClientDescriptionVL">
+    <!--<c:VerticalLayout Id="ClientDescriptionVL" CssStyle="ClientDescriptionVL">
       <c:TextView Id="ClientDescriptionTV" CssStyle="ClientDescriptionTV" />
     </c:VerticalLayout>
-    
-    
+
+    <c:ScrollView Id="ClientSV" CssClass="ClientSV">
+      <c:WebMapGoogle />
+      
+      
+    </c:ScrollView>-->
   
   </c:VerticalLayout>
 

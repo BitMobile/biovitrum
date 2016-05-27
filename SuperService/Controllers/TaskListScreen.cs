@@ -1,14 +1,34 @@
 ﻿using System;
 using System.Collections;
+using BitMobile.Application.Translator;
 using BitMobile.ClientModel3.UI;
+using Test.Components;
+using Translator = BitMobile.ClientModel3.Translator;
 
 namespace Test
 {
     public class TaskListScreen : Screen
     {
-        internal void BackButton_OnClick(object sender, EventArgs eventArgs)
+        private TopInfoComponent _topInfoComponent;
+
+        public override void OnLoading()
+        {
+            _topInfoComponent = new TopInfoComponent(this)
+            {
+                HeadingTextView = {Text = Translator.Translate("tasks")},
+                LeftButtonImage = {Source = @"Image\top_back.png"},
+                RightButtonImage = {Visible = false},
+                ExtraLayoutVisible = false
+            };
+        }
+
+        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
             BusinessProcess.DoAction("BackToEvent");
+        }
+
+        internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
+        {
         }
 
         internal void TaskLayout_OnClick(object sender, EventArgs eventArgs)
@@ -16,6 +36,10 @@ namespace Test
             // TODO: Передача Id конкретной таски
             BusinessProcess.GlobalVariables["currentTaskId"] = ((HorizontalLayout) sender).Id;
             BusinessProcess.DoAction("ViewTask");
+        }
+
+        internal void TopInfo_Arrow_OnClick(object sernder, EventArgs eventArgs)
+        {
         }
 
         internal object GetEvent()
