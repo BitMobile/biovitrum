@@ -23,7 +23,7 @@ namespace Test
             LoadControls();
             FillControls();
 
-            IsEmptyDateTime((string) _currentEventRecordset["ActualStartDate"]);
+
         }
 
         private void FillControls()

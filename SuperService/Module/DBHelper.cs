@@ -155,6 +155,7 @@ namespace Test
                             "    Time(event.StartDatePlan) as StartDatePlanTime,  " +
                             "    TypeDeparturesTable.description as TypeDeparture,  " +
                             "    event.ActualStartDate,  " +
+                            "    event.ActualEndDate,  " +
                             "    _Enum_StatusImportance.Description as Importance,  " +
                             "    event.Comment,  " +
                             "    docSUm.sumFact,  " +
@@ -416,7 +417,7 @@ namespace Test
         public static void UpdateClosingEventComment(string eventID, string message)
         {
             var query = new Query("update _Document_Event " +
-                                  "    set Comment = @message " +
+                                  "    set CommentContractor = @message " +
                                   "    where Id=@eventID");
             query.AddParameter("message", message);
             query.AddParameter("eventID", eventID);

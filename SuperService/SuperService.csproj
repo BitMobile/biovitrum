@@ -61,21 +61,12 @@
     <Compile Include="Entities\**" />
     <EmbeddedResource Include="Image\**" />
     <EmbeddedResource Include="Model\metadata.xml" />
-    <Compile Include="Module\BusinessProcess.cs" />
-    <Compile Include="Module\DBHelper.cs" />
-    <Compile Include="Module\ResourceManager.cs" />
-    <Compile Include="Module\Solution.cs" />
+    <Compile Include="Module\**" />
     <Compile Include="Objects\**" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Screen\**" />
     <EmbeddedResource Include="Style\**" />
     <EmbeddedResource Include="Translation\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Image\not_found.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Image\_Components\TopInfoComponent\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

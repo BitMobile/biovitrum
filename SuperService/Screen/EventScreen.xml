@@ -4,12 +4,14 @@
   <c:DockLayout Id="RootLayout" CssClass="RootLayout">
     <s:Push Id="event" Value="$GetCurrentEvent()" />
     <s:Include File="Components\TopInfoComponent.xml" />
+    <s:If Test="$IsEmptyDateTime($event.ActualEndDate)">
     <s:If Test="$IsEmptyDateTime($event.ActualStartDate)" >
       <c:Button Id="StartFinishButton" Text="#finish#" CssClass="NoHeight" OnClick="StartFinishButton_OnClick" />
     </s:If>
     <s:Else>
       <c:Button Id="StartFinishButton" Text="#finish#" CssClass="FinishButton" OnClick="StartFinishButton_OnClick" />
     </s:Else>
+    </s:If>
     <c:SwipeVerticalLayout CssClass="EventScreenMainLayout">
       <c:HorizontalLayout CssClass="LightInfoLayout">
         <c:VerticalLayout CssClass="LightInfoBox">
