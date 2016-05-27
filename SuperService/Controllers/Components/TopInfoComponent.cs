@@ -1,5 +1,4 @@
 ﻿using System;
-using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 
 namespace Test.Components
@@ -7,6 +6,7 @@ namespace Test.Components
     public class TopInfoComponent
     {
         private readonly Screen _parentScreen;
+        private bool _extraLayoutVisible;
         private bool _minimized = true;
 
         private Image _topInfoArrowImage;
@@ -14,16 +14,12 @@ namespace Test.Components
 
         private VerticalLayout _topInfoExtraLayout;
         private VerticalLayout _topInfoImageLayout;
-        private bool _extraLayoutVisible;
 
         /// <summary>
-        ///     Конструктор контроллера компонента с заголовком, двумя кнопками, заголовком и доп. инфой
+        ///     Конструктор контроллера компонента с заголовком, двумя кнопками и доп. инфой
         /// </summary>
         /// <param name="parentScreen">
         ///     Экран, на котором находится элемент
-        /// </param>
-        /// <param name="extraLayout">
-        ///     Видна ли дополнительная информация и стрелка для разворачивания шторки
         /// </param>
         public TopInfoComponent(Screen parentScreen)
         {
@@ -62,6 +58,9 @@ namespace Test.Components
         /// </summary>
         public TextView CommentTextView { get; private set; }
 
+        /// <summary>
+        ///     Видимость контейнера с дополнительной информацией
+        /// </summary>
         public bool ExtraLayoutVisible
         {
             get { return _extraLayoutVisible; }
