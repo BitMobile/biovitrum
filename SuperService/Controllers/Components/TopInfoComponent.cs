@@ -1,4 +1,5 @@
 ﻿using System;
+using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 
 namespace Test.Components
@@ -11,18 +12,79 @@ namespace Test.Components
         private Image _topInfoArrowImage;
         private HorizontalLayout _topInfoExtraButtonsLayout;
 
+        private VerticalLayout _topInfoExtraLayout;
+        private VerticalLayout _topInfoImageLayout;
+        private bool _extraLayoutVisible;
+
+        /// <summary>
+        ///     Конструктор контроллера компонента с заголовком, двумя кнопками, заголовком и доп. инфой
+        /// </summary>
+        /// <param name="parentScreen">
+        ///     Экран, на котором находится элемент
+        /// </param>
+        /// <param name="extraLayout">
+        ///     Видна ли дополнительная информация и стрелка для разворачивания шторки
+        /// </param>
         public TopInfoComponent(Screen parentScreen)
         {
             _parentScreen = parentScreen;
             OnLoading();
+            _extraLayoutVisible = true;
         }
 
+        /// <summary>
+        ///     Изображение на левой кнопке, менять свойство Source
+        /// </summary>
         public Image LeftButtonImage { get; private set; }
+
+        /// <summary>
+        ///     Изображение на правой кнопке, менять свойство Source
+        /// </summary>
         public Image RightButtonImage { get; private set; }
+
+        /// <summary>
+        ///     Левый Layout с дополнительной информацией. Использовать метод AddChild
+        /// </summary>
         public VerticalLayout LeftExtraLayout { get; private set; }
+
+        /// <summary>
+        ///     Правый Layout с дополнительной информацией. Использовать метод AddChild
+        /// </summary>
         public VerticalLayout RightExtraLayout { get; private set; }
+
+        /// <summary>
+        ///     Заголовок экрана
+        /// </summary>
         public TextView HeadingTextView { get; private set; }
+
+        /// <summary>
+        ///     Комментарий, который ниже заголовка экрана
+        /// </summary>
         public TextView CommentTextView { get; private set; }
+
+        public bool ExtraLayoutVisible
+        {
+            get { return _extraLayoutVisible; }
+            set
+            {
+                ChangeExtraVisibility(value);
+                _extraLayoutVisible = value;
+            }
+        }
+
+        private void ChangeExtraVisibility(bool visibility)
+        {
+            if (!visibility)
+            {
+                _topInfoExtraLayout.CssClass = "NoHeight";
+                _topInfoImageLayout.CssClass = "NoHeight";
+            }
+            else
+            {
+                _topInfoExtraLayout.CssClass = "TopInfoExtraLayout";
+                _topInfoImageLayout.CssClass = "TopInfoImageLayout";
+            }
+        }
 
         private void OnLoading()
         {
@@ -37,6 +99,9 @@ namespace Test.Components
 
             HeadingTextView = (TextView) _parentScreen.GetControl("TopInfoHeadingTextView", true);
             CommentTextView = (TextView) _parentScreen.GetControl("TopInfoCommentTextView", true);
+
+            _topInfoExtraLayout = (VerticalLayout) _parentScreen.GetControl("TopInfoExtraLayout", true);
+            _topInfoImageLayout = (VerticalLayout) _parentScreen.GetControl("TopInfoImageLayout", true);
         }
 
         internal void Arrow_OnClick(object sender, EventArgs eventArgs)

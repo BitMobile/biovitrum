@@ -21,7 +21,7 @@
       </c:VerticalLayout>
     </c:HorizontalLayout>
   </c:VerticalLayout>
-  <c:VerticalLayout CssClass="TopInfoImageLayout" OnClick="TopInfo_Arrow_OnClick">
+  <c:VerticalLayout Id="TopInfoImageLayout" CssClass="TopInfoImageLayout" OnClick="TopInfo_Arrow_OnClick">
     <c:Image Id="TopInfoArrowImage" Source="Image\down_arrow_full_width.png" CssClass="TopInfoArrowDown" />
   </c:VerticalLayout>
 </c:Component>
