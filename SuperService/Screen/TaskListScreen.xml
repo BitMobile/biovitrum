@@ -2,12 +2,13 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
-    <c:HorizontalLayout CssClass="TopLayout">
-      <c:VerticalLayout Id="BackButton" CssClass="TopButton" OnClick="BackButton_OnClick">
-        <c:Image Source="Image\top_back.png" CssClass="BackButton" />
-      </c:VerticalLayout>
-      <c:TextView Text="#tasks#" CssClass="TopHeading" Id="HeadingTextView" />
-    </c:HorizontalLayout>
+<!--    <c:HorizontalLayout CssClass="TopLayout">-->
+<!--      <c:VerticalLayout Id="BackButton" CssClass="TopButton" OnClick="BackButton_OnClick">-->
+<!--        <c:Image Source="Image\top_back.png" CssClass="BackButton" />-->
+<!--      </c:VerticalLayout>-->
+<!--      <c:TextView Text="#tasks#" CssClass="TopHeading" Id="HeadingTextView" />-->
+<!--    </c:HorizontalLayout>-->
+    <s:Include File="Components\TopInfoComponent.xml" />
     <c:SwipeVerticalLayout CssClass="TaskListLayout">
       <s:Iterator Id="task" Value="$GetTasks()">
         <c:HorizontalLayout Id="$task.Id" CssClass="TaskLayout" OnClick="TaskLayout_OnClick">

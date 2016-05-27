@@ -4,22 +4,22 @@
   <c:HorizontalLayout CssClass="TabBarHL">
     
     <c:VerticalLayout CssClass="TabBarVL" Id ="VLEvents" OnClick="TabEventsButton_OnClick">
-      <c:Image CssClass="TabImage" Source="Image\Events.png" Id ="ImgEvents"/>
+      <c:Image CssClass="TabImage" Source="Image\_Components\TabBar\Events.png" Id ="ImgEvents"/>
       <c:TextView Text="#orders#" CssClass="TabTextViewNotActive" Id ="TextViewEvents"/>
     </c:VerticalLayout>
     
     <c:VerticalLayout CssClass="TabBarVL" Id ="VLBag" OnClick="TabBagButton_OnClick">
-      <c:Image CssClass="TabImage" Source="Image\Bag.png" Id ="ImgBag"/>
+      <c:Image CssClass="TabImage" Source="Image\_Components\TabBar\Bag.png" Id ="ImgBag"/>
       <c:TextView Text="#bag#" CssClass="TabTextViewNotActive" Id ="TextViewBag"/>
     </c:VerticalLayout>
     
     <c:VerticalLayout CssClass="TabBarVL" Id ="VLClients" OnClick="TabClientsButton_OnClick">
-      <c:Image CssClass="TabImage" Source="Image\Clients.png" Id ="ImgClients"/>
+      <c:Image CssClass="TabImage" Source="Image\_Components\TabBar\Clients.png" Id ="ImgClients"/>
       <c:TextView Text="#clients#" CssClass="TabTextViewNotActive" Id ="TextViewClients"/>
     </c:VerticalLayout>
     
     <c:VerticalLayout CssClass="TabBarVL" Id ="VLSettings" OnClick="TabSettingsButton_OnClick">
-      <c:Image CssClass="TabImage" Source="Image\Settings.png" Id ="ImgSettings"/>
+      <c:Image CssClass="TabImage" Source="Image\_Components\TabBar\Settings.png" Id ="ImgSettings"/>
       <c:TextView Text="#settings#" CssClass="TabTextViewNotActive" Id ="TextViewSettings"/>
     </c:VerticalLayout>
     
