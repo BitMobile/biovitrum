@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using System;
+﻿using System;
+using System.Collections;
 using BitMobile.ClientModel3;
-//using Database = BitMobile.ClientModel3.Database;
 
+//using Database = BitMobile.ClientModel3.Database;
 
 namespace Test
 {
     /// <summary>
-    /// Обеспечивает работу с базой данных приложения</summary>
+    ///     Обеспечивает работу с базой данных приложения
+    /// </summary>
     /// <remarks>
     /// </remarks>
     public static class DBHelper
@@ -51,7 +52,7 @@ namespace Test
                                   "  event.StartDatePlan, " + //full date
                                   "  date(event.StartDatePlan) as startDatePlanDate, " + //date only
                                   "  ifnull(TypeDeparturesTable.description, '') as TypeDeparture, " +
-                                  "  event.ActualStartDate as ActualStartDate, " +//4
+                                  "  event.ActualStartDate as ActualStartDate, " + //4
                                   "  Enum_StatusImportance.Description as Importance, " +
                                   "  Enum_StatusImportance.Name as ImportanceName, " +
                                   "  ifnull(client.Description, '') as Description, " +
@@ -111,7 +112,7 @@ namespace Test
                                   "  SUM(CASE " +
                                   "        when StartDatePlan > date('now','start of day') then 1 " +
                                   "        else 0 " +
-                                  "   End) as DayTotalAmount, " + 
+                                  "   End) as DayTotalAmount, " +
                                   "    SUM(CASE " +
                                   "        when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now','start of day') then 1 " +
                                   "        else 0 " +
@@ -150,27 +151,34 @@ namespace Test
             var queryText = "select " +
                             "    event.Id,  " + //гуид события
                             "    event.StartDatePlan,  " + //плановая дата начала
-                            "    Date(event.StartDatePlan) as StartDatePlanDate,  " + 
+                            "    Date(event.StartDatePlan) as StartDatePlanDate,  " +
                             "    Time(event.StartDatePlan) as StartDatePlanTime,  " +
-                            "    TypeDeparturesTable.description as TypeDeparture,  " + //вид работ - выбирается одна из табличной части
+                            "    TypeDeparturesTable.description as TypeDeparture,  " +
+                            //вид работ - выбирается одна из табличной части
                             "    event.ActualStartDate,  " + //фактическая дата начала
+                            "    event.ActualEndDate,  " + // фактическая дата конца
                             "    _Enum_StatusImportance.Description as Importance,  " + //важность
-                            "    event.Comment,  " + 
-                            "    docSUm.sumFact,  " + 
+                            "    event.Comment,  " +
+                            "    docSUm.sumFact,  " +
                             "    docCheckList.Total as checkListTotal,  " + //общее количество вопросов в чеклисте
-                            "    docCheckList.Answered as checkListAnswered,  " + //количество отвеченных вопросов в чеклисте
-                            "    docEquipment.Total as equipmentTotal,  " +  //количество оборудования (задач)
-                            "    docEquipment.Answered as equipmentAnswered,  " + //количество оборудования (задач) с заполненным результатом
-                            "    client.id as clientId,  " + 
+                            "    docCheckList.Answered as checkListAnswered,  " +
+                            //количество отвеченных вопросов в чеклисте
+                            "    docEquipment.Total as equipmentTotal,  " + //количество оборудования (задач)
+                            "    docEquipment.Answered as equipmentAnswered,  " +
+                            //количество оборудования (задач) с заполненным результатом
+                            "    client.id as clientId,  " +
                             "    client.Description as clientDescription,  " + //имя клиента
                             "    client.Address as clientAddress,  " + //адрес клиента
-                            "    docCheckList.Required as checkListRequired, " +  // количество обязательных вопросов в чеклистах 
-                            "    docCheckList.RequiredAnswered as checkListRequiredAnswered, " + //количество отвеченных обязательных вопросов в чеклистах
+                            "    docCheckList.Required as checkListRequired, " +
+                            // количество обязательных вопросов в чеклистах 
+                            "    docCheckList.RequiredAnswered as checkListRequiredAnswered, " +
+                            //количество отвеченных обязательных вопросов в чеклистах
                             "    case  " +
                             "        when ifnull(docCheckList.Required, 0) = ifnull(docCheckList.RequiredAnswered, 0) then 1 " +
                             "        else 0 " +
-                            "    end as checkListAllRequiredIsAnswered " + //признак, что все обязательные вопросы в чеклистах отвечены
-                            "from  " + 
+                            "    end as checkListAllRequiredIsAnswered " +
+                            //признак, что все обязательные вопросы в чеклистах отвечены
+                            "from  " +
                             "    _Document_Event as event  " +
                             "        left join _Catalog_Client as client  " +
                             "        on  event.id = @id and event.client = client.Id  " +
@@ -191,7 +199,7 @@ namespace Test
                             "                  group by " +
                             "                      ref) as t1  " +
                             "    " +
-                            "               left join _Document_Event_TypeDepartures " + 
+                            "               left join _Document_Event_TypeDepartures " +
                             "                    on t1.ref= _Document_Event_TypeDepartures.ref " +
                             "                       and t1.lineNumber = _Document_Event_TypeDepartures.lineNumber  " +
                             "               left join _Catalog_TypesDepartures  " +
@@ -312,56 +320,9 @@ namespace Test
             _db.Commit();
         }
 
-
         /// <summary>
-        /// Получает список вопросов чек-листов по идентификаторы события</summary>
-        /// <param name="eventID"> Идентификатор события</param>
-        public static DbRecordset GetCheckListByEventID(string eventID)
-        {
-            var query = new Query("select " + 
-                                  "   checkList.Id as CheckListId, " +
-                                  "   checkList.Ref as EventId, " +
-                                  "   checkList.Required as Required, " + //признак обязательности
-                                  "   checkList.Result as Result, " + //значение результата
-                                  "   checkList.Action as ActionId, " +
-                                  "   actions.Description as Description, " + //название пункта чек-листа
-                                  "   typesDataParameters.Name as TypeName " +  //Тип значения чек-листа: ValList - выбор из списка значений; Snapshot - фото; остальное понятно из названий
-                                  "from " +
-                                  "   Document_Event_CheckList as checkList " +
-                                  "   left join Catalog_Actions as actions " +
-                                  "     ON checkList.Ref = @eventId " +
-                                  "       AND checkList.Action = actions.Id " +
-                                  "    " +
-                                  "   left join Enum_TypesDataParameters as typesDataParameters " +
-                                  "     ON checkList.ActionType = TypesDataParameters.Id " +
-                                  "    " +
-                                  "where " +
-                                  "    checkList.Ref = @eventId");
-
-            query.AddParameter("eventId", eventID);
-            return query.Execute();
-        }
-
-        /// <summary>
-        /// Получает список вариантов ответов для действий (вопросов)  с типом результата "выбор из списка"</summary>
-        /// <param name="actionID"> Идентификатор действия</param>
-        public static DbRecordset GetActionValuesList(string actionID)
-        {
-            var query = new Query("select " +
-                                  "     Catalog_Actions_ValueList.Id, " + //идентификатор ответа
-                                  "     Catalog_Actions_ValueList.Val " + //представление ответа
-                                  "from " +
-                                  "     Catalog_Actions_ValueList " +
-                                  "where " +
-                                  "     Catalog_Actions_ValueList.Ref = @actionID");
-            query.AddParameter("actionID", actionID);
-            return query.Execute();
-
-        }
-
-        /// <summary>
-        /// Возвращает перечень контактных лиц клиента</summary>
-        /// <param name="actionID"> Идентификатор действия</param>
+        ///     Возвращает перечень контактных лиц клиента
+        /// </summary>
         public static DbRecordset GetContactsByClientID(string clientID)
         {
             var query = new Query("select " +
@@ -375,10 +336,11 @@ namespace Test
                                   "    left join Catalog_Contacts as Contacts " +
                                   "      on ClientContacts.Ref = @clientID " +
                                   "        and  ClientContacts.Contact = Contacts.Id " +
-                                  " " + 
+                                  " " +
                                   "where " +
-                                  "    ClientContacts.Ref = @clientID " + 
-                                  "    and and ClientContacts.Actual = 0 "); //выбираем только неактуальных сотрудников, потому что актуальные являются уволенными
+                                  "    ClientContacts.Ref = @clientID " +
+                                  "    and and ClientContacts.Actual = 0 ");
+            //выбираем только неактуальных сотрудников, потому что актуальные являются уволенными
 
             query.AddParameter("clientID", clientID);
 
@@ -386,8 +348,8 @@ namespace Test
         }
 
         /// <summary>
-        /// Возвращает перечень оборудования клиента. Возвращается все оборудование во всех статусах</summary>
-        /// <param name="actionID"> Идентификатор действия</param>
+        ///     Возвращает перечень оборудования клиента. Возвращается все оборудование во всех статусах
+        /// </summary>
         public static DbRecordset GetEquipmentByClientID(string clientID)
         {
             var query = new Query("select " +
@@ -406,13 +368,13 @@ namespace Test
                                   "            clients = @clientID " +
                                   "        group by " +
                                   "            clients, Equiement) as equipmentLastChangeDate " +
-                                  "" + 
+                                  "" +
                                   "        left join Catalog_Equipment_Equiements " +
                                   "        on equipmentLastChangeDate.clients = Catalog_Equipment_Equiements.clients " +
                                   "        and equipmentLastChangeDate.Equiement = Catalog_Equipment_Equiements.Equiement " +
                                   "        and equipmentLastChangeDate.Period = Catalog_Equipment_Equiements.Period " +
-                                  "" + 
-                                  "        left join Catalog_Equipment " + 
+                                  "" +
+                                  "        left join Catalog_Equipment " +
                                   "        on equipmentLastChangeDate.Equiement = Catalog_Equipment.id");
 
             query.AddParameter("clientID", clientID);
@@ -421,11 +383,10 @@ namespace Test
         }
 
         /// <summary>
-        /// Возвращает список всех клиентов </summary>
+        ///     Возвращает список всех клиентов
+        /// </summary>
         public static DbRecordset GetClients()
         {
-            var clientsList = new ArrayList();
-
             var query = new Query("select " +
                                   "      Catalog_Client.Id, " +
                                   "      Catalog_Client.Description, " +
@@ -439,7 +400,6 @@ namespace Test
             var queryResult = query.Execute();
             return queryResult;
         }
-
 
 
         /// <summary>
