@@ -1,9 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  
+
   <c:VerticalLayout CssClass="RootLayout">
-    <s:Include File="Components\TopComponent.xml"/>
+    <s:Include File="Components\TopInfoComponent.xml" />
+
+    <c:VerticalLayout Id="ClientDescriptionVL" CssStyle="ClientDescriptionVL">
+      <c:TextView Id="ClientDescriptionTV" CssStyle="ClientDescriptionTV" />
+    </c:VerticalLayout>
+    
+    
+  
   </c:VerticalLayout>
 
 </c:Screen>
