@@ -128,3 +128,165 @@ TextView {
 
 /* ---------------------------------- */
 
+/* Client Screen css class */
+
+.ClientDescriptionVL {
+    background-color: #626271;
+    border-style: none;
+    height: 7sp;
+    width: 100%;
+}
+
+.ClientDescriptionTV {
+    color: #ffffff;
+    font: 3sp arial;
+    height: 6sp;
+    margin-left: 11%;
+    padding-top: 25%;
+    text-align: center;
+    width: 26% auto;
+}
+
+.ClientSV {
+    background-color: #ffffff;
+    height: auto;
+    width: auto;
+}
+
+.MapStyleClient {
+    height: 15%;
+    width: 100%
+}
+
+.ClientAdressVL {
+    height: 10sp;
+    width: 100%;
+}
+
+.ClientAdressTV {
+    color: #51595b;
+    font: 2sp arial;
+    height: 50%;
+    padding-left: 5%
+                  text-align:left;
+    padding-top: 25%;
+    width: 80%;
+}
+
+.ClientCityTV {
+    color: #9b9fa0;
+    font: 2sp arial;
+    height: 50%;
+    padding-left: 5%;
+    padding-top: 5%;
+    text-align: left;
+    width: 80%;
+}
+
+.DistanceVL {
+    height: 100%;
+    width: auto;
+}
+
+.ClientDistanceTV {
+    font: 2sp arial;
+    height: 100%;
+    padding-top: 25%;
+    text-align: center;
+    width: 100%;
+}
+
+.ContactsTV {
+    color: #a4a8a9;
+    font: 3sp arial;
+    height: 5sp;
+    margin-left: 11%;
+    padding-top: 25%;
+    text-align: center;
+    width: 100%;
+}
+
+.ContactsListVL {
+    height: 0% auto;
+    width: 100%
+}
+
+.ContactsContainerVL {
+    height: 10sp;
+    width: 100%;
+}
+
+.ContactDescriptionTV {
+    color: #51595b;
+    font: 2sp arial;
+    height: 50%;
+    padding-left: 5%;
+    padding-top: 25%;
+    text-align: left;
+    width: 80%;
+}
+
+.ContactPositionTV {
+    color: #9b9fa0;
+    font: 2sp arial;
+    height: 50%;
+    padding-left: 5%;
+    padding-top: 5%;
+    text-align: left;
+    width: 80%;
+}
+
+.CallToClientButton {
+    background-color: #006400;
+    height: 100%;
+    width: 100%;
+}
+
+.AddContactBtn {
+    color: #ff0000;
+    font: 3sp arial;
+    height: 5sp;
+    margin-left: 11%;
+    width: 100%;
+}
+
+.EquipmentsTV {
+    color: #a4a8a9;
+    font: 3sp arial;
+    height: 5sp;
+    margin-left: 11%;
+    padding-top: 25%;
+    text-align: center;
+    width: 100%;
+}
+
+.EquipmentVL {
+    height: 0% auto;
+    width: 100%;
+}
+
+.EquipmentContainerVL {
+    height: 10sp;
+    width: 100%;
+}
+
+.EquipmentTypeTV {
+    color: #51595b;
+    font: 2sp arial;
+    height: 50%;
+    padding-left: 5%;
+    padding-top: 25%;
+    text-align: left;
+    width: 100;
+}
+
+.EquipmentNameTV {
+    color: #a6a9aa;
+    font: 2sp arial;
+    height: 50%;
+    padding-left: 5%;
+    padding-top: 5%;
+    text-align: left;
+    width: 100;
+}
+/* ------------------------------------ */

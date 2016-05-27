@@ -5,16 +5,50 @@
   <c:VerticalLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
 
-    <!--<c:VerticalLayout Id="ClientDescriptionVL" CssStyle="ClientDescriptionVL">
-      <c:TextView Id="ClientDescriptionTV" CssStyle="ClientDescriptionTV" />
+    <c:VerticalLayout Id="ClientDescriptionVL" CssClass="ClientDescriptionVL">
+      <c:TextView Id="ClientDescriptionTV" CssClass="ClientDescriptionTV" Text="Test"/>
     </c:VerticalLayout>
 
     <c:ScrollView Id="ClientSV" CssClass="ClientSV">
-      <c:WebMapGoogle />
+
+      <c:HorizontalLayout Id="MapClientContainer" CssClass="MapContainerHL">
+        <c:WebMapGoogle Id="MapClient" CssClass="MapStyleClient"/>
+      </c:HorizontalLayout>
       
+      <c:VerticalLayout CssClass="ClientAdressVL">
+        <c:TextView CssClass="ClientAdressTV" Text="Test"/>
+        <c:TextView CssClass="ClientCityTV" Text="test"/>
+        <c:VerticalLayout CssClass="DistanceVL">
+        <c:TextView CssClass="ClientDistanceTV" Text="5"/>
+        </c:VerticalLayout>
+      </c:VerticalLayout>
+
+      <c:TextView CssClass="ContactsTV" Text="#contacts#"/>
+
+      <c:VerticalLayout CssClass="ContactsListVL">
+        <c:VerticalLayout CssClass="ContactsContainerVL">
+        <c:TextView CssClass="ContactDescriptionTV" Text="Test"/>
+        <c:TextView CssClass="ContactPositionTV"/>
+        </c:VerticalLayout>
+        <c:VerticalLayout CssClass="CallToClientButton">
+          
+        </c:VerticalLayout>
+      </c:VerticalLayout>
       
-    </c:ScrollView>-->
-  
+      <c:Button Text="#add_contact#" CssClass="AddContactBtn"/>
+      
+      <c:TextView CssClass="EquipmentsTV" Text="#equipment#"/>
+
+      
+      <c:VerticalLayout CssClass="EquipmentVL">
+        <c:VerticalLayout CssClass="EquipmentContainerVL">
+        <c:TextView CssClass="EquipmentTypeTV" Text="Test"/>
+        <c:TextView CssClass="EquipmentNameTV" Text="Test"/>
+        </c:VerticalLayout>
+      </c:VerticalLayout>
+      
+    </c:ScrollView>
+
   </c:VerticalLayout>
 
 </c:Screen>

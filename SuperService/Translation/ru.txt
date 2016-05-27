@@ -26,6 +26,9 @@ clients		Клиенты
 settings		Настройки
 areYouSure		Вы уверены?
 today		сегодня
-per_month		завтра
+per_month		За месяц
 today_eventListNode		Сегодня
 client		Клиент
+contacts		Контакты
+add_contact		Добавить контакт
+equipment		Оборудование
