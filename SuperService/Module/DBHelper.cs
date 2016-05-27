@@ -337,5 +337,25 @@ namespace Test
 
         }
 
+        /// <summary>
+        /// Возвращает список всех клиентов </summary>
+        public static DbRecordset GetClients()
+        {
+            var clientsList = new ArrayList();
+
+            var query = new Query("select " +
+                                  "      Catalog_Client.Id, " +
+                                  "      Catalog_Client.Description, " +
+                                  "      Catalog_Client.Address, " +
+                                  "      Catalog_Client.Latitude, " +
+                                  "      Catalog_Client.Longitude " +
+                                  "  from " +
+                                  "      Catalog_Client");
+
+
+            var queryResult = query.Execute();
+            return queryResult;
+        }
+
     }
 }
