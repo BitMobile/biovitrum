@@ -432,5 +432,61 @@ namespace Test
             return queryResult;
         }
 
+
+        /// <summary>
+        /// Возвращает задачу по ее идентификатору</summary>
+        public static DbRecordset GetTaskById(string taskID)
+        {
+            var query = new Query("select  " +
+                                  "      tasks.id as taskID, " + //гуид задачи
+                                  "      tasks.Ref as EventID, " + //гуид наряда (события) к которому относится задача
+                                  "      tasks.terget as Target, " + //Цель
+                                  "      tasks.Comment as Comment, " + // комментарий
+                                  "      equipment.Description as EquipmentDescription, " + //наименование оборудование
+                                  "      Enum_ResultEvent.Name as resultName, " + //результат имя
+                                  "      Enum_ResultEvent.Description as resultDescription, " + //результат представление
+                                  "      TypeDeparturesTable.TypeDepartures " + //вид работ - выбирается первая активная из списка наряда
+                                  " " +
+                                  "from " +
+                                  "    Document_Event_Equipments as tasks " +
+                                  "       left join _Catalog_Equipment as equipment " +
+                                  "         on tasks.Id = @taskID " +
+                                  "         and tasks.Equipment = equipment.Id " +
+                                  " " +
+                                  "       left join Enum_ResultEvent " +
+                                  "          on tasks.Result = Enum_ResultEvent.Id " +
+                                  " " +
+                                  "        left join " +
+                                  "                (select " +
+                                  "                     Document_Event_TypeDepartures.Ref, " +
+                                  "                     Catalog_TypesDepartures.description as TypeDepartures " +
+                                  "                from " +
+                                  "                    (select " +
+                                  "                          ref, " +
+                                  "                          min(lineNumber) as lineNumber " +
+                                  "                     from " +
+                                  "                          Document_Event_TypeDepartures " +
+                                  "                     where " +
+                                  "                          ref = (select Ref from Document_Event_Equipments where id = @taskID limit 1) " +
+                                  "                          and active = 1 " +
+                                  "                     group by " +
+                                  "                          ref) as trueTypeDepartures " +
+                                  " " +
+                                  "                        left join Document_Event_TypeDepartures " +
+                                  "                             on trueTypeDepartures.ref = Document_Event_TypeDepartures.ref " +
+                                  "                                and trueTypeDepartures.lineNumber = Document_Event_TypeDepartures.lineNumber " +
+                                  " " +
+                                  "                        left join Catalog_TypesDepartures " +
+                                  "                             on Document_Event_TypeDepartures.typeDeparture = Catalog_TypesDepartures.id) as TypeDeparturesTable " +
+                                  " " +
+                                  "            on tasks.Ref = TypeDeparturesTable.Ref " +
+                                  " " +
+                                  "where " +
+                                  "      tasks.Id = @taskID");
+            query.AddParameter("taskID", taskID);
+
+            return query.Execute();
+        }
+
     }
 }
