@@ -168,32 +168,34 @@ TextView {
     width: 100%;
 }
 
+.TextDataVL {
+    height: 100%;
+    width: 80%;
+}
+
 .ClientAdressTV {
-    background-color: #000000;
     color: #51595b;
     font: 2sp arial;
     height: 50%;
     horizontal-align: left;
     padding-top: 25%;
     text-align: left;
-    width: 80%;
+    width: 100%;
 }
 
 .ClientCityTV {
-    background-color: #000000;
     color: #9b9fa0;
     font: 2sp arial;
     height: 50%;
     horizontal-align: left;
     padding-top: 5%;
     text-align: left;
-    width: 80%;
+    width: 100%;
 }
 
 .DistanceVL {
     height: 100%;
-    horizontal-align: left;
-    width: 100%;
+    width: 20%;
 }
 
 .ClientDistanceTV {
