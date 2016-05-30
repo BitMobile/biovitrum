@@ -20,6 +20,8 @@ namespace Test
                 LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back") },
                 RightButtonImage = {Source = ResourceManager.GetImage("topheading_edit") }
             };
+
+            
             DConsole.WriteLine("Client end");
         }
 
@@ -31,7 +33,7 @@ namespace Test
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
             
-            DConsole.WriteLine("Some Action");
+            BusinessProcess.DoAction("EditContact");
         }
 
         internal string GetResourceImage(string tag)
@@ -39,5 +41,24 @@ namespace Test
             return ResourceManager.GetImage(tag);
         }
 
+        internal void GoToAddContact_OnClick(object sender, EventArgs e)
+        {
+            BusinessProcess.DoAction("AddContact");
+        }
+
+        internal void GoToEditContact_OnClick(object sender, EventArgs e)
+        {
+            BusinessProcess.DoAction("EditContact");
+        }
+
+        internal DbRecordset GetClientInfo()
+        {
+            return DBHelper.GetEventByID((string)BusinessProcess.GlobalVariables["currentEventId"]);
+        }
+
+        internal bool IsEmptyString(string item)
+        {
+            return string.IsNullOrEmpty(item) && string.IsNullOrWhiteSpace(item);
+        }
     }
 }

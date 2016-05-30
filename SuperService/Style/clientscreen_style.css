@@ -260,7 +260,10 @@ TextView {
     width: 50%;
 }
 
-.CallImageImg { width: 100%; }
+.CallImageImg {
+    horizontal-align: center;
+    width: 100%;
+}
 
 .AddContactBtn {
     color: #ff0000;

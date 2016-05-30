@@ -5,10 +5,13 @@
   <c:VerticalLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
 
-    <c:VerticalLayout Id="ClientDescriptionVL" CssClass="ClientDescriptionVL">
-      <c:TextView Id="ClientDescriptionTV" CssClass="ClientDescriptionTV" Text="Test" />
-    </c:VerticalLayout>
+    <s:Iterator Id="clientItem" Value="$GetClientInfo()">
 
+      <c:VerticalLayout Id="ClientDescriptionVL" CssClass="ClientDescriptionVL">
+        <c:TextView Id="ClientDescriptionTV" CssClass="ClientDescriptionTV" Text="$clientItem.Description" />
+      </c:VerticalLayout>
+
+    </s:Iterator>
     <c:ScrollView Id="ClientSV" CssClass="ClientSV">
 
       <c:HorizontalLayout Id="MapClientContainer" CssClass="MapContainerHL">
@@ -20,28 +23,30 @@
           <c:TextView CssClass="ClientAdressTV" Text="Test" />
           <c:TextView CssClass="ClientCityTV" Text="test" />
         </c:VerticalLayout>
-        
+
+
         <c:VerticalLayout CssClass="DistanceVL">
           <c:TextView CssClass="ClientDistanceTV" Text="5" />
         </c:VerticalLayout>
       </c:HorizontalLayout>
+
 
       <c:TextView CssClass="ContactsTV" Text="#contacts#" />
 
       <c:HorizontalLayout CssClass="ContactsListHL">
         <c:VerticalLayout CssClass="ContactsContainerVL">
           <c:TextView CssClass="ContactDescriptionTV" Text="Test" />
-          <c:TextView CssClass="ContactPositionTV" Text="Test"/>
+          <c:TextView CssClass="ContactPositionTV" Text="Test" />
         </c:VerticalLayout>
-        
+
         <c:VerticalLayout CssClass="CallToClientButton">
           <c:HorizontalLayout CssClass="CallToClientContainer">
-          <c:Image Id="CallImage" CssClass="CallImageImg" Source="$GetResourceImage(clientscreen_phone)"/>
+            <c:Image Id="CallImage" CssClass="CallImageImg" Source="$GetResourceImage(clientscreen_phone)" />
           </c:HorizontalLayout>
         </c:VerticalLayout>
       </c:HorizontalLayout>
 
-      <c:Button Text="#add_contact#" CssClass="AddContactBtn" OnClick=""/>
+      <c:Button Text="#add_contact#" CssClass="AddContactBtn" OnClick="GoToAddContact_OnClick" />
 
       <c:TextView CssClass="EquipmentsTV" Text="#equipment#" />
 
