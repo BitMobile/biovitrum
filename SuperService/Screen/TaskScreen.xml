@@ -2,6 +2,14 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
+    <s:Push Id="task" Value="$GetTask()" />
     <c:Button Text="#back#" OnClick="BackButton_OnClick" />
+    <c:TextView Text="$task.Target" />
+    <c:TextView Text="$task.EquipmentDescription" />
+    <c:TextView Text="$task.TypeDepartures" />
+    <c:TextView Text="$task.Comment" />
+    <c:EditText Id="TaskCommentEditText" />
+    <c:Button Id="TaskFinishedButton" Text="#task_finished#" OnClick="TaskFinishedButton_OnClick" />
+    <c:Button Id="TaskRefuseButton" Text="#task_refused#" OnClick="TaskRefuseButton_OnClick" />
   </c:VerticalLayout>
 </c:Screen>

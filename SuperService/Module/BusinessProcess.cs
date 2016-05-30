@@ -31,7 +31,7 @@ namespace Test
 
             var firstStepName = _doc.DocumentElement.ChildNodes[0].ChildNodes[0].Attributes["Name"].Value;
             MoveTo(firstStepName);
-//            MoveTo("Test");
+//            MoveTo("Task");
         }
 
         private static void MoveTo(string stepName)

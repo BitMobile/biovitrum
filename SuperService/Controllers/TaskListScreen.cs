@@ -32,7 +32,6 @@ namespace Test
 
         internal void TaskLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            // TODO: Передача Id конкретной таски
             BusinessProcess.GlobalVariables["currentTaskId"] = ((HorizontalLayout) sender).Id;
             BusinessProcess.DoAction("ViewTask");
         }
