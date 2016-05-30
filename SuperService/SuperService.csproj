@@ -96,10 +96,6 @@
     <EmbeddedResource Include="Style\**" />
     <EmbeddedResource Include="Translation\**" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Image\CheckList\Done.png" />
-    <Content Include="Image\CheckList\NotDone.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)..\SDK\BitMobileSDK\BitMobileSDK.exe $(TargetPath)

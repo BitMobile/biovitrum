@@ -3,7 +3,7 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
     
-    <c:HorizontalLayout CssClass="TopLayout">
+    <c:HorizontalLayout CssClass="TopLayout"> 
       <c:VerticalLayout Id="BackButton" CssClass="TopButton" OnClick="BackButton_OnClick">
         <c:Image Source="Image\top_back.png" CssClass="BackButton" />
       </c:VerticalLayout>
@@ -13,20 +13,45 @@
     <c:SwipeVerticalLayout CssClass="SVLMain">
       
       <s:Iterator Id="CheckList" Value="$GetCheckList()">
-        <c:HorizontalLayout Id="$CheckListId" CssClass="CheckListLayout">
+        <c:HorizontalLayout Id="$CheckListId" CssClass="CheckListItemLayout">
           
-          <s:If Test="$CheckList.Required">
+          <s:If Test="$CheckList.Required"> 
             <c:VerticalLayout CssClass="VLRequired" />
           </s:If>
           <s:Else>
             <c:VerticalLayout CssClass="VLNotRequired" />
           </s:Else>
-
-          <c:VerticalLayout CssClass="CheckListInfoLayout">
+          
+          <c:VerticalLayout CssClass="CheckListQuestionLayout">
             <c:TextView Text="$CheckList.Description" CssClass="CheckListDescription" />
-            <c:TextView Text="$CheckList.Result" CssClass="CheckListName" />
           </c:VerticalLayout>
-
+          
+          <c:VerticalLayout CssClass="CheckListAnswerLayout">
+            <s:If Test="$CheckList.TypeName == Snapshot">
+              <!--<c:VerticalLayout CssClass="VLRequired" />-->
+              <c:TextView Text="TEST"/>
+            </s:If>
+            <s:If Test="$CheckList.TypeName == ValList">
+              <!--<c:VerticalLayout CssClass="VLRequired" />-->
+            </s:If>
+            <s:If Test="$CheckList.TypeName == DateTime">
+              <!--<c:VerticalLayout CssClass="VLRequired" />-->
+            </s:If>
+            <s:If Test="$CheckList.TypeName == Boolean">
+              <c:CheckBox Visible="true" Checked="True"/>
+            </s:If>
+            <s:If Test="$CheckList.TypeName == Decimal">
+              <!--<c:VerticalLayout CssClass="VLRequired" />-->
+            </s:If>
+            <s:If Test="$CheckList.TypeName == Integer">
+              <!--<c:VerticalLayout CssClass="VLRequired" />-->
+            </s:If>
+            <s:If Test="$CheckList.TypeName == String">
+              <!--<c:VerticalLayout CssClass="VLRequired" />-->
+            </s:If>
+            <!--<c:TextView Text="$CheckList.Result" CssClass="CheckListName" />-->
+        </c:VerticalLayout>
+            
         </c:HorizontalLayout>
         <c:HorizontalLine CssClass="CheckListBreaker" />
       </s:Iterator>

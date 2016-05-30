@@ -22,6 +22,13 @@ TextView {
 	width: 100%;
 }
 
+CheckBox {
+    width: 50%;
+    height: 50%;
+    vertical-align: center;
+    horizontal-align: right;
+}
+
 .SVLMain {
 	background-color: #ffffff;
 	height: 100%;
@@ -72,15 +79,23 @@ TextView {
 	width: 68%;
 }
 
-.CheckListLayout {
-	height: 10sp;
+.CheckListItemLayout {
+	height: 8sp;
 	horizontal-align: center;
 	width: 100%;
 }
 
-.CheckListInfoLayout {
-	height: 100%;
-	width: 99%;
+.CheckListQuestionLayout {
+	height: 0% auto;
+    vertical-align: center;
+	width: 70%;
+}
+
+.CheckListAnswerLayout {
+	height: 0% auto;
+    vertical-align: center;
+	width: 29%;
+
 }
 
 .CheckListDescription {
@@ -89,6 +104,7 @@ TextView {
 	margin-top: 2sp;
     margin-left: 3%;
 	text-align: left;
+    vertical-align: center;
 }
 
 .CheckListName {
