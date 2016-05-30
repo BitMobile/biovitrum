@@ -56,7 +56,9 @@ namespace Test
                                   "  Enum_StatusImportance.Description as Importance, " +
                                   "  Enum_StatusImportance.Name as ImportanceName, " +
                                   "  ifnull(client.Description, '') as Description, " +
-                                  "  ifnull(client.Address, '') as Address " +
+                                  "  ifnull(client.Address, '') as Address, " +
+                                  "  Enum_StatusyEvents.Name as statusName, " +  //имя значения статуса (служебное имя)
+                                  "  Enum_StatusyEvents.Description as statusDescription " + //представление статуса
                                   "from " +
                                   "  Document_Event as event " +
                                   "    left join Catalog_Client as client " +
@@ -83,6 +85,9 @@ namespace Test
                                   "     on event.id = TypeDeparturesTable.Ref " +
                                   "          left join Enum_StatusImportance " +
                                   "               on event.Importance = Enum_StatusImportance.Id " +
+                                  "  " +          
+                                  "  left join Enum_StatusyEvents " + 
+                                  "      on event.status = Enum_StatusyEvents.Id " + 
                                   "  where " +
                                   "      event.StartDatePlan >= @eventDate" +
                                   " order by " +
@@ -172,7 +177,9 @@ namespace Test
                             "    case  " +
                             "        when ifnull(docCheckList.Required, 0) = ifnull(docCheckList.RequiredAnswered, 0) then 1 " +
                             "        else 0 " +
-                            "    end as checkListAllRequiredIsAnswered " + //признак, что все обязательные вопросы в чеклистах отвечены
+                            "    end as checkListAllRequiredIsAnswered, " + //признак, что все обязательные вопросы в чеклистах отвечены
+                            "    Enum_StatusyEvents.Name as statusName, " + //наименование статуса (служебное имя)
+                            "    Enum_StatusyEvents.Description as statusDescription " + //представление статуса +
                             "from  " + 
                             "    _Document_Event as event  " +
                             "        left join _Catalog_Client as client  " +
@@ -221,6 +228,9 @@ namespace Test
                             "    " +
                             "        left join (select Document_Event_Equipments.Ref, count(Document_Event_Equipments.Ref) as Total, sum(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_Equipments where Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment " +
                             "           on event.id = docEquipment.ref " +
+                            "    " +
+                            "        left join Enum_StatusyEvents " + 
+                            "           on event.status = Enum_StatusyEvents.Id     " + 
                             "    " +
                             "where  " +
                             "   event.id = @id  ";
