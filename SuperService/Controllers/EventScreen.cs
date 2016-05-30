@@ -176,5 +176,10 @@ namespace Test
         {
             return dateTime == "0001-01-01 00:00:00";
         }
+
+        internal bool IsNotEmptyDateTime(string dateTime)
+        {
+            return dateTime != "0001-01-01 00:00:00";
+        }
     }
 }
