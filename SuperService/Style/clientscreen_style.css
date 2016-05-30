@@ -173,15 +173,16 @@ TextView {
     width: 80%;
 }
 
-.ClientAdressME {
+.ClientAdressTV {
     color: #51595b;
     font: 2.5sp arial;
     height: 100%;
     horizontal-align: left;
     padding-left: 2%;
-    padding-top: 25%;
+    padding-top: 10%;
     text-align: left;
     width: 100%;
+    white-space: normal;
 }
 
 

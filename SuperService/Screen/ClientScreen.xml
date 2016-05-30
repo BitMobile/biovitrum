@@ -20,7 +20,7 @@
 
       <c:HorizontalLayout CssClass="ClientAdressHL">
         <c:VerticalLayout CssClass="TextDataVL">
-          <c:MemoEdit CssClass="ClientAdressME" Text="$clientItem.clientAddress" />
+          <c:TextView CssClass="ClientAdressTV" Text="$clientItem.clientAddress" />
         </c:VerticalLayout>
 
 
