@@ -178,8 +178,8 @@ TextView {
     font: 2.5sp arial;
     height: 50%;
     horizontal-align: left;
-    padding-top: 25%;
     padding-left: 2%;
+    padding-top: 25%;
     text-align: left;
     width: 100%;
 }
@@ -189,8 +189,8 @@ TextView {
     font: 2.5sp arial;
     height: 50%;
     horizontal-align: left;
-    padding-top: 5%;
     padding-left: 2%;
+    padding-top: 5%;
     text-align: left;
     width: 100%;
 }
@@ -233,8 +233,8 @@ TextView {
     color: #51595b;
     font: 2.5sp arial;
     height: 50%;
-    padding-top: 25%;
     padding-left: 2%;
+    padding-top: 25%;
     text-align: left;
     width: 100%;
 }
@@ -243,8 +243,8 @@ TextView {
     color: #9b9fa0;
     font: 2.5sp arial;
     height: 50%;
-    padding-top: 5%;
     padding-left: 2%;
+    padding-top: 5%;
     text-align: left;
     width: 100%;
 }
@@ -254,10 +254,13 @@ TextView {
     width: 20%;
 }
 
-.CallImageImg {
-    height: 50%;
+.CallToClientContainer {
+    height: 100%;
+    vertical-align: center;
     width: 50%;
 }
+
+.CallImageImg { width: 100%; }
 
 .AddContactBtn {
     color: #ff0000;
@@ -291,8 +294,8 @@ TextView {
     color: #51595b;
     font: 2.5sp arial;
     height: 50%;
-    padding-top: 25%;
     padding-left: 2%;
+    padding-top: 25%;
     text-align: left;
     width: 100%;
 }
@@ -301,8 +304,8 @@ TextView {
     color: #a6a9aa;
     font: 2.5sp arial;
     height: 50%;
-    padding-top: 5%;
     padding-left: 2%;
+    padding-top: 5%;
     text-align: left;
     width: 100%;
 }

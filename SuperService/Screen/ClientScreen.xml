@@ -35,11 +35,13 @@
         </c:VerticalLayout>
         
         <c:VerticalLayout CssClass="CallToClientButton">
-          <c:Image Id="CallImage" CssClass="CallImageImg" Source="Image\top_back.png"/>
+          <c:HorizontalLayout CssClass="CallToClientContainer">
+          <c:Image Id="CallImage" CssClass="CallImageImg" Source="$GetResourceImage(clientscreen_phone)"/>
+          </c:HorizontalLayout>
         </c:VerticalLayout>
       </c:HorizontalLayout>
 
-      <c:Button Text="#add_contact#" CssClass="AddContactBtn" />
+      <c:Button Text="#add_contact#" CssClass="AddContactBtn" OnClick=""/>
 
       <c:TextView CssClass="EquipmentsTV" Text="#equipment#" />
 

@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
+using Test;
 
 namespace Test
 {
@@ -16,8 +17,8 @@ namespace Test
             {
                 ExtraLayoutVisible = false,
                 HeadingTextView = {Text = Translator.Translate("client")},
-                LeftButtonImage = {Source = @"Image\top_back.png"},
-                RightButtonImage = {Source = @"Image\top_ico_edit.png" }
+                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back") },
+                RightButtonImage = {Source = ResourceManager.GetImage("topheading_edit") }
             };
             DConsole.WriteLine("Client end");
         }
@@ -31,6 +32,11 @@ namespace Test
         {
             
             DConsole.WriteLine("Some Action");
+        }
+
+        internal string GetResourceImage(string tag)
+        {
+            return ResourceManager.GetImage(tag);
         }
 
     }
