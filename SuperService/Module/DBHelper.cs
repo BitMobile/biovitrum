@@ -89,7 +89,8 @@ namespace Test
                                   "  left join Enum_StatusyEvents " + 
                                   "      on event.status = Enum_StatusyEvents.Id " + 
                                   "  where " +
-                                  "      event.StartDatePlan >= @eventDate" +
+                                  "      event.DeletionMark = 0 " + 
+                                  "      AND event.StartDatePlan >= @eventDate " +
                                   " order by " +
                                   "  event.StartDatePlan");
 
@@ -134,7 +135,10 @@ namespace Test
                                   "  from " +
                                   "      Document_Event as event " +
                                   "       left join Enum_StatusyEvents " +
-                                  "         on event.Status = Enum_StatusyEvents.Id");
+                                  "         on event.Status = Enum_StatusyEvents.Id " +
+                                  " " +            
+                                  "where " + 
+                                  "     event.DeletionMark = 0");
             var result = query.Execute();
 
             if (result.Next())
@@ -346,8 +350,9 @@ namespace Test
                                   "        and  ClientContacts.Contact = Contacts.Id " +
                                   " " + 
                                   "where " +
-                                  "    ClientContacts.Ref = @clientID " + 
-                                  "    and and ClientContacts.Actual = 0 "); //выбираем только неактуальных сотрудников, потому что актуальные являются уволенными
+                                  "    ClientContacts.DeletionMark = 0" +     
+                                  "    and ClientContacts.Ref = @clientID " + 
+                                  "    and ClientContacts.Actual = 0 "); //выбираем только неактуальных сотрудников, потому что актуальные являются уволенными
 
             query.AddParameter("clientID", clientID);
 
@@ -402,7 +407,10 @@ namespace Test
                                   "      Catalog_Client.Latitude, " +
                                   "      Catalog_Client.Longitude " +
                                   "  from " +
-                                  "      Catalog_Client");
+                                  "      Catalog_Client " +
+                                  " " + 
+                                  "where " +
+                                  "    Catalog_Client.DeletionMark = 0");
 
 
             var queryResult = query.Execute();
@@ -452,7 +460,8 @@ namespace Test
                                   "from " +
                                   "     Catalog_Actions_ValueList " +
                                   "where " +
-                                  "     Catalog_Actions_ValueList.Ref = @actionID");
+                                  "     Catalog_Actions_ValueList.DeletionMark = 0 " +
+                                  "     and Catalog_Actions_ValueList.Ref = @actionID");
             query.AddParameter("actionID", actionID);
             return query.Execute();
 
@@ -536,7 +545,11 @@ namespace Test
 
 
         /// <summary>
-        /// Возвращает задачу по ее идентификатору</summary>
+        ///      Возвращает задачу по ее идентификатору
+        /// </summary>
+        /// <param name="taskID">
+        ///     Идентификатор задачи
+        /// </param>
         public static DbRecordset GetTaskById(string taskID)
         {
             var query = new Query("select  " +
