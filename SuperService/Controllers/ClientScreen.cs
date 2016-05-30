@@ -8,8 +8,8 @@ namespace Test
     public class ClientScreen : Screen
     {
         private DbRecordset _client;
-        private TopInfoComponent _topInfoComponent;
         private WebMapGoogle _map;
+        private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
@@ -23,7 +23,9 @@ namespace Test
             };
 
             _map = (WebMapGoogle) GetControl("MapClient", true);
-            DConsole.WriteLine((string) BusinessProcess.GlobalVariables["currentEventId"]);
+            _map.AddMarker((string) _client["Description"], (double) _client["Latitude"], (double) _client["Longitude"],
+                "red");
+            DConsole.WriteLine($"Latitude: {(double) _client["Latitude"]} Longitude: {(double) _client["Longitude"]}");
             DConsole.WriteLine("Client end");
         }
 
@@ -55,12 +57,12 @@ namespace Test
         internal DbRecordset GetCurrentClient()
         {
             object eventId;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
+            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId", out eventId))
             {
-                DConsole.WriteLine("Can't find current event ID, going to crash");
+                DConsole.WriteLine("Can't find current client ID, going to crash");
             }
-            _map.AddMarker(_client.GetString(1),_client.GetDouble(4),_client.GetDouble(3),"red");
-            _client = DBHelper.GetEventByID((string) eventId);
+            _client = DBHelper.GetClientByID((string) eventId);
+            DConsole.WriteLine("Get Data");
             return _client;
         }
 
