@@ -418,6 +418,29 @@ namespace Test
         }
 
         /// <summary>
+        ///     Возвращает информацию по клиенту
+        /// </summary>
+        /// <param name="clientID"> 
+        ///     Идентификатор клиента
+        /// </param>
+        public static DbRecordset GetClietnByID(string clientID)
+        {
+            var query = new Query("select " +
+                                    "    Catalog_Client.Id, " +
+                                    "    Catalog_Client.Description, " +
+                                    "    Catalog_Client.Address, " +
+                                    "    Catalog_Client.Latitude, " +
+                                    "    Catalog_Client.Longitude " +
+                                    "from " +
+                                    "    Catalog_Client " +
+                                    "where " +
+                                    "    Catalog_Client.Id = @clientID");
+
+            query.AddParameter("clientID", clientID);
+            return query.Execute();
+        }
+
+        /// <summary>
         ///     Получает список вопросов чек-листов по идентификаторы события
         /// </summary>
         /// <param name="eventID"> Идентификатор события</param>

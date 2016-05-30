@@ -5,10 +5,10 @@
   <c:VerticalLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
 
-    <s:Push Id="clientItem" Value="$GetCurrentEvent()"/>
+    <s:Push Id="clientItem" Value="$GetCurrentClient()"/>
 
       <c:VerticalLayout Id="ClientDescriptionVL" CssClass="ClientDescriptionVL">
-        <c:TextView Id="ClientDescriptionTV" CssClass="ClientDescriptionTV" Text="$clientItem.clientDescription" />
+        <c:TextView Id="ClientDescriptionTV" CssClass="ClientDescriptionTV" Text="$clientItem.Description" />
       </c:VerticalLayout>
 
     
@@ -20,7 +20,7 @@
 
       <c:HorizontalLayout CssClass="ClientAdressHL">
         <c:VerticalLayout CssClass="TextDataVL">
-          <c:TextView CssClass="ClientAdressTV" Text="$clientItem.clientAddress" />
+          <c:TextView CssClass="ClientAdressTV" Text="$clientItem.Address" />
         </c:VerticalLayout>
 
 

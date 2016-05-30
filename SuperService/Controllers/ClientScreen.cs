@@ -2,13 +2,14 @@
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
-using Test;
 
 namespace Test
 {
     public class ClientScreen : Screen
     {
+        private DbRecordset _client;
         private TopInfoComponent _topInfoComponent;
+        private WebMapGoogle _map;
 
         public override void OnLoading()
         {
@@ -17,11 +18,12 @@ namespace Test
             {
                 ExtraLayoutVisible = false,
                 HeadingTextView = {Text = Translator.Translate("client")},
-                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back") },
-                RightButtonImage = {Source = ResourceManager.GetImage("topheading_edit") }
+                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
+                RightButtonImage = {Source = ResourceManager.GetImage("topheading_edit")}
             };
 
-            DConsole.WriteLine((string)BusinessProcess.GlobalVariables["currentEventId"]);
+            _map = (WebMapGoogle) GetControl("MapClient", true);
+            DConsole.WriteLine((string) BusinessProcess.GlobalVariables["currentEventId"]);
             DConsole.WriteLine("Client end");
         }
 
@@ -32,7 +34,6 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            
             BusinessProcess.DoAction("EditContact");
         }
 
@@ -51,15 +52,16 @@ namespace Test
             BusinessProcess.DoAction("EditContact");
         }
 
-        internal DbRecordset GetCurrentEvent()
+        internal DbRecordset GetCurrentClient()
         {
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
-
-            return DBHelper.GetEventByID((string)eventId);
+            _map.AddMarker(_client.GetString(1),_client.GetDouble(4),_client.GetDouble(3),"red");
+            _client = DBHelper.GetEventByID((string) eventId);
+            return _client;
         }
 
         internal bool IsEmptyString(string item)
