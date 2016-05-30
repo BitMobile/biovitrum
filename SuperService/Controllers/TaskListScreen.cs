@@ -82,5 +82,10 @@ namespace Test
 //            };
             return DBHelper.GetTasksByEventID((string) BusinessProcess.GlobalVariables["currentEventId"]);
         }
+
+        internal string GetResourceImage(string tag)
+        {
+            return ResourceManager.GetImage(tag);
+        }
     }
 }

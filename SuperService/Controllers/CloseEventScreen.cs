@@ -92,5 +92,10 @@ namespace Test
 
             BusinessProcess.DoAction("FinishEvent");
         }
+
+        internal string GetResourceImage(string tag)
+        {
+            return ResourceManager.GetImage(tag);
+        }
     }
 }

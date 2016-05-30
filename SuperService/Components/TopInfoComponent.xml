@@ -4,11 +4,11 @@
   <c:VerticalLayout CssClass="TopInfoLayout">
     <c:HorizontalLayout CssClass="TopInfoHeadingLayout">
       <c:VerticalLayout Id="TopInfoLeftButton" CssClass="TopInfoButton" OnClick="TopInfo_LeftButton_OnClick">
-        <c:Image Id="TopInfoLeftButtonImage" Source="Image\top_back.png" CssClass="TopInfoButtonImage" />
+        <c:Image Id="TopInfoLeftButtonImage" Source="$GetResourceImage(topheading_back)" CssClass="TopInfoButtonImage" />
       </c:VerticalLayout>
       <c:TextView Id="TopInfoHeadingTextView" CssClass="TopInfoHeading" />
       <c:VerticalLayout Id="TopInfoRightButton" CssClass="TopInfoButton" OnClick="TopInfo_RightButton_OnClick">
-        <c:Image Id="TopInfoRightButtonImage" Source="Image\top_back.png" CssClass="TopInfoButtonImage" />
+        <c:Image Id="TopInfoRightButtonImage" Source="$GetResourceImage(topheading_back)" CssClass="TopInfoButtonImage" />
       </c:VerticalLayout>
     </c:HorizontalLayout>
   </c:VerticalLayout>
@@ -22,6 +22,6 @@
     </c:HorizontalLayout>
   </c:VerticalLayout>
   <c:VerticalLayout Id="TopInfoImageLayout" CssClass="TopInfoImageLayout" OnClick="TopInfo_Arrow_OnClick">
-    <c:Image Id="TopInfoArrowImage" Source="Image\_Components\TopInfoComponent\down_arrow_full_width.png" CssClass="TopInfoArrowDown" />
+    <c:Image Id="TopInfoArrowImage" Source="$GetResourceImage(topinfo_downarrow)" CssClass="TopInfoArrowDown" />
   </c:VerticalLayout>
 </c:Component>

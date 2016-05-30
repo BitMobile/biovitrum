@@ -26,7 +26,7 @@ namespace Test.Components
                     _image = (Image)parentScreen.GetControl("ImgEvents", true);
 
                     _textView.CssClass = "TabTextViewActive";
-                    _image.Source = @"Image\_Components\TabBar\EventsActive.png";
+                    _image.Source = ResourceManager.GetImage("tabbar_events_active");
                     break;
 
                 case "Bag":
@@ -34,7 +34,7 @@ namespace Test.Components
                     _image = (Image)parentScreen.GetControl("ImgBag", true);
 
                     _textView.CssClass = "TabTextViewActive";
-                    _image.Source = @"Image\_Components\TabBar\BagActive.png";
+                    _image.Source = ResourceManager.GetImage("tabbar_bag_active");
                     break;
 
                 case "ClientList":
@@ -42,7 +42,7 @@ namespace Test.Components
                     _image = (Image)parentScreen.GetControl("ImgClients", true);
 
                     _textView.CssClass = "TabTextViewActive";
-                    _image.Source = @"Image\_Components\TabBar\ClientsActive.png";
+                    _image.Source = ResourceManager.GetImage("tabbar_clients_active");
                     break;
 
                 case "Settings":
@@ -50,7 +50,7 @@ namespace Test.Components
                     _image = (Image)parentScreen.GetControl("ImgSettings", true);
 
                     _textView.CssClass = "TabTextViewActive";
-                    _image.Source = @"Image\_Components\TabBar\SettingsActive.png";
+                    _image.Source = ResourceManager.GetImage("tabbar_settings_active");
                     break;
             }
         }

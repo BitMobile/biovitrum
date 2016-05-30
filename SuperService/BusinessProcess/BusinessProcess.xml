@@ -66,5 +66,10 @@
     <Step Name="CloseEvent" Controller="CloseEventScreen" StyleSheet="Style\fancy_closeeventscreen.css">
       <Action Name="FinishEvent" NextStep="EventList"></Action>
     </Step>
+
+
+    <Step Name="Test" Controller="TestScreen" StyleSheet="Style\style.css">
+      <Action Name="ToApplication" NextStep="Authorization" />
+    </Step>
   </Workflow>
 </BusinessProcess>

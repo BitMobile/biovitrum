@@ -181,5 +181,10 @@ namespace Test
         {
             return dateTime != "0001-01-01 00:00:00";
         }
+
+        internal string GetResourceImage(string tag)
+        {
+            return ResourceManager.GetImage(tag);
+        }
     }
 }
