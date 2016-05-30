@@ -16,14 +16,15 @@ namespace Test
             BusinessProcess.DoAction("BackToEvent");
         }
 
-        private void Camera_OnClick(object sender, EventArgs e)
+        internal void CheckListLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            Camera.MakeSnapshot("//private//test.jpg", 5);
+            //BusinessProcess.GlobalVariables["currentTaskId"] = ((HorizontalLayout)sender).Id;
+            //BusinessProcess.DoAction("ViewTask");
         }
 
-        //internal object GetEvent()
+        //private void Camera_OnClick(object sender, EventArgs e)
         //{
-        //    return DBHelper.GetEventByID((string)BusinessProcess.GlobalVariables["currentEventId"]);
+        //    Camera.MakeSnapshot("//private//test.jpg", 5);
         //}
 
         internal IEnumerable GetCheckList()

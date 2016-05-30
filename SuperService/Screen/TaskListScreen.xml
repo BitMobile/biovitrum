@@ -12,9 +12,9 @@
     
     <c:SwipeVerticalLayout CssClass="TaskListLayout">
       <s:Iterator Id="task" Value="$GetTasks()">
-        <c:HorizontalLayout Id="$task.Id" CssClass="TaskLayout" OnClick="TaskLayout_OnClick">
+        <c:HorizontalLayout Id="$task.Id" CssClass="CheckListLayout" OnClick="TaskLayout_OnClick">
           <c:VerticalLayout CssClass="TaskInfoLayout">
-            <c:TextView Text="$task.Terget" CssClass="TaskName" />
+            <c:TextView Text="$task.Terget" CssClass="CheckListName" />
             <c:TextView Text="$task.equipmentDescription" CssClass="TaskDescription" />
           </c:VerticalLayout>
           <c:VerticalLayout CssClass="TaskDoneImageContainer">

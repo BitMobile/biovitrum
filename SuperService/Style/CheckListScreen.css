@@ -11,22 +11,6 @@ body {
 	width: 100%;
 }
 
-.testlay {
-	background-color: #ffffff;
-	height: 100%;
-	width: 100%;
-}
-
-.testbtn {
-    margin-top: 1sp;
-    width: 100%;
-    height: 7sp;
-    background-color: #0000cd;
-    color: #ffffe0;
-    text-align: center;
-    selected-background: #0000ff;
-}
-
 TextView {
 	color: #51595b;
 	font: 2.5sp arial;
@@ -38,8 +22,9 @@ TextView {
 	width: 100%;
 }
 
-.NoHeight {
-	height: 0%;
+.SVLMain {
+	background-color: #ffffff;
+	height: 100%;
 	width: 100%;
 }
 
@@ -48,8 +33,6 @@ TextView {
 	height: 100%;
 	width: 100%;
 }
-
-/*  TaskList */
 
 .TopLayout {
 	background-color: #4a4b5e;
@@ -71,6 +54,12 @@ TextView {
 	width: 16%;
 }
 
+.BackButton {
+	height: 60%;
+	horizontal-align: center;
+	margin-top: 20%;
+}
+
 .TopHeading {
 	background-color: #4a4b5e;
 	border-style: none;
@@ -83,57 +72,54 @@ TextView {
 	width: 68%;
 }
 
-.TaskListLayout {
-	height: auto;
+.CheckListLayout {
+	height: 10sp;
+	horizontal-align: center;
 	width: 100%;
 }
 
-.TaskLayout {
-	height: 10sp;
-	horizontal-align: center;
-	width: 90%;
-}
-
-.TaskInfoLayout {
+.CheckListInfoLayout {
 	height: 100%;
-	width: 80%;
+	width: 99%;
 }
 
-.TaskName {
-	color: #4a4b5e;
+.CheckListDescription {
+    color: #4a4b5e;
 	font: 3sp arial;
 	margin-top: 2sp;
+    margin-left: 3%;
 	text-align: left;
 }
 
-.TaskDescription {
-	color: #4a4b5e;
+.CheckListName {
+    color: #4a4b5e;
 	font: 2sp arial;
 	margin-top: 1sp;
+    margin-left: 3%;
 	text-align: left;
 }
 
-.TaskBreaker {
+.CheckListBreaker {
 	background-color: #f3f3f4;
 	height: 3px;
 	horizontal-align: center;
-	width: 90%;
+	width: 95%;
 }
 
-.BackButton {
-	height: 60%;
-	horizontal-align: center;
-	margin-top: 20%;
+.VLRequired {
+    background-color: #ff0000;
+    width: 1%;
+    height: 100%;
 }
 
-.TaskDoneImageContainer {
-	height: 0sp auto;
-	width: auto;
-	vertical-align: center;
-	padding-right: 2sp;
+.VLRequiredDone {
+    background-color: #00cc00;
+    width: 1%;
+    height: 100%;
 }
 
-.TaskDoneImage {
-	height: 4sp;
-	horizontal-align: right;
+.VLNotRequired {
+    background-color: #ffffff;
+    width: 1%;
+    height: 100%;
 }

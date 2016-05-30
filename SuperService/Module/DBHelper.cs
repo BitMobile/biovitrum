@@ -107,7 +107,7 @@ namespace Test
                                   "  SUM(CASE " +
                                   "        when StartDatePlan > date('now','start of day') then 1 " +
                                   "        else 0 " +
-                                  "   End) as DayTotalAmount, " + 
+                                  "   End) as DayTotalAmount, " +
                                   "    SUM(CASE " +
                                   "        when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now','start of day') then 1 " +
                                   "        else 0 " +
@@ -149,6 +149,7 @@ namespace Test
                             "    Time(event.StartDatePlan) as StartDatePlanTime,  " +
                             "    TypeDeparturesTable.description as TypeDeparture,  " +
                             "    event.ActualStartDate,  " +
+                            "    event.ActualEndDate,  " +
                             "    _Enum_StatusImportance.Description as Importance,  " +
                             "    event.Comment,  " +
                             "    docSUm.sumFact,  " +
@@ -296,7 +297,7 @@ namespace Test
         /// <param name="eventID"> Идентификатор события</param>
         public static DbRecordset GetCheckListByEventID(string eventID)
         {
-            var query = new Query("select " + 
+            var query = new Query("select " +
                                   "   checkList.Id as CheckListId, " +
                                   "   checkList.Ref as EventId, " +
                                   "   checkList.Required as Required, " + //признак обязательности
