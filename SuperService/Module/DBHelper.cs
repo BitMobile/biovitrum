@@ -100,6 +100,7 @@ namespace Test
             return events;
         }
 
+
         /// <summary>
         ///     Полуает статистику по нарядам (событиям). Возвращает объект содержащий: количество нарядов на день, количество
         ///     закрытых
@@ -153,32 +154,25 @@ namespace Test
                             "    event.StartDatePlan,  " + //плановая дата начала
                             "    Date(event.StartDatePlan) as StartDatePlanDate,  " +
                             "    Time(event.StartDatePlan) as StartDatePlanTime,  " +
-                            "    TypeDeparturesTable.description as TypeDeparture,  " +
-                            //вид работ - выбирается одна из табличной части
+                            "    TypeDeparturesTable.description as TypeDeparture,  " + //вид работ - выбирается одна из табличной части
                             "    event.ActualStartDate,  " + //фактическая дата начала
-                            "    event.ActualEndDate,  " + // фактическая дата конца
                             "    _Enum_StatusImportance.Description as Importance,  " + //важность
-                            "    event.Comment,  " +
-                            "    docSUm.sumFact,  " +
+                            "    event.Comment,  " + 
+                            "    docSUm.sumFact,  " + 
                             "    docCheckList.Total as checkListTotal,  " + //общее количество вопросов в чеклисте
-                            "    docCheckList.Answered as checkListAnswered,  " +
-                            //количество отвеченных вопросов в чеклисте
-                            "    docEquipment.Total as equipmentTotal,  " + //количество оборудования (задач)
-                            "    docEquipment.Answered as equipmentAnswered,  " +
-                            //количество оборудования (задач) с заполненным результатом
-                            "    client.id as clientId,  " +
+                            "    docCheckList.Answered as checkListAnswered,  " + //количество отвеченных вопросов в чеклисте
+                            "    docEquipment.Total as equipmentTotal,  " +  //количество оборудования (задач)
+                            "    docEquipment.Answered as equipmentAnswered,  " + //количество оборудования (задач) с заполненным результатом
+                            "    client.id as clientId,  " + 
                             "    client.Description as clientDescription,  " + //имя клиента
                             "    client.Address as clientAddress,  " + //адрес клиента
-                            "    docCheckList.Required as checkListRequired, " +
-                            // количество обязательных вопросов в чеклистах 
-                            "    docCheckList.RequiredAnswered as checkListRequiredAnswered, " +
-                            //количество отвеченных обязательных вопросов в чеклистах
+                            "    docCheckList.Required as checkListRequired, " +  // количество обязательных вопросов в чеклистах 
+                            "    docCheckList.RequiredAnswered as checkListRequiredAnswered, " + //количество отвеченных обязательных вопросов в чеклистах
                             "    case  " +
                             "        when ifnull(docCheckList.Required, 0) = ifnull(docCheckList.RequiredAnswered, 0) then 1 " +
                             "        else 0 " +
-                            "    end as checkListAllRequiredIsAnswered " +
-                            //признак, что все обязательные вопросы в чеклистах отвечены
-                            "from  " +
+                            "    end as checkListAllRequiredIsAnswered " + //признак, что все обязательные вопросы в чеклистах отвечены
+                            "from  " + 
                             "    _Document_Event as event  " +
                             "        left join _Catalog_Client as client  " +
                             "        on  event.id = @id and event.client = client.Id  " +
@@ -237,6 +231,7 @@ namespace Test
             return result;
         }
 
+
         /// <summary>
         ///     Получает список задач события
         /// </summary>
@@ -288,6 +283,7 @@ namespace Test
             _db.Commit();
         }
 
+
         /// <summary>
         ///     Устанавливает фактическое время завершения наряда (события)
         /// </summary>
@@ -318,6 +314,7 @@ namespace Test
             query.AddParameter("id", eventId);
             query.Execute();
             _db.Commit();
+
         }
 
         /// <summary>
@@ -336,11 +333,10 @@ namespace Test
                                   "    left join Catalog_Contacts as Contacts " +
                                   "      on ClientContacts.Ref = @clientID " +
                                   "        and  ClientContacts.Contact = Contacts.Id " +
-                                  " " +
+                                  " " + 
                                   "where " +
-                                  "    ClientContacts.Ref = @clientID " +
-                                  "    and and ClientContacts.Actual = 0 ");
-            //выбираем только неактуальных сотрудников, потому что актуальные являются уволенными
+                                  "    ClientContacts.Ref = @clientID " + 
+                                  "    and and ClientContacts.Actual = 0 "); //выбираем только неактуальных сотрудников, потому что актуальные являются уволенными
 
             query.AddParameter("clientID", clientID);
 
@@ -350,6 +346,7 @@ namespace Test
         /// <summary>
         ///     Возвращает перечень оборудования клиента. Возвращается все оборудование во всех статусах
         /// </summary>
+        /// <param name="clientID"> Идентификатор клиента</param>
         public static DbRecordset GetEquipmentByClientID(string clientID)
         {
             var query = new Query("select " +
@@ -401,7 +398,6 @@ namespace Test
             return queryResult;
         }
 
-
         /// <summary>
         ///     Получает список вопросов чек-листов по идентификаторы события
         /// </summary>
@@ -415,8 +411,7 @@ namespace Test
                                   "   checkList.Result as Result, " + //значение результата
                                   "   checkList.Action as ActionId, " +
                                   "   actions.Description as Description, " + //название пункта чек-листа
-                                  "   typesDataParameters.Name as TypeName " +
-                                  //Тип значения чек-листа: ValList - выбор из списка значений; Snapshot - фото; остальное понятно из названий
+                                  "   typesDataParameters.Name as TypeName " +  //Тип значения чек-листа: ValList - выбор из списка значений; Snapshot - фото; остальное понятно из названий
                                   "from " +
                                   "   Document_Event_CheckList as checkList " +
                                   "   left join Catalog_Actions as actions " +
@@ -433,6 +428,7 @@ namespace Test
             return query.Execute();
         }
 
+
         /// <summary>
         ///     Получает список вариантов ответов для действий (вопросов)  с типом результата "выбор из списка"
         /// </summary>
@@ -448,6 +444,7 @@ namespace Test
                                   "     Catalog_Actions_ValueList.Ref = @actionID");
             query.AddParameter("actionID", actionID);
             return query.Execute();
+
         }
 
         /// <summary>
@@ -525,5 +522,62 @@ namespace Test
             query.Execute();
             _db.Commit();
         }
+
+
+        /// <summary>
+        /// Возвращает задачу по ее идентификатору</summary>
+        public static DbRecordset GetTaskById(string taskID)
+        {
+            var query = new Query("select  " +
+                                  "      tasks.id as taskID, " + //гуид задачи
+                                  "      tasks.Ref as EventID, " + //гуид наряда (события) к которому относится задача
+                                  "      tasks.terget as Target, " + //Цель
+                                  "      tasks.Comment as Comment, " + // комментарий
+                                  "      equipment.Description as EquipmentDescription, " + //наименование оборудование
+                                  "      Enum_ResultEvent.Name as resultName, " + //результат имя
+                                  "      Enum_ResultEvent.Description as resultDescription, " + //результат представление
+                                  "      TypeDeparturesTable.TypeDepartures " + //вид работ - выбирается первая активная из списка наряда
+                                  " " +
+                                  "from " +
+                                  "    Document_Event_Equipments as tasks " +
+                                  "       left join _Catalog_Equipment as equipment " +
+                                  "         on tasks.Id = @taskID " +
+                                  "         and tasks.Equipment = equipment.Id " +
+                                  " " +
+                                  "       left join Enum_ResultEvent " +
+                                  "          on tasks.Result = Enum_ResultEvent.Id " +
+                                  " " +
+                                  "        left join " +
+                                  "                (select " +
+                                  "                     Document_Event_TypeDepartures.Ref, " +
+                                  "                     Catalog_TypesDepartures.description as TypeDepartures " +
+                                  "                from " +
+                                  "                    (select " +
+                                  "                          ref, " +
+                                  "                          min(lineNumber) as lineNumber " +
+                                  "                     from " +
+                                  "                          Document_Event_TypeDepartures " +
+                                  "                     where " +
+                                  "                          ref = (select Ref from Document_Event_Equipments where id = @taskID limit 1) " +
+                                  "                          and active = 1 " +
+                                  "                     group by " +
+                                  "                          ref) as trueTypeDepartures " +
+                                  " " +
+                                  "                        left join Document_Event_TypeDepartures " +
+                                  "                             on trueTypeDepartures.ref = Document_Event_TypeDepartures.ref " +
+                                  "                                and trueTypeDepartures.lineNumber = Document_Event_TypeDepartures.lineNumber " +
+                                  " " +
+                                  "                        left join Catalog_TypesDepartures " +
+                                  "                             on Document_Event_TypeDepartures.typeDeparture = Catalog_TypesDepartures.id) as TypeDeparturesTable " +
+                                  " " +
+                                  "            on tasks.Ref = TypeDeparturesTable.Ref " +
+                                  " " +
+                                  "where " +
+                                  "      tasks.Id = @taskID");
+            query.AddParameter("taskID", taskID);
+
+            return query.Execute();
+        }
+
     }
 }
