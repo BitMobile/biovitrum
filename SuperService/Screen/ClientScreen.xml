@@ -15,7 +15,7 @@
         <c:WebMapGoogle Id="MapClient" CssClass="MapStyleClient" />
       </c:HorizontalLayout>
 
-      <c:HorizontalLayout CssClass="ClientAdressVL">
+      <c:HorizontalLayout CssClass="ClientAdressHL">
         <c:VerticalLayout CssClass="TextDataVL">
           <c:TextView CssClass="ClientAdressTV" Text="Test" />
           <c:TextView CssClass="ClientCityTV" Text="test" />
@@ -28,15 +28,16 @@
 
       <c:TextView CssClass="ContactsTV" Text="#contacts#" />
 
-      <c:VerticalLayout CssClass="ContactsListVL">
+      <c:HorizontalLayout CssClass="ContactsListHL">
         <c:VerticalLayout CssClass="ContactsContainerVL">
           <c:TextView CssClass="ContactDescriptionTV" Text="Test" />
-          <c:TextView CssClass="ContactPositionTV" />
+          <c:TextView CssClass="ContactPositionTV" Text="Test"/>
         </c:VerticalLayout>
+        
         <c:VerticalLayout CssClass="CallToClientButton">
-
+          <c:Image Id="CallImage" CssClass="CallImageImg" Source="Image\top_back.png"/>
         </c:VerticalLayout>
-      </c:VerticalLayout>
+      </c:HorizontalLayout>
 
       <c:Button Text="#add_contact#" CssClass="AddContactBtn" />
 

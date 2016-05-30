@@ -163,7 +163,7 @@ TextView {
     width: 100%
 }
 
-.ClientAdressVL {
+.ClientAdressHL {
     height: 10sp;
     width: 100%;
 }
@@ -217,7 +217,7 @@ TextView {
     width: 100%;
 }
 
-.ContactsListVL {
+.ContactsListHL {
     height: 0% auto;
     width: 100%
 }
@@ -246,7 +246,11 @@ TextView {
 }
 
 .CallToClientButton {
-    background-color: #006400;
+    height: 100%;
+    width: 20%;
+}
+
+.CallImageImg {
     height: 100%;
     width: 100%;
 }
