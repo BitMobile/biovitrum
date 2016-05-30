@@ -14,6 +14,10 @@ namespace Test
         private VerticalLayout _wantToBuyCommentLayout;
         private Image _wantToBuyImage;
 
+        private MemoEdit _wantToBuyCommentMemoEdit;
+        private MemoEdit _problemCommentMemoEdit;
+        private MemoEdit _commentaryMemoEdit;
+
         public override void OnLoading()
         {
             _wantToBuyButton = (HorizontalLayout) GetControl("WantToBuyButton", true);
@@ -23,6 +27,10 @@ namespace Test
             _problemButton = (HorizontalLayout) GetControl("ProblemButton", true);
             _problemCommentLayout = (VerticalLayout) GetControl("ProblemCommentLayout", true);
             _problemImage = (Image) GetControl("ProblemImage", true);
+
+            _wantToBuyCommentMemoEdit = (MemoEdit) GetControl("WantToBuyCommentMemoEdit", true);
+            _problemCommentMemoEdit = (MemoEdit) GetControl("ProblemCommentMemoEdit", true);
+            _commentaryMemoEdit = (MemoEdit) GetControl("CommentaryMemoEdit", true);
         }
 
         internal void WantToBuyButton_OnClick(object sender, EventArgs eventArgs)
@@ -73,6 +81,15 @@ namespace Test
         internal void FinishButton_OnClick(object sender, EventArgs eventArgs)
         {
             // TODO: Закрытие наряда
+            string eventId = (string) BusinessProcess.GlobalVariables["currentEventId"];
+            if (_wantToBuy)
+                DBHelper.InsertClosingEventSale(eventId, _wantToBuyCommentMemoEdit.Text);
+            if (_problem)
+                DBHelper.InsertClosingEventProblem(eventId, _problemCommentMemoEdit.Text);
+
+            if (!string.IsNullOrEmpty(_commentaryMemoEdit.Text))
+                DBHelper.UpdateClosingEventComment(eventId, _commentaryMemoEdit.Text);
+
             BusinessProcess.DoAction("FinishEvent");
         }
     }

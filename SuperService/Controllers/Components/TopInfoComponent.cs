@@ -107,14 +107,16 @@ namespace Test.Components
         {
             if (_minimized)
             {
-                _topInfoArrowImage.Source = @"Image\up_arrow_full_width.png";
+//                _topInfoArrowImage.Source = @"Image\up_arrow_full_width.png";
+                _topInfoArrowImage.Source = ResourceManager.GetImage("topinfo_uparrow");
                 _topInfoExtraButtonsLayout.CssClass = "TopInfoExtraButtonsLayout";
                 _topInfoExtraButtonsLayout.Refresh();
                 _minimized = false;
             }
             else
             {
-                _topInfoArrowImage.Source = @"Image\down_arrow_full_width.png";
+//                _topInfoArrowImage.Source = @"Image\down_arrow_full_width.png";
+                _topInfoArrowImage.Source = ResourceManager.GetImage("topinfo_downarrow");
                 _topInfoExtraButtonsLayout.CssClass = "NoHeight";
                 _topInfoExtraButtonsLayout.Refresh();
                 _minimized = true;

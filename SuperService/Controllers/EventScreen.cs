@@ -23,7 +23,7 @@ namespace Test
             LoadControls();
             FillControls();
 
-            IsEmptyDateTime((string) _currentEventRecordset["ActualStartDate"]);
+
         }
 
         private void FillControls()
@@ -112,7 +112,7 @@ namespace Test
             {
                 if (CheckEventBeforeClosing() && args.Result == 0)
                 {
-                    DBHelper.UpdateActualEndDateByEnetId(DateTime.Now,
+                    DBHelper.UpdateActualEndDateByEventId(DateTime.Now,
                         (string) BusinessProcess.GlobalVariables["currentEventId"]);
                     BusinessProcess.DoAction("CloseEvent");
                 }
@@ -175,6 +175,11 @@ namespace Test
         internal bool IsEmptyDateTime(string dateTime)
         {
             return dateTime == "0001-01-01 00:00:00";
+        }
+
+        internal bool IsNotEmptyDateTime(string dateTime)
+        {
+            return dateTime != "0001-01-01 00:00:00";
         }
     }
 }

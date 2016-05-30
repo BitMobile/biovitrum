@@ -10,7 +10,6 @@ namespace Test
             DBHelper.Init();
             DConsole.WriteLine("Starting application...");
             BusinessProcess.Init();
-            
         }
     }
 }
