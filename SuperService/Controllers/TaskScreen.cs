@@ -48,15 +48,15 @@ namespace Test
 
         internal object GetTask()
         {
-            string currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
             return new Dictionary<string, object>
             {
-                {"Terget", "Маршрутизатор" },
+                {"Target", "Маршрутизатор" },
                 {"Comment", "Тут много текста" },
                 {"EquipmentDescription", "Asus 509-k" },
                 {"TypeDepartures", "Монтаж" },
                 {"resultName", "Appointed" }
             };
+//            string currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
 //            return DBHelper.GetTaskById(currentTaskId);
         }
 

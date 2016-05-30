@@ -2,12 +2,14 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:DockLayout CssClass="RootLayout">
+    <s:Push Id="task" Value="$GetTask()" />
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:SwipeVerticalLayout CssClass="RootLayout">
-      <s:Push Id="task" Value="$GetTask()" />
-      <c:TextView Text="$task.Target" />
-      <c:TextView Text="$task.EquipmentDescription" />
-      <c:TextView Text="$task.TypeDepartures" />
+      <c:TextView Text="$task.Target" CssClass="TargetTextView"/>
+      <c:TextView Text="$task.EquipmentDescription" CssClass="EquipDescTextView" />
+      <c:HorizontalLayout CssClass="EmptySpace2sp" />
+      <c:HorizontalLine />
+      <c:TextView Text="$task.TypeDepartures" CssClass="SubHeading" />
       <c:TextView Text="$task.Comment" />
       <c:EditText Id="TaskCommentEditText" />
       <c:Button Id="TaskFinishedButton" Text="#task_finished#" OnClick="TaskFinishedButton_OnClick" />

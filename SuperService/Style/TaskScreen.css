@@ -22,10 +22,22 @@ TextView {
 	width: 100%;
 }
 
+HorizontalLine {
+	width: 90%;
+	height: 2px;
+	horizontal-align: center;
+	background-color: #f4f4f5;
+}
+
 .NoHeight {
 	height: 0%;
 	width: 100%;
 	dock-align: top;
+}
+
+.EmptySpace2sp {
+	height: 2sp;
+	width: 100%;
 }
 
 .RootLayout {
@@ -129,3 +141,19 @@ TextView {
 
 /*  Task */
 
+.TargetTextView {
+	margin-top: 2.8sp;
+	height: 3sp;
+	font: 2.8sp arial;
+	color: #8587b1;
+}
+
+.EquipDescTextView {
+	margin-top: 0.7sp;
+}
+
+.SubHeading {
+	color: #a7abab;
+	margin-top: 1sp;
+	margin-bottom: 1sp;
+}
