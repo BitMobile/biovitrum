@@ -5,7 +5,6 @@
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:SwipeVerticalLayout CssClass="RootLayout">
       <s:Push Id="task" Value="$GetTask()" />
-      <c:Button Text="#back#" OnClick="BackButton_OnClick" />
       <c:TextView Text="$task.Target" />
       <c:TextView Text="$task.EquipmentDescription" />
       <c:TextView Text="$task.TypeDepartures" />

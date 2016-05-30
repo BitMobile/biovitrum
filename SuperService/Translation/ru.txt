@@ -30,3 +30,4 @@ per_month		завтра
 today_eventListNode		Сегодня
 task_finished		Работа выполнена
 task_refused		Не могу выполнить
+task		Задача

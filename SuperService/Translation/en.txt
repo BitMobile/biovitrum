@@ -30,3 +30,4 @@ per_month		per month
 today_eventListNode		Today
 task_finished		Task finished
 task_refused		Can't complete
+task		Task
