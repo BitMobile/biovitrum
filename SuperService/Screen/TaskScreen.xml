@@ -1,15 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  <c:VerticalLayout CssClass="RootLayout">
-    <s:Push Id="task" Value="$GetTask()" />
-    <c:Button Text="#back#" OnClick="BackButton_OnClick" />
-    <c:TextView Text="$task.Target" />
-    <c:TextView Text="$task.EquipmentDescription" />
-    <c:TextView Text="$task.TypeDepartures" />
-    <c:TextView Text="$task.Comment" />
-    <c:EditText Id="TaskCommentEditText" />
-    <c:Button Id="TaskFinishedButton" Text="#task_finished#" OnClick="TaskFinishedButton_OnClick" />
-    <c:Button Id="TaskRefuseButton" Text="#task_refused#" OnClick="TaskRefuseButton_OnClick" />
-  </c:VerticalLayout>
+  <c:DockLayout CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:SwipeVerticalLayout CssClass="RootLayout">
+      <s:Push Id="task" Value="$GetTask()" />
+      <c:Button Text="#back#" OnClick="BackButton_OnClick" />
+      <c:TextView Text="$task.Target" />
+      <c:TextView Text="$task.EquipmentDescription" />
+      <c:TextView Text="$task.TypeDepartures" />
+      <c:TextView Text="$task.Comment" />
+      <c:EditText Id="TaskCommentEditText" />
+      <c:Button Id="TaskFinishedButton" Text="#task_finished#" OnClick="TaskFinishedButton_OnClick" />
+      <c:Button Id="TaskRefuseButton" Text="#task_refused#" OnClick="TaskRefuseButton_OnClick" />
+    </c:SwipeVerticalLayout>
+  </c:DockLayout>
 </c:Screen>

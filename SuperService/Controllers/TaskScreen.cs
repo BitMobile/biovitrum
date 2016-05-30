@@ -21,18 +21,23 @@ namespace Test
             // TODO: Логику прописать тут. Возможно, апдейт БД?
         }
 
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
+        {
+            
+        }
+
         internal object GetTask()
         {
             string currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
-//            return new Dictionary<string, object>
-//            {
-//                {"Terget", "Маршрутизатор" },
-//                {"Comment", "Тут много текста" },
-//                {"EquipmentDescription", "Asus 509-k" },
-//                {"TypeDepartures", "Монтаж" },
-//                {"resultName", "Appointed" }
-//            };
-            return DBHelper.GetTaskById(currentTaskId);
+            return new Dictionary<string, object>
+            {
+                {"Terget", "Маршрутизатор" },
+                {"Comment", "Тут много текста" },
+                {"EquipmentDescription", "Asus 509-k" },
+                {"TypeDepartures", "Монтаж" },
+                {"resultName", "Appointed" }
+            };
+//            return DBHelper.GetTaskById(currentTaskId);
         }
 
         internal string GetResourceImage(string tag)

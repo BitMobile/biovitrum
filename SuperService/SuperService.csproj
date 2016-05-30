@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Style\TaskScreen.css" />
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
     <EmbeddedResource Include="Components\**" />
     <Compile Include="Controllers\**" />

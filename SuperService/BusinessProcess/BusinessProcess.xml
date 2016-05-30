@@ -55,7 +55,7 @@
       <Action Name="ViewTask" NextStep="Task"></Action>
     </Step>
 
-    <Step Name="Task" Controller="TaskScreen" StyleSheet="Style\style.css">
+    <Step Name="Task" Controller="TaskScreen" StyleSheet="Style\TaskScreen.css">
       <Action Name="BackToTaskList" NextStep="TaskList"></Action>
     </Step>
 
