@@ -167,14 +167,15 @@ TextView {
 }
 
 .TaskLayout {
-	height: 10sp;
+	height: 12sp;
 	horizontal-align: center;
 	width: 90%;
 }
 
 .TaskInfoLayout {
 	height: 100%;
-	width: 80%;
+	width: 78%;
+	margin-left: 2%;
 }
 
 .TaskName {
@@ -206,12 +207,11 @@ TextView {
 
 .TaskDoneImageContainer {
 	height: 0sp auto;
-	width: auto;
+	width: 20%;
 	vertical-align: center;
-	padding-right: 2sp;
 }
 
 .TaskDoneImage {
-	height: 4sp;
-	horizontal-align: right;
+	height: 7.5sp;
+	horizontal-align: center;
 }

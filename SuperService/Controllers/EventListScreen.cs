@@ -23,8 +23,8 @@ namespace Test
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                LeftButtonImage = {Source = @"Image\top_eventlist_filtr_button.png"},
-                RightButtonImage = {Source = @"Image\top_eventlist_map_button.png"},
+                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_filter")},
+                RightButtonImage = {Source = ResourceManager.GetImage("topheading_map") },
                 HeadingTextView = {Text = Translator.Translate("orders")},
                 LeftExtraLayout = {CssClass = "ExtraLeftLayoutCss"},
                 RightExtraLayout = {CssClass = "ExtraRightLayoutCss"}
@@ -260,6 +260,11 @@ namespace Test
         private ArrayList GetEventsFromDb()
         {
             return DBHelper.GetEvents();
+        }
+
+        internal string GetResourceImage(string tag)
+        {
+            return ResourceManager.GetImage(tag);
         }
     }
 }

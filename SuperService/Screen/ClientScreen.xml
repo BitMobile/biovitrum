@@ -5,13 +5,13 @@
   <c:VerticalLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
 
-    <s:Iterator Id="clientItem" Value="$GetClientInfo()">
+    <s:Push Id="clientItem" Value="$GetCurrentEvent()"/>
 
       <c:VerticalLayout Id="ClientDescriptionVL" CssClass="ClientDescriptionVL">
-        <c:TextView Id="ClientDescriptionTV" CssClass="ClientDescriptionTV" Text="$clientItem.Description" />
+        <c:TextView Id="ClientDescriptionTV" CssClass="ClientDescriptionTV" Text="$clientItem.clientDescription" />
       </c:VerticalLayout>
 
-    </s:Iterator>
+    
     <c:ScrollView Id="ClientSV" CssClass="ClientSV">
 
       <c:HorizontalLayout Id="MapClientContainer" CssClass="MapContainerHL">
@@ -20,8 +20,7 @@
 
       <c:HorizontalLayout CssClass="ClientAdressHL">
         <c:VerticalLayout CssClass="TextDataVL">
-          <c:TextView CssClass="ClientAdressTV" Text="Test" />
-          <c:TextView CssClass="ClientCityTV" Text="test" />
+          <c:MemoEdit CssClass="ClientAdressME" Text="$clientItem.clientAddress" />
         </c:VerticalLayout>
 
 

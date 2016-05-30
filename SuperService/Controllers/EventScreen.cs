@@ -30,13 +30,13 @@ namespace Test
         {
             _topInfoComponent.HeadingTextView.Text = (string) _currentEventRecordset["clientDescription"];
             _topInfoComponent.CommentTextView.Text = (string) _currentEventRecordset["clientAddress"];
-            _topInfoComponent.LeftButtonImage.Source = @"Image\top_back.png";
-            _topInfoComponent.RightButtonImage.Source = @"Image\top_info.png";
+            _topInfoComponent.LeftButtonImage.Source = ResourceManager.GetImage("topheading_back");
+            _topInfoComponent.RightButtonImage.Source = ResourceManager.GetImage("topheading_info");
 
             _topInfoComponent.LeftExtraLayout.AddChild(new Image
             {
                 CssClass = "TopInfoSideImage",
-                Source = @"Image\top_map.png"
+                Source = ResourceManager.GetImage("topinfo_extra_map")
             });
             _topInfoComponent.LeftExtraLayout.AddChild(new TextView
             {
@@ -47,7 +47,7 @@ namespace Test
             _topInfoComponent.RightExtraLayout.AddChild(new Image
             {
                 CssClass = "TopInfoSideImage",
-                Source = @"Image\top_person.png"
+                Source = ResourceManager.GetImage("topinfo_extra_person")
             });
             _topInfoComponent.RightExtraLayout.AddChild(new TextView
             {
@@ -180,6 +180,11 @@ namespace Test
         internal bool IsNotEmptyDateTime(string dateTime)
         {
             return dateTime != "0001-01-01 00:00:00";
+        }
+
+        internal string GetResourceImage(string tag)
+        {
+            return ResourceManager.GetImage(tag);
         }
     }
 }

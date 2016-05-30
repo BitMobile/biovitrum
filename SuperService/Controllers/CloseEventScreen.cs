@@ -38,13 +38,13 @@ namespace Test
             if (!_wantToBuy)
             {
                 UpdateButtonCSS(_wantToBuyButton, _wantToBuyCommentLayout, _wantToBuyImage, "BigButtonPressed",
-                    "CommentLayout", "Pokupka_Selected.png");
+                    "CommentLayout", "closeevent_wtb_selected");
                 _wantToBuy = true;
             }
             else
             {
                 UpdateButtonCSS(_wantToBuyButton, _wantToBuyCommentLayout, _wantToBuyImage, "BigButton", "NoHeight",
-                    "Pokupka.png");
+                    "closeevent_wtb");
                 _wantToBuy = false;
             }
         }
@@ -57,7 +57,7 @@ namespace Test
             buttonLayout.Refresh();
             commentLayout.CssClass = commentCSS;
             commentLayout.Refresh();
-            image.Source = @"Image\CloseEvent\" + name;
+            image.Source = ResourceManager.GetImage(name);
             image.Refresh();
         }
 
@@ -67,13 +67,13 @@ namespace Test
             if (!_problem)
             {
                 UpdateButtonCSS(_problemButton, _problemCommentLayout, _problemImage, "BigButtonPressed",
-                    "CommentLayout", "Problema_Selected.png");
+                    "CommentLayout", "closeevent_problem_selected");
                 _problem = true;
             }
             else
             {
                 UpdateButtonCSS(_problemButton, _problemCommentLayout, _problemImage, "BigButton", "NoHeight",
-                    "Problema.png");
+                    "closeevent_problem");
                 _problem = false;
             }
         }
@@ -91,6 +91,11 @@ namespace Test
                 DBHelper.UpdateClosingEventComment(eventId, _commentaryMemoEdit.Text);
 
             BusinessProcess.DoAction("FinishEvent");
+        }
+
+        internal string GetResourceImage(string tag)
+        {
+            return ResourceManager.GetImage(tag);
         }
     }
 }

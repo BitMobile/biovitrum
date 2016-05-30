@@ -22,14 +22,12 @@ namespace Test
             {"topinfo_uparrow", @"Image\_Components\TopInfoComponent\up_arrow_full_width.png"},
             {"topinfo_extra_map", @"Image\top_map.png"},
             {"topinfo_extra_person", @"Image\top_person.png"},
-
             //
             {"topheading_back", @"Image\top_back.png"},
             {"topheading_filter", @"Image\top_eventlist_filtr_button.png"},
             {"topheading_map", @"Image\top_eventlist_map_button.png"},
             {"topheading_info", @"Image\top_info.png"},
             {"topheading_edit", @"Image\ClientScreen\top_ico_edit.png"},
-
             //
             {"closeevent_wtb", @"Image\CloseEvent\Pokupka.png"},
             {"closeevent_wtb_selected", @"Image\CloseEvent\Pokupka_Selected.png"},
@@ -38,6 +36,7 @@ namespace Test
             //
             {"tasklist_done", @"Image\TaskList\done.png"},
             {"tasklist_notdone", @"Image\TaskList\notDone.png"},
+            {"tasklist_specdone", @"Image\TaskList\spec_done.png"},
             //
             {"eventscreen_clist", @"Image\es_clist.png"},
             {"eventscreen_coc", @"Image\es_coc.png"},
@@ -45,7 +44,6 @@ namespace Test
             // Client Screen
             {"clientscreen_phone", @"Image\ClientScreen\Phone.png"},
             {"clientscreen_plus", @"Image\ClientScreen\Plus.png"}
-            //
         };
 
         public static string GetImage(string tag)

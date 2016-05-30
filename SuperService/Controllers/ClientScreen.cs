@@ -21,7 +21,7 @@ namespace Test
                 RightButtonImage = {Source = ResourceManager.GetImage("topheading_edit") }
             };
 
-            
+            DConsole.WriteLine((string)BusinessProcess.GlobalVariables["currentEventId"]);
             DConsole.WriteLine("Client end");
         }
 
@@ -51,14 +51,20 @@ namespace Test
             BusinessProcess.DoAction("EditContact");
         }
 
-        internal DbRecordset GetClientInfo()
+        internal DbRecordset GetCurrentEvent()
         {
-            return DBHelper.GetEventByID((string)BusinessProcess.GlobalVariables["currentEventId"]);
+            object eventId;
+            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
+            {
+                DConsole.WriteLine("Can't find current event ID, going to crash");
+            }
+
+            return DBHelper.GetEventByID((string)eventId);
         }
 
         internal bool IsEmptyString(string item)
         {
-            return string.IsNullOrEmpty(item) && string.IsNullOrWhiteSpace(item);
+            return !(string.IsNullOrEmpty(item) && string.IsNullOrWhiteSpace(item));
         }
     }
 }

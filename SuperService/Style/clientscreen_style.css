@@ -173,10 +173,10 @@ TextView {
     width: 80%;
 }
 
-.ClientAdressTV {
+.ClientAdressME {
     color: #51595b;
     font: 2.5sp arial;
-    height: 50%;
+    height: 100%;
     horizontal-align: left;
     padding-left: 2%;
     padding-top: 25%;
@@ -184,16 +184,6 @@ TextView {
     width: 100%;
 }
 
-.ClientCityTV {
-    color: #9b9fa0;
-    font: 2.5sp arial;
-    height: 50%;
-    horizontal-align: left;
-    padding-left: 2%;
-    padding-top: 5%;
-    text-align: left;
-    width: 100%;
-}
 
 .DistanceVL {
     height: 100%;
