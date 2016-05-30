@@ -15,7 +15,7 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 HeadingTextView = {Text = Translator.Translate("tasks")},
-                LeftButtonImage = {Source = @"Image\top_back.png"},
+                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back") },
                 RightButtonImage = {Visible = false},
                 ExtraLayoutVisible = false
             };
