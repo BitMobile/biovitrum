@@ -62,6 +62,11 @@ MemoEdit {
 	text-align: left;
 }
 
+Image {
+	margin-top: 1sp;
+	width: 100%;
+}
+
 .SWL {
     height: 100%;
     width: 100%;

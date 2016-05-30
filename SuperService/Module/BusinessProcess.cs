@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using Thread = System.Threading.Thread;
 using XmlDocument = BitMobile.ClientModel3.XmlDocument;
 
 // ReSharper disable PossibleNullReferenceException
@@ -30,7 +31,7 @@ namespace Test
 
             var firstStepName = _doc.DocumentElement.ChildNodes[0].ChildNodes[0].Attributes["Name"].Value;
             MoveTo(firstStepName);
-            //MoveTo("EventList");
+//            MoveTo("Test");
         }
 
         private static void MoveTo(string stepName)
@@ -57,6 +58,7 @@ namespace Test
         {
             DConsole.WriteLine($"Doing action: {actionName}");
             //var currentNode = StackNodes.peek();
+            Thread.Sleep(150);
             var n = CurrentNode.SelectSingleNode($"Action[@Name='{actionName}']");
             var stepName = n.Attributes["NextStep"].Value;
             MoveTo(stepName);

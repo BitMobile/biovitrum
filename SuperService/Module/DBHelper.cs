@@ -161,7 +161,7 @@ namespace Test
                             "    Time(event.StartDatePlan) as StartDatePlanTime,  " +
                             "    TypeDeparturesTable.description as TypeDeparture,  " + //вид работ - выбирается одна из табличной части
                             "    event.ActualStartDate,  " + //фактическая дата начала
-                            "    event.ActualEndDate" + // фактическая дата конца
+                            "    event.ActualEndDate,  " + // фактическая дата конца
                             "    _Enum_StatusImportance.Description as Importance,  " + //важность
                             "    event.Comment,  " + 
                             "    docSUm.sumFact,  " + 

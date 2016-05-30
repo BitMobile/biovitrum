@@ -18,10 +18,10 @@
           </c:VerticalLayout>
           <c:VerticalLayout CssClass="TaskDoneImageContainer">
             <s:If Test="$task.isDone">
-              <c:Image Source="Image\TaskList\done.png" CssClass="TaskDoneImage" />
+              <c:Image Source="$GetResourceImage(tasklist_done)" CssClass="TaskDoneImage" />
             </s:If>
             <s:Else>
-              <c:Image Source="Image\TaskList\notDone.png" CssClass="TaskDoneImage" />
+              <c:Image Source="$GetResourceImage(tasklist_notdone)" CssClass="TaskDoneImage" />
             </s:Else>
           </c:VerticalLayout>
         </c:HorizontalLayout>

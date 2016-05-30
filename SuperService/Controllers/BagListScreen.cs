@@ -44,5 +44,10 @@ namespace Test
             DConsole.WriteLine("Bag Settings");
 
         }
+
+        internal string GetResourceImage(string tag)
+        {
+            return ResourceManager.GetImage(tag);
+        }
     }
 }

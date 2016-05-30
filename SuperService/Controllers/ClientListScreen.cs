@@ -40,5 +40,10 @@ namespace Test
             _tabEventsComponent.Settings_OnClick(sender, eventArgs);
             DConsole.WriteLine("Clients Settings");
         }
+
+        internal string GetResourceImage(string tag)
+        {
+            return ResourceManager.GetImage(tag);
+        }
     }
 }

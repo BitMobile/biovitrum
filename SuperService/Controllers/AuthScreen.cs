@@ -15,8 +15,8 @@ namespace Test
         {
             DConsole.WriteLine("AuthScreen init");
 
-            _loginEditText = (EditText)GetControl("loginEditText", true);
-            _passwordEditText = (EditText)GetControl("passwordEditText", true);
+            _loginEditText = (EditText) GetControl("loginEditText", true);
+            _passwordEditText = (EditText) GetControl("passwordEditText", true);
         }
 
         internal void exitButton_OnClick(object sender, EventArgs e)
@@ -57,6 +57,11 @@ namespace Test
                 Dialog.Message("Вход выполнен");
                 BusinessProcess.DoAction("Auth");
             }*/
+        }
+
+        internal string GetResourceImage(string tag)
+        {
+            return ResourceManager.GetImage(tag);
         }
     }
 }
