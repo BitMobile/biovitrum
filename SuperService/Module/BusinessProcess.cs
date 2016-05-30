@@ -58,7 +58,6 @@ namespace Test
         {
             DConsole.WriteLine($"Doing action: {actionName}");
             //var currentNode = StackNodes.peek();
-            Thread.Sleep(150);
             var n = CurrentNode.SelectSingleNode($"Action[@Name='{actionName}']");
             var stepName = n.Attributes["NextStep"].Value;
             MoveTo(stepName);

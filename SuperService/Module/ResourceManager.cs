@@ -35,6 +35,7 @@ namespace Test
             //
             {"tasklist_done", @"Image\TaskList\done.png"},
             {"tasklist_notdone", @"Image\TaskList\notDone.png"},
+            {"tasklist_specdone", @"Image\TaskList\spec_done.png"},
             //
             {"eventscreen_clist", @"Image\es_clist.png"},
             {"eventscreen_coc", @"Image\es_coc.png"},

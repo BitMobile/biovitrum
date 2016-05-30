@@ -12,10 +12,6 @@
     <c:SwipeVerticalLayout CssClass="TaskListLayout">
       <s:Iterator Id="task" Value="$GetTasks()">
         <c:HorizontalLayout Id="$task.Id" CssClass="TaskLayout" OnClick="TaskLayout_OnClick">
-          <c:VerticalLayout CssClass="TaskInfoLayout">
-            <c:TextView Text="$task.Terget" CssClass="TaskName" />
-            <c:TextView Text="$task.equipmentDescription" CssClass="TaskDescription" />
-          </c:VerticalLayout>
           <c:VerticalLayout CssClass="TaskDoneImageContainer">
             <s:If Test="$task.isDone">
               <c:Image Source="$GetResourceImage(tasklist_done)" CssClass="TaskDoneImage" />
@@ -23,6 +19,10 @@
             <s:Else>
               <c:Image Source="$GetResourceImage(tasklist_notdone)" CssClass="TaskDoneImage" />
             </s:Else>
+          </c:VerticalLayout>
+          <c:VerticalLayout CssClass="TaskInfoLayout">
+            <c:TextView Text="$task.Terget" CssClass="TaskName" />
+            <c:TextView Text="$task.equipmentDescription" CssClass="TaskDescription" />
           </c:VerticalLayout>
         </c:HorizontalLayout>
         <c:HorizontalLine CssClass="TaskBreaker" />
