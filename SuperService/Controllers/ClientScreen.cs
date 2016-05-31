@@ -39,6 +39,11 @@ namespace Test
             BusinessProcess.DoAction("EditContact");
         }
 
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
+        {
+
+        }
+
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);

@@ -48,6 +48,7 @@
       <Action Name="Client" NextStep="Client"></Action>
       <Action Name="CloseEvent" NextStep="CloseEvent"></Action>
       <Action Name="ViewTasks" NextStep="TaskList"></Action>
+      <Action Name="COC" NextStep="COC"></Action>
     </Step>
 
     <Step Name="TaskList" Controller="TaskListScreen" StyleSheet="Style\fancy_taskList.css">
@@ -78,6 +79,9 @@
       <Action Name="FinishEvent" NextStep="EventList"></Action>
     </Step>
 
+    <Step Name="COC" Controller="COCScreen" StyleSheet="Style\cocscreen_style.css">
+      <Action Name="ViewEvent" NextStep="Event"></Action>
+    </Step>
 
     <Step Name="Test" Controller="TestScreen" StyleSheet="Style\style.css">
       <Action Name="ToApplication" NextStep="Authorization" />

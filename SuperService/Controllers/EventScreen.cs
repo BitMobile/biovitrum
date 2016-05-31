@@ -152,6 +152,11 @@ namespace Test
             BusinessProcess.DoAction("ViewTasks");
         }
 
+        internal void GoToCOCScreen_OnClick(object sender, EventArgs e)
+        {
+            BusinessProcess.DoAction("COC");
+        }
+
         internal DbRecordset GetCurrentEvent()
         {
             object eventId;
