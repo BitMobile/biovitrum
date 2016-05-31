@@ -43,7 +43,7 @@ namespace Test
             {"eventscreen_tasks", @"Image\es_tasks.png"},
             // Client Screen
             {"clientscreen_phone", @"Image\ClientScreen\Phone.png"},
-            {"clientscreen_plus", @"Image\ClientScreen\Plus.png"}
+            {"clientscreen_plus", @"Image\ClientScreen\Plus.png"},
             //
             {"longtext_expand", @"Image\down_arrow_full_message.png"},
             {"longtext_close", @"Image\up_arrow_full_message.png"}
