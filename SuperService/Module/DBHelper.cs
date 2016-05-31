@@ -17,6 +17,9 @@ namespace Test
 
         private static Database _db;
 
+        private const string EVENT_STATUS_DONE_NAME = "Done";
+        private const string EVENT_STATUS_CANCEL_NAME = "Cancel";
+
         public static void Init()
         {
             _db = new Database();
