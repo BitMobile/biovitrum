@@ -39,7 +39,10 @@ namespace Test
             //
             {"eventscreen_clist", @"Image\es_clist.png"},
             {"eventscreen_coc", @"Image\es_coc.png"},
-            {"eventscreen_tasks", @"Image\es_tasks.png"}
+            {"eventscreen_tasks", @"Image\es_tasks.png"},
+            //
+            {"longtext_expand", @"Image\down_arrow_full_message.png"},
+            {"longtext_close", @"Image\up_arrow_full_message.png"}
         };
 
         public static string GetImage(string tag)

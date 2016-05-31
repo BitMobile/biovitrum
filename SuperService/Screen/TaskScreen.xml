@@ -10,8 +10,13 @@
       <c:HorizontalLayout CssClass="EmptySpace2sp" />
       <c:HorizontalLine />
       <c:TextView Text="$task.TypeDepartures" CssClass="SubHeading" />
-      <c:TextView Text="$task.Comment" />
-      <c:EditText Id="TaskCommentEditText" />
+      <c:TextView Id="TaskCommentTextView" Text="$task.Comment" CssClass="SubComment" />
+      <c:HorizontalLayout Id="WrapUnwrapButton" CssClass="WrapUnwrapLayout" OnClick="WrapUnwrapButton_OnClick">
+        <c:HorizontalLine CssClass="WrapUnwrapLine"/>
+        <c:Image Id="WrapUnwrapImage" Source="$GetResourceImage(longtext_expand)" CssClass="WrapUnwrapImage" />
+        <c:HorizontalLine CssClass="WrapUnwrapLine"/>
+      </c:HorizontalLayout>
+      <c:EditText Id="TaskCommentEditText" CssClass />
       <c:Button Id="TaskFinishedButton" Text="#task_finished#" OnClick="TaskFinishedButton_OnClick" />
       <c:Button Id="TaskRefuseButton" Text="#task_refused#" OnClick="TaskRefuseButton_OnClick" />
     </c:SwipeVerticalLayout>
