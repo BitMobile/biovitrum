@@ -25,7 +25,7 @@ namespace Test
             _map = (WebMapGoogle) GetControl("MapClient", true);
             _map.AddMarker((string) _client["Description"], (double) _client["Latitude"], (double) _client["Longitude"],
                 "red");
-            DConsole.WriteLine($"Latitude: {(double) _client["Latitude"]} Longitude: {(double) _client["Longitude"]}");
+
             DConsole.WriteLine("Client end");
         }
 
@@ -56,19 +56,56 @@ namespace Test
 
         internal DbRecordset GetCurrentClient()
         {
-            object eventId;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId", out eventId))
+            object clientId;
+            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId", out clientId))
             {
                 DConsole.WriteLine("Can't find current client ID, going to crash");
             }
-            _client = DBHelper.GetClientByID((string) eventId);
-            DConsole.WriteLine("Get Data");
+            _client = DBHelper.GetClientByID((string) clientId);
             return _client;
         }
 
-        internal bool IsEmptyString(string item)
+        /// <summary>
+        /// Проверяет строку на то, что она null, пустая 
+        /// или представляет пробельный символ
+        /// </summary>
+        /// <param name="item">Строка для проверки</param>
+        /// <returns>True если строка пустая, null или 
+        ///     пробельный символ.
+        /// </returns>
+        internal bool IsNotEmptyString(string item)
         {
             return !(string.IsNullOrEmpty(item) && string.IsNullOrWhiteSpace(item));
+        }
+
+        internal DbRecordset GetContacts()
+        {
+            object clientContacts;
+            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId",out clientContacts))
+            {
+                DConsole.WriteLine("Can't find current clientId, i'm crash.");
+            }
+            DbRecordset items = DBHelper.GetContactsByClientID((string)clientContacts);
+            DConsole.WriteLine((string)clientContacts);
+            return items;
+        }
+
+        internal void Call_OnClick(object sender, EventArgs e)
+        {
+            VerticalLayout callClientLayout = (VerticalLayout)sender;
+            Phone.Call(callClientLayout.Id);
+        }
+
+        internal DbRecordset GetEquipments()
+        {
+            object clientContacts;
+            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId", out clientContacts))
+            {
+                DConsole.WriteLine("Can't find current clientId, i'm crash.");
+            }
+
+            DbRecordset equipment = DBHelper.GetEquipmentByClientID((string) clientContacts);
+            return equipment;
         }
     }
 }

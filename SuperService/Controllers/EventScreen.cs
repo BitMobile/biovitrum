@@ -137,7 +137,7 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.GlobalVariables["clientId"] = _currentEventRecordset["clientId"];
+            BusinessProcess.GlobalVariables["clientId"] = _currentEventRecordset["clientId"].ToString();
             BusinessProcess.DoAction("Client");
         }
 

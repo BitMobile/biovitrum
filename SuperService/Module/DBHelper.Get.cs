@@ -280,7 +280,7 @@ namespace Test
                                   "        and  ClientContacts.Contact = Contacts.Id " +
                                   " " +
                                   "where " +
-                                  "    ClientContacts.DeletionMark = 0" +
+                                  "    Contacts.DeletionMark = 0" +
                                   "    and ClientContacts.Ref = @clientID " +
                                   "    and ClientContacts.Actual = 0 "); //выбираем только неактуальных сотрудников, потому что актуальные являются уволенными
 
