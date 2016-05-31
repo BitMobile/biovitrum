@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Net;
-using System.Text;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
+using System.Collections;
 
 namespace Test
 {
@@ -13,7 +12,7 @@ namespace Test
 
         public override void OnLoading()
         {
-            _tabEventsComponent = new TabEventsComponent(this);
+         //   _tabEventsComponent = new TabEventsComponent(this);
             DConsole.WriteLine("ClientListScreen init");
         }
 
@@ -44,6 +43,19 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
+        }
+
+        internal IEnumerable GetClients()
+        {
+            DConsole.WriteLine("получение клиентов");
+            var result = DBHelper.GetClients();
+            DConsole.WriteLine("Получили клиентов");
+
+            //var result2 = DBHelper.GetClients();
+           // var dbEx = result2.Unload();
+            //DConsole.WriteLine("in result " + dbEx.Count());
+
+            return result;
         }
     }
 }

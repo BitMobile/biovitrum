@@ -347,8 +347,7 @@ namespace Test
                                   "    Catalog_Client.DeletionMark = 0");
 
 
-            var queryResult = query.Execute();
-            return queryResult;
+            return query.Execute();
         }
 
 
