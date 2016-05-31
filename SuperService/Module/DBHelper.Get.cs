@@ -34,12 +34,12 @@ namespace Test
                                   "  date(event.StartDatePlan) as startDatePlanDate, " + //date only
                                   "  ifnull(TypeDeparturesTable.description, '') as TypeDeparture, " +
                                   "  event.ActualStartDate as ActualStartDate, " + //4
-                                  "  Enum_StatusImportance.Description as Importance, " +
-                                  "  Enum_StatusImportance.Name as ImportanceName, " +
+                                  "  ifnull(Enum_StatusImportance.Description, '') as Importance, " +
+                                  "  ifnull(Enum_StatusImportance.Name, '') as ImportanceName, " +
                                   "  ifnull(client.Description, '') as Description, " +
                                   "  ifnull(client.Address, '') as Address, " +
-                                  "  Enum_StatusyEvents.Name as statusName, " +  //имя значения статуса (служебное имя)
-                                  "  Enum_StatusyEvents.Description as statusDescription " + //представление статуса
+                                  "  ifnull(Enum_StatusyEvents.Name, '') as statusName, " +  //имя значения статуса (служебное имя)
+                                  "  ifnull(Enum_StatusyEvents.Description, '') as statusDescription " + //представление статуса
                                   "from " +
                                   "  Document_Event as event " +
                                   "    left join Catalog_Client as client " +
@@ -71,11 +71,13 @@ namespace Test
                                   "      on event.status = Enum_StatusyEvents.Id " +
                                   "  where " +
                                   "      event.DeletionMark = 0 " +
-                                  "      AND event.StartDatePlan >= @eventDate " +
+                                  "      AND (event.StartDatePlan >= @eventDate OR (event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel))) " +
                                   " order by " +
                                   "  event.StartDatePlan");
 
             query.AddParameter("eventDate", eventSinceDate);
+            query.AddParameter("statusDone", EVENT_STATUS_DONE_NAME);
+            query.AddParameter("statusCancel", EVENT_STATUS_DONE_CANCEL);
             var querryResult = query.Execute();
 
             while (querryResult.Next())
