@@ -32,3 +32,6 @@ client		Клиент
 contacts		Контакты
 add_contact		Добавить контакт
 equipment		Оборудование
+task_finished		Работа выполнена
+task_refused		Не могу выполнить
+task		Задача

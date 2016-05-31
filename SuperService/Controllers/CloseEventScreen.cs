@@ -80,7 +80,6 @@ namespace Test
 
         internal void FinishButton_OnClick(object sender, EventArgs eventArgs)
         {
-            // TODO: Закрытие наряда
             string eventId = (string) BusinessProcess.GlobalVariables["currentEventId"];
             if (_wantToBuy)
                 DBHelper.InsertClosingEventSale(eventId, _wantToBuyCommentMemoEdit.Text);

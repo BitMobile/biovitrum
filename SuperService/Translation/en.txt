@@ -32,3 +32,6 @@ client		Client
 contacts		Contacts
 add_contact		Add Contact
 equipment		Equipment
+task_finished		Task finished
+task_refused		Can't complete
+task		Task
