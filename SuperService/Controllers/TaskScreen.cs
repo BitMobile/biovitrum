@@ -18,6 +18,12 @@ namespace Test
         private HorizontalLayout _taskRefuseButton;
         private TextView _taskFinishedButtonTextView;
         private TextView _taskRefuseButtonTextView;
+        private Image _taskFinishedButtonImage;
+        private Image _taskRefuseButtonImage;
+
+        private MemoEdit _taskCommentEditText;
+
+        private DockLayout _rootLayout;
 
         public override void OnLoading()
         {
@@ -36,6 +42,11 @@ namespace Test
             _taskRefuseButton = (HorizontalLayout) GetControl("TaskRefuseButton", true);
             _taskFinishedButtonTextView = (TextView) GetControl("TaskFinishedButtonTextView", true);
             _taskRefuseButtonTextView = (TextView) GetControl("TaskRefuseButtonTextView", true);
+            _taskFinishedButtonImage = (Image) GetControl("TaskFinishedButtonImage", true);
+            _taskRefuseButtonImage = (Image) GetControl("TaskRefuseButtonImage", true);
+
+            _taskCommentEditText = (MemoEdit) GetControl("TaskCommentEditText", true);
+            _rootLayout = (DockLayout) Controls[0];
         }
 
         internal void TaskFinishedButton_OnClick(object sender, EventArgs eventArgs)
@@ -57,27 +68,27 @@ namespace Test
         private void ChangeTaskToNew()
         {
             _taskResult = "New";
-            _taskRefuseButton.CssClass = "FinishedButtonActive";
+            _taskFinishedButton.CssClass = "FinishedButtonActive";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonActiveText";
-            _taskRefuseButton.Refresh();
-            _taskFinishedButtonTextView.Refresh();
+            _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_notdone");
+            _taskFinishedButton.Refresh();
             _taskRefuseButton.CssClass = "RefuseButton";
             _taskRefuseButtonTextView.CssClass = "RefuseButtonText";
+            _taskRefuseButtonImage.Source = ResourceManager.GetImage("tasklist_notdone");
             _taskRefuseButton.Refresh();
-            _taskRefuseButtonTextView.Refresh();
         }
 
         private void ChangeTaskToDone()
         {
             _taskResult = "Done";
-            _taskRefuseButton.CssClass = "FinishedButtonPressed";
+            _taskFinishedButton.CssClass = "FinishedButtonPressed";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonPressedText";
-            _taskRefuseButton.Refresh();
-            _taskFinishedButtonTextView.Refresh();
+            _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_done");
+            _taskFinishedButton.Refresh();
             _taskRefuseButton.CssClass = "RefuseButton";
             _taskRefuseButtonTextView.CssClass = "RefuseButtonText";
+            _taskRefuseButtonImage.Source = ResourceManager.GetImage("tasklist_notdone");
             _taskRefuseButton.Refresh();
-            _taskRefuseButtonTextView.Refresh();
         }
 
         internal void TaskRefuseButton_OnClick(object sender, EventArgs eventArgs)
@@ -99,14 +110,14 @@ namespace Test
         private void ChangeTaskToNotDone()
         {
             _taskResult = "NotDone";
-            _taskRefuseButton.CssClass = "FinishedButtonActive";
+            _taskFinishedButton.CssClass = "FinishedButtonActive";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonActiveText";
-            _taskRefuseButton.Refresh();
-            _taskFinishedButtonTextView.Refresh();
+            _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_notdone");
+            _taskFinishedButton.Refresh();
             _taskRefuseButton.CssClass = "RefuseButtonPressed";
             _taskRefuseButtonTextView.CssClass = "RefuseButtonPressedText";
+            _taskRefuseButtonImage.Source = ResourceManager.GetImage("tasklist_specdone");
             _taskRefuseButton.Refresh();
-            _taskRefuseButtonTextView.Refresh();
         }
 
         internal void WrapUnwrapButton_OnClick(object sender, EventArgs eventArgs)
@@ -124,6 +135,7 @@ namespace Test
                 _taskCommentTextExpanded = true;
             }
             _taskCommentTextView.Refresh();
+            _rootLayout.Refresh();
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
@@ -139,24 +151,26 @@ namespace Test
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
             var currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
+            DConsole.WriteLine($"{_taskResult}");
+            DBHelper.UpdateTaskComment(currentTaskId, _taskCommentEditText.Text);
             DBHelper.UpdateTaskResult(currentTaskId, _taskResult);
             BusinessProcess.DoAction("BackToTaskList");
         }
 
         internal object GetTask()
         {
-            return new Dictionary<string, object>
-            {
-                {
-                    "Target",
-                    "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum."
-                },
-                {"EquipmentDescription", "Asus 509-k"},
-                {"TypeDepartures", "Монтаж"},
-                {"resultName", "New"}
-            };
-//            string currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
-//            return DBHelper.GetTaskById(currentTaskId);
+//            return new Dictionary<string, object>
+//            {
+//                {
+//                    "Target",
+//                    "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum."
+//                },
+//                {"EquipmentDescription", "Asus 509-k"},
+//                {"TypeDepartures", "Монтаж"},
+//                {"resultName", "New"}
+//            };
+            string currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
+            return DBHelper.GetTaskById(currentTaskId);
         }
 
         internal string GetResourceImage(string tag)
