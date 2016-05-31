@@ -40,6 +40,11 @@ HorizontalLine {
 	width: 100%;
 }
 
+.EmptySpace4sp {
+	height: 4sp;
+	width: 100%;
+}
+
 .RootLayout {
 	background-color: #ffffff;
 	height: 100%;
@@ -168,9 +173,9 @@ HorizontalLine {
 }
 
 .WrapUnwrapLayout {
-	margin-top: 1sp;
 	height: 6sp;
 	horizontal-align: center;
+	margin-top: 1sp;
 	width: 90%;
 }
 
@@ -182,4 +187,98 @@ HorizontalLine {
 .WrapUnwrapLine {
 	vertical-align: center;
 	width: 45%;
+}
+
+.CommentLayout {
+	height: 4sp auto;
+	horizontal-align: center;
+	margin-top: 3sp;
+	width: 90%;
+}
+
+.Comment {
+	background-color: #ffffff;
+	color: #51595b;
+	height: 4sp auto;
+	margin-bottom: 0.5sp;
+	padding-left: 3sp;
+	padding-right: 3sp;
+	placeholder-color: #a2a2aa;
+	width: 100%;
+}
+
+.CommentEndLine { width: 100%; }
+
+/* Task Finish/Refuse Buttons */
+
+.FinishedRefuseButtonImageWrapper {
+	height: 6sp;
+	vertical-align: center;
+	width: 20%;
+}
+
+.FinishedRefuseButtonImage {
+	height: 100%;
+	horizontal-align: center;
+}
+
+.FinishedButtonInactive {
+	margin-top: 1.5sp;
+	border-color: #f2f2f3;
+	border-style: solid;
+	border-width: 3px;
+	height: 11sp;
+	horizontal-align: center;
+	width: 90%;
+}
+
+.FinishedButtonActive {
+	margin-top: 1.5sp;
+	border-color: #f0f1f2;
+	border-style: solid;
+	border-width: 3px;
+	height: 11sp;
+	horizontal-align: center;
+	width: 90%;
+}
+
+.FinishedButtonPressed {
+	margin-top: 1.5sp;
+	border-color: #97c66b;
+	border-style: solid;
+	border-width: 3px;
+	height: 11sp;
+	horizontal-align: center;
+	width: 90%;
+}
+
+.RefuseButton {
+	margin-top: 1.5sp;
+	border-color: #f6f6f7;
+	border-style: solid;
+	border-width: 3px;
+	height: 11sp;
+	horizontal-align: center;
+	width: 90%;
+}
+
+.RefuseButtonPressed {
+	margin-top: 1.5sp;
+	border-color: #eb5040;
+	border-style: solid;
+	border-width: 3px;
+	height: 11sp;
+	horizontal-align: center;
+	width: 90%;
+}
+
+.FinishedButtonInactiveText {
+	color: #c4c4c9;
+	font: 3.75sp arial;
+	padding-left: 5sp;
+	padding-bottom: 0.1sp;
+	height: 3.87sp;
+	text-align: left;
+	vertical-align: center;
+	width: 80%;
 }
