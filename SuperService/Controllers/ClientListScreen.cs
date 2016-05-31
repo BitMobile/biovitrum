@@ -45,6 +45,15 @@ namespace Test
             return ResourceManager.GetImage(tag);
         }
 
+        internal void ClientLayout_OnClick(object sender, EventArgs eventArgs)
+        {
+            DConsole.WriteLine("ClientLayout_OnClick " + ((Button)sender).Id);
+            // TODO: Передача Id конкретной таски
+            BusinessProcess.GlobalVariables["currentClientId"] = ((Button)sender).Id;
+            BusinessProcess.DoAction("ViewClient");
+        }
+
+
         internal IEnumerable GetClients()
         {
             DConsole.WriteLine("получение клиентов");

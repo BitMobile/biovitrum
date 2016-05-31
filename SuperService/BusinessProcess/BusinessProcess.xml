@@ -30,6 +30,7 @@
 
     <Step Name="ClientList" Controller="ClientListScreen" StyleSheet="Style\style.css">
       <Action Name="EventList" NextStep="EventList"></Action>
+      <Action Name="ViewClient" NextStep="Client"></Action>
       <Action Name="Bag" NextStep="Bag"></Action>
       <Action Name="Settings" NextStep="Settings"></Action>
       <!--      <Action Name="ClientList" NextStep="ClientList"></Action>-->

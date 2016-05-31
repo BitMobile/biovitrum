@@ -4,16 +4,11 @@
 
   <c:VerticalLayout CssClass="RootLayout">
     <c:TextView Text="СПИСОК КЛИЕНТОВ ЛА ЛА ЛА" />
-    <c:SwipeVerticalLayout >
       <s:Iterator Id="client" Value="$GetClients()">
-        <c:VerticalLayout Id="$client.Id">
-          <c:TextView Text="Аба хаба тут должен ыбть клиент" />
-          <c:TextView Text="$client.Description" />  
-        </c:VerticalLayout>
+          <c:TextView Text="$client.Description"/>
+          <c:TextView Text="$client.Address" />
+        <c:Button Id="$client.Id" Text="open client" onClick="ClientLayout_OnClick"/> 
       </s:Iterator>    
-    
-    </c:SwipeVerticalLayout>
-    <c:TextView Text="СПИСОК КЛИЕНТОВ ЛА ЛА ЛА"/>
   </c:VerticalLayout>
 
 </c:Screen>
