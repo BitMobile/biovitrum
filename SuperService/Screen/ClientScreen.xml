@@ -1,9 +1,94 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  
+
   <c:VerticalLayout CssClass="RootLayout">
-    <c:TextView Text="Client Screen" />
+    <s:Include File="Components\TopInfoComponent.xml" />
+
+    <s:Push Id="clientItem" Value="$GetCurrentClient()" />
+
+    <c:VerticalLayout Id="ClientDescriptionVL" CssClass="ClientDescriptionVL">
+      <c:TextView Id="ClientDescriptionTV" CssClass="ClientDescriptionTV" Text="$clientItem.Description" />
+    </c:VerticalLayout>
+
+
+    <c:ScrollView Id="ClientSV" CssClass="ClientSV">
+
+      <c:HorizontalLayout Id="MapClientContainer" CssClass="MapContainerHL">
+        <c:WebMapGoogle Id="MapClient" CssClass="MapStyleClient" />
+      </c:HorizontalLayout>
+
+      <c:HorizontalLayout CssClass="ClientAdressHL">
+        <c:VerticalLayout CssClass="TextDataVL">
+          <c:TextView CssClass="ClientAdressTV" Text="$clientItem.Address" />
+        </c:VerticalLayout>
+
+
+        <c:VerticalLayout CssClass="DistanceVL">
+          <c:TextView CssClass="ClientDistanceTV" Text="5" />
+        </c:VerticalLayout>
+      </c:HorizontalLayout>
+
+
+      <c:TextView CssClass="ContactsTV" Text="#contacts#" />
+
+
+      <c:HorizontalLayout CssClass="ContactsListHL">
+        <s:Iterator Id="contact" Value="$GetContacts()">
+
+          <s:If Test="$IsNotEmptyString($contact.Tel)">
+            <c:VerticalLayout CssClass="ContactsContainerVL">
+              <c:TextView CssClass="ContactDescriptionTV" Text="$contact.Description" />
+              <c:TextView CssClass="ContactPositionTV" Text="$contact.Position" />
+            </c:VerticalLayout>
+
+
+            <c:VerticalLayout Id="$contact.Tel" CssClass="CallToClientButton" OnClick="Call_OnClick">
+              <c:HorizontalLayout CssClass="CallToClientContainer">
+                <c:Image Id="CallImage" CssClass="CallImageImg" Source="$GetResourceImage(clientscreen_phone)" />
+              </c:HorizontalLayout>
+            </c:VerticalLayout>
+
+          </s:If>
+          <s:Else>
+
+            <c:VerticalLayout CssClass="ContactsContainerVL">
+              <c:TextView CssClass="ContactDescriptionTV" Text="$contact.Description" />
+              <c:TextView CssClass="ContactPositionTV" Text="$contact.Position" />
+            </c:VerticalLayout>
+
+
+            <c:VerticalLayout CssClass="CallToClientButton">
+              <c:HorizontalLayout CssClass="CallToClientContainer">
+                <c:Image Id="CallImage" CssClass="CallImageImg" Visible="false" />
+              </c:HorizontalLayout>
+            </c:VerticalLayout>
+
+          </s:Else>
+        </s:Iterator>
+      </c:HorizontalLayout>
+
+
+      <c:Button Text="#add_contact#" CssClass="AddContactBtn" OnClick="GoToAddContact_OnClick" />
+
+      <c:TextView CssClass="EquipmentsTV" Text="#equipment#" />
+
+
+      <c:VerticalLayout CssClass="EquipmentVL">
+
+        <s:Iterator Id="equipments" Value="$GetEquipments()">
+
+          <c:VerticalLayout CssClass="EquipmentContainerVL">
+            <c:TextView CssClass="EquipmentTypeTV" Text="Тип оборудования" />
+            <c:TextView CssClass="EquipmentNameTV" Text="$equipments.Description" />
+          </c:VerticalLayout>
+        
+        </s:Iterator>
+
+      </c:VerticalLayout>
+
+    </c:ScrollView>
+
   </c:VerticalLayout>
-  
+
 </c:Screen>

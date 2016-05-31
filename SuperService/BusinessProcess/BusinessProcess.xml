@@ -59,8 +59,19 @@
       <Action Name="BackToTaskList" NextStep="TaskList"></Action>
     </Step>
 
-    <Step Name="Client" Controller="ClientScreen" StyleSheet="Style\style.css">
+    <Step Name="Client" Controller="ClientScreen" StyleSheet="Style\clientscreen_style.css">
       <Action Name="ClientList" NextStep="ClientList"></Action>
+      <Action Name="ViewEvent" NextStep="Event"></Action>
+      <Action Name="AddContact" NextStep="AddContact" />
+      <Action Name="EditContact" NextStep="EditContact" />
+    </Step>
+
+    <Step Name="AddContact" Controller="AddContactScreen" StyleSheet="Style\style.css">
+      <Action Name="Client" NextStep="Client"></Action>
+    </Step>
+
+    <Step Name="EditContact" Controller="EditContactScreen" StyleSheet="Style\style.css">
+      <Action Name="Client" NextStep="Client"></Action>
     </Step>
 
     <Step Name="CloseEvent" Controller="CloseEventScreen" StyleSheet="Style\fancy_closeeventscreen.css">

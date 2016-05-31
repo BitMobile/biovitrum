@@ -28,4 +28,7 @@ areYouSure		Are you sure?
 today		today
 per_month		per month
 today_eventListNode		Today
-
+client		Client
+contacts		Contacts
+add_contact		Add Contact
+equipment		Equipment

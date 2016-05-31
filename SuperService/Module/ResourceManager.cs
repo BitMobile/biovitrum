@@ -27,6 +27,7 @@ namespace Test
             {"topheading_filter", @"Image\top_eventlist_filtr_button.png"},
             {"topheading_map", @"Image\top_eventlist_map_button.png"},
             {"topheading_info", @"Image\top_info.png"},
+            {"topheading_edit", @"Image\ClientScreen\top_ico_edit.png"},
             //
             {"closeevent_wtb", @"Image\CloseEvent\Pokupka.png"},
             {"closeevent_wtb_selected", @"Image\CloseEvent\Pokupka_Selected.png"},
@@ -39,7 +40,10 @@ namespace Test
             //
             {"eventscreen_clist", @"Image\es_clist.png"},
             {"eventscreen_coc", @"Image\es_coc.png"},
-            {"eventscreen_tasks", @"Image\es_tasks.png"}
+            {"eventscreen_tasks", @"Image\es_tasks.png"},
+            // Client Screen
+            {"clientscreen_phone", @"Image\ClientScreen\Phone.png"},
+            {"clientscreen_plus", @"Image\ClientScreen\Plus.png"}
         };
 
         public static string GetImage(string tag)

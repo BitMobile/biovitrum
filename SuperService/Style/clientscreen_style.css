@@ -1,0 +1,306 @@
+﻿/* ReSharper disable CssNotResolved */
+/* ReSharper disable Html.TagNotResolved */
+/* ReSharper disable InvalidValue */
+/* ReSharper disable RedundantUnits */
+/* ReSharper disable UnexpectedValue */
+
+
+body {
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+}
+
+TextView {
+    color: #51595b;
+    font: 2.5sp arial;
+    height: 3.5sp auto;
+    horizontal-align: center;
+    text-align: center;
+    vertical-align: center;
+    white-space: normal;
+    width: 100%;
+}
+
+.NoHeight {
+    height: 0%;
+    width: 100%;
+}
+
+.RootLayout {
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+}
+
+/* Top Info Component */
+
+.TopInfoLayout {
+    background-color: #4a4b5e;
+    dock-align: top;
+    height: 4sp auto;
+    padding-top: 1sp;
+    width: 100%;
+}
+
+.TopInfoHeadingLayout {
+    height: 7sp;
+    /*margin-top: 2.5sp;*/
+    width: 100%;
+}
+
+.TopInfoHeading {
+    background-color: #4a4b5e;
+    border-style: none;
+    border-width: 0px;
+    color: #ffffff;
+    font: 40% arial;
+    height: 100%;
+    padding-top: 26%;
+    text-align: center;
+    width: 68%;
+}
+
+.TopInfoButton {
+    background-color: #4a4b5e;
+    border-style: none;
+    border-width: 0px;
+    color: #ffffff;
+    font: 40% arial;
+    height: 100%;
+    selected-background: #64657e;
+    text-align: center;
+    width: 16%;
+}
+
+.TopInfoButtonImage {
+    height: 60%;
+    horizontal-align: center;
+    margin-top: 20%;
+}
+
+.TopInfoComment {
+    color: #c4c4c9;
+    font: 2.4sp arial;
+    height: 0sp auto;
+    horizontal-align: center;
+    text-align: center;
+    white-space: normal;
+    width: 58%;
+}
+
+.TopInfoArrowDown {
+    horizontal-align: center;
+    width: 100sp;
+}
+
+.TopInfoExtraLayout {
+    background-color: #4a4b5e;
+    dock-align: top;
+    height: 1sp auto;
+    width: 100%;
+}
+
+.TopInfoImageLayout {
+    background-color: #ffffff;
+    dock-align: top;
+    height: 1sp auto;
+    width: 100%;
+}
+
+.TopInfoExtraButtonsLayout {
+    height: 10sp auto;
+    horizontal-align: center;
+    width: 80%;
+}
+
+.TopInfoSideExtraLayout {
+    height: 100% auto;
+    width: 50%;
+}
+
+.TopInfoSideImage {
+    height: 50%;
+    horizontal-align: center;
+}
+
+.TopInfoSideText { color: #ffffff; }
+
+/* ---------------------------------- */
+
+/* Client Screen css class */
+
+.ClientDescriptionVL {
+    background-color: #626271;
+    border-style: none;
+    height: 7sp;
+    width: 100%;
+}
+
+.ClientDescriptionTV {
+    color: #ffffff;
+    font: 3sp arial;
+    height: 6sp;
+    /*margin-left: 5%;*/
+    padding-top: 25%;
+    text-align: center;
+    width: 26% auto;
+}
+
+.ClientSV {
+    background-color: #ffffff;
+    height: auto;
+    width: 100%;
+}
+
+.MapContainerHL {
+    height: 25sp;
+    width: 100%;
+}
+
+.MapStyleClient {
+    height: 100%;
+    width: 100%
+}
+
+.ClientAdressHL {
+    height: 10sp;
+    width: 100%;
+}
+
+.TextDataVL {
+    height: 100%;
+    width: 80%;
+}
+
+.ClientAdressTV {
+    color: #51595b;
+    font: 2.5sp arial;
+    height: 100%;
+    horizontal-align: left;
+    padding-left: 2%;
+    padding-top: 10%;
+    text-align: left;
+    width: 100%;
+    white-space: normal;
+}
+
+
+.DistanceVL {
+    height: 100%;
+    width: 20%;
+}
+
+.ClientDistanceTV {
+    color: #000000;
+    font: 2sp arial;
+    height: auto;
+    padding-top: 25%;
+    text-align: center;
+    width: auto;
+}
+
+.ContactsTV {
+    color: #a4a8a9;
+    font: 3sp arial;
+    height: 8sp;
+    margin-left: 11%;
+    padding-top: 25%;
+    text-align: center;
+    width: 100%;
+}
+
+.ContactsListHL {
+    height: 0% auto;
+    width: 100%
+}
+
+.ContactsContainerVL {
+    height: 10sp;
+    width: 80%;
+}
+
+.ContactDescriptionTV {
+    color: #51595b;
+    font: 2.5sp arial;
+    height: 50%;
+    padding-left: 2%;
+    padding-top: 25%;
+    text-align: left;
+    width: 100%;
+}
+
+.ContactPositionTV {
+    color: #9b9fa0;
+    font: 2.5sp arial;
+    height: 50%;
+    padding-left: 2%;
+    padding-top: 5%;
+    text-align: left;
+    width: 100%;
+}
+
+.CallToClientButton {
+    height: 10sp;
+    width: 20%;
+}
+
+.CallToClientContainer {
+    height: 100%;
+    vertical-align: center;
+    width: 50%;
+}
+
+.CallImageImg {
+    horizontal-align: center;
+    width: 100%;
+}
+
+.AddContactBtn {
+    color: #ff0000;
+    font: 3sp arial;
+    height: 8sp;
+    margin-left: 11%;
+    width: 100%;
+}
+
+.EquipmentsTV {
+    color: #a4a8a9;
+    font: 3sp arial;
+    height: 8sp;
+    margin-left: 11%;
+    padding-top: 25%;
+    text-align: center;
+    width: 100%;
+}
+
+.EquipmentVL {
+    height: 0% auto;
+    width: 100%;
+}
+
+.EquipmentContainerVL {
+    height: 10sp;
+    width: 100%;
+}
+
+.EquipmentTypeTV {
+    color: #51595b;
+    font: 2.5sp arial;
+    height: 50%;
+    padding-left: 2%;
+    padding-top: 25%;
+    text-align: left;
+    width: 100%;
+}
+
+.EquipmentNameTV {
+    color: #a6a9aa;
+    font: 2.5sp arial;
+    height: 50%;
+    padding-left: 2%;
+    padding-top: 5%;
+    text-align: left;
+    width: 100%;
+}
+/* ------------------------------------ */

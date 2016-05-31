@@ -22,8 +22,6 @@ namespace Test
 
             LoadControls();
             FillControls();
-
-
         }
 
         private void FillControls()
@@ -116,7 +114,6 @@ namespace Test
                         (string) BusinessProcess.GlobalVariables["currentEventId"]);
                     BusinessProcess.DoAction("CloseEvent");
                 }
-
             }, null,
                 Translator.Translate("yes"), Translator.Translate("no"));
         }
@@ -140,7 +137,8 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
         {
-            DConsole.WriteLine("Nothing to see here");
+            BusinessProcess.GlobalVariables["clientId"] = _currentEventRecordset["clientId"].ToString();
+            BusinessProcess.DoAction("Client");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
