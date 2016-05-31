@@ -13,7 +13,7 @@
     <c:SwipeVerticalLayout CssClass="SVLMain">
       
       <s:Iterator Id="CheckList" Value="$GetCheckList()">
-        <c:HorizontalLayout Id="$CheckListId" CssClass="CheckListItemLayout">
+        <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListItemLayout">
           
           <s:If Test="$CheckList.Required"> 
             <c:VerticalLayout CssClass="VLRequired" />
@@ -23,33 +23,55 @@
           </s:Else>
           
           <c:VerticalLayout CssClass="CheckListQuestionLayout">
-            <c:TextView Text="$CheckList.Description" CssClass="CheckListDescription" />
+            <c:HorizontalLayout CssClass="CheckListVLQuestionLayout">
+              <c:TextView Text="$CheckList.Description" CssClass="CheckListDescription" />
+            </c:HorizontalLayout>
           </c:VerticalLayout>
           
-          <c:VerticalLayout CssClass="CheckListAnswerLayout">
+          <c:VerticalLayout CssClass="CheckListAnswerLayout" Id ="$CheckList.CheckListId">
+            
             <s:If Test="$CheckList.TypeName == Snapshot">
-              <!--<c:VerticalLayout CssClass="VLRequired" />-->
-              <c:TextView Text="TEST"/>
+              <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListSnapshot_OnClick">
+                <c:Image Source="Image\Photo.png" Id ="$CheckList.CheckListId"/>
+              </c:HorizontalLayout>
             </s:If>
+            
             <s:If Test="$CheckList.TypeName == ValList">
-              <!--<c:VerticalLayout CssClass="VLRequired" />-->
+              <c:HorizontalLayout Id="$CheckList.ActionId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListValList_OnClick">
+                <c:TextView Visible = "true" Text ="Не выбрано вал"/>
+              </c:HorizontalLayout>
             </s:If>
+            
             <s:If Test="$CheckList.TypeName == DateTime">
-              <!--<c:VerticalLayout CssClass="VLRequired" />-->
+              <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListDateTime_OnClick">
+                <c:TextView Visible = "true" Text ="Не указано дата"/>
+              </c:HorizontalLayout>
             </s:If>
+            
             <s:If Test="$CheckList.TypeName == Boolean">
-              <c:CheckBox Visible="true" Checked="True"/>
+              <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListBoolean_OnClick">
+                <c:CheckBox Visible="true" Checked="False"/>
+              </c:HorizontalLayout>
             </s:If>
+              
             <s:If Test="$CheckList.TypeName == Decimal">
-              <!--<c:VerticalLayout CssClass="VLRequired" />-->
+              <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListDecimal_OnClick">
+                <c:TextView Visible = "true" Text ="dcml"/>
+              </c:HorizontalLayout>
             </s:If>
+              
             <s:If Test="$CheckList.TypeName == Integer">
-              <!--<c:VerticalLayout CssClass="VLRequired" />-->
+              <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListInteger_OnClick">
+                <c:TextView Visible = "true" Text ="int"/>
+              </c:HorizontalLayout>
             </s:If>
+            
             <s:If Test="$CheckList.TypeName == String">
-              <!--<c:VerticalLayout CssClass="VLRequired" />-->
+              <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListString_OnClick">
+                <c:TextView Visible = "true" Text ="strng"/>
+              </c:HorizontalLayout>
             </s:If>
-            <!--<c:TextView Text="$CheckList.Result" CssClass="CheckListName" />-->
+            
         </c:VerticalLayout>
             
         </c:HorizontalLayout>

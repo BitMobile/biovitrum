@@ -460,8 +460,8 @@ namespace Test
                                   "from " +
                                   "     Catalog_Actions_ValueList " +
                                   "where " +
-                                  "     Catalog_Actions_ValueList.DeletionMark = 0 " +
-                                  "     and Catalog_Actions_ValueList.Ref = @actionID");
+                                  //"     Catalog_Actions_ValueList.DeletionMark = 0 " +
+                                  "     Catalog_Actions_ValueList.Ref = @actionID");
             query.AddParameter("actionID", actionID);
             return query.Execute();
 
@@ -522,6 +522,7 @@ namespace Test
             query.Execute();
             _db.Commit();
         }
+
 
         /// <summary>
         ///     Добавляет комментарий к событию (наряду)

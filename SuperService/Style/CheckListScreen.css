@@ -16,17 +16,28 @@ TextView {
 	font: 2.5sp arial;
 	height: 3.5sp auto;
 	horizontal-align: center;
-	text-align: center;
+	text-align: left;
 	vertical-align: center;
 	white-space: normal;
 	width: 100%;
 }
 
 CheckBox {
-    width: 50%;
+    width: 30%;
     height: 50%;
+    /*margin-top: 25%;*/
+    margin-left: 30%;
     vertical-align: center;
-    horizontal-align: right;
+    horizontal-align: center;
+}
+
+Image {
+    height: 50%;
+    color: #ffffff;
+    margin-left: 20%;
+    background-color: #ffffff;
+    horizontal-align: center;
+    vertical-align: center;
 }
 
 .SVLMain {
@@ -86,16 +97,33 @@ CheckBox {
 }
 
 .CheckListQuestionLayout {
-	height: 0% auto;
+	/*height: 0% auto;*/
+    height: 100%;
     vertical-align: center;
 	width: 70%;
 }
 
-.CheckListAnswerLayout {
-	height: 0% auto;
-    vertical-align: center;
-	width: 29%;
+.CheckListVLQuestionLayout {
+	height: 100%;
+    /*vertical-align: center;
+    horizontal-align: center;*/
+	width: 100%;
+}
 
+.CheckListAnswerLayout {
+	/*height: 0% auto;*/
+    height: 100%;
+    vertical-align: center;
+    horizontal-align: center;
+	width: 29%;
+}
+
+.CheckListVLAnswerLayout {
+	/*height: 0% auto;*/
+    height: 100%;
+    vertical-align: center;
+    horizontal-align: center;
+	width: 100%;
 }
 
 .CheckListDescription {
@@ -103,8 +131,8 @@ CheckBox {
 	font: 3sp arial;
 	margin-top: 2sp;
     margin-left: 3%;
-	text-align: left;
-    vertical-align: center;
+	/*text-align: left;
+    vertical-align: center;*/
 }
 
 .CheckListName {
