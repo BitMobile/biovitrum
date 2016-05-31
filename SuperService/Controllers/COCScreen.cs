@@ -13,11 +13,11 @@ namespace Test
         {
             _topInfoComponent = new TopInfoComponent(this)
             {
-                ExtraLayoutVisible = false,
+                ExtraLayoutVisible = true,
                 HeadingTextView = {Text = Translator.Translate("coc")},
                 RightButtonImage = {Visible = false},
-                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back") }
-
+                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back") },
+                CommentTextView = {Text = "Итоговая Сумма" + Environment.NewLine + "123456"}
             };
 
             
