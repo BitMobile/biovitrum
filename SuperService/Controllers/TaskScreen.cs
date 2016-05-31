@@ -8,10 +8,16 @@ namespace Test
 {
     public class TaskScreen : Screen
     {
-        private TopInfoComponent _topInfoComponent;
+        private bool _taskCommentTextExpanded;
         private TextView _taskCommentTextView;
-        private bool _taskCommentTextExpanded = false;
+        private string _taskResult;
+        private TopInfoComponent _topInfoComponent;
         private Image _wrapUnwrapImage;
+
+        private HorizontalLayout _taskFinishedButton;
+        private HorizontalLayout _taskRefuseButton;
+        private TextView _taskFinishedButtonTextView;
+        private TextView _taskRefuseButtonTextView;
 
         public override void OnLoading()
         {
@@ -25,16 +31,82 @@ namespace Test
 
             _taskCommentTextView = (TextView) GetControl("TaskCommentTextView", true);
             _wrapUnwrapImage = (Image) GetControl("WrapUnwrapImage", true);
+
+            _taskFinishedButton = (HorizontalLayout) GetControl("TaskFinishedButton", true);
+            _taskRefuseButton = (HorizontalLayout) GetControl("TaskRefuseButton", true);
+            _taskFinishedButtonTextView = (TextView) GetControl("TaskFinishedButtonTextView", true);
+            _taskRefuseButtonTextView = (TextView) GetControl("TaskRefuseButtonTextView", true);
         }
 
         internal void TaskFinishedButton_OnClick(object sender, EventArgs eventArgs)
         {
-            // TODO: Логику прописать тут. Возможно, апдейт БД?
+            switch (_taskResult)
+            {
+                case "NotDone":
+                case "New":
+                    ChangeTaskToDone();
+                    break;
+                case "Done":
+                    ChangeTaskToNew();
+                    break;
+                default:
+                    throw new ArgumentException("Неправильный результат задания");
+            }
+        }
+
+        private void ChangeTaskToNew()
+        {
+            _taskResult = "New";
+            _taskRefuseButton.CssClass = "FinishedButtonActive";
+            _taskFinishedButtonTextView.CssClass = "FinishedButtonActiveText";
+            _taskRefuseButton.Refresh();
+            _taskFinishedButtonTextView.Refresh();
+            _taskRefuseButton.CssClass = "RefuseButton";
+            _taskRefuseButtonTextView.CssClass = "RefuseButtonText";
+            _taskRefuseButton.Refresh();
+            _taskRefuseButtonTextView.Refresh();
+        }
+
+        private void ChangeTaskToDone()
+        {
+            _taskResult = "Done";
+            _taskRefuseButton.CssClass = "FinishedButtonPressed";
+            _taskFinishedButtonTextView.CssClass = "FinishedButtonPressedText";
+            _taskRefuseButton.Refresh();
+            _taskFinishedButtonTextView.Refresh();
+            _taskRefuseButton.CssClass = "RefuseButton";
+            _taskRefuseButtonTextView.CssClass = "RefuseButtonText";
+            _taskRefuseButton.Refresh();
+            _taskRefuseButtonTextView.Refresh();
         }
 
         internal void TaskRefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
-            // TODO: Логику прописать тут. Возможно, апдейт БД?
+            switch (_taskResult)
+            {
+                case "Done":
+                case "New":
+                    ChangeTaskToNotDone();
+                    break;
+                case "NotDone":
+                    ChangeTaskToNew();
+                    break;
+                default:
+                    throw new ArgumentException("Неправильный результат задания");
+            }
+        }
+
+        private void ChangeTaskToNotDone()
+        {
+            _taskResult = "NotDone";
+            _taskRefuseButton.CssClass = "FinishedButtonActive";
+            _taskFinishedButtonTextView.CssClass = "FinishedButtonActiveText";
+            _taskRefuseButton.Refresh();
+            _taskFinishedButtonTextView.Refresh();
+            _taskRefuseButton.CssClass = "RefuseButtonPressed";
+            _taskRefuseButtonTextView.CssClass = "RefuseButtonPressedText";
+            _taskRefuseButton.Refresh();
+            _taskRefuseButtonTextView.Refresh();
         }
 
         internal void WrapUnwrapButton_OnClick(object sender, EventArgs eventArgs)
@@ -66,6 +138,8 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
+            var currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
+            DBHelper.UpdateTaskResult(currentTaskId, _taskResult);
             BusinessProcess.DoAction("BackToTaskList");
         }
 
@@ -73,11 +147,13 @@ namespace Test
         {
             return new Dictionary<string, object>
             {
-                {"Target", "Маршрутизатор" },
-                {"Comment", "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum." },
-                {"EquipmentDescription", "Asus 509-k" },
-                {"TypeDepartures", "Монтаж" },
-                {"resultName", "Appointed" }
+                {
+                    "Target",
+                    "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum."
+                },
+                {"EquipmentDescription", "Asus 509-k"},
+                {"TypeDepartures", "Монтаж"},
+                {"resultName", "New"}
             };
 //            string currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
 //            return DBHelper.GetTaskById(currentTaskId);
@@ -86,6 +162,12 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
+        }
+
+        internal int SetResultName(string resultName)
+        {
+            _taskResult = resultName;
+            return 0;
         }
     }
 }

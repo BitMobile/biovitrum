@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using BitMobile.ClientModel3;
 
 //using Database = BitMobile.ClientModel3.Database;
@@ -8,7 +7,6 @@ namespace Test
 {
     public static partial class DBHelper
     {
-
         /// <summary>
         ///     Устанавливает фактическое время начала события
         /// </summary>
@@ -58,7 +56,6 @@ namespace Test
             query.AddParameter("id", eventId);
             query.Execute();
             _db.Commit();
-
         }
 
         /// <summary>
@@ -137,7 +134,25 @@ namespace Test
             _db.Commit();
         }
 
-
-
+        /// <summary>
+        ///     Обновляет результат у задачи
+        /// </summary>
+        /// <param name="taskId">
+        ///     Идентификатор задачи
+        /// </param>
+        /// <param name="result">
+        ///     Название результата. Должно быть "New", "Done" или "NotDone"
+        /// </param>
+        public static void UpdateTaskResult(string taskId, string result)
+        {
+            var query = new Query("update _Document_Event_Equipments " +
+                                  "    set Result = (select Id from Enum_ResultEvent" +
+                                  "                      where Name = @resultName) " +
+                                  "    where Id = @taskId");
+            query.AddParameter("resultName", result);
+            query.AddParameter("taskId", taskId);
+            query.Execute();
+            _db.Commit();
+        }
     }
 }
