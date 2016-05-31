@@ -77,7 +77,7 @@ namespace Test
 
             query.AddParameter("eventDate", eventSinceDate);
             query.AddParameter("statusDone", EVENT_STATUS_DONE_NAME);
-            query.AddParameter("statusCancel", EVENT_STATUS_DONE_CANCEL);
+            query.AddParameter("statusCancel", EVENT_STATUS_CANCEL_NAME);
             var querryResult = query.Execute();
 
             while (querryResult.Next())
