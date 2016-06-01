@@ -109,6 +109,7 @@ Image {
     margin-top: 2%;
     background-color: #ffffff;
     horizontal-align: center;
+	dock-align: bottom;
 }
 
 .TabBarVL {
