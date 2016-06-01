@@ -4,13 +4,16 @@
   <c:DockLayout Id="RootLayout" CssClass="RootLayout">
     <s:Push Id="event" Value="$GetCurrentEvent()" />
     <s:Include File="Components\TopInfoComponent.xml" />
-    <s:If Test="$IsNotEmptyDateTime($event.ActualEndDate)">
-      <s:If Test="$IsEmptyDateTime($event.ActualStartDate)">
-        <c:Button Id="StartFinishButton" Text="#finish#" CssClass="NoHeight" OnClick="StartFinishButton_OnClick" />
-      </s:If>
-      <s:Else>
-        <c:Button Id="StartFinishButton" Text="#finish#" CssClass="FinishButton" OnClick="StartFinishButton_OnClick" />
-      </s:Else>
+    <s:If Test="$event.statusName == InWork">
+      <c:Button Id="StartFinishButton" Text="#finish#" CssClass="FinishButton" OnClick="StartFinishButton_OnClick" />
+    </s:If>
+    <s:If Test="$event.statusName == Appointed">
+      <c:Button Id="StartFinishButton" Text="#finish#" CssClass="NoHeight" OnClick="StartFinishButton_OnClick" />
+    </s:If>
+    <s:If Test="$event.statusName == Cancel">
+      <c:Button Id="StartFinishButton" Text="#finish#" CssClass="NoHeight" OnClick="StartFinishButton_OnClick" />
+    </s:If>
+    <s:If Test="$event.statusName == Done">
     </s:If>
     <c:SwipeVerticalLayout CssClass="EventScreenMainLayout">
       <c:HorizontalLayout CssClass="LightInfoLayout">
@@ -49,7 +52,13 @@
                     Id="CheckListCounterTextView" CssClass="InfoContent" />
       </c:HorizontalLayout>
 
-      <s:If Test="$IsEmptyDateTime($event.ActualStartDate)">
+      <s:If Test="$event.statusName == Appointed">
+        <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        <c:Button Id="StartButton" Text="#start#" CssClass="StartButton" OnClick="StartButton_OnClick" />
+        <c:Button Id="RefuseButton" Text="#refuse#" CssClass="RefuseButton" OnClick="RefuseButton_OnClick" />
+        <c:HorizontalLayout CssClass="EmptySpace5sp" />
+      </s:If>
+      <s:If Test="$event.statusName == Cancel">
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
         <c:Button Id="StartButton" Text="#start#" CssClass="StartButton" OnClick="StartButton_OnClick" />
         <c:Button Id="RefuseButton" Text="#refuse#" CssClass="RefuseButton" OnClick="RefuseButton_OnClick" />
