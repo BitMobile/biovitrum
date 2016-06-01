@@ -29,6 +29,7 @@ today		сегодня
 per_month		За месяц
 today_eventListNode		Сегодня
 client		Клиент
+clients		Клиенты
 contacts		Контакты
 add_contact		Добавить контакт
 equipment		Оборудование

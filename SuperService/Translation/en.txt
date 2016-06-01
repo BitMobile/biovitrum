@@ -29,6 +29,7 @@ today		today
 per_month		per month
 today_eventListNode		Today
 client		Client
+clients		Clients
 contacts		Contacts
 add_contact		Add Contact
 equipment		Equipment
