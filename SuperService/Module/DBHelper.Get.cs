@@ -8,7 +8,6 @@ namespace Test
 {
     public static partial class DBHelper
     {
-
         /// <summary>
         ///     Method returns list of all events
         ///     Возвращает список всех событий
@@ -38,8 +37,10 @@ namespace Test
                                   "  ifnull(Enum_StatusImportance.Name, '') as ImportanceName, " +
                                   "  ifnull(client.Description, '') as Description, " +
                                   "  ifnull(client.Address, '') as Address, " +
-                                  "  ifnull(Enum_StatusyEvents.Name, '') as statusName, " +  //имя значения статуса (служебное имя)
-                                  "  ifnull(Enum_StatusyEvents.Description, '') as statusDescription " + //представление статуса
+                                  "  ifnull(Enum_StatusyEvents.Name, '') as statusName, " +
+                                  //имя значения статуса (служебное имя)
+                                  "  ifnull(Enum_StatusyEvents.Description, '') as statusDescription " +
+                                  //представление статуса
                                   "from " +
                                   "  Document_Event as event " +
                                   "    left join Catalog_Client as client " +
@@ -147,25 +148,31 @@ namespace Test
                             "    event.StartDatePlan,  " + //плановая дата начала
                             "    Date(event.StartDatePlan) as StartDatePlanDate,  " +
                             "    Time(event.StartDatePlan) as StartDatePlanTime,  " +
-                            "    TypeDeparturesTable.description as TypeDeparture,  " + //вид работ - выбирается одна из табличной части
+                            "    TypeDeparturesTable.description as TypeDeparture,  " +
+                            //вид работ - выбирается одна из табличной части
                             "    event.ActualStartDate,  " + //фактическая дата начала
                             "    event.ActualEndDate,  " + // фактическая дата конца
                             "    _Enum_StatusImportance.Description as Importance,  " + //важность
                             "    event.Comment,  " +
                             "    docSUm.sumFact,  " +
                             "    docCheckList.Total as checkListTotal,  " + //общее количество вопросов в чеклисте
-                            "    docCheckList.Answered as checkListAnswered,  " + //количество отвеченных вопросов в чеклисте
-                            "    docEquipment.Total as equipmentTotal,  " +  //количество оборудования (задач)
-                            "    docEquipment.Answered as equipmentAnswered,  " + //количество оборудования (задач) с заполненным результатом
+                            "    docCheckList.Answered as checkListAnswered,  " +
+                            //количество отвеченных вопросов в чеклисте
+                            "    docEquipment.Total as equipmentTotal,  " + //количество оборудования (задач)
+                            "    docEquipment.Answered as equipmentAnswered,  " +
+                            //количество оборудования (задач) с заполненным результатом
                             "    client.id as clientId,  " +
                             "    client.Description as clientDescription,  " + //имя клиента
                             "    client.Address as clientAddress,  " + //адрес клиента
-                            "    docCheckList.Required as checkListRequired, " +  // количество обязательных вопросов в чеклистах 
-                            "    docCheckList.RequiredAnswered as checkListRequiredAnswered, " + //количество отвеченных обязательных вопросов в чеклистах
+                            "    docCheckList.Required as checkListRequired, " +
+                            // количество обязательных вопросов в чеклистах 
+                            "    docCheckList.RequiredAnswered as checkListRequiredAnswered, " +
+                            //количество отвеченных обязательных вопросов в чеклистах
                             "    case  " +
                             "        when ifnull(docCheckList.Required, 0) = ifnull(docCheckList.RequiredAnswered, 0) then 1 " +
                             "        else 0 " +
-                            "    end as checkListAllRequiredIsAnswered, " + //признак, что все обязательные вопросы в чеклистах отвечены
+                            "    end as checkListAllRequiredIsAnswered, " +
+                            //признак, что все обязательные вопросы в чеклистах отвечены
                             "    Enum_StatusyEvents.Name as statusName, " + //наименование статуса (служебное имя)
                             "    Enum_StatusyEvents.Description as statusDescription " + //представление статуса +
                             "from  " +
@@ -284,7 +291,8 @@ namespace Test
                                   "where " +
                                   "    Contacts.DeletionMark = 0" +
                                   "    and ClientContacts.Ref = @clientID " +
-                                  "    and ClientContacts.Actual = 0 "); //выбираем только неактуальных сотрудников, потому что актуальные являются уволенными
+                                  "    and ClientContacts.Actual = 0 ");
+            //выбираем только неактуальных сотрудников, потому что актуальные являются уволенными
 
             query.AddParameter("clientID", clientID);
 
@@ -354,21 +362,21 @@ namespace Test
         /// <summary>
         ///     Возвращает информацию по клиенту
         /// </summary>
-        /// <param name="clientID"> 
+        /// <param name="clientID">
         ///     Идентификатор клиента
         /// </param>
         public static DbRecordset GetClientByID(string clientID)
         {
             var query = new Query("select " +
-                                    "    Catalog_Client.Id, " +
-                                    "    Catalog_Client.Description, " +
-                                    "    Catalog_Client.Address, " +
-                                    "    Catalog_Client.Latitude, " +
-                                    "    Catalog_Client.Longitude " +
-                                    "from " +
-                                    "    Catalog_Client " +
-                                    "where " +
-                                    "    Catalog_Client.Id = @clientID");
+                                  "    Catalog_Client.Id, " +
+                                  "    Catalog_Client.Description, " +
+                                  "    Catalog_Client.Address, " +
+                                  "    Catalog_Client.Latitude, " +
+                                  "    Catalog_Client.Longitude " +
+                                  "from " +
+                                  "    Catalog_Client " +
+                                  "where " +
+                                  "    Catalog_Client.Id = @clientID");
 
             query.AddParameter("clientID", clientID);
             return query.Execute();
@@ -387,7 +395,8 @@ namespace Test
                                   "   checkList.Result as Result, " + //значение результата
                                   "   checkList.Action as ActionId, " +
                                   "   actions.Description as Description, " + //название пункта чек-листа
-                                  "   typesDataParameters.Name as TypeName " +  //Тип значения чек-листа: ValList - выбор из списка значений; Snapshot - фото; остальное понятно из названий
+                                  "   typesDataParameters.Name as TypeName " +
+                                  //Тип значения чек-листа: ValList - выбор из списка значений; Snapshot - фото; остальное понятно из названий
                                   "from " +
                                   "   Document_Event_CheckList as checkList " +
                                   "   left join Catalog_Actions as actions " +
@@ -421,12 +430,11 @@ namespace Test
                                   "     and Catalog_Actions_ValueList.Ref = @actionID");
             query.AddParameter("actionID", actionID);
             return query.Execute();
-
         }
 
 
         /// <summary>
-        ///      Возвращает задачу по ее идентификатору
+        ///     Возвращает задачу по ее идентификатору
         /// </summary>
         /// <param name="taskID">
         ///     Идентификатор задачи
@@ -440,8 +448,10 @@ namespace Test
                                   "      tasks.Comment as Comment, " + // комментарий
                                   "      equipment.Description as EquipmentDescription, " + //наименование оборудование
                                   "      Enum_ResultEvent.Name as resultName, " + //результат имя
-                                  "      Enum_ResultEvent.Description as resultDescription, " + //результат представление
-                                  "      TypeDeparturesTable.TypeDepartures " + //вид работ - выбирается первая активная из списка наряда
+                                  "      Enum_ResultEvent.Description as resultDescription, " +
+                                  //результат представление
+                                  "      TypeDeparturesTable.TypeDepartures " +
+                                  //вид работ - выбирается первая активная из списка наряда
                                   " " +
                                   "from " +
                                   "    Document_Event_Equipments as tasks " +
@@ -484,5 +494,87 @@ namespace Test
             return query.Execute();
         }
 
+        /// <summary>
+        ///     Возвращает суммы по АВР
+        /// </summary>
+        /// <param name="eventId">Идентификатор наряда</param>
+        /// <returns>
+        ///     DbRecordset со следующими полями:
+        ///     Sum - сумма по наряду
+        ///     SumMaterials - сумма только по материалам
+        ///     SumServices - сумма только по услугам
+        /// </returns>
+        public static DbRecordset GetCocSumsByEventId(string eventId)
+        {
+            var query = new Query("select " +
+                                  "    sum(SumFact) as Sum, " +
+                                  "    sum(case when Service = 0 then SumFact else 0 end) as SumMaterials " +
+                                  "    sum(case when Service = 1 then SumFact else 0 end) as SumServices " +
+                                  "from " +
+                                  "    Document_Event_ServicesMaterials join" +
+                                  "    Catalog_RIM" +
+                                  "        on Document_Event_ServicesMaterials.SKU == Catalog_RIM.Id" +
+                                  "where Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+            return query.Execute();
+        }
+
+        /// <summary>
+        ///     Возвращает информацию по материалам
+        /// </summary>
+        /// <param name="eventId">Идентификатор наряда</param>
+        /// <returns></returns>
+        public static DbRecordset GetMaterialsByEventId(string eventId)
+        {
+            // TODO: Написать запрос
+
+            var query = new Query("select " +
+                                  "    Document_Event_ServicesMaterials.Id," +
+                                  "    Document_Event_ServicesMaterials.SKU," +
+                                  "    Catalog_RIM.Price," +
+                                  "    AmountPlan," +
+                                  "    SumPlan," +
+                                  "    AmountFact," +
+                                  "    SumFact," +
+                                  "    Description," +
+                                  "    Code," +
+                                  "    Unit" +
+                                  "from" +
+                                  "    Document_Event_ServicesMaterials join" +
+                                  "    Catalog_RIM" +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id" +
+                                  "where Catalog_RIM.Service = 0 and Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+            return query.Execute();
+        }
+
+        /// <summary>
+        ///     Возвращает информацию по услугам
+        /// </summary>
+        /// <param name="eventId">Идентификатор наряда</param>
+        /// <returns></returns>
+        public static DbRecordset GetServicesByEventId(string eventId)
+        {
+            var query = new Query("select " +
+                                  "    Document_Event_ServicesMaterials.Id," +
+                                  "    Document_Event_ServicesMaterials.SKU," +
+                                  "    Catalog_RIM.Price," +
+                                  "    AmountPlan," +
+                                  "    SumPlan," +
+                                  "    AmountFact," +
+                                  "    SumFact," +
+                                  "    Description," +
+                                  "    Code," +
+                                  "    Unit" +
+                                  "from" +
+                                  "    Document_Event_ServicesMaterials join" +
+                                  "    Catalog_RIM" +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id" +
+                                  "where Catalog_RIM.Service = 0 and Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+            return query.Execute();
+        }
     }
 }
