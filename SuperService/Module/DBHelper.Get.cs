@@ -507,8 +507,17 @@ namespace Test
         /// </returns>
         public static DbRecordset GetCocSumsByEventId(string eventId)
         {
-            // TODO: Написать запрос
-            return null;
+            var query = new Query("select " +
+                                  "    sum(SumPlan) as Sum, " +
+                                  "    sum(case when Service = 0 then SumPlan else 0 end) as SumMaterials " +
+                                  "    sum(case when Service = 1 then SumPlan else 0 end) as SumServices " +
+                                  "from " +
+                                  "    Document_Event_ServicesMaterials join" +
+                                  "    Catalog_RIM" +
+                                  "        on Document_Event_ServicesMaterials.SKU == Catalog_RIM.Id" +
+                                  "where Ref = @eventId"); 
+            query.AddParameter("eventId", eventId);
+            return query.Execute();
         }
 
         /// <summary>
