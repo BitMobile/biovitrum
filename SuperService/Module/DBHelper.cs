@@ -449,6 +449,26 @@ namespace Test
 
 
         /// <summary>
+        /// Пишет в поле Result переменную result и взводит IsDirty
+        /// </summary>
+        /// <param name="checklistitemID"> ID конкретного пункта чеклиста</param>
+        /// <param name="result"> Данные, которые необходмо записать в поле Result</param>
+        public static void UpdateCheckListItem(string checklistitemID, string result)
+        {
+            DConsole.WriteLine("Update entered");
+            var query = new Query("update _Document_Event_CheckList " +
+                                  "   set " +
+                                  "   Result = @result , " +
+                                  "   IsDirty = 1 " +
+                                  "   where Id=@checklistitemID");
+            query.AddParameter("checklistitemID", checklistitemID);
+            query.AddParameter("result", result);
+            query.Execute();
+            _db.Commit();
+        }
+
+
+        /// <summary>
         ///     Получает список вариантов ответов для действий (вопросов)  с типом результата "выбор из списка"
         /// </summary>
         /// <param name="actionID"> Идентификатор действия</param>
