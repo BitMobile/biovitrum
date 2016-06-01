@@ -5,8 +5,6 @@ using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using XmlDocument = BitMobile.ClientModel3.XmlDocument;
 
-// ReSharper disable PossibleNullReferenceException
-
 namespace Test
 {
     public static class BusinessProcess
@@ -36,7 +34,17 @@ namespace Test
         private static void MoveTo(string stepName)
         {
             DConsole.WriteLine($"Moving to {stepName}");
-            var n = _doc.DocumentElement.SelectSingleNode($"//BusinessProcess/Workflow/Step[@Name='{stepName}']");
+            var n = _doc.DocumentElement?.SelectSingleNode($"//BusinessProcess/Workflow/Step[@Name='{stepName}']");
+            if (n == null)
+            {
+                DConsole.WriteLine($"Step {stepName} is not found in BusinessProcess.xml");
+                return;
+            }
+            if (n.Attributes == null)
+            {
+                DConsole.WriteLine($"Step {stepName}.Attrubutes is not found in BusinessProcess.xml");
+                return;
+            }
             var stepController = n.Attributes["Controller"].Value;
             var styleSheet = n.Attributes["StyleSheet"].Value;
 
@@ -57,6 +65,11 @@ namespace Test
         {
             DConsole.WriteLine($"Doing action: {actionName}");
             var n = CurrentNode.SelectSingleNode($"Action[@Name='{actionName}']");
+            if (n?.Attributes == null)
+            {
+                DConsole.WriteLine($"Can't find {actionName} or {actionName}.Attributes");
+                return;
+            }
             var stepName = n.Attributes["NextStep"].Value;
             MoveTo(stepName);
         }
