@@ -2,13 +2,26 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
 
-  <c:VerticalLayout CssClass="RootLayout">
-    <c:TextView Text="СПИСОК КЛИЕНТОВ ЛА ЛА ЛА" />
+  <c:DockLayout CssClass="RootLayout">
+
+    <!-- Добавление верхней панели -->
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <!---->
+
+    <!-- Tap Bar-->
+    <s:Include File="Components\TabBar.xml" />
+   
+    <!-- Список контактов -->
+    <c:SwipeVerticalLayout CssClass="ClientListLayout">
       <s:Iterator Id="client" Value="$GetClients()">
-          <c:TextView Text="$client.Description"/>
-          <c:TextView Text="$client.Address" />
-        <c:Button Id="$client.Id" Text="open client" onClick="ClientLayout_OnClick"/> 
-      </s:Iterator>    
-  </c:VerticalLayout>
+        <c:VerticalLayout Id="$client.Id" onClick="ClientLayout_OnClick" CssClass="ClientItemLayout">
+          <c:TextView Text="$client.Description" CssClass="ClientItemName"/>
+          <c:TextView Text="$client.Address" CssClass="ClientItemAddress"/>
+          <c:HorizontalLine CssClass="ClientBreaker" />
+        </c:VerticalLayout>       
+      </s:Iterator>
+    </c:SwipeVerticalLayout>
+    <s:Include File="Components\TabBar.xml" />
+  </c:DockLayout>
 
 </c:Screen>

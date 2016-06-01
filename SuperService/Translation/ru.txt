@@ -28,3 +28,4 @@ areYouSure		Вы уверены?
 today		сегодня
 per_month		завтра
 today_eventListNode		Сегодня
+clients		Клиенты
