@@ -149,7 +149,14 @@ namespace Test
 
         internal void TaskCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("ViewTasks");
+            if (CheckBigButtonActive(sender))
+                BusinessProcess.DoAction("ViewTasks");
+        }
+
+        private bool CheckBigButtonActive(object sender)
+        {
+            var layout = (HorizontalLayout) sender;
+            return ((TextView) layout.Controls[2]).Text != "0";
         }
 
         internal DbRecordset GetCurrentEvent()
@@ -167,7 +174,7 @@ namespace Test
         {
             if (Convert.ToInt64(part) != 0) return $"{part}/{total}";
 //            DConsole.WriteLine($"{part == 0L}, {Convert.ToInt64(total) == 0L}, {part}, {total}");
-            return $"{total}";
+            return $"{Convert.ToInt64(total)}";
         }
 
         internal bool IsEmptyDateTime(string dateTime)
