@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 
@@ -11,85 +8,79 @@ namespace Test
 {
     public class CheckListScreen : Screen
     {
-        private HorizontalLayout _buf;
-
-        private Image _previewImage;
-        private Image _img;
-        private string _temp;
-
-        //private EditText _passwordEditText;
+        private Image _imgToReplace;
+        private string _pathToImg ;
+        private string _newGuid;
+        private TextView _textView;
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("AuthScreen init");
-
-            _previewImage = (Image)GetControl("loginEditText", true);
+            DConsole.WriteLine("CheckListScreen init");
         }
-
-
-        internal void BackButton_OnClick(object sender, EventArgs eventArgs)
-        {
-            BusinessProcess.DoAction("BackToEvent");
-        }
-
-        //internal void CheckListLayout_OnClick(object sender, EventArgs eventArgs)
-        //{
-        //    //BusinessProcess.GlobalVariables["currentTaskId"] = ((HorizontalLayout)sender).Id;
-        //    //BusinessProcess.DoAction("ViewTask");
-        //}
-
-
-        void OrderCamera(object state, ResultEventArgs<bool> args)
-        {
-            //Document.Order order = (Document.Order)state;
-            //order.HasPhoto = args.Result;
-            _img.Source = _temp;
-        }
-
 
         internal void CheckListSnapshot_OnClick(object sender, EventArgs eventArgs)
         {
-            _temp = Guid.NewGuid().ToString();
-            _temp = @"\private\" + _temp + @".jpg";
+            _newGuid = Guid.NewGuid().ToString();
+            _pathToImg = @"\private\" + _newGuid + @".jpg";
 
-            _buf = (HorizontalLayout) sender;
-            _img = (Image) _buf.GetControl(0);
-            DConsole.WriteLine(_img.Id + " _img.Id");
-            DConsole.WriteLine(_temp + " _temp");
+            _imgToReplace = (Image)((HorizontalLayout)sender).GetControl(0);
+            //_img.Source =;
+
+
+
 
             //var zz = (Image)(_buf GetControl(0));
 
-            //try
-            //{
-            Camera.MakeSnapshot(_temp, OrderCamera);
-            //}
-            //catch (Exception cam)
-            //{
-            //    DConsole.WriteLine(cam.Message);
-            //    DConsole.WriteLine(@"ASD");
+            DConsole.WriteLine("ДО СНЭПШОТА");
 
-            //}
+            Camera.MakeSnapshot(_pathToImg, int.MaxValue, CameraCallback, sender);
+
+            DConsole.WriteLine("ПОСЛЕ СНЭПШОТА");
+
             //Gallery.Copy(temp);
             //Gallery.Copy(@"\private\order.jpg",
+        }
+        internal void CameraCallback(object state, ResultEventArgs<bool> args)
+        {
+            DConsole.WriteLine("КОЛЛБЭК");
+
+            //Document.Order order = (Document.Order)state;
+            //order.HasPhoto = args.Result;
+            
+
+            DConsole.WriteLine("_newGuid: " + _newGuid);
+            DConsole.WriteLine("_pathToImg: " + _pathToImg);
+            DConsole.WriteLine("File Exists: " + FileSystem.Exists(_pathToImg));
+
+            _imgToReplace.Source = _pathToImg;
         }
 
         internal void CheckListValList_OnClick(object sender, EventArgs e)
         {
+            _textView = (TextView)((HorizontalLayout)sender).GetControl(0);
+
             var items = new Dictionary<object, string>();
-
             var temp = DBHelper.GetActionValuesList(((HorizontalLayout)sender).Id);
-
             while (temp.Next())
             {
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
             }
 
-            Dialog.Choose("Select a channel", items, Callback);
+            Dialog.Choose("Выберите вариант", items, ValListCallback);
+        }
+        internal void ValListCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
+        {
+            _textView.Text = args.Result.Value;
         }
 
         internal void CheckListDateTime_OnClick(object sender, EventArgs e)
         {
-            Dialog.DateTime(@"Выберите дату", DateTime.Now, null);
+            _textView = (TextView)((HorizontalLayout)sender).GetControl(0);
+            Dialog.DateTime(@"Выберите дату", DateTime.Now, DateCallback);
+        }
+        internal void DateCallback(object state, ResultEventArgs<DateTime> args)
+        {
+            _textView.Text = args.Result.ToString();
         }
 
         internal void CheckListBoolean_OnClick(object sender, EventArgs e)
@@ -112,15 +103,24 @@ namespace Test
 
         }
 
-
-        internal void Callback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
-        {
-            //((Document.Order)state).Channel = args.Result.Key;
-        }
-
         internal IEnumerable GetCheckList()
         {
             return DBHelper.GetCheckListByEventID((string)BusinessProcess.GlobalVariables["currentEventId"]);
         }
+
+        internal void BackButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            BusinessProcess.DoAction("BackToEvent");
+        }
+        //internal void CheckListLayout_OnClick(object sender, EventArgs eventArgs)
+        //{
+        //    //BusinessProcess.GlobalVariables["currentTaskId"] = ((HorizontalLayout)sender).Id;
+        //    //BusinessProcess.DoAction("ViewTask");
+        //}
+
+        //internal void MemoEdit_OnChange(object sender, EventArgs e)
+        //{
+        //    ((HorizontalLayout) ((VerticalLayout) ((MemoEdit) sender).Parent).Parent).Refresh();
+        //}
     }
 }
