@@ -508,9 +508,9 @@ namespace Test
         public static DbRecordset GetCocSumsByEventId(string eventId)
         {
             var query = new Query("select " +
-                                  "    sum(SumPlan) as Sum, " +
-                                  "    sum(case when Service = 0 then SumPlan else 0 end) as SumMaterials " +
-                                  "    sum(case when Service = 1 then SumPlan else 0 end) as SumServices " +
+                                  "    sum(SumFact) as Sum, " +
+                                  "    sum(case when Service = 0 then SumFact else 0 end) as SumMaterials " +
+                                  "    sum(case when Service = 1 then SumFact else 0 end) as SumServices " +
                                   "from " +
                                   "    Document_Event_ServicesMaterials join" +
                                   "    Catalog_RIM" +
@@ -528,7 +528,13 @@ namespace Test
         public static DbRecordset GetMaterialsByEventId(string eventId)
         {
             // TODO: Написать запрос
-            return null;
+
+            var query = new Query("select * from Document_Event_ServicesMaterials join Catalog_RIM " +
+                                  "    on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  "where Catalog_RIM.Service = 0 and Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+            return query.Execute();
         }
 
         /// <summary>
@@ -538,8 +544,12 @@ namespace Test
         /// <returns></returns>
         public static DbRecordset GetServicesByEventId(string eventId)
         {
-            // TODO: Написать запрос
-            return null;
+            var query = new Query("select * from Document_Event_ServicesMaterials join Catalog_RIM " +
+                                  "    on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  "where Catalog_RIM.Service = 1 and Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+            return query.Execute();
         }
     }
 }

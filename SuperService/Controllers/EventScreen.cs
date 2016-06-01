@@ -155,6 +155,7 @@ namespace Test
 
         private bool CheckBigButtonActive(object sender)
         {
+            // TODO: Сделать проверку более аккуратной?
             var layout = (HorizontalLayout) sender;
             return ((TextView) layout.Controls[2]).Text != "0";
         }
