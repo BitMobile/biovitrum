@@ -515,7 +515,7 @@ namespace Test
                                   "    Document_Event_ServicesMaterials join" +
                                   "    Catalog_RIM" +
                                   "        on Document_Event_ServicesMaterials.SKU == Catalog_RIM.Id" +
-                                  "where Ref = @eventId"); 
+                                  "where Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
         }
@@ -529,8 +529,21 @@ namespace Test
         {
             // TODO: Написать запрос
 
-            var query = new Query("select * from Document_Event_ServicesMaterials join Catalog_RIM " +
-                                  "    on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+            var query = new Query("select " +
+                                  "    Document_Event_ServicesMaterials.Id," +
+                                  "    Document_Event_ServicesMaterials.SKU," +
+                                  "    Catalog_RIM.Price," +
+                                  "    AmountPlan," +
+                                  "    SumPlan," +
+                                  "    AmountFact," +
+                                  "    SumFact," +
+                                  "    Description," +
+                                  "    Code," +
+                                  "    Unit" +
+                                  "from" +
+                                  "    Document_Event_ServicesMaterials join" +
+                                  "    Catalog_RIM" +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id" +
                                   "where Catalog_RIM.Service = 0 and Document_Event_ServicesMaterials.AmountFact != 0 and" +
                                   "    Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
@@ -544,9 +557,22 @@ namespace Test
         /// <returns></returns>
         public static DbRecordset GetServicesByEventId(string eventId)
         {
-            var query = new Query("select * from Document_Event_ServicesMaterials join Catalog_RIM " +
-                                  "    on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
-                                  "where Catalog_RIM.Service = 1 and Document_Event_ServicesMaterials.AmountFact != 0 and" +
+            var query = new Query("select " +
+                                  "    Document_Event_ServicesMaterials.Id," +
+                                  "    Document_Event_ServicesMaterials.SKU," +
+                                  "    Catalog_RIM.Price," +
+                                  "    AmountPlan," +
+                                  "    SumPlan," +
+                                  "    AmountFact," +
+                                  "    SumFact," +
+                                  "    Description," +
+                                  "    Code," +
+                                  "    Unit" +
+                                  "from" +
+                                  "    Document_Event_ServicesMaterials join" +
+                                  "    Catalog_RIM" +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id" +
+                                  "where Catalog_RIM.Service = 0 and Document_Event_ServicesMaterials.AmountFact != 0 and" +
                                   "    Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
