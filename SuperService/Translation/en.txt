@@ -34,6 +34,6 @@ add_contact		Add Contact
 equipment		Equipment
 services		Services
 materials		Materials
-add_service		Add Service
-add_materials	Add Materials
+add_service		Add service
+add_materials	Add saterials
 ne_hvataet_materiala		Ne hvataet materiala?

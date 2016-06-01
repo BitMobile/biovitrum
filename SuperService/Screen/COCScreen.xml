@@ -7,14 +7,15 @@
     <c:VerticalLayout Id="ServicesInfoVL" CssClass="TotalPriceInfoVL">
       <c:HorizontalLayout Id="ServicesInfoHL" CssClass="TotalPriceInfoHL">
         <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#services#"/>
-        <c:TextView Id="RightInfoTV" CssClass="RightInfoTV" />
+        <c:TextView Id="RightInfoTV" CssClass="RightInfoTV" Text="• 12345"/>
       </c:HorizontalLayout>
     </c:VerticalLayout>
 
     <c:HorizontalLine CssClass="WideHL" />
 
-    <c:ScrollView>
+    <c:ScrollView CssClass="RootLayout">
 
+      <c:VerticalLayout CssClass="VLForSView">
       <!-- Итератор по услугам будет здесь-->
       <c:HorizontalLayout CssClass="InfoNodeHL">
         <!-- Красный круг с минусом -->
@@ -25,28 +26,30 @@
         </c:VerticalLayout>
 
         <!--Два TextView с информацией об услугах-->
-        <c:VertialLayout CssClass="InfoTextContainerVL">
+        <c:VerticalLayout CssClass="InfoTextContainerVL">
           <c:TextView CssClass="NameTV" Text="Test service"/>
           <c:TextView CssClass="PriceTV" Text="2xTest"/>
-        </c:VertialLayout>
-
-      </c:HorizontalLayout>
+        </c:VerticalLayout>
+        </c:HorizontalLayout>
 
       <c:HorizontalLine CssClass="MiddleHL"/>
+
+      
       <!-- Заканчивается здесь-->
 
-      <c:VerticalLayot CssClass="AddButtonVl" OnClick="AddServiceAndMaterial_OnClick">
+      <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddServiceAndMaterial_OnClick">
         <c:HorizontalLayout CssClass="AddContainerHL">
           <c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)"/>
           <c:TextView CssClass="AddTV" Text="#add_service#"/>
         </c:HorizontalLayout>
-      </c:VerticalLayot>
+      </c:VerticalLayout>
 
+      <c:HorizontalLine CssClass="WideHL" />
       
       <c:VerticalLayout Id="MaterialsInfoVL" CssClass="TotalPriceInfoVL">
         <c:HorizontalLayout Id="MaterialsInfoHL" CssClass="TotalPriceInfoHL">
           <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#materials#"/>
-          <c:TextView Id="RightInfoTV" CssClass="RightInfoTV" />
+          <c:TextView Id="RightInfoTV" CssClass="RightInfoTV" Text="• 12345"/>
         </c:HorizontalLayout>
       </c:VerticalLayout>
 
@@ -62,27 +65,31 @@
         </c:VerticalLayout>
 
         <!--Два TextView с информацией об услугах-->
-        <c:VertialLayout CssClass="InfoTextContainerVL">
+        <c:VerticalLayout CssClass="InfoTextContainerVL">
           <c:TextView CssClass="NameTV" Text="Test service"/>
           <c:TextView CssClass="PriceTV" Text="2xTest"/>
-        </c:VertialLayout>
-
-      </c:HorizontalLayout>
+        </c:VerticalLayout>
+       </c:HorizontalLayout>
 
       <c:HorizontalLine CssClass="MiddleHL"/>
+
+      
       <!-- Заканчивается здесь-->
 
-      <c:VerticalLayot CssClass="AddButtonVl" OnClick="AddServiceAndMaterial_OnClick">
+      <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddServiceAndMaterial_OnClick">
         <c:HorizontalLayout CssClass="AddContainerHL">
           <c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)"/>
           <c:TextView CssClass="AddTV" Text="#add_materials#"/>
         </c:HorizontalLayout>
-      </c:VerticalLayot>
+      </c:VerticalLayout>
+
+      <c:HorizontalLine CssClass="WideHL" />
       
       <c:HorizontalLayout CssClass="BottomContainerHL">
         <c:TextView CssClass="BottomTV" Text="#ne_hvataet_materiala#" />
       </c:HorizontalLayout>
-      
+
+      </c:VerticalLayout>
     </c:ScrollView>
 
   </c:VerticalLayout>

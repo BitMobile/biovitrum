@@ -35,4 +35,5 @@ equipment		Оборудование
 services		Услуги
 materials		Материалы
 add_service		Добавить услугу
-add_materials		Добавить Материалы
+add_materials		Добавить материал
+ne_hvataet_materiala		Не хватает материала?
