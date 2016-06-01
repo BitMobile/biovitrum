@@ -1,8 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
-    <s:Include File="Components\TopInfoComponent.xml"/>
-    
-    
+    <s:Include File="Components\TopInfoComponent.xml" />
+
+    <!-- Верхний layout с надписью услуги и ценой услуг -->
+    <c:VerticalLayout CssClass="TopServicesVL">
+      <c:HorizontalLayout CssClass="TopServicesHL">
+        <c:TextView Id="LeftServicesTV" CssClass="LeftServicesTV" />
+        <c:TextView Id="RightServicesTV" CssClass="RightServicesTV" />
+      </c:HorizontalLayout>
+    </c:VerticalLayout>
+
+    <c:HorizontalLine CssClass="WideHL" />
+
+    <c:ScrollView>
+
+      <c:HorizontalLayout CssClass="ServiceInfoNodeHL">
+        <!-- Красный круг с минусом -->
+        <c:VerticalLayout CssClass="ServiceInfoNodeVL">
+          <c:HorizontalLayout CssClass="ServiceInfoNodeHL">
+            <c:Image />
+          </c:HorizontalLayout>
+        </c:VerticalLayout>
+
+        <!--Два TextView с информацией об услугах-->
+        <c:VertialLayout>
+          <c:TextView />
+          <c:TextView />
+        </c:VertialLayout>
+
+      </c:HorizontalLayout>
+
+    </c:ScrollView>
+
   </c:VerticalLayout>
 </c:Screen>

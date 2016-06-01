@@ -32,3 +32,4 @@ client		Клиент
 contacts		Контакты
 add_contact		Добавить контакт
 equipment		Оборудование
+services		Услуги

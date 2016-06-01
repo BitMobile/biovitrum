@@ -32,3 +32,4 @@ client		Client
 contacts		Contacts
 add_contact		Add Contact
 equipment		Equipment
+services		Services

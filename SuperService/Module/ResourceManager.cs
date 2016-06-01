@@ -43,7 +43,10 @@ namespace Test
             {"eventscreen_tasks", @"Image\es_tasks.png"},
             // Client Screen
             {"clientscreen_phone", @"Image\ClientScreen\Phone.png"},
-            {"clientscreen_plus", @"Image\ClientScreen\Plus.png"}
+            {"clientscreen_plus", @"Image\ClientScreen\Plus.png"},
+            //COC Screen
+            {"cocscreen_delete", @"Image\COCScreen\delete_img.png"},
+            {"cocscreen_plus", @"Image\COCScreen\plus_img.png"}
         };
 
         public static string GetImage(string tag)
