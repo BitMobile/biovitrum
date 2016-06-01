@@ -33,3 +33,6 @@ contacts		Контакты
 add_contact		Добавить контакт
 equipment		Оборудование
 services		Услуги
+materials		Материалы
+add_service		Добавить услугу
+add_materials		Добавить Материалы

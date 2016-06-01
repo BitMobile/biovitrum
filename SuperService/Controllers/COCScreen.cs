@@ -42,5 +42,10 @@ namespace Test
         {
             
         }
+
+        internal void AddServiceAndMaterial_OnClick(object sender, EventArgs e)
+        {
+            DConsole.WriteLine("Add Service And Materials OnClick");
+        }
     }
 }

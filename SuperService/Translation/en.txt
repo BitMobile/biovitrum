@@ -33,3 +33,7 @@ contacts		Contacts
 add_contact		Add Contact
 equipment		Equipment
 services		Services
+materials		Materials
+add_service		Add Service
+add_materials	Add Materials
+ne_hvataet_materiala		Ne hvataet materiala?
