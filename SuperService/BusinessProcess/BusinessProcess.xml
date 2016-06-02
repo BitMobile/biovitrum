@@ -28,11 +28,11 @@
       <Action Name="ClientList" NextStep="ClientList"></Action>
     </Step>
 
-    <Step Name="ClientList" Controller="ClientListScreen" StyleSheet="Style\style.css">
+    <Step Name="ClientList" Controller="ClientListScreen" StyleSheet="Style\ClientListScreen.css">
       <Action Name="EventList" NextStep="EventList"></Action>
+      <Action Name="ViewClient" NextStep="Client"></Action>
       <Action Name="Bag" NextStep="Bag"></Action>
       <Action Name="Settings" NextStep="Settings"></Action>
-      <!--      <Action Name="ClientList" NextStep="ClientList"></Action>-->
     </Step>
 
     <Step Name="Settings" Controller="SettingsScreen" StyleSheet="Style\style.css">
@@ -56,7 +56,7 @@
       <Action Name="ViewTask" NextStep="Task"></Action>
     </Step>
 
-    <Step Name="Task" Controller="TaskScreen" StyleSheet="Style\style.css">
+    <Step Name="Task" Controller="TaskScreen" StyleSheet="Style\TaskScreen.css">
       <Action Name="BackToTaskList" NextStep="TaskList"></Action>
     </Step>
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -8,10 +7,12 @@ namespace Test
 {
     public class COCScreen : Screen
     {
+        private DbRecordset _sums;
         private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
+            GetSums();
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = true,
@@ -20,11 +21,10 @@ namespace Test
                 LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
                 CommentTextView =
                 {
-                    Text =
-                        Translator.Translate("total") + Environment.NewLine + "123456" +
-                        Translator.Translate("currency")
+                    Text = GetFormatString((double)_sums["Sum"])
                 }
             };
+            DConsole.WriteLine(_topInfoComponent.CommentTextView.Text);
         }
 
         internal string GetResourceImage(string tag)
@@ -67,7 +67,24 @@ namespace Test
 
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
-            
+        }
+
+        private string GetFormatString(double number)
+        {
+            return number + Translator.Translate("currency");
+        }
+
+        internal DbRecordset GetSums()
+        {
+            object eventId;
+            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
+            {
+                DConsole.WriteLine("Can't find current event ID, going to crash");
+            }
+
+            DConsole.WriteLine((string)eventId);
+            _sums = DBHelper.GetCocSumsByEventId((string) eventId);
+            return _sums;
         }
     }
 }

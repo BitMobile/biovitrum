@@ -29,9 +29,13 @@ today		сегодня
 per_month		За месяц
 today_eventListNode		Сегодня
 client		Клиент
+clients		Клиенты
 contacts		Контакты
 add_contact		Добавить контакт
 equipment		Оборудование
+task_finished		Работа выполнена
+task_refused		Не могу выполнить
+task		Задача
 services		Услуги
 materials		Материалы
 add_service		Добавить услугу
