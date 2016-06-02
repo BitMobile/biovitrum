@@ -28,4 +28,6 @@ areYouSure		Are you sure?
 today		today
 per_month		per month
 today_eventListNode		Today
-
+not_choosed		Not choosed..
+not_specified		Not specified
+text		Text..

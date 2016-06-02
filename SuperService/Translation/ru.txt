@@ -28,3 +28,6 @@ areYouSure		Вы уверены?
 today		сегодня
 per_month		завтра
 today_eventListNode		Сегодня
+not_choosed		Не выбрано..
+not_specified		Не указано
+text		Текст..

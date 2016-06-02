@@ -15,11 +15,17 @@
       <s:Iterator Id="CheckList" Value="$GetCheckList()">
         <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListItemLayout">
           
-          <s:If Test="$CheckList.Required"> 
-            <c:VerticalLayout CssClass="VLRequired" />
+          <s:If Test="$CheckList.Required">
+            <s:If Test="$IsNotEmptyString($CheckList.Result)">
+              <c:VerticalLayout CssClass="VLRequiredDone" Id="VLRequired"/>
+            </s:If>
+            <s:Else>
+              <c:VerticalLayout CssClass="VLRequired" Id="VLRequired"/>
+            </s:Else>
           </s:If>
+          
           <s:Else>
-            <c:VerticalLayout CssClass="VLNotRequired" />
+            <c:VerticalLayout CssClass="VLNotRequired"/>
           </s:Else>
 
           <!--ФОТО-->
@@ -47,7 +53,12 @@
               
               <c:VerticalLayout CssClass="CheckListAnswerLayout" Id ="$CheckList.CheckListId">
                 <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListValList_OnClick">
-                  <c:TextView Visible = "true" Text ="$CheckList.Result"/>
+                  <s:If Test="$IsNotEmptyString($CheckList.Result)">
+                    <c:TextView Visible = "true" Text ="$CheckList.Result"/>
+                  </s:If>
+                  <s:Else>
+                    <c:TextView Visible = "true" Text ="#not_choosed#"/>
+                  </s:Else>
                 </c:HorizontalLayout>
               </c:VerticalLayout>
             </s:If>
@@ -62,7 +73,12 @@
           
               <c:VerticalLayout CssClass="CheckListAnswerLayout" Id ="$CheckList.CheckListId">
                 <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListDateTime_OnClick">
-                  <c:TextView Visible = "true" Text ="$CheckList.Result"/>
+                  <!--<s:If Test="$IsNotEmptyString($CheckList.Result)">
+                    <c:TextView Visible = "true" Text ="$CheckList.Result"/>
+                  </s:If>
+                  <s:Else>
+                    <c:TextView Visible = "true" Text ="#not_specified#"/>
+                  </s:Else>-->
                 </c:HorizontalLayout>
               </c:VerticalLayout>
             </s:If>
@@ -78,9 +94,11 @@
               <c:VerticalLayout CssClass="CheckListAnswerLayout" Id ="$CheckList.CheckListId">
                 <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListBoolean_OnClick">
                   <s:If Test="$CheckList.Result == Да">
+                    <!--<c:TextView Text="$CheckList.Result"/>-->
                     <c:CheckBox Visible="true" Checked="True"/>
                   </s:If>
                   <s:Else>
+                    <!--<c:TextView Text="$CheckList.Result"/>-->
                     <c:CheckBox Visible="true" Checked="False"/>
                   </s:Else>
                 </c:HorizontalLayout>
@@ -96,8 +114,8 @@
               </c:VerticalLayout>
           
               <c:VerticalLayout CssClass="CheckListAnswerLayout" Id ="$CheckList.CheckListId">
-                <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListDecimal_OnClick">
-                  <c:EditText Enabled = "true" Text ="$CheckList.Result" Keyboard="numeric" Mask="^([0-9]*\.[0-9]+)$"/>
+                <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" >
+                  <c:EditText Enabled = "true" Text ="$CheckList.Result" Keyboard="numeric" Mask="^([0-9]*\.[0-9]+)$" OnChange="CheckListDecimal_OnChange" Id="$CheckList.CheckListId" Placeholder="#not_specified#"/>
                 </c:HorizontalLayout>
               </c:VerticalLayout>
             </s:If>
@@ -111,8 +129,8 @@
               </c:VerticalLayout>
                 
               <c:VerticalLayout CssClass="CheckListAnswerLayout" Id ="$CheckList.CheckListId">
-                <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListInteger_OnClick">
-                  <c:EditText Enabled = "true" Text ="$CheckList.Result" Keyboard="numeric" Mask="^[1-9]\d*$"/>
+                <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout">
+                  <c:EditText Enabled = "true" Text ="$CheckList.Result" Keyboard="numeric" Mask="^[1-9]\d*$" OnChange="CheckListInteger_OnChange" Id="$CheckList.CheckListId" Placeholder="#not_specified#"/>
                 </c:HorizontalLayout>
               </c:VerticalLayout>
             </s:If>
@@ -121,7 +139,7 @@
             <s:If Test="$CheckList.TypeName == String">
               <c:VerticalLayout CssClass="CheckListStringLayout" Id="$CheckList.CheckListId">
                 <c:TextView Text="$CheckList.Description" CssClass="CheckListDescription" />
-                <c:EditText Enabled ="True" Text ="$CheckList.Result" Placeholder="Введите текст.." CssClass="CheckListEditString"/>
+                <c:EditText Enabled ="True" Text ="$CheckList.Result" Placeholder="#text#" CssClass="CheckListEditString" OnChange="CheckListString_OnChange" Id="$CheckList.CheckListId"/>
               </c:VerticalLayout>
             </s:If>
                         
