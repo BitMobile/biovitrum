@@ -60,7 +60,7 @@ namespace Test
         {
             DConsole.WriteLine("ClientLayout_OnClick " + ((VerticalLayout)sender).Id);
             // TODO: Передача Id конкретной таски
-            BusinessProcess.GlobalVariables["currentClientId"] = ((VerticalLayout)sender).Id;
+            BusinessProcess.GlobalVariables["clientId"] = ((VerticalLayout)sender).Id;
             BusinessProcess.DoAction("ViewClient");
         }
 
