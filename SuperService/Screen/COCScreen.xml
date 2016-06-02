@@ -24,7 +24,7 @@
           <c:HorizontalLayout CssClass="InfoNodeHL">
             <!-- Красный круг с минусом -->
             <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
-              <c:HorizontalLayout CssClass="InfoImageContainerHL">
+              <c:HorizontalLayout Id="Test" CssClass="InfoImageContainerHL">
                 <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)" />
               </c:HorizontalLayout>
             </c:VerticalLayout>
@@ -37,7 +37,7 @@
 
           </c:HorizontalLayout>
 
-          <c:VerticalLayout Id="DeleteButtonCOCScreenVL" CssClass="DeleteButtonVL">
+          <c:VerticalLayout CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
             <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
           </c:VerticalLayout>
 
@@ -85,7 +85,7 @@
             </c:VerticalLayout>
           </c:HorizontalLayout>
 
-          <c:VerticalLayout CssClass="DeleteButtonVL">
+          <c:VerticalLayout CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
             <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
           </c:VerticalLayout>
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Common.Controls;
 using Test.Components;
 
 namespace Test
@@ -21,7 +22,7 @@ namespace Test
                 LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
                 CommentTextView =
                 {
-                    Text = GetFormatString((double)_sums["Sum"])
+                    Text = GetFormatString((double) _sums["Sum"])
                 }
             };
             DConsole.WriteLine(_topInfoComponent.CommentTextView.Text);
@@ -63,10 +64,18 @@ namespace Test
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
         {
             //TODO: сделать выдвижение кнопки удаление.
+            var vl = (VerticalLayout) sender;
+            var hl = (IHorizontalLayout3) vl.Parent;
+            var shl = (ISwipeHorizontalLayout3) hl.Parent;
+            ++shl.Index;
         }
 
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
+            var vl = (VerticalLayout) sender;
+            var shl = (ISwipeHorizontalLayout3) vl.Parent;
+            shl.CssClass = "NoHeight";
+            shl.Refresh();
         }
 
         private string GetFormatString(double number)
@@ -82,7 +91,7 @@ namespace Test
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
 
-            DConsole.WriteLine((string)eventId);
+            DConsole.WriteLine((string) eventId);
             _sums = DBHelper.GetCocSumsByEventId((string) eventId);
             return _sums;
         }

@@ -170,14 +170,13 @@ TextView {
 
 .InfoImageCondtainerVL {
     height: 10sp;
-    margin-left: 3%;
-    width: 15%;
+    width: 20%;
 }
 
 .InfoImageContainerHL {
     height: 100%;
-    vertical-align: center;
-    width: 80%;
+    horizontal-align: center;
+    width: 0% auto;
 }
 
 .DeleteIcoImg {
@@ -187,7 +186,7 @@ TextView {
 
 .InfoTextContainerVL {
     height: 10sp;
-    width: 82%;
+    width: 80%;
 }
 
 .NameTV {
