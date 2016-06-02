@@ -36,4 +36,7 @@ services		Services
 materials		Materials
 add_service		Add service
 add_materials	Add saterials
-ne_hvataet_materiala		Ne hvataet materiala?
+do_not_have_enough_material		Do not have enough material?
+delete_question		Delete?
+currency		₽
+total		Total

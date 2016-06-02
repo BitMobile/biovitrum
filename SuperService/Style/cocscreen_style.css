@@ -164,7 +164,7 @@ TextView {
 }
 
 .InfoNodeHL {
-    height: 0% auto;
+    height: 10sp;
     width: 100%;
 }
 
@@ -256,5 +256,29 @@ TextView {
 
 .BottomTV {
     height: 100%;
+    width: 100%;
+    text-align: center;
+    padding-top: 35%;
+    color: #8587b1;
+    font: 3sp arial;
+}
+
+.DeleteButtonVL {
+    height: 10sp;
+    width: 30%;
+    background-color: #eb4040;
+}
+
+.DeleteButtonTV {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    font: 3sp arial;
+    padding-top: 30%;
+    color: #ffffff;
+}
+
+.SwipeContainerSHL {
+    height: 0% auto;
     width: 100%;
 }

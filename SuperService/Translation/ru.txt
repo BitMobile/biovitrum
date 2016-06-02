@@ -36,4 +36,7 @@ services		Услуги
 materials		Материалы
 add_service		Добавить услугу
 add_materials		Добавить материал
-ne_hvataet_materiala		Не хватает материала?
+do_not_have_enough_material		Не хватает материала?
+delete_question		Удалить?
+currency		₽
+total		Итоговая сумма

@@ -6,8 +6,8 @@
 
     <c:VerticalLayout Id="ServicesInfoVL" CssClass="TotalPriceInfoVL">
       <c:HorizontalLayout Id="ServicesInfoHL" CssClass="TotalPriceInfoHL">
-        <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#services#"/>
-        <c:TextView Id="RightInfoTV" CssClass="RightInfoTV" Text="• 12345"/>
+        <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#services#" />
+        <c:TextView Id="RightInfoTV" CssClass="RightInfoTV" Text="•12345#currency#" />
       </c:HorizontalLayout>
     </c:VerticalLayout>
 
@@ -16,78 +16,97 @@
     <c:ScrollView CssClass="RootLayout">
 
       <c:VerticalLayout CssClass="VLForSView">
-      <!-- Итератор по услугам будет здесь-->
-      <c:HorizontalLayout CssClass="InfoNodeHL">
-        <!-- Красный круг с минусом -->
-        <c:VerticalLayout CssClass="InfoImageCondtainerVL">
-          <c:HorizontalLayout CssClass="InfoImageContainerHL">
-            <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)"/>
+        <!-- Итератор по услугам будет здесь-->
+
+        <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL">
+          <c:HorizontalLayout CssClass="InfoNodeHL">
+            <!-- Красный круг с минусом -->
+            <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
+              <c:HorizontalLayout CssClass="InfoImageContainerHL">
+                <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)" />
+              </c:HorizontalLayout>
+            </c:VerticalLayout>
+
+            <!--Два TextView с информацией об услугах-->
+            <c:VerticalLayout CssClass="InfoTextContainerVL" OnClick="EditServicesOrMaterials_OnClick">
+              <c:TextView CssClass="NameTV" Text="Test service" />
+              <c:TextView CssClass="PriceTV" Text="2xTest" />
+            </c:VerticalLayout>
+
+          </c:HorizontalLayout>
+
+          <c:VerticalLayout Id="DeleteButtonCOCScreenVL" CssClass="DeleteButtonVL">
+            <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
+          </c:VerticalLayout>
+
+        </c:SwipeHorizontalLayout>
+
+        <c:HorizontalLine CssClass="MiddleHL" />
+
+
+        <!-- Заканчивается здесь-->
+
+        <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddServiceOrMaterials_OnClick">
+          <c:HorizontalLayout CssClass="AddContainerHL">
+            <c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)" />
+            <c:TextView CssClass="AddTV" Text="#add_service#" />
           </c:HorizontalLayout>
         </c:VerticalLayout>
 
-        <!--Два TextView с информацией об услугах-->
-        <c:VerticalLayout CssClass="InfoTextContainerVL">
-          <c:TextView CssClass="NameTV" Text="Test service"/>
-          <c:TextView CssClass="PriceTV" Text="2xTest"/>
-        </c:VerticalLayout>
-        </c:HorizontalLayout>
+        <c:HorizontalLine CssClass="WideHL" />
 
-      <c:HorizontalLine CssClass="MiddleHL"/>
-
-      
-      <!-- Заканчивается здесь-->
-
-      <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddServiceAndMaterial_OnClick">
-        <c:HorizontalLayout CssClass="AddContainerHL">
-          <c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)"/>
-          <c:TextView CssClass="AddTV" Text="#add_service#"/>
-        </c:HorizontalLayout>
-      </c:VerticalLayout>
-
-      <c:HorizontalLine CssClass="WideHL" />
-      
-      <c:VerticalLayout Id="MaterialsInfoVL" CssClass="TotalPriceInfoVL">
-        <c:HorizontalLayout Id="MaterialsInfoHL" CssClass="TotalPriceInfoHL">
-          <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#materials#"/>
-          <c:TextView Id="RightInfoTV" CssClass="RightInfoTV" Text="• 12345"/>
-        </c:HorizontalLayout>
-      </c:VerticalLayout>
-
-      <c:HorizontalLine CssClass="WideHL" />
-
-      <!-- Итератор по услугам будет здесь-->
-      <c:HorizontalLayout CssClass="InfoNodeHL">
-        <!-- Красный круг с минусом -->
-        <c:VerticalLayout CssClass="InfoImageCondtainerVL">
-          <c:HorizontalLayout CssClass="InfoImageContainerHL">
-            <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)"/>
+        <c:VerticalLayout Id="MaterialsInfoVL" CssClass="TotalPriceInfoVL">
+          <c:HorizontalLayout Id="MaterialsInfoHL" CssClass="TotalPriceInfoHL">
+            <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#materials#" />
+            <c:TextView Id="RightInfoTV" CssClass="RightInfoTV" Text="•12345#currency#" />
           </c:HorizontalLayout>
         </c:VerticalLayout>
 
-        <!--Два TextView с информацией об услугах-->
-        <c:VerticalLayout CssClass="InfoTextContainerVL">
-          <c:TextView CssClass="NameTV" Text="Test service"/>
-          <c:TextView CssClass="PriceTV" Text="2xTest"/>
+        <c:HorizontalLine CssClass="WideHL" />
+
+        <!-- Итератор по услугам будет здесь-->
+        <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL">
+
+
+          <c:HorizontalLayout CssClass="InfoNodeHL">
+            <!-- Красный круг с минусом -->
+            <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
+              <c:HorizontalLayout CssClass="InfoImageContainerHL">
+                <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)" />
+              </c:HorizontalLayout>
+            </c:VerticalLayout>
+
+            <!--Два TextView с информацией об услугах-->
+            <c:VerticalLayout CssClass="InfoTextContainerVL" OnClick="EditServicesOrMaterials_OnClick">
+              <c:TextView CssClass="NameTV" Text="Test service" />
+              <c:TextView CssClass="PriceTV" Text="2xTest" />
+            </c:VerticalLayout>
+          </c:HorizontalLayout>
+
+          <c:VerticalLayout CssClass="DeleteButtonVL">
+            <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
+          </c:VerticalLayout>
+
+        </c:SwipeHorizontalLayout>
+        
+        
+        <c:HorizontalLine CssClass="MiddleHL" />
+
+
+        
+
+        <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddServiceOrMaterials_OnClick">
+          <c:HorizontalLayout CssClass="AddContainerHL">
+            <c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)" />
+            <c:TextView CssClass="AddTV" Text="#add_materials#" />
+          </c:HorizontalLayout>
         </c:VerticalLayout>
-       </c:HorizontalLayout>
 
-      <c:HorizontalLine CssClass="MiddleHL"/>
+        <c:HorizontalLine CssClass="WideHL" />
 
-      
-      <!-- Заканчивается здесь-->
-
-      <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddServiceAndMaterial_OnClick">
-        <c:HorizontalLayout CssClass="AddContainerHL">
-          <c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)"/>
-          <c:TextView CssClass="AddTV" Text="#add_materials#"/>
+        <c:HorizontalLayout CssClass="BottomContainerHL" OnClick="ApplicatioMaterials_OnClick">
+          <c:TextView CssClass="BottomTV" Text="#do_not_have_enough_material#" />
         </c:HorizontalLayout>
-      </c:VerticalLayout>
-
-      <c:HorizontalLine CssClass="WideHL" />
-      
-      <c:HorizontalLayout CssClass="BottomContainerHL">
-        <c:TextView CssClass="BottomTV" Text="#ne_hvataet_materiala#" />
-      </c:HorizontalLayout>
 
       </c:VerticalLayout>
     </c:ScrollView>
