@@ -106,6 +106,7 @@
     <Content Include="Screen\AddServicesOrMaterialsScreen.xml" />
     <Content Include="Screen\ApplicationMaterialsScreen.xml" />
     <Content Include="Screen\EditServicesOrMaterialsScreen.xml" />
+    <EmbeddedResource Include="Style\cocscreen_style.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
