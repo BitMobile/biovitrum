@@ -160,6 +160,11 @@ namespace Test
             return ((TextView) layout.Controls[2]).Text != "0";
         }
 
+        internal void GoToCOCScreen_OnClick(object sender, EventArgs e)
+        {
+            BusinessProcess.DoAction("COC");
+        }
+
         internal DbRecordset GetCurrentEvent()
         {
             object eventId;
