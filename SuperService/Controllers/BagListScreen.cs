@@ -9,38 +9,38 @@ namespace Test
 {
     public class BagListScreen : Screen
     {
-        private TabBarComponent _tabBarComponent;
+        private TabEventsComponent _tabEventsComponent;
 
         public override void OnLoading()
         {
-            _tabBarComponent = new TabBarComponent(this);
+            _tabEventsComponent = new TabEventsComponent(this);
             DConsole.WriteLine("BagListScreen init");
         }
 
         internal void TabEventsButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabBarComponent.Events_OnClick(sender, eventArgs);
+            _tabEventsComponent.Events_OnClick(sender, eventArgs);
             DConsole.WriteLine("Bag Events");
 
         }
 
         internal void TabBagButton_OnClick(object sender, EventArgs eventArgs)
         {
-            //_tabBarComponent.Bag_OnClick(sender, eventArgs);
+            //_tabEventsComponent.Bag_OnClick(sender, eventArgs);
             DConsole.WriteLine("Bag Bag");
 
         }
 
         internal void TabClientsButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabBarComponent.Clients_OnClick(sender, eventArgs);
+            _tabEventsComponent.Clients_OnClick(sender, eventArgs);
             DConsole.WriteLine("Bag Clients");
 
         }
 
         internal void TabSettingsButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabBarComponent.Settings_OnClick(sender, eventArgs);
+            _tabEventsComponent.Settings_OnClick(sender, eventArgs);
             DConsole.WriteLine("Bag Settings");
 
         }
@@ -48,11 +48,6 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
-        }
-
-        internal string GetResourceComponent(string tag)
-        {
-            return ResourceManager.GetComponent(tag);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -175,11 +176,6 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
-        }
-
-        internal string GetResourceComponent(string tag)
-        {
-            return ResourceManager.GetComponent(tag);
         }
 
         internal int SetResultName(string resultName)

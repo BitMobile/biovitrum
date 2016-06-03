@@ -8,7 +8,7 @@ namespace Test
 {
     public class ClientListScreen : Screen
     {
-        private TabBarComponent _tabBarComponent;
+        private TabEventsComponent _tabEventsComponent;
         private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
@@ -24,41 +24,36 @@ namespace Test
                 ExtraLayoutVisible = false
             };
 
-            _tabBarComponent = new TabBarComponent(this);
+            _tabEventsComponent = new TabEventsComponent(this);
         }
 
         internal void TabEventsButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabBarComponent.Events_OnClick(sender, eventArgs);
+            _tabEventsComponent.Events_OnClick(sender, eventArgs);
             DConsole.WriteLine("Clients Events");
         }
 
         internal void TabBagButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabBarComponent.Bag_OnClick(sender, eventArgs);
+            _tabEventsComponent.Bag_OnClick(sender, eventArgs);
             DConsole.WriteLine("Clients Bag");
         }
 
         internal void TabClientsButton_OnClick(object sender, EventArgs eventArgs)
         {
-            //_tabBarComponent.Clients_OnClick(sender, eventArgs);
+            //_tabEventsComponent.Clients_OnClick(sender, eventArgs);
             DConsole.WriteLine("Clients Clients");
         }
 
         internal void TabSettingsButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabBarComponent.Settings_OnClick(sender, eventArgs);
+            _tabEventsComponent.Settings_OnClick(sender, eventArgs);
             DConsole.WriteLine("Clients Settings");
         }
 
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
-        }
-
-        internal string GetResourceComponent(string tag)
-        {
-            return ResourceManager.GetComponent(tag);
         }
 
         internal void ClientLayout_OnClick(object sender, EventArgs eventArgs)

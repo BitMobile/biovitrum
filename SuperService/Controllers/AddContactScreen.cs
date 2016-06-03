@@ -15,15 +15,5 @@ namespace Test
         {
             BusinessProcess.DoAction("Client");
         }
-
-        internal string GetResourceImage(string tag)
-        {
-            return ResourceManager.GetImage(tag);
-        }
-
-        internal string GetResourceComponent(string tag)
-        {
-            return ResourceManager.GetComponent(tag);
-        }
     }
 }
