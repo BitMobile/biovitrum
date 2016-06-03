@@ -41,6 +41,6 @@ materials		Материалы
 add_service		Добавить услугу
 add_materials		Добавить материал
 do_not_have_enough_material		Не хватает материала?
-delete_question		Удалить?
+delete_question		Удалить
 currency		₽
 total		Итоговая сумма

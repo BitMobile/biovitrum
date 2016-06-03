@@ -22,10 +22,9 @@ namespace Test
                 LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
                 CommentTextView =
                 {
-                    Text = GetFormatString((double) _sums["Sum"])
+                    Text = GetFormatStringForSums((double) _sums["Sum"])
                 }
             };
-            DConsole.WriteLine(_topInfoComponent.CommentTextView.Text);
         }
 
         internal string GetResourceImage(string tag)
@@ -73,16 +72,18 @@ namespace Test
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
             var vl = (VerticalLayout) sender;
+            DBHelper.DeleteServiceOrMaterialById(vl.Id);
             var shl = (ISwipeHorizontalLayout3) vl.Parent;
             shl.CssClass = "NoHeight";
             shl.Refresh();
         }
 
-        private string GetFormatString(double number)
+        private string GetFormatStringForSums(double number)
         {
-            return number + Translator.Translate("currency");
+            return "\u2022" + Convert.ToDouble(number) + Translator.Translate("currency");
         }
 
+      
         internal DbRecordset GetSums()
         {
             object eventId;
@@ -91,9 +92,36 @@ namespace Test
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
 
-            DConsole.WriteLine((string) eventId);
-            _sums = DBHelper.GetCocSumsByEventId((string) eventId);
-            return _sums;
+           _sums = DBHelper.GetCocSumsByEventId((string) eventId);
+
+           return _sums;
+        }
+
+        internal DbRecordset GetServices()
+        {
+            object eventId;
+            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
+            {
+                DConsole.WriteLine("Can't find current event ID, going to crash");
+            }
+
+            return DBHelper.GetServicesByEventId((string) eventId);
+        }
+
+        private string Concat(float amountFact, float price)
+        {
+            return Convert.ToSingle(amountFact) + " x " + Convert.ToSingle(price);
+        }
+
+        internal DbRecordset GetMaterials()
+        {
+            object eventId;
+            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
+            {
+                DConsole.WriteLine("Can't find current event ID, going to crash");
+            }
+
+            return DBHelper.GetMaterialsByEventId((string) eventId);
         }
     }
 }
