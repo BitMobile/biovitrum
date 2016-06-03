@@ -8,6 +8,7 @@ namespace Test
         public override void OnLoading()
         {
             DConsole.WriteLine("Edit Services Or Materials Screen");
+            DConsole.WriteLine(BusinessProcess.GlobalVariables["currentServicesMaterialsId"].ToString());
         }
 
         internal void Back_OnClick(object sender, EventArgs e)

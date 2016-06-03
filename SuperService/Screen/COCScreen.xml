@@ -31,7 +31,7 @@
             </c:VerticalLayout>
 
             <!--Два TextView с информацией об услугах-->
-            <c:VerticalLayout CssClass="InfoTextContainerVL" OnClick="EditServicesOrMaterials_OnClick">
+            <c:VerticalLayout Id="$services.Id" CssClass="InfoTextContainerVL" OnClick="EditServicesOrMaterials_OnClick">
               <c:TextView CssClass="NameTV" Text="$services.Description" />
               <c:TextView CssClass="PriceTV" Text="$Concat($services.AmountFact, $services.Price)" />
             </c:VerticalLayout>
@@ -50,7 +50,7 @@
 
         <!-- Заканчивается здесь-->
 
-        <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddServiceOrMaterials_OnClick">
+        <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddService_OnClick">
           <c:HorizontalLayout CssClass="AddContainerHL">
             <c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)" />
             <c:TextView CssClass="AddTV" Text="#add_service#" />
@@ -81,7 +81,7 @@
             </c:VerticalLayout>
 
             <!--Два TextView с информацией об услугах-->
-            <c:VerticalLayout CssClass="InfoTextContainerVL" OnClick="EditServicesOrMaterials_OnClick">
+            <c:VerticalLayout Id="$materials.Id" CssClass="InfoTextContainerVL" OnClick="EditServicesOrMaterials_OnClick">
               <c:TextView CssClass="NameTV" Text="$materials.Description" />
               <c:TextView CssClass="PriceTV" Text="$Concat($materials.AmountFact, $materials.Price)" />
             </c:VerticalLayout>
@@ -100,7 +100,7 @@
 
         
 
-        <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddServiceOrMaterials_OnClick">
+        <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddMaterial_OnClick">
           <c:HorizontalLayout CssClass="AddContainerHL">
             <c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)" />
             <c:TextView CssClass="AddTV" Text="#add_materials#" />

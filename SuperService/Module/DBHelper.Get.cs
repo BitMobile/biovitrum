@@ -544,7 +544,7 @@ namespace Test
                                   "    Catalog_RIM " +
                                   "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   " where Catalog_RIM.Service = 0 and " +
-                                 // " Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  " Document_Event_ServicesMaterials.AmountFact != 0 and" +
                                   "    Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
@@ -573,7 +573,7 @@ namespace Test
                                   "    Catalog_RIM" +
                                   "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   " where Catalog_RIM.Service = 1 and " +
-                                  //" Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  " Document_Event_ServicesMaterials.AmountFact != 0 and" +
                                   "    Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();

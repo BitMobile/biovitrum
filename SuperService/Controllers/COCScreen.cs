@@ -13,7 +13,7 @@ namespace Test
 
         public override void OnLoading()
         {
-            GetSums();
+            DConsole.WriteLine("In to: " + nameof(OnLoading));
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = true,
@@ -25,6 +25,7 @@ namespace Test
                     Text = GetFormatStringForSums((double) _sums["Sum"])
                 }
             };
+            
         }
 
         internal string GetResourceImage(string tag)
@@ -45,13 +46,22 @@ namespace Test
         {
         }
 
-        internal void AddServiceOrMaterials_OnClick(object sender, EventArgs e)
+        internal void AddService_OnClick(object sender, EventArgs e)
         {
+            BusinessProcess.GlobalVariables["isService"] = true;
+            BusinessProcess.DoAction("AddServicesOrMaterials");
+        }
+
+        internal void AddMaterial_OnClick(object sender, EventArgs e)
+        {
+            BusinessProcess.GlobalVariables["isService"] = false;
             BusinessProcess.DoAction("AddServicesOrMaterials");
         }
 
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
         {
+            var vl = (VerticalLayout) sender;
+            BusinessProcess.GlobalVariables["currentServicesMaterialsId"] = vl.Id;
             BusinessProcess.DoAction("EditServicesOrMaterials");
         }
 
@@ -62,7 +72,7 @@ namespace Test
 
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
         {
-            //TODO: сделать выдвижение кнопки удаление.
+            //TODO: Обходной путь получения парента. Внимание!!!!! .
             var vl = (VerticalLayout) sender;
             var hl = (IHorizontalLayout3) vl.Parent;
             var shl = (ISwipeHorizontalLayout3) hl.Parent;
@@ -71,6 +81,7 @@ namespace Test
 
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
+            //TODO: Обходной путь получения парента. Внимание!!!!!.
             var vl = (VerticalLayout) sender;
             DBHelper.DeleteServiceOrMaterialById(vl.Id);
             var shl = (ISwipeHorizontalLayout3) vl.Parent;
@@ -91,7 +102,7 @@ namespace Test
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
-
+            DConsole.WriteLine("In to: " + nameof(GetSums));
            _sums = DBHelper.GetCocSumsByEventId((string) eventId);
 
            return _sums;
