@@ -4,13 +4,13 @@ using BitMobile.ClientModel3.UI;
 
 namespace Test.Components
 {
-    public class TabEventsComponent
+    public class TabBarComponent
     {
         private readonly Screen _parentScreen;
         private TextView _textView;
         private Image _image;
 
-        public TabEventsComponent(Screen parentScreen)
+        public TabBarComponent(Screen parentScreen)
         {
             _parentScreen = parentScreen;
             SwitchScreen(parentScreen);

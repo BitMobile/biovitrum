@@ -44,6 +44,11 @@ namespace Test
             return ResourceManager.GetImage(tag);
         }
 
+        internal string GetResourceComponent(string tag)
+        {
+            return ResourceManager.GetComponent(tag);
+        }
+
         internal void GoToAddContact_OnClick(object sender, EventArgs e)
         {
             BusinessProcess.DoAction("AddContact");

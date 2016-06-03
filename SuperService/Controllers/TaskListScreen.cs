@@ -86,5 +86,10 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
+
+        internal string GetResourceComponent(string tag)
+        {
+            return ResourceManager.GetComponent(tag);
+        }
     }
 }

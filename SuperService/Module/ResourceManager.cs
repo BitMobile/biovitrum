@@ -6,9 +6,12 @@ namespace Test
     public static class ResourceManager
     {
         private const string ImageNotFound = @"Image\not_found.png";
+        private const string ComponentNotFound = @"Components\NotFoundComponent.xml";
 
-        private static readonly Dictionary<string, object> Paths = new Dictionary<string, object>
+        private static readonly Dictionary<string, object> ImagesPaths = new Dictionary<string, object>
         {
+            {"notfound", ImageNotFound},
+            //
             {"tabbar_bag", @"Image\_Components\TabBar\Bag.png"},
             {"tabbar_bag_active", @"Image\_Components\TabBar\BagActive.png"},
             {"tabbar_clients", @"Image\_Components\TabBar\Clients.png"},
@@ -49,10 +52,24 @@ namespace Test
             {"longtext_close", @"Image\up_arrow_full_message.png"}
         };
 
+        private static readonly Dictionary<string, object> ComponentPaths = new Dictionary<string, object>
+        {
+            {"tabbar", @"Components\TabBarComponent.xml"},
+            {"topinfo", @"Components\TopInfoComponent.xml"}
+        };
+
+        public static string GetComponent(string tag)
+        {
+            object res;
+            if (ComponentPaths.TryGetValue(tag, out res)) return (string) res;
+            DConsole.WriteLine($"Component {tag} is not found in ResourceManager");
+            return ComponentNotFound;
+        }
+
         public static string GetImage(string tag)
         {
             object res;
-            if (!Paths.TryGetValue(tag, out res))
+            if (!ImagesPaths.TryGetValue(tag, out res))
             {
                 DConsole.WriteLine($"{tag} is not found in ResourceManager!");
                 return ImageNotFound;
