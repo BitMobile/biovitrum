@@ -13,41 +13,41 @@ namespace Test.Components
         public TabBarComponent(Screen parentScreen)
         {
             _parentScreen = parentScreen;
-            SwitchScreen(parentScreen);
+            SwitchActiveTab(parentScreen);
         }
 
-        internal void SwitchScreen(Screen parentScreen)
+        internal void SwitchActiveTab(Screen parentScreen)
         {
             DConsole.WriteLine(BusinessProcess.CurrentNode.Attributes?["Name"].Value);
             switch (BusinessProcess.CurrentNode.Attributes?["Name"].Value)
             {
                 case "EventList":
-                    _textView = (TextView)_parentScreen.GetControl("TextViewEvents", true);
-                    _image = (Image)parentScreen.GetControl("ImgEvents", true);
+                    _textView = (TextView)_parentScreen.GetControl("TabBarFirstTabTextView", true);
+                    _image = (Image)parentScreen.GetControl("TabBarFirstTabImage", true);
 
                     _textView.CssClass = "TabTextViewActive";
                     _image.Source = ResourceManager.GetImage("tabbar_events_active");
                     break;
 
                 case "Bag":
-                    _textView = (TextView)parentScreen.GetControl("TextViewBag", true);
-                    _image = (Image)parentScreen.GetControl("ImgBag", true);
+                    _textView = (TextView)parentScreen.GetControl("TabBarSecondTabTextView", true);
+                    _image = (Image)parentScreen.GetControl("TabBarSecondTabImage", true);
 
                     _textView.CssClass = "TabTextViewActive";
                     _image.Source = ResourceManager.GetImage("tabbar_bag_active");
                     break;
 
                 case "ClientList":
-                    _textView = (TextView)parentScreen.GetControl("TextViewClients", true);
-                    _image = (Image)parentScreen.GetControl("ImgClients", true);
+                    _textView = (TextView)parentScreen.GetControl("TabBarThirdTabTextView", true);
+                    _image = (Image)parentScreen.GetControl("TabBarThirdTabImage", true);
 
                     _textView.CssClass = "TabTextViewActive";
                     _image.Source = ResourceManager.GetImage("tabbar_clients_active");
                     break;
 
                 case "Settings":
-                    _textView = (TextView)parentScreen.GetControl("TextViewSettings", true);
-                    _image = (Image)parentScreen.GetControl("ImgSettings", true);
+                    _textView = (TextView)parentScreen.GetControl("TabBarFourthTabTextView", true);
+                    _image = (Image)parentScreen.GetControl("TabBarFourthTabImage", true);
 
                     _textView.CssClass = "TabTextViewActive";
                     _image.Source = ResourceManager.GetImage("tabbar_settings_active");

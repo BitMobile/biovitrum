@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <c:Component xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  <c:HorizontalLayout CssClass="TabBarHL">
+  <c:HorizontalLayout Id="TabBarLayout" CssClass="TabBarHL">
     
-    <c:VerticalLayout CssClass="TabBarVL" Id ="VLEvents" OnClick="TabEventsButton_OnClick">
-      <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_events)" Id ="ImgEvents"/>
-      <c:TextView Text="#orders#" CssClass="TabTextViewNotActive" Id ="TextViewEvents"/>
+    <c:VerticalLayout CssClass="TabBarVL" Id ="TabBarFirstTabButton" OnClick="TabBarFirstTabButton_OnClick">
+      <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_events)" Id ="TabBarFirstTabImage"/>
+      <c:TextView Text="#orders#" CssClass="TabTextViewNotActive" Id ="TabBarFirstTabTextView"/>
     </c:VerticalLayout>
     
-    <c:VerticalLayout CssClass="TabBarVL" Id ="VLBag" OnClick="TabBagButton_OnClick">
-      <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_bag)" Id ="ImgBag"/>
-      <c:TextView Text="#bag#" CssClass="TabTextViewNotActive" Id ="TextViewBag"/>
+    <c:VerticalLayout CssClass="TabBarVL" Id ="TabBarSecondTabButton" OnClick="TabBarSecondTabButton_OnClick">
+      <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_bag)" Id ="TabBarSecondTabImage"/>
+      <c:TextView Text="#bag#" CssClass="TabTextViewNotActive" Id ="TabBarSecondTabTextView"/>
     </c:VerticalLayout>
     
-    <c:VerticalLayout CssClass="TabBarVL" Id ="VLClients" OnClick="TabClientsButton_OnClick">
-      <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_clients)" Id ="ImgClients"/>
-      <c:TextView Text="#clients#" CssClass="TabTextViewNotActive" Id ="TextViewClients"/>
+    <c:VerticalLayout CssClass="TabBarVL" Id ="TabBarThirdButton" OnClick="TabBarThirdButton_OnClick">
+      <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_clients)" Id ="TabBarThirdTabImage"/>
+      <c:TextView Text="#clients#" CssClass="TabTextViewNotActive" Id ="TabBarThirdTabTextView"/>
     </c:VerticalLayout>
     
-    <c:VerticalLayout CssClass="TabBarVL" Id ="VLSettings" OnClick="TabSettingsButton_OnClick">
-      <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_settings)" Id ="ImgSettings"/>
-      <c:TextView Text="#settings#" CssClass="TabTextViewNotActive" Id ="TextViewSettings"/>
+    <c:VerticalLayout CssClass="TabBarVL" Id ="TabBarFourthButton" OnClick="TabBarFourthButton_OnClick">
+      <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_settings)" Id ="TabBarFourthTabImage"/>
+      <c:TextView Text="#settings#" CssClass="TabTextViewNotActive" Id ="TabBarFourthTabTextView"/>
     </c:VerticalLayout>
     
   </c:HorizontalLayout>

@@ -10,7 +10,7 @@ namespace Test
     {
         private ArrayList _eventsList;
         private ScrollView _svlEventList;
-        private TabEventsComponent _tabEventsComponent;
+        private TabBarComponent _tabBarComponent;
         private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
@@ -18,7 +18,7 @@ namespace Test
             DConsole.WriteLine("OnLoanding EventList");
             _svlEventList = (ScrollView) GetControl("EventListScrollView", true);
             _eventsList = GetEventsFromDb();
-            _tabEventsComponent = new TabEventsComponent(this);
+            _tabBarComponent = new TabBarComponent(this);
 
 
             _topInfoComponent = new TopInfoComponent(this)
@@ -233,27 +233,27 @@ namespace Test
             BusinessProcess.DoAction("ViewEvent");
         }
 
-        internal void TabEventsButton_OnClick(object sender, EventArgs eventArgs)
+        internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
-            //_tabEventsComponent.Events_OnClick(sender, eventArgs);
+            //_tabBarComponent.Events_OnClick(sender, eventArgs);
             DConsole.WriteLine("Settings Events");
         }
 
-        internal void TabBagButton_OnClick(object sender, EventArgs eventArgs)
+        internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabEventsComponent.Bag_OnClick(sender, eventArgs);
+            _tabBarComponent.Bag_OnClick(sender, eventArgs);
             DConsole.WriteLine("Settings Bag");
         }
 
-        internal void TabClientsButton_OnClick(object sender, EventArgs eventArgs)
+        internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabEventsComponent.Clients_OnClick(sender, eventArgs);
+            _tabBarComponent.Clients_OnClick(sender, eventArgs);
             DConsole.WriteLine("Settings Clients");
         }
 
-        internal void TabSettingsButton_OnClick(object sender, EventArgs eventArgs)
+        internal void TabBarFourthButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabEventsComponent.Settings_OnClick(sender, eventArgs);
+            _tabBarComponent.Settings_OnClick(sender, eventArgs);
             DConsole.WriteLine("Settings Settings");
         }
 
