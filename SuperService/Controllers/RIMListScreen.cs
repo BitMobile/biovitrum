@@ -10,11 +10,15 @@ namespace Test
     public class RIMListScreen : Screen
     {
         private TopInfoComponent _topInfoComponent;
+        private bool _isService;
 
         public override void OnLoading()
         {
 
-            DConsole.WriteLine("ClientListScreen init");
+            DConsole.WriteLine("RIMListScreen init");
+
+            string title = "";
+
 
             _topInfoComponent = new TopInfoComponent(this)
             {
@@ -36,13 +40,17 @@ namespace Test
             DConsole.WriteLine("RIMLayout_OnClick " + ((VerticalLayout)sender).Id);
             // TODO: Передача Id конкретной таски
             var rimID = ((VerticalLayout)sender).Id;
-            
 
+            object currentEventId;
+            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out currentEventId))
+            {
+                DConsole.WriteLine("Can't find current clientId, i'm crash.");
+            }
             //проверяем и добавляем 
-            DBHelper.GetEventServicesMaterialsLineByRIMID("" , rimID);
+            //var line = DBHelper.GetEventServicesMaterialsLineByRIMID((string)currentEventId, rimID);
 
 
-            BusinessProcess.DoAction("AddRIM");
+            //BusinessProcess.DoAction("AddRIM");
         }
 
 
@@ -51,23 +59,25 @@ namespace Test
             DConsole.WriteLine("получение позиций товаров и услуг");
 
             object isService;
-            if (BusinessProcess.GlobalVariables.TryGetValue("isService", out isService))
+            if (!BusinessProcess.GlobalVariables.TryGetValue("isService", out isService))
             {
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
 
+            _isService = (bool)isService;
             DbRecordset result = null;
-            if ((bool)isService)
+
+            if (_isService)
             { 
                 result = DBHelper.GetRIMByType(Enum.RIMType.Service);
+                DConsole.WriteLine("Получили услуги " + Enum.RIMType.Material);
             }else
             {
                 result = DBHelper.GetRIMByType(Enum.RIMType.Material);
+                DConsole.WriteLine("Получили товары " + Enum.RIMType.Material);
             }
-            DConsole.WriteLine("Получили товары и услуги");
-
+            
             return result;
         }
-
     }
 }

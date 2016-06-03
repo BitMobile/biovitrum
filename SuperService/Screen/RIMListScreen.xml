@@ -5,19 +5,20 @@
   <c:DockLayout CssClass="RootLayout">
 
     <!-- Добавление верхней панели -->
-    <s:Include File="Components\TopInfoComponent.xml" />
+    <s:Include File="Components\TopInfoComponent.xml"/>
     <!---->
    
     <!-- Список контактов -->
     <c:SwipeVerticalLayout CssClass="RIMListLayout">
-      <s:Iterator Id="RIM" Value="$GetRIM()">
-        <c:VerticalLayout Id="$RIM.Id" onClick="RIMLayout_OnClick" CssClass="RIMItemLayout">
-          <c:TextView Text="$RIM.Description" CssClass="RIMItemDescription"/>
-          <c:TextView Text="$RIM.Price" CssClass="RIMItemPrice"/>
+      <s:Iterator Id="rim" Value="$GetRIM()">       
+        <c:VerticalLayout Id="$rim.Id" onClick="RIMLayout_OnClick" CssClass="RIMItemLayout">
+          <c:TextView Text="$rim.Description" CssClass="RIMItemDescription"/>
+          <c:TextView Text="$rim.Price" CssClass="RIMItemPrice"/>
           <c:HorizontalLine CssClass="RIMBreaker" />
         </c:VerticalLayout>       
       </s:Iterator>
     </c:SwipeVerticalLayout>
+  
   </c:DockLayout>
 
 </c:Screen>

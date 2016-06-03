@@ -36,3 +36,5 @@ equipment		Оборудование
 task_finished		Работа выполнена
 task_refused		Не могу выполнить
 task		Задача
+rimService		Услуги
+rimMaterial		Материалы

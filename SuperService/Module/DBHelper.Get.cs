@@ -594,10 +594,14 @@ namespace Test
                                     "    Catalog_RIM " +
                                     "where " +
                                     "    deletionMark = 0 " +
-                                    "    and isFolder = 0 " +
-                                    "    and service = @rim_type");
+                                    "    and isFolder = 0 ");  
+                                    //"    and service = @rim_type");
 
-            query.AddParameter("rim_type", rimType);
+            DConsole.WriteLine("rimType = " + rimType);
+            if(rimType == RIMType.Material)
+                query.AddParameter("rim_type", 0);
+            else
+                query.AddParameter("rim_type", 1);
 
             return query.Execute();
         }
@@ -630,6 +634,18 @@ namespace Test
                                   "    Document_Event_ServicesMaterials.Ref = @EventDocRef " +
                                   "    and Document_Event_ServicesMaterials.SKU = @SKUID ");
 
+            query.AddParameter("EventDocRef", docEventID);
+            query.AddParameter("SKUID", RIMID);
+
+            var queryResult = query.Execute();
+
+            if (queryResult.Next())
+            {
+                result.ID = queryResult.GetString(0);
+                result.LineNumber = queryResult.GetInt32(1);
+                result.Ref = queryResult.GetString(2);
+                result.SKU = queryResult.GetString(3);
+            }
             return result;
         }
     }

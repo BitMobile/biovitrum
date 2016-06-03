@@ -66,7 +66,29 @@
     <Compile Include="Module\**" />
     <Compile Include="Objects\**" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Screen\**" />
+    <EmbeddedResource Include="Screen\AddContactScreen.xml" />
+    <EmbeddedResource Include="Screen\AuthScreen.xml" />
+    <EmbeddedResource Include="Screen\BagListScreen.xml" />
+    <EmbeddedResource Include="Screen\ClientListScreen.xml" />
+    <EmbeddedResource Include="Screen\ClientScreen.xml" />
+    <EmbeddedResource Include="Screen\CloseEventScreen.xml" />
+    <EmbeddedResource Include="Screen\EditContactScreen.xml" />
+    <EmbeddedResource Include="Screen\EventListScreen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Screen\EventScreen.xml" />
+    <EmbeddedResource Include="Screen\MapScreen.xml" />
+    <EmbeddedResource Include="Screen\RIMListScreen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Screen\SettingsScreen.xml" />
+    <EmbeddedResource Include="Screen\TaskListScreen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Screen\TaskScreen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Screen\TestScreen.xml" />
     <EmbeddedResource Include="Style\ClientListScreen.css" />
     <EmbeddedResource Include="Style\clientscreen_style.css" />
     <EmbeddedResource Include="Style\fancy.css" />
@@ -76,11 +98,9 @@
     <EmbeddedResource Include="Style\fancy_event.css" />
     <EmbeddedResource Include="Style\fancy_taskList.css" />
     <EmbeddedResource Include="Style\style.css" />
+    <EmbeddedResource Include="Style\RIMListScreen.css" />
     <EmbeddedResource Include="Style\TaskScreen.css" />
     <EmbeddedResource Include="Translation\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Style\RIMListScreen.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
