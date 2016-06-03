@@ -67,8 +67,20 @@
     <Compile Include="Objects\**" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Screen\**" />
-    <EmbeddedResource Include="Style\**" />
+    <EmbeddedResource Include="Style\ClientListScreen.css" />
+    <EmbeddedResource Include="Style\clientscreen_style.css" />
+    <EmbeddedResource Include="Style\fancy.css" />
+    <EmbeddedResource Include="Style\fancy2.css" />
+    <EmbeddedResource Include="Style\fancystyle.css" />
+    <EmbeddedResource Include="Style\fancy_closeeventscreen.css" />
+    <EmbeddedResource Include="Style\fancy_event.css" />
+    <EmbeddedResource Include="Style\fancy_taskList.css" />
+    <EmbeddedResource Include="Style\style.css" />
+    <EmbeddedResource Include="Style\TaskScreen.css" />
     <EmbeddedResource Include="Translation\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Style\RIMListScreen.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

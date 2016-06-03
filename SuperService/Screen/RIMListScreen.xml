@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+
+  <c:DockLayout CssClass="RootLayout">
+
+    <!-- Добавление верхней панели -->
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <!---->
+   
+    <!-- Список контактов -->
+    <c:SwipeVerticalLayout CssClass="RIMListLayout">
+      <s:Iterator Id="RIM" Value="$GetRIM()">
+        <c:VerticalLayout Id="$RIM.Id" onClick="RIMLayout_OnClick" CssClass="RIMItemLayout">
+          <c:TextView Text="$RIM.Description" CssClass="RIMItemDescription"/>
+          <c:TextView Text="$RIM.Price" CssClass="RIMItemPrice"/>
+          <c:HorizontalLine CssClass="RIMBreaker" />
+        </c:VerticalLayout>       
+      </s:Iterator>
+    </c:SwipeVerticalLayout>
+  </c:DockLayout>
+
+</c:Screen>

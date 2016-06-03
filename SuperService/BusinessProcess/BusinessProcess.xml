@@ -83,8 +83,9 @@
       <Action Name="ToApplication" NextStep="Authorization" />
     </Step>
   
-    <Step Name="RIMList" Controller="RIMListScreen" StyleSheet="Style\style.css">
-      <Action Name="BackToEventList" NextStep="EventList" />
+    <Step Name="RIMList" Controller="RIMListScreen" StyleSheet="Style\RIMListScreen.css">
+      <Action Name="AddRIM" NextStep="COCScreen" />
+      <!-- СТЕП ДЛЯ ПЕРЕХОДА В ЭКРАН РЕДАКТИРВОНиЯ количЕсТВА-->
     </Step>
   
   </Workflow>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using BitMobile.ClientModel3;
+using Test.Enum;
 
 //using Database = BitMobile.ClientModel3.Database;
 
@@ -635,5 +636,4 @@ namespace Test
 
 
 
-}
 }

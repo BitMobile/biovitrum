@@ -21,7 +21,7 @@
         </c:VerticalLayout>       
       </s:Iterator>
     </c:SwipeVerticalLayout>
-    <s:Include File="Components\TabBar.xml" />
+
   </c:DockLayout>
 
 </c:Screen>
