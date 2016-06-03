@@ -36,8 +36,6 @@ equipment		Equipment
 task_finished		Task finished
 task_refused		Can't complete
 task		Task
-rimService		Services
-rimMaterial		Material
 services		Services
 materials		Materials
 add_service		Add service

@@ -105,6 +105,7 @@
   <ItemGroup>
     <Content Include="Screen\AddServicesOrMaterialsScreen.xml" />
     <Content Include="Screen\ApplicationMaterialsScreen.xml" />
+    <EmbeddedResource Include="Screen\COCScreen.xml" />
     <Content Include="Screen\EditServicesOrMaterialsScreen.xml" />
     <EmbeddedResource Include="Style\cocscreen_style.css" />
   </ItemGroup>

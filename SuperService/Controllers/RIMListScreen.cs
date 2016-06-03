@@ -22,8 +22,8 @@ namespace Test
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                HeadingTextView = { Text = Translator.Translate("clients") },
-                LeftButtonImage = { Visible = false },
+                HeadingTextView = { Text = _isService?Translator.Translate("services"): Translator.Translate("materials") },
+                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
                 RightButtonImage = { Visible = false },
                 ExtraLayoutVisible = false
             };
@@ -33,6 +33,11 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
+        }
+
+        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
+        {
+            BusinessProcess.DoAction("ViewCOC");
         }
 
         internal void RIMLayout_OnClick(object sender, EventArgs eventArgs)

@@ -596,8 +596,8 @@ namespace Test
                                     "    Catalog_RIM " +
                                     "where " +
                                     "    deletionMark = 0 " +
-                                    "    and isFolder = 0 ");  
-                                    //"    and service = @rim_type");
+                                    "    and isFolder = 0 " +  
+                                    "    and service = @rim_type");
 
             DConsole.WriteLine("rimType = " + rimType);
             if(rimType == RIMType.Material)
