@@ -22,7 +22,8 @@ namespace Test
                 LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
                 CommentTextView =
                 {
-                    Text = GetFormatStringForSums((double) _sums["Sum"])
+                    Text = Translator.Translate("total") + Environment.NewLine + Convert.ToDouble((double)_sums["Sum"]) 
+                    + Translator.Translate("currency")
                 }
             };
             
