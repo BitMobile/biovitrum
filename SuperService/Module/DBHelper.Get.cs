@@ -576,5 +576,64 @@ namespace Test
             query.AddParameter("eventId", eventId);
             return query.Execute();
         }
+
+        /// <summary>
+        ///     Возвращает список материалов и услуг по указанному типу
+        /// </summary>
+        /// <param name="rimType">необходимый тип элементов работы и услуги</param>
+        /// <returns></returns>
+        public static DbRecordset GetRIMByType(RIMType rimType)
+        {
+            var query = new Query("select " +
+                                    "    id, " +
+                                    "    Description, " +
+                                    "    Price, " +
+                                    "    Unit " +
+                                    "from " +
+                                    "    Catalog_RIM " +
+                                    "where " +
+                                    "    deletionMark = 0 " +
+                                    "    and isFolder = 0 " +
+                                    "    and service = @rim_type");
+
+            query.AddParameter("rim_type", rimType);
+
+            return query.Execute();
+        }
+
+        /// <summary>
+        ///     Возвращает строку табличной части "услуги и материалы" документа Событие с указанным идентификатором номенклатуры.
+        ///     Используется для определения наличия в ТЧ документа номенклатуры с заданным ИД (проверка есть уже такая или нет)
+        /// </summary>
+        /// <param name="docEventID">Идентификатор документа событие</param>
+        /// <param name="rimType">Идентификатор искомого элемента справочинка Товары и услуги</param>
+        /// <returns>null - если в указанном документе нету номенклатуры с указанным идентификатором; 
+        /// Заполнненую структуру EventServicesMaterialsLine в случае если строка есть</returns>
+        public static EventServicesMaterialsLine GetEventServicesMaterialsLineByRIMID(string docEventID, string RIMID)
+        {
+            EventServicesMaterialsLine result = null;
+            var query = new Query("select " +
+                                  "    id, " +
+                                  "    LineNumber, " +
+                                  "    Ref, " +
+                                  "    SKU, " +
+                                  "    Price, " +
+                                  "    AmountPlan, " +
+                                  "    SumPlan, " +
+                                  "    AmountFact, " +
+                                  "    SumFact, " +
+                                  "    isDirty " +
+                                  "from " +
+                                  "    Document_Event_ServicesMaterials " +
+                                  "where " +
+                                  "    Document_Event_ServicesMaterials.Ref = @EventDocRef " +
+                                  "    and Document_Event_ServicesMaterials.SKU = @SKUID ");
+
+            return result;
+        }
     }
+
+
+
+}
 }
