@@ -4,7 +4,7 @@
   
   <c:VerticalLayout CssClass="RootLayout">
     <c:TextView Text="SettingsScreen here"/>
-    <s:Include File="Components\TabBarComponent.xml" />
+    <s:Include File="Components\TabBarСomponent.xml" />
   </c:VerticalLayout>
   
 </c:Screen>

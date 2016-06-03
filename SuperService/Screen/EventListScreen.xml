@@ -8,7 +8,7 @@
       <!---->
 
       <!-- Tap Bar-->
-      <s:Include File="Components\TabBarComponent.xml" />
+      <s:Include File="Components\TabBarСomponent.xml" />
       
       <!--Список для нарядов-->
       <c:ScrollView Id="EventListScrollView" CssClass="SWL" />

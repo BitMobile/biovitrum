@@ -7,7 +7,7 @@
     <c:EditText Id="passwordEditText" Placeholder="Введите пароль" CssClass = "PasswordEditText"/>
     <c:Button Id="connectButton" Text="Подключиться" OnClick="connectButton_OnClick" CssClass = "AuthScreenButton"/>
     <c:Button Id="exitButton" Text="Выход" OnClick="exitButton_OnClick" CssClass = "AuthScreenButton"/>
-    <!--<s:Include File="Components\TabBarComponent.xml" />-->
+    <!--<s:Include File="Components\TabBarСomponent.xml" />-->
   </c:VerticalLayout>
   
 </c:Screen>
