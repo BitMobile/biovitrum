@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<c:Component xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:HorizontalLayout Id="TabBarLayout" CssClass="TabBarHL">
+    
+    <c:VerticalLayout CssClass="TabBarVL" Id ="TabBarFirstTabButton" OnClick="TabBarFirstTabButton_OnClick">
+      <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_events)" Id ="TabBarFirstTabImage"/>
+      <c:TextView Text="#orders#" CssClass="TabTextViewNotActive" Id ="TabBarFirstTabTextView"/>
+    </c:VerticalLayout>
+    
+    <c:VerticalLayout CssClass="TabBarVL" Id ="TabBarSecondTabButton" OnClick="TabBarSecondTabButton_OnClick">
+      <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_bag)" Id ="TabBarSecondTabImage"/>
+      <c:TextView Text="#bag#" CssClass="TabTextViewNotActive" Id ="TabBarSecondTabTextView"/>
+    </c:VerticalLayout>
+    
+    <c:VerticalLayout CssClass="TabBarVL" Id ="TabBarThirdButton" OnClick="TabBarThirdButton_OnClick">
+      <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_clients)" Id ="TabBarThirdTabImage"/>
+      <c:TextView Text="#clients#" CssClass="TabTextViewNotActive" Id ="TabBarThirdTabTextView"/>
+    </c:VerticalLayout>
+    
+    <c:VerticalLayout CssClass="TabBarVL" Id ="TabBarFourthButton" OnClick="TabBarFourthButton_OnClick">
+      <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_settings)" Id ="TabBarFourthTabImage"/>
+      <c:TextView Text="#settings#" CssClass="TabTextViewNotActive" Id ="TabBarFourthTabTextView"/>
+    </c:VerticalLayout>
+    
+  </c:HorizontalLayout>
+</c:Component>
