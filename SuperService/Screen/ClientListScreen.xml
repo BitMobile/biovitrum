@@ -9,7 +9,7 @@
     <!---->
 
     <!-- Tap Bar-->
-    <s:Include File="Components\TabBar.xml" />
+    <s:Include File="Components\TabBarComponent.xml" />
    
     <!-- Список контактов -->
     <c:SwipeVerticalLayout CssClass="ClientListLayout">
@@ -21,7 +21,7 @@
         </c:VerticalLayout>       
       </s:Iterator>
     </c:SwipeVerticalLayout>
-    <s:Include File="Components\TabBar.xml" />
+    <s:Include File="Components\TabBarComponent.xml" />
   </c:DockLayout>
 
 </c:Screen>
