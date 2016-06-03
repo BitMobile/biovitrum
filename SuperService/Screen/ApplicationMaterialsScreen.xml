@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  
   <c:VerticalLayout CssClass="RootLayout">
-    <c:TextView Text="SettingsScreen here"/>
-    <s:Include File="Components\TabBarСomponent.xml" />
+    <c:TextView Text="ApplicationMaterialsScreen"/>
+    <c:Button Text="Back" OnClick="Back_OnClick"/>
   </c:VerticalLayout>
-  
 </c:Screen>

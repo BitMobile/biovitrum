@@ -9,7 +9,7 @@
     <!---->
 
     <!-- Tap Bar-->
-    <s:Include File="Components\TabBar.xml" />
+    <s:Include File="Components\TabBarСomponent.xml" />
    
     <!-- Список контактов -->
     <c:SwipeVerticalLayout CssClass="ClientListLayout">

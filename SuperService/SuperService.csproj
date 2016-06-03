@@ -102,6 +102,11 @@
     <EmbeddedResource Include="Style\TaskScreen.css" />
     <EmbeddedResource Include="Translation\**" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Screen\AddServicesOrMaterialsScreen.xml" />
+    <Content Include="Screen\ApplicationMaterialsScreen.xml" />
+    <Content Include="Screen\EditServicesOrMaterialsScreen.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)..\SDK\BitMobileSDK\BitMobileSDK.exe $(TargetPath)

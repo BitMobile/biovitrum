@@ -46,7 +46,10 @@ namespace Test
             {"clientscreen_plus", @"Image\ClientScreen\Plus.png"},
             //
             {"longtext_expand", @"Image\down_arrow_full_message.png"},
-            {"longtext_close", @"Image\up_arrow_full_message.png"}
+            {"longtext_close", @"Image\up_arrow_full_message.png"},
+            //COC Screen
+            {"cocscreen_delete", @"Image\COCScreen\delete_img.png"},
+            {"cocscreen_plus", @"Image\COCScreen\plus_img.png"},
         };
 
         public static string GetImage(string tag)

@@ -31,12 +31,17 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("ViewEvent");
+            BusinessProcess.DoAction("ClientList");
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
             BusinessProcess.DoAction("EditContact");
+        }
+
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
+        {
+
         }
 
         internal string GetResourceImage(string tag)

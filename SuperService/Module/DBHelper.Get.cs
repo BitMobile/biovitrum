@@ -509,12 +509,12 @@ namespace Test
         {
             var query = new Query("select " +
                                   "    sum(SumFact) as Sum, " +
-                                  "    sum(case when Service = 0 then SumFact else 0 end) as SumMaterials " +
+                                  "    sum(case when Service = 0 then SumFact else 0 end) as SumMaterials, " +
                                   "    sum(case when Service = 1 then SumFact else 0 end) as SumServices " +
                                   "from " +
-                                  "    Document_Event_ServicesMaterials join" +
-                                  "    Catalog_RIM" +
-                                  "        on Document_Event_ServicesMaterials.SKU == Catalog_RIM.Id" +
+                                  "    Document_Event_ServicesMaterials join " +
+                                  "    Catalog_RIM " +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   "where Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
@@ -539,12 +539,13 @@ namespace Test
                                   "    SumFact," +
                                   "    Description," +
                                   "    Code," +
-                                  "    Unit" +
+                                  "    Unit " +
                                   "from" +
-                                  "    Document_Event_ServicesMaterials join" +
-                                  "    Catalog_RIM" +
-                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id" +
-                                  "where Catalog_RIM.Service = 0 and Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  "    Document_Event_ServicesMaterials join " +
+                                  "    Catalog_RIM " +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  " where Catalog_RIM.Service = 0 and " +
+                                  " Document_Event_ServicesMaterials.AmountFact != 0 and" +
                                   "    Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
@@ -567,12 +568,13 @@ namespace Test
                                   "    SumFact," +
                                   "    Description," +
                                   "    Code," +
-                                  "    Unit" +
+                                  "    Unit " +
                                   "from" +
-                                  "    Document_Event_ServicesMaterials join" +
+                                  "    Document_Event_ServicesMaterials join " +
                                   "    Catalog_RIM" +
-                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id" +
-                                  "where Catalog_RIM.Service = 0 and Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  " where Catalog_RIM.Service = 1 and " +
+                                  " Document_Event_ServicesMaterials.AmountFact != 0 and" +
                                   "    Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
