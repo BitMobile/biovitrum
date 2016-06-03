@@ -54,10 +54,10 @@
               <c:VerticalLayout CssClass="CheckListAnswerLayout" Id ="$CheckList.CheckListId">
                 <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListValList_OnClick">
                   <s:If Test="$IsNotEmptyString($CheckList.Result)">
-                    <c:TextView Visible = "true" Text ="$CheckList.Result"/>
+                    <c:TextView Visible = "true" Text ="$CheckList.Result" Id="$CheckList.ActionId"/>
                   </s:If>
                   <s:Else>
-                    <c:TextView Visible = "true" Text ="#not_choosed#"/>
+                    <c:TextView Visible = "true" Text ="#not_choosed#" Id="$CheckList.ActionId"/>
                   </s:Else>
                 </c:HorizontalLayout>
               </c:VerticalLayout>
@@ -73,12 +73,12 @@
           
               <c:VerticalLayout CssClass="CheckListAnswerLayout" Id ="$CheckList.CheckListId">
                 <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListDateTime_OnClick">
-                  <!--<s:If Test="$IsNotEmptyString($CheckList.Result)">
+                  <s:If Test="$IsNotEmptyString($CheckList.Result)">
                     <c:TextView Visible = "true" Text ="$CheckList.Result"/>
                   </s:If>
                   <s:Else>
                     <c:TextView Visible = "true" Text ="#not_specified#"/>
-                  </s:Else>-->
+                  </s:Else>
                 </c:HorizontalLayout>
               </c:VerticalLayout>
             </s:If>

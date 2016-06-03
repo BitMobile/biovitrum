@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Common.Controls;
 
 namespace Test
 {
@@ -23,10 +24,6 @@ namespace Test
 
         // Для списка и даты
         private TextView _textView;
-
-        //Для опертивного обновления css'ки индикатора обязательности
-        private VerticalLayout _vlRequired;
-        // TODO: Не можем получить Parent (для смены индикатора обязательности сразу после ввода значения в ответ)
 
         public override void OnLoading()
         {
@@ -70,6 +67,7 @@ namespace Test
             DConsole.WriteLine("File Exists: " + FileSystem.Exists(_pathToImg));
 
             _imgToReplace.Source = _pathToImg;
+            _imgToReplace.Refresh();
         }
 
         // Список
@@ -78,20 +76,28 @@ namespace Test
             _currentCheckListItemID = ((HorizontalLayout) sender).Id;
             _textView = (TextView) ((HorizontalLayout) sender).GetControl(0);
 
+            DConsole.WriteLine("1");
             var items = new Dictionary<object, string>();
-            var temp = DBHelper.GetActionValuesList(((HorizontalLayout) sender).Id);
+            DConsole.WriteLine(_currentCheckListItemID);
+            var temp = DBHelper.GetActionValuesList(_textView.Id);
+            DConsole.WriteLine("2");
             while (temp.Next())
             {
+                DConsole.WriteLine(@"temp['Id'].ToString(): " + temp["Id"].ToString());
+                DConsole.WriteLine(@"temp['Val'].ToString(): " + temp["Val"].ToString());
+
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
             }
-
+            DConsole.WriteLine("3");
             Dialog.Choose("Выберите вариант", items, ValListCallback);
         }
 
         internal void ValListCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
         {
+            DConsole.WriteLine("4");
             _textView.Text = args.Result.Value;
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _textView.Text);
+            DConsole.WriteLine("5B");
         }
 
         // Дата
@@ -133,6 +139,22 @@ namespace Test
             _editText = (EditText) sender;
             _currentCheckListItemID = ((EditText) sender).Id;
 
+            //var vl1 = (IHorizontalLayout3)_editText.Parent;
+            //var hl = (IVerticalLayout3)vl1.Parent;
+            //var vl2 = (IHorizontalLayout3)hl.Parent;
+            //var vltarget = (IVerticalLayout3)vl2.Controls[0];
+
+            //if (_editText.Text.Length > 0)
+            //{
+            //    vltarget.CssClass = "VLRequiredDone";
+            //    vltarget.Refresh();
+            //}
+            //else
+            //{
+            //    vltarget.CssClass = "VLRequired";
+            //    vltarget.Refresh();
+            //}
+
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _editText.Text);
         }
 
@@ -142,6 +164,31 @@ namespace Test
             _editText = (EditText) sender;
             _currentCheckListItemID = ((EditText) sender).Id;
 
+            var vl = (IVerticalLayout3)_editText.Parent;
+            var hl = (IHorizontalLayout3)vl.Parent;
+            var vltarget = (IVerticalLayout3) hl.Controls[0];
+
+
+            //DConsole.WriteLine("CSS" + _editText.CssClass.ToString());
+
+            //if (_editText.CssClass == "BVLRequiredDone"  || _editText.CssClass == "VLRequired")
+            //{
+            //    DConsole.WriteLine("1");
+            //    if (_editText.Text.Length > 0)
+            //    {
+            //        DConsole.WriteLine("2");
+            //        vltarget.CssClass = "VLRequiredDone";
+            //        vltarget.Refresh();
+            //    }
+            //    else
+            //    {
+            //        DConsole.WriteLine("3");
+            //        vltarget.CssClass = "VLRequired";
+            //        vltarget.Refresh();
+            //    }
+            //}
+            // TODO: Непонятное поведение Refresh(), из-за чего не можем оперативно сменить индикатор важности
+            DConsole.WriteLine("4");
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _editText.Text);
         }
 
