@@ -121,7 +121,7 @@ namespace Test
             DConsole.WriteLine("5B");
         }
 
-        // TODO: при загрузки данных из БД (в xml) приводить DateTime в просто Date
+        // TODO: при загрузке данных из БД (в xml) приводить DateTime в просто Date
         // Дата
         internal void CheckListDateTime_OnClick(object sender, EventArgs e)
         {
@@ -216,7 +216,7 @@ namespace Test
             //        vltarget.Refresh();
             //    }
             //}
-            // TODO: Непонятное поведение Refresh(), из-за чего не можем оперативно сменить индикатор важности. Работает на android 6, не работает на android 4
+            // TODO: Непонятное поведение Refresh(), из-за чего не можем оперативно сменить индикатор важности. Работает на android 4, не работает на android 6
             DConsole.WriteLine("4");
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _editText.Text);
         }
