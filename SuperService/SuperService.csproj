@@ -47,8 +47,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,52 +57,36 @@
   <ItemGroup>
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
     <EmbeddedResource Include="Components\**" />
+    <Compile Include="Controllers\AddContactScreen.cs" />
+    <Compile Include="Controllers\AddServicesOrMaterialsScreen.cs" />
+    <Compile Include="Controllers\ApplicationMaterialsScreen.cs" />
     <Compile Include="Controllers\AuthScreen.cs" />
     <Compile Include="Controllers\BagListScreen.cs" />
     <Compile Include="Controllers\CheckListScreen.cs" />
     <Compile Include="Controllers\ClientListScreen.cs" />
     <Compile Include="Controllers\ClientScreen.cs" />
     <Compile Include="Controllers\CloseEventScreen.cs" />
-    <Compile Include="Controllers\Components\TabEventsComponent.cs" />
+    <Compile Include="Controllers\COCScreen.cs" />
+    <Compile Include="Controllers\Components\TabBarComponent.cs" />
     <Compile Include="Controllers\Components\TopInfoComponent.cs" />
+    <Compile Include="Controllers\EditScreen.cs" />
+    <Compile Include="Controllers\EditServicesOrMaterialsScreen.cs" />
     <Compile Include="Controllers\EventListScreen.cs" />
     <Compile Include="Controllers\EventScreen.cs" />
     <Compile Include="Controllers\MapScreen.cs" />
     <Compile Include="Controllers\SettingsScreen.cs" />
     <Compile Include="Controllers\TaskListScreen.cs" />
     <Compile Include="Controllers\TaskScreen.cs" />
+    <Compile Include="Controllers\TestScreen.cs" />
     <Compile Include="Entities\**" />
     <EmbeddedResource Include="Image\**" />
     <EmbeddedResource Include="Model\metadata.xml" />
     <Compile Include="Module\**" />
     <Compile Include="Objects\**" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Screen\AuthScreen.xml" />
-    <EmbeddedResource Include="Screen\BagListScreen.xml" />
-    <EmbeddedResource Include="Screen\CheckListScreen.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Screen\ClientListScreen.xml" />
-    <EmbeddedResource Include="Screen\ClientScreen.xml" />
-    <EmbeddedResource Include="Screen\CloseEventScreen.xml" />
-    <EmbeddedResource Include="Screen\EventListScreen.xml" />
-    <EmbeddedResource Include="Screen\EventScreen.xml" />
-    <EmbeddedResource Include="Screen\MapScreen.xml" />
-    <EmbeddedResource Include="Screen\SettingsScreen.xml" />
-    <EmbeddedResource Include="Screen\TaskListScreen.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Screen\TaskScreen.xml" />
+    <EmbeddedResource Include="Screen\**" />
     <EmbeddedResource Include="Style\**" />
     <EmbeddedResource Include="Translation\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Screen\AddServicesOrMaterialsScreen.xml" />
-    <Content Include="Screen\ApplicationMaterialsScreen.xml" />
-    <Content Include="Screen\EditServicesOrMaterialsScreen.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Image\Photo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

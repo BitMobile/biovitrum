@@ -3,12 +3,14 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
     
-    <c:HorizontalLayout CssClass="TopLayout"> 
+    <!--<c:HorizontalLayout CssClass="TopLayout"> 
       <c:VerticalLayout Id="BackButton" CssClass="TopButton" OnClick="BackButton_OnClick">
         <c:Image Source="Image\top_back.png" CssClass="BackButton" />
       </c:VerticalLayout>
       <c:TextView Text="#clist#" CssClass="TopHeading" Id="HeadingTextView" />
-    </c:HorizontalLayout>
+    </c:HorizontalLayout>-->
+
+    <s:Include File="Components\TopInfoComponent.xml" />
 
     <c:SwipeVerticalLayout CssClass="SVLMain">
       
@@ -38,7 +40,7 @@
               
               <c:VerticalLayout CssClass="CheckListAnswerLayout" Id ="$CheckList.CheckListId">
                 <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListSnapshot_OnClick">
-                  <c:Image Source="Image\Photo.png" Id ="$CheckList.CheckListId"/>
+                  <c:Image Source="$GetResourceImage(checklist_photo)" Id ="$CheckList.CheckListId"/>
                 </c:HorizontalLayout>
               </c:VerticalLayout>
             </s:If>

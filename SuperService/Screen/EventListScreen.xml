@@ -7,7 +7,7 @@
       <s:Include File="Components\TopInfoComponent.xml" />
       <!---->
 
-      <!-- Tap Bar-->
+      <!-- Tab Bar-->
       <s:Include File="Components\TabBarСomponent.xml" />
       
       <!--Список для нарядов-->

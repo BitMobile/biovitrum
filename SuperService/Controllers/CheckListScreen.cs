@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
+using Test.Components;
 
 namespace Test
 {
     public class CheckListScreen : Screen
     {
+        private TopInfoComponent _topInfoComponent;
+
         // Для булева
         private CheckBox _checkBox;
         // Для обновления
@@ -28,6 +31,26 @@ namespace Test
         public override void OnLoading()
         {
             DConsole.WriteLine("CheckListScreen init");
+            _topInfoComponent = new TopInfoComponent(this)
+            {
+                ExtraLayoutVisible = false,
+                HeadingTextView = { Text = Translator.Translate("clist") },
+                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
+                RightButtonImage = { Visible = false}
+            };
+        }
+
+        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
+        {
+            BusinessProcess.DoAction("BackToEvent");
+        }
+
+        internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
+        {
         }
 
         // Камера
@@ -100,17 +123,19 @@ namespace Test
             DConsole.WriteLine("5B");
         }
 
+        // TODO: при загрузки данных из БД (в xml) приводить DateTime в просто Date
         // Дата
         internal void CheckListDateTime_OnClick(object sender, EventArgs e)
         {
             _currentCheckListItemID = ((HorizontalLayout) sender).Id;
             _textView = (TextView) ((HorizontalLayout) sender).GetControl(0);
+
             Dialog.DateTime(@"Выберите дату", DateTime.Now, DateCallback);
         }
 
         internal void DateCallback(object state, ResultEventArgs<DateTime> args)
         {
-            _textView.Text = args.Result.ToString();
+            _textView.Text = args.Result.Date.Date.ToString("d");
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _textView.Text);
         }
 
@@ -212,6 +237,11 @@ namespace Test
         internal bool IsNotEmptyString(string item)
         {
             return !(string.IsNullOrEmpty(item) && string.IsNullOrWhiteSpace(item));
+        }
+
+        internal string GetResourceImage(string tag)
+        {
+            return ResourceManager.GetImage(tag);
         }
     }
 }

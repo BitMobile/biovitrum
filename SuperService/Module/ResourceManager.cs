@@ -50,6 +50,8 @@ namespace Test
             //COC Screen
             {"cocscreen_delete", @"Image\COCScreen\delete_img.png"},
             {"cocscreen_plus", @"Image\COCScreen\plus_img.png"},
+            //CheckList Screen
+            {"checklist_photo", @"Image\CheckList\TakePhoto.png"},
         };
 
         public static string GetImage(string tag)
