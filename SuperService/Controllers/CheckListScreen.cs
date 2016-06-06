@@ -3,15 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
-using BitMobile.Common.Controls;
 using Test.Components;
 
 namespace Test
 {
     public class CheckListScreen : Screen
     {
-        private TopInfoComponent _topInfoComponent;
-
         // Для булева
         private CheckBox _checkBox;
         // Для обновления
@@ -27,6 +24,7 @@ namespace Test
 
         // Для списка и даты
         private TextView _textView;
+        private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
@@ -34,9 +32,9 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = false,
-                HeadingTextView = { Text = Translator.Translate("clist") },
-                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
-                RightButtonImage = { Visible = false}
+                HeadingTextView = {Text = Translator.Translate("clist")},
+                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
+                RightButtonImage = {Visible = false}
             };
         }
 
@@ -106,8 +104,8 @@ namespace Test
             DConsole.WriteLine("2");
             while (temp.Next())
             {
-                DConsole.WriteLine(@"temp['Id'].ToString(): " + temp["Id"].ToString());
-                DConsole.WriteLine(@"temp['Val'].ToString(): " + temp["Val"].ToString());
+                DConsole.WriteLine(@"temp['Id'].ToString(): " + temp["Id"]);
+                DConsole.WriteLine(@"temp['Val'].ToString(): " + temp["Val"]);
 
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
             }
