@@ -164,14 +164,20 @@ namespace Test
             _editText = (EditText) sender;
             _currentCheckListItemID = ((EditText) sender).Id;
 
-            var vl = (IVerticalLayout3)_editText.Parent;
-            var hl = (IHorizontalLayout3)vl.Parent;
-            var vltarget = (IVerticalLayout3) hl.Controls[0];
+            //var vl = (IVerticalLayout3)_editText.Parent;
+            //var hl = (IHorizontalLayout3)vl.Parent;
+            //var vltarget = (IVerticalLayout3) hl.Controls[0];
+
+            //DConsole.WriteLine("CSS " + vltarget.CssClass.ToString());
 
 
-            //DConsole.WriteLine("CSS" + _editText.CssClass.ToString());
+            //vltarget.CssClass = "VLRequiredDone";
+            //DConsole.WriteLine("1");
+            //vltarget.Refresh();
 
-            //if (_editText.CssClass == "BVLRequiredDone"  || _editText.CssClass == "VLRequired")
+            //DConsole.WriteLine("CSS " + vltarget.CssClass.ToString());
+
+            //if (vltarget.CssClass == "VLRequiredDone" || vltarget.CssClass == "VLRequired")
             //{
             //    DConsole.WriteLine("1");
             //    if (_editText.Text.Length > 0)
@@ -187,7 +193,7 @@ namespace Test
             //        vltarget.Refresh();
             //    }
             //}
-            // TODO: Непонятное поведение Refresh(), из-за чего не можем оперативно сменить индикатор важности
+            // TODO: Непонятное поведение Refresh(), из-за чего не можем оперативно сменить индикатор важности. Работает на android 6, не работает на android 4
             DConsole.WriteLine("4");
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _editText.Text);
         }
