@@ -213,8 +213,7 @@ namespace Test
             query.AddParameter("AmountFact", line.AmountFact);
             query.AddParameter("SumFact", line.SumFact);
             query.Execute();
-
-
+            _db.Commit();
 
         }
     }

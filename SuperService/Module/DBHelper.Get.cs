@@ -647,7 +647,13 @@ namespace Test
                 result.LineNumber = queryResult.GetInt32(1);
                 result.Ref = queryResult.GetString(2);
                 result.SKU = queryResult.GetString(3);
+                result.Price = queryResult.GetDouble(4);
+                result.AmountPlan = queryResult.GetDouble(5);
+                result.SumPlan = queryResult.GetDouble(6);
+                result.AmountPlan = queryResult.GetDouble(7);
+                result.SumFact = queryResult.GetDouble(8);
             }
+
             return result;
         }
     }

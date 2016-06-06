@@ -97,7 +97,10 @@ namespace Test
 
       
         internal DbRecordset GetSums()
+
         {
+            DConsole.WriteLine("COC - GetSums()");
+
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
             {
@@ -111,6 +114,7 @@ namespace Test
 
         internal DbRecordset GetServices()
         {
+            DConsole.WriteLine("COC - GetServices()");
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
             {
@@ -127,6 +131,8 @@ namespace Test
 
         internal DbRecordset GetMaterials()
         {
+            DConsole.WriteLine("COC - GetMaterials()");
+
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
             {

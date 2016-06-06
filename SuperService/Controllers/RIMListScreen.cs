@@ -45,17 +45,44 @@ namespace Test
             DConsole.WriteLine("RIMLayout_OnClick " + ((VerticalLayout)sender).Id);
             // TODO: Передача Id конкретной таски
             var rimID = ((VerticalLayout)sender).Id;
+            double price = Double.Parse(((TextView)((VerticalLayout)sender).Controls[1]).Text);
+            DConsole.WriteLine("цена " + price);
 
             object currentEventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out currentEventId))
             {
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
-            //проверяем и добавляем 
-            //var line = DBHelper.GetEventServicesMaterialsLineByRIMID((string)currentEventId, rimID);
+            var line = DBHelper.GetEventServicesMaterialsLineByRIMID((string)currentEventId, rimID);
+            if (line == null)
+            {
+                DConsole.WriteLine("Позиция не найдена, просто добавлеям новую");
+                line = new EventServicesMaterialsLine();
+                line.Ref = (string)currentEventId;
+                line.SKU = rimID;
+                // TODO: Добавить получение цены
+                line.Price = price;
+                line.AmountPlan = 0;
+                line.SumPlan = 0;
+                line.AmountPlan = 1;
+                line.SumFact = line.AmountPlan * line.Price;
 
+                DBHelper.InsertEventServicesMaterialsLine(line);
 
-            //BusinessProcess.DoAction("AddRIM");
+                DConsole.WriteLine("Добавили");
+            }
+            else
+            {
+                DConsole.WriteLine("Позиция найдена, увеличим количество и обновим БД");
+                line.AmountFact += 1;
+                line.SumFact = line.Price * line.AmountFact;
+                DBHelper.UpdateEventServicesMaterialsLine(line);
+                DConsole.WriteLine("Обновили");
+            }
+
+            DConsole.WriteLine("Пытаемся перейти на экран АВР");
+            BusinessProcess.DoAction("RIMAdded");
+
         }
 
 

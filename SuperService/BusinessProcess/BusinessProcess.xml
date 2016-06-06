@@ -99,7 +99,7 @@
     </Step>
   
     <Step Name="RIMList" Controller="RIMListScreen" StyleSheet="Style\RIMListScreen.css">
-      <Action Name="AddRIM" NextStep="COCScreen" />
+      <Action Name="RIMAdded" NextStep="COC" />
       <Action Name="ViewCOC" NextStep="COC" />
       
       <!-- СТЕП ДЛЯ ПЕРЕХОДА В ЭКРАН РЕДАКТИРВОНиЯ количЕсТВА-->
