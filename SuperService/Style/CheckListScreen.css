@@ -1,0 +1,198 @@
+﻿/* ReSharper disable CssNotResolved */
+/* ReSharper disable Html.TagNotResolved */
+/* ReSharper disable InvalidValue */
+/* ReSharper disable RedundantUnits */
+/* ReSharper disable UnexpectedValue */
+
+
+body {
+	background-color: #ffffff;
+	height: 100%;
+	width: 100%;
+}
+
+TextView {
+	color: #51595b;
+	font: 2.5sp arial;
+	height: 3.5sp auto;
+	horizontal-align: center;
+	text-align: left;
+	vertical-align: center;
+	white-space: normal;
+	width: 100%;
+}
+
+EditText{
+  	color: #51595b;
+	font: 2.5sp arial;
+	height: 3.5sp auto;
+	horizontal-align: center;
+	text-align: left;
+	vertical-align: center;
+	white-space: normal;
+	width: 100%;
+}
+
+CheckBox {
+    width: 30%;
+    height: 50%;
+    /*margin-top: 25%;*/
+    margin-left: 30%;
+    vertical-align: center;
+    horizontal-align: center;
+}
+
+Image {
+    height: 50%;
+    color: #ffffff;
+    margin-left: 20%;
+    background-color: #ffffff;
+    horizontal-align: center;
+    vertical-align: center;
+}
+
+.SVLMain {
+	background-color: #ffffff;
+	height: 100%;
+	width: 100%;
+}
+
+.RootLayout {
+	background-color: #ffffff;
+	height: 100%;
+	width: 100%;
+}
+
+.TopLayout {
+	background-color: #4a4b5e;
+	height: 7sp auto;
+	padding-bottom: 2sp;
+	padding-top: 1sp;
+	width: 100%;
+}
+
+.TopButton {
+	background-color: #4a4b5e;
+	border-style: none;
+	border-width: 0px;
+	color: #ffffff;
+	font: 40% arial;
+	height: 100%;
+	selected-background: #64657e;
+	text-align: center;
+	width: 16%;
+}
+
+.BackButton {
+	height: 60%;
+	horizontal-align: center;
+	margin-top: 20%;
+}
+
+.TopHeading {
+	background-color: #4a4b5e;
+	border-style: none;
+	border-width: 0px;
+	color: #ffffff;
+	font: 40% arial;
+	height: 100%;
+	padding-top: 26%;
+	text-align: center;
+	width: 68%;
+}
+
+.CheckListItemLayout {
+	height: 8sp auto;
+	horizontal-align: center;
+	width: 100%;
+}
+
+.CheckListEditString {
+    margin-top: 2%;
+    margin-left: 3%;
+    color: #51595b;
+	font: 2.5sp arial;
+	height: 3.5sp auto;
+	horizontal-align: center;
+	text-align: left;
+	vertical-align: center;
+	white-space: normal;
+	width: 100%;
+}
+
+.CheckListStringLayout {
+    height: 100% auto;
+    vertical-align: center;
+	width: 100%;
+}
+.CheckListQuestionLayout {
+	/*height: 0% auto;*/
+    height: 100%;
+    vertical-align: center;
+	width: 70%;
+}
+
+.CheckListVLQuestionLayout {
+	height: 100%;
+    /*vertical-align: center;
+    horizontal-align: center;*/
+	width: 100%;
+}
+
+.CheckListAnswerLayout {
+	/*height: 0% auto;*/
+    height: 100%;
+    vertical-align: center;
+    horizontal-align: center;
+	width: 29%;
+}
+
+.CheckListVLAnswerLayout {
+	/*height: 0% auto;*/
+    height: 100%;
+    vertical-align: center;
+    horizontal-align: center;
+	width: 100%;
+}
+
+.CheckListDescription {
+    color: #4a4b5e;
+	font: 3sp arial;
+	margin-top: 2sp;
+    margin-left: 3%;
+	/*text-align: left;
+    vertical-align: center;*/
+}
+
+.CheckListName {
+    color: #4a4b5e;
+	font: 2sp arial;
+	margin-top: 1sp;
+    margin-left: 3%;
+	text-align: left;
+}
+
+.CheckListBreaker {
+	background-color: #f3f3f4;
+	height: 3px;
+	horizontal-align: center;
+	width: 95%;
+}
+
+.VLRequired {
+    background-color: #ff0000;
+    width: 1%;
+    height: 100% auto;
+}
+
+.VLRequiredDone {
+    background-color: #00cc00;
+    width: 1%;
+    height: 100% auto;
+}
+
+.VLNotRequired {
+    background-color: #ffffff;
+    width: 1%;
+    height: 100% auto;
+}
