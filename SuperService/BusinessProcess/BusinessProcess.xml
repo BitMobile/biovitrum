@@ -100,7 +100,7 @@
       <Action Name="COC" NextStep="COC"></Action>
     </Step>
 
-    <Step Name="ApplicationMaterials" Controller="ApplicationMaterialsScreen" StyleSheet="Style\style.css">
+    <Step Name="ApplicationMaterials" Controller="ApplicationMaterialsScreen" StyleSheet="Style\applicationmaterialsscreen_style.css">
       <Action Name="COC" NextStep="COC"></Action>
     </Step>
     
