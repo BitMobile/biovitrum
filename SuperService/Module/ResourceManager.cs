@@ -20,6 +20,8 @@ namespace Test
             //
             {"topinfo_downarrow", @"Image\_Components\TopInfoComponent\down_arrow_full_width.png"},
             {"topinfo_uparrow", @"Image\_Components\TopInfoComponent\up_arrow_full_width.png"},
+            {"topinfo_downnoarrow", @"Image\_Components\TopInfoComponent\down_noarrow_full_width.png"},
+            {"topinfo_upnoarrow", @"Image\_Components\TopInfoComponent\up_noarrow_full_width.png"},
             {"topinfo_extra_map", @"Image\top_map.png"},
             {"topinfo_extra_person", @"Image\top_person.png"},
             //
