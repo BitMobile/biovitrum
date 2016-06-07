@@ -6,7 +6,7 @@ namespace Test.Components
     public class TopInfoComponent
     {
         private readonly Screen _parentScreen;
-        private bool _bigArrowActive;
+        private bool _bigArrowActive = true;
         private bool _extraLayoutVisible;
         private bool _minimized = true;
 
