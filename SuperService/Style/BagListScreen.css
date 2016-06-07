@@ -34,25 +34,15 @@ EditText{
 	width: 100%;
 }
 
-CheckBox {
-	width: 30%;
-	height: 50%;
-	/*margin-top: 25%;*/
-	margin-left: 30%;
-	vertical-align: center;
-	horizontal-align: center;
+.RootLayout {
+	background-color: #ffffff;
+	height: 100%;
+	width: 100%;
 }
 
-/*Image {
-	height: 50%;
-	color: #ffffff;
-	margin-left: 20%;
-	background-color: #ffffff;
-	horizontal-align: center;
-	vertical-align: center;
-}*/
+/* End of Common */
 
-/* Top Info Component */
+/* Top Info Component style*/
 
 .TopInfoLayout {
 	background-color: #4a4b5e;
@@ -147,55 +137,9 @@ CheckBox {
 	color: #ffffff;
 }
 
-.SVLMain {
-	background-color: #ffffff;
-	height: 100%;
-	width: 100%;
-}
+/* End of Top Info Component style */
 
-.RootLayout {
-	background-color: #ffffff;
-	height: 100%;
-	width: 100%;
-}
-
-.TopLayout {
-	background-color: #4a4b5e;
-	height: 7sp auto;
-	padding-bottom: 2sp;
-	padding-top: 1sp;
-	width: 100%;
-}
-
-.TopButton {
-	background-color: #4a4b5e;
-	border-style: none;
-	border-width: 0px;
-	color: #ffffff;
-	font: 40% arial;
-	height: 100%;
-	selected-background: #64657e;
-	text-align: center;
-	width: 16%;
-}
-
-.BackButton {
-	height: 60%;
-	horizontal-align: center;
-	margin-top: 20%;
-}
-
-.TopHeading {
-	background-color: #4a4b5e;
-	border-style: none;
-	border-width: 0px;
-	color: #ffffff;
-	font: 40% arial;
-	height: 100%;
-	padding-top: 26%;
-	text-align: center;
-	width: 68%;
-}
+/* BagList style */
 
 .BagListMainLayout {
 	height: auto;
@@ -205,42 +149,42 @@ CheckBox {
 }
 
 .BagListItemLayout {
-	height: 6sp auto;
+	height: 0% auto;
 	horizontal-align: center;
 	width: 100%;
 }
 
 .BagListNameLayout {
-	/*height: 0% auto;*/
-	height: 100%;
+	height: 6sp auto;
 	vertical-align: center;
 	horizontal-align: center;
-	width: 60%;
+	width: 75%;
 }
 
 .BagListNameTextView {
+    width: 95%;
 	color: #4a4b5e;
 	font: 3sp arial;
 	margin-top: 1sp;
-	margin-left: 3%;
+	margin-left: 2sp;
 	text-align: left;
 	vertical-align: center;
 	horizontal-align: center;
 }
 
 .BagListAmountLayout {
-	/*height: 0% auto;*/
-	height: 100%;
+	height: 6sp auto;
 	vertical-align: center;
 	horizontal-align: right;
 	width: 25%;
 }
 
 .BagListAmountTextView {
+    width: 95%;
 	color: #8abf57;
 	font: 3sp arial;
 	margin-top: 1sp;
-	margin-left: 3%;
+	margin-right: 2sp;
 	text-align: right;
 	vertical-align: center;
 	horizontal-align: right;
@@ -252,6 +196,8 @@ CheckBox {
 	horizontal-align: center;
 	width: 95%;
 }
+
+/* End of BagList style */
 
 /* Tab Bar style */
 

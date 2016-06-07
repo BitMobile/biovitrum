@@ -34,14 +34,13 @@ EditText{
 	width: 100%;
 }
 
-CheckBox {
-	width: 30%;
-	height: 50%;
-	/*margin-top: 25%;*/
-	margin-left: 30%;
-	vertical-align: center;
-	horizontal-align: center;
+.RootLayout {
+	background-color: #ffffff;
+	height: 100%;
+	width: 100%;
 }
+
+/* End of Common */
 
 /* Top Info Component */
 
@@ -138,62 +137,7 @@ CheckBox {
 	color: #ffffff;
 }
 
-.SVLMain {
-	background-color: #ffffff;
-	height: 100%;
-	width: 100%;
-}
-
-.RootLayout {
-	background-color: #ffffff;
-	height: 100%;
-	width: 100%;
-}
-
-.TopLayout {
-	background-color: #4a4b5e;
-	height: 7sp auto;
-	padding-bottom: 2sp;
-	padding-top: 1sp;
-	width: 100%;
-}
-
-.TopButton {
-	background-color: #4a4b5e;
-	border-style: none;
-	border-width: 0px;
-	color: #ffffff;
-	font: 40% arial;
-	height: 100%;
-	selected-background: #64657e;
-	text-align: center;
-	width: 16%;
-}
-
-.BackButton {
-	height: 60%;
-	horizontal-align: center;
-	margin-top: 20%;
-}
-
-.TopHeading {
-	background-color: #4a4b5e;
-	border-style: none;
-	border-width: 0px;
-	color: #ffffff;
-	font: 40% arial;
-	height: 100%;
-	padding-top: 26%;
-	text-align: center;
-	width: 68%;
-}
-
-.MainLayout {
-	height: auto;
-	width: 100%;
-	margin-top: 1sp;
-	margin-bottom: 0sp;
-}
+/* End of Top Info Component */
 
 /* Tab Bar style */
 

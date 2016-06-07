@@ -34,11 +34,12 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            // TODO: Тут будет добавление заявки
+            // TODO: Добавление заявки на материал
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
+            // TODO: История заявкок на материалы
         }
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
