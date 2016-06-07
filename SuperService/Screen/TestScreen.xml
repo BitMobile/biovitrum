@@ -2,19 +2,6 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:DockLayout CssClass="RootLayout">
-    <s:Include File="Components\TabBarСomponent.xml" />
-    
-    <c:SwipeVerticalLayout Id="TextViewsLayout" CssClass="RootLayout">
-      <c:TextView Text="#test#" />
-      <c:TextView Text="#greeting#" />
-      <c:TextView Text="#back#" />
-      <c:TextView Text="#refuse#" />
-    </c:SwipeVerticalLayout>
-    <c:SwipeVerticalLayout Id="ButtonsLayout" CssClass="NoHeight">
-      <c:Button Text="#test#" />
-      <c:Button Text="#greeting#" />
-      <c:Button Text="#back#" />
-      <c:Button Text="#refuse#" />
-    </c:SwipeVerticalLayout>
+    <c:Button Text="123" OnClick="Button_OnClick" />
   </c:DockLayout>
 </c:Screen>

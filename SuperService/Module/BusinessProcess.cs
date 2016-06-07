@@ -26,9 +26,9 @@ namespace Test
             _doc.Load(Application.GetResourceStream("BusinessProcess.BusinessProcess.xml"));
             DConsole.WriteLine("Loaded BP.xml");
 
-            var firstStepName = _doc.DocumentElement?.ChildNodes[0].ChildNodes[0].Attributes?["Name"].Value;
-            MoveTo(firstStepName);
-//            MoveTo("Test");
+//            var firstStepName = _doc.DocumentElement?.ChildNodes[0].ChildNodes[0].Attributes?["Name"].Value;
+//            MoveTo(firstStepName);
+            MoveTo("EditServicesOrMaterials");
         }
 
         private static void MoveTo(string stepName, IDictionary<string, object> args = null)
