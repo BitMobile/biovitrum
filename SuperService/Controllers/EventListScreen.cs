@@ -69,7 +69,6 @@ namespace Test
                     if (orderInfoLayout != null)
                     {
                         orderInfoLayout.AddChild(new HorizontalLine {CssClass = "ClientHorizontalLine"});
-                        ;
                     }
 
                     FillEventList(ref isHeaderAdded, ref itemElement, ref orderInfoLayout);

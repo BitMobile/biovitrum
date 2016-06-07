@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+
+  <c:DockLayout CssClass="RootLayout">
+
+    <!-- Добавление верхней панели -->
+    <s:Include File="Components\TopInfoComponent.xml" />
+
+    
+  </c:DockLayout>
+</c:Screen>

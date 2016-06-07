@@ -27,7 +27,7 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            // TODO: История заявкок на материалы
+            BusinessProcess.DoAction("RequestHistory");
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)

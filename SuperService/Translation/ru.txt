@@ -47,3 +47,4 @@ total		Итоговая сумма
 not_choosed		Не выбрано..
 not_specified		Не указано
 text		Текст..
+requests		Заявки
