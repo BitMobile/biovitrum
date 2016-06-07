@@ -21,7 +21,7 @@
       <Action Name="ClientList" NextStep="ClientList"></Action>
     </Step>
     
-    <Step Name="Bag" Controller="BagListScreen" StyleSheet="Style\style.css">
+    <Step Name="Bag" Controller="BagListScreen" StyleSheet="Style\BagListScreen.css">
       <Action Name="EventList" NextStep="EventList"></Action>
       <!--      <Action Name="Bag" NextStep="Bag"></Action>-->
       <Action Name="Settings" NextStep="Settings"></Action>
@@ -35,7 +35,7 @@
       <Action Name="Settings" NextStep="Settings"></Action>
     </Step>
 
-    <Step Name="Settings" Controller="SettingsScreen" StyleSheet="Style\style.css">
+    <Step Name="Settings" Controller="SettingsScreen" StyleSheet="Style\SettingsScreen.css">
       <Action Name="EventList" NextStep="EventList"></Action>
       <Action Name="Bag" NextStep="Bag"></Action>
       <!--      <Action Name="Settings" NextStep="Settings"></Action>-->
