@@ -47,3 +47,6 @@ total		Итоговая сумма
 not_choosed		Не выбрано..
 not_specified		Не указано
 text		Текст..
+description_materialrequest_screen		Добавьте материалы, чтобы сформировать заявку
+add_material		Добавить материал
+request		Заявка

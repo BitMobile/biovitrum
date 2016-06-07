@@ -47,3 +47,6 @@ total		Total
 not_choosed		Not choosed..
 not_specified		Not specified
 text		Text..
+description_materialrequest_screen		Please add materials
+add_material	Add material
+request		Request

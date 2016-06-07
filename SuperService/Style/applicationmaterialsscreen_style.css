@@ -1,7 +1,7 @@
 ﻿/* ReSharper disable CssNotResolved */
 /* ReSharper disable Html.TagNotResolved */
 /* ReSharper disable InvalidValue */
-
+/*TODO: Переименовать в materialsrequestscreen*/
 
 body {
     background-color: #ffffff;
@@ -124,4 +124,36 @@ TextView {
 
 .TopInfoSideText { color: #ffffff; }
 
+/* ---------------------------------- */
+
+/* Materials Request Screen */
+
+
+.DescriptionMaterialsRequestTV {
+    color: #c7cdda;
+    font: 3sp arial;
+    height: 8sp;
+    horizontal-align: center;
+    text-align: center;
+    white-space: normal;
+    width: 80%;
+}
+
+.ButtonMaterialsRequestBtn {
+    border-color: #fd724c;
+    border-style: solid;
+    border-width: 3px;
+    color: #fd724c;
+    font: 3sp arial;
+    height: 8sp;
+    horizontal-align: center;
+    margin-top: 5%;
+    width: 90%;
+}
+
+.BigImageMaterialsRequestImg {
+    height: 3sp0;
+    horizontal-align: center;
+    margin-top: 10%;
+}
 /* ---------------------------------- */

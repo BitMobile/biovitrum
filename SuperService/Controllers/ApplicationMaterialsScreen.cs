@@ -5,21 +5,20 @@ using Test.Components;
 
 namespace Test
 {
-    // TODO: Экран Заявка на материалы
+    // TODO: Переименовать файл в MeterialsReuestScreen
     public class ApplicationMaterialsScreen : Screen
     {
+        private bool _isEmptyList = false;
         private TopInfoComponent _topInfoComponent;
-        private bool isEmptyApplicationData;
 
-        public override void OnLoading()
+       public override void OnLoading()
         {
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = false,
-                HeadingTextView = {Text = Translator.Translate("order")},
+                HeadingTextView = {Text = Translator.Translate("request") },
                 RightButtonImage = {Visible = false},
-                //Времмено срелка назад
-                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")}
+                LeftButtonImage = {Source = ResourceManager.GetImage("close")}
             };
         }
 
@@ -41,6 +40,11 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
+        }
+
+        internal bool GetIsEmptyList()
+        {
+            return _isEmptyList;
         }
     }
 }

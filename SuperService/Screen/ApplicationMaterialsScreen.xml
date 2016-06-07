@@ -1,7 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
+<!--TODO: Переименовать файл в MeterialsReuestScreen-->
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
-    <s:Include File="Components\TopInfoComponent.xml"/>
+    <s:Include File="Components\TopInfoComponent.xml" />
+
+    <s:If Test="$GetIsEmptyList()">
+      <!--TODO Добавить компонент Image-->
+      <c:Image CssClass="BigImageMaterialsRequestImg" Source="$GetResourceImage(basket)" />
+      <c:TextView CssClass="DescriptionMaterialsRequestTV" Text="#description_materialrequest_screen#" />
+      <c:Button CssClass="ButtonMaterialsRequestBtn" Text="#add_material#" />
+    </s:If>
+    <s:Else>
+        
+    </s:Else>
   </c:VerticalLayout>
 </c:Screen>

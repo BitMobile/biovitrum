@@ -52,6 +52,9 @@ namespace Test
             {"cocscreen_plus", @"Image\COCScreen\plus_img.png"},
             //CheckList Screen
             {"checklist_photo", @"Image\CheckList\TakePhoto.png"},
+            //Materials Request
+            {"close", @"Image\MaterialsRequest\close.png"},
+            {"basket", @"Image\MaterialsRequest\basket.png"}
         };
 
         public static string GetImage(string tag)
