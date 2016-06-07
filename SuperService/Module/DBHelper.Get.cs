@@ -155,6 +155,7 @@ namespace Test
                             "    event.ActualEndDate,  " + // фактическая дата конца
                             "    _Enum_StatusImportance.Description as Importance,  " + //важность
                             "    event.Comment,  " +
+                            //"    100500 as sumFact, " +
                             "    docSUm.sumFact,  " +
                             "    docCheckList.Total as checkListTotal,  " + //общее количество вопросов в чеклисте
                             "    docCheckList.Answered as checkListAnswered,  " +
@@ -207,7 +208,7 @@ namespace Test
                             "        left join _Enum_StatusImportance  " +
                             "           on event.Importance = _Enum_StatusImportance.Id  " +
                             "    " +
-                            "        left join (select Document_Event_ServicesMaterials.Ref, sum(SumFact) as sumFact from Document_Event_ServicesMaterials where Document_Event_ServicesMaterials.Ref = @id group by Document_Event_ServicesMaterials.Ref ) as docSum  " +
+                            "        left join (select _Document_Event_ServicesMaterials.Ref, sum(SumFact) as sumFact from _Document_Event_ServicesMaterials where _Document_Event_ServicesMaterials.Ref = @id group by _Document_Event_ServicesMaterials.Ref ) as docSum  " +
                             "           on event.id = docSUm.ref " +
                             "    " +
                             "        left join (select " +
