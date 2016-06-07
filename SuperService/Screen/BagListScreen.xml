@@ -10,25 +10,25 @@
     <!-- Tab Bar-->
     <s:Include File="Components\TabBarСomponent.xml" />
 
-    <!-- Список контактов -->
-    <c:SwipeVerticalLayout CssClass="ClientListLayout">
+    <c:SwipeVerticalLayout CssClass="BagListMainLayout">
       <!--<s:Iterator Id="client" Value="$GetClients()">-->
-      <c:HorizontalLayout>
-        <c:VerticalLayout CssClass="">
-          <c:TextView Text="test1" CssClass="ClientItemAddress"/>
+      
+      <c:HorizontalLayout CssClass ="BagListItemLayout">
+        <c:VerticalLayout CssClass="BagListNameLayout">
+          <c:TextView Text="Саморезы 25 мм" CssClass="BagListNameTextView"/>
         </c:VerticalLayout>
-        <c:VerticalLayout CssClass="">
-          <c:TextView Text="test2" CssClass="ClientItemAddress"/>
+        <c:VerticalLayout CssClass="BagListAmountLayout">
+          <c:TextView Text="10 уп." CssClass="BagListAmountTextView"/>
         </c:VerticalLayout>
       </c:HorizontalLayout>
       <c:HorizontalLine CssClass="BagListBreaker" />
 
-      <c:HorizontalLayout>
-        <c:VerticalLayout>
-          <c:TextView Text="test3" CssClass="ClientItemAddress"/>
+      <c:HorizontalLayout CssClass ="BagListItemLayout">
+        <c:VerticalLayout CssClass="BagListNameLayout">
+          <c:TextView Text="Сетевой кабель RJ-45" CssClass="BagListNameTextView"/>
         </c:VerticalLayout>
-        <c:VerticalLayout>
-          <c:TextView Text="tes4" CssClass="ClientItemAddress"/>
+        <c:VerticalLayout CssClass="BagListAmountLayout">
+          <c:TextView Text="30 м" CssClass="BagListAmountTextView"/>
         </c:VerticalLayout>
       </c:HorizontalLayout>
       <c:HorizontalLine CssClass="BagListBreaker" />
