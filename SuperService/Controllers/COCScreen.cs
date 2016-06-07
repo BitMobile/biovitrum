@@ -24,7 +24,8 @@ namespace Test
                 {
                     Text = Translator.Translate("total") + Environment.NewLine + Convert.ToDouble((double)_sums["Sum"]) 
                     + Translator.Translate("currency")
-                }
+                },
+                BigArrowActive = false
             };
             
         }
