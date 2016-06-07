@@ -22,6 +22,8 @@ namespace Test
 
             LoadControls();
             FillControls();
+
+            IsEmptyDateTime((string) _currentEventRecordset["ActualStartDate"]);
         }
 
         private void FillControls()
@@ -158,6 +160,16 @@ namespace Test
             // TODO: Сделать проверку более аккуратной?
             var layout = (HorizontalLayout) sender;
             return ((TextView) layout.Controls[2]).Text != "0";
+        }
+
+        internal void GoToCOCScreen_OnClick(object sender, EventArgs e)
+        {
+            BusinessProcess.DoAction("COC");
+        }
+
+        internal void CheckListCounterLayout_OnClick(object sender, EventArgs eventArgs)
+        {
+            BusinessProcess.DoAction("ViewCheckList");
         }
 
         internal DbRecordset GetCurrentEvent()

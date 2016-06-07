@@ -36,3 +36,14 @@ equipment		Оборудование
 task_finished		Работа выполнена
 task_refused		Не могу выполнить
 task		Задача
+services		Услуги
+materials		Материалы
+add_service		Добавить услугу
+add_materials		Добавить материал
+do_not_have_enough_material		Не хватает материала?
+delete_question		Удалить
+currency		₽
+total		Итоговая сумма
+not_choosed		Не выбрано..
+not_specified		Не указано
+text		Текст..

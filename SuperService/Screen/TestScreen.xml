@@ -2,7 +2,7 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:DockLayout CssClass="RootLayout">
-    <s:Include File="Components\TabBar.xml" />
+    <s:Include File="Components\TabBarСomponent.xml" />
     
     <c:SwipeVerticalLayout Id="TextViewsLayout" CssClass="RootLayout">
       <c:TextView Text="#test#" />

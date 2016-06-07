@@ -36,3 +36,14 @@ equipment		Equipment
 task_finished		Task finished
 task_refused		Can't complete
 task		Task
+services		Services
+materials		Materials
+add_service		Add service
+add_materials	Add saterials
+do_not_have_enough_material		Do not have enough material?
+delete_question		Delete
+currency		₽
+total		Total
+not_choosed		Not choosed..
+not_specified		Not specified
+text		Text..

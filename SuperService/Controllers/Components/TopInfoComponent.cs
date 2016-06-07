@@ -6,13 +6,13 @@ namespace Test.Components
     public class TopInfoComponent
     {
         private readonly Screen _parentScreen;
+        private bool _bigArrowActive = true;
         private bool _extraLayoutVisible;
         private bool _minimized = true;
 
         private Image _topInfoArrowImage;
         private HorizontalLayout _topInfoExtraButtonsLayout;
 
-        private VerticalLayout _topInfoExtraLayout;
         private VerticalLayout _topInfoImageLayout;
 
         /// <summary>
@@ -59,6 +59,11 @@ namespace Test.Components
         public TextView CommentTextView { get; private set; }
 
         /// <summary>
+        ///     Дополнительный контейнер ниже заголовка экрана, содержащий в себе комментарий
+        /// </summary>
+        public VerticalLayout ExtraLayout { get; private set; }
+
+        /// <summary>
         ///     Видимость контейнера с дополнительной информацией
         /// </summary>
         public bool ExtraLayoutVisible
@@ -71,16 +76,31 @@ namespace Test.Components
             }
         }
 
+        /// <summary>
+        ///     Активность большой стрелки. Если false, то меняется внешний вид.
+        /// </summary>
+        public bool BigArrowActive
+        {
+            get { return _bigArrowActive; }
+            set
+            {
+                _bigArrowActive = value;
+                _topInfoArrowImage.Source = value
+                    ? ResourceManager.GetImage(_minimized ? "topinfo_downarrow" : "topinfo_uparrow")
+                    : ResourceManager.GetImage(_minimized ? "topinfo_downnoarrow" : "topinfo_upnoarrow");
+            }
+        }
+
         private void ChangeExtraVisibility(bool visibility)
         {
             if (!visibility)
             {
-                _topInfoExtraLayout.CssClass = "NoHeight";
+                ExtraLayout.CssClass = "NoHeight";
                 _topInfoImageLayout.CssClass = "NoHeight";
             }
             else
             {
-                _topInfoExtraLayout.CssClass = "TopInfoExtraLayout";
+                ExtraLayout.CssClass = "TopInfoExtraLayout";
                 _topInfoImageLayout.CssClass = "TopInfoImageLayout";
             }
         }
@@ -99,15 +119,15 @@ namespace Test.Components
             HeadingTextView = (TextView) _parentScreen.GetControl("TopInfoHeadingTextView", true);
             CommentTextView = (TextView) _parentScreen.GetControl("TopInfoCommentTextView", true);
 
-            _topInfoExtraLayout = (VerticalLayout) _parentScreen.GetControl("TopInfoExtraLayout", true);
+            ExtraLayout = (VerticalLayout) _parentScreen.GetControl("TopInfoExtraLayout", true);
             _topInfoImageLayout = (VerticalLayout) _parentScreen.GetControl("TopInfoImageLayout", true);
         }
 
         internal void Arrow_OnClick(object sender, EventArgs eventArgs)
         {
+            if (!BigArrowActive) return;
             if (_minimized)
             {
-//                _topInfoArrowImage.Source = @"Image\up_arrow_full_width.png";
                 _topInfoArrowImage.Source = ResourceManager.GetImage("topinfo_uparrow");
                 _topInfoExtraButtonsLayout.CssClass = "TopInfoExtraButtonsLayout";
                 _topInfoExtraButtonsLayout.Refresh();
@@ -115,7 +135,6 @@ namespace Test.Components
             }
             else
             {
-//                _topInfoArrowImage.Source = @"Image\down_arrow_full_width.png";
                 _topInfoArrowImage.Source = ResourceManager.GetImage("topinfo_downarrow");
                 _topInfoExtraButtonsLayout.CssClass = "NoHeight";
                 _topInfoExtraButtonsLayout.Refresh();
