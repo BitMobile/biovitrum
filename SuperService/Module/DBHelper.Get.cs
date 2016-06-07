@@ -530,8 +530,8 @@ namespace Test
             // TODO: Написать запрос
 
             var query = new Query("select " +
-                                  "    Document_Event_ServicesMaterials.Id," +
-                                  "    Document_Event_ServicesMaterials.SKU," +
+                                  "    _Document_Event_ServicesMaterials.Id," +
+                                  "    _Document_Event_ServicesMaterials.SKU," +
                                   "    Catalog_RIM.Price," +
                                   "    AmountPlan," +
                                   "    SumPlan," +
@@ -541,12 +541,12 @@ namespace Test
                                   "    Code," +
                                   "    Unit " +
                                   "from" +
-                                  "    Document_Event_ServicesMaterials join " +
-                                  "    Catalog_RIM " +
-                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  "    _Document_Event_ServicesMaterials " +
+                                  "    join Catalog_RIM " +
+                                  "        on _Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   " where Catalog_RIM.Service = 0 and " +
-                                  " Document_Event_ServicesMaterials.AmountFact != 0 and" +
-                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+                                  " _Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  "    _Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
         }
@@ -559,8 +559,8 @@ namespace Test
         public static DbRecordset GetServicesByEventId(string eventId)
         {
             var query = new Query("select " +
-                                  "    Document_Event_ServicesMaterials.Id," +
-                                  "    Document_Event_ServicesMaterials.SKU," +
+                                  "    _Document_Event_ServicesMaterials.Id," +
+                                  "    _Document_Event_ServicesMaterials.SKU," +
                                   "    Catalog_RIM.Price," +
                                   "    AmountPlan," +
                                   "    SumPlan," +
@@ -570,12 +570,12 @@ namespace Test
                                   "    Code," +
                                   "    Unit " +
                                   "from" +
-                                  "    Document_Event_ServicesMaterials join " +
-                                  "    Catalog_RIM" +
-                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  "    _Document_Event_ServicesMaterials " +
+                                  "       join Catalog_RIM" +
+                                  "        on _Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   " where Catalog_RIM.Service = 1 and " +
-                                  " Document_Event_ServicesMaterials.AmountFact != 0 and" +
-                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+                                  " _Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  "    _Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
         }
@@ -616,10 +616,10 @@ namespace Test
         /// <param name="rimType">Идентификатор искомого элемента справочинка Товары и услуги</param>
         /// <returns>null - если в указанном документе нету номенклатуры с указанным идентификатором; 
         /// Заполнненую структуру EventServicesMaterialsLine в случае если строка есть</returns>
-        public static EventServicesMaterialsLine GetEventServicesMaterialsLineByRIMID(string docEventID, string RIMID)
+        public static EventServicesMaterialsLine GetEventServicesMaterialsLineByRIMID(string docEventID, string rimID)
         {
             EventServicesMaterialsLine result = null;
-            var query = new Query("select " +
+            var queryText = "select " +
                                   "    id, " +
                                   "    LineNumber, " +
                                   "    Ref, " +
@@ -631,26 +631,38 @@ namespace Test
                                   "    SumFact, " +
                                   "    isDirty " +
                                   "from " +
-                                  "    Document_Event_ServicesMaterials " +
+                                  "    _Document_Event_ServicesMaterials " +
                                   "where " +
-                                  "    Document_Event_ServicesMaterials.Ref = @EventDocRef " +
-                                  "    and Document_Event_ServicesMaterials.SKU = @SKUID ");
+                                  "    _Document_Event_ServicesMaterials.Ref = @EventDocRef " +
+                                  "    and _Document_Event_ServicesMaterials.SKU = @SKUID";
 
+            var query = new Query(queryText);
             query.AddParameter("EventDocRef", docEventID);
-            query.AddParameter("SKUID", RIMID);
+            query.AddParameter("SKUID", rimID);
 
             var queryResult = query.Execute();
 
             if (queryResult.Next())
             {
+                DConsole.WriteLine("зашли в обработку результата запроса");
+                result = new EventServicesMaterialsLine();
+                DConsole.WriteLine("1");
                 result.ID = queryResult.GetString(0);
+                DConsole.WriteLine("2");
                 result.LineNumber = queryResult.GetInt32(1);
+                DConsole.WriteLine("3");
                 result.Ref = queryResult.GetString(2);
+                DConsole.WriteLine("4");
                 result.SKU = queryResult.GetString(3);
+                DConsole.WriteLine("5");
                 result.Price = queryResult.GetDouble(4);
+                DConsole.WriteLine("6");
                 result.AmountPlan = queryResult.GetDouble(5);
+                DConsole.WriteLine("7");
                 result.SumPlan = queryResult.GetDouble(6);
-                result.AmountPlan = queryResult.GetDouble(7);
+                DConsole.WriteLine("8");
+                result.AmountFact = queryResult.GetDouble(7);
+                DConsole.WriteLine("9");
                 result.SumFact = queryResult.GetDouble(8);
             }
 

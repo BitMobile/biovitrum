@@ -42,17 +42,16 @@ namespace Test
 
         internal void RIMLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            DConsole.WriteLine("RIMLayout_OnClick " + ((VerticalLayout)sender).Id);
-            // TODO: Передача Id конкретной таски
             var rimID = ((VerticalLayout)sender).Id;
             double price = Double.Parse(((TextView)((VerticalLayout)sender).Controls[1]).Text);
-            DConsole.WriteLine("цена " + price);
 
             object currentEventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out currentEventId))
             {
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
+
+            DConsole.WriteLine("Пытаемся найти номенклатуру в документе " + (string)currentEventId + " по гуиду " + rimID);
             var line = DBHelper.GetEventServicesMaterialsLineByRIMID((string)currentEventId, rimID);
             if (line == null)
             {
@@ -60,12 +59,11 @@ namespace Test
                 line = new EventServicesMaterialsLine();
                 line.Ref = (string)currentEventId;
                 line.SKU = rimID;
-                // TODO: Добавить получение цены
                 line.Price = price;
                 line.AmountPlan = 0;
                 line.SumPlan = 0;
-                line.AmountPlan = 1;
-                line.SumFact = line.AmountPlan * line.Price;
+                line.AmountFact = 1;
+                line.SumFact = line.AmountFact * line.Price;
 
                 DBHelper.InsertEventServicesMaterialsLine(line);
 
@@ -73,7 +71,7 @@ namespace Test
             }
             else
             {
-                DConsole.WriteLine("Позиция найдена, увеличим количество и обновим БД");
+                DConsole.WriteLine("Позиция найдена, увеличим количество и обновим БД amountFact " + line.AmountFact);
                 line.AmountFact += 1;
                 line.SumFact = line.Price * line.AmountFact;
                 DBHelper.UpdateEventServicesMaterialsLine(line);

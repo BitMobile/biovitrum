@@ -185,10 +185,12 @@ namespace Test
                                     "set " +
                                     "    price = @NewPrice, " +
                                     "    AmountFact = @NewAmountFact, " +
-                                    "    SumFakt = @NewSumFact, " +
+                                    "    SumFact = @NewSumFact, " +
                                     "    isDirty = 1 " +
                                     "where " +
                                     "    Id = @lineId");
+
+            DConsole.WriteLine("Обновляем id = " + line.ID + " new amount fact = " + line.AmountFact);
             query.AddParameter("lineId"       , line.ID);
             query.AddParameter("NewPrice"     , line.Price);
             query.AddParameter("NewAmountFact", line.AmountFact);
