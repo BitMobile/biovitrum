@@ -14,13 +14,15 @@ body {
 
 TextView {
 	color: #51595b;
-	font: 2.5sp arial;
+	font: 3sp arial;
 	height: 3.5sp auto;
+    width: 100%;
+    margin-top: 1sp;
+    margin-right: 3sp;
 	horizontal-align: center;
+    vertical-align: center;
 	text-align: left;
-	vertical-align: center;
 	white-space: normal;
-	width: 100%;
 }
 
 EditText{
@@ -42,6 +44,98 @@ EditText{
 
 /* End of Common */
 
+/* RequestHistory style */
+
+.RequestHistoryMainSVL {
+	height: auto;
+	width: 100%;
+	margin-top: 1sp;
+	margin-bottom: 0sp;
+}
+
+.RequestHistoryItemHL {
+	height: 0% auto;
+	horizontal-align: center;
+	width: 100%;
+}
+
+.RequestHistoryNumberTimeVL {
+	height: 6sp auto;
+	vertical-align: center;
+	horizontal-align: center;
+	width: 50%;
+}
+
+.RequestHistoryNumberTV {
+    width: 95%;
+	color: #4a4b5e;
+	font: 3sp arial;
+	margin-top: 1sp;
+	margin-left: 3sp;
+	text-align: left;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+.RequestHistoryTimeTV {
+    width: 95%;
+	color: #51595b;
+	font: 2sp arial;
+	margin-top: 1sp;
+	margin-left: 4sp;
+	text-align: left;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
+.RequestHistoryStatusVL {
+	height: 6sp auto;
+	vertical-align: center;
+	horizontal-align: right;
+	width: 50%;
+}
+
+.RequestHistoryStatusTVCancel {
+    width: 95%;
+	color: #ff0000;
+	text-align: right;
+	vertical-align: center;
+	horizontal-align: right;
+}
+
+.RequestHistoryStatusTVConfirmed {
+    width: 95%;
+	color: #8abf57;
+	text-align: right;
+	vertical-align: center;
+	horizontal-align: right;
+}
+
+.RequestHistoryStatusTVDone {
+    width: 95%;
+	color: #808080;
+	text-align: right;
+	vertical-align: center;
+	horizontal-align: right;
+}
+
+.RequestHistoryStatusTVNew {
+    width: 95%;
+	color: #dbdb3c;
+	text-align: right;
+	vertical-align: center;
+	horizontal-align: right;
+}
+
+.RequestHistoryBreaker {
+	background-color: #f3f3f4;
+	height: 3px;
+	horizontal-align: center;
+	width: 95%;
+}
+
+/* RequestHistory style */
+
 /* Top Info Component style*/
 
 .TopInfoLayout {
@@ -54,7 +148,6 @@ EditText{
 
 .TopInfoHeadingLayout {
 	height: 7sp;
-	/*margin-top: 2.5sp;*/
 	width: 100%;
 }
 

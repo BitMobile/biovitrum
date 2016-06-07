@@ -141,27 +141,27 @@ EditText{
 
 /* BagList style */
 
-.BagListMainLayout {
+.BagListMainSVL {
 	height: auto;
 	width: 100%;
 	margin-top: 1sp;
 	margin-bottom: 0sp;
 }
 
-.BagListItemLayout {
+.BagListItemHL {
 	height: 0% auto;
 	horizontal-align: center;
 	width: 100%;
 }
 
-.BagListNameLayout {
+.BagListNameVL {
 	height: 6sp auto;
 	vertical-align: center;
 	horizontal-align: center;
 	width: 75%;
 }
 
-.BagListNameTextView {
+.BagListNameTV {
     width: 95%;
 	color: #4a4b5e;
 	font: 3sp arial;
@@ -172,14 +172,14 @@ EditText{
 	horizontal-align: center;
 }
 
-.BagListAmountLayout {
+.BagListAmountVL {
 	height: 6sp auto;
 	vertical-align: center;
 	horizontal-align: right;
 	width: 25%;
 }
 
-.BagListAmountTextView {
+.BagListAmountTV {
     width: 95%;
 	color: #8abf57;
 	font: 3sp arial;
