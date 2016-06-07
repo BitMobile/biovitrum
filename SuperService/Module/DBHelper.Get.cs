@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using BitMobile.ClientModel3;
+using Test.Enum;
 
 //using Database = BitMobile.ClientModel3.Database;
 
@@ -511,9 +512,9 @@ namespace Test
                                   "    sum(case when Service = 0 then SumFact else 0 end) as SumMaterials, " +
                                   "    sum(case when Service = 1 then SumFact else 0 end) as SumServices " +
                                   "from " +
-                                  "    Document_Event_ServicesMaterials join " +
-                                  "    Catalog_RIM " +
-                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  "    _Document_Event_ServicesMaterials " +
+                                  "    join Catalog_RIM " +
+                                  "        on _Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   "where Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
@@ -529,8 +530,8 @@ namespace Test
             // TODO: Написать запрос
 
             var query = new Query("select " +
-                                  "    Document_Event_ServicesMaterials.Id," +
-                                  "    Document_Event_ServicesMaterials.SKU," +
+                                  "    _Document_Event_ServicesMaterials.Id," +
+                                  "    _Document_Event_ServicesMaterials.SKU," +
                                   "    Catalog_RIM.Price," +
                                   "    AmountPlan," +
                                   "    SumPlan," +
@@ -540,12 +541,12 @@ namespace Test
                                   "    Code," +
                                   "    Unit " +
                                   "from" +
-                                  "    Document_Event_ServicesMaterials join " +
-                                  "    Catalog_RIM " +
-                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  "    _Document_Event_ServicesMaterials " +
+                                  "    join Catalog_RIM " +
+                                  "        on _Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   " where Catalog_RIM.Service = 0 and " +
-                                  " Document_Event_ServicesMaterials.AmountFact != 0 and" +
-                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+                                  " _Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  "    _Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
         }
@@ -558,8 +559,8 @@ namespace Test
         public static DbRecordset GetServicesByEventId(string eventId)
         {
             var query = new Query("select " +
-                                  "    Document_Event_ServicesMaterials.Id," +
-                                  "    Document_Event_ServicesMaterials.SKU," +
+                                  "    _Document_Event_ServicesMaterials.Id," +
+                                  "    _Document_Event_ServicesMaterials.SKU," +
                                   "    Catalog_RIM.Price," +
                                   "    AmountPlan," +
                                   "    SumPlan," +
@@ -569,14 +570,97 @@ namespace Test
                                   "    Code," +
                                   "    Unit " +
                                   "from" +
-                                  "    Document_Event_ServicesMaterials join " +
-                                  "    Catalog_RIM" +
-                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  "    _Document_Event_ServicesMaterials " +
+                                  "       join Catalog_RIM" +
+                                  "        on _Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   " where Catalog_RIM.Service = 1 and " +
-                                  " Document_Event_ServicesMaterials.AmountFact != 0 and" +
-                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+                                  " _Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  "    _Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
         }
+
+        /// <summary>
+        ///     Возвращает список материалов и услуг по указанному типу
+        /// </summary>
+        /// <param name="rimType">необходимый тип элементов работы и услуги</param>
+        /// <returns></returns>
+        public static DbRecordset GetRIMByType(RIMType rimType)
+        {
+            var query = new Query("select " +
+                                    "    id, " +
+                                    "    Description, " +
+                                    "    Price, " +
+                                    "    Unit " +
+                                    "from " +
+                                    "    Catalog_RIM " +
+                                    "where " +
+                                    "    deletionMark = 0 " +
+                                    "    and isFolder = 0 " +  
+                                    "    and service = @rim_type");
+
+            DConsole.WriteLine("rimType = " + rimType);
+            if(rimType == RIMType.Material)
+                query.AddParameter("rim_type", 0);
+            else
+                query.AddParameter("rim_type", 1);
+
+            return query.Execute();
+        }
+
+        /// <summary>
+        ///     Возвращает строку табличной части "услуги и материалы" документа Событие с указанным идентификатором номенклатуры.
+        ///     Используется для определения наличия в ТЧ документа номенклатуры с заданным ИД (проверка есть уже такая или нет)
+        /// </summary>
+        /// <param name="docEventID">Идентификатор документа событие</param>
+        /// <param name="rimType">Идентификатор искомого элемента справочинка Товары и услуги</param>
+        /// <returns>null - если в указанном документе нету номенклатуры с указанным идентификатором; 
+        /// Заполнненую структуру EventServicesMaterialsLine в случае если строка есть</returns>
+        public static EventServicesMaterialsLine GetEventServicesMaterialsLineByRIMID(string docEventID, string rimID)
+        {
+            EventServicesMaterialsLine result = null;
+            var queryText = "select " +
+                                  "    id, " +
+                                  "    LineNumber, " +
+                                  "    Ref, " +
+                                  "    SKU, " +
+                                  "    Price, " +
+                                  "    AmountPlan, " +
+                                  "    SumPlan, " +
+                                  "    AmountFact, " +
+                                  "    SumFact, " +
+                                  "    isDirty " +
+                                  "from " +
+                                  "    _Document_Event_ServicesMaterials " +
+                                  "where " +
+                                  "    _Document_Event_ServicesMaterials.Ref = @EventDocRef " +
+                                  "    and _Document_Event_ServicesMaterials.SKU = @SKUID";
+
+            var query = new Query(queryText);
+            query.AddParameter("EventDocRef", docEventID);
+            query.AddParameter("SKUID", rimID);
+
+            var queryResult = query.Execute();
+
+            if (queryResult.Next())
+            {
+                DConsole.WriteLine("зашли в обработку результата запроса");
+                result = new EventServicesMaterialsLine();
+                result.ID = queryResult.GetString(0);
+                result.LineNumber = queryResult.GetInt32(1);
+                result.Ref = queryResult.GetString(2);
+                result.SKU = queryResult.GetString(3);
+                result.Price = queryResult.GetDouble(4);
+                result.AmountPlan = queryResult.GetDouble(5);
+                result.SumPlan = queryResult.GetDouble(6);
+                result.AmountFact = queryResult.GetDouble(7);
+                result.SumFact = queryResult.GetDouble(8);
+            }
+
+            return result;
+        }
     }
+
+
+
 }

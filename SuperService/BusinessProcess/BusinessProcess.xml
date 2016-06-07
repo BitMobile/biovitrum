@@ -87,13 +87,9 @@
 
     <Step Name="COC" Controller="COCScreen" StyleSheet="Style\cocscreen_style.css">
       <Action Name="ViewEvent" NextStep="Event"></Action>
-      <Action Name="AddServicesOrMaterials" NextStep="AddServicesOrMaterials"></Action>
+      <Action Name="AddServicesOrMaterials" NextStep="RIMList"></Action>
       <Action Name="EditServicesOrMaterials" NextStep="EditServicesOrMaterials"></Action>
       <Action Name="ApplicationMaterials" NextStep="ApplicationMaterials"></Action>
-    </Step>
-
-    <Step Name="AddServicesOrMaterials" Controller="AddServicesOrMaterialsScreen" StyleSheet="Style\style.css">
-      <Action Name="COC" NextStep="COC"></Action>
     </Step>
 
     <Step Name="EditServicesOrMaterials" Controller="EditServicesOrMaterialsScreen" StyleSheet="Style\style.css">
@@ -107,5 +103,13 @@
     <Step Name="Test" Controller="TestScreen" StyleSheet="Style\style.css">
       <Action Name="ToApplication" NextStep="Authorization" />
     </Step>
+  
+    <Step Name="RIMList" Controller="RIMListScreen" StyleSheet="Style\RIMListScreen.css">
+      <Action Name="RIMAdded" NextStep="COC" />
+      <Action Name="ViewCOC" NextStep="COC" />
+      
+      <!-- СТЕП ДЛЯ ПЕРЕХОДА В ЭКРАН РЕДАКТИРВОНиЯ количЕсТВА-->
+    </Step>
+  
   </Workflow>
 </BusinessProcess>

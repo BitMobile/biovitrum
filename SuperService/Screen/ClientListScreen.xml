@@ -20,6 +20,7 @@
         </c:VerticalLayout>       
       </s:Iterator>
     </c:SwipeVerticalLayout>
+
   </c:DockLayout>
 
 </c:Screen>
