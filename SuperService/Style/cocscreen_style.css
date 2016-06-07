@@ -222,18 +222,19 @@ TextView {
 }
 
 .AddImg {
-    height: 3sp;
+    height: 2sp;
     vertical-align: center;
 }
 
 .AddTV {
     color: #fd724c;
-    font: 3.3sp arial;
+    font: 3sp arial;
     height: 80%;
     padding-top: 22%;
     text-align: left;
     vertical-align: center;
     width: 40% auto;
+    margin-left: 3%
 }
 
 .MiddleHL {

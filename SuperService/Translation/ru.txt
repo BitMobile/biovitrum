@@ -49,4 +49,4 @@ not_specified		Не указано
 text		Текст..
 description_materialrequest_screen		Добавьте материалы, чтобы сформировать заявку
 add_material		Добавить материал
-request		Заявка
+request		Заявка		

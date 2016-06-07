@@ -2,17 +2,32 @@
 
 <!--TODO: Переименовать файл в MeterialsReuestScreen-->
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  <c:VerticalLayout CssClass="RootLayout">
+  <c:VerticalLayout Id="Root" CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
 
     <s:If Test="$GetIsEmptyList()">
-      <!--TODO Добавить компонент Image-->
       <c:Image CssClass="BigImageMaterialsRequestImg" Source="$GetResourceImage(basket)" />
       <c:TextView CssClass="DescriptionMaterialsRequestTV" Text="#description_materialrequest_screen#" />
       <c:Button CssClass="ButtonMaterialsRequestBtn" Text="#add_material#" />
     </s:If>
     <s:Else>
+      <c:DockLayout CssClass="RootLayout">
+
+        <c:VerticalLayout CssClass="AddButtonMaterialResourceVl">
+          <c:HorizontalLayout CssClass="AddContainerMaterialResourceHL">
+            <!--TODO: Добавить константу в ресурсы на плюс для этого экрана. -->
+            <c:Image CssClass="AddMaterialResourceImg" Source="$GetResourceImage(cocscreen_plus)" />
+            <c:TextView CssClass="AddMaterialResourceTV" Text="#add_service#" />
+          </c:HorizontalLayout>
+        </c:VerticalLayout>
         
+        <c:HorizontalLine CssClass="WideHL"/>
+        
+        <c:Button CssClass="ButtonMaterialsRequestBtn" Text="#send#"/>
+        
+        
+        
+      </c:DockLayout>
     </s:Else>
   </c:VerticalLayout>
 </c:Screen>

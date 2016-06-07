@@ -156,4 +156,50 @@ TextView {
     horizontal-align: center;
     margin-top: 10%;
 }
+
+.AddButtonMaterialResourceVl {
+    dock-align: top;
+    height: 10sp;
+    width: 100%;
+}
+
+.AddContainerMaterialResourceHL {
+    height: 90%;
+    horizontal-align: center;
+    padding-left: 20%;
+    width: 90%;
+}
+
+.AddMaterialResourceImg {
+    height: 2sp;
+    vertical-align: center;
+}
+
+.AddMaterialResourceTV {
+    color: #fd724c;
+    font: 3sp arial;
+    height: 80%;
+    margin-left: 3%;
+    padding-top: 22%;
+    text-align: left;
+    vertical-align: center;
+    width: 40% auto;
+}
+
+.WideHL {
+    background-color: #f4f4f4;
+    dock-align: top;
+    height: 3px;
+    width: 100%;
+}
+
+.ButtonMaterialsRequestBtn {
+    background-color: #90c260;
+    border-style: none;
+    color: #ffffff;
+    dock-align: bottom;
+    font: 3sp arial;
+    height: 10sp;
+    width: 100%;
+}
 /* ---------------------------------- */
