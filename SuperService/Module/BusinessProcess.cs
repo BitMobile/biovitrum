@@ -28,7 +28,12 @@ namespace Test
 
 //            var firstStepName = _doc.DocumentElement?.ChildNodes[0].ChildNodes[0].Attributes?["Name"].Value;
 //            MoveTo(firstStepName);
-            MoveTo("EditServicesOrMaterials");
+            MoveTo("EditServicesOrMaterials", new Dictionary<string, object>
+            {
+                {"isPriceVisible", true },
+                {"isPriceEditable", true },
+                {"minimum", 0 }
+            });
         }
 
         private static void MoveTo(string stepName, IDictionary<string, object> args = null)
@@ -78,9 +83,14 @@ namespace Test
         {
             DConsole.WriteLine("Moving back");
             //remove current 
+            if (StackScreens.Count <= 1)
+            {
+                DConsole.WriteLine("I'm only screen on stack, can't go back");
+                return;
+            }
+
             StackNodes.Pop();
             StackScreens.Pop();
-
             var scr = (Screen)StackScreens.Peek();
             scr.Show();
         }
