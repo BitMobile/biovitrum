@@ -512,9 +512,9 @@ namespace Test
                                   "    sum(case when Service = 0 then SumFact else 0 end) as SumMaterials, " +
                                   "    sum(case when Service = 1 then SumFact else 0 end) as SumServices " +
                                   "from " +
-                                  "    Document_Event_ServicesMaterials join " +
-                                  "    Catalog_RIM " +
-                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  "    _Document_Event_ServicesMaterials " +
+                                  "    join Catalog_RIM " +
+                                  "        on _Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   "where Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
@@ -646,23 +646,14 @@ namespace Test
             {
                 DConsole.WriteLine("зашли в обработку результата запроса");
                 result = new EventServicesMaterialsLine();
-                DConsole.WriteLine("1");
                 result.ID = queryResult.GetString(0);
-                DConsole.WriteLine("2");
                 result.LineNumber = queryResult.GetInt32(1);
-                DConsole.WriteLine("3");
                 result.Ref = queryResult.GetString(2);
-                DConsole.WriteLine("4");
                 result.SKU = queryResult.GetString(3);
-                DConsole.WriteLine("5");
                 result.Price = queryResult.GetDouble(4);
-                DConsole.WriteLine("6");
                 result.AmountPlan = queryResult.GetDouble(5);
-                DConsole.WriteLine("7");
                 result.SumPlan = queryResult.GetDouble(6);
-                DConsole.WriteLine("8");
                 result.AmountFact = queryResult.GetDouble(7);
-                DConsole.WriteLine("9");
                 result.SumFact = queryResult.GetDouble(8);
             }
 
