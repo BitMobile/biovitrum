@@ -427,8 +427,8 @@ namespace Test
                                   "from " +
                                   "     Catalog_Actions_ValueList " +
                                   "where " +
-                                  "     Catalog_Actions_ValueList.DeletionMark = 0 " +
-                                  "     and Catalog_Actions_ValueList.Ref = @actionID");
+                                  /*"     Catalog_Actions_ValueList.DeletionMark = 0 " +
+                                  "     and "*/"Catalog_Actions_ValueList.Ref = @actionID");
             query.AddParameter("actionID", actionID);
             return query.Execute();
         }

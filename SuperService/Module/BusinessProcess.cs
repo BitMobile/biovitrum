@@ -3,10 +3,7 @@ using System.IO;
 using System.Xml;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
-using Thread = System.Threading.Thread;
 using XmlDocument = BitMobile.ClientModel3.XmlDocument;
-
-// ReSharper disable PossibleNullReferenceException
 
 namespace Test
 {
@@ -14,11 +11,11 @@ namespace Test
     {
         private static XmlDocument _doc;
 
-        //private static readonly Stack StackNodes = new Stack();
-        //private static readonly Stack StackScreens = new Stack();
+        private static readonly Stack StackNodes = new Stack();
+        private static readonly Stack StackScreens = new Stack();
 
-        public static XmlNode CurrentNode { get; private set; }
-        public static Screen CurrentScreen { get; private set; }
+        public static XmlNode CurrentNode => (XmlNode) StackNodes.Peek();
+        public static Screen CurrentScreen => (Screen) StackScreens.Peek();
 
         public static Dictionary<string, object> GlobalVariables { get; } = new Dictionary<string, object>();
 
@@ -29,38 +26,63 @@ namespace Test
             _doc.Load(Application.GetResourceStream("BusinessProcess.BusinessProcess.xml"));
             DConsole.WriteLine("Loaded BP.xml");
 
-            var firstStepName = _doc.DocumentElement.ChildNodes[0].ChildNodes[0].Attributes["Name"].Value;
-           // MoveTo(firstStepName);
-            MoveTo("EventList");
+            var firstStepName = _doc.DocumentElement?.ChildNodes[0].ChildNodes[0].Attributes?["Name"].Value;
+            MoveTo(firstStepName);
+//            MoveTo("Test");
         }
 
-        private static void MoveTo(string stepName)
+        private static void MoveTo(string stepName, IDictionary<string, object> args = null)
         {
             DConsole.WriteLine($"Moving to {stepName}");
-            var n = _doc.DocumentElement.SelectSingleNode($"//BusinessProcess/Workflow/Step[@Name='{stepName}']");
+            var n = _doc.DocumentElement?.SelectSingleNode($"//BusinessProcess/Workflow/Step[@Name='{stepName}']");
+            if (n == null)
+            {
+                DConsole.WriteLine($"Step {stepName} is not found in BusinessProcess.xml");
+                return;
+            }
+            if (n.Attributes == null)
+            {
+                DConsole.WriteLine($"Step {stepName}.Attrubutes is not found in BusinessProcess.xml");
+                return;
+            }
             var stepController = n.Attributes["Controller"].Value;
             var styleSheet = n.Attributes["StyleSheet"].Value;
 
             DConsole.WriteLine($"Loading controler: ${stepController}");
             var scr = GetScreenByControllerName(stepController);
+            scr.SetData(args);
+            StackScreens.Push(scr);
+            StackNodes.Push(n);
 
-            //StackScreens.Push(scr);
-            //StackNodes.Push(n);
-
-            CurrentScreen = scr;
-            CurrentNode = n;
+//            CurrentScreen = scr;
+//            CurrentNode = n;
 
             scr.LoadStyleSheet(Application.GetResourceStream(styleSheet));
             scr.Show();
         }
 
-        public static void DoAction(string actionName)
+        public static void DoAction(string actionName, IDictionary<string, object> args = null)
         {
             DConsole.WriteLine($"Doing action: {actionName}");
-            //var currentNode = StackNodes.peek();
             var n = CurrentNode.SelectSingleNode($"Action[@Name='{actionName}']");
+            if (n?.Attributes == null)
+            {
+                DConsole.WriteLine($"Can't find {actionName} or {actionName}.Attributes");
+                return;
+            }
             var stepName = n.Attributes["NextStep"].Value;
-            MoveTo(stepName);
+            MoveTo(stepName, args);
+        }
+
+        public static void DoBack()
+        {
+            DConsole.WriteLine("Moving back");
+            //remove current 
+            StackNodes.Pop();
+            StackScreens.Pop();
+
+            var scr = (Screen)StackScreens.Peek();
+            scr.Show();
         }
 
         private static Screen GetScreenByControllerName(string name)

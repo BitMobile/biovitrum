@@ -25,5 +25,6 @@
         <c:HorizontalLine CssClass="TaskBreaker" />
       </s:Iterator>
     </c:SwipeVerticalLayout>
+    
   </c:VerticalLayout>
 </c:Screen>

@@ -47,8 +47,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -66,48 +64,9 @@
     <Compile Include="Module\**" />
     <Compile Include="Objects\**" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Screen\AddContactScreen.xml" />
-    <EmbeddedResource Include="Screen\AuthScreen.xml" />
-    <EmbeddedResource Include="Screen\BagListScreen.xml" />
-    <EmbeddedResource Include="Screen\ClientListScreen.xml" />
-    <EmbeddedResource Include="Screen\ClientScreen.xml" />
-    <EmbeddedResource Include="Screen\CloseEventScreen.xml" />
-    <EmbeddedResource Include="Screen\EditContactScreen.xml" />
-    <EmbeddedResource Include="Screen\EventListScreen.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Screen\EventScreen.xml" />
-    <EmbeddedResource Include="Screen\MapScreen.xml" />
-    <EmbeddedResource Include="Screen\RIMListScreen.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Screen\SettingsScreen.xml" />
-    <EmbeddedResource Include="Screen\TaskListScreen.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Screen\TaskScreen.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Screen\TestScreen.xml" />
-    <EmbeddedResource Include="Style\ClientListScreen.css" />
-    <EmbeddedResource Include="Style\clientscreen_style.css" />
-    <EmbeddedResource Include="Style\fancy.css" />
-    <EmbeddedResource Include="Style\fancy2.css" />
-    <EmbeddedResource Include="Style\fancystyle.css" />
-    <EmbeddedResource Include="Style\fancy_closeeventscreen.css" />
-    <EmbeddedResource Include="Style\fancy_event.css" />
-    <EmbeddedResource Include="Style\fancy_taskList.css" />
-    <EmbeddedResource Include="Style\style.css" />
-    <EmbeddedResource Include="Style\RIMListScreen.css" />
-    <EmbeddedResource Include="Style\TaskScreen.css" />
+    <EmbeddedResource Include="Screen\**" />
+    <EmbeddedResource Include="Style\**" />
     <EmbeddedResource Include="Translation\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Screen\AddServicesOrMaterialsScreen.xml" />
-    <Content Include="Screen\ApplicationMaterialsScreen.xml" />
-    <EmbeddedResource Include="Screen\COCScreen.xml" />
-    <Content Include="Screen\EditServicesOrMaterialsScreen.xml" />
-    <EmbeddedResource Include="Style\cocscreen_style.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -22,6 +22,8 @@ namespace Test
 
             LoadControls();
             FillControls();
+
+            IsEmptyDateTime((string) _currentEventRecordset["ActualStartDate"]);
         }
 
         private void FillControls()
@@ -163,6 +165,11 @@ namespace Test
         internal void GoToCOCScreen_OnClick(object sender, EventArgs e)
         {
             BusinessProcess.DoAction("COC");
+        }
+
+        internal void CheckListCounterLayout_OnClick(object sender, EventArgs eventArgs)
+        {
+            BusinessProcess.DoAction("ViewCheckList");
         }
 
         internal DbRecordset GetCurrentEvent()

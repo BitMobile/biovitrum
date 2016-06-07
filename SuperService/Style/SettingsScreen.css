@@ -4,6 +4,7 @@
 /* ReSharper disable RedundantUnits */
 /* ReSharper disable UnexpectedValue */
 
+/* Common */
 
 body {
 	background-color: #ffffff;
@@ -16,14 +17,20 @@ TextView {
 	font: 2.5sp arial;
 	height: 3.5sp auto;
 	horizontal-align: center;
-	text-align: center;
+	text-align: left;
 	vertical-align: center;
 	white-space: normal;
 	width: 100%;
 }
 
-.NoHeight {
-	height: 0%;
+EditText{
+	color: #51595b;
+	font: 2.5sp arial;
+	height: 3.5sp auto;
+	horizontal-align: center;
+	text-align: left;
+	vertical-align: center;
+	white-space: normal;
 	width: 100%;
 }
 
@@ -32,6 +39,8 @@ TextView {
 	height: 100%;
 	width: 100%;
 }
+
+/* End of Common */
 
 /* Top Info Component */
 
@@ -44,7 +53,7 @@ TextView {
 }
 
 .TopInfoHeadingLayout {
-	height: 7sp auto;
+	height: 7sp;
 	/*margin-top: 2.5sp;*/
 	width: 100%;
 }
@@ -55,7 +64,7 @@ TextView {
 	border-width: 0px;
 	color: #ffffff;
 	font: 40% arial;
-	height: 100% auto;
+	height: 100%;
 	padding-top: 26%;
 	text-align: center;
 	width: 68%;
@@ -124,45 +133,11 @@ TextView {
 	horizontal-align: center;
 }
 
-.TopInfoSideText { 
-	color: #ffffff; 
+.TopInfoSideText {
+	color: #ffffff;
 }
 
-/* Top Info Bar LeftExtraLayout and RightExtraLayout*/
-
-.ExtraLeftLayoutCss {
-	background-color: #4a4b5e;
-	height: 15sp;
-	margin-left: 25%;
-	margin-top: 25%;
-	width: 15sp;
-}
-
-.ExtraRightLayoutCss {
-	background-color: #4a4b5e;
-	height: 15sp;
-	margin-right: 25%;
-	margin-top: 25%;
-	width: 15sp;
-}
-
-.ExtraInfo {
-	background-color: #4a4b5e;
-	color: #9595a3;
-	font: 3sp arial;
-	height: 50%;
-	text-align: center;
-	width: 100%;
-}
-
-.BottonExtraInfo {
-	background-color: #4a4b5e;
-	color: #9595a3;
-	font: 2sp arial;
-	height: 50%;
-	text-align: center;
-	width: 100%;
-}
+/* End of Top Info Component */
 
 /* Tab Bar style */
 
@@ -207,44 +182,3 @@ TextView {
 }
 
 /* End of Tab Bar style */
-
-/*  ClientList */
-
-.ClientListLayout {
-	height: auto;
-	width: 100%;
-	margin-top: 1sp;
-	margin-bottom: 0sp;
-}
-
-.ClientItemLayout {
-	height: 12sp;
-	horizontal-align: center;
-	width: 90%;
-}
-
-.ClientItemName {
-	font: 3sp arial;
-	horizontal-align: left;
-	text-align: left;
-	color: #000000;
-	margin-top: 0sp;
-	margin-left: 2sp;
-}
-
-.ClientItemAddress {
-	font: 2.5sp arial;
-	horizontal-align: left;
-	text-align: left;
-	margin-bottom: 1sp;
-	margin-left: 2sp;
-}
-
-.ClientBreaker {
-	background-color: #f3f3f4;
-	height: 3px;
-	margin-left: 2sp;
-	width: 95%;
-	horizontal-align: left;
-	vertical-align: center;
-}

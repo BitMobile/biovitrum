@@ -41,7 +41,7 @@ namespace Test
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
-
+            _topInfoComponent.Arrow_OnClick(sender, e);
         }
 
         internal string GetResourceImage(string tag)
