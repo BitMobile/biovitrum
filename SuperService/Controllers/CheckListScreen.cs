@@ -77,7 +77,7 @@ namespace Test
 
         internal void CameraCallback(object state, ResultEventArgs<bool> args)
         {
-            DConsole.WriteLine("КОЛЛБЭК");
+            DConsole.WriteLine("КОЛЛБЭК1");
 
             //Document.Order order = (Document.Order)state;
             //order.HasPhoto = args.Result;
@@ -88,7 +88,9 @@ namespace Test
             DConsole.WriteLine("File Exists: " + FileSystem.Exists(_pathToImg));
 
             _imgToReplace.Source = _pathToImg;
-            _imgToReplace.Refresh();
+            DConsole.WriteLine("КОЛЛБЭК2");
+            //_imgToReplace.Refresh();
+            DConsole.WriteLine("КОЛЛБЭК3");
         }
 
         // Список
