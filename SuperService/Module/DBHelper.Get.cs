@@ -620,7 +620,7 @@ namespace Test
         public static EventServicesMaterialsLine GetEventServicesMaterialsLineByRIMID(string docEventID, string rimID)
         {
             EventServicesMaterialsLine result = null;
-            var queryText = "select " +
+            var queryText =       "select " +
                                   "    id, " +
                                   "    LineNumber, " +
                                   "    Ref, " +
@@ -651,16 +651,48 @@ namespace Test
                 result.LineNumber = queryResult.GetInt32(1);
                 result.Ref = queryResult.GetString(2);
                 result.SKU = queryResult.GetString(3);
-                result.Price = queryResult.GetDouble(4);
-                result.AmountPlan = queryResult.GetDouble(5);
-                result.SumPlan = queryResult.GetDouble(6);
-                result.AmountFact = queryResult.GetDouble(7);
-                result.SumFact = queryResult.GetDouble(8);
+                result.Price = queryResult.GetDecimal(4);
+                result.AmountPlan = queryResult.GetDecimal(5);
+                result.SumPlan = queryResult.GetDecimal(6);
+                result.AmountFact = queryResult.GetDecimal(7);
+                result.SumFact = queryResult.GetDecimal(8);
             }
 
             return result;
         }
+
+
+        /// <summary>
+        ///     Возвращает строку табличной части "услуги и материалы" документа Событие по ее идентификатору
+        /// </summary>
+        /// <param name="lineID">Идентификатор строки ТЧ услуги и материалы</param>
+        /// <returns>
+        ///     строка табличной части
+        /// </returns>
+        public static DbRecordset GetEventServicesMaterialsLineById(string lineID)
+        {
+            var queryString = "select " +
+                              "    id, " +
+                              "    LineNumber, " +
+                              "    Ref, " +
+                              "    SKU, " +
+                              "    Price, " +
+                              "    AmountPlan, " +
+                              "    AmountFact, " +
+                              "    SumPlan, " +
+                              "    SumFact " +
+                              "from " +
+                              "  _Document_Event_ServicesMaterials " +
+                              "where " +
+                              "   _Document_Event_ServicesMaterials.id = @lineId";
+
+            var query = new Query(queryString);
+            query.AddParameter("lineId", lineID);
+
+            return query.Execute();
+        }
     }
+
 
 
 
