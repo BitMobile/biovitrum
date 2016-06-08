@@ -16,6 +16,7 @@ namespace Test
         private bool _isEmptyList = false;
         private TopInfoComponent _topInfoComponent;
         private VerticalLayout _rootVerticalLayout;
+        //TODO: Заменить на RecordSet
         private ArrayList _data;
 
         public override void OnLoading()
@@ -97,6 +98,7 @@ namespace Test
 
         internal ArrayList GetData()
         {
+            //Получение данных из БД в разментку XML
             return _data;
         }
     }
