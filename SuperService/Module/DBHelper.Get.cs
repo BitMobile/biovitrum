@@ -691,9 +691,31 @@ namespace Test
 
             return query.Execute();
         }
+
+        /// <summary>
+        ///     Получает текущие остатки рюкзака монтажника
+        /// </summary>
+        /// <param name="userID">Идентификатор пользоателя для получения остатков рюкзака</param>
+        /// <returns>
+        ///     текущие остатки рюкзака
+        /// </returns>
+        public static DbRecordset GetUserBagByUserId(string userID)
+        {
+            var queryString = "select " +
+                              "    _Catalog_RIM.id,  " +
+                              "    _Catalog_RIM.Description, " +
+                              "    _Catalog_RIM.Unit,   " +
+                              "    _Catalog_User_Bag.Count " +
+                              "  from " +
+                              "    _Catalog_User_Bag " +
+                              "        left join _Catalog_RIM " +
+                              "            on _Catalog_User_Bag.Materials = _Catalog_RIM.id " +
+                              "  where " +
+                              "    _Catalog_User_Bag.Ref = @userId";
+            var query = new Query(queryString);
+            query.AddParameter("userId", userID);
+
+            return query.Execute();
+        }
     }
-
-
-
-
 }
