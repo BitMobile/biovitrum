@@ -54,7 +54,9 @@ namespace Test
             {"checklist_photo", @"Image\CheckList\TakePhoto.png"},
             //Materials Request
             {"close", @"Image\MaterialsRequest\close.png"},
-            {"basket", @"Image\MaterialsRequest\basket.png"}
+            {"basket", @"Image\MaterialsRequest\basket.png"},
+            {"plus", @"Image\COCScreen\plus_img.png"},
+            {"delete", @"Image\COCScreen\delete_img.png"},
         };
 
         public static string GetImage(string tag)

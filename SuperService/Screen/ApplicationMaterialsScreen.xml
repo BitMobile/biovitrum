@@ -16,16 +16,41 @@
         <c:VerticalLayout CssClass="AddButtonMaterialResourceVl">
           <c:HorizontalLayout CssClass="AddContainerMaterialResourceHL">
             <!--TODO: Добавить константу в ресурсы на плюс для этого экрана. -->
-            <c:Image CssClass="AddMaterialResourceImg" Source="$GetResourceImage(cocscreen_plus)" />
+            <c:Image CssClass="AddMaterialResourceImg" Source="$GetResourceImage(plus)" />
             <c:TextView CssClass="AddMaterialResourceTV" Text="#add_service#" />
           </c:HorizontalLayout>
         </c:VerticalLayout>
         
         <c:HorizontalLine CssClass="WideHL"/>
         
-        <c:Button CssClass="ButtonMaterialsRequestBtn" Text="#send#"/>
-        
-        
+        <c:Button CssClass="ButtonMaterialsRequestWithBackgroundBtn" Text="#send#"/>
+
+        <c:ScrollView CssClass="ScrollViewMaterialsRequest">
+
+          <s:Iterator Id="item" Value="$GetData()">
+          <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL">
+            <c:HorizontalLayout CssClass="InfoNodeMaterialsRequestHL">
+              <!-- Красный круг с минусом -->
+              <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
+                <c:HorizontalLayout Id="Test" CssClass="InfoImageContainerHL">
+                  <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(delete)" />
+                </c:HorizontalLayout>
+              </c:VerticalLayout>
+
+              <!--Два TextView с информацией об услугах-->
+              <c:VerticalLayout Id="Test" CssClass="InfoTextContainerVL">
+                <c:TextView CssClass="NameTV" Text="$item.first" />
+                <c:TextView CssClass="CountTV" Text="$item.second" />
+              </c:VerticalLayout>
+
+            </c:HorizontalLayout>
+
+            <c:Button CssClass="DeleteButtonBtn" Text="#delete_question#" OnClick="DeleteButton_OnClick"/>
+
+          </c:SwipeHorizontalLayout>
+          </s:Iterator>
+          
+        </c:ScrollView>
         
       </c:DockLayout>
     </s:Else>
