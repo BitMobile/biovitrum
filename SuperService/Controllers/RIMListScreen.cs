@@ -43,7 +43,7 @@ namespace Test
         internal void RIMLayout_OnClick(object sender, EventArgs eventArgs)
         {
             var rimID = ((VerticalLayout)sender).Id;
-            double price = Double.Parse(((TextView)((VerticalLayout)sender).Controls[1]).Text);
+            decimal price = Decimal.Parse(((TextView)((VerticalLayout)sender).Controls[1]).Text);
 
             object currentEventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out currentEventId))
