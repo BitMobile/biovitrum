@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Net.Mail;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
@@ -13,15 +11,15 @@ namespace Test
     // TODO: Переименовать файл в MeterialsReuestScreen
     public class ApplicationMaterialsScreen : Screen
     {
-        private bool _isEmptyList = false;
-        private TopInfoComponent _topInfoComponent;
-        private VerticalLayout _rootVerticalLayout;
         //TODO: Заменить на RecordSet
         private ArrayList _data;
+        private bool _isEmptyList;
+        private VerticalLayout _rootVerticalLayout;
+        private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
-            _rootVerticalLayout = (VerticalLayout) this.GetControl("Root");
+            _rootVerticalLayout = (VerticalLayout) GetControl("Root");
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = false,
@@ -40,7 +38,6 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
@@ -51,14 +48,19 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
-
+        /// <summary>
+        /// Проверяет данные, которые получили в поле
+        /// _data.
+        /// </summary>
+        /// <returns>true - если БД вернула 0 записей, иначе false</returns>
         internal bool GetIsEmptyList()
         {
+            //TODO: проверка данных на их наличие, true если БД возращает 0 записей. Отредактировать если _data типа RecordSet
             FillData();
             if (_data.Count > 0)
             {
                 _isEmptyList = false;
-                }
+            }
             else
             {
                 _isEmptyList = true;
@@ -68,11 +70,11 @@ namespace Test
 
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
         {
-            var vl = (VerticalLayout)sender;
-            var hl = (IHorizontalLayout3)vl.Parent;
-            var shl = (ISwipeHorizontalLayout3)hl.Parent;
+            var vl = (VerticalLayout) sender;
+            var hl = (IHorizontalLayout3) vl.Parent;
+            var shl = (ISwipeHorizontalLayout3) hl.Parent;
             ++shl.Index;
-            DConsole.WriteLine(nameof(shl.Index) + "=" + shl.Index.ToString());
+            DConsole.WriteLine(nameof(shl.Index) + "=" + shl.Index);
         }
 
         internal void DeleteButton_OnClick(object sender, EventArgs e)
@@ -86,20 +88,32 @@ namespace Test
         private void FillData()
         {
             _data = new ArrayList();
-
-            for (int i = 0; i < 0; i++)
+            //TODO: Заменить цикл на запрос из БД
+            for (var i = 0; i < 60; i++)
             {
-                    Dictionary<string,object> dic = new Dictionary<string, object>();
-                dic["first"] = "Test " + i.ToString();
-                dic["second"] = "Test " + i.ToString();
+                var dic = new Dictionary<string, object>();
+                dic["first"] = "Test " + i;
+                dic["second"] = "Test " + i;
                 _data.Add(dic);
             }
         }
 
         internal ArrayList GetData()
         {
-            //Получение данных из БД в разментку XML
+            //Данные, которые были получены у БД передаются в XML разметку.
             return _data;
+        }
+
+        internal void AddMaterial_OnClick(object sender, EventArgs e)
+        {
+            //TODO: Отсюда переходим на экран добавления материалов.
+            DConsole.WriteLine("GoTO AddServicesOrMaterials Screen");
+        }
+
+        internal void SendData_OnClick(object sender, EventArgs e)
+        {
+            //TODO: сохранения данных в БД.
+            DConsole.WriteLine("Data is saved");
         }
     }
 }

@@ -8,22 +8,21 @@
     <s:If Test="$GetIsEmptyList()">
       <c:Image CssClass="BigImageMaterialsRequestImg" Source="$GetResourceImage(basket)" />
       <c:TextView CssClass="DescriptionMaterialsRequestTV" Text="#description_materialrequest_screen#" />
-      <c:Button CssClass="ButtonMaterialsRequestBtn" Text="#add_material#" />
+      <c:Button CssClass="ButtonMaterialsRequestBtn" Text="#add_material#" OnClick="AddMaterial_OnClick"/>
     </s:If>
     <s:Else>
       <c:DockLayout CssClass="RootLayout">
 
-        <c:VerticalLayout CssClass="AddButtonMaterialResourceVl">
+        <c:VerticalLayout CssClass="AddButtonMaterialResourceVl" OnClick="AddMaterial_OnClick">
           <c:HorizontalLayout CssClass="AddContainerMaterialResourceHL">
-            <!--TODO: Добавить константу в ресурсы на плюс для этого экрана. -->
             <c:Image CssClass="AddMaterialResourceImg" Source="$GetResourceImage(plus)" />
-            <c:TextView CssClass="AddMaterialResourceTV" Text="#add_service#" />
+            <c:TextView CssClass="AddMaterialResourceTV" Text="#add_material#" />
           </c:HorizontalLayout>
         </c:VerticalLayout>
         
         <c:HorizontalLine CssClass="WideHL"/>
         
-        <c:Button CssClass="ButtonMaterialsRequestWithBackgroundBtn" Text="#send#"/>
+        <c:Button CssClass="ButtonMaterialsRequestWithBackgroundBtn" Text="#send#" OnClick="SendData_OnClick"/>
 
         <c:ScrollView CssClass="ScrollViewMaterialsRequest">
 
@@ -37,6 +36,7 @@
                 </c:HorizontalLayout>
               </c:VerticalLayout>
 
+              <!--TODO: Заменить у итемнов (first и second) на имена полей из запроса-->
               <!--Два TextView с информацией об услугах-->
               <c:VerticalLayout Id="Test" CssClass="InfoTextContainerVL">
                 <c:TextView CssClass="NameTV" Text="$item.first" />

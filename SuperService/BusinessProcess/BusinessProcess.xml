@@ -102,6 +102,7 @@
 
     <Step Name="ApplicationMaterials" Controller="ApplicationMaterialsScreen" StyleSheet="Style\applicationmaterialsscreen_style.css">
       <Action Name="COC" NextStep="COC"></Action>
+      <Action Name="AddServicesOrMaterials" NextStep="AddServicesOrMaterials"></Action>
     </Step>
     
     <Step Name="Test" Controller="TestScreen" StyleSheet="Style\style.css">
