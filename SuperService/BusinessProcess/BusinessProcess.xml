@@ -20,7 +20,7 @@
       <Action Name="Settings" NextStep="Settings"></Action>
       <Action Name="ClientList" NextStep="ClientList"></Action>
     </Step>
-    
+
     <Step Name="Bag" Controller="BagListScreen" StyleSheet="Style\BagListScreen.css">
       <Action Name="EventList" NextStep="EventList"></Action>
       <!--      <Action Name="Bag" NextStep="Bag"></Action>-->
@@ -43,7 +43,7 @@
       <Action Name="Logout" NextStep="Authorization"></Action>
     </Step>
     <!-- / MAIN SCREENS -->
-    
+
     <Step Name="Event" Controller="EventScreen" StyleSheet="Style\fancy_event.css">
       <Action Name="EventList" NextStep="EventList"></Action>
       <Action Name="Client" NextStep="Client"></Action>
@@ -99,9 +99,10 @@
     <Step Name="ApplicationMaterials" Controller="ApplicationMaterialsScreen" StyleSheet="Style\style.css">
       <Action Name="COC" NextStep="COC"></Action>
     </Step>
-    
+
     <Step Name="Test" Controller="TestScreen" StyleSheet="Style\style.css">
       <Action Name="ToApplication" NextStep="Authorization" />
+      <Action Name="TestEditServicesOrMaterials" NextStep="EditServicesOrMaterials" />
     </Step>
   
     <Step Name="RIMList" Controller="RIMListScreen" StyleSheet="Style\RIMListScreen.css">

@@ -2,7 +2,19 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
-    <c:TextView Text="EditServicesOrMaterialsScreen"/>
-    <c:Button Text="Back" OnClick="Back_OnClick"/>
+    <s:Push Id="serviceMaterial" Value="$GetServiceMaterialInfo()" />
+    <s:Push Id="void" Value="$SetPrice($serviceMaterial.Price)" />
+    <c:Button Text="#back#" OnClick="BackButton_OnClick" />
+    <c:TextView Text="$serviceMaterial.Description" />
+    <c:TextView Text="#count#" />
+    <c:Button Id="RemoveButton" Text="-" OnClick="RemoveButton_OnClick" />
+    <c:EditText Id="CountEditText" Text="$serviceMaterial.Count" Keyboard="numeric"
+                OnLostFocus="CountEditText_OnLostFocus" />
+    <c:Button Id="AddButton" Text="+" OnClick="AddButton_OnClick" />
+    <c:TextView Id="PriceTitleTextView" Text="#price#" />
+    <c:EditText Id="PriceEditText" Text="$serviceMaterial.Price" />
+    <c:TextView Id="TotalPriceTitleTextView" Text="#total#" />
+    <c:TextView Id="TotalPriceTextView" Text="$serviceMaterial.FullPrice" />
+    <c:Button Text="#add#" OnClick="AddServiceMaterialButton_OnClick" />
   </c:VerticalLayout>
 </c:Screen>

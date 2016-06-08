@@ -47,3 +47,6 @@ total		Total
 not_choosed		Not choosed..
 not_specified		Not specified
 text		Text..
+count		
+price		Price
+add		Add
