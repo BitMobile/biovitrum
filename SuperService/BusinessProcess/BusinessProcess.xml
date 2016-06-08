@@ -21,7 +21,7 @@
       <Action Name="ClientList" NextStep="ClientList"></Action>
     </Step>
     
-    <Step Name="Bag" Controller="BagListScreen" StyleSheet="Style\style.css">
+    <Step Name="Bag" Controller="BagListScreen" StyleSheet="Style\BagListScreen.css">
       <Action Name="EventList" NextStep="EventList"></Action>
       <!--      <Action Name="Bag" NextStep="Bag"></Action>-->
       <Action Name="Settings" NextStep="Settings"></Action>
@@ -35,7 +35,7 @@
       <Action Name="Settings" NextStep="Settings"></Action>
     </Step>
 
-    <Step Name="Settings" Controller="SettingsScreen" StyleSheet="Style\style.css">
+    <Step Name="Settings" Controller="SettingsScreen" StyleSheet="Style\SettingsScreen.css">
       <Action Name="EventList" NextStep="EventList"></Action>
       <Action Name="Bag" NextStep="Bag"></Action>
       <!--      <Action Name="Settings" NextStep="Settings"></Action>-->
@@ -87,13 +87,9 @@
 
     <Step Name="COC" Controller="COCScreen" StyleSheet="Style\cocscreen_style.css">
       <Action Name="ViewEvent" NextStep="Event"></Action>
-      <Action Name="AddServicesOrMaterials" NextStep="AddServicesOrMaterials"></Action>
+      <Action Name="AddServicesOrMaterials" NextStep="RIMList"></Action>
       <Action Name="EditServicesOrMaterials" NextStep="EditServicesOrMaterials"></Action>
       <Action Name="ApplicationMaterials" NextStep="ApplicationMaterials"></Action>
-    </Step>
-
-    <Step Name="AddServicesOrMaterials" Controller="AddServicesOrMaterialsScreen" StyleSheet="Style\style.css">
-      <Action Name="COC" NextStep="COC"></Action>
     </Step>
 
     <Step Name="EditServicesOrMaterials" Controller="EditServicesOrMaterialsScreen" StyleSheet="Style\style.css">
@@ -102,11 +98,19 @@
 
     <Step Name="ApplicationMaterials" Controller="ApplicationMaterialsScreen" StyleSheet="Style\applicationmaterialsscreen_style.css">
       <Action Name="COC" NextStep="COC"></Action>
-      <Action Name="AddServicesOrMaterials" NextStep="AddServicesOrMaterials"></Action>
+      <Action Name="AddServicesOrMaterials" NextStep="RIMList"></Action>
     </Step>
     
     <Step Name="Test" Controller="TestScreen" StyleSheet="Style\style.css">
       <Action Name="ToApplication" NextStep="Authorization" />
     </Step>
+  
+    <Step Name="RIMList" Controller="RIMListScreen" StyleSheet="Style\RIMListScreen.css">
+      <Action Name="RIMAdded" NextStep="COC" />
+      <Action Name="ViewCOC" NextStep="COC" />
+      
+      <!-- СТЕП ДЛЯ ПЕРЕХОДА В ЭКРАН РЕДАКТИРВОНиЯ количЕсТВА-->
+    </Step>
+  
   </Workflow>
 </BusinessProcess>

@@ -14,6 +14,8 @@ namespace Test
         //TODO: Заменить на RecordSet
         private ArrayList _data;
         private bool _isEmptyList;
+        private bool _isSwiped;
+        private ISwipeHorizontalLayout3 _isSwipedElement;
         private VerticalLayout _rootVerticalLayout;
         private TopInfoComponent _topInfoComponent;
 
@@ -48,9 +50,10 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
+
         /// <summary>
-        /// Проверяет данные, которые получили в поле
-        /// _data.
+        ///     Проверяет данные, которые получили в поле
+        ///     _data.
         /// </summary>
         /// <returns>true - если БД вернула 0 записей, иначе false</returns>
         internal bool GetIsEmptyList()
@@ -74,15 +77,18 @@ namespace Test
             var hl = (IHorizontalLayout3) vl.Parent;
             var shl = (ISwipeHorizontalLayout3) hl.Parent;
             ++shl.Index;
-            DConsole.WriteLine(nameof(shl.Index) + "=" + shl.Index);
+            _isSwipedElement = shl;
+            _isSwiped = true;
         }
 
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
             var btn = (Button) sender;
             var shl = (ISwipeHorizontalLayout3) btn.Parent;
+            var vl = (IVerticalLayout3) shl.Parent;
             shl.CssClass = "NoHeight";
-            shl.Refresh();
+            vl.Refresh();
+            _isSwiped = false;
         }
 
         private void FillData()
@@ -114,6 +120,40 @@ namespace Test
         {
             //TODO: сохранения данных в БД.
             DConsole.WriteLine("Data is saved");
+        }
+
+        internal void OnSwipe_Swipe(object sender, EventArgs e)
+        {
+            DConsole.WriteLine(nameof(_isSwiped) + " " + _isSwiped.ToString());
+
+            if (!_isSwiped)
+            {
+                DConsole.WriteLine("Before");
+                _isSwiped = true;
+                DConsole.WriteLine("After");
+                DConsole.WriteLine(" " + _isSwiped.GetType().FullName);
+            }
+            else
+            {
+                if (!_isSwiped)
+                {
+                    if (_isSwipedElement != null)
+                    {
+                        DConsole.WriteLine("In IF");
+                        --_isSwipedElement.Index;
+                        DConsole.WriteLine("Before --");
+                    }
+                }
+                else
+                {
+                    _isSwiped = false;
+                    DConsole.WriteLine(nameof(_isSwiped) + " " + _isSwiped.ToString());
+                }
+
+                DConsole.WriteLine(nameof(OnSwipe_Swipe));
+            }
+
+            DConsole.WriteLine("End Method " + nameof(OnSwipe_Swipe));
         }
     }
 }

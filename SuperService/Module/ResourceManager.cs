@@ -20,6 +20,8 @@ namespace Test
             //
             {"topinfo_downarrow", @"Image\_Components\TopInfoComponent\down_arrow_full_width.png"},
             {"topinfo_uparrow", @"Image\_Components\TopInfoComponent\up_arrow_full_width.png"},
+            {"topinfo_downnoarrow", @"Image\_Components\TopInfoComponent\down_noarrow_full_width.png"},
+            {"topinfo_upnoarrow", @"Image\_Components\TopInfoComponent\up_noarrow_full_width.png"},
             {"topinfo_extra_map", @"Image\top_map.png"},
             {"topinfo_extra_person", @"Image\top_person.png"},
             //
@@ -50,8 +52,11 @@ namespace Test
             //COC Screen
             {"cocscreen_delete", @"Image\COCScreen\delete_img.png"},
             {"cocscreen_plus", @"Image\COCScreen\plus_img.png"},
-            //CheckList Screen
-            {"checklist_photo", @"Image\CheckList\TakePhoto.png"},
+            //CheckListScreen
+            {"checklistscreen_photo", @"Image\CheckListScreen\TakePhoto.png"},
+            //BagListScreen
+            {"baglistscreen_busket", @"Image\BagListScreen\BagBusket.png"},
+            {"baglistscreen_plus", @"Image\BagListScreen\BagPlus.png"},
             //Materials Request
             {"close", @"Image\MaterialsRequest\close.png"},
             {"basket", @"Image\MaterialsRequest\basket.png"},

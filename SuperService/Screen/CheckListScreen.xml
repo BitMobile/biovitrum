@@ -40,7 +40,7 @@
               
               <c:VerticalLayout CssClass="CheckListAnswerLayout" Id ="$CheckList.CheckListId">
                 <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListVLAnswerLayout" OnClick="CheckListSnapshot_OnClick">
-                  <c:Image Source="$GetResourceImage(checklist_photo)" Id ="$CheckList.CheckListId"/>
+                  <c:Image Source="$GetResourceImage(checklist_photo)" Id ="$CheckList.CheckListId" CssClass="test"/>
                 </c:HorizontalLayout>
               </c:VerticalLayout>
             </s:If>

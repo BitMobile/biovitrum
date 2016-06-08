@@ -9,6 +9,11 @@ body {
     width: 100%;
 }
 
+vl {
+    height: 0% auto;
+    width: 100%;
+}
+
 TextView {
     color: #51595b;
     font: 2.5sp arial;
@@ -30,6 +35,7 @@ TextView {
     height: 100%;
     width: 100%;
 }
+
 
 /* Top Info Component */
 
@@ -219,6 +225,8 @@ TextView {
     width: 100%;
 }
 
+
+
 .InfoImageCondtainerVL {
     height: 10sp;
     width: 20%;
@@ -268,4 +276,6 @@ TextView {
     height: 4sp;
     vertical-align: center;
 }
+
+
 /* ---------------------------------- */

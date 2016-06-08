@@ -24,7 +24,8 @@ namespace Test
                 {
                     Text = Translator.Translate("total") + Environment.NewLine + Convert.ToDouble((double)_sums["Sum"]) 
                     + Translator.Translate("currency")
-                }
+                },
+                BigArrowActive = false
             };
             
         }
@@ -90,14 +91,17 @@ namespace Test
             shl.Refresh();
         }
 
-        private string GetFormatStringForSums(double number)
+        internal string GetFormatStringForSums(double number)
         {
             return "\u2022" + Convert.ToDouble(number) + Translator.Translate("currency");
         }
 
       
         internal DbRecordset GetSums()
+
         {
+            DConsole.WriteLine("COC - GetSums()");
+
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
             {
@@ -111,6 +115,7 @@ namespace Test
 
         internal DbRecordset GetServices()
         {
+            DConsole.WriteLine("COC - GetServices()");
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
             {
@@ -120,13 +125,15 @@ namespace Test
             return DBHelper.GetServicesByEventId((string) eventId);
         }
 
-        private string Concat(float amountFact, float price)
+        internal string Concat(float amountFact, float price)
         {
             return Convert.ToSingle(amountFact) + " x " + Convert.ToSingle(price);
         }
 
         internal DbRecordset GetMaterials()
         {
+            DConsole.WriteLine("COC - GetMaterials()");
+
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
             {

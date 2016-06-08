@@ -6,9 +6,8 @@
 
     <!-- Добавление верхней панели -->
     <s:Include File="Components\TopInfoComponent.xml" />
-    <!---->
 
-    <!-- Tap Bar-->
+    <!-- Tab Bar-->
     <s:Include File="Components\TabBarСomponent.xml" />
    
     <!-- Список контактов -->
@@ -21,6 +20,7 @@
         </c:VerticalLayout>       
       </s:Iterator>
     </c:SwipeVerticalLayout>
+
   </c:DockLayout>
 
 </c:Screen>
