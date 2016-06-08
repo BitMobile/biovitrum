@@ -47,8 +47,6 @@ namespace Test
 
         public override void OnShow()
         {
-            DConsole.WriteLine($"$.priceVisible = {Variables["priceVisible"]}");
-            DConsole.WriteLine($"showPrices = {_showPrices}");
             FindTextViewAndChangeVisibility("PriceTitleTextView", _showPrices);
             FindTextViewAndChangeVisibility("PriceTextView", _showPrices);
             FindTextViewAndChangeVisibility("TotalPriceTitleTextView", _showPrices);
@@ -57,7 +55,6 @@ namespace Test
 
         private void FindTextViewAndChangeVisibility(string id, bool visibility)
         {
-            DConsole.WriteLine($"Visibility = {visibility}");
             ((TextView) Variables[id]).Visible = visibility;
         }
 
