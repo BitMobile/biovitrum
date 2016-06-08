@@ -14,6 +14,7 @@ namespace Test
 
         private static readonly Stack StackNodes = new Stack();
         private static readonly Stack StackScreens = new Stack();
+        private static Screen lastScreen;
 
         public static XmlNode CurrentNode => (XmlNode) StackNodes.Peek();
         public static Screen CurrentScreen => (Screen) StackScreens.Peek();
@@ -28,14 +29,8 @@ namespace Test
             DConsole.WriteLine("Loaded BP.xml");
 
             var firstStepName = _doc.DocumentElement?.ChildNodes[0].ChildNodes[0].Attributes?["Name"].Value;
-            MoveTo(firstStepName);
-//            MoveTo("EditServicesOrMaterials", new Dictionary<string, object>
-//            {
-//                {"priceVisible", false},
-//                {"priceEditable", true},
-//                {"isInsert", false},
-//                {"minimum", 0}
-//            });
+//            MoveTo(firstStepName);
+            MoveTo("Test");
         }
 
         private static void MoveTo(string stepName, IDictionary<string, object> args = null)
@@ -92,7 +87,7 @@ namespace Test
             }
 
             StackNodes.Pop();
-            StackScreens.Pop();
+            lastScreen = (Screen) StackScreens.Pop();
             var scr = (Screen) StackScreens.Peek();
             scr.Show();
         }

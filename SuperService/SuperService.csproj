@@ -61,14 +61,7 @@
     <Compile Include="Entities\**" />
     <EmbeddedResource Include="Image\**" />
     <EmbeddedResource Include="Model\metadata.xml" />
-    <Compile Include="Module\BusinessProcess.cs" />
-    <Compile Include="Module\DBHelper.cs" />
-    <Compile Include="Module\DBHelper.Delete.cs" />
-    <Compile Include="Module\DBHelper.Get.cs" />
-    <Compile Include="Module\DBHelper.UpdateInsert.cs" />
-    <Compile Include="Module\ResourceManager.cs" />
-    <Compile Include="Module\Solution.cs" />
-    <Compile Include="Module\Utils.cs" />
+    <Compile Include="Module\**" />
     <Compile Include="Objects\**" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Screen\**" />

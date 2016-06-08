@@ -7,23 +7,25 @@ namespace Test
 {
     public class TestScreen : Screen
     {
-        private DockLayout _rootLayout;
+        private VerticalLayout _rootLayout;
+        private TextView _testTextView;
 
         public override void OnLoading()
         {
-            bool test = true;
-            DConsole.WriteLine($"{test}");
-            if (test)
-                DConsole.WriteLine("test = true");
-            else
-                DConsole.WriteLine("test = false");
+            _rootLayout = (VerticalLayout) Controls[0];
+            _testTextView = (TextView) _rootLayout.Controls[1];
+        }
 
-            test = Convert.ToBoolean(test);
-            DConsole.WriteLine($"{test}");
-            if (test)
-                DConsole.WriteLine("test = true");
-            else
-                DConsole.WriteLine("test = false");
+        public override void OnShow()
+        {
+            DConsole.WriteLine("OnShow?");
+
+            if (BusinessProcess.GlobalVariables.ContainsKey("serviceMaterialNumber"))
+            {
+                var result =
+                    (EditServiceOrMaterialsScreenResult) BusinessProcess.GlobalVariables["serviceMaterialNumber"];
+                _testTextView.Text = $"Price = {result.Price}, Count = {result.Count}, Full = {result.FullPrice}";
+            }
         }
 
         internal string GetResourceImage(string tag)
@@ -33,6 +35,14 @@ namespace Test
 
         internal void Button_OnClick(object sender, EventArgs eventArgs)
         {
+            BusinessProcess.DoAction("TestEditServicesOrMaterials", new Dictionary<string, object>
+            {
+                {"priceVisible", true},
+                {"priceEditable", true},
+                {"minimum", 0},
+                {"behaviour", BehaviourEditServicesOrMaterialsScreen.ReturnValue},
+                {"returnKey", "serviceMaterialNumber"}
+            });
         }
     }
 }
