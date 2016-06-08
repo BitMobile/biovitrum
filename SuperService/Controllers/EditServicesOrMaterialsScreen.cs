@@ -8,17 +8,57 @@ namespace Test
 {
     public class EditServicesOrMaterialsScreen : Screen
     {
-        private int _minimum;
         private EditText _countEditText;
+        private TextView _totalPriceTextView;
+
+        private decimal _price;
+        private bool _showPrices;
+        private bool _editPrices;
+        private bool _isInsert;
+        private int _minimum;
+
+        private int Count
+        {
+            get { return GetAndCheckCountEditText(_countEditText); }
+            set
+            {
+                value = Math.Max(value, _minimum);
+                _countEditText.Text = value.ToString();
+                if (_totalPriceTextView != null)
+                    _totalPriceTextView.Text = _price*Count + Translator.Translate("currency");
+            }
+        }
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("Edit Services Or Materials Screen");
-//            DConsole.WriteLine(BusinessProcess.GlobalVariables["currentServicesMaterialsId"].ToString());4
+//            DConsole.WriteLine(BusinessProcess.GlobalVariables["currentServicesMaterialsId"].ToString());
 
-            _minimum = (int) Variables["minimum"];
+
+            _minimum = (int) Variables.GetValueOrDefault("minimum", 0);
+            _showPrices = (bool) Variables.GetValueOrDefault("priceVisible", true);
+            _editPrices = (bool) Variables.GetValueOrDefault("priceEditable", false);
+            _isInsert = (bool) Variables.GetValueOrDefault("isInsert", false);
+
             DConsole.WriteLine($"Minimum = {_minimum}");
+
             _countEditText = (EditText) GetControl("CountEditText", true);
+            _totalPriceTextView = (TextView) GetControl("TotalPriceTextView", true);
+        }
+
+        public override void OnShow()
+        {
+            DConsole.WriteLine($"$.priceVisible = {Variables["priceVisible"]}");
+            DConsole.WriteLine($"showPrices = {_showPrices}");
+            FindTextViewAndChangeVisibility("PriceTitleTextView", _showPrices);
+            FindTextViewAndChangeVisibility("PriceTextView", _showPrices);
+            FindTextViewAndChangeVisibility("TotalPriceTitleTextView", _showPrices);
+            FindTextViewAndChangeVisibility("TotalPriceTextView", _showPrices);
+        }
+
+        private void FindTextViewAndChangeVisibility(string id, bool visibility)
+        {
+            DConsole.WriteLine($"Visibility = {visibility}");
+            ((TextView) Variables[id]).Visible = visibility;
         }
 
         internal void Back_OnClick(object sender, EventArgs e)
@@ -28,27 +68,31 @@ namespace Test
 
         internal void RemoveButton_OnClick(object sender, EventArgs eventArgs)
         {
-            long i = GetAndCheckCountEditText(_countEditText);
-            DConsole.WriteLine($"Count before dec = {i}");
-            i = i - 1;
-            DConsole.WriteLine($"Count = {i}");
-            if (i < _minimum) i = _minimum;
-            DConsole.WriteLine($"Count = {i}");
-            _countEditText.Text = i.ToString();
+            Count--;
+        }
+
+        internal void AddButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            Count++;
         }
 
         internal void CountEditText_OnLostFocus(object sender, EventArgs eventArgs)
         {
-            DConsole.WriteLine("test");
             GetAndCheckCountEditText((EditText) sender);
         }
 
-        private long GetAndCheckCountEditText(EditText countEditText)
+        internal int SetPrice(decimal price)
         {
-            long res;
-            if (long.TryParse(countEditText.Text, out res))
+            _price = Convert.ToDecimal(price);
+            return 0;
+        }
+
+        private int GetAndCheckCountEditText(EditText countEditText)
+        {
+            int res;
+            if (int.TryParse(countEditText.Text, out res))
             {
-                res = Convert.ToInt64(res);
+                res = Convert.ToInt32(res);
                 if (res > _minimum) return res;
                 countEditText.Text = _minimum.ToString();
                 return _minimum;

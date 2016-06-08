@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 
 namespace Test
@@ -10,7 +11,19 @@ namespace Test
 
         public override void OnLoading()
         {
-            _rootLayout = (DockLayout) Controls[0];
+            bool test = true;
+            DConsole.WriteLine($"{test}");
+            if (test)
+                DConsole.WriteLine("test = true");
+            else
+                DConsole.WriteLine("test = false");
+
+            test = Convert.ToBoolean(test);
+            DConsole.WriteLine($"{test}");
+            if (test)
+                DConsole.WriteLine("test = true");
+            else
+                DConsole.WriteLine("test = false");
         }
 
         internal string GetResourceImage(string tag)
@@ -20,13 +33,6 @@ namespace Test
 
         internal void Button_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("ToApplication", new Dictionary<string, object>
-            {
-                {"test", "lol"},
-                {"foo", "bar"},
-                {"bool", false},
-                {"int", 42}
-            });
         }
     }
 }

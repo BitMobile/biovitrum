@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using BitMobile.ClientModel3;
@@ -30,9 +31,10 @@ namespace Test
 //            MoveTo(firstStepName);
             MoveTo("EditServicesOrMaterials", new Dictionary<string, object>
             {
-                {"isPriceVisible", true },
-                {"isPriceEditable", true },
-                {"minimum", 0 }
+                {"priceVisible", false},
+                {"priceEditable", true},
+                {"isInsert", false},
+                {"minimum", 0}
             });
         }
 
@@ -53,7 +55,7 @@ namespace Test
             var stepController = n.Attributes["Controller"].Value;
             var styleSheet = n.Attributes["StyleSheet"].Value;
 
-            DConsole.WriteLine($"Loading controler: ${stepController}");
+            DConsole.WriteLine($"Loading controler: {stepController}");
             var scr = GetScreenByControllerName(stepController);
             scr.SetData(args);
             StackScreens.Push(scr);
@@ -91,7 +93,7 @@ namespace Test
 
             StackNodes.Pop();
             StackScreens.Pop();
-            var scr = (Screen)StackScreens.Peek();
+            var scr = (Screen) StackScreens.Peek();
             scr.Show();
         }
 
