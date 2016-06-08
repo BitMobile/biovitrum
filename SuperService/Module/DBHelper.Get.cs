@@ -717,5 +717,36 @@ namespace Test
 
             return query.Execute();
         }
+
+
+        /// <summary>
+        ///     Получает список документов заявка на материалы
+        /// </summary>
+        /// <returns>
+        ///     список документов заявка на материалы
+        /// </returns>
+        public static DbRecordset GetNeedMats()
+        {
+            var queryText = "select " +
+                            "   _Document_NeedMat.id, " +
+                            "   _Document_NeedMat.Date, " +
+                            "   Time(_Document_NeedMat.Date) as docTime, " +
+                            "   _Document_NeedMat.Number, " +
+                            "   _Enum_StatsNeedNum.name as statusName, " +
+                            "   _Enum_StatsNeedNum.Description as statusDescription " +
+                            " " +
+                            "from " +
+                            "   _Document_NeedMat " +
+                            "       left join _Enum_StatsNeedNum " +
+                            "           on _Document_NeedMat.StatsNeed = _Enum_StatsNeedNum.id " +
+                            "order by " +
+                            "   _Document_NeedMat.Date desc";
+
+
+            var query = new Query(queryText);
+
+            return query.Execute();
+        }
+
     }
 }
