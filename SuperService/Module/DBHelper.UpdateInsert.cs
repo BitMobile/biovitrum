@@ -17,7 +17,8 @@ namespace Test
         {
             var query = new Query("update _Document_Event " +
                                   "    set ActualStartDate = @dateTime, " +
-                                  "        Status = (select Enum_StatusyEvents.id from Enum_StatusyEvents where Enum_StatusyEvents.name like 'InWork')" +
+                                  "        Status = (select Enum_StatusyEvents.id from Enum_StatusyEvents where Enum_StatusyEvents.name like 'InWork'), " +
+                                  "        isDirty = 1 " + 
                                   "    where Id=@id");
             DConsole.WriteLine($"{dateTime}");
             query.AddParameter("dateTime", dateTime.ToString(DateTimeFormat));
@@ -36,7 +37,8 @@ namespace Test
         {
             var query = new Query("update _Document_Event " +
                                   "    set ActualEndDate = @dateTime, " +
-                                  "        Status = (select Enum_StatusyEvents.id from Enum_StatusyEvents where Enum_StatusyEvents.name like 'Done')" +
+                                  "        Status = (select Enum_StatusyEvents.id from Enum_StatusyEvents where Enum_StatusyEvents.name like 'Done'), " +
+                                  "        isDirty = 1 " + 
                                   "    where Id=@id");
             DConsole.WriteLine($"{dateTime}");
             query.AddParameter("dateTime", dateTime.ToString(DateTimeFormat));
@@ -52,7 +54,8 @@ namespace Test
         public static void UpdateCancelEventById(string eventId)
         {
             var query = new Query("update _Document_Event " +
-                                  "    set Status = (select Enum_StatusyEvents.id from Enum_StatusyEvents where Enum_StatusyEvents.name like 'Cancel')" +
+                                  "    set Status = (select Enum_StatusyEvents.id from Enum_StatusyEvents where Enum_StatusyEvents.name like 'Cancel'), " +
+                                  "        isDirty = 1 " + 
                                   "    where Id=@id");
             query.AddParameter("id", eventId);
             query.Execute();
@@ -127,7 +130,8 @@ namespace Test
         public static void UpdateClosingEventComment(string eventID, string message)
         {
             var query = new Query("update _Document_Event " +
-                                  "    set CommentContractor = @message " +
+                                  "    set CommentContractor = @message, " +
+                                  "        isDirty = 1 " + 
                                   "    where Id=@eventID");
             query.AddParameter("message", message);
             query.AddParameter("eventID", eventID);
@@ -148,7 +152,8 @@ namespace Test
         {
             var query = new Query("update _Document_Event_Equipments " +
                                   "    set Result = (select Id from Enum_ResultEvent" +
-                                  "                      where Name like @resultName) " +
+                                  "                      where Name like @resultName), " +
+                                  "        isDirty = 1 "  +
                                   "    where Id = @taskId");
             query.AddParameter("resultName", result);
             query.AddParameter("taskId", taskId);
@@ -159,7 +164,8 @@ namespace Test
         public static void UpdateTaskComment(string taskId, string comment)
         {
             var query = new Query("update _Document_Event_Equipments " +
-                      "    set Comment = @comment " +
+                      "    set Comment = @comment, " +
+                      "        isDirty = 1 " + 
                       "    where Id = @taskId");
             query.AddParameter("comment", comment);
             query.AddParameter("taskId", taskId);
@@ -175,11 +181,6 @@ namespace Test
         /// </param>
         public static void UpdateEventServicesMaterialsLine(EventServicesMaterialsLine line)
         {
-
-            if (line.ID.CompareTo("") == 0)
-            {
-
-            }
             var query = new Query(  "update " +
                                     "    _Document_Event_ServicesMaterials " +
                                     "set " +

@@ -101,19 +101,19 @@ namespace Test
         {
             var statistic = new EventsStatistic();
             var query = new Query("select " +
-                                  "  SUM(CASE " +
+                                  "  TOTAL(CASE " +
                                   "        when StartDatePlan > date('now','start of day') then 1 " +
                                   "        else 0 " +
                                   "   End) as DayTotalAmount, " +
-                                  "    SUM(CASE " +
+                                  "    TOTAL(CASE " +
                                   "        when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now','start of day') then 1 " +
                                   "        else 0 " +
                                   "   End) as DayCompleteAmout, " +
-                                  "   SUM(CASE " +
+                                  "   TOTAL(CASE " +
                                   "        when StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 " +
                                   "        else 0 " +
                                   "   End) as MonthCompleteAmout, " +
-                                  "    SUM(CASE " +
+                                  "   TOTAL(CASE " +
                                   "        when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 " +
                                   "        else 0 " +
                                   "   End) as MonthTotalAmount " +
@@ -128,10 +128,10 @@ namespace Test
 
             if (result.Next())
             {
-                statistic.DayTotalAmount = result.GetInt32(0);
-                statistic.DayCompleteAmout = result.GetInt32(1);
-                statistic.MonthTotalAmount = result.GetInt32(2);
-                statistic.MonthCompleteAmout = result.GetInt32(3);
+                statistic.DayTotalAmount = (int) result["DayTotalAmount"];
+                statistic.DayCompleteAmout = (int) result["DayCompleteAmout"];
+                statistic.MonthTotalAmount = (int) result["MonthCompleteAmout"];
+                statistic.MonthCompleteAmout = (int) result["MonthTotalAmount"];
             }
 
             return statistic;
@@ -155,6 +155,7 @@ namespace Test
                             "    event.ActualEndDate,  " + // фактическая дата конца
                             "    _Enum_StatusImportance.Description as Importance,  " + //важность
                             "    event.Comment,  " +
+                            //"    100500 as sumFact, " +
                             "    docSUm.sumFact,  " +
                             "    docCheckList.Total as checkListTotal,  " + //общее количество вопросов в чеклисте
                             "    docCheckList.Answered as checkListAnswered,  " +
@@ -207,22 +208,22 @@ namespace Test
                             "        left join _Enum_StatusImportance  " +
                             "           on event.Importance = _Enum_StatusImportance.Id  " +
                             "    " +
-                            "        left join (select Document_Event_ServicesMaterials.Ref, sum(SumFact) as sumFact from Document_Event_ServicesMaterials where Document_Event_ServicesMaterials.Ref = @id group by Document_Event_ServicesMaterials.Ref ) as docSum  " +
+                            "        left join (select _Document_Event_ServicesMaterials.Ref, TOTAL(SumFact) as sumFact from _Document_Event_ServicesMaterials where _Document_Event_ServicesMaterials.Ref = @id group by _Document_Event_ServicesMaterials.Ref ) as docSum  " +
                             "           on event.id = docSUm.ref " +
                             "    " +
                             "        left join (select " +
                             "                       Document_Event_CheckList.Ref,  " +
                             "                       count(Document_Event_CheckList.Ref) as Total,  " +
-                            "                       sum(case when result = '' then 0 else 1 end) as Answered, " +
-                            "                       sum(case when Required = 1 then 1 else 0 end) as Required, " +
-                            "                       sum(case when Required = 1 and result <> ''  then 1 else 0 end) as RequiredAnswered " +
+                            "                       TOTAL(case when result = '' then 0 else 1 end) as Answered, " +
+                            "                       TOTAL(case when Required = 1 then 1 else 0 end) as Required, " +
+                            "                       TOTAL(case when Required = 1 and result <> ''  then 1 else 0 end) as RequiredAnswered " +
                             "                   from  " +
                             "                       Document_Event_CheckList  " +
                             "                   where  " +
                             "                       Document_Event_CheckList.Ref = @id group by Document_Event_CheckList.Ref ) as docCheckList " +
                             "           on event.id = docCheckList.ref " +
                             "    " +
-                            "        left join (select Document_Event_Equipments.Ref, count(Document_Event_Equipments.Ref) as Total, sum(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_Equipments where Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment " +
+                            "        left join (select Document_Event_Equipments.Ref, count(Document_Event_Equipments.Ref) as Total, TOTAL(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_Equipments where Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment " +
                             "           on event.id = docEquipment.ref " +
                             "    " +
                             "        left join Enum_StatusyEvents " +
@@ -508,9 +509,9 @@ namespace Test
         public static DbRecordset GetCocSumsByEventId(string eventId)
         {
             var query = new Query("select " +
-                                  "    sum(SumFact) as Sum, " +
-                                  "    sum(case when Service = 0 then SumFact else 0 end) as SumMaterials, " +
-                                  "    sum(case when Service = 1 then SumFact else 0 end) as SumServices " +
+                                  "    TOTAL(SumFact) as Sum, " +
+                                  "    TOTAL(case when Service = 0 then SumFact else 0 end) as SumMaterials, " +
+                                  "    TOTAL(case when Service = 1 then SumFact else 0 end) as SumServices " +
                                   "from " +
                                   "    _Document_Event_ServicesMaterials " +
                                   "    join Catalog_RIM " +
@@ -619,7 +620,7 @@ namespace Test
         public static EventServicesMaterialsLine GetEventServicesMaterialsLineByRIMID(string docEventID, string rimID)
         {
             EventServicesMaterialsLine result = null;
-            var queryText = "select " +
+            var queryText =       "select " +
                                   "    id, " +
                                   "    LineNumber, " +
                                   "    Ref, " +
@@ -650,17 +651,102 @@ namespace Test
                 result.LineNumber = queryResult.GetInt32(1);
                 result.Ref = queryResult.GetString(2);
                 result.SKU = queryResult.GetString(3);
-                result.Price = queryResult.GetDouble(4);
-                result.AmountPlan = queryResult.GetDouble(5);
-                result.SumPlan = queryResult.GetDouble(6);
-                result.AmountFact = queryResult.GetDouble(7);
-                result.SumFact = queryResult.GetDouble(8);
+                result.Price = queryResult.GetDecimal(4);
+                result.AmountPlan = queryResult.GetDecimal(5);
+                result.SumPlan = queryResult.GetDecimal(6);
+                result.AmountFact = queryResult.GetDecimal(7);
+                result.SumFact = queryResult.GetDecimal(8);
             }
 
             return result;
         }
+
+
+        /// <summary>
+        ///     Возвращает строку табличной части "услуги и материалы" документа Событие по ее идентификатору
+        /// </summary>
+        /// <param name="lineID">Идентификатор строки ТЧ услуги и материалы</param>
+        /// <returns>
+        ///     строка табличной части
+        /// </returns>
+        public static DbRecordset GetEventServicesMaterialsLineById(string lineID)
+        {
+            var queryString = "select " +
+                              "    id, " +
+                              "    LineNumber, " +
+                              "    Ref, " +
+                              "    SKU, " +
+                              "    Price, " +
+                              "    AmountPlan, " +
+                              "    AmountFact, " +
+                              "    SumPlan, " +
+                              "    SumFact " +
+                              "from " +
+                              "  _Document_Event_ServicesMaterials " +
+                              "where " +
+                              "   _Document_Event_ServicesMaterials.id = @lineId";
+
+            var query = new Query(queryString);
+            query.AddParameter("lineId", lineID);
+
+            return query.Execute();
+        }
+
+        /// <summary>
+        ///     Получает текущие остатки рюкзака монтажника
+        /// </summary>
+        /// <param name="userID">Идентификатор пользоателя для получения остатков рюкзака</param>
+        /// <returns>
+        ///     текущие остатки рюкзака
+        /// </returns>
+        public static DbRecordset GetUserBagByUserId(string userID)
+        {
+            var queryString = "select " +
+                              "    _Catalog_RIM.id,  " +
+                              "    _Catalog_RIM.Description, " +
+                              "    _Catalog_RIM.Unit,   " +
+                              "    _Catalog_User_Bag.Count " +
+                              "  from " +
+                              "    _Catalog_User_Bag " +
+                              "        left join _Catalog_RIM " +
+                              "            on _Catalog_User_Bag.Materials = _Catalog_RIM.id " +
+                              "  where " +
+                              "    _Catalog_User_Bag.Ref = @userId";
+            var query = new Query(queryString);
+            query.AddParameter("userId", userID);
+
+            return query.Execute();
+        }
+
+
+        /// <summary>
+        ///     Получает список документов заявка на материалы
+        /// </summary>
+        /// <returns>
+        ///     список документов заявка на материалы
+        /// </returns>
+        public static DbRecordset GetNeedMats()
+        {
+            var queryText = "select " +
+                            "   _Document_NeedMat.id, " +
+                            "   _Document_NeedMat.Date, " +
+                            "   Time(_Document_NeedMat.Date) as docTime, " +
+                            "   _Document_NeedMat.Number, " +
+                            "   _Enum_StatsNeedNum.name as statusName, " +
+                            "   _Enum_StatsNeedNum.Description as statusDescription " +
+                            " " +
+                            "from " +
+                            "   _Document_NeedMat " +
+                            "       left join _Enum_StatsNeedNum " +
+                            "           on _Document_NeedMat.StatsNeed = _Enum_StatsNeedNum.id " +
+                            "order by " +
+                            "   _Document_NeedMat.Date desc";
+
+
+            var query = new Query(queryText);
+
+            return query.Execute();
+        }
+
     }
-
-
-
 }

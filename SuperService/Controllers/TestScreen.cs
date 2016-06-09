@@ -1,15 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
+using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 
 namespace Test
 {
     public class TestScreen : Screen
     {
-        private DockLayout _rootLayout;
+        private VerticalLayout _rootLayout;
+        private TextView _testTextView;
 
         public override void OnLoading()
         {
-            _rootLayout = (DockLayout) Controls[0];
+            _rootLayout = (VerticalLayout) Controls[0];
+            _testTextView = (TextView) _rootLayout.Controls[1];
+        }
+
+        public override void OnShow()
+        {
+            DConsole.WriteLine("OnShow?");
+
+            if (BusinessProcess.GlobalVariables.ContainsKey("serviceMaterialNumber"))
+            {
+                var result =
+                    (EditServiceOrMaterialsScreenResult) BusinessProcess.GlobalVariables["serviceMaterialNumber"];
+                _testTextView.Text = $"Price = {result.Price}, Count = {result.Count}, Full = {result.FullPrice}";
+            }
         }
 
         internal string GetResourceImage(string tag)
@@ -17,34 +33,16 @@ namespace Test
             return ResourceManager.GetImage(tag);
         }
 
-        internal void TabEventsButton_OnClick(object o, EventArgs eventArgs)
+        internal void Button_OnClick(object sender, EventArgs eventArgs)
         {
-            ((TextView) GetControl("TextViewBag", true)).CssClass = "TabTextViewNotActive";
-            ((Image) GetControl("ImgBag", true)).Source = ResourceManager.GetImage("tabbar_bag");
-            ((Image) GetControl("ImgEvents", true)).Source = ResourceManager.GetImage("tabbar_events_active");
-            ((TextView) GetControl("TextViewEvents", true)).CssClass = "TabTextViewActive";
-            ((SwipeVerticalLayout) GetControl("TextViewsLayout", true)).CssClass = "RootLayout";
-            ((SwipeVerticalLayout) GetControl("ButtonsLayout", true)).CssClass = "NoHeight";
-            _rootLayout.Refresh();
-        }
-
-        internal void TabBagButton_OnClick(object o, EventArgs eventArgs)
-        {
-            ((TextView) GetControl("TextViewBag", true)).CssClass = "TabTextViewActive";
-            ((Image) GetControl("ImgBag", true)).Source = ResourceManager.GetImage("tabbar_bag_active");
-            ((Image) GetControl("ImgEvents", true)).Source = ResourceManager.GetImage("tabbar_events");
-            ((TextView) GetControl("TextViewEvents", true)).CssClass = "TabTextViewNotActive";
-            ((SwipeVerticalLayout) GetControl("TextViewsLayout", true)).CssClass = "NoHeight";
-            ((SwipeVerticalLayout) GetControl("ButtonsLayout", true)).CssClass = "RootLayout";
-            _rootLayout.Refresh();
-        }
-
-        internal void TabClientsButton_OnClick(object o, EventArgs eventArgs)
-        {
-        }
-
-        internal void TabSettingsButton_OnClick(object o, EventArgs eventArgs)
-        {
+            BusinessProcess.DoAction("TestEditServicesOrMaterials", new Dictionary<string, object>
+            {
+                {"priceVisible", true},
+                {"priceEditable", true},
+                {"minimum", 0},
+                {"behaviour", BehaviourEditServicesOrMaterialsScreen.ReturnValue},
+                {"returnKey", "serviceMaterialNumber"}
+            });
         }
     }
 }

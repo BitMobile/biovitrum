@@ -49,3 +49,6 @@ not_specified		Not specified
 text		Text..
 requests		Requests
 select_answer		Select value
+price		Price
+add		Add
+count		

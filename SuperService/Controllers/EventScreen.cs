@@ -183,7 +183,7 @@ namespace Test
             return _currentEventRecordset;
         }
 
-        internal string GetStringPartOfTotal(long part, long total)
+        internal string GetStringPartOfTotal(double part, double total)
         {
             if (Convert.ToInt64(part) != 0) return $"{part}/{total}";
 //            DConsole.WriteLine($"{part == 0L}, {Convert.ToInt64(total) == 0L}, {part}, {total}");

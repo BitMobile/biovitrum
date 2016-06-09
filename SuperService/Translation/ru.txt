@@ -49,3 +49,6 @@ not_specified		Не указано
 text		Текст..
 requests		Заявки
 select_answer		Выберите вариант
+count		Количество
+price		Цена
+add		Добавить
