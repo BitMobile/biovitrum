@@ -12,7 +12,7 @@ namespace Test
     public class MeterialsRequestScreen : Screen
     {
         //TODO: Заменить на RecordSet
-        private ArrayList _data;
+        private static ArrayList _data;
         private bool _isEmptyList;
         private TopInfoComponent _topInfoComponent;
 
@@ -106,7 +106,14 @@ namespace Test
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
             //TODO: Отсюда переходим на экран добавления материалов.
-            DConsole.WriteLine("GoTO AddServicesOrMaterials Screen");
+         Dictionary<string,object> dictionary = new Dictionary<string, object>()
+         {
+             {"isService",false },
+             {"isMaterialsRequest",true }
+         };
+            BusinessProcess.GlobalVariables["isService"] = false;
+            BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
+            BusinessProcess.DoAction("AddServicesOrMaterials",dictionary);
         }
 
         internal void SendData_OnClick(object sender, EventArgs e)
