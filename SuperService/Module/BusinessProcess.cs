@@ -28,6 +28,8 @@ namespace Test
             _doc.Load(Application.GetResourceStream("BusinessProcess.BusinessProcess.xml"));
             DConsole.WriteLine("Loaded BP.xml");
 
+            DBHelper.CreateNeedMatDocument(new System.Collections.ArrayList());
+
             var firstStepName = _doc.DocumentElement?.ChildNodes[0].ChildNodes[0].Attributes?["Name"].Value;
             MoveTo(firstStepName);
 //            MoveTo("EventList");
