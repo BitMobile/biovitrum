@@ -248,21 +248,6 @@ namespace Test
         /// <param name="requiredMaterials"> список строк необходимых материалов. Строки передаются в виде Dictinary с ключами SKU and count</param>
         public static void CreateNeedMatDocument(ArrayList requiredMaterials)
         {
-            DConsole.WriteLine("Зашли в метод создания дока. заполняем аррэй лист");
-
-            var dic1 = new Dictionary<string, object>();
-            dic1.Add("SKU", "fdsfsdfsdgsdgsgs");
-            dic1.Add("count", 5);
-
-            //var dic2 = new Dictionary<string, object>();
-          //  dic2.Add("SKU", "dsfw523423425fdsfsdfsdgsdgsgs");
-          //  dic2.Add("count", 5.55);
-
-
-            requiredMaterials.Add(dic1);
-        //    requiredMaterials.Add(dic2);
-
-            DConsole.WriteLine("Заполнили аррй лист");
 
             if (requiredMaterials.Count == 0)
             {
@@ -281,23 +266,18 @@ namespace Test
             query.AddParameter("DocId", docID);
             query.AddParameter("SRId" , srId);
 
-            DConsole.WriteLine("Добавляем документ");
             query.Execute();
-            DConsole.WriteLine("добавили");
-
 
             queryString = "insert " +
                           " into _Document_NeedMat_Matireals(id, Ref, SKU, 'Count', IsDirty)"; 
 
-            query = new Query(queryString);
+            query = new Query();
             query.AddParameter("Ref", docID);
+             
 
             int lineCounter = 1;
-            DConsole.WriteLine("Инсертим во вторую таблицу");
             foreach (var line in requiredMaterials)
             {
-                DConsole.WriteLine("Инсертим строку " + lineCounter);
-
                 if (lineCounter == 1)
                 {
                     queryString = queryString + " values";
@@ -308,19 +288,15 @@ namespace Test
                 queryString = queryString + "(@LineID" + lineCounter + ", @Ref, @SKUID" + lineCounter + ", @Count" + lineCounter + ", 1) ";
 
                 var lineDicinary = (Dictionary<string, object>)line;
-
-                
+            
                 query.AddParameter("LineID" + lineCounter, $"@ref[Document_NeedMat_Matireals]:{Guid.NewGuid()}");
                 query.AddParameter("SKUID"  + lineCounter, (string)lineDicinary["SKU"]);
                 query.AddParameter("Count"  + lineCounter, (decimal)lineDicinary["count"]);
 
-
                 lineCounter++;
             }
 
-            DConsole.WriteLine("CreateNeedMatDocument  query text");
-            DConsole.WriteLine(queryString + "|");
-
+            query.Text = queryString;
             query.Execute();
 
             _db.Commit();
