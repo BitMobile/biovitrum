@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--TODO: Переименовать файл в MeterialsReuestScreen-->
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:VerticalLayout Id="Root" CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+
+    <s:If Test="$GetIsEmptyList()">
+      <c:Image CssClass="BigImageMaterialsRequestImg" Source="$GetResourceImage(basket)" />
+      <c:TextView CssClass="DescriptionMaterialsRequestTV" Text="#description_materialrequest_screen#" />
+      <c:Button CssClass="ButtonMaterialsRequestBtn" Text="#add_material#" OnClick="AddMaterial_OnClick" />
+    </s:If>
+    <s:Else>
+      <c:DockLayout CssClass="RootLayout">
+
+        <c:VerticalLayout CssClass="AddButtonMaterialResourceVl" OnClick="AddMaterial_OnClick">
+          <c:HorizontalLayout CssClass="AddContainerMaterialResourceHL">
+            <c:Image CssClass="AddMaterialResourceImg" Source="$GetResourceImage(plus)" />
+            <c:TextView CssClass="AddMaterialResourceTV" Text="#add_material#" />
+          </c:HorizontalLayout>
+        </c:VerticalLayout>
+
+        <c:HorizontalLine CssClass="WideHL" />
+
+        <c:Button CssClass="ButtonMaterialsRequestWithBackgroundBtn" Text="#send#" OnClick="SendData_OnClick" />
+
+        <c:ScrollView CssClass="ScrollViewMaterialsRequest">
+          <c:VerticalLayout Id="VerticalLayout">
+
+            <s:Iterator Id="item" Value="$GetData()">
+              <c:SwipeHorizontalLayout Id="$item.Id" CssClass="SwipeContainerSHL" OnSwipe="OnSwipe_Swipe">
+                <c:HorizontalLayout CssClass="InfoNodeMaterialsRequestHL">
+                  <!-- Красный круг с минусом -->
+                  <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
+                    <c:HorizontalLayout Id="Test" CssClass="InfoImageContainerHL">
+                      <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(delete)" />
+                    </c:HorizontalLayout>
+                  </c:VerticalLayout>
+
+                  <!--TODO: Заменить у итемнов (first и second) на имена полей из запроса-->
+                  <!--Два TextView с информацией об услугах-->
+                  <c:VerticalLayout Id="Test" CssClass="InfoTextContainerVL">
+                    <c:TextView CssClass="NameTV" Text="$item.first" />
+                    <c:TextView CssClass="CountTV" Text="$item.second" />
+                  </c:VerticalLayout>
+
+                </c:HorizontalLayout>
+
+                <c:Button CssClass="DeleteButtonBtn" Text="#delete_question#" OnClick="DeleteButton_OnClick" />
+
+              </c:SwipeHorizontalLayout>
+            </s:Iterator>
+
+          </c:VerticalLayout>
+        </c:ScrollView>
+
+      </c:DockLayout>
+    </s:Else>
+  </c:VerticalLayout>
+</c:Screen>

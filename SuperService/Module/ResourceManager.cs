@@ -56,8 +56,12 @@ namespace Test
             {"checklistscreen_photo", @"Image\CheckListScreen\TakePhoto.png"},
             //BagListScreen
             {"baglistscreen_busket", @"Image\BagListScreen\BagBusket.png"},
-            {"baglistscreen_plus", @"Image\BagListScreen\BagPlus.png"}
-
+            {"baglistscreen_plus", @"Image\BagListScreen\BagPlus.png"},
+            //Materials Request
+            {"close", @"Image\MaterialsRequest\close.png"},
+            {"basket", @"Image\MaterialsRequest\basket.png"},
+            {"plus", @"Image\COCScreen\plus_img.png"},
+            {"delete", @"Image\COCScreen\delete_img.png"},
         };
 
         public static string GetImage(string tag)

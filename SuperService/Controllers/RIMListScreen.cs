@@ -1,33 +1,34 @@
 ﻿using System;
+using System.Collections;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
-using System.Collections;
-
+using Test.Enum;
 
 namespace Test
 {
     public class RIMListScreen : Screen
     {
-        private TopInfoComponent _topInfoComponent;
         private bool _isService;
+        private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
-
             DConsole.WriteLine("RIMListScreen init");
 
-            string title = "";
+            var title = "";
 
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                HeadingTextView = { Text = _isService?Translator.Translate("services"): Translator.Translate("materials") },
-                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
-                RightButtonImage = { Visible = false },
+                HeadingTextView =
+                {
+                    Text = _isService ? Translator.Translate("services") : Translator.Translate("materials")
+                },
+                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
+                RightButtonImage = {Visible = false},
                 ExtraLayoutVisible = false
             };
-
         }
 
         internal string GetResourceImage(string tag)
@@ -42,8 +43,8 @@ namespace Test
 
         internal void RIMLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            var rimID = ((VerticalLayout)sender).Id;
-            decimal price = Decimal.Parse(((TextView)((VerticalLayout)sender).Controls[1]).Text);
+            var rimID = ((VerticalLayout) sender).Id;
+            var price = decimal.Parse(((TextView) ((VerticalLayout) sender).Controls[1]).Text);
 
             object currentEventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out currentEventId))
@@ -51,19 +52,20 @@ namespace Test
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
 
-            DConsole.WriteLine("Пытаемся найти номенклатуру в документе " + (string)currentEventId + " по гуиду " + rimID);
-            var line = DBHelper.GetEventServicesMaterialsLineByRIMID((string)currentEventId, rimID);
+            DConsole.WriteLine("Пытаемся найти номенклатуру в документе " + (string) currentEventId + " по гуиду " +
+                               rimID);
+            var line = DBHelper.GetEventServicesMaterialsLineByRIMID((string) currentEventId, rimID);
             if (line == null)
             {
                 DConsole.WriteLine("Позиция не найдена, просто добавлеям новую");
                 line = new EventServicesMaterialsLine();
-                line.Ref = (string)currentEventId;
+                line.Ref = (string) currentEventId;
                 line.SKU = rimID;
                 line.Price = price;
                 line.AmountPlan = 0;
                 line.SumPlan = 0;
                 line.AmountFact = 1;
-                line.SumFact = line.AmountFact * line.Price;
+                line.SumFact = line.AmountFact*line.Price;
 
                 DBHelper.InsertEventServicesMaterialsLine(line);
 
@@ -73,14 +75,13 @@ namespace Test
             {
                 DConsole.WriteLine("Позиция найдена, увеличим количество и обновим БД amountFact " + line.AmountFact);
                 line.AmountFact += 1;
-                line.SumFact = line.Price * line.AmountFact;
+                line.SumFact = line.Price*line.AmountFact;
                 DBHelper.UpdateEventServicesMaterialsLine(line);
                 DConsole.WriteLine("Обновили");
             }
 
             DConsole.WriteLine("Пытаемся перейти на экран АВР");
             BusinessProcess.DoAction("RIMAdded");
-
         }
 
 
@@ -94,19 +95,20 @@ namespace Test
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
 
-            _isService = (bool)isService;
+            _isService = (bool) isService;
             DbRecordset result = null;
 
             if (_isService)
-            { 
-                result = DBHelper.GetRIMByType(Enum.RIMType.Service);
-                DConsole.WriteLine("Получили услуги " + Enum.RIMType.Material);
-            }else
             {
-                result = DBHelper.GetRIMByType(Enum.RIMType.Material);
-                DConsole.WriteLine("Получили товары " + Enum.RIMType.Material);
+                result = DBHelper.GetRIMByType(RIMType.Service);
+                DConsole.WriteLine("Получили услуги " + RIMType.Material);
             }
-            
+            else
+            {
+                result = DBHelper.GetRIMByType(RIMType.Material);
+                DConsole.WriteLine("Получили товары " + RIMType.Material);
+            }
+
             return result;
         }
     }
