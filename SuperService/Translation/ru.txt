@@ -50,3 +50,6 @@ text		Текст..
 description_materialrequest_screen		Добавьте материалы, чтобы сформировать заявку
 add_material		Добавить материал
 request		Заявка		
+count		Количество
+price		Цена
+add		Добавить

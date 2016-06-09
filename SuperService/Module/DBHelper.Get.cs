@@ -101,19 +101,19 @@ namespace Test
         {
             var statistic = new EventsStatistic();
             var query = new Query("select " +
-                                  "  SUM(CASE " +
+                                  "  TOTAL(CASE " +
                                   "        when StartDatePlan > date('now','start of day') then 1 " +
                                   "        else 0 " +
                                   "   End) as DayTotalAmount, " +
-                                  "    SUM(CASE " +
+                                  "    TOTAL(CASE " +
                                   "        when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now','start of day') then 1 " +
                                   "        else 0 " +
                                   "   End) as DayCompleteAmout, " +
-                                  "   SUM(CASE " +
+                                  "   TOTAL(CASE " +
                                   "        when StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 " +
                                   "        else 0 " +
                                   "   End) as MonthCompleteAmout, " +
-                                  "    SUM(CASE " +
+                                  "   TOTAL(CASE " +
                                   "        when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 " +
                                   "        else 0 " +
                                   "   End) as MonthTotalAmount " +
@@ -128,10 +128,10 @@ namespace Test
 
             if (result.Next())
             {
-                statistic.DayTotalAmount = result.GetInt32(0);
-                statistic.DayCompleteAmout = result.GetInt32(1);
-                statistic.MonthTotalAmount = result.GetInt32(2);
-                statistic.MonthCompleteAmout = result.GetInt32(3);
+                statistic.DayTotalAmount = (int) result["DayTotalAmount"];
+                statistic.DayCompleteAmout = (int) result["DayCompleteAmout"];
+                statistic.MonthTotalAmount = (int) result["MonthCompleteAmout"];
+                statistic.MonthCompleteAmout = (int) result["MonthTotalAmount"];
             }
 
             return statistic;
@@ -208,22 +208,22 @@ namespace Test
                             "        left join _Enum_StatusImportance  " +
                             "           on event.Importance = _Enum_StatusImportance.Id  " +
                             "    " +
-                            "        left join (select _Document_Event_ServicesMaterials.Ref, sum(SumFact) as sumFact from _Document_Event_ServicesMaterials where _Document_Event_ServicesMaterials.Ref = @id group by _Document_Event_ServicesMaterials.Ref ) as docSum  " +
+                            "        left join (select _Document_Event_ServicesMaterials.Ref, TOTAL(SumFact) as sumFact from _Document_Event_ServicesMaterials where _Document_Event_ServicesMaterials.Ref = @id group by _Document_Event_ServicesMaterials.Ref ) as docSum  " +
                             "           on event.id = docSUm.ref " +
                             "    " +
                             "        left join (select " +
                             "                       Document_Event_CheckList.Ref,  " +
                             "                       count(Document_Event_CheckList.Ref) as Total,  " +
-                            "                       sum(case when result = '' then 0 else 1 end) as Answered, " +
-                            "                       sum(case when Required = 1 then 1 else 0 end) as Required, " +
-                            "                       sum(case when Required = 1 and result <> ''  then 1 else 0 end) as RequiredAnswered " +
+                            "                       TOTAL(case when result = '' then 0 else 1 end) as Answered, " +
+                            "                       TOTAL(case when Required = 1 then 1 else 0 end) as Required, " +
+                            "                       TOTAL(case when Required = 1 and result <> ''  then 1 else 0 end) as RequiredAnswered " +
                             "                   from  " +
                             "                       Document_Event_CheckList  " +
                             "                   where  " +
                             "                       Document_Event_CheckList.Ref = @id group by Document_Event_CheckList.Ref ) as docCheckList " +
                             "           on event.id = docCheckList.ref " +
                             "    " +
-                            "        left join (select Document_Event_Equipments.Ref, count(Document_Event_Equipments.Ref) as Total, sum(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_Equipments where Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment " +
+                            "        left join (select Document_Event_Equipments.Ref, count(Document_Event_Equipments.Ref) as Total, TOTAL(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_Equipments where Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment " +
                             "           on event.id = docEquipment.ref " +
                             "    " +
                             "        left join Enum_StatusyEvents " +
@@ -509,9 +509,9 @@ namespace Test
         public static DbRecordset GetCocSumsByEventId(string eventId)
         {
             var query = new Query("select " +
-                                  "    sum(SumFact) as Sum, " +
-                                  "    sum(case when Service = 0 then SumFact else 0 end) as SumMaterials, " +
-                                  "    sum(case when Service = 1 then SumFact else 0 end) as SumServices " +
+                                  "    TOTAL(SumFact) as Sum, " +
+                                  "    TOTAL(case when Service = 0 then SumFact else 0 end) as SumMaterials, " +
+                                  "    TOTAL(case when Service = 1 then SumFact else 0 end) as SumServices " +
                                   "from " +
                                   "    _Document_Event_ServicesMaterials " +
                                   "    join Catalog_RIM " +
