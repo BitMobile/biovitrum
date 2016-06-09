@@ -1,6 +1,7 @@
 ﻿using System;
 using BitMobile.ClientModel3;
-using Test;
+using System.Collections;
+using System.Collections.Generic;
 
 //using Database = BitMobile.ClientModel3.Database;
 
@@ -237,6 +238,69 @@ namespace Test
             query.AddParameter("result", result);
             query.Execute();
             _db.Commit();
+        }
+
+        /// <summary>
+        /// Метод создает документ заявка на материалы по переданному параметры. 
+        /// Создание выполняется в два этапа - вначале создается запись в таблице документов, а затем позиции из списка
+        /// материалов записываются в связанную таблицу 
+        /// </summary>
+        /// <param name="requiredMaterials"> список строк необходимых материалов. Строки передаются в виде Dictinary с ключами SKU and count</param>
+        public static void CreateNeedMatDocument(ArrayList requiredMaterials)
+        {
+
+            if (requiredMaterials.Count == 0)
+            {
+                return;
+            }
+
+            var queryString = "insert " +
+                              "  into _Document_NeedMat(id, date, StatsNeed, SR, IsDirty) " + 
+                              "  values(@DocId, date('now'), (select id from _Enum_StatsNeedNum where name = 'New'), @SRId, 1) ";
+
+            var docID = $"@ref[Document_NeedMat]:{Guid.NewGuid()}";
+            
+            // TODO: подставлять srID из глобальных переменных
+            var srId = "какой то ИД пользователя ";
+            var query = new Query(queryString);
+            query.AddParameter("DocId", docID);
+            query.AddParameter("SRId" , srId);
+
+            query.Execute();
+
+            queryString = "insert " +
+                          " into _Document_NeedMat_Matireals(id, Ref, SKU, 'Count', IsDirty)"; 
+
+            query = new Query();
+            query.AddParameter("Ref", docID);
+             
+
+            int lineCounter = 1;
+            foreach (var line in requiredMaterials)
+            {
+                if (lineCounter == 1)
+                {
+                    queryString = queryString + " values";
+                }else
+                {
+                    queryString = queryString + ", ";
+                }
+                queryString = queryString + "(@LineID" + lineCounter + ", @Ref, @SKUID" + lineCounter + ", @Count" + lineCounter + ", 1) ";
+
+                var lineDicinary = (Dictionary<string, object>)line;
+            
+                query.AddParameter("LineID" + lineCounter, $"@ref[Document_NeedMat_Matireals]:{Guid.NewGuid()}");
+                query.AddParameter("SKUID"  + lineCounter, (string)lineDicinary["SKU"]);
+                query.AddParameter("Count"  + lineCounter, (decimal)lineDicinary["count"]);
+
+                lineCounter++;
+            }
+
+            query.Text = queryString;
+            query.Execute();
+
+            _db.Commit();
+
         }
     }
 }
