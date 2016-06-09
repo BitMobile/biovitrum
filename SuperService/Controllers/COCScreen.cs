@@ -69,7 +69,7 @@ namespace Test
 
         internal void ApplicatioMaterials_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("ApplicationMaterials");
+            BusinessProcess.DoAction("MeterialsRequestScreen");
         }
 
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)

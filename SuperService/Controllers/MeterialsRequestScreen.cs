@@ -8,20 +8,16 @@ using Test.Components;
 
 namespace Test
 {
-    // TODO: Переименовать файл в MeterialsReuestScreen
-    public class ApplicationMaterialsScreen : Screen
+    // TODO: Сделать задвигающие SwipeHorizontalLayout
+    public class MeterialsRequestScreen : Screen
     {
         //TODO: Заменить на RecordSet
         private ArrayList _data;
         private bool _isEmptyList;
-        private bool _isSwiped;
-        private ISwipeHorizontalLayout3 _isSwipedElement;
-        private VerticalLayout _rootVerticalLayout;
         private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
-            _rootVerticalLayout = (VerticalLayout) GetControl("Root");
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = false,
@@ -35,7 +31,7 @@ namespace Test
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("Back to screen .....");
-            BusinessProcess.DoAction("COC");
+            BusinessProcess.DoBack();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
@@ -77,18 +73,14 @@ namespace Test
             var hl = (IHorizontalLayout3) vl.Parent;
             var shl = (ISwipeHorizontalLayout3) hl.Parent;
             ++shl.Index;
-            _isSwipedElement = shl;
-            _isSwiped = true;
         }
 
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
             var btn = (Button) sender;
             var shl = (ISwipeHorizontalLayout3) btn.Parent;
-            var vl = (IVerticalLayout3) shl.Parent;
             shl.CssClass = "NoHeight";
-            vl.Refresh();
-            _isSwiped = false;
+            ((IVerticalLayout3)shl.Parent).Refresh();
         }
 
         private void FillData()
@@ -100,6 +92,7 @@ namespace Test
                 var dic = new Dictionary<string, object>();
                 dic["first"] = "Test " + i;
                 dic["second"] = "Test " + i;
+                dic["Id"] = Guid.NewGuid().ToString();
                 _data.Add(dic);
             }
         }
@@ -124,36 +117,6 @@ namespace Test
 
         internal void OnSwipe_Swipe(object sender, EventArgs e)
         {
-            DConsole.WriteLine(nameof(_isSwiped) + " " + _isSwiped.ToString());
-
-            if (!_isSwiped)
-            {
-                DConsole.WriteLine("Before");
-                _isSwiped = true;
-                DConsole.WriteLine("After");
-                DConsole.WriteLine(" " + _isSwiped.GetType().FullName);
-            }
-            else
-            {
-                if (!_isSwiped)
-                {
-                    if (_isSwipedElement != null)
-                    {
-                        DConsole.WriteLine("In IF");
-                        --_isSwipedElement.Index;
-                        DConsole.WriteLine("Before --");
-                    }
-                }
-                else
-                {
-                    _isSwiped = false;
-                    DConsole.WriteLine(nameof(_isSwiped) + " " + _isSwiped.ToString());
-                }
-
-                DConsole.WriteLine(nameof(OnSwipe_Swipe));
-            }
-
-            DConsole.WriteLine("End Method " + nameof(OnSwipe_Swipe));
         }
     }
 }

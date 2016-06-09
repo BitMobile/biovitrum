@@ -89,14 +89,14 @@
       <Action Name="ViewEvent" NextStep="Event"></Action>
       <Action Name="AddServicesOrMaterials" NextStep="RIMList"></Action>
       <Action Name="EditServicesOrMaterials" NextStep="EditServicesOrMaterials"></Action>
-      <Action Name="ApplicationMaterials" NextStep="ApplicationMaterials"></Action>
+      <Action Name="MeterialsRequestScreen" NextStep="MeterialsRequestScreen"></Action>
     </Step>
 
     <Step Name="EditServicesOrMaterials" Controller="EditServicesOrMaterialsScreen" StyleSheet="Style\style.css">
       <Action Name="COC" NextStep="COC"></Action>
     </Step>
 
-    <Step Name="ApplicationMaterials" Controller="ApplicationMaterialsScreen" StyleSheet="Style\applicationmaterialsscreen_style.css">
+    <Step Name="MeterialsRequestScreen" Controller="MeterialsRequestScreen" StyleSheet="Style\MeterialsRequestScreen.css">
       <Action Name="COC" NextStep="COC"></Action>
       <Action Name="AddServicesOrMaterials" NextStep="RIMList"></Action>
     </Step>

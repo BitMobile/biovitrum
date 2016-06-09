@@ -66,7 +66,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Screen\AddContactScreen.xml" />
     <EmbeddedResource Include="Screen\AddServicesOrMaterialsScreen.xml" />
-    <EmbeddedResource Include="Screen\ApplicationMaterialsScreen.xml">
+    <EmbeddedResource Include="Screen\MeterialsRequestScreen.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Screen\AuthScreen.xml" />
@@ -75,7 +75,9 @@
     <EmbeddedResource Include="Screen\ClientListScreen.xml" />
     <EmbeddedResource Include="Screen\ClientScreen.xml" />
     <EmbeddedResource Include="Screen\CloseEventScreen.xml" />
-    <EmbeddedResource Include="Screen\COCScreen.xml" />
+    <EmbeddedResource Include="Screen\COCScreen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Screen\EditContactScreen.xml" />
     <EmbeddedResource Include="Screen\EditServicesOrMaterialsScreen.xml" />
     <EmbeddedResource Include="Screen\EventListScreen.xml" />

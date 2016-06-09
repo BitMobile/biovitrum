@@ -25,10 +25,10 @@
         <c:Button CssClass="ButtonMaterialsRequestWithBackgroundBtn" Text="#send#" OnClick="SendData_OnClick" />
 
         <c:ScrollView CssClass="ScrollViewMaterialsRequest">
-          <c:VerticalLayout>
+          <c:VerticalLayout Id="VerticalLayout">
 
             <s:Iterator Id="item" Value="$GetData()">
-              <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL" OnSwipe="OnSwipe_Swipe">
+              <c:SwipeHorizontalLayout Id="$item.Id" CssClass="SwipeContainerSHL" OnSwipe="OnSwipe_Swipe">
                 <c:HorizontalLayout CssClass="InfoNodeMaterialsRequestHL">
                   <!-- Красный круг с минусом -->
                   <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
