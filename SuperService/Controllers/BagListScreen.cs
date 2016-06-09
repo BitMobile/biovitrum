@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -32,11 +33,22 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            // TODO: Добавление заявки на материал
+            BusinessProcess.DoAction("MeterialsRequestScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
+        }
+
+        internal IEnumerable GetUserBag()
+        {
+            // TODO: сделать передачу Id юзера когда будет авторизация
+            return DBHelper.GetUserBagByUserId("@ref[Catalog_User]:da98befe-ef7b-11e5-80db-005056011152");
+        }
+
+        internal string ConcatCountUnit(string count, string unit)
+        {
+            return string.Concat(count, unit);
         }
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)

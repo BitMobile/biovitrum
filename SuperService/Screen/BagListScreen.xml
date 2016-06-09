@@ -11,19 +11,19 @@
     <s:Include File="Components\TabBarСomponent.xml" />
 
     <c:SwipeVerticalLayout CssClass="BagListMainSVL">
-      <!--<s:Iterator Id="client" Value="$GetClients()">-->
+      <s:Iterator Id="UserBag" Value="$GetUserBag()">
       
       <c:HorizontalLayout CssClass ="BagListItemHL">
         <c:VerticalLayout CssClass="BagListNameVL">
-          <c:TextView Text="Саморезы 25 мм" CssClass="BagListNameTV"/>
+          <c:TextView Text="$UserBag.Description" CssClass="BagListNameTV"/>
         </c:VerticalLayout>
         <c:VerticalLayout CssClass="BagListAmountVL">
-          <c:TextView Text="10 уп." CssClass="BagListAmountTV"/>
+          <c:TextView Text="$ConcatCountUnit($UserBag.Count, $UserBag.Unit)" CssClass="BagListAmountTV"/>
         </c:VerticalLayout>
       </c:HorizontalLayout>
       <c:HorizontalLine CssClass="BagListBreaker" />
 
-      <c:HorizontalLayout CssClass ="BagListItemHL">
+      <!--<c:HorizontalLayout CssClass ="BagListItemHL">
         <c:VerticalLayout CssClass="BagListNameVL">
           <c:TextView Text="Сетевой кабель RJ-45" CssClass="BagListNameTV"/>
         </c:VerticalLayout>
@@ -41,9 +41,9 @@
           <c:TextView Text="1 шт." CssClass="BagListAmountTV"/>
         </c:VerticalLayout>
       </c:HorizontalLayout>
-      <c:HorizontalLine CssClass="BagListBreaker" />
+      <c:HorizontalLine CssClass="BagListBreaker" />-->
       
-      <!--</s:Iterator>-->
+      </s:Iterator>
     </c:SwipeVerticalLayout>
   </c:DockLayout>
   
