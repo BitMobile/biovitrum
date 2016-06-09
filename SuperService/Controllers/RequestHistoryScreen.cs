@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Net;
 using System.Text;
 using BitMobile.ClientModel3;
@@ -35,6 +36,16 @@ namespace Test
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
+        }
+
+        internal string ToHoursMinutes(string datetime)
+        {
+            return TimeSpan.Parse(datetime).ToString(@"hh\:mm");
+        }
+
+        internal IEnumerable GetNeedMats()
+        {
+            return DBHelper.GetNeedMats();
         }
 
         internal string GetResourceImage(string tag)

@@ -51,4 +51,4 @@ requests		Requests
 select_answer		Select value
 price		Price
 add		Add
-count		
+count		Count

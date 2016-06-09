@@ -8,20 +8,31 @@
     <s:Include File="Components\TopInfoComponent.xml" />
 
     <c:SwipeVerticalLayout CssClass="RequestHistoryMainSVL">
-      <!--<s:Iterator Id="client" Value="$GetClients()">-->
+      <s:Iterator Id="RequestHistory" Value="$GetNeedMats()">
 
-      <c:HorizontalLayout CssClass ="RequestHistoryItemHL">
+        <c:HorizontalLayout CssClass ="RequestHistoryItemHL">
         <c:VerticalLayout CssClass="RequestHistoryNumberTimeVL">
-          <c:TextView Text="№32111" CssClass="RequestHistoryNumberTV"/>
-          <c:TextView Text="12.46" CssClass="RequestHistoryTimeTV"/>
+          <c:TextView Text="$RequestHistory.Number" CssClass="RequestHistoryNumberTV"/>
+          <c:TextView Text="$ToHoursMinutes($RequestHistory.docTime)" CssClass="RequestHistoryTimeTV"/>
         </c:VerticalLayout>
         <c:VerticalLayout CssClass="RequestHistoryStatusVL">
-          <c:TextView Text="Отменено" CssClass="RequestHistoryStatusTVCancel"/>
+          <s:If Test="$RequestHistory.statusName == New">
+            <c:TextView Text ="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVNew"/>
+          </s:If>
+          <s:If Test="$RequestHistory.statusName == Done">
+            <c:TextView Text ="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVDone"/>
+          </s:If>
+          <s:If Test="$RequestHistory.statusName == Cancel">
+            <c:TextView Text ="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVCancel"/>
+          </s:If>
+          <s:If Test="$RequestHistory.statusName == Confirmed">
+            <c:TextView Text ="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVConfirmed"/>
+          </s:If>
         </c:VerticalLayout>
       </c:HorizontalLayout>
       <c:HorizontalLine CssClass="RequestHistoryBreaker" />
 
-      <c:HorizontalLayout CssClass ="RequestHistoryItemHL">
+      <!--<c:HorizontalLayout CssClass ="RequestHistoryItemHL">
         <c:VerticalLayout CssClass="RequestHistoryNumberTimeVL">
           <c:TextView Text="№32222" CssClass="RequestHistoryNumberTV"/>
           <c:TextView Text="10.38" CssClass="RequestHistoryTimeTV"/>
@@ -52,9 +63,9 @@
           <c:TextView Text="Новая" CssClass="RequestHistoryStatusTVNew"/>
         </c:VerticalLayout>
       </c:HorizontalLayout>
-      <c:HorizontalLine CssClass="RequestHistoryBreaker" />
-
-      <!--</s:Iterator>-->
+      <c:HorizontalLine CssClass="RequestHistoryBreaker" />-->
+      
+      </s:Iterator>
     </c:SwipeVerticalLayout>
   </c:DockLayout>
 
