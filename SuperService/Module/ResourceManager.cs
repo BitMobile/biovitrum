@@ -56,7 +56,7 @@ namespace Test
             {"checklistscreen_photo", @"Image\CheckListScreen\TakePhoto.png"},
             //BagListScreen
             {"baglistscreen_busket", @"Image\BagListScreen\BagBusket.png"},
-            {"baglistscreen_plus", @"Image\BagListScreen\BagPlus.png"}
+            {"baglistscreen_plus", @"Image\BagListScreen\BagPlus.png"},
 
         };
 

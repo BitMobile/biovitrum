@@ -60,7 +60,7 @@ EditText{
 }
 
 .RequestHistoryNumberTimeVL {
-	height: 6sp auto;
+	height: 11sp auto;
 	vertical-align: center;
 	horizontal-align: center;
 	width: 50%;
@@ -70,7 +70,7 @@ EditText{
     width: 95%;
 	color: #4a4b5e;
 	font: 3sp arial;
-	margin-top: 1sp;
+	margin-top: 3sp;
 	margin-left: 3sp;
 	text-align: left;
 	vertical-align: center;
@@ -83,14 +83,15 @@ EditText{
 	font: 2sp arial;
 	margin-top: 1sp;
 	margin-left: 4sp;
+    margin-bottom: 2sp;
 	text-align: left;
 	vertical-align: center;
 	horizontal-align: center;
 }
 
 .RequestHistoryStatusVL {
-	height: 6sp auto;
-	vertical-align: center;
+	height: 11sp auto;
+	vertical-align: top;
 	horizontal-align: right;
 	width: 50%;
 }
@@ -99,6 +100,7 @@ EditText{
     width: 95%;
 	color: #ff0000;
 	text-align: right;
+    margin-top: 3sp;
 	vertical-align: center;
 	horizontal-align: right;
 }
@@ -107,6 +109,7 @@ EditText{
     width: 95%;
 	color: #8abf57;
 	text-align: right;
+    margin-top: 3sp;
 	vertical-align: center;
 	horizontal-align: right;
 }
@@ -115,6 +118,7 @@ EditText{
     width: 95%;
 	color: #808080;
 	text-align: right;
+    margin-top: 3sp;
 	vertical-align: center;
 	horizontal-align: right;
 }
@@ -123,18 +127,19 @@ EditText{
     width: 95%;
 	color: #dbdb3c;
 	text-align: right;
+    margin-top: 3sp;
 	vertical-align: center;
 	horizontal-align: right;
 }
 
 .RequestHistoryBreaker {
 	background-color: #f3f3f4;
-	height: 3px;
+	height: 2px;
 	horizontal-align: center;
 	width: 95%;
 }
 
-/* RequestHistory style */
+/* End of RequestHistory style */
 
 /* Top Info Component style*/
 

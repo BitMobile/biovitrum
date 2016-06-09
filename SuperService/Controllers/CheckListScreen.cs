@@ -11,6 +11,7 @@ namespace Test
     {
         // Для булева
         private CheckBox _checkBox;
+
         // Для обновления
         private string _currentCheckListItemID;
 
@@ -54,11 +55,11 @@ namespace Test
         // Камера
         internal void CheckListSnapshot_OnClick(object sender, EventArgs eventArgs)
         {
-            _currentCheckListItemID = ((HorizontalLayout) sender).Id;
+            _currentCheckListItemID = ((VerticalLayout) sender).Id;
             _newGuid = Guid.NewGuid().ToString();
             _pathToImg = @"\private\" + _newGuid + @".jpg";
 
-            _imgToReplace = (Image) ((HorizontalLayout) sender).GetControl(0);
+            _imgToReplace = (Image) ((VerticalLayout) sender).GetControl(0);
             //_img.Source =;
 
 
@@ -96,61 +97,56 @@ namespace Test
         // Список
         internal void CheckListValList_OnClick(object sender, EventArgs e)
         {
-            _currentCheckListItemID = ((HorizontalLayout) sender).Id;
-            _textView = (TextView) ((HorizontalLayout) sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout) sender).Id;
+            _textView = (TextView) ((VerticalLayout) sender).GetControl(0);
 
-            DConsole.WriteLine("1");
             var items = new Dictionary<object, string>();
-            DConsole.WriteLine(_currentCheckListItemID);
             var temp = DBHelper.GetActionValuesList(_textView.Id);
-            DConsole.WriteLine("2");
             while (temp.Next())
             {
-                DConsole.WriteLine(@"temp['Id'].ToString(): " + temp["Id"]);
-                DConsole.WriteLine(@"temp['Val'].ToString(): " + temp["Val"]);
-
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
             }
-            DConsole.WriteLine("3");
-            Dialog.Choose("Выберите вариант", items, ValListCallback);
+            Dialog.Choose(Translator.Translate("select_answer"), items, ValListCallback);
         }
 
         internal void ValListCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
         {
-            DConsole.WriteLine("4");
             _textView.Text = args.Result.Value;
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _textView.Text);
-            DConsole.WriteLine("5B");
         }
 
         // TODO: при загрузке данных из БД (в xml) приводить DateTime в просто Date
         // Дата
         internal void CheckListDateTime_OnClick(object sender, EventArgs e)
         {
-            _currentCheckListItemID = ((HorizontalLayout) sender).Id;
-            _textView = (TextView) ((HorizontalLayout) sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout) sender).Id;
+            _textView = (TextView) ((VerticalLayout) sender).GetControl(0);
 
             Dialog.DateTime(@"Выберите дату", DateTime.Now, DateCallback);
         }
 
+        internal string ToDate(string datetime)
+        {
+            return DateTime.Parse(datetime).ToString("dd MMMM yyyy");
+        }
+
         internal void DateCallback(object state, ResultEventArgs<DateTime> args)
         {
-            _textView.Text = args.Result.Date.Date.ToString("d");
+            _textView.Text = args.Result.Date.Date.ToString("dd MMMM yyyy");
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _textView.Text);
         }
 
         // Булево
         internal void CheckListBoolean_OnClick(object sender, EventArgs e)
         {
-            _currentCheckListItemID = ((HorizontalLayout) sender).Id;
-            _checkBox = (CheckBox) ((HorizontalLayout) sender).GetControl(0);
-            DConsole.WriteLine(_checkBox.Checked.ToString());
+            _currentCheckListItemID = ((VerticalLayout) sender).Id;
+            _checkBox = (CheckBox) ((VerticalLayout) sender).GetControl(0);
 
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _checkBox.Checked ? "Нет" : "Да");
         }
 
         // С точкой
-        internal void CheckListDecimal_OnChange(object sender, EventArgs e)
+        internal void CheckListDecimal_OnLostFocus(object sender, EventArgs e)
         {
             _editText = (EditText) sender;
             _currentCheckListItemID = ((EditText) sender).Id;
@@ -159,7 +155,7 @@ namespace Test
         }
 
         //Целое
-        internal void CheckListInteger_OnChange(object sender, EventArgs e)
+        internal void CheckListInteger_OnLostFocus(object sender, EventArgs e)
         {
             _editText = (EditText) sender;
             _currentCheckListItemID = ((EditText) sender).Id;
@@ -184,7 +180,7 @@ namespace Test
         }
 
         // Строка
-        internal void CheckListString_OnChange(object sender, EventArgs e)
+        internal void CheckListString_OnLostFocus(object sender, EventArgs e)
         {
             _editText = (EditText) sender;
             _currentCheckListItemID = ((EditText) sender).Id;
@@ -219,7 +215,6 @@ namespace Test
             //    }
             //}
             // TODO: Непонятное поведение Refresh(), из-за чего не можем оперативно сменить индикатор важности. Работает на android 4, не работает на android 6
-            DConsole.WriteLine("4");
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _editText.Text);
         }
 

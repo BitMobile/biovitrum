@@ -48,3 +48,4 @@ not_choosed		Не выбрано..
 not_specified		Не указано
 text		Текст..
 requests		Заявки
+select_answer		Выберите вариант

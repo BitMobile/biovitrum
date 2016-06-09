@@ -155,7 +155,7 @@ EditText{
 }
 
 .BagListNameVL {
-	height: 6sp auto;
+	height: 9sp auto;
 	vertical-align: center;
 	horizontal-align: center;
 	width: 75%;
@@ -165,16 +165,17 @@ EditText{
     width: 95%;
 	color: #4a4b5e;
 	font: 3sp arial;
-	margin-top: 1sp;
-	margin-left: 2sp;
+	margin-top: 3sp;
+	margin-left: 3sp;
+    margin-bottom: 3sp;
 	text-align: left;
 	vertical-align: center;
 	horizontal-align: center;
 }
 
 .BagListAmountVL {
-	height: 6sp auto;
-	vertical-align: center;
+	height: 9sp auto;
+	vertical-align: top;
 	horizontal-align: right;
 	width: 25%;
 }
@@ -183,10 +184,11 @@ EditText{
     width: 95%;
 	color: #8abf57;
 	font: 3sp arial;
-	margin-top: 1sp;
+	margin-top: 3sp;
 	margin-right: 3sp;
+    margin-bottom: 3sp;
 	text-align: right;
-	vertical-align: center;
+	vertical-align: top;
 	horizontal-align: right;
 }
 
