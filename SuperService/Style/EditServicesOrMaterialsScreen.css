@@ -6,66 +6,77 @@
 
 
 body {
-	background-color: #ffffff;
-	height: 100%;
-	width: 100%;
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
 }
 
 TextView {
-	color: #51595b;
-	font: 2.5sp arial;
-	height: 3.5sp auto;
-	horizontal-align: center;
-	text-align: center;
-	vertical-align: center;
-	white-space: normal;
-	width: 100%;
+    color: #51595b;
+    font: 2.5sp arial;
+    height: 3.5sp auto;
+    horizontal-align: center;
+    text-align: center;
+    vertical-align: center;
+    white-space: normal;
+    width: 100%;
 }
 
 EditText {
     color: #51595b;
-	font: 2.5sp arial;
-	height: 3.5sp auto;
-	horizontal-align: center;
-	text-align: center;
-	vertical-align: center;
-	white-space: normal;
-	width: 100%;
+    font: 2.5sp arial;
+    height: 3.5sp auto;
+    horizontal-align: center;
+    text-align: center;
+    vertical-align: center;
+    white-space: normal;
+    width: 100%;
 }
 
-Image {
-    horizontal-align: center;
-}
+Image { horizontal-align: center; }
 
 vl {
     height: 0% auto;
     width: 100%;
 }
 
+hl {
+    height: 0% auto;
+    horizontal-align: center;
+    width: 100%;
+}
+
+HorizontalLine {
+    background-color: #eeefef;
+    height: 3px;
+    width: 83%;
+    horizontal-align: center;
+}
+
 .NoHeight {
-	height: 0%;
-	width: 100%;
+    height: 0%;
+    width: 100%;
 }
 
 .RootLayout {
-	background-color: #ffffff;
-	height: 100%;
-	width: 100%;
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
 }
 
 .EmptySpace3sp {
-	height: 3sp;
-	width: 100%;
+    height: 3sp;
+    width: 100%;
 }
 
 .EmptySpace4sp {
-	height: 4sp;
-	width: 100%;
+    height: 4sp;
+    width: 100%;
 }
 
 .EmptySpace5sp {
-	height: 5sp;
-	width: 100%;
+    height: 5sp;
+    width: 100%;
 }
 
 .EmptySpace7sp {
@@ -79,11 +90,96 @@ vl {
 }
 
 .CloseButtonImage {
-    margin-top: 4sp;
     height: 5sp;
+    margin-top: 3.8sp;
 }
 
 .EditScreenHeader {
-    font: 4sp arial;
+    font: 3.5sp arial;
     white-space: normal;
+    width: 60%;
+}
+
+.SlightlyGrey { color: #a6a9aa; }
+
+.PlusMinusImageWrapper { width: 25%; }
+
+.CounterLayout { width: 56%; }
+
+.PlusMinusImage { height: 7sp; }
+
+.CounterLayout EditText {
+    color: #8587b1;
+    font: 5sp auto;
+    height: 5.5sp;
+    margin-bottom: 1.3sp;
+    width: 50%;
+}
+
+.PriceLayout {
+    height: 12sp;
+    horizontal-align: center;
+    width: 80%;
+}
+
+.PriceTitle {
+    color: #51595b;
+    font: 2.7sp arial;
+    text-align: left;
+    vertical-align: center;
+    width: 55%;
+}
+
+.Price {
+    color: #9fa3a4;
+    font: 2.7sp arial;
+    height: 5sp;
+    padding-top: 0.3sp;
+    text-align: right;
+    vertical-align: center;
+    width: 39%;
+}
+
+.PriceCurrency {
+    color: #9fa3a4;
+    font: 2.7sp arial;
+    margin-left: 1%;
+    text-align: right;
+    vertical-align: center;
+    width: 5%;
+}
+
+.TotalPrice {
+    color: #8ec15d;
+    font: 3.2sp arial;
+    height: 3.4sp;
+    text-align: right;
+    vertical-align: center;
+    width: 38%;
+}
+
+.TotalPriceCurrency {
+    color: #8ec15d;
+    font: 3.2sp arial;
+    height: 3.4sp;
+    margin-left: 2%;
+    text-align: right;
+    vertical-align: center;
+    width: 5%;
+}
+
+.AddButton {
+    background-color: #fd724c;
+    color: #ffffff;
+    height: 10sp;
+    horizontal-align: center;
+    width: 90%;
+}
+
+.AddButton TextView {
+    font: 3sp arial;
+    text-align: center;
+    height: 3.3sp;
+    vertical-align: center;
+    color: #ffffff;
 }
