@@ -1,0 +1,71 @@
+﻿/* ReSharper disable CssNotResolved */
+/* ReSharper disable Html.TagNotResolved */
+/* ReSharper disable InvalidValue */
+/* ReSharper disable RedundantUnits */
+/* ReSharper disable UnexpectedValue */
+
+/* Common */
+
+
+EditText{
+	height: 4sp;
+    width: 60%;
+    font: 3sp arial;
+    color: #ffffff;
+    horizontal-align: center;
+}
+
+Button {
+    background-color: #fd724c;
+	border-color: #fd724c;
+    selected-background: #fdb29e;
+    border-radius: 2px;
+	border-style: solid;
+	border-width: 2px;
+	color: #ffffff;
+    horizontal-align: center;
+}
+
+.RootLayout {
+	background-color: #4a4b5e;
+	height: 100%;
+	width: 100%;
+}
+
+/* End of Common */
+
+/* AuthScreen style */
+
+.AuthScreenBitTV {
+	height: 6sp;
+    horizontal-align: center;
+	width: 60%;
+	margin-top: 30sp;
+    font: 5sp arial;
+    color: #ffffff;
+    text-align: center;
+}
+
+.AuthScreenLoginET {
+    margin-top: 10sp;
+}
+
+.AuthScreenPasswordET {
+    margin-top: 5sp;
+}
+
+.AuthScreenConnectBTN {
+	font: 4sp arial;
+	height: 10sp;
+	margin-top: 5sp;
+	width: 60sp;
+}
+
+.AuthScreenExitBTN {
+	font: 3sp arial;
+	height: 8sp;
+	margin-top: 10sp;
+	width: 20sp;
+}
+
+/* End of AuthScreen style */

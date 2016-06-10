@@ -59,6 +59,23 @@ EditText{
 	width: 100%;
 }
 
+.RequestHistoryDateHL {
+	height: 3sp;
+	horizontal-align: center;
+	width: 100%;
+}
+
+.RequestHistoryDateTV {
+    width: 95%;
+	color: #9b9fa0;
+	font: 2sp arial;
+	text-align: left;
+    margin-top: 0sp;
+    margin-left: 2sp;
+	vertical-align: center;
+	horizontal-align: center;
+}
+
 .RequestHistoryNumberTimeVL {
 	height: 11sp auto;
 	vertical-align: center;
@@ -79,7 +96,7 @@ EditText{
 
 .RequestHistoryTimeTV {
     width: 95%;
-	color: #51595b;
+	color: #9b9fa0;
 	font: 2sp arial;
 	margin-top: 1sp;
 	margin-left: 4sp;
@@ -137,6 +154,13 @@ EditText{
 	height: 2px;
 	horizontal-align: center;
 	width: 95%;
+}
+
+.RequestHistoryDateBreaker {
+	background-color: #f3f3f4;
+	height: 2px;
+	horizontal-align: center;
+	width: 100%;
 }
 
 /* End of RequestHistory style */
