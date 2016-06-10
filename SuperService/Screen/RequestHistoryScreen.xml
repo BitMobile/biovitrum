@@ -11,11 +11,14 @@
       <s:Push Id="LastRequestHistoryDate" Value="$GetEmptyRequestHistory()" />
       <s:Iterator Id="RequestHistory" Value="$GetNeedMats()">
 
-        <s:If Test="$IsDateChanged($LastRequestHistoryDate, $RequestHistory.Date)">
+        <!--<s:If Test="$IsDateChanged($LastRequestHistoryDate, $RequestHistory.Date)">-->
+        <s:If Test="$LastRequestHistoryDate == $DateTimeToDate($RequestHistory.Date)">
           <c:HorizontalLine CssClass="RequestHistoryDateBreaker" />
-          <c:VerticalLayout CssClass="RequestHistoryDateHL">
-            <c:TextView Text="Сегодня" CssClass="RequestHistoryDateTV" />
-          </c:VerticalLayout>
+          
+          <c:HorizontalLayout CssClass="RequestHistoryDateHL">
+            <c:TextView Text="$DateTimeToDate($RequestHistory.Date)" CssClass="RequestHistoryDateTV" />
+          </c:HorizontalLayout>
+          
           <c:HorizontalLine CssClass="RequestHistoryDateBreaker" />
         </s:If>
 
@@ -43,7 +46,7 @@
 
         </c:HorizontalLayout>
         <c:HorizontalLine CssClass="RequestHistoryBreaker" />
-        <s:Push Id="LastRequestHistory" Value="$RequestHistory.Date" />
+        <s:Push Id="LastRequestHistoryDate" Value="$DateTimeToDate($RequestHistory.Date)" />
 
       </s:Iterator>
     </c:SwipeVerticalLayout>

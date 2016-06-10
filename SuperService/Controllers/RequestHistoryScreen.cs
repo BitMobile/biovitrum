@@ -23,6 +23,13 @@ namespace Test
                 RightButtonImage = { Visible = false },
                 ExtraLayoutVisible = false
             };
+
+            string a = "пятница 10 июня";
+            string b = "четверг 9 июня";
+            if (DateTime.Parse(a) > DateTime.Parse(b))
+            {
+                DConsole.WriteLine("OLOLOLOLOLOLOLO");
+            }
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
@@ -36,6 +43,30 @@ namespace Test
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
+        }
+
+        internal string GetEmptyRequestHistory()
+        {
+            DConsole.WriteLine("GetEmptyRequestHistory: " + DateTime.Now.ToString("dddd dd MMMM"));
+            return DateTime.Now.ToString("dddd dd MMMM");
+        }
+
+        internal string DateTimeToDate(string datetime)
+        {
+            DConsole.WriteLine("DateTimeToDate: " + DateTime.Parse(datetime).ToString("dddd dd MMMM"));
+            return DateTime.Parse(datetime).ToString("dddd dd MMMM");
+        }
+
+        internal int IsDateChanged(string lastdate, string nowdate)
+        {
+            if (DateTime.Parse(lastdate) < DateTime.Parse(nowdate))
+            {
+                DConsole.WriteLine("IsDateChanged 1: " + DateTime.Parse(lastdate).ToString("dddd dd MMMM") + DateTime.Parse(nowdate).ToString("dddd dd MMMM"));
+                return 1;
+                
+            }
+            DConsole.WriteLine("IsDateChanged 0: " + DateTime.Parse(lastdate).ToString("dddd dd MMMM") + DateTime.Parse(nowdate).ToString("dddd dd MMMM"));
+            return 0;
         }
 
         internal string ToHoursMinutes(string datetime)
