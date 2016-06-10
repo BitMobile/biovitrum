@@ -13,12 +13,14 @@ namespace Test
         private EditText _countEditText;
         private bool _editPrices;
         private int _minimum;
+        private string _rimId;
 
         private decimal _price;
         private EditText _priceEditText;
 
         private bool _showPrices;
         private TextView _totalPriceTextView;
+        private string _key;
 
         private decimal Price
         {
@@ -44,15 +46,18 @@ namespace Test
 
         public override void OnLoading()
         {
-//            DConsole.WriteLine(BusinessProcess.GlobalVariables["currentServicesMaterialsId"].ToString());
-
-
+            _key = (string)Variables.GetValueOrDefault("returnKey", "somNewValue");
             _minimum = (int) Variables.GetValueOrDefault("minimum", 0);
             _showPrices = (bool) Variables.GetValueOrDefault("priceVisible", true);
             _editPrices = (bool) Variables.GetValueOrDefault("priceEditable", false);
+            _rimId = (string) Variables.GetValueOrDefault("rimId");
+
             _behaviourEditServicesOrMaterialsScreen =
                 (BehaviourEditServicesOrMaterialsScreen)
                     Variables.GetValueOrDefault("behaviour", BehaviourEditServicesOrMaterialsScreen.None);
+
+
+            BusinessProcess.GlobalVariables.Remove(_key);
 
             _countEditText = (EditText) GetControl("CountEditText", true);
             _priceEditText = (EditText) Variables["PriceEditText"];
@@ -105,12 +110,11 @@ namespace Test
 
         private void ReturnValue()
         {
-            var key = (string) Variables.GetValueOrDefault("returnKey", "somNewValue");
-            var value = new EditServiceOrMaterialsScreenResult(Count, Price, Count*Price);
+            var value = new EditServiceOrMaterialsScreenResult(Count, Price, Count*Price, _rimId);
 
-            if (BusinessProcess.GlobalVariables.ContainsKey(key))
-                BusinessProcess.GlobalVariables.Remove(key);
-            BusinessProcess.GlobalVariables.Add(key, value);
+            if (BusinessProcess.GlobalVariables.ContainsKey(_key))
+                BusinessProcess.GlobalVariables.Remove(_key);
+            BusinessProcess.GlobalVariables.Add(_key, value);
         }
 
         private void UpdateDb()
@@ -211,20 +215,17 @@ namespace Test
 
     public class EditServiceOrMaterialsScreenResult
     {
-        public EditServiceOrMaterialsScreenResult(int count, decimal price, decimal fullPrice)
+        public EditServiceOrMaterialsScreenResult(int count, decimal price, decimal fullPrice, string rimId)
         {
             Count = count;
             Price = price;
             FullPrice = fullPrice;
+            RimId = rimId;
         }
 
         public int Count { get; }
         public decimal Price { get; }
         public decimal FullPrice { get; }
-
-        public override string ToString()
-        {
-            return $"Count: {Count}, Price: {Price}, FullPrice: {FullPrice}";
-        }
+        public string RimId { get; }
     }
 }

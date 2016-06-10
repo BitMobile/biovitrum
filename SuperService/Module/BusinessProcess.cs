@@ -33,7 +33,7 @@ namespace Test
 //            MoveTo("EventList");
         }
 
-        private static void MoveTo(string stepName, IDictionary<string, object> args = null)
+        private static void MoveTo(string stepName, IDictionary<string, object> args = null, bool putOnStack = true)
         {
             DConsole.WriteLine($"Moving to {stepName}");
             var n = _doc.DocumentElement?.SelectSingleNode($"//BusinessProcess/Workflow/Step[@Name='{stepName}']");
@@ -53,8 +53,11 @@ namespace Test
             DConsole.WriteLine($"Loading controler: {stepController}");
             var scr = GetScreenByControllerName(stepController);
             scr.SetData(args);
-            StackScreens.Push(scr);
-            StackNodes.Push(n);
+            if (putOnStack)
+            {
+                StackScreens.Push(scr);
+                StackNodes.Push(n);
+            }
 
 //            CurrentScreen = scr;
 //            CurrentNode = n;
@@ -63,7 +66,7 @@ namespace Test
             scr.Show();
         }
 
-        public static void DoAction(string actionName, IDictionary<string, object> args = null)
+        public static void DoAction(string actionName, IDictionary<string, object> args = null, bool putOnStack = true)
         {
             DConsole.WriteLine($"Doing action: {actionName}");
             var n = CurrentNode.SelectSingleNode($"Action[@Name='{actionName}']");
@@ -73,7 +76,7 @@ namespace Test
                 return;
             }
             var stepName = n.Attributes["NextStep"].Value;
-            MoveTo(stepName, args);
+            MoveTo(stepName, args, putOnStack);
         }
 
         public static void DoBack()
