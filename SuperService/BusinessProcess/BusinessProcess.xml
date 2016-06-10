@@ -24,6 +24,7 @@
     <Step Name="Bag" Controller="BagListScreen" StyleSheet="Style\BagListScreen.css">
       <Action Name="EventList" NextStep="EventList"></Action>
       <!--      <Action Name="Bag" NextStep="Bag"></Action>-->
+      <Action Name="MeterialsRequestScreen" NextStep="MeterialsRequestScreen"></Action>
       <Action Name="Settings" NextStep="Settings"></Action>
       <Action Name="ClientList" NextStep="ClientList"></Action>
       <Action Name="RequestHistory" NextStep="RequestHistory"></Action>
