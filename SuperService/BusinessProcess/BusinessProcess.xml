@@ -98,8 +98,7 @@
       <Action Name="MeterialsRequestScreen" NextStep="MeterialsRequestScreen"></Action>
     </Step>
 
-    <Step Name="EditServicesOrMaterials" Controller="EditServicesOrMaterialsScreen" StyleSheet="Style\style.css">
-      <Action Name="COC" NextStep="COC"></Action>
+    <Step Name="EditServicesOrMaterials" Controller="EditServicesOrMaterialsScreen" StyleSheet="Style\EditServicesOrMaterialsScreen.css">
     </Step>
 
     <Step Name="MeterialsRequestScreen" Controller="MeterialsRequestScreen" StyleSheet="Style\MeterialsRequestScreen.css">

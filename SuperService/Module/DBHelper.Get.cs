@@ -614,7 +614,7 @@ namespace Test
         ///     Используется для определения наличия в ТЧ документа номенклатуры с заданным ИД (проверка есть уже такая или нет)
         /// </summary>
         /// <param name="docEventID">Идентификатор документа событие</param>
-        /// <param name="rimType">Идентификатор искомого элемента справочинка Товары и услуги</param>
+        /// <param name="rimID">Идентификатор искомого элемента справочинка Товары и услуги</param>
         /// <returns>null - если в указанном документе нету номенклатуры с указанным идентификатором; 
         /// Заполнненую структуру EventServicesMaterialsLine в случае если строка есть</returns>
         public static EventServicesMaterialsLine GetEventServicesMaterialsLineByRIMID(string docEventID, string rimID)

@@ -40,7 +40,7 @@ namespace Test
                 value = Math.Max(value, _minimum);
                 _countEditText.Text = value.ToString();
                 if (_totalPriceTextView != null)
-                    _totalPriceTextView.Text = Price*Count + Translator.Translate("currency");
+                    _totalPriceTextView.Text = (Price*Count).ToString(CultureInfo.CurrentCulture);
             }
         }
 
