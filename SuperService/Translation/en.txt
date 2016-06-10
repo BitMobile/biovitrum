@@ -53,3 +53,5 @@ request		Request
 count		
 price		Price
 add		Add
+select_answer		Select value
+requests		Requests

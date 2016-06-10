@@ -53,3 +53,5 @@ request		Заявка
 count		Количество
 price		Цена
 add		Добавить
+select_answer		Выберите вариант
+requests		Заявки

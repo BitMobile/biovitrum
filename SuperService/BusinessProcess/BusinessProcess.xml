@@ -26,6 +26,7 @@
       <!--      <Action Name="Bag" NextStep="Bag"></Action>-->
       <Action Name="Settings" NextStep="Settings"></Action>
       <Action Name="ClientList" NextStep="ClientList"></Action>
+      <Action Name="RequestHistory" NextStep="RequestHistory"></Action>
     </Step>
 
     <Step Name="ClientList" Controller="ClientListScreen" StyleSheet="Style\ClientListScreen.css">
@@ -56,6 +57,10 @@
     <Step Name="TaskList" Controller="TaskListScreen" StyleSheet="Style\fancy_taskList.css">
       <Action Name="BackToEvent" NextStep="Event"></Action>
       <Action Name="ViewTask" NextStep="Task"></Action>
+    </Step>
+
+    <Step Name="RequestHistory" Controller="RequestHistoryScreen" StyleSheet="Style\RequestHistoryScreen.css">
+      <Action Name="BackToBag" NextStep="Bag"></Action>
     </Step>
 
     <Step Name="CheckList" Controller="CheckListScreen" StyleSheet="Style\CheckListScreen.css">
