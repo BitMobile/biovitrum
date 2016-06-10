@@ -11,7 +11,6 @@ namespace Test
     // TODO: Сделать задвигающие SwipeHorizontalLayout
     public class MeterialsRequestScreen : Screen
     {
-        //TODO: Заменить на RecordSet
         private static ArrayList _data;
         private bool _isEmptyList;
         private TopInfoComponent _topInfoComponent;

@@ -38,7 +38,7 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("ViewCOC");
+            BusinessProcess.DoBack();
         }
 
         internal void RIMLayout_OnClick(object sender, EventArgs eventArgs)
