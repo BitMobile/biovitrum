@@ -4,17 +4,38 @@
   <c:VerticalLayout CssClass="RootLayout">
     <s:Push Id="serviceMaterial" Value="$GetServiceMaterialInfo()" />
     <s:Push Id="void" Value="$SetPrice($serviceMaterial.Price)" />
-    <c:Button Text="#back#" OnClick="BackButton_OnClick" />
-    <c:TextView Text="$serviceMaterial.Description" />
-    <c:TextView Text="#count#" />
-    <c:Button Id="RemoveButton" Text="-" OnClick="RemoveButton_OnClick" />
-    <c:EditText Id="CountEditText" Text="$serviceMaterial.Count" Keyboard="numeric"
-                OnLostFocus="CountEditText_OnLostFocus" />
-    <c:Button Id="AddButton" Text="+" OnClick="AddButton_OnClick" />
-    <c:TextView Id="PriceTitleTextView" Text="#price#" />
-    <c:EditText Id="PriceEditText" Text="$serviceMaterial.Price" />
-    <c:TextView Id="TotalPriceTitleTextView" Text="#total#" />
-    <c:TextView Id="TotalPriceTextView" Text="$serviceMaterial.FullPrice" />
-    <c:Button Text="#add#" OnClick="AddServiceMaterialButton_OnClick" />
+    <c:VerticalLayout OnClick="BackButton_OnClick">
+      <c:Image CssClass="CloseButtonImage" Source="$GetResourceImage(editservicesormaterialsscreen_close)" />
+    </c:VerticalLayout>
+    <c:VerticalLayout CssClass="EmptySpace7sp" />
+    <c:TextView CssClass="EditScreenHeader" Text="$serviceMaterial.Description" />
+    <c:VerticalLayout CssClass="EmptySpace8sp" />
+    <c:TextView CssClass="SlightlyGrey" Text="#count#" />
+    <c:VerticalLayout CssClass="EmptySpace3sp" />
+    <c:HorizontalLayout CssClass="CounterLayout">
+      <c:VerticalLayout CssClass="PlusMinusImageWrapper" Id="RemoveButton" OnClick="RemoveButton_OnClick">
+        <c:Image CssClass="PlusMinusImage" Source="$GetResourceImage(editservicesormaterialsscreen_minus)" />
+      </c:VerticalLayout>
+      <c:EditText Id="CountEditText" Text="$serviceMaterial.AmountFact" Keyboard="numeric"
+                  OnLostFocus="CountEditText_OnLostFocus" />
+      <c:VerticalLayout CssClass="PlusMinusImageWrapper" Id="AddButton" OnClick="AddButton_OnClick">
+        <c:Image CssClass="PlusMinusImage" Source="$GetResourceImage(editservicesormaterialsscreen_plus)" />
+      </c:VerticalLayout>
+    </c:HorizontalLayout>
+    <c:VerticalLayout CssClass="EmptySpace8sp" />
+    <c:HorizontalLayout CssClass="PriceLayout">
+      <c:TextView CssClass="PriceTitle" Id="PriceTitleTextView" Text="#price#" />
+      <c:EditText CssClass="Price" Id="PriceEditText" Text="$serviceMaterial.Price" />
+      <c:TextView CssClass="PriceCurrency" Text="#currency#"/>
+    </c:HorizontalLayout>
+    <c:HorizontalLine />
+    <c:HorizontalLayout CssClass="PriceLayout">
+      <c:TextView CssClass="PriceTitle" Id="TotalPriceTitleTextView" Text="#total#" />
+      <c:TextView CssClass="TotalPrice" Id="TotalPriceTextView" Text="$serviceMaterial.SumFact" />
+      <c:TextView CssClass="TotalPriceCurrency" Text="#currency#"/>
+    </c:HorizontalLayout>
+    <c:HorizontalLayout CssClass="AddButton" OnClick="AddServiceMaterialButton_OnClick">
+      <c:TextView Text="#confirm#" />
+    </c:HorizontalLayout>
   </c:VerticalLayout>
 </c:Screen>

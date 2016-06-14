@@ -19,7 +19,6 @@ namespace Test
         public int LineNumber { get; set; }
         public string Ref { get; set; }
         public string SKU { get; set; }
-        // TODO: покурить с даблом, что бы не нарваться на проблему округления
         public decimal Price { get; set; }
         public decimal AmountPlan { get;  set; }
         public decimal SumPlan { get; set; }

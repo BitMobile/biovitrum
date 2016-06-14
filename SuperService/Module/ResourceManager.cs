@@ -62,6 +62,10 @@ namespace Test
             {"basket", @"Image\MaterialsRequest\basket.png"},
             {"plus", @"Image\COCScreen\plus_img.png"},
             {"delete", @"Image\COCScreen\delete_img.png"},
+            // EditServicesOrMaterialsScreen
+            {"editservicesormaterialsscreen_plus", @"Image\EditServicesOrMaterialsScreen\Plus.png"},
+            {"editservicesormaterialsscreen_minus", @"Image\EditServicesOrMaterialsScreen\delete_img.png"},
+            {"editservicesormaterialsscreen_close", @"Image\EditServicesOrMaterialsScreen\close.png"},
         };
 
         public static string GetImage(string tag)

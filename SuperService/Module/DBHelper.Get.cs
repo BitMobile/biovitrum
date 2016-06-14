@@ -429,7 +429,7 @@ namespace Test
                                   "     Catalog_Actions_ValueList " +
                                   "where " +
                                   /*"     Catalog_Actions_ValueList.DeletionMark = 0 " +
-                                  "     and "*/"Catalog_Actions_ValueList.Ref = @actionID");
+                                  "     and "*/ "Catalog_Actions_ValueList.Ref = @actionID");
             query.AddParameter("actionID", actionID);
             return query.Execute();
         }
@@ -589,19 +589,19 @@ namespace Test
         public static DbRecordset GetRIMByType(RIMType rimType)
         {
             var query = new Query("select " +
-                                    "    id, " +
-                                    "    Description, " +
-                                    "    Price, " +
-                                    "    Unit " +
-                                    "from " +
-                                    "    Catalog_RIM " +
-                                    "where " +
-                                    "    deletionMark = 0 " +
-                                    "    and isFolder = 0 " +  
-                                    "    and service = @rim_type");
+                                  "    id, " +
+                                  "    Description, " +
+                                  "    Price, " +
+                                  "    Unit " +
+                                  "from " +
+                                  "    Catalog_RIM " +
+                                  "where " +
+                                  "    deletionMark = 0 " +
+                                  "    and isFolder = 0 " +
+                                  "    and service = @rim_type");
 
             DConsole.WriteLine("rimType = " + rimType);
-            if(rimType == RIMType.Material)
+            if (rimType == RIMType.Material)
                 query.AddParameter("rim_type", 0);
             else
                 query.AddParameter("rim_type", 1);
@@ -614,28 +614,28 @@ namespace Test
         ///     Используется для определения наличия в ТЧ документа номенклатуры с заданным ИД (проверка есть уже такая или нет)
         /// </summary>
         /// <param name="docEventID">Идентификатор документа событие</param>
-        /// <param name="rimType">Идентификатор искомого элемента справочинка Товары и услуги</param>
+        /// <param name="rimID">Идентификатор искомого элемента справочинка Товары и услуги</param>
         /// <returns>null - если в указанном документе нету номенклатуры с указанным идентификатором; 
         /// Заполнненую структуру EventServicesMaterialsLine в случае если строка есть</returns>
         public static EventServicesMaterialsLine GetEventServicesMaterialsLineByRIMID(string docEventID, string rimID)
         {
             EventServicesMaterialsLine result = null;
-            var queryText =       "select " +
-                                  "    id, " +
-                                  "    LineNumber, " +
-                                  "    Ref, " +
-                                  "    SKU, " +
-                                  "    Price, " +
-                                  "    AmountPlan, " +
-                                  "    SumPlan, " +
-                                  "    AmountFact, " +
-                                  "    SumFact, " +
-                                  "    isDirty " +
-                                  "from " +
-                                  "    _Document_Event_ServicesMaterials " +
-                                  "where " +
-                                  "    _Document_Event_ServicesMaterials.Ref = @EventDocRef " +
-                                  "    and _Document_Event_ServicesMaterials.SKU = @SKUID";
+            var queryText = "select " +
+                            "    id, " +
+                            "    LineNumber, " +
+                            "    Ref, " +
+                            "    SKU, " +
+                            "    Price, " +
+                            "    AmountPlan, " +
+                            "    SumPlan, " +
+                            "    AmountFact, " +
+                            "    SumFact, " +
+                            "    isDirty " +
+                            "from " +
+                            "    _Document_Event_ServicesMaterials " +
+                            "where " +
+                            "    _Document_Event_ServicesMaterials.Ref = @EventDocRef " +
+                            "    and _Document_Event_ServicesMaterials.SKU = @SKUID";
 
             var query = new Query(queryText);
             query.AddParameter("EventDocRef", docEventID);
@@ -646,16 +646,18 @@ namespace Test
             if (queryResult.Next())
             {
                 DConsole.WriteLine("зашли в обработку результата запроса");
-                result = new EventServicesMaterialsLine();
-                result.ID = queryResult.GetString(0);
-                result.LineNumber = queryResult.GetInt32(1);
-                result.Ref = queryResult.GetString(2);
-                result.SKU = queryResult.GetString(3);
-                result.Price = queryResult.GetDecimal(4);
-                result.AmountPlan = queryResult.GetDecimal(5);
-                result.SumPlan = queryResult.GetDecimal(6);
-                result.AmountFact = queryResult.GetDecimal(7);
-                result.SumFact = queryResult.GetDecimal(8);
+                result = new EventServicesMaterialsLine
+                {
+                    ID = queryResult.GetString(0),
+                    LineNumber = queryResult.GetInt32(1),
+                    Ref = queryResult.GetString(2),
+                    SKU = queryResult.GetString(3),
+                    Price = queryResult.GetDecimal(4),
+                    AmountPlan = queryResult.GetDecimal(5),
+                    SumPlan = queryResult.GetDecimal(6),
+                    AmountFact = queryResult.GetDecimal(7),
+                    SumFact = queryResult.GetDecimal(8)
+                };
             }
 
             return result;
@@ -755,22 +757,20 @@ namespace Test
         /// /// <param name="lineId">Идентификатор строки</param>
         public static DbRecordset GetServiceMaterialPriceByLineID(string lineId)
         {
-            var queryText = "select " +
-                            "      _Document_Event_ServicesMaterials.Id, " +
-                            "      _Document_Event_ServicesMaterials.SKU as RIMID, " +
-                            "      _Catalog_RIM.Description, " +
-                            "      _Document_Event_ServicesMaterials.Price, " +
-                            "      _Document_Event_ServicesMaterials.AmountFact, " +
-                            "      _Document_Event_ServicesMaterials.SumFact " +
-                            "from " +
-                            "    _Document_Event_ServicesMaterials " +
-                            "         left join _Catalog_RIM " +
-                            "            on _Document_Event_ServicesMaterials.SKU = _Catalog_RIM.Id " +
-                            " " +
-                            "where " +
-                            "    _Document_Event_ServicesMaterials.id = @lineId";
-
-            var query = new Query(queryText);
+            var query = new Query("select " +
+                                  "      _Document_Event_ServicesMaterials.Id, " +
+                                  "      _Document_Event_ServicesMaterials.SKU as RIMID, " +
+                                  "      _Catalog_RIM.Description, " +
+                                  "      _Document_Event_ServicesMaterials.Price, " +
+                                  "      _Document_Event_ServicesMaterials.AmountFact, " +
+                                  "      _Document_Event_ServicesMaterials.SumFact " +
+                                  "from " +
+                                  "    _Document_Event_ServicesMaterials " +
+                                  "         left join _Catalog_RIM " +
+                                  "            on _Document_Event_ServicesMaterials.SKU = _Catalog_RIM.Id " +
+                                  " " +
+                                  "where " +
+                                  "    _Document_Event_ServicesMaterials.id = @lineId");
             query.AddParameter("lineId", lineId);
             return query.Execute();
         }
@@ -778,28 +778,22 @@ namespace Test
         /// <summary>
         ///     Получает информацию по строке материалов и услуг документа Наряд
         /// </summary>
-        /// /// <param name="RIMId">Идентификатор строки</param>
-        public static DbRecordset GetServiceMaterialPriceByRIMID(string RIMId)
+        /// /// <param name="rimId">Идентификатор строки</param>
+        public static DbRecordset GetServiceMaterialPriceByRIMID(string rimId)
         {
-            var queryText = "select " +
-                            "      _Catalog_RIM.id, " +
-                            "      _Catalog_RIM.Description, " +
-                            "      _Catalog_RIM.Price, " +
-                            "      1 as AmountFact, " +
-                            "      _Catalog_RIM.Price as SumFact " +
-                            "from " +
-                            "    _Catalog_RIM " +
-                            " " +
-                            "where " +
-                            "    _Catalog_RIM.id = @RIMId";
-
-            var query = new Query(queryText);
-            query.AddParameter("RIMId", RIMId);
+            var query = new Query("select " +
+                                  "      _Catalog_RIM.id, " +
+                                  "      _Catalog_RIM.Description, " +
+                                  "      _Catalog_RIM.Price, " +
+                                  "      1 as AmountFact, " +
+                                  "      _Catalog_RIM.Price as SumFact " +
+                                  "from " +
+                                  "    _Catalog_RIM " +
+                                  " " +
+                                  "where " +
+                                  "    _Catalog_RIM.id = @RIMId");
+            query.AddParameter("RIMId", rimId);
             return query.Execute();
         }
-
-
-
-
     }
 }
