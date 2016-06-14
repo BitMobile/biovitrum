@@ -86,7 +86,7 @@ namespace Test
         {
             _data = new ArrayList();
             //TODO: Заменить цикл на запрос из БД
-            for (var i = 0; i < 60; i++)
+            for (var i = 0; i < 0; i++)
             {
                 var dic = new Dictionary<string, object>();
                 dic["first"] = "Test " + i;

@@ -9,6 +9,7 @@ namespace Test
     {
         private static WebMapGoogle _map;
         private TopInfoComponent _topInfoComponent;
+        private bool isClientScreen = Convert.ToBoolean("False");
 
         public override void OnLoading()
         {
@@ -24,7 +25,6 @@ namespace Test
 
         public override void OnShow()
         {
-            UpdateCoords();
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
@@ -45,9 +45,11 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
+    }
 
-        private void UpdateCoords()
-        {
-        }
+    public enum MapScreenStates
+    {
+        EventList,
+        Client,
     }
 }
