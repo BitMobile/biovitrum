@@ -353,50 +353,5 @@ namespace Test
 
             InsertEventServicesMaterialsLine(line);
         }
-
-
-        /// <summary>
-        /// Обновляет данные по цене и количеству в строке услуги и материалы документа наряд
-        /// <param name="lineID"> Идентификатор строки </param>
-        public static void updateServiceMaterialAmount(string lineID, decimal newPrice, decimal newAmountFact, decimal newSumFact)
-        {
-            var queryText = "update _Document_Event_ServicesMaterials " +
-                            "    set " +
-                            "       price = @price, " +
-                            "       amountFact = @amountFact, " +
-                            "       sumFact = @sumFact, " +
-                            "       isDirty = 1 " +
-                            ""+
-                            "    where id = @lineID";
-
-            var query = new Query();
-            query.AddParameter("lineID", lineID);
-            query.AddParameter("price", newPrice);
-            query.AddParameter("amountFact", newAmountFact);
-            query.AddParameter("newSumFact", newSumFact);
-
-            query.Execute();
-
-            _db.Commit();
-        }
-
-        /// <summary>
-        /// вставляет строку услугиматериалы 
-        /// <param name="lineID"> Идентификатор строки </param>
-        public static void insertServiceMatherial(string docRef, string rimID, decimal price, decimal amountFact, decimal SumFact)
-        {
-            var line = new EventServicesMaterialsLine();
-            line.Ref = docRef;
-            line.SKU = rimID;
-            line.Price = price;
-            line.AmountFact = amountFact;
-            line.SumFact = SumFact;
-            line.AmountPlan = 0;
-            line.SumPlan = 0;
-
-            InsertEventServicesMaterialsLine(line);
-        }
-
-
     }
 }
