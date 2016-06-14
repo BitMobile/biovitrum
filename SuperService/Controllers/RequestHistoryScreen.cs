@@ -13,6 +13,7 @@ namespace Test
     {
         private TopInfoComponent _topInfoComponent;
         private bool _needTodayLayout = Convert.ToBoolean("True");
+        private bool _needTodayBreaker = Convert.ToBoolean("True");
 
         public override void OnLoading()
         {
@@ -66,23 +67,27 @@ namespace Test
             {
                 ++workDateWeekNumber;
             }
-            DConsole.WriteLine(workDateWeekNumber.ToString());
 
             var currentDateWeekNumber = (currentDate.DayOfYear + 6) / 7;
             if (currentDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
             {
                 ++currentDateWeekNumber;
             }
-            DConsole.WriteLine(currentDateWeekNumber.ToString());
-
 
             if (workDateWeekNumber == currentDateWeekNumber)
             {
-                DConsole.WriteLine(DateTime.Parse(datetime).ToString("dddd, dd MMMM"));
-                return DateTime.Parse(datetime).ToString("dddd dd MMMM");
+                return DateTime.Parse(datetime).ToString("dddd, dd MMMM").ToUpper();
             }
-            DConsole.WriteLine(DateTime.Parse(datetime).ToString("dddd, dd MMMM"));
-            return DateTime.Parse(datetime).ToString("dddd dd MMMM");
+            return DateTime.Parse(datetime).ToString("dd MMMM yyyy").ToUpper();
+        }
+
+        internal bool IsDateChangedString(string lastdate, string nowdate)
+        {
+            if (DateTime.Parse(lastdate).Date > DateTime.Parse(nowdate).Date)
+            {
+                return true;
+            }
+            return false;
         }
 
         internal bool IsDateChanged(string lastdate, string nowdate)
@@ -99,7 +104,6 @@ namespace Test
             if (DateTime.Parse(lastdate).Date != DateTime.Parse(nowdate).Date)
             {
                 return true;
-
             }
             return false;
         }
@@ -109,19 +113,32 @@ namespace Test
             if (DateTime.Parse(lastdate).Date == DateTime.Parse(nowdate).Date)
             {
                 return true;
-
             }
             return false;
         }
 
         internal bool IsVrblTrue()
         {
-            DConsole.WriteLine("IsVrblTrue " + _needTodayLayout);
             if (Convert.ToBoolean(_needTodayLayout) == Convert.ToBoolean("True"))
             {
                 return _needTodayLayout;
             }
             return _needTodayLayout;
+        }
+
+        internal bool IsBreakerNeed()
+        {
+            if (Convert.ToBoolean(_needTodayBreaker) == Convert.ToBoolean("True"))
+            {
+                return _needTodayBreaker;
+            }
+            return _needTodayBreaker;
+        }
+
+        internal bool SetTodayLayoutBreakerToFalse()
+        {
+            _needTodayBreaker = Convert.ToBoolean("False");
+            return _needTodayBreaker;
         }
 
         internal string ToHoursMinutes(string datetime)

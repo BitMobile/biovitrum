@@ -17,7 +17,7 @@
 
           <s:If Test="$IsDateEquals($LastRequestHistoryDate, $RequestHistory.Date)">
             <c:HorizontalLayout CssClass="RequestHistoryDateHL">
-              <c:TextView Text="#today_eventListNode#" CssClass="RequestHistoryDateTV" />
+              <c:TextView Text="#todayUpper#" CssClass="RequestHistoryDateTV" />
             </c:HorizontalLayout>
             <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />
 
@@ -26,7 +26,6 @@
 
         </s:If>
         <!-- Конец проверки на необходимость плашки "Сегодня" -->
-
 
         <!-- Проверка на необходимость плашки с датой -->
         <s:If Test="$IsDateChanged($LastRequestHistoryDate, $RequestHistory.Date)">
@@ -38,6 +37,10 @@
 
           <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />
         </s:If>
+
+        <!--<s:Else>
+          <c:HorizontalLine CssClass="RequestHistoryShortBreaker" />
+        </s:Else>-->
         <!-- Конец проверки на необходимость плашки с датой -->
 
         <c:HorizontalLayout CssClass="RequestHistoryItemHL">
@@ -64,9 +67,13 @@
 
         </c:HorizontalLayout>
 
-        <s:If Test="$IsDateNotChanged($LastRequestHistoryDate, $RequestHistory.Date)">
-          <c:HorizontalLine CssClass="RequestHistoryShortBreaker" />
+        <!--<s:If Test="$IsDateNotChanged($LastRequestHistoryDate, $DateTimeToDate($RequestHistory.Date))">-->
+        <s:If Test="$IsDateChanged($LastRequestHistoryDate, $RequestHistory.Date)">
+          <!--<c:HorizontalLine CssClass="RequestHistoryShortBreaker" />-->
         </s:If>
+        <s:Else>
+          <c:HorizontalLine CssClass="RequestHistoryShortBreaker" />
+        </s:Else>
 
         <s:Push Id="LastRequestHistoryDate" Value="$DateTimeToDate($RequestHistory.Date)" />
 

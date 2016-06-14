@@ -27,7 +27,7 @@ settings		Settings
 areYouSure		Are you sure?
 today		today
 per_month		per month
-today_eventListNode		Today
+todayUpper		TODAY
 client		Client
 clients		Clients
 contacts		Contacts

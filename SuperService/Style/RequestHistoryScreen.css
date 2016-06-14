@@ -61,8 +61,9 @@ EditText{
 
 .RequestHistoryDateHL {
 	height: 3sp;
+    width: 100%;
+    margin-top: 2sp;
 	horizontal-align: center;
-	width: 100%;
 }
 
 .RequestHistoryDateTV {
