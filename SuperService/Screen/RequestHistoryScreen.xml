@@ -8,19 +8,37 @@
     <s:Include File="Components\TopInfoComponent.xml" />
 
     <c:SwipeVerticalLayout CssClass="RequestHistoryMainSVL">
-      <s:Push Id="LastRequestHistoryDate" Value="$GetEmptyRequestHistory()" />
+      <s:Push Id="LastRequestHistoryDate" Value="$GetDateNowRequestHistory()" />
+
       <s:Iterator Id="RequestHistory" Value="$GetNeedMats()">
 
-        <!--<s:If Test="$IsDateChanged($LastRequestHistoryDate, $RequestHistory.Date)">-->
-        <s:If Test="$LastRequestHistoryDate == $DateTimeToDate($RequestHistory.Date)">
-          <c:HorizontalLine CssClass="RequestHistoryDateBreaker" />
-          
-          <c:HorizontalLayout CssClass="RequestHistoryDateHL">
-            <c:TextView Text="$DateTimeToDate($RequestHistory.Date)" CssClass="RequestHistoryDateTV" />
-          </c:HorizontalLayout>
-          
-          <c:HorizontalLine CssClass="RequestHistoryDateBreaker" />
+        <!-- Проверка на необходимость плашки "Сегодня" -->
+        <s:If Test="$IsVrblTrue()">
+
+          <s:If Test="$IsDateEquals($LastRequestHistoryDate, $RequestHistory.Date)">
+            <c:HorizontalLayout CssClass="RequestHistoryDateHL">
+              <c:TextView Text="#today_eventListNode#" CssClass="RequestHistoryDateTV" />
+            </c:HorizontalLayout>
+            <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />
+
+            <s:Push Id="void" Value="$SetTodayLayoutBoolToFalse()" />
+          </s:If>
+
         </s:If>
+        <!-- Конец проверки на необходимость плашки "Сегодня" -->
+
+
+        <!-- Проверка на необходимость плашки с датой -->
+        <s:If Test="$IsDateChanged($LastRequestHistoryDate, $RequestHistory.Date)">
+          <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />
+
+          <c:HorizontalLayout CssClass="RequestHistoryDateHL">
+            <c:TextView Text="$DateTimeToDateWithWeekCheck($RequestHistory.Date)" CssClass="RequestHistoryDateTV" />
+          </c:HorizontalLayout>
+
+          <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />
+        </s:If>
+        <!-- Конец проверки на необходимость плашки с датой -->
 
         <c:HorizontalLayout CssClass="RequestHistoryItemHL">
 
@@ -45,7 +63,11 @@
           </c:VerticalLayout>
 
         </c:HorizontalLayout>
-        <c:HorizontalLine CssClass="RequestHistoryBreaker" />
+
+        <s:If Test="$IsDateNotChanged($LastRequestHistoryDate, $RequestHistory.Date)">
+          <c:HorizontalLine CssClass="RequestHistoryShortBreaker" />
+        </s:If>
+
         <s:Push Id="LastRequestHistoryDate" Value="$DateTimeToDate($RequestHistory.Date)" />
 
       </s:Iterator>

@@ -149,14 +149,14 @@ EditText{
 	horizontal-align: right;
 }
 
-.RequestHistoryBreaker {
+.RequestHistoryShortBreaker {
 	background-color: #f3f3f4;
 	height: 2px;
 	horizontal-align: center;
 	width: 95%;
 }
 
-.RequestHistoryDateBreaker {
+.RequestHistoryLongBreaker {
 	background-color: #f3f3f4;
 	height: 2px;
 	horizontal-align: center;

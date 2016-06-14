@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Globalization;
 using System.Net;
 using System.Text;
 using BitMobile.ClientModel3;
@@ -11,6 +12,7 @@ namespace Test
     public class RequestHistoryScreen : Screen
     {
         private TopInfoComponent _topInfoComponent;
+        private bool _needTodayLayout = Convert.ToBoolean("True");
 
         public override void OnLoading()
         {
@@ -23,13 +25,6 @@ namespace Test
                 RightButtonImage = { Visible = false },
                 ExtraLayoutVisible = false
             };
-
-            string a = "пятница 10 июня";
-            string b = "четверг 9 июня";
-            if (DateTime.Parse(a) > DateTime.Parse(b))
-            {
-                DConsole.WriteLine("OLOLOLOLOLOLOLO");
-            }
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
@@ -45,28 +40,88 @@ namespace Test
         {
         }
 
-        internal string GetEmptyRequestHistory()
+        internal int SetTodayLayoutBoolToFalse()
         {
-            DConsole.WriteLine("GetEmptyRequestHistory: " + DateTime.Now.ToString("dddd dd MMMM"));
+            _needTodayLayout = Convert.ToBoolean("False");
+            return 0;
+        }
+
+        internal string GetDateNowRequestHistory()
+        {
             return DateTime.Now.ToString("dddd dd MMMM");
         }
 
         internal string DateTimeToDate(string datetime)
         {
-            DConsole.WriteLine("DateTimeToDate: " + DateTime.Parse(datetime).ToString("dddd dd MMMM"));
             return DateTime.Parse(datetime).ToString("dddd dd MMMM");
         }
 
-        internal int IsDateChanged(string lastdate, string nowdate)
+        internal string DateTimeToDateWithWeekCheck(string datetime)
         {
-            if (DateTime.Parse(lastdate) < DateTime.Parse(nowdate))
+            DateTime workDate = DateTime.Parse(datetime).Date;
+            DateTime currentDate = DateTime.Now.Date;
+
+            var workDateWeekNumber = (workDate.DayOfYear + 6)/7;
+            if (workDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
             {
-                DConsole.WriteLine("IsDateChanged 1: " + DateTime.Parse(lastdate).ToString("dddd dd MMMM") + DateTime.Parse(nowdate).ToString("dddd dd MMMM"));
-                return 1;
-                
+                ++workDateWeekNumber;
             }
-            DConsole.WriteLine("IsDateChanged 0: " + DateTime.Parse(lastdate).ToString("dddd dd MMMM") + DateTime.Parse(nowdate).ToString("dddd dd MMMM"));
-            return 0;
+            DConsole.WriteLine(workDateWeekNumber.ToString());
+
+            var currentDateWeekNumber = (currentDate.DayOfYear + 6) / 7;
+            if (currentDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
+            {
+                ++currentDateWeekNumber;
+            }
+            DConsole.WriteLine(currentDateWeekNumber.ToString());
+
+
+            if (workDateWeekNumber == currentDateWeekNumber)
+            {
+                DConsole.WriteLine(DateTime.Parse(datetime).ToString("dddd, dd MMMM"));
+                return DateTime.Parse(datetime).ToString("dddd dd MMMM");
+            }
+            DConsole.WriteLine(DateTime.Parse(datetime).ToString("dddd, dd MMMM"));
+            return DateTime.Parse(datetime).ToString("dddd dd MMMM");
+        }
+
+        internal bool IsDateChanged(string lastdate, string nowdate)
+        {
+            if (DateTime.Parse(lastdate).Date > DateTime.Parse(nowdate).Date)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        internal bool IsDateNotChanged(string lastdate, string nowdate)
+        {
+            if (DateTime.Parse(lastdate).Date != DateTime.Parse(nowdate).Date)
+            {
+                return true;
+
+            }
+            return false;
+        }
+
+        internal bool IsDateEquals(string lastdate, string nowdate)
+        {
+            if (DateTime.Parse(lastdate).Date == DateTime.Parse(nowdate).Date)
+            {
+                return true;
+
+            }
+            return false;
+        }
+
+        internal bool IsVrblTrue()
+        {
+            DConsole.WriteLine("IsVrblTrue " + _needTodayLayout);
+            if (Convert.ToBoolean(_needTodayLayout) == Convert.ToBoolean("True"))
+            {
+                return _needTodayLayout;
+            }
+            return _needTodayLayout;
         }
 
         internal string ToHoursMinutes(string datetime)
