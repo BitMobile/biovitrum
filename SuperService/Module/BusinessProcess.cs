@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using BitMobile.ClientModel3;
@@ -14,10 +13,22 @@ namespace Test
 
         private static readonly Stack StackNodes = new Stack();
         private static readonly Stack StackScreens = new Stack();
-        private static Screen lastScreen;
+        // ReSharper disable once NotAccessedField.Local
+        private static Screen _lastScreen;
+        private static XmlNode _currentNode;
+        private static Screen _currentScreen;
 
-        public static XmlNode CurrentNode => (XmlNode) StackNodes.Peek();
-        public static Screen CurrentScreen => (Screen) StackScreens.Peek();
+        public static XmlNode CurrentNode => _currentNode ?? (XmlNode) StackNodes.Peek();
+
+        public static Screen CurrentScreen
+        {
+            get
+            {
+                if (_currentScreen != null) return _currentScreen;
+                if (StackScreens.Count != 0) return (Screen) StackScreens.Peek();
+                return null;
+            }
+        }
 
         public static Dictionary<string, object> GlobalVariables { get; } = new Dictionary<string, object>();
 
@@ -29,8 +40,8 @@ namespace Test
             DConsole.WriteLine("Loaded BP.xml");
 
             var firstStepName = _doc.DocumentElement?.ChildNodes[0].ChildNodes[0].Attributes?["Name"].Value;
-//            MoveTo(firstStepName);
-            MoveTo("EditServicesOrMaterials");
+            MoveTo(firstStepName);
+//            MoveTo("EditServicesOrMaterials");
         }
 
         private static void MoveTo(string stepName, IDictionary<string, object> args = null, bool putOnStack = true)
@@ -53,10 +64,19 @@ namespace Test
             DConsole.WriteLine($"Loading controler: {stepController}");
             var scr = GetScreenByControllerName(stepController);
             scr.SetData(args);
+            _lastScreen = CurrentScreen;
+
+            _currentScreen = null;
+            _currentNode = null;
             if (putOnStack)
             {
                 StackScreens.Push(scr);
                 StackNodes.Push(n);
+            }
+            else
+            {
+                _currentScreen = scr;
+                _currentNode = n;
             }
 
 //            CurrentScreen = scr;
@@ -90,7 +110,7 @@ namespace Test
             }
 
             StackNodes.Pop();
-            lastScreen = (Screen) StackScreens.Pop();
+            _lastScreen = (Screen) StackScreens.Pop();
             var scr = (Screen) StackScreens.Peek();
             scr.Show();
         }
