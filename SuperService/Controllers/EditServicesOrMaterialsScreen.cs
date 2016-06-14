@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
@@ -12,15 +11,16 @@ namespace Test
         private BehaviourEditServicesOrMaterialsScreen _behaviourEditServicesOrMaterialsScreen;
         private EditText _countEditText;
         private bool _editPrices;
+        private string _key;
+        private string _lineId;
         private int _minimum;
-        private string _rimId;
 
         private decimal _price;
         private EditText _priceEditText;
+        private string _rimId;
 
         private bool _showPrices;
         private TextView _totalPriceTextView;
-        private string _key;
 
         private decimal Price
         {
@@ -46,11 +46,12 @@ namespace Test
 
         public override void OnLoading()
         {
-            _key = (string)Variables.GetValueOrDefault("returnKey", "somNewValue");
+            _key = (string) Variables.GetValueOrDefault("returnKey", "somNewValue");
             _minimum = (int) Variables.GetValueOrDefault("minimum", 0);
             _showPrices = (bool) Variables.GetValueOrDefault("priceVisible", true);
             _editPrices = (bool) Variables.GetValueOrDefault("priceEditable", false);
             _rimId = (string) Variables.GetValueOrDefault("rimId");
+            _lineId = (string) Variables.GetValueOrDefault("lineId");
 
             _behaviourEditServicesOrMaterialsScreen =
                 (BehaviourEditServicesOrMaterialsScreen)
@@ -119,14 +120,13 @@ namespace Test
 
         private void UpdateDb()
         {
-            // TODO: Работа с базой данных
-            throw new NotImplementedException();
+            DBHelper.UpdateServiceMaterialAmount(_lineId, Price, Count, Price*Count);
         }
 
         private void InsertIntoDb()
         {
-            // TODO: Работа с базой данных
-            throw new NotImplementedException();
+            DBHelper.InsertServiceMatherial((string) BusinessProcess.GlobalVariables["currentEventId"], _rimId, Price,
+                Count, Price*Count);
         }
 
         internal void RemoveButton_OnClick(object sender, EventArgs eventArgs)
@@ -189,14 +189,9 @@ namespace Test
 
         internal IEnumerable GetServiceMaterialInfo()
         {
-            // TODO: Доставать реальные данные
-            return new Dictionary<string, object>
-            {
-                {"Count", 2},
-                {"Price", 620},
-                {"Description", "Прокладка кабеля"},
-                {"FullPrice", 1240}
-            };
+            return _lineId != null
+                ? DBHelper.GetServiceMaterialPriceByLineID(_lineId)
+                : DBHelper.GetServiceMaterialPriceByRIMID(_rimId);
         }
     }
 

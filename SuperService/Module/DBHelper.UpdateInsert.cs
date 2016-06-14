@@ -1,7 +1,7 @@
 ﻿using System;
-using BitMobile.ClientModel3;
 using System.Collections;
 using System.Collections.Generic;
+using BitMobile.ClientModel3;
 
 //using Database = BitMobile.ClientModel3.Database;
 
@@ -19,7 +19,7 @@ namespace Test
             var query = new Query("update _Document_Event " +
                                   "    set ActualStartDate = @dateTime, " +
                                   "        Status = (select Enum_StatusyEvents.id from Enum_StatusyEvents where Enum_StatusyEvents.name like 'InWork'), " +
-                                  "        isDirty = 1 " + 
+                                  "        isDirty = 1 " +
                                   "    where Id=@id");
             DConsole.WriteLine($"{dateTime}");
             query.AddParameter("dateTime", dateTime.ToString(DateTimeFormat));
@@ -39,7 +39,7 @@ namespace Test
             var query = new Query("update _Document_Event " +
                                   "    set ActualEndDate = @dateTime, " +
                                   "        Status = (select Enum_StatusyEvents.id from Enum_StatusyEvents where Enum_StatusyEvents.name like 'Done'), " +
-                                  "        isDirty = 1 " + 
+                                  "        isDirty = 1 " +
                                   "    where Id=@id");
             DConsole.WriteLine($"{dateTime}");
             query.AddParameter("dateTime", dateTime.ToString(DateTimeFormat));
@@ -56,7 +56,7 @@ namespace Test
         {
             var query = new Query("update _Document_Event " +
                                   "    set Status = (select Enum_StatusyEvents.id from Enum_StatusyEvents where Enum_StatusyEvents.name like 'Cancel'), " +
-                                  "        isDirty = 1 " + 
+                                  "        isDirty = 1 " +
                                   "    where Id=@id");
             query.AddParameter("id", eventId);
             query.Execute();
@@ -132,7 +132,7 @@ namespace Test
         {
             var query = new Query("update _Document_Event " +
                                   "    set CommentContractor = @message, " +
-                                  "        isDirty = 1 " + 
+                                  "        isDirty = 1 " +
                                   "    where Id=@eventID");
             query.AddParameter("message", message);
             query.AddParameter("eventID", eventID);
@@ -154,7 +154,7 @@ namespace Test
             var query = new Query("update _Document_Event_Equipments " +
                                   "    set Result = (select Id from Enum_ResultEvent" +
                                   "                      where Name like @resultName), " +
-                                  "        isDirty = 1 "  +
+                                  "        isDirty = 1 " +
                                   "    where Id = @taskId");
             query.AddParameter("resultName", result);
             query.AddParameter("taskId", taskId);
@@ -165,9 +165,9 @@ namespace Test
         public static void UpdateTaskComment(string taskId, string comment)
         {
             var query = new Query("update _Document_Event_Equipments " +
-                      "    set Comment = @comment, " +
-                      "        isDirty = 1 " + 
-                      "    where Id = @taskId");
+                                  "    set Comment = @comment, " +
+                                  "        isDirty = 1 " +
+                                  "    where Id = @taskId");
             query.AddParameter("comment", comment);
             query.AddParameter("taskId", taskId);
             query.Execute();
@@ -178,25 +178,25 @@ namespace Test
         ///     Обновляет данные в строке материалов и услуг документа наряд.
         /// </summary>
         /// <param name="line">
-        ///     Строка таблицы которая будет обновлена. Обязательно должен быть указан параметр LineID. 
+        ///     Строка таблицы которая будет обновлена. Обязательно должен быть указан параметр LineID.
         /// </param>
         public static void UpdateEventServicesMaterialsLine(EventServicesMaterialsLine line)
         {
-            var query = new Query(  "update " +
-                                    "    _Document_Event_ServicesMaterials " +
-                                    "set " +
-                                    "    price = @NewPrice, " +
-                                    "    AmountFact = @NewAmountFact, " +
-                                    "    SumFact = @NewSumFact, " +
-                                    "    isDirty = 1 " +
-                                    "where " +
-                                    "    Id = @lineId");
+            var query = new Query("update " +
+                                  "    _Document_Event_ServicesMaterials " +
+                                  "set " +
+                                  "    price = @NewPrice, " +
+                                  "    AmountFact = @NewAmountFact, " +
+                                  "    SumFact = @NewSumFact, " +
+                                  "    isDirty = 1 " +
+                                  "where " +
+                                  "    Id = @lineId");
 
             DConsole.WriteLine("Обновляем id = " + line.ID + " new amount fact = " + line.AmountFact);
-            query.AddParameter("lineId"       , line.ID);
-            query.AddParameter("NewPrice"     , line.Price);
+            query.AddParameter("lineId", line.ID);
+            query.AddParameter("NewPrice", line.Price);
             query.AddParameter("NewAmountFact", line.AmountFact);
-            query.AddParameter("NewSumFact"   , line.SumFact);
+            query.AddParameter("NewSumFact", line.SumFact);
 
             query.Execute();
             _db.Commit();
@@ -205,9 +205,9 @@ namespace Test
         public static void InsertEventServicesMaterialsLine(EventServicesMaterialsLine line)
         {
             var query = new Query("insert " +
-                                    " into _Document_Event_ServicesMaterials(id, LineNumber, Ref, SKU, Price, AmountPlan, SumPlan, AmountFact, SumFact, isDirty) " + 
-                                    "   values(@id, (select((max(lineNumber)) + 1) from _Document_Event_ServicesMaterials where Ref = @Ref), @Ref, @SKU, @Price, @AmountPlan, @SumPlan, @AmountFact, @SumFact, 1)");
-            
+                                  " into _Document_Event_ServicesMaterials(id, LineNumber, Ref, SKU, Price, AmountPlan, SumPlan, AmountFact, SumFact, isDirty) " +
+                                  "   values(@id, (select((max(lineNumber)) + 1) from _Document_Event_ServicesMaterials where Ref = @Ref), @Ref, @SKU, @Price, @AmountPlan, @SumPlan, @AmountFact, @SumFact, 1)");
+
             query.AddParameter("id", $"@ref[Document_Event_ServicesMaterials]:{Guid.NewGuid()}");
             query.AddParameter("Ref", line.Ref);
             query.AddParameter("SKU", line.SKU);
@@ -218,11 +218,10 @@ namespace Test
             query.AddParameter("SumFact", line.SumFact);
             query.Execute();
             _db.Commit();
-
         }
 
         /// <summary>
-        /// Пишет в поле Result переменную result и взводит IsDirty
+        ///     Пишет в поле Result переменную result и взводит IsDirty
         /// </summary>
         /// <param name="checklistitemID"> ID конкретного пункта чеклиста</param>
         /// <param name="result"> Данные, которые необходмо записать в поле Result</param>
@@ -241,57 +240,61 @@ namespace Test
         }
 
         /// <summary>
-        /// Метод создает документ заявка на материалы по переданному параметры. 
-        /// Создание выполняется в два этапа - вначале создается запись в таблице документов, а затем позиции из списка
-        /// материалов записываются в связанную таблицу 
+        ///     Метод создает документ заявка на материалы по переданному параметры.
+        ///     Создание выполняется в два этапа - вначале создается запись в таблице документов, а затем позиции из списка
+        ///     материалов записываются в связанную таблицу
         /// </summary>
-        /// <param name="requiredMaterials"> список строк необходимых материалов. Строки передаются в виде Dictinary с ключами SKU and count</param>
+        /// <param name="requiredMaterials">
+        ///     список строк необходимых материалов. Строки передаются в виде Dictinary с ключами SKU
+        ///     and count
+        /// </param>
         public static void CreateNeedMatDocument(ArrayList requiredMaterials)
         {
-
             if (requiredMaterials.Count == 0)
             {
                 return;
             }
 
             var queryString = "insert " +
-                              "  into _Document_NeedMat(id, date, StatsNeed, SR, IsDirty) " + 
+                              "  into _Document_NeedMat(id, date, StatsNeed, SR, IsDirty) " +
                               "  values(@DocId, date('now'), (select id from _Enum_StatsNeedNum where name = 'New'), @SRId, 1) ";
 
             var docID = $"@ref[Document_NeedMat]:{Guid.NewGuid()}";
-            
+
             // TODO: подставлять srID из глобальных переменных
             var srId = "какой то ИД пользователя ";
             var query = new Query(queryString);
             query.AddParameter("DocId", docID);
-            query.AddParameter("SRId" , srId);
+            query.AddParameter("SRId", srId);
 
             query.Execute();
 
             queryString = "insert " +
-                          " into _Document_NeedMat_Matireals(id, Ref, SKU, 'Count', IsDirty)"; 
+                          " into _Document_NeedMat_Matireals(id, Ref, SKU, 'Count', IsDirty)";
 
             query = new Query();
             query.AddParameter("Ref", docID);
-             
 
-            int lineCounter = 1;
+
+            var lineCounter = 1;
             foreach (var line in requiredMaterials)
             {
                 if (lineCounter == 1)
                 {
                     queryString = queryString + " values";
-                }else
+                }
+                else
                 {
                     queryString = queryString + ", ";
                 }
-                queryString = queryString + "(@LineID" + lineCounter + ", @Ref, @SKUID" + lineCounter + ", @Count" + lineCounter + ", 1) ";
+                queryString = queryString + "(@LineID" + lineCounter + ", @Ref, @SKUID" + lineCounter + ", @Count" +
+                              lineCounter + ", 1) ";
 
-                var lineDicinary = (Dictionary<string, object>)line;
-            
+                var lineDicinary = (Dictionary<string, object>) line;
+
                 query.AddParameter("LineID" + lineCounter, $"@ref[Document_NeedMat_Matireals]:{Guid.NewGuid()}");
-                query.AddParameter("SKUID"  + lineCounter, (string)lineDicinary["SKU"]);
-                query.AddParameter("Count"  + lineCounter, (decimal)lineDicinary["count"]);
+                query.AddParameter("SKUID" + lineCounter, (string) lineDicinary["SKU"]);
+                query.AddParameter("Count" + lineCounter, (decimal) lineDicinary["count"]);
 
                 lineCounter++;
             }
@@ -300,7 +303,55 @@ namespace Test
             query.Execute();
 
             _db.Commit();
+        }
 
+
+        /// <summary>
+        ///     Обновляет данные по цене и количеству в строке услуги и материалы документа наряд
+        /// </summary>
+        /// <param name="lineID"> Идентификатор строки </param>
+        /// <param name="newPrice">Новая цена</param>
+        /// <param name="newAmountFact">Новое количество</param>
+        /// <param name="newSumFact">Новая сумма</param>
+        public static void UpdateServiceMaterialAmount(string lineID, decimal newPrice, decimal newAmountFact,
+            decimal newSumFact)
+        {
+            var query = new Query("update _Document_Event_ServicesMaterials " +
+                                  "    set " +
+                                  "       price = @price, " +
+                                  "       amountFact = @amountFact, " +
+                                  "       sumFact = @sumFact, " +
+                                  "       isDirty = 1 " +
+                                  "" +
+                                  "    where id = @lineID");
+            query.AddParameter("lineID", lineID);
+            query.AddParameter("price", newPrice);
+            query.AddParameter("amountFact", newAmountFact);
+            query.AddParameter("newSumFact", newSumFact);
+
+            query.Execute();
+
+            _db.Commit();
+        }
+
+        /// <summary>
+        ///     вставляет строку услугиматериалы
+        /// </summary>
+        public static void InsertServiceMatherial(string docRef, string rimID, decimal price, int amountFact,
+            decimal sumFact)
+        {
+            var line = new EventServicesMaterialsLine
+            {
+                Ref = docRef,
+                SKU = rimID,
+                Price = price,
+                AmountFact = amountFact,
+                SumFact = sumFact,
+                AmountPlan = 0,
+                SumPlan = 0
+            };
+
+            InsertEventServicesMaterialsLine(line);
         }
     }
 }
