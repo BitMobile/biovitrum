@@ -35,7 +35,7 @@
       <c:TextView CssClass="TotalPriceCurrency" Text="#currency#"/>
     </c:HorizontalLayout>
     <c:HorizontalLayout CssClass="AddButton" OnClick="AddServiceMaterialButton_OnClick">
-      <c:TextView Text="#add#" />
+      <c:TextView Text="#confirm#" />
     </c:HorizontalLayout>
   </c:VerticalLayout>
 </c:Screen>
