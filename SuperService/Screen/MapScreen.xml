@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<c:Screen xmlns:c="BitMobile.ClientModel3.UI">
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  
   <c:VerticalLayout CssClass="RootLayout">
-    <c:TextView Text="Map"/>
-    <c:Button Id="BackButton" OnClick="BackButton_OnClick" />
+
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:WebMapGoogle Id="Map" CssClass="RootLayout"/>
   </c:VerticalLayout>
+  
 </c:Screen>

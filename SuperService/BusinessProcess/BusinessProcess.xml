@@ -7,7 +7,7 @@
       <Action Name="Auth" NextStep="EventList"></Action>
     </Step>
 
-    <Step Name="Map" Controller="MapScreen" StyleSheet="Style\style.css">
+    <Step Name="Map" Controller="MapScreen" StyleSheet="Style\MapScreen.css">
       <Action Name="BackToEventList" NextStep="EventList" />
     </Step>
 

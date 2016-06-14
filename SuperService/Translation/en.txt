@@ -56,3 +56,4 @@ add		Add
 select_answer		Select value
 requests		Requests
 confirm		Confirm
+map		Map

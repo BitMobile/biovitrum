@@ -56,3 +56,4 @@ add		Добавить
 select_answer		Выберите вариант
 requests		Заявки
 confirm		Подтвердить
+map		Карта

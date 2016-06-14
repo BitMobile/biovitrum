@@ -68,6 +68,9 @@
     <EmbeddedResource Include="Style\**" />
     <EmbeddedResource Include="Translation\**" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Style\MapScreen.css" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)..\SDK\BitMobileSDK\BitMobileSDK.exe $(TargetPath)
