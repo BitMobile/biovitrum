@@ -1,9 +1,18 @@
-﻿namespace Test.Enum
+using System;
+using BitMobile.DbEngine;
+
+namespace Test.Model.Enum
 {
-    public enum StatusImportance
+    public class StatusImportance : DbEntity
     {
-        Standart,
-        High,
-        Critical
+        public DbRef Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        
+        public StatusImportance(DbRef Id = null)
+        {
+            this.Id = Id ?? DbRef.CreateInstance("Enum_StatusImportance", Guid.NewGuid());
+        }
     }
 }
+    

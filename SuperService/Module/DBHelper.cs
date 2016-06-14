@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using System.IO;
 using BitMobile.ClientModel3;
+using Test.Model.Catalog;
 
-//using Database = BitMobile.ClientModel3.Database;
 
 namespace Test
 {
@@ -15,21 +15,27 @@ namespace Test
     {
         private const string DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 
-        private static Database _db;
+        private const string EventStatusDoneName = "Done";
+        private const string EventStatusCancelName = "Cancel";
 
-        private const string EVENT_STATUS_DONE_NAME = "Done";
-        private const string EVENT_STATUS_CANCEL_NAME = "Cancel";
+        private static Database _db;
 
         public static void Init()
         {
             _db = new Database();
-            if (!_db.Exists)
-            {
-                DConsole.WriteLine("creating db");
-                _db.CreateFromModel();
-                DConsole.WriteLine("db has been created");
-            }
-        }
+            if (_db.Exists) return;
 
+            DConsole.WriteLine("Creating DB");
+            _db.CreateFromModel();
+            DConsole.WriteLine("Filling DB with demo data");
+
+            var sql = Application.GetResourceStream("Model.main.sql");
+            var reader = new StreamReader(sql);
+            var queryText = reader.ReadToEnd();
+            DConsole.WriteLine(queryText.Substring(0, 15));
+            var query = new Query(queryText);
+            query.Execute();
+            _db.Commit();
+        }
     }
 }
