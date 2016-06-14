@@ -748,5 +748,58 @@ namespace Test
             return query.Execute();
         }
 
+
+        /// <summary>
+        ///     Получает информацию по строке материалов и услуг документа Наряд
+        /// </summary>
+        /// /// <param name="lineId">Идентификатор строки</param>
+        public static DbRecordset GetServiceMaterialPriceByLineID(string lineId)
+        {
+            var queryText = "select " +
+                            "      _Document_Event_ServicesMaterials.Id, " +
+                            "      _Document_Event_ServicesMaterials.SKU as RIMID, " +
+                            "      _Catalog_RIM.Description, " +
+                            "      _Document_Event_ServicesMaterials.Price, " +
+                            "      _Document_Event_ServicesMaterials.AmountFact, " +
+                            "      _Document_Event_ServicesMaterials.SumFact " +
+                            "from " +
+                            "    _Document_Event_ServicesMaterials " +
+                            "         left join _Catalog_RIM " +
+                            "            on _Document_Event_ServicesMaterials.SKU = _Catalog_RIM.Id " +
+                            " " +
+                            "where " +
+                            "    _Document_Event_ServicesMaterials.id = @lineId";
+
+            var query = new Query(queryText);
+            query.AddParameter("lineId", lineId);
+            return query.Execute();
+        }
+
+        /// <summary>
+        ///     Получает информацию по строке материалов и услуг документа Наряд
+        /// </summary>
+        /// /// <param name="RIMId">Идентификатор строки</param>
+        public static DbRecordset GetServiceMaterialPriceByRIMID(string RIMId)
+        {
+            var queryText = "select " +
+                            "      _Catalog_RIM.id, " +
+                            "      _Catalog_RIM.Description, " +
+                            "      _Catalog_RIM.Price, " +
+                            "      1 as AmountFact, " +
+                            "      _Catalog_RIM.Price as SumFact " +
+                            "from " +
+                            "    _Catalog_RIM " +
+                            " " +
+                            "where " +
+                            "    _Catalog_RIM.id = @RIMId";
+
+            var query = new Query(queryText);
+            query.AddParameter("RIMId", RIMId);
+            return query.Execute();
+        }
+
+
+
+
     }
 }
