@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using BitMobile.ClientModel3;
-using Test.Enum;
 
 //using Database = BitMobile.ClientModel3.Database;
 
@@ -78,8 +77,8 @@ namespace Test
                                   "  event.StartDatePlan");
 
             query.AddParameter("eventDate", eventSinceDate);
-            query.AddParameter("statusDone", EVENT_STATUS_DONE_NAME);
-            query.AddParameter("statusCancel", EVENT_STATUS_CANCEL_NAME);
+            query.AddParameter("statusDone", EventStatusDoneName);
+            query.AddParameter("statusCancel", EventStatusCancelName);
             var querryResult = query.Execute();
 
             while (querryResult.Next())
