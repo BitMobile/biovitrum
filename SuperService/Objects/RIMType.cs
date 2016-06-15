@@ -1,4 +1,4 @@
-﻿namespace Test.Enum
+﻿namespace Test
 {
     public enum RIMType
     {

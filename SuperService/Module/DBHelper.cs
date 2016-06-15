@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.IO;
+﻿using System.IO;
 using BitMobile.ClientModel3;
-using Test.Model.Catalog;
 
 
 namespace Test
