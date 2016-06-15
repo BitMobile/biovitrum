@@ -1,6 +1,9 @@
-﻿using System.IO;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using BitMobile.ClientModel3;
-
+using BitMobile.DbEngine;
+using Database = BitMobile.ClientModel3.Database;
 
 namespace Test
 {
@@ -33,6 +36,23 @@ namespace Test
             DConsole.WriteLine(queryText.Substring(0, 15));
             var query = new Query(queryText);
             query.Execute();
+            _db.Commit();
+        }
+
+        public static void SaveEntity(DbEntity entity)
+        {
+            DConsole.WriteLine($"Saving ref@[{entity.GetTableName()}:[{entity.EntityId}]");
+            entity.Save();
+            _db.Commit();
+        }
+
+        public static void SaveEntities(IEnumerable entities)
+        {
+            foreach (DbEntity entity in entities)
+            {
+                entity.Save();
+                DConsole.WriteLine($"Saving ref@[{entity.GetTableName()}:[{entity.EntityId}]");
+            }
             _db.Commit();
         }
     }
