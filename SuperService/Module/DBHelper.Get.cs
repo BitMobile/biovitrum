@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections;
 using BitMobile.ClientModel3;
+using BitMobile.DbEngine;
+using Test.Entities.Document;
+using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 //using Database = BitMobile.ClientModel3.Database;
 
@@ -793,6 +796,23 @@ namespace Test
                                   "    _Catalog_RIM.id = @RIMId");
             query.AddParameter("RIMId", rimId);
             return query.Execute();
+        }
+
+        public static Event_Equipments GetEventEquipmentsById(string id)
+        {
+            var query = new Query("select * from Document_Event_Equipments where id = @id");
+            query.AddParameter("id", id);
+            var dbRecordset = query.Execute();
+            return new Event_Equipments((DbRef) dbRecordset["Id"])
+            {
+                Comment = (string) dbRecordset["Comment"],
+                Equipment = (DbRef) dbRecordset["Equipment"],
+                LineNumber = (int) dbRecordset["LineNumber"],
+                Ref = (DbRef) dbRecordset["Ref"],
+                Result = (DbRef) dbRecordset["Result"],
+                SID = (DbRef) dbRecordset["SID"],
+                Terget = (string) dbRecordset["Terget"]
+            };
         }
     }
 }

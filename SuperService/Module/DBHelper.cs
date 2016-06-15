@@ -54,5 +54,10 @@ namespace Test
             }
             _db.Commit();
         }
+
+        public static void Commit()
+        {
+            _db.Commit();
+        }
     }
 }

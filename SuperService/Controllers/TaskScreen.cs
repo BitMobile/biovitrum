@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using BitMobile.DbEngine;
@@ -11,7 +10,7 @@ namespace Test
 {
     public class TaskScreen : Screen
     {
-        private Event.Equipments _equipments;
+        private Event_Equipments _equipments;
         private ResultEventEnum _resultEvent;
 
         private bool _taskCommentTextExpanded;
@@ -57,13 +56,13 @@ namespace Test
 
         internal void TaskFinishedButton_OnClick(object sender, EventArgs eventArgs)
         {
-            switch (_taskResult)
+            switch (_resultEvent)
             {
-                case "NotDone":
-                case "New":
+                case ResultEventEnum.NotDone:
+                case ResultEventEnum.New:
                     ChangeTaskToDone();
                     break;
-                case "Done":
+                case ResultEventEnum.Done:
                     ChangeTaskToNew();
                     break;
                 default:
@@ -74,6 +73,7 @@ namespace Test
         private void ChangeTaskToNew()
         {
             _taskResult = "New";
+            _resultEvent = ResultEventEnum.New;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonActiveText";
             _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_notdone");
@@ -87,6 +87,7 @@ namespace Test
         private void ChangeTaskToDone()
         {
             _taskResult = "Done";
+            _resultEvent = ResultEventEnum.Done;
             _taskFinishedButton.CssClass = "FinishedButtonPressed";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonPressedText";
             _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_done");
@@ -99,13 +100,13 @@ namespace Test
 
         internal void TaskRefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
-            switch (_taskResult)
+            switch (_resultEvent)
             {
-                case "Done":
-                case "New":
+                case ResultEventEnum.Done:
+                case ResultEventEnum.New:
                     ChangeTaskToNotDone();
                     break;
-                case "NotDone":
+                case ResultEventEnum.NotDone:
                     ChangeTaskToNew();
                     break;
                 default:
@@ -116,6 +117,7 @@ namespace Test
         private void ChangeTaskToNotDone()
         {
             _taskResult = "NotDone";
+            _resultEvent = ResultEventEnum.NotDone;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonActiveText";
             _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_notdone");
@@ -158,8 +160,12 @@ namespace Test
         {
             DConsole.WriteLine($"{_taskResult}");
             _equipments.Comment = _taskCommentEditText.Text;
-            //_equipments.Result
-            DBHelper.SaveEntity(_equipments);
+            _equipments.Result = ResultEvent.GetDbRefFromEnum(_resultEvent);
+
+            _equipments.Save();
+            DBHelper.Commit();
+            //DBHelper.SaveEntity(_equipments);
+            
             BusinessProcess.DoBack();
         }
 
@@ -176,8 +182,7 @@ namespace Test
 //                {"resultName", "New"}
 //            };
             string currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
-            _equipments = new Event.Equipments(DbRef.FromString(currentTaskId));
-            _equipments.Load(isNew: false);
+            _equipments = DBHelper.GetEventEquipmentsById(currentTaskId);
             return DBHelper.GetTaskById(currentTaskId);
         }
 
