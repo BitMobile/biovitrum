@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -8,8 +9,15 @@ namespace Test
     public class MapScreen : Screen
     {
         private static WebMapGoogle _map;
+        private ClientLocation _clientLocation;
+        private ArrayList _eventListLocation;
+        private bool _isClientScreen = Convert.ToBoolean("False");
+        private bool _isEventListScreen = Convert.ToBoolean("False");
+        private bool _isEventScreen = Convert.ToBoolean("False");
+        private bool _isInit = Convert.ToBoolean("False");
+        private bool _isNotEmptyLocationData = Convert.ToBoolean("False");
         private TopInfoComponent _topInfoComponent;
-        private bool isClientScreen = Convert.ToBoolean("False");
+        private bool _isDefault = Convert.ToBoolean("False");
 
         public override void OnLoading()
         {
@@ -45,11 +53,124 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
+
+        internal bool GetIsEventListScreen()
+        {
+            return _isEventListScreen;
+        }
+
+        internal bool GetIsClientOrEventScreen()
+        {
+            return _isClientScreen || _isEventScreen;
+        }
+
+
+        private void isNotEmptyCoordinate()
+        {
+            if (_isEventListScreen)
+            {
+                foreach (var item in _eventListLocation)
+                {
+                    var current = (ClientLocation) item;
+
+                    if (current.NotEmpty)
+                    {
+                        _isNotEmptyLocationData = Convert.ToBoolean("True");
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                _isNotEmptyLocationData = _clientLocation.NotEmpty;
+            }
+
+            DConsole.WriteLine(nameof(_isNotEmptyLocationData) + " = " +
+                               _isNotEmptyLocationData);
+        }
+
+        internal bool IsZeroArrayLenght()
+        {
+            return _eventListLocation.Count == 0;
+        }
+
+        private void Init()
+        {
+            var screenState = Variables.GetValueOrDefault("screenState", MapScreenStates.Default);
+            var locationData = Variables.GetValueOrDefault("locationData");
+
+            switch ((MapScreenStates) screenState)
+            {
+                case MapScreenStates.EventListScren:
+                    _isEventListScreen = Convert.ToBoolean("True");
+                    if (locationData != null)
+                        _eventListLocation = (ArrayList) locationData;
+                    break;
+
+                case MapScreenStates.ClientScreen:
+                    _isClientScreen = Convert.ToBoolean("True");
+                    if (locationData != null)
+                        _clientLocation = (ClientLocation) locationData;
+                    break;
+
+                case MapScreenStates.EventScreen:
+                    _isEventScreen = Convert.ToBoolean("True");
+                    if (locationData != null)
+                        _clientLocation = (ClientLocation) locationData;
+                    break;
+
+                default:
+                    _clientLocation = null;
+                    _eventListLocation = null;
+                    _isDefault = Convert.ToBoolean("True");
+                    break;
+            }
+        }
+
+        internal void FillMap()
+        {
+            if (_isEventListScreen)
+            {
+                if (!IsZeroArrayLenght())
+                {
+                    foreach (var item in _eventListLocation)
+                    {
+                        var current = (ClientLocation) item;
+
+                        if (current.NotEmpty || current.IsEmpty)
+                        //if (current.NotEmpty)
+                        {
+                            _map.AddMarker(current.ClientDescription, current.Latitude, current.Longitude,
+                                current.MapMarkerColor);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                {
+                    _map.AddMarker(_clientLocation.ClientDescription, _clientLocation.Latitude,
+                        _clientLocation.Longitude, _clientLocation.MapMarkerColor);
+                }
+            }
+        }
+
+        internal bool GetIsDefault()
+        {
+            return _isDefault;
+        }
+
+        internal bool GetIsNotEmptyLocationData()
+        {
+            return _isNotEmptyLocationData;
+        }
     }
 
     public enum MapScreenStates
     {
-        EventList,
-        Client,
+        EventListScren,
+        ClientScreen,
+        EventScreen,
+        Default
     }
 }

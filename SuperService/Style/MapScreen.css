@@ -133,3 +133,13 @@ TextView {
 .TopInfoSideText { color: #ffffff; }
 
 /* ---------------------------------- */
+
+.GetCoordinateBtn {
+    background-color: #006400;
+    border-style: none;
+    color: #ffffff;
+    font: 3sp arial;
+    height: 8sp;
+    vertical-align: center;
+    width: 100%;
+}

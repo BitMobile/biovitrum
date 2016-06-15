@@ -1,10 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  
+
   <c:VerticalLayout CssClass="RootLayout">
 
     <s:Include File="Components\TopInfoComponent.xml" />
-    <c:WebMapGoogle Id="Map" CssClass="RootLayout"/>
+
+    <s:If Test="$GetIsEventListScreen()">
+
+      <s:Push Id="some" Value="$FillMap()" />
+      <c:WebMapGoogle Id="Map" CssClass="RootLayout" />
+
+    </s:If>
+
+    <s:If Test="$GetIsClientOrEventScreen()">
+
+      <s:If Test="$GetIsNotEmptyLocationData()">
+        <s:Push Id="some" Value="$FillMap()" />
+        <c:WebMapGoogle Id="Map" CssClass="RootLayout" />
+      </s:If>
+      
+      <c:Buttom CssClass="GetCoordinateBtn" Text="#get_coordinates#" />
+      
+    </s:If>
+
+    <s:If Test="$GetIsDefault()">
+      <c:WebMapGoogle Id="Map" CssClass="RootLayout" />
+    </s:If>
+
   </c:VerticalLayout>
-  
+
 </c:Screen>

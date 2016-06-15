@@ -19,6 +19,8 @@ namespace Test
         public string ImportanceName { get; set; }
         public string ClientDescription { get; set; }
         public string ClientAddress { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
 
 
         public static EventListElement CreateFromRecordSet(DbRecordset recordSet)
@@ -33,6 +35,9 @@ namespace Test
             eventElement.ImportanceName = recordSet.GetString(6);
             eventElement.ClientDescription = recordSet.GetString(7);
             eventElement.ClientAddress = recordSet.GetString(8);
+            DConsole.WriteLine(nameof(CreateFromRecordSet));
+            eventElement.Latitude = (decimal)recordSet["Latitude"];
+            eventElement.Longitude = (decimal)recordSet["Longitude"];
 
             return eventElement;
         }

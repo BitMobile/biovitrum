@@ -57,3 +57,4 @@ select_answer		Select value
 requests		Requests
 confirm		Confirm
 map		Map
+get_coordinates		Get Coordinates

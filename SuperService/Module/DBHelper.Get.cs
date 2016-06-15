@@ -40,7 +40,9 @@ namespace Test
                                   "  ifnull(client.Address, '') as Address, " +
                                   "  ifnull(Enum_StatusyEvents.Name, '') as statusName, " +
                                   //имя значения статуса (служебное имя)
-                                  "  ifnull(Enum_StatusyEvents.Description, '') as statusDescription " +
+                                  "  ifnull(Enum_StatusyEvents.Description, '') as statusDescription, " +
+                                  "  event.Latitude, " +
+                                  "  event.Longitude " +
                                   //представление статуса
                                   "from " +
                                   "  Document_Event as event " +
