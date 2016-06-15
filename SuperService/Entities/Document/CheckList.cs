@@ -18,6 +18,20 @@ namespace Test.Entities.Document
         {
             Id = id ?? DbRef.CreateInstance("Document_CheckList", Guid.NewGuid());
         }
+        public class Actions : DbEntity
+        {
+            public DbRef Id { get; set; }
+            public int LineNumber { get; set; }
+            public DbRef Ref { get; set; }
+            public DbRef Action { get; set; }
+            public bool Required { get; set; }
+
+            public Actions (DbRef id = null)
+            {
+                Id = id ?? DbRef.CreateInstance("Document_CheckList_Actions", Guid.NewGuid());					
+            }
+        }
+
     }
 }
     

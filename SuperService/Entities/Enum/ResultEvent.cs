@@ -22,6 +22,7 @@ namespace Test.Entities.Enum
             }
             return default(ResultEventEnum);
         }
+
     }
 
     public enum ResultEventEnum

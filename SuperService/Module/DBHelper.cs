@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using BitMobile.ClientModel3;
 using BitMobile.DbEngine;

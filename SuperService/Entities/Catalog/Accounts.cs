@@ -17,6 +17,7 @@ namespace Test.Entities.Catalog
         {
             Id = id ?? DbRef.CreateInstance("Catalog_Accounts", Guid.NewGuid());
         }
+
     }
 }
     

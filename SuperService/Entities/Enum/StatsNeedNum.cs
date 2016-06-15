@@ -24,6 +24,7 @@ namespace Test.Entities.Enum
             }
             return default(StatsNeedNumEnum);
         }
+
     }
 
     public enum StatsNeedNumEnum

@@ -39,6 +39,108 @@ namespace Test.Entities.Document
         {
             Id = id ?? DbRef.CreateInstance("Document_Event", Guid.NewGuid());
         }
+        public class Files : DbEntity
+        {
+            public DbRef Id { get; set; }
+            public DbRef Ref { get; set; }
+            public int LineNumber { get; set; }
+            public string FullFileName { get; set; }
+            public DbRef FileName { get; set; }
+
+            public Files (DbRef id = null)
+            {
+                Id = id ?? DbRef.CreateInstance("Document_Event_Files", Guid.NewGuid());					
+            }
+        }
+        public class Equipments : DbEntity
+        {
+            public DbRef Id { get; set; }
+            public int LineNumber { get; set; }
+            public DbRef Ref { get; set; }
+            public DbRef Equipment { get; set; }
+            public string Terget { get; set; }
+            public DbRef Result { get; set; }
+            public string Comment { get; set; }
+            public DbRef SID { get; set; }
+
+            public Equipments (DbRef id = null)
+            {
+                Id = id ?? DbRef.CreateInstance("Document_Event_Equipments", Guid.NewGuid());					
+            }
+        }
+        public class Photos : DbEntity
+        {
+            public DbRef Id { get; set; }
+            public int LineNumber { get; set; }
+            public DbRef Ref { get; set; }
+            public DbRef UIDPhoto { get; set; }
+            public DbRef Equipment { get; set; }
+
+            public Photos (DbRef id = null)
+            {
+                Id = id ?? DbRef.CreateInstance("Document_Event_Photos", Guid.NewGuid());					
+            }
+        }
+        public class Parameters : DbEntity
+        {
+            public DbRef Id { get; set; }
+            public int LineNumber { get; set; }
+            public DbRef Ref { get; set; }
+            public DbRef Parameter { get; set; }
+            public string Val { get; set; }
+
+            public Parameters (DbRef id = null)
+            {
+                Id = id ?? DbRef.CreateInstance("Document_Event_Parameters", Guid.NewGuid());					
+            }
+        }
+        public class CheckList : DbEntity
+        {
+            public DbRef Id { get; set; }
+            public int LineNumber { get; set; }
+            public DbRef Ref { get; set; }
+            public DbRef Action { get; set; }
+            public DbRef CheckListRef { get; set; }
+            public string Result { get; set; }
+            public DbRef ActionType { get; set; }
+            public bool Required { get; set; }
+
+            public CheckList (DbRef id = null)
+            {
+                Id = id ?? DbRef.CreateInstance("Document_Event_CheckList", Guid.NewGuid());					
+            }
+        }
+        public class TypeDepartures : DbEntity
+        {
+            public DbRef Id { get; set; }
+            public int LineNumber { get; set; }
+            public DbRef Ref { get; set; }
+            public DbRef TypeDeparture { get; set; }
+            public bool Active { get; set; }
+
+            public TypeDepartures (DbRef id = null)
+            {
+                Id = id ?? DbRef.CreateInstance("Document_Event_TypeDepartures", Guid.NewGuid());					
+            }
+        }
+        public class ServicesMaterials : DbEntity
+        {
+            public DbRef Id { get; set; }
+            public int LineNumber { get; set; }
+            public DbRef Ref { get; set; }
+            public DbRef SKU { get; set; }
+            public decimal Price { get; set; }
+            public decimal AmountPlan { get; set; }
+            public decimal SumPlan { get; set; }
+            public decimal AmountFact { get; set; }
+            public decimal SumFact { get; set; }
+
+            public ServicesMaterials (DbRef id = null)
+            {
+                Id = id ?? DbRef.CreateInstance("Document_Event_ServicesMaterials", Guid.NewGuid());					
+            }
+        }
+
     }
 }
     

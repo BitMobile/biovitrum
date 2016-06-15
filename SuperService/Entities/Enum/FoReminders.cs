@@ -20,6 +20,7 @@ namespace Test.Entities.Enum
             }
             return default(FoRemindersEnum);
         }
+
     }
 
     public enum FoRemindersEnum

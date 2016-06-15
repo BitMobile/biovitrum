@@ -24,6 +24,7 @@ namespace Test.Entities.Enum
             }
             return default(StatusyEventsEnum);
         }
+
     }
 
     public enum StatusyEventsEnum

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.DbEngine;
 using Test.Components;
 
 namespace Test
@@ -170,6 +171,7 @@ namespace Test
 //                {"resultName", "New"}
 //            };
             string currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
+            DbRef.FromString(currentTaskId);
             return DBHelper.GetTaskById(currentTaskId);
         }
 

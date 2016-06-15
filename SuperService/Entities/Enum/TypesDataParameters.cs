@@ -30,6 +30,7 @@ namespace Test.Entities.Enum
             }
             return default(TypesDataParametersEnum);
         }
+
     }
 
     public enum TypesDataParametersEnum

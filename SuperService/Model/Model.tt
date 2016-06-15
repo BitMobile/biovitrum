@@ -58,6 +58,22 @@ namespace <#= ns #>.Entities.<#= entity.Schema #>
 #>
         }
 <#}#>
+<# foreach (var tabularSection in entity.TabularSections)
+{#>
+        public class <#= tabularSection.Name #> : DbEntity
+        {
+<# foreach (var field in tabularSection.Fields)
+{#>
+            public <#= DataTypeToType(field.DataType) #> <#= field.Name #> { get; set; }
+<#}#>
+
+            public <#= tabularSection.Name #> (DbRef id = null)
+            {
+                Id = id ?? DbRef.CreateInstance("<#= entity.Schema #>_<#= entity.Name #>_<#= tabularSection.Name #>", Guid.NewGuid());					
+            }
+        }
+<#}#>
+
     }
 <# if (entity.Schema == "Enum")
 { #>
