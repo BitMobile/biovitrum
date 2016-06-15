@@ -4,11 +4,16 @@ using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using BitMobile.DbEngine;
 using Test.Components;
+using Test.Entities.Document;
+using Test.Entities.Enum;
 
 namespace Test
 {
     public class TaskScreen : Screen
     {
+        private Event.Equipments _equipments;
+        private ResultEventEnum _resultEvent;
+
         private bool _taskCommentTextExpanded;
         private TextView _taskCommentTextView;
         private string _taskResult;
@@ -151,11 +156,11 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
-            var currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
             DConsole.WriteLine($"{_taskResult}");
-            DBHelper.UpdateTaskComment(currentTaskId, _taskCommentEditText.Text);
-            DBHelper.UpdateTaskResult(currentTaskId, _taskResult);
-            BusinessProcess.DoAction("BackToTaskList");
+            _equipments.Comment = _taskCommentEditText.Text;
+            //_equipments.Result
+            DBHelper.SaveEntity(_equipments);
+            BusinessProcess.DoBack();
         }
 
         internal object GetTask()
@@ -171,7 +176,8 @@ namespace Test
 //                {"resultName", "New"}
 //            };
             string currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
-            DbRef.FromString(currentTaskId);
+            _equipments = new Event.Equipments(DbRef.FromString(currentTaskId));
+            _equipments.Load(isNew: false);
             return DBHelper.GetTaskById(currentTaskId);
         }
 
@@ -183,6 +189,21 @@ namespace Test
         internal int SetResultName(string resultName)
         {
             _taskResult = resultName;
+            switch (resultName)
+            {
+                case "New":
+                    _resultEvent = ResultEventEnum.New;
+                    break;
+                case "NotDone":
+                    _resultEvent = ResultEventEnum.NotDone;
+                    break;
+                case "Done":
+                    _resultEvent = ResultEventEnum.Done;
+                    break;
+                default:
+                    _resultEvent = ResultEventEnum.New;
+                    break;
+            }
             return 0;
         }
     }
