@@ -44,7 +44,7 @@ namespace <#= ns #>.Entities.<#= entity.Schema #>
 {#>
         public static DbRef GetDbRefFromEnum(<#= entity.Name #>Enum @enum)
         {
-            string res;
+            string res = null;
             switch (@enum)
             {
 <# foreach (var constant in cf.Constants[entity.Name])
@@ -55,7 +55,7 @@ namespace <#= ns #>.Entities.<#= entity.Schema #>
 <#}#>
             }
             if (string.IsNullOrEmpty(res)) return null;
-            return DbRef.FromString($"@ref[<#= entity.Schema #>_<#= entity.Name #>]:{res}")
+            return DbRef.FromString($"@ref[<#= entity.Schema #>_<#= entity.Name #>]:{res}");
         }
 
         public <#= entity.Name#>Enum GetEnum() 
@@ -73,23 +73,24 @@ namespace <#= ns #>.Entities.<#= entity.Schema #>
 #>
         }
 <#}#>
+}
 <# foreach (var tabularSection in entity.TabularSections)
 {#>
-        public class <#= tabularSection.Name #> : DbEntity
-        {
+    public class <#= entity.Name #>_<#= tabularSection.Name #> : DbEntity
+    {
 <# foreach (var field in tabularSection.Fields)
 {#>
-            public <#= DataTypeToType(field.DataType) #> <#= field.Name #> { get; set; }
+        public <#= DataTypeToType(field.DataType) #> <#= field.Name #> { get; set; }
 <#}#>
 
-            public <#= tabularSection.Name #> (DbRef id = null)
-            {
-                Id = id ?? DbRef.CreateInstance("<#= entity.Schema #>_<#= entity.Name #>_<#= tabularSection.Name #>", Guid.NewGuid());					
-            }
+        public <#= entity.Name #>_<#= tabularSection.Name #> (DbRef id = null)
+        {
+            Id = id ?? DbRef.CreateInstance("<#= entity.Schema #>_<#= entity.Name #>_<#= tabularSection.Name #>", Guid.NewGuid());					
         }
+   }
 <#}#>
 
-    }
+
 <# if (entity.Schema == "Enum")
 { #>
 

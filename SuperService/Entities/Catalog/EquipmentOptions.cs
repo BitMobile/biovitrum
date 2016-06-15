@@ -18,19 +18,20 @@ namespace Test.Entities.Catalog
         {
             Id = id ?? DbRef.CreateInstance("Catalog_EquipmentOptions", Guid.NewGuid());
         }
-        public class ListValues : DbEntity
+}
+    public class EquipmentOptions_ListValues : DbEntity
+    {
+        public DbRef Id { get; set; }
+        public int LineNumber { get; set; }
+        public DbRef Ref { get; set; }
+        public string Val { get; set; }
+
+        public EquipmentOptions_ListValues (DbRef id = null)
         {
-            public DbRef Id { get; set; }
-            public int LineNumber { get; set; }
-            public DbRef Ref { get; set; }
-            public string Val { get; set; }
-
-            public ListValues (DbRef id = null)
-            {
-                Id = id ?? DbRef.CreateInstance("Catalog_EquipmentOptions_ListValues", Guid.NewGuid());					
-            }
+            Id = id ?? DbRef.CreateInstance("Catalog_EquipmentOptions_ListValues", Guid.NewGuid());					
         }
+   }
 
-    }
+
 }
     

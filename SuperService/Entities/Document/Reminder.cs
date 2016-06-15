@@ -18,19 +18,20 @@ namespace Test.Entities.Document
         {
             Id = id ?? DbRef.CreateInstance("Document_Reminder", Guid.NewGuid());
         }
-        public class Photo : DbEntity
+}
+    public class Reminder_Photo : DbEntity
+    {
+        public DbRef Id { get; set; }
+        public int LineNumber { get; set; }
+        public DbRef Ref { get; set; }
+        public DbRef IDPhoto { get; set; }
+
+        public Reminder_Photo (DbRef id = null)
         {
-            public DbRef Id { get; set; }
-            public int LineNumber { get; set; }
-            public DbRef Ref { get; set; }
-            public DbRef IDPhoto { get; set; }
-
-            public Photo (DbRef id = null)
-            {
-                Id = id ?? DbRef.CreateInstance("Document_Reminder_Photo", Guid.NewGuid());					
-            }
+            Id = id ?? DbRef.CreateInstance("Document_Reminder_Photo", Guid.NewGuid());					
         }
+   }
 
-    }
+
 }
     

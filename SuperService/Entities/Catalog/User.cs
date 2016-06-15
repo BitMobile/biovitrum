@@ -22,33 +22,34 @@ namespace Test.Entities.Catalog
         {
             Id = id ?? DbRef.CreateInstance("Catalog_User", Guid.NewGuid());
         }
-        public class Bag : DbEntity
+}
+    public class User_Bag : DbEntity
+    {
+        public DbRef Id { get; set; }
+        public DbRef Materials { get; set; }
+        public decimal Count { get; set; }
+        public int LineNumber { get; set; }
+        public DbRef Ref { get; set; }
+
+        public User_Bag (DbRef id = null)
         {
-            public DbRef Id { get; set; }
-            public DbRef Materials { get; set; }
-            public decimal Count { get; set; }
-            public int LineNumber { get; set; }
-            public DbRef Ref { get; set; }
-
-            public Bag (DbRef id = null)
-            {
-                Id = id ?? DbRef.CreateInstance("Catalog_User_Bag", Guid.NewGuid());					
-            }
+            Id = id ?? DbRef.CreateInstance("Catalog_User_Bag", Guid.NewGuid());					
         }
-        public class RemainsNorms : DbEntity
+   }
+    public class User_RemainsNorms : DbEntity
+    {
+        public DbRef Id { get; set; }
+        public DbRef Materials { get; set; }
+        public decimal Count { get; set; }
+        public int LineNumber { get; set; }
+        public DbRef Ref { get; set; }
+
+        public User_RemainsNorms (DbRef id = null)
         {
-            public DbRef Id { get; set; }
-            public DbRef Materials { get; set; }
-            public decimal Count { get; set; }
-            public int LineNumber { get; set; }
-            public DbRef Ref { get; set; }
-
-            public RemainsNorms (DbRef id = null)
-            {
-                Id = id ?? DbRef.CreateInstance("Catalog_User_RemainsNorms", Guid.NewGuid());					
-            }
+            Id = id ?? DbRef.CreateInstance("Catalog_User_RemainsNorms", Guid.NewGuid());					
         }
+   }
 
-    }
+
 }
     

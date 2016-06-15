@@ -10,7 +10,7 @@ namespace Test.Entities.Enum
         public string Description { get; set; }
         public static DbRef GetDbRefFromEnum(FoRemindersEnum @enum)
         {
-            string res;
+            string res = null;
             switch (@enum)
             {
                 case FoRemindersEnum.Sale:
@@ -21,7 +21,7 @@ namespace Test.Entities.Enum
                     break;
             }
             if (string.IsNullOrEmpty(res)) return null;
-            return DbRef.FromString($"@ref[Enum_FoReminders]:{res}")
+            return DbRef.FromString($"@ref[Enum_FoReminders]:{res}");
         }
 
         public FoRemindersEnum GetEnum() 
@@ -35,8 +35,9 @@ namespace Test.Entities.Enum
             }
             return default(FoRemindersEnum);
         }
+}
 
-    }
+
 
     public enum FoRemindersEnum
     {

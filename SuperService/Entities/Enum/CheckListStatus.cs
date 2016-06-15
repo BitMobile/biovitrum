@@ -10,7 +10,7 @@ namespace Test.Entities.Enum
         public string Description { get; set; }
         public static DbRef GetDbRefFromEnum(CheckListStatusEnum @enum)
         {
-            string res;
+            string res = null;
             switch (@enum)
             {
                 case CheckListStatusEnum.Blank:
@@ -24,7 +24,7 @@ namespace Test.Entities.Enum
                     break;
             }
             if (string.IsNullOrEmpty(res)) return null;
-            return DbRef.FromString($"@ref[Enum_CheckListStatus]:{res}")
+            return DbRef.FromString($"@ref[Enum_CheckListStatus]:{res}");
         }
 
         public CheckListStatusEnum GetEnum() 
@@ -40,8 +40,9 @@ namespace Test.Entities.Enum
             }
             return default(CheckListStatusEnum);
         }
+}
 
-    }
+
 
     public enum CheckListStatusEnum
     {

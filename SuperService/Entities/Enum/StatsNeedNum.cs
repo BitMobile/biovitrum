@@ -10,7 +10,7 @@ namespace Test.Entities.Enum
         public string Description { get; set; }
         public static DbRef GetDbRefFromEnum(StatsNeedNumEnum @enum)
         {
-            string res;
+            string res = null;
             switch (@enum)
             {
                 case StatsNeedNumEnum.New:
@@ -27,7 +27,7 @@ namespace Test.Entities.Enum
                     break;
             }
             if (string.IsNullOrEmpty(res)) return null;
-            return DbRef.FromString($"@ref[Enum_StatsNeedNum]:{res}")
+            return DbRef.FromString($"@ref[Enum_StatsNeedNum]:{res}");
         }
 
         public StatsNeedNumEnum GetEnum() 
@@ -45,8 +45,9 @@ namespace Test.Entities.Enum
             }
             return default(StatsNeedNumEnum);
         }
+}
 
-    }
+
 
     public enum StatsNeedNumEnum
     {

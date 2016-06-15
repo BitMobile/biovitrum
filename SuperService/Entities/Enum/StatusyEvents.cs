@@ -10,7 +10,7 @@ namespace Test.Entities.Enum
         public string Description { get; set; }
         public static DbRef GetDbRefFromEnum(StatusyEventsEnum @enum)
         {
-            string res;
+            string res = null;
             switch (@enum)
             {
                 case StatusyEventsEnum.Appointed:
@@ -27,7 +27,7 @@ namespace Test.Entities.Enum
                     break;
             }
             if (string.IsNullOrEmpty(res)) return null;
-            return DbRef.FromString($"@ref[Enum_StatusyEvents]:{res}")
+            return DbRef.FromString($"@ref[Enum_StatusyEvents]:{res}");
         }
 
         public StatusyEventsEnum GetEnum() 
@@ -45,8 +45,9 @@ namespace Test.Entities.Enum
             }
             return default(StatusyEventsEnum);
         }
+}
 
-    }
+
 
     public enum StatusyEventsEnum
     {

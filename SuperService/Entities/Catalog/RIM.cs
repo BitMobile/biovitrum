@@ -21,7 +21,8 @@ namespace Test.Entities.Catalog
         {
             Id = id ?? DbRef.CreateInstance("Catalog_RIM", Guid.NewGuid());
         }
+}
 
-    }
+
 }
     

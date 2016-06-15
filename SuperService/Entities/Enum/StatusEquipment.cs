@@ -10,7 +10,7 @@ namespace Test.Entities.Enum
         public string Description { get; set; }
         public static DbRef GetDbRefFromEnum(StatusEquipmentEnum @enum)
         {
-            string res;
+            string res = null;
             switch (@enum)
             {
                 case StatusEquipmentEnum.Rent:
@@ -27,7 +27,7 @@ namespace Test.Entities.Enum
                     break;
             }
             if (string.IsNullOrEmpty(res)) return null;
-            return DbRef.FromString($"@ref[Enum_StatusEquipment]:{res}")
+            return DbRef.FromString($"@ref[Enum_StatusEquipment]:{res}");
         }
 
         public StatusEquipmentEnum GetEnum() 
@@ -45,8 +45,9 @@ namespace Test.Entities.Enum
             }
             return default(StatusEquipmentEnum);
         }
+}
 
-    }
+
 
     public enum StatusEquipmentEnum
     {

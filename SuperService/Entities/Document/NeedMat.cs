@@ -21,20 +21,21 @@ namespace Test.Entities.Document
         {
             Id = id ?? DbRef.CreateInstance("Document_NeedMat", Guid.NewGuid());
         }
-        public class Matireals : DbEntity
+}
+    public class NeedMat_Matireals : DbEntity
+    {
+        public DbRef Id { get; set; }
+        public int LineNumber { get; set; }
+        public DbRef Ref { get; set; }
+        public DbRef SKU { get; set; }
+        public decimal Count { get; set; }
+
+        public NeedMat_Matireals (DbRef id = null)
         {
-            public DbRef Id { get; set; }
-            public int LineNumber { get; set; }
-            public DbRef Ref { get; set; }
-            public DbRef SKU { get; set; }
-            public decimal Count { get; set; }
-
-            public Matireals (DbRef id = null)
-            {
-                Id = id ?? DbRef.CreateInstance("Document_NeedMat_Matireals", Guid.NewGuid());					
-            }
+            Id = id ?? DbRef.CreateInstance("Document_NeedMat_Matireals", Guid.NewGuid());					
         }
+   }
 
-    }
+
 }
     

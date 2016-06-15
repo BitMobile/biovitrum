@@ -10,7 +10,7 @@ namespace Test.Entities.Enum
         public string Description { get; set; }
         public static DbRef GetDbRefFromEnum(TypesEventsEnum @enum)
         {
-            string res;
+            string res = null;
             switch (@enum)
             {
                 case TypesEventsEnum.Visit:
@@ -27,7 +27,7 @@ namespace Test.Entities.Enum
                     break;
             }
             if (string.IsNullOrEmpty(res)) return null;
-            return DbRef.FromString($"@ref[Enum_TypesEvents]:{res}")
+            return DbRef.FromString($"@ref[Enum_TypesEvents]:{res}");
         }
 
         public TypesEventsEnum GetEnum() 
@@ -45,8 +45,9 @@ namespace Test.Entities.Enum
             }
             return default(TypesEventsEnum);
         }
+}
 
-    }
+
 
     public enum TypesEventsEnum
     {

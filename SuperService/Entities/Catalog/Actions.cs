@@ -16,19 +16,20 @@ namespace Test.Entities.Catalog
         {
             Id = id ?? DbRef.CreateInstance("Catalog_Actions", Guid.NewGuid());
         }
-        public class ValueList : DbEntity
+}
+    public class Actions_ValueList : DbEntity
+    {
+        public DbRef Id { get; set; }
+        public int LineNumber { get; set; }
+        public DbRef Ref { get; set; }
+        public string Val { get; set; }
+
+        public Actions_ValueList (DbRef id = null)
         {
-            public DbRef Id { get; set; }
-            public int LineNumber { get; set; }
-            public DbRef Ref { get; set; }
-            public string Val { get; set; }
-
-            public ValueList (DbRef id = null)
-            {
-                Id = id ?? DbRef.CreateInstance("Catalog_Actions_ValueList", Guid.NewGuid());					
-            }
+            Id = id ?? DbRef.CreateInstance("Catalog_Actions_ValueList", Guid.NewGuid());					
         }
+   }
 
-    }
+
 }
     
