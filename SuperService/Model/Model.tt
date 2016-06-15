@@ -42,6 +42,21 @@ namespace <#= ns #>.Entities.<#= entity.Schema #>
 <#}#>
 <# if (entity.Schema == "Enum") 
 {#>
+        public static DbRef GetDbRefFromEnum(<#= entity.Name #>Enum @enum)
+        {
+            string res;
+            switch (@enum)
+            {
+<# foreach (var constant in cf.Constants[entity.Name])
+{#>
+                case <#= entity.Name #>Enum.<#= constant.Name #>:
+                    res = "<#= constant.Id #>";
+                    break;
+<#}#>
+            }
+            if (string.IsNullOrEmpty(res)) return null;
+            return DbRef.FromString($"@ref[<#= entity.Schema #>_<#= entity.Name #>]:{res}")
+        }
 
         public <#= entity.Name#>Enum GetEnum() 
         {

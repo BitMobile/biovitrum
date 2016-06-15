@@ -8,6 +8,27 @@ namespace Test.Entities.Enum
         public DbRef Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public static DbRef GetDbRefFromEnum(StatusEquipmentEnum @enum)
+        {
+            string res;
+            switch (@enum)
+            {
+                case StatusEquipmentEnum.Rent:
+                    res = "951b5831-923e-0439-4ef7-9198a2cf19fe";
+                    break;
+                case StatusEquipmentEnum.Seales:
+                    res = "b526c98c-9cca-ddd2-4c8f-b6be4e172e26";
+                    break;
+                case StatusEquipmentEnum.Loan:
+                    res = "a9c2af13-ed6d-3af3-48f9-bdcbb4065442";
+                    break;
+                case StatusEquipmentEnum.Died:
+                    res = "9a558829-062a-01f9-4c0d-3f32723dd886";
+                    break;
+            }
+            if (string.IsNullOrEmpty(res)) return null;
+            return DbRef.FromString($"@ref[Enum_StatusEquipment]:{res}")
+        }
 
         public StatusEquipmentEnum GetEnum() 
         {

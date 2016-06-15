@@ -8,6 +8,27 @@ namespace Test.Entities.Enum
         public DbRef Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public static DbRef GetDbRefFromEnum(StatsNeedNumEnum @enum)
+        {
+            string res;
+            switch (@enum)
+            {
+                case StatsNeedNumEnum.New:
+                    res = "aba20521-d3cb-0a3f-42c2-eee2ce12a07a";
+                    break;
+                case StatsNeedNumEnum.Done:
+                    res = "bdd2411f-c0e4-2a47-4486-a87fa2ad1dfb";
+                    break;
+                case StatsNeedNumEnum.Confirmed:
+                    res = "b1c2efd2-66a9-e59e-4211-09077ec95dc7";
+                    break;
+                case StatsNeedNumEnum.Cancel:
+                    res = "b7b121a8-56ab-5a80-4a81-096647744ebd";
+                    break;
+            }
+            if (string.IsNullOrEmpty(res)) return null;
+            return DbRef.FromString($"@ref[Enum_StatsNeedNum]:{res}")
+        }
 
         public StatsNeedNumEnum GetEnum() 
         {
