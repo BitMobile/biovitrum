@@ -104,6 +104,7 @@
     <Step Name="MeterialsRequestScreen" Controller="MeterialsRequestScreen" StyleSheet="Style\MeterialsRequestScreen.css">
       <Action Name="COC" NextStep="COC"></Action>
       <Action Name="AddServicesOrMaterials" NextStep="RIMList"></Action>
+      <Action Name="EditServicesOrMaterials" NextStep="EditServicesOrMaterials"></Action>
     </Step>
 
     <Step Name="Test" Controller="TestScreen" StyleSheet="Style\style.css">

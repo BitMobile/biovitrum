@@ -11,18 +11,14 @@ namespace Test
     // TODO: Сделать задвигающие SwipeHorizontalLayout
     public class MeterialsRequestScreen : Screen
     {
-        private ArrayList _data;
-        //private Dictionary<string, object> _dictionaryData = new Dictionary<string, object>();
-        private string _editId;
-        private bool _isAdd = Convert.ToBoolean("False");
-        private bool _isEdit = Convert.ToBoolean("False");
+        private static ArrayList _data;
+        private static bool _isAdd = Convert.ToBoolean("False");
+        private static bool _isEdit = Convert.ToBoolean("False");
         private bool _isEmptyList;
         private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
-            //_editId = string.Empty;
-            //_dictionaryData = new Dictionary<string, object>();
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = false,
@@ -34,12 +30,74 @@ namespace Test
 
         public override void OnShow()
         {
-            //if (_isAdd)
-            //{
-            //    //object newItem = BusinessProcess.GlobalVariables.GetValueOrDefault("");
-            //}
+            DConsole.WriteLine($"{nameof(_isAdd)} = {_isAdd} {nameof(_isEdit)} {_isEdit}");
+            if (_isAdd)
+            {
+                var newItem = BusinessProcess.GlobalVariables.GetValueOrDefault("newItem");
+
+                if (newItem != null)
+                {
+                    var item = (EditServiceOrMaterialsScreenResult) newItem;
+
+                    if (!CombineIfExist(item))
+                    {
+                        var dictionary = new Dictionary<string, object>
+                        {
+                            {"SKU", item.RimId},
+                            {"Count", item.Count},
+                            {"Unit", "unit"},
+                            {"Description", "Description"}
+                        };
+                        _data.Add(dictionary);
+                        DConsole.WriteLine($"Element is added _data.Count = {_data.Count}");
+                    }
+                }
+
+                _isAdd = Convert.ToBoolean("False");
+            }
+            else if (_isEdit)
+            {
+                var editItem = BusinessProcess.GlobalVariables.GetValueOrDefault("editItem");
+
+                if (editItem != null)
+                {
+                    var item = (EditServiceOrMaterialsScreenResult) editItem;
+
+                    foreach (var element in _data)
+                    {
+                        var dictionary = (Dictionary<string, object>)element;
+                        var elementRimId = (string)dictionary["SKU"];
+
+                        if (string.Compare(elementRimId,item.RimId,false) == 0)
+                        {
+                            dictionary["Count"] = item.Count;
+                            break;
+                        }
+                    }
+                    DConsole.WriteLine("element is changed!");
+                }
+
+                _isEdit = Convert.ToBoolean("False");
+            }
+
+            DConsole.WriteLine($"{Environment.NewLine}{Environment.NewLine}");
+            printMaterialsData();
         }
 
+        private void printMaterialsData()
+        {
+            foreach (var item in _data)
+            {
+                var element = (Dictionary<string, object>) item;
+
+                foreach (var i in element)
+                {
+                    DConsole.WriteLine($"{i.Key} = {i.Value}");
+                }
+
+                DConsole.WriteLine($"{Environment.NewLine}{Environment.NewLine}");
+            }
+        }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
@@ -53,6 +111,33 @@ namespace Test
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
+        }
+
+        /// <summary>
+        ///     Метод осуществляет проверку, существует ли
+        ///     элемент в коллекции _data. Если существует
+        ///     тогда объединяет элементы с одинаковым rimId
+        ///     и суммирует их колличество.
+        /// </summary>
+        /// <param name="item"> Элемент, который нужно проверить на существование в коллекции</param>
+        /// <returns> true, если элемент существует в коллекции и объединился. false если не существует </returns>
+        private bool CombineIfExist(EditServiceOrMaterialsScreenResult item)
+        {
+            foreach (var element in _data)
+            {
+                var dictionary = (Dictionary<string, object>) element;
+                var elementRimId = (string) dictionary["SKU"];
+
+
+                if (string.Compare(elementRimId, item.RimId, false) == 0)
+                {
+                    DConsole.WriteLine($"Count before {(int)dictionary["Count"]} SKU = {(string)dictionary["SKU"]}");
+                    dictionary["Count"] = (int) dictionary["Count"] + item.Count;
+                    DConsole.WriteLine($"Element is Exist and changed count = {(int)dictionary["Count"]}");
+                    return true;
+                }
+            }
+            return false;
         }
 
         internal string GetResourceImage(string tag)
@@ -69,14 +154,20 @@ namespace Test
         {
             //TODO: проверка данных на их наличие, true если БД возращает 0 записей. Отредактировать если _data типа RecordSet
             FillData();
+            if (_data == null)
+            {
+                _data = new ArrayList();
+            }
+
             if (_data.Count > 0)
             {
-                _isEmptyList = false;
+                _isEmptyList = Convert.ToBoolean("False");
             }
             else
             {
-                _isEmptyList = true;
+                _isEmptyList = Convert.ToBoolean("True");
             }
+
             return _isEmptyList;
         }
 
@@ -127,7 +218,7 @@ namespace Test
             };
             BusinessProcess.GlobalVariables["isService"] = false;
             BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
-            //_isAdd = Convert.ToBoolean("True");
+            _isAdd = Convert.ToBoolean("True");
             BusinessProcess.DoAction("AddServicesOrMaterials", dictionary, false);
         }
 
@@ -147,14 +238,15 @@ namespace Test
 
             var dictionary = new Dictionary<string, object>
             {
-                {"isService", false},
-                {"isMaterialsRequest", true},
-                {"returnKey", vl.Id}
+                {"returnKey", "editItem"},
+                {"rimId", vl.Id},
+                {"priceVisible", Convert.ToBoolean("False")},
+                {"behaviour", BehaviourEditServicesOrMaterialsScreen.ReturnValue}
             };
             BusinessProcess.GlobalVariables["isService"] = false;
             BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
-            //_isEdit = Convert.ToBoolean("True");
-            //_editId = vl.Id;
+            _isEdit = Convert.ToBoolean("True");
+            BusinessProcess.DoAction("EditServicesOrMaterials", dictionary);
         }
     }
 }
