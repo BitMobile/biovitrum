@@ -108,11 +108,12 @@ namespace Test
          Dictionary<string,object> dictionary = new Dictionary<string, object>()
          {
              {"isService",false },
-             {"isMaterialsRequest",true }
+             {"isMaterialsRequest",true },
+             {"returnKey","newItem" }
          };
             BusinessProcess.GlobalVariables["isService"] = false;
             BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
-            BusinessProcess.DoAction("AddServicesOrMaterials",dictionary);
+            BusinessProcess.DoAction("AddServicesOrMaterials",dictionary,false);
         }
 
         internal void SendData_OnClick(object sender, EventArgs e)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -9,6 +10,7 @@ namespace Test
 {
     public class RIMListScreen : Screen
     {
+        private bool _isMaterialRequest;
         private bool _isService;
         private TopInfoComponent _topInfoComponent;
 
@@ -29,6 +31,9 @@ namespace Test
                 RightButtonImage = {Visible = false},
                 ExtraLayoutVisible = false
             };
+
+            var isMaterialRequest = Variables.GetValueOrDefault("isMaterialsRequest", Convert.ToBoolean("False"));
+            _isMaterialRequest = (bool) isMaterialRequest;
         }
 
         internal string GetResourceImage(string tag)
@@ -80,8 +85,30 @@ namespace Test
                 DConsole.WriteLine("Обновили");
             }
 
-            DConsole.WriteLine("Пытаемся перейти на экран АВР");
-            BusinessProcess.DoAction("RIMAdded");
+            if (_isMaterialRequest)
+            {
+                object key = Variables.GetValueOrDefault("returnKey", "newItem");
+                var dictionary = new Dictionary<string, object>
+                {
+                    {"rimId", rimID},
+                    {"priceVisible", Convert.ToBoolean("False")},
+                    {"behaviour", BehaviourEditServicesOrMaterialsScreen.ReturnValue},
+                    {"returnKey",key }
+                };
+                DConsole.WriteLine("Go to EditServicesOrMaterials is Material Request true");
+                BusinessProcess.DoAction("EditServicesOrMaterials", dictionary);
+            }
+            else
+            {
+                var dictionary = new Dictionary<string, object>
+                {
+                    {"rimId", rimID},
+                    {"behaviour", BehaviourEditServicesOrMaterialsScreen.InsertIntoDB}
+                };
+
+                DConsole.WriteLine("Go to EditServicesOrMaterials is Material Request false");
+                BusinessProcess.DoAction("EditServicesOrMaterials", dictionary);
+            }
         }
 
 
