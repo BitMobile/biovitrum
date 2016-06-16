@@ -43,6 +43,7 @@ namespace Test
                     {
                         var dictionary = new Dictionary<string, object>
                         {
+                            //SKU aka rimId
                             {"SKU", item.RimId},
                             {"Count", item.Count},
                             {"Unit", "unit"},
@@ -52,7 +53,7 @@ namespace Test
                         DConsole.WriteLine($"Element is added _data.Count = {_data.Count}");
                     }
                 }
-
+                BusinessProcess.GlobalVariables.Remove("newItem");
                 _isAdd = Convert.ToBoolean("False");
             }
             else if (_isEdit)
@@ -65,10 +66,10 @@ namespace Test
 
                     foreach (var element in _data)
                     {
-                        var dictionary = (Dictionary<string, object>)element;
-                        var elementRimId = (string)dictionary["SKU"];
+                        var dictionary = (Dictionary<string, object>) element;
+                        var elementRimId = (string) dictionary["SKU"];
 
-                        if (string.Compare(elementRimId,item.RimId,false) == 0)
+                        if (string.Compare(elementRimId, item.RimId, false) == 0)
                         {
                             dictionary["Count"] = item.Count;
                             break;
@@ -76,7 +77,7 @@ namespace Test
                     }
                     DConsole.WriteLine("element is changed!");
                 }
-
+                BusinessProcess.GlobalVariables.Remove("editItem");
                 _isEdit = Convert.ToBoolean("False");
             }
 
@@ -131,9 +132,9 @@ namespace Test
 
                 if (string.Compare(elementRimId, item.RimId, false) == 0)
                 {
-                    DConsole.WriteLine($"Count before {(int)dictionary["Count"]} SKU = {(string)dictionary["SKU"]}");
+                    DConsole.WriteLine($"Count before {(int) dictionary["Count"]} SKU = {(string) dictionary["SKU"]}");
                     dictionary["Count"] = (int) dictionary["Count"] + item.Count;
-                    DConsole.WriteLine($"Element is Exist and changed count = {(int)dictionary["Count"]}");
+                    DConsole.WriteLine($"Element is Exist and changed count = {(int) dictionary["Count"]}");
                     return true;
                 }
             }
@@ -153,12 +154,12 @@ namespace Test
         internal bool GetIsEmptyList()
         {
             //TODO: проверка данных на их наличие, true если БД возращает 0 записей. Отредактировать если _data типа RecordSet
-            FillData();
             if (_data == null)
             {
                 _data = new ArrayList();
             }
 
+            DConsole.WriteLine($"{nameof(_data)} {nameof(_data.Count)} = {_data.Count}");
             if (_data.Count > 0)
             {
                 _isEmptyList = Convert.ToBoolean("False");
@@ -185,20 +186,6 @@ namespace Test
             var shl = (ISwipeHorizontalLayout3) btn.Parent;
             shl.CssClass = "NoHeight";
             ((IVerticalLayout3) shl.Parent).Refresh();
-        }
-
-        private void FillData()
-        {
-            _data = new ArrayList();
-            //TODO: Заменить цикл на запрос из БД
-            for (var i = 0; i < 0; i++)
-            {
-                var dic = new Dictionary<string, object>();
-                dic["first"] = "Test " + i;
-                dic["second"] = "Test " + i;
-                dic["Id"] = Guid.NewGuid().ToString();
-                _data.Add(dic);
-            }
         }
 
         internal ArrayList GetData()
@@ -241,12 +228,18 @@ namespace Test
                 {"returnKey", "editItem"},
                 {"rimId", vl.Id},
                 {"priceVisible", Convert.ToBoolean("False")},
-                {"behaviour", BehaviourEditServicesOrMaterialsScreen.ReturnValue}
+                {"behaviour", BehaviourEditServicesOrMaterialsScreen.ReturnValue},
+                {"lineId", null}
             };
             BusinessProcess.GlobalVariables["isService"] = false;
             BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
             _isEdit = Convert.ToBoolean("True");
             BusinessProcess.DoAction("EditServicesOrMaterials", dictionary);
+        }
+
+        internal string Concat(string first, string secont)
+        {
+            return $"{first} {secont}";
         }
     }
 }

@@ -40,8 +40,8 @@
                   <!--TODO: Заменить у итемнов (first и second) на имена полей из запроса-->
                   <!--Два TextView с информацией об услугах-->
                   <c:VerticalLayout Id="$item.SKU" CssClass="InfoTextContainerVL" OnClick="EditNode_OnClick">
-                    <c:TextView CssClass="NameTV" Text="$item.first" />
-                    <c:TextView CssClass="CountTV" Text="$item.second" />
+                    <c:TextView CssClass="NameTV" Text="$item.Description" />
+                    <c:TextView CssClass="CountTV" Text="$Concat($item.Count, $item.Unit)" />
                   </c:VerticalLayout>
 
                 </c:HorizontalLayout>

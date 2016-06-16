@@ -86,13 +86,14 @@ namespace Test
 
             if (_isMaterialRequest)
             {
-                object key = Variables.GetValueOrDefault("returnKey", "newItem");
+                var key = Variables.GetValueOrDefault("returnKey", "newItem");
                 var dictionary = new Dictionary<string, object>
                 {
                     {"rimId", rimID},
                     {"priceVisible", Convert.ToBoolean("False")},
                     {"behaviour", BehaviourEditServicesOrMaterialsScreen.ReturnValue},
-                    {"returnKey",key }
+                    {"returnKey", key},
+                    {"lineId", null}
                 };
                 DConsole.WriteLine("Go to EditServicesOrMaterials is Material Request true");
                 BusinessProcess.DoAction("EditServicesOrMaterials", dictionary);
