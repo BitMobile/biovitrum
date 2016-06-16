@@ -94,7 +94,7 @@ namespace Test
             return _eventListLocation.Count == 0;
         }
 
-        private void Init()
+        private bool Init()
         {
             DConsole.WriteLine("Start " + nameof(Init));
             var screenState = Variables.GetValueOrDefault("screenState", MapScreenStates.Default);
@@ -129,6 +129,7 @@ namespace Test
 
             _isInit = Convert.ToBoolean("True");
             DConsole.WriteLine("End " + nameof(Init));
+            return true;
         }
 
         internal void FillMap()

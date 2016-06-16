@@ -222,12 +222,14 @@ namespace Test
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("GO to map");
-            var resultArrayList = GetTodayEventsLocation();
+           // var resultArrayList = GetTodayEventsLocation();
+           DConsole.WriteLine("Before dictionary");
             var dictionary = new Dictionary<string, object>()
             {
-                {"screenState",MapScreenStates.EventListScren },
-                {"locationData",resultArrayList }
+                {"screenState",MapScreenStates.Default },
+                //{"locationData",new ArrayList() {new Some(1)} }
             };
+            DConsole.WriteLine("After");
             BusinessProcess.DoAction("ViewMap",dictionary);
         }
 
@@ -320,7 +322,7 @@ namespace Test
             GetValue(clientDescription, latitude, longitude);
             this.ClientDescription = clientDescription;
 
-            isNullCoordinae(latitude,longitude);
+            isNullCoordinate(latitude,longitude);
 
             MarkerColor = string.Empty;
 
@@ -365,7 +367,7 @@ namespace Test
 
         public string ClientDescription { get; }
 
-        private void isNullCoordinae(double latitude, double longitude)
+        private void isNullCoordinate(double latitude, double longitude)
         {
             _coordinate = latitude == 0 && longitude == 0
                 ? new GpsCoordinate()
@@ -424,7 +426,17 @@ namespace Test
     //    public bool NotEmpty => _clientLocation.NotEmpty;
     //}
 
+    public class Some
+    {
+        private int i;
 
+        public Some(int i)
+        {
+            this.i = i;
+        }
+
+        public int Return => i;
+    }
 
     public enum MapMarkerColor
     {
