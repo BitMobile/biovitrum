@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Test.Enum;
 using BitMobile.ClientModel3;
 
 namespace Test

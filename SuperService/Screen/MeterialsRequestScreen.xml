@@ -39,7 +39,7 @@
 
                   <!--TODO: Заменить у итемнов (first и second) на имена полей из запроса-->
                   <!--Два TextView с информацией об услугах-->
-                  <c:VerticalLayout Id="Test" CssClass="InfoTextContainerVL">
+                  <c:VerticalLayout Id="$item.Id" CssClass="InfoTextContainerVL" OnClick="EditNode_OnClick">
                     <c:TextView CssClass="NameTV" Text="$item.first" />
                     <c:TextView CssClass="CountTV" Text="$item.second" />
                   </c:VerticalLayout>

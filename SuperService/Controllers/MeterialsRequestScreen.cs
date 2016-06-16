@@ -11,12 +11,17 @@ namespace Test
     // TODO: Сделать задвигающие SwipeHorizontalLayout
     public class MeterialsRequestScreen : Screen
     {
-        private static ArrayList _data;
+        private ArrayList _data;
+        private Dictionary<string, object> _dictionaryData;
+        private string _editId;
+        private bool _isAdd = Convert.ToBoolean("False");
+        private bool _isEdit = Convert.ToBoolean("False");
         private bool _isEmptyList;
         private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
+            _dictionaryData = new Dictionary<string, object>();
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = false,
@@ -79,7 +84,7 @@ namespace Test
             var btn = (Button) sender;
             var shl = (ISwipeHorizontalLayout3) btn.Parent;
             shl.CssClass = "NoHeight";
-            ((IVerticalLayout3)shl.Parent).Refresh();
+            ((IVerticalLayout3) shl.Parent).Refresh();
         }
 
         private void FillData()
@@ -105,15 +110,16 @@ namespace Test
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
             //TODO: Отсюда переходим на экран добавления материалов.
-         Dictionary<string,object> dictionary = new Dictionary<string, object>()
-         {
-             {"isService",false },
-             {"isMaterialsRequest",true },
-             {"returnKey","newItem" }
-         };
+            var dictionary = new Dictionary<string, object>
+            {
+                {"isService", false},
+                {"isMaterialsRequest", true},
+                {"returnKey", "newItem"}
+            };
             BusinessProcess.GlobalVariables["isService"] = false;
             BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
-            BusinessProcess.DoAction("AddServicesOrMaterials",dictionary,false);
+            _isAdd = Convert.ToBoolean("True");
+            BusinessProcess.DoAction("AddServicesOrMaterials", dictionary, false);
         }
 
         internal void SendData_OnClick(object sender, EventArgs e)
@@ -124,6 +130,22 @@ namespace Test
 
         internal void OnSwipe_Swipe(object sender, EventArgs e)
         {
+        }
+
+        internal void EditNode_OnClick(object sender, EventArgs e)
+        {
+            var vl = (VerticalLayout) sender;
+
+            var dictionary = new Dictionary<string, object>
+            {
+                {"isService", false},
+                {"isMaterialsRequest", true},
+                {"returnKey", vl.Id}
+            };
+            BusinessProcess.GlobalVariables["isService"] = false;
+            BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
+            _isEdit = Convert.ToBoolean("True");
+            _editId = vl.Id;
         }
     }
 }

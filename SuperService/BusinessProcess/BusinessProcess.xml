@@ -104,7 +104,6 @@
     <Step Name="MeterialsRequestScreen" Controller="MeterialsRequestScreen" StyleSheet="Style\MeterialsRequestScreen.css">
       <Action Name="COC" NextStep="COC"></Action>
       <Action Name="AddServicesOrMaterials" NextStep="RIMList"></Action>
-      <Action Name="EditServicesOrMaterials" NextStep="EditServicesOrMaterials"></Action>
     </Step>
 
     <Step Name="Test" Controller="TestScreen" StyleSheet="Style\style.css">
@@ -115,7 +114,7 @@
     <Step Name="RIMList" Controller="RIMListScreen" StyleSheet="Style\RIMListScreen.css">
       <Action Name="RIMAdded" NextStep="COC" />
       <Action Name="ViewCOC" NextStep="COC" />
-      
+      <Action Name="EditServicesOrMaterials" NextStep="EditServicesOrMaterials"></Action>
       <!-- СТЕП ДЛЯ ПЕРЕХОДА В ЭКРАН РЕДАКТИРВОНиЯ количЕсТВА-->
     </Step>
   
