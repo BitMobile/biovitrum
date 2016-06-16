@@ -27,7 +27,7 @@ settings		Настройки
 areYouSure		Вы уверены?
 today		сегодня
 per_month		За месяц
-today_eventListNode		Сегодня
+todayUpper		СЕГОДНЯ
 client		Клиент
 clients		Клиенты
 contacts		Контакты

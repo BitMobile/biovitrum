@@ -8,63 +8,72 @@
     <s:Include File="Components\TopInfoComponent.xml" />
 
     <c:SwipeVerticalLayout CssClass="RequestHistoryMainSVL">
+      <s:Push Id="LastRequestHistoryDate" Value="$GetDateNowRequestHistory()" />
+
       <s:Iterator Id="RequestHistory" Value="$GetNeedMats()">
 
-        <c:HorizontalLayout CssClass ="RequestHistoryItemHL">
-        <c:VerticalLayout CssClass="RequestHistoryNumberTimeVL">
-          <c:TextView Text="$RequestHistory.Number" CssClass="RequestHistoryNumberTV"/>
-          <c:TextView Text="$ToHoursMinutes($RequestHistory.docTime)" CssClass="RequestHistoryTimeTV"/>
-        </c:VerticalLayout>
-        <c:VerticalLayout CssClass="RequestHistoryStatusVL">
-          <s:If Test="$RequestHistory.statusName == New">
-            <c:TextView Text ="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVNew"/>
-          </s:If>
-          <s:If Test="$RequestHistory.statusName == Done">
-            <c:TextView Text ="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVDone"/>
-          </s:If>
-          <s:If Test="$RequestHistory.statusName == Cancel">
-            <c:TextView Text ="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVCancel"/>
-          </s:If>
-          <s:If Test="$RequestHistory.statusName == Confirmed">
-            <c:TextView Text ="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVConfirmed"/>
-          </s:If>
-        </c:VerticalLayout>
-      </c:HorizontalLayout>
-      <c:HorizontalLine CssClass="RequestHistoryBreaker" />
+        <!-- Проверка на необходимость плашки "Сегодня" -->
+        <s:If Test="$IsTodayLayoutNeed()">
 
-      <!--<c:HorizontalLayout CssClass ="RequestHistoryItemHL">
-        <c:VerticalLayout CssClass="RequestHistoryNumberTimeVL">
-          <c:TextView Text="№32222" CssClass="RequestHistoryNumberTV"/>
-          <c:TextView Text="10.38" CssClass="RequestHistoryTimeTV"/>
-        </c:VerticalLayout>
-        <c:VerticalLayout CssClass="RequestHistoryStatusVL">
-          <c:TextView Text="Подтверждено" CssClass="RequestHistoryStatusTVConfirmed"/>
-        </c:VerticalLayout>
-      </c:HorizontalLayout>
-      <c:HorizontalLine CssClass="RequestHistoryBreaker" />
+          <s:If Test="$IsDateEquals($LastRequestHistoryDate, $RequestHistory.Date)">
+            <c:HorizontalLayout CssClass="RequestHistoryDateHL">
+              <c:TextView Text="#todayUpper#" CssClass="RequestHistoryDateTV" />
+            </c:HorizontalLayout>
+            <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />
 
-      <c:HorizontalLayout CssClass ="RequestHistoryItemHL">
-        <c:VerticalLayout CssClass="RequestHistoryNumberTimeVL">
-          <c:TextView Text="№32333" CssClass="RequestHistoryNumberTV"/>
-          <c:TextView Text="16.20" CssClass="RequestHistoryTimeTV"/>
-        </c:VerticalLayout>
-        <c:VerticalLayout CssClass="RequestHistoryStatusVL">
-          <c:TextView Text="Отгружено" CssClass="RequestHistoryStatusTVDone"/>
-        </c:VerticalLayout>
-      </c:HorizontalLayout>
-      <c:HorizontalLine CssClass="RequestHistoryBreaker" />
+            <s:Push Id="void" Value="$SetTodayLayoutBoolToFalse()" />
+          </s:If>
 
-      <c:HorizontalLayout CssClass ="RequestHistoryItemHL">
-        <c:VerticalLayout CssClass="RequestHistoryNumberTimeVL">
-          <c:TextView Text="№32444" CssClass="RequestHistoryNumberTV"/>
-          <c:TextView Text="19.40" CssClass="RequestHistoryTimeTV"/>
-        </c:VerticalLayout>
-        <c:VerticalLayout CssClass="RequestHistoryStatusVL">
-          <c:TextView Text="Новая" CssClass="RequestHistoryStatusTVNew"/>
-        </c:VerticalLayout>
-      </c:HorizontalLayout>
-      <c:HorizontalLine CssClass="RequestHistoryBreaker" />-->
-      
+        </s:If>
+        <!-- Конец проверки на необходимость плашки "Сегодня" -->
+
+        <!-- Проверка на необходимость плашки с датой и брейкера-->
+        <s:If Test="$IsDateChanged($LastRequestHistoryDate, $RequestHistory.Date)">
+          <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />
+
+          <c:HorizontalLayout CssClass="RequestHistoryDateHL">
+            <c:TextView Text="$DateTimeToDateWithWeekCheck($RequestHistory.Date)" CssClass="RequestHistoryDateTV" />
+          </c:HorizontalLayout>
+
+          <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />
+        </s:If>
+
+        <s:Else>
+          <s:If Test="$IsTodayBreakerNeed()">
+            <s:Push Id="void" Value="$SetTodayBreakerToFalse()" />
+          </s:If>
+          <s:Else>
+            <c:HorizontalLine CssClass="RequestHistoryShortBreaker" />
+          </s:Else>
+        </s:Else>
+        <!-- Конец проверки на необходимость плашки с датой и брейкера-->
+
+        <c:HorizontalLayout CssClass="RequestHistoryItemHL">
+
+          <c:VerticalLayout CssClass="RequestHistoryNumberTimeVL">
+            <c:TextView Text="$RequestHistory.Number" CssClass="RequestHistoryNumberTV" />
+            <c:TextView Text="$ToHoursMinutes($RequestHistory.docTime)" CssClass="RequestHistoryTimeTV" />
+          </c:VerticalLayout>
+
+          <c:VerticalLayout CssClass="RequestHistoryStatusVL">
+            <s:If Test="$RequestHistory.statusName == New">
+              <c:TextView Text="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVNew" />
+            </s:If>
+            <s:If Test="$RequestHistory.statusName == Done">
+              <c:TextView Text="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVDone" />
+            </s:If>
+            <s:If Test="$RequestHistory.statusName == Cancel">
+              <c:TextView Text="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVCancel" />
+            </s:If>
+            <s:If Test="$RequestHistory.statusName == Confirmed">
+              <c:TextView Text="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVConfirmed" />
+            </s:If>
+          </c:VerticalLayout>
+
+        </c:HorizontalLayout>
+
+        <s:Push Id="LastRequestHistoryDate" Value="$DateTimeToDate($RequestHistory.Date)" />
+
       </s:Iterator>
     </c:SwipeVerticalLayout>
   </c:DockLayout>

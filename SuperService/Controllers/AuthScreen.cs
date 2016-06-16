@@ -15,8 +15,8 @@ namespace Test
         {
             DConsole.WriteLine("AuthScreen init");
 
-            _loginEditText = (EditText) GetControl("loginEditText", true);
-            _passwordEditText = (EditText) GetControl("passwordEditText", true);
+            _loginEditText = (EditText) GetControl("AuthScreenLoginET", true);
+            _passwordEditText = (EditText) GetControl("AuthScreenPasswordET", true);
         }
 
         internal void exitButton_OnClick(object sender, EventArgs e)

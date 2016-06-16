@@ -22,26 +22,6 @@
         </c:VerticalLayout>
       </c:HorizontalLayout>
       <c:HorizontalLine CssClass="BagListBreaker" />
-
-      <!--<c:HorizontalLayout CssClass ="BagListItemHL">
-        <c:VerticalLayout CssClass="BagListNameVL">
-          <c:TextView Text="Сетевой кабель RJ-45" CssClass="BagListNameTV"/>
-        </c:VerticalLayout>
-        <c:VerticalLayout CssClass="BagListAmountVL">
-          <c:TextView Text="30 м" CssClass="BagListAmountTV"/>
-        </c:VerticalLayout>
-      </c:HorizontalLayout>
-      <c:HorizontalLine CssClass="BagListBreaker" />
-
-      <c:HorizontalLayout CssClass ="BagListItemHL">
-        <c:VerticalLayout CssClass="BagListNameVL">
-          <c:TextView Text="Салфетки чистящие, молоток отбойный, текст - длиннющий" CssClass="BagListNameTV"/>
-        </c:VerticalLayout>
-        <c:VerticalLayout CssClass="BagListAmountVL">
-          <c:TextView Text="1 шт." CssClass="BagListAmountTV"/>
-        </c:VerticalLayout>
-      </c:HorizontalLayout>
-      <c:HorizontalLine CssClass="BagListBreaker" />-->
       
       </s:Iterator>
     </c:SwipeVerticalLayout>

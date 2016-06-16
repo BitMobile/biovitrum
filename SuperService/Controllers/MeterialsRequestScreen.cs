@@ -12,7 +12,7 @@ namespace Test
     public class MeterialsRequestScreen : Screen
     {
         private ArrayList _data;
-        private Dictionary<string, object> _dictionaryData;
+        //private Dictionary<string, object> _dictionaryData = new Dictionary<string, object>();
         private string _editId;
         private bool _isAdd = Convert.ToBoolean("False");
         private bool _isEdit = Convert.ToBoolean("False");
@@ -21,8 +21,8 @@ namespace Test
 
         public override void OnLoading()
         {
-            _editId = string.Empty;
-            _dictionaryData = new Dictionary<string, object>();
+            //_editId = string.Empty;
+            //_dictionaryData = new Dictionary<string, object>();
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = false,
@@ -34,10 +34,10 @@ namespace Test
 
         public override void OnShow()
         {
-            if (_isAdd)
-            {
-                //object newItem = BusinessProcess.GlobalVariables.GetValueOrDefault("");
-            }
+            //if (_isAdd)
+            //{
+            //    //object newItem = BusinessProcess.GlobalVariables.GetValueOrDefault("");
+            //}
         }
 
 
@@ -127,7 +127,7 @@ namespace Test
             };
             BusinessProcess.GlobalVariables["isService"] = false;
             BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
-            _isAdd = Convert.ToBoolean("True");
+            //_isAdd = Convert.ToBoolean("True");
             BusinessProcess.DoAction("AddServicesOrMaterials", dictionary, false);
         }
 
@@ -153,8 +153,8 @@ namespace Test
             };
             BusinessProcess.GlobalVariables["isService"] = false;
             BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
-            _isEdit = Convert.ToBoolean("True");
-            _editId = vl.Id;
+            //_isEdit = Convert.ToBoolean("True");
+            //_editId = vl.Id;
         }
     }
 }
