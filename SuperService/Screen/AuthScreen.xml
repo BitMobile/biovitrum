@@ -3,11 +3,11 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   
   <c:VerticalLayout CssClass="RootLayout">
-    <c:EditText Mask="^\d+$" Id="loginEditText" Placeholder="Введите логин" CssClass = "LoginEditText"/>
-    <c:EditText Id="passwordEditText" Placeholder="Введите пароль" CssClass = "PasswordEditText"/>
-    <c:Button Id="connectButton" Text="Подключиться" OnClick="connectButton_OnClick" CssClass = "AuthScreenButton"/>
-    <c:Button Id="exitButton" Text="Выход" OnClick="exitButton_OnClick" CssClass = "AuthScreenButton"/>
-    <!--<s:Include File="Components\TabBarСomponent.xml" />-->
+    <c:TextView Text ="БИТ.СуперСервис" CssClass="AuthScreenBitTV"/>
+    <c:EditText Mask="^\d+$" Id="AuthScreenLoginET" Placeholder="Введите логин" CssClass = "AuthScreenLoginET"/>
+    <c:EditText Id="AuthScreenPasswordET" Placeholder="Введите пароль" CssClass = "AuthScreenPasswordET"/>
+    <c:Button Text="Подключиться" OnClick="connectButton_OnClick" CssClass = "AuthScreenConnectBTN"/>
+    <c:Button Text="Выход" OnClick="exitButton_OnClick" CssClass = "AuthScreenExitBTN"/>
   </c:VerticalLayout>
   
 </c:Screen>
