@@ -21,6 +21,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            _editId = string.Empty;
             _dictionaryData = new Dictionary<string, object>();
             _topInfoComponent = new TopInfoComponent(this)
             {
@@ -29,6 +30,14 @@ namespace Test
                 RightButtonImage = {Visible = false},
                 LeftButtonImage = {Source = ResourceManager.GetImage("close")}
             };
+        }
+
+        public override void OnShow()
+        {
+            if (_isAdd)
+            {
+                //object newItem = BusinessProcess.GlobalVariables.GetValueOrDefault("");
+            }
         }
 
 
