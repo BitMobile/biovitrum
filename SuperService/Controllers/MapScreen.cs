@@ -8,7 +8,7 @@ namespace Test
 {
     public class MapScreen : Screen
     {
-        private static WebMapGoogle _map;
+        private WebMapGoogle _map;
         private ClientLocation _clientLocation;
         private ArrayList _eventListLocation;
         private bool _isClientScreen = Convert.ToBoolean("False");
@@ -141,7 +141,7 @@ namespace Test
                         //if (current.NotEmpty)
                         {
                             _map.AddMarker(current.ClientDescription, current.Latitude, current.Longitude,
-                                current.MapMarkerColor);
+                                current.MarkerColor);
                         }
                     }
                 }
@@ -150,7 +150,7 @@ namespace Test
             {
                 {
                     _map.AddMarker(_clientLocation.ClientDescription, _clientLocation.Latitude,
-                        _clientLocation.Longitude, _clientLocation.MapMarkerColor);
+                        _clientLocation.Longitude, _clientLocation.MarkerColor);
                 }
             }
         }

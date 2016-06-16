@@ -298,56 +298,111 @@ namespace Test
         }
     }
 
-
     public class ClientLocation
     {
-        public ClientLocation(string clientDescription, double latitude, double longitude, MapMarkerColor markerColor = Test.MapMarkerColor.Red)
+        private GpsCoordinate _coordinate;
+
+        public ClientLocation(string clientDescription, double latitude, double longitude,MapMarkerColor markerColor = MapMarkerColor.Red)
         {
-            ClientDescription = clientDescription;
+            this.ClientDescription = clientDescription;
 
-            if (latitude != 0 && longitude != 0)
-                _clientLocation = new GpsCoordinate(latitude, longitude, DateTime.Now);
-            else
-                _clientLocation = default(GpsCoordinate);
+            isNullCoordinae(latitude,longitude);
 
-            MapMarkerColor = default(string);
+            MarkerColor = string.Empty;
 
             switch (markerColor)
             {
                 case Test.MapMarkerColor.Red:
-                    MapMarkerColor = "red";
+                    MarkerColor = "red";
                     break;
 
                 case Test.MapMarkerColor.Green:
-                    MapMarkerColor = "green";
+                    MarkerColor = "green";
                     break;
 
                 case Test.MapMarkerColor.Blue:
-                    MapMarkerColor = "blue";
+                    MarkerColor = "blue";
                     break;
 
                 case Test.MapMarkerColor.Orange:
-                    MapMarkerColor = "orange";
+                    MarkerColor = "orange";
                     break;
                 case Test.MapMarkerColor.Yellow:
-                    MapMarkerColor = "yellow";
+                    MarkerColor = "yellow";
                     break;
             }
         }
 
-        private GpsCoordinate _clientLocation;
-        public string ClientDescription { get; private set; }
 
-        public double Latitude => _clientLocation.Latitude;
+        public string MarkerColor { get; private set; }
+        public bool IsEmpty => _coordinate.Empty;
+        public bool NotEmpty => _coordinate.NotEmpty;
 
-        public double Longitude => _clientLocation.Longitude;
+        public double Latitude => _coordinate.Latitude;
+        public double Longitude => _coordinate.Longitude;
 
-        public string MapMarkerColor { get; private set; }
+        public string ClientDescription { get; }
 
-        public bool IsEmpty => _clientLocation.Empty;
-
-        public bool NotEmpty => _clientLocation.NotEmpty;
+        private void isNullCoordinae(double latitude, double longitude)
+        {
+            _coordinate = latitude == 0 && longitude == 0
+                ? new GpsCoordinate()
+                : new GpsCoordinate(latitude, longitude, DateTime.Now);
+        }
     }
+
+
+    //public class ClientLocation
+    //{
+    //    public ClientLocation(string clientDescription, System.Double latitude, System.Double longitude, MapMarkerColor markerColor = Test.MapMarkerColor.Red)
+    //    {
+    //        ClientDescription = clientDescription;
+
+            //if (latitude != 0 && longitude != 0)
+            //    _clientLocation = new GpsCoordinate(latitude, longitude, DateTime.Now);
+            //else
+            //    _clientLocation = default(GpsCoordinate);
+
+    //        MapMarkerColor = default(string);
+
+    //        switch (markerColor)
+    //        {
+    //            case Test.MapMarkerColor.Red:
+    //                MapMarkerColor = "red";
+    //                break;
+
+    //            case Test.MapMarkerColor.Green:
+    //                MapMarkerColor = "green";
+    //                break;
+
+    //            case Test.MapMarkerColor.Blue:
+    //                MapMarkerColor = "blue";
+    //                break;
+
+    //            case Test.MapMarkerColor.Orange:
+    //                MapMarkerColor = "orange";
+    //                break;
+    //            case Test.MapMarkerColor.Yellow:
+    //                MapMarkerColor = "yellow";
+    //                break;
+    //        }
+    //    }
+
+    //    private GpsCoordinate _clientLocation;
+    //    public string ClientDescription { get; private set; }
+
+    //    public double Latitude => _clientLocation.Latitude;
+
+    //    public double Longitude => _clientLocation.Longitude;
+
+    //    public string MapMarkerColor { get; private set; }
+
+    //    public bool IsEmpty => _clientLocation.Empty;
+
+    //    public bool NotEmpty => _clientLocation.NotEmpty;
+    //}
+
+
 
     public enum MapMarkerColor
     {
