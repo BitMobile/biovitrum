@@ -15,5 +15,13 @@ namespace Test
         {
             BusinessProcess.DoAction("Client");
         }
+
+        internal void addContectButton_OnClick()
+
+
+        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
+        {
+            BusinessProcess.DoAction("BackToEvent");
+        }
     }
 }

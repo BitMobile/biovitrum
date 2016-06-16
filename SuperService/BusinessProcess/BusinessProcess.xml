@@ -79,7 +79,7 @@
       <Action Name="EditContact" NextStep="EditContact" />
     </Step>
 
-    <Step Name="AddContact" Controller="AddContactScreen" StyleSheet="Style\style.css">
+    <Step Name="AddContact" Controller="AddContactScreen" StyleSheet="Style\AddContactScreen.css">
       <Action Name="Client" NextStep="Client"></Action>
     </Step>
 
@@ -117,6 +117,6 @@
       
       <!-- СТЕП ДЛЯ ПЕРЕХОДА В ЭКРАН РЕДАКТИРВОНиЯ количЕсТВА-->
     </Step>
-  
+    
   </Workflow>
 </BusinessProcess>
