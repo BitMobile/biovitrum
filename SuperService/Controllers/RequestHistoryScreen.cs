@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Globalization;
-using System.Net;
-using System.Text;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -11,9 +8,9 @@ namespace Test
 {
     public class RequestHistoryScreen : Screen
     {
-        private TopInfoComponent _topInfoComponent;
-        private bool _needTodayLayout = Convert.ToBoolean("True");
         private bool _needTodayBreaker = Convert.ToBoolean("True");
+        private bool _needTodayLayout = Convert.ToBoolean("True");
+        private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
@@ -21,9 +18,9 @@ namespace Test
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                HeadingTextView = { Text = Translator.Translate("requests") },
-                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
-                RightButtonImage = { Visible = false },
+                HeadingTextView = {Text = Translator.Translate("requests")},
+                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
+                RightButtonImage = {Visible = false},
                 ExtraLayoutVisible = false
             };
         }
@@ -39,6 +36,15 @@ namespace Test
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
+        }
+
+        internal bool IsTodayLayoutNeed()
+        {
+            if (_needTodayLayout)
+            {
+                return Convert.ToBoolean("True");
+            }
+            return Convert.ToBoolean("False");
         }
 
         internal int SetTodayLayoutBoolToFalse()
@@ -59,8 +65,8 @@ namespace Test
 
         internal string DateTimeToDateWithWeekCheck(string datetime)
         {
-            DateTime workDate = DateTime.Parse(datetime).Date;
-            DateTime currentDate = DateTime.Now.Date;
+            var workDate = DateTime.Parse(datetime).Date;
+            var currentDate = DateTime.Now.Date;
 
             var workDateWeekNumber = (workDate.DayOfYear + 6)/7;
             if (workDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
@@ -68,7 +74,7 @@ namespace Test
                 ++workDateWeekNumber;
             }
 
-            var currentDateWeekNumber = (currentDate.DayOfYear + 6) / 7;
+            var currentDateWeekNumber = (currentDate.DayOfYear + 6)/7;
             if (currentDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
             {
                 ++currentDateWeekNumber;
@@ -81,27 +87,9 @@ namespace Test
             return DateTime.Parse(datetime).ToString("dd MMMM yyyy").ToUpper();
         }
 
-        internal bool IsDateChangedString(string lastdate, string nowdate)
-        {
-            if (DateTime.Parse(lastdate).Date > DateTime.Parse(nowdate).Date)
-            {
-                return true;
-            }
-            return false;
-        }
-
         internal bool IsDateChanged(string lastdate, string nowdate)
         {
             if (DateTime.Parse(lastdate).Date > DateTime.Parse(nowdate).Date)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        internal bool IsDateNotChanged(string lastdate, string nowdate)
-        {
-            if (DateTime.Parse(lastdate).Date != DateTime.Parse(nowdate).Date)
             {
                 return true;
             }
@@ -117,28 +105,19 @@ namespace Test
             return false;
         }
 
-        internal bool IsVrblTrue()
+        internal bool IsTodayBreakerNeed()
         {
-            if (Convert.ToBoolean(_needTodayLayout) == Convert.ToBoolean("True"))
+            if (_needTodayBreaker)
             {
-                return _needTodayLayout;
+                return true;
             }
-            return _needTodayLayout;
+            return false;
         }
 
-        internal bool IsBreakerNeed()
-        {
-            if (Convert.ToBoolean(_needTodayBreaker) == Convert.ToBoolean("True"))
-            {
-                return _needTodayBreaker;
-            }
-            return _needTodayBreaker;
-        }
-
-        internal bool SetTodayLayoutBreakerToFalse()
+        internal int SetTodayBreakerToFalse()
         {
             _needTodayBreaker = Convert.ToBoolean("False");
-            return _needTodayBreaker;
+            return 0;
         }
 
         internal string ToHoursMinutes(string datetime)
