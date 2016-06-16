@@ -96,9 +96,10 @@ namespace Test
 
         private void Init()
         {
+            DConsole.WriteLine("Start " + nameof(Init));
             var screenState = Variables.GetValueOrDefault("screenState", MapScreenStates.Default);
             var locationData = Variables.GetValueOrDefault("locationData");
-
+            
             switch ((MapScreenStates) screenState)
             {
                 case MapScreenStates.EventListScren:
@@ -125,12 +126,16 @@ namespace Test
                     _isDefault = Convert.ToBoolean("True");
                     break;
             }
+
+            _isInit = Convert.ToBoolean("True");
+            DConsole.WriteLine("End " + nameof(Init));
         }
 
         internal void FillMap()
         {
             if (_isEventListScreen)
             {
+                DConsole.WriteLine(nameof(FillMap));
                 if (!IsZeroArrayLenght())
                 {
                     foreach (var item in _eventListLocation)
@@ -153,6 +158,7 @@ namespace Test
                         _clientLocation.Longitude, _clientLocation.MarkerColor);
                 }
             }
+            DConsole.WriteLine("End " + nameof(FillMap));
         }
 
         internal bool GetIsDefault()

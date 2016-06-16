@@ -276,24 +276,37 @@ namespace Test
         private ArrayList GetTodayEventsLocation()
         {
             var result = new ArrayList();
-
+            DConsole.WriteLine("Start " + nameof(GetTodayEventsLocation));
+            
             foreach (var item in _eventsList)
             {
                 var itemElement = (EventListElement) item;
+                DConsole.WriteLine($"{itemElement.ClientDescription} {Environment.NewLine}" +
+                                   $"latitude {itemElement.Latitude} longitude {itemElement.Longitude}");
 #if DEBUG
                 if (itemElement.StartDatePlan.Date <= DateTime.Now.Date)
 #else
                 if (itemElement.StartDatePlan.Date == DateTime.Now.Date)
 #endif
                 {
-                    var client =
-                        new ClientLocation(itemElement.ClientDescription, Convert.ToDouble(itemElement.Latitude), Convert.ToDouble(itemElement.Longitude));
+                    DConsole.WriteLine("If");
+                    double longitude = Convert.ToDouble(itemElement.Longitude);
+                    double latitude = Convert.ToDouble(itemElement.Latitude);
+
+                    DConsole.WriteLine($"{nameof(latitude)} {latitude} {nameof(longitude)} {longitude}");
+                    var
+                    client = 
+                        new ClientLocation(itemElement.ClientDescription, latitude, longitude);
+                    DConsole.WriteLine("Make clientLocation");
                     result.Add(client);
                 }
                 else if (itemElement.StartDatePlan.Date > DateTime.Now.Date)
+                {
+                    DConsole.WriteLine("Exit foreach");
                     break;
+                }
             }
-
+            DConsole.WriteLine("End " + nameof(GetTodayEventsLocation));
             return result;
         }
     }
@@ -304,6 +317,7 @@ namespace Test
 
         public ClientLocation(string clientDescription, double latitude, double longitude,MapMarkerColor markerColor = MapMarkerColor.Red)
         {
+            GetValue(clientDescription, latitude, longitude);
             this.ClientDescription = clientDescription;
 
             isNullCoordinae(latitude,longitude);
@@ -331,6 +345,14 @@ namespace Test
                     MarkerColor = "yellow";
                     break;
             }
+
+            DConsole.WriteLine("Make Client Ok");
+        }
+
+        private void GetValue(string clientDescription, double latitude, double longitude)
+        {
+            DConsole.WriteLine($"client Desc {clientDescription}" +
+                               $"latitude {latitude} longitude {longitude}");
         }
 
 
