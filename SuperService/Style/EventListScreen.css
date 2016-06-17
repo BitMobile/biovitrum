@@ -22,6 +22,33 @@ TextView {
 	width: 100%;
 }
 
+.EventListMainSVL {
+	height: auto;
+	width: 100%;
+	margin-top: 1sp;
+	margin-bottom: 0sp;
+}
+
+.EventListItemHL {
+	height: 0% auto;
+	width: 100%;
+}
+
+.EventListTimeVL {
+	height: 11sp auto;
+	width: 30%;
+}
+
+.EventListStatusVL {
+	height: 11sp auto;
+	width: 20%;
+}
+
+.EventListDescriptionVL {
+	height: 11sp auto;
+    width: 50%;
+}
+
 .NoHeight {
 	height: 0%;
 	width: 100%;

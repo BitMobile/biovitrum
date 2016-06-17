@@ -26,29 +26,29 @@ namespace Test
             };
 
             var statistic = DBHelper.GetEventsStatistic();
-            _topInfoComponent.LeftExtraLayout.AddChild(new TextView($"{statistic.DayCompleteAmout}/{statistic.DayTotalAmount}") {CssClass = "ExtraInfo"});
+            _topInfoComponent.LeftExtraLayout.AddChild(new TextView($"{statistic.DayCompleteAmout}/{statistic.DayTotalAmount}")
+            {
+                CssClass = "ExtraInfo"
+            });
             _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("today"))
             {
                 CssClass = "BottonExtraInfo"
             });
-            _topInfoComponent.RightExtraLayout.AddChild(
-                new TextView($"{statistic.MonthCompleteAmout}/{statistic.MonthTotalAmount}") {CssClass = "ExtraInfo"});
+
+            _topInfoComponent.RightExtraLayout.AddChild(new TextView($"{statistic.MonthCompleteAmout}/{statistic.MonthTotalAmount}")
+            {
+                CssClass = "ExtraInfo"
+            });
             _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
             {
                 CssClass = "BottonExtraInfo"
             });
-
-            DConsole.WriteLine("FillingOrderList");
         }
-
-
-
-
-
+        
+        // TopInfo parts
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
         }
-
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
@@ -69,8 +69,7 @@ namespace Test
             BusinessProcess.DoAction("ViewEvent");
         }
 
-
-        // TabBar buttons
+        // TabBar parts
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
             //_tabBarComponent.Events_OnClick(sender, eventArgs);
