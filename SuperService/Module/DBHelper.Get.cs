@@ -12,7 +12,7 @@ namespace Test
         ///     Method returns list of all events
         ///     Возвращает список всех событий
         /// </summary>
-        public static ArrayList GetEvents()
+        public static DbRecordset GetEvents()
         {
             return GetEvents(new DateTime());
         }
@@ -23,11 +23,9 @@ namespace Test
         ///     Получает список событий плановая дата начала которых больше передаваемого параметра
         /// </summary>
         /// <param name="eventSinceDate"> Дата начания с которой необходимо получить события</param>
-        public static ArrayList GetEvents(DateTime eventSinceDate)
+        public static DbRecordset GetEvents(DateTime eventSinceDate)
         {
-            var events = new ArrayList();
-
-            var query = new Query("select " +
+            var queryString =     "  select " +
                                   "  event.Id, " +
                                   "  event.StartDatePlan, " + //full date
                                   "  date(event.StartDatePlan) as startDatePlanDate, " + //date only
@@ -74,20 +72,15 @@ namespace Test
                                   "      event.DeletionMark = 0 " +
                                   "      AND (event.StartDatePlan >= @eventDate OR (event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel))) " +
                                   " order by " +
-                                  "  event.StartDatePlan");
+                                  "  event.StartDatePlan";
+
+            var query = new Query(queryString);
 
             query.AddParameter("eventDate", eventSinceDate);
             query.AddParameter("statusDone", EventStatusDoneName);
             query.AddParameter("statusCancel", EventStatusCancelName);
-            var querryResult = query.Execute();
 
-            while (querryResult.Next())
-            {
-                var @event = EventListElement.CreateFromRecordSet(querryResult);
-                events.Add(@event);
-            }
-
-            return events;
+            return query.Execute();
         }
 
 

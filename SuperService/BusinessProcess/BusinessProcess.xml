@@ -12,7 +12,7 @@
     </Step>
 
     <!-- MAIN SCREENS -->
-    <Step Name="EventList" Controller="EventListScreen" StyleSheet="Style\fancystyle.css">
+    <Step Name="EventList" Controller="EventListScreen" StyleSheet="Style\EventListScreen.css">
       <Action Name="ViewMap" NextStep="Map"></Action>
       <Action Name="ViewEvent" NextStep="Event"></Action>
       <!--      <Action Name="EventList" NextStep="EventList"></Action>-->
