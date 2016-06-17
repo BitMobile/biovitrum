@@ -13,15 +13,20 @@ namespace Test
 
         internal void Back_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("Client");
+            //BusinessProcess.DoAction("Client");
+            BusinessProcess.DoBack();
         }
 
-        internal void addContectButton_OnClick()
+        internal void AddContactButton_OnClick(object sender, EventArgs e)
+        {
+
+        }
 
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("BackToEvent");
+            //BusinessProcess.DoAction("BackToEvent");
+            BusinessProcess.DoBack();
         }
     }
 }
