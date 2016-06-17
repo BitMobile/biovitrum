@@ -3,7 +3,7 @@
 <BusinessProcess>
   <Workflow Name="Main">
 
-    <Step Name="Authorization" Controller="AuthScreen" StyleSheet="Style\style.css">
+    <Step Name="Authorization" Controller="AuthScreen" StyleSheet="Style\AuthScreen.css">
       <Action Name="Auth" NextStep="EventList"></Action>
     </Step>
 

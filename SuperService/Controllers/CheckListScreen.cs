@@ -127,7 +127,12 @@ namespace Test
 
         internal string ToDate(string datetime)
         {
-            return DateTime.Parse(datetime).ToString("dd MMMM yyyy");
+            DateTime temp;
+            if (DateTime.TryParse(datetime, out temp))
+            {
+                return temp.ToString("dd MMMM yyyy");
+            }
+            return Translator.Translate("not_specified");
         }
 
         internal void DateCallback(object state, ResultEventArgs<DateTime> args)
