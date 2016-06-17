@@ -40,7 +40,7 @@ namespace Test
 
         public static void SaveEntity(DbEntity entity)
         {
-            DConsole.WriteLine($"Saving ref@[{entity.GetTableName()}:[{entity.EntityId}]");
+            DConsole.WriteLine($"Saving [{entity.GetTableName()}]:[{entity.EntityId}]");
             entity.Save();
             _db.Commit();
         }
@@ -50,7 +50,7 @@ namespace Test
             foreach (DbEntity entity in entities)
             {
                 entity.Save();
-                DConsole.WriteLine($"Saving ref@[{entity.GetTableName()}:[{entity.EntityId}]");
+                DConsole.WriteLine($"Saving [{entity.GetTableName()}]:[{entity.EntityId}]");
             }
             _db.Commit();
         }
