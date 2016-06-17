@@ -223,6 +223,15 @@ namespace Test
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _editText.Text);
         }
 
+        internal bool Checktest(int item)
+        {
+            DConsole.WriteLine(item.ToString());
+            if (item == 1)
+            {
+                return true;
+            }
+            return false;
+        }
 
         internal IEnumerable GetCheckList()
         {
@@ -236,6 +245,7 @@ namespace Test
 
         internal bool IsNotEmptyString(string item)
         {
+            DConsole.WriteLine(item);
             return !(string.IsNullOrEmpty(item) && string.IsNullOrWhiteSpace(item));
         }
 

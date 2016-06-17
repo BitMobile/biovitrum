@@ -163,13 +163,13 @@ Image {
 /* Start CheckList common */
 
 .CheckListRequiredVL {
-	background-color: #ff0000;
+	background-color: #eb5040;
 	width: 1%;
 	height: 0% auto;
 }
 
 .CheckListRequiredDoneVL {
-	background-color: #00cc00;
+	background-color: #8abf57;
 	width: 1%;
 	height: 0% auto;
 }
@@ -200,7 +200,7 @@ Image {
 }
 
 .CheckListDescriptionTV {
-	color: #4a4b5e;
+	color: #51595b;
 	font: 2.5sp arial;
 	margin-top: 3sp;
 	margin-left: 3sp;
@@ -218,7 +218,7 @@ Image {
 
 .CheckListAnswerElement {
     width: 95%;
-	color: #4a4b5e;
+	color: #8587b1;
 	margin-top: 3sp;
     margin-right: 3sp;
     margin-bottom: 3sp;
@@ -256,7 +256,7 @@ Image {
 	/*margin-top: 1sp;*/
 	margin-left: 3sp;
     margin-bottom: 3sp;
-	color: #51595b;
+	color: #8587b1;
 	font: 2.5sp arial;
 	height: 3.5sp auto;
 	horizontal-align: center;
