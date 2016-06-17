@@ -105,7 +105,7 @@ namespace Test
             {
                 if (itemElement.StartDatePlan.Date <= DateTime.Now.Date)
                 {
-                    dateText = new TextView(Translator.Translate("today_eventListNode")) {CssClass = "DateText"};
+                    dateText = new TextView(Translator.Translate("todayUpper")) {CssClass = "DateText"};
                     finalDateLine = new HorizontalLine {CssClass = "FinalDateLine"};
                     _svlEventList.AddChild(dateText);
                     _svlEventList.AddChild(finalDateLine);
