@@ -786,6 +786,7 @@ namespace Test
                                   "      _Catalog_RIM.id, " +
                                   "      _Catalog_RIM.Description, " +
                                   "      _Catalog_RIM.Price, " +
+                                  "      _Catalog_RIM.Unit,  " +
                                   "      1 as AmountFact, " +
                                   "      _Catalog_RIM.Price as SumFact " +
                                   "from " +

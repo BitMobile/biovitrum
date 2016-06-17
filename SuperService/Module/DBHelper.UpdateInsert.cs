@@ -294,7 +294,7 @@ namespace Test
 
                 query.AddParameter("LineID" + lineCounter, $"@ref[Document_NeedMat_Matireals]:{Guid.NewGuid()}");
                 query.AddParameter("SKUID" + lineCounter, (string) lineDicinary["SKU"]);
-                query.AddParameter("Count" + lineCounter, (decimal) lineDicinary["count"]);
+                query.AddParameter("Count" + lineCounter, (decimal) lineDicinary["Count"]);
 
                 lineCounter++;
             }

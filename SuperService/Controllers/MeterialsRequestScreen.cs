@@ -41,13 +41,14 @@ namespace Test
 
                     if (!CombineIfExist(item))
                     {
+                        var itemInfo = DBHelper.GetServiceMaterialPriceByRIMID(item.RimId);
                         var dictionary = new Dictionary<string, object>
                         {
                             //SKU aka rimId
                             {"SKU", item.RimId},
                             {"Count", item.Count},
-                            {"Unit", "unit"},
-                            {"Description", "Description"}
+                            {"Unit", (string) itemInfo["Unit"]},
+                            {"Description", (string) itemInfo["Description"]}
                         };
                         _data.Add(dictionary);
                         DConsole.WriteLine($"Element is added _data.Count = {_data.Count}");
@@ -87,6 +88,8 @@ namespace Test
 
         private void printMaterialsData()
         {
+            DConsole.WriteLine($"{nameof(_data)}.{nameof(_data.Count)} = {_data.Count}");
+
             foreach (var item in _data)
             {
                 var element = (Dictionary<string, object>) item;
@@ -153,9 +156,9 @@ namespace Test
         /// <returns>true - если БД вернула 0 записей, иначе false</returns>
         internal bool GetIsEmptyList()
         {
-            //TODO: проверка данных на их наличие, true если БД возращает 0 записей. Отредактировать если _data типа RecordSet
             if (_data == null)
             {
+                _isAdd = _isEdit = Convert.ToBoolean("False");
                 _data = new ArrayList();
             }
 
@@ -183,7 +186,10 @@ namespace Test
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
             var btn = (Button) sender;
+            DConsole.WriteLine($"{nameof(btn.Id)} = {btn.Id}");
             var shl = (ISwipeHorizontalLayout3) btn.Parent;
+            deleteElement(btn.Id);
+            printMaterialsData();
             shl.CssClass = "NoHeight";
             ((IVerticalLayout3) shl.Parent).Refresh();
         }
@@ -192,6 +198,34 @@ namespace Test
         {
             //Данные, которые были получены у БД передаются в XML разметку.
             return _data;
+        }
+
+        private void deleteElement(string id)
+        {
+            var index = -1;
+
+            for (var i = 0; i < _data.Count; i++)
+            {
+                var element = (Dictionary<string, object>) _data[i];
+                var skuId = (string) element["SKU"];
+                if (string.Compare(skuId, id, false) == 0)
+                {
+                    index = i;
+                    DConsole.WriteLine("Index naiden" + Environment.NewLine);
+                    break;
+                }
+            }
+
+            if (index >= 0)
+            {
+                _data.RemoveAt(index);
+                DConsole.WriteLine($"Element {id} with {nameof(index)} = {index} is deleted {Environment.NewLine}");
+            }
+            else
+            {
+                DConsole.WriteLine(
+                    $"Element is not deleted Error in method {nameof(deleteElement)} {Environment.NewLine}");
+            }
         }
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
@@ -212,7 +246,11 @@ namespace Test
         internal void SendData_OnClick(object sender, EventArgs e)
         {
             //TODO: сохранения данных в БД.
+            DBHelper.CreateNeedMatDocument(_data);
+            _data = null;
+            _isAdd = _isEdit = Convert.ToBoolean("False");
             DConsole.WriteLine("Data is saved");
+            BusinessProcess.DoBack();
         }
 
         internal void OnSwipe_Swipe(object sender, EventArgs e)
@@ -222,7 +260,7 @@ namespace Test
         internal void EditNode_OnClick(object sender, EventArgs e)
         {
             var vl = (VerticalLayout) sender;
-
+            //TODO: Если будет починен экран редактирования то колличесто передавать отсюда.
             var dictionary = new Dictionary<string, object>
             {
                 {"returnKey", "editItem"},

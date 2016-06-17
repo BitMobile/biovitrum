@@ -28,7 +28,7 @@
           <c:VerticalLayout Id="VerticalLayout">
 
             <s:Iterator Id="item" Value="$GetData()">
-              <c:SwipeHorizontalLayout Id="$item.SKU" CssClass="SwipeContainerSHL" OnSwipe="OnSwipe_Swipe">
+              <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL" OnSwipe="OnSwipe_Swipe">
                 <c:HorizontalLayout CssClass="InfoNodeMaterialsRequestHL">
                   <!-- Красный круг с минусом -->
                   <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
@@ -46,7 +46,7 @@
 
                 </c:HorizontalLayout>
 
-                <c:Button CssClass="DeleteButtonBtn" Text="#delete_question#" OnClick="DeleteButton_OnClick" />
+                <c:Button Id="$item.SKU" CssClass="DeleteButtonBtn" Text="#delete_question#" OnClick="DeleteButton_OnClick" />
 
               </c:SwipeHorizontalLayout>
             </s:Iterator>
