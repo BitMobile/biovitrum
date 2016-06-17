@@ -13,19 +13,32 @@
 
 // Manager class records the various blocks so it can split them up
 class Manager {
-    private class Block {
-        public string Name;
-        public int Start, Length;
-        public bool IncludeInDefault;
-    }
-
-    private Block _currentBlock;
     private readonly List<Block> _files = new List<Block>();
     private readonly Block _footer = new Block();
     private readonly Block _header = new Block();
     private readonly ITextTemplatingEngineHost _host;
     private readonly StringBuilder _template;
     protected readonly List<string> GeneratedFileNames = new List<string>();
+
+    private Block _currentBlock;
+
+    private Manager(ITextTemplatingEngineHost host, StringBuilder template) {
+        this._host = host;
+        this._template = template;
+    }
+
+    public virtual string DefaultProjectNamespace => null;
+
+    private Block CurrentBlock {
+        get { return _currentBlock; }
+        set {
+            if (CurrentBlock != null)
+                EndBlock();
+            if (value != null)
+                value.Start = _template.Length;
+            _currentBlock = value;
+        }
+    }
 
     public static Manager Create(ITextTemplatingEngineHost host, StringBuilder template) {
         return (host is IServiceProvider) ? new VsManager(host, template) : new Manager(host, template);
@@ -59,15 +72,15 @@ class Manager {
     public virtual void Process(bool split, bool sync = true) {
         if (split) {
             EndBlock();
-            string headerText = _template.ToString(_header.Start, _header.Length);
-            string footerText = _template.ToString(_footer.Start, _footer.Length);
-            string outputPath = Path.GetDirectoryName(_host.TemplateFile);
+            var headerText = _template.ToString(_header.Start, _header.Length);
+            var footerText = _template.ToString(_footer.Start, _footer.Length);
+            var outputPath = Path.GetDirectoryName(_host.TemplateFile);
             _files.Reverse();
             if (!_footer.IncludeInDefault)
                 _template.Remove(_footer.Start, _footer.Length);
-            foreach(Block block in _files) {
-                string fileName = Path.Combine(outputPath, block.Name);
-                string content = headerText + _template.ToString(block.Start, block.Length) + footerText;
+            foreach(var block in _files) {
+                var fileName = Path.Combine(outputPath, block.Name);
+                var content = headerText + _template.ToString(block.Start, block.Length) + footerText;
                 GeneratedFileNames.Add(fileName);
                 CreateFile(fileName, content);
                 _template.Remove(block.Start, block.Length);
@@ -86,33 +99,32 @@ class Manager {
         return null;
     }
 
-    public virtual string DefaultProjectNamespace => null;
-
     private static bool IsFileContentDifferent(string fileName, string newContent) {
         return !(File.Exists(fileName) && File.ReadAllText(fileName) == newContent);
     }
-
-    private Manager(ITextTemplatingEngineHost host, StringBuilder template) {
-        this._host = host;
-        this._template = template;
-    }
-
-    private Block CurrentBlock {
-        get { return _currentBlock; }
-        set {
-            if (CurrentBlock != null)
-                EndBlock();
-            if (value != null)
-                value.Start = _template.Length;
-            _currentBlock = value;
-        }
-    }
+    private class Block {
+        public bool IncludeInDefault;
+        public string Name;
+        public int Start, Length;}
 
     private class VsManager: Manager {
-        private readonly EnvDTE.ProjectItem _templateProjectItem;
-        private readonly EnvDTE.DTE _dte;
         private readonly Action<string> _checkOutAction;
+        private readonly EnvDTE.DTE _dte;
         private readonly Action<List<string>> _projectSyncAction;
+        private readonly EnvDTE.ProjectItem _templateProjectItem;
+
+        internal VsManager(ITextTemplatingEngineHost host, StringBuilder template)
+            : base(host, template) {
+            var hostServiceProvider = (IServiceProvider) host;
+            if (hostServiceProvider == null)
+                throw new ArgumentNullException("Could not obtain IServiceProvider");
+            _dte = (EnvDTE.DTE) hostServiceProvider.GetService(typeof(EnvDTE.DTE));
+            if (_dte == null)
+                throw new ArgumentNullException("Could not obtain DTE from host");
+            _templateProjectItem = _dte.Solution.FindProjectItem(host.TemplateFile);
+            _checkOutAction = fileName => _dte.SourceControl.CheckOutItem(fileName);
+            _projectSyncAction = keepFileNames => ProjectSync(_templateProjectItem, keepFileNames);
+        }
 
         public override string DefaultProjectNamespace => _templateProjectItem.ContainingProject.Properties.Item("DefaultNamespace").Value.ToString();
 
@@ -135,19 +147,6 @@ class Manager {
             }
         }
 
-        internal VsManager(ITextTemplatingEngineHost host, StringBuilder template)
-            : base(host, template) {
-            var hostServiceProvider = (IServiceProvider) host;
-            if (hostServiceProvider == null)
-                throw new ArgumentNullException("Could not obtain IServiceProvider");
-            _dte = (EnvDTE.DTE) hostServiceProvider.GetService(typeof(EnvDTE.DTE));
-            if (_dte == null)
-                throw new ArgumentNullException("Could not obtain DTE from host");
-            _templateProjectItem = _dte.Solution.FindProjectItem(host.TemplateFile);
-            _checkOutAction = fileName => _dte.SourceControl.CheckOutItem(fileName);
-            _projectSyncAction = keepFileNames => ProjectSync(_templateProjectItem, keepFileNames);
-        }
-
         private static void ProjectSync(EnvDTE.ProjectItem templateProjectItem, List<string> keepFileNames) {
             var keepFileNameSet = new HashSet<string>(keepFileNames);
             var projectFiles = new Dictionary<string, EnvDTE.ProjectItem>();
@@ -161,7 +160,7 @@ class Manager {
                     pair.Value.Delete();
 
             // Add missing files to the project
-            foreach(string fileName in keepFileNameSet)
+            foreach(var fileName in keepFileNameSet)
                 if (!projectFiles.ContainsKey(fileName))
                     templateProjectItem.ProjectItems.AddFromFile(fileName);
         }
@@ -170,6 +169,4 @@ class Manager {
             var sc = _dte.SourceControl;
             if (sc != null && sc.IsItemUnderSCC(fileName) && !sc.IsItemCheckedOut(fileName))
                 _checkOutAction.EndInvoke(_checkOutAction.BeginInvoke(fileName, null, null));
-        }
-    }
-} #>
+        }}} #>

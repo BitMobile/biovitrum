@@ -1,13 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
+using Test.Entities.Document;
+using Test.Entities.Enum;
 
 namespace Test
 {
     public class TaskScreen : Screen
     {
+        private Event_Equipments _equipments;
+        private ResultEventEnum _resultEvent;
+
         private bool _taskCommentTextExpanded;
         private TextView _taskCommentTextView;
         private string _taskResult;
@@ -51,13 +55,13 @@ namespace Test
 
         internal void TaskFinishedButton_OnClick(object sender, EventArgs eventArgs)
         {
-            switch (_taskResult)
+            switch (_resultEvent)
             {
-                case "NotDone":
-                case "New":
+                case ResultEventEnum.NotDone:
+                case ResultEventEnum.New:
                     ChangeTaskToDone();
                     break;
-                case "Done":
+                case ResultEventEnum.Done:
                     ChangeTaskToNew();
                     break;
                 default:
@@ -68,6 +72,7 @@ namespace Test
         private void ChangeTaskToNew()
         {
             _taskResult = "New";
+            _resultEvent = ResultEventEnum.New;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonActiveText";
             _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_notdone");
@@ -81,6 +86,7 @@ namespace Test
         private void ChangeTaskToDone()
         {
             _taskResult = "Done";
+            _resultEvent = ResultEventEnum.Done;
             _taskFinishedButton.CssClass = "FinishedButtonPressed";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonPressedText";
             _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_done");
@@ -93,13 +99,13 @@ namespace Test
 
         internal void TaskRefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
-            switch (_taskResult)
+            switch (_resultEvent)
             {
-                case "Done":
-                case "New":
+                case ResultEventEnum.Done:
+                case ResultEventEnum.New:
                     ChangeTaskToNotDone();
                     break;
-                case "NotDone":
+                case ResultEventEnum.NotDone:
                     ChangeTaskToNew();
                     break;
                 default:
@@ -110,6 +116,7 @@ namespace Test
         private void ChangeTaskToNotDone()
         {
             _taskResult = "NotDone";
+            _resultEvent = ResultEventEnum.NotDone;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonActiveText";
             _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_notdone");
@@ -150,11 +157,13 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
-            var currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
             DConsole.WriteLine($"{_taskResult}");
-            DBHelper.UpdateTaskComment(currentTaskId, _taskCommentEditText.Text);
-            DBHelper.UpdateTaskResult(currentTaskId, _taskResult);
-            BusinessProcess.DoAction("BackToTaskList");
+            _equipments.Comment = _taskCommentEditText.Text;
+            _equipments.Result = ResultEvent.GetDbRefFromEnum(_resultEvent);
+
+            DBHelper.SaveEntity(_equipments);
+            
+            BusinessProcess.DoBack();
         }
 
         internal object GetTask()
@@ -170,6 +179,7 @@ namespace Test
 //                {"resultName", "New"}
 //            };
             string currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
+            _equipments = DBHelper.GetEventEquipmentsById(currentTaskId);
             return DBHelper.GetTaskById(currentTaskId);
         }
 
@@ -181,6 +191,21 @@ namespace Test
         internal int SetResultName(string resultName)
         {
             _taskResult = resultName;
+            switch (resultName)
+            {
+                case "New":
+                    _resultEvent = ResultEventEnum.New;
+                    break;
+                case "NotDone":
+                    _resultEvent = ResultEventEnum.NotDone;
+                    break;
+                case "Done":
+                    _resultEvent = ResultEventEnum.Done;
+                    break;
+                default:
+                    _resultEvent = ResultEventEnum.New;
+                    break;
+            }
             return 0;
         }
     }
