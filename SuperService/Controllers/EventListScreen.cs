@@ -222,15 +222,14 @@ namespace Test
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("GO to map");
-           // var resultArrayList = GetTodayEventsLocation();
-           DConsole.WriteLine("Before dictionary");
-            var dictionary = new Dictionary<string, object>()
+            DConsole.WriteLine("Before dictionary");
+            var dictionary = new Dictionary<string, object>
             {
-                {"screenState",MapScreenStates.Default },
-                //{"locationData",new ArrayList() {new Some(1)} }
+                {"screenState", MapScreenStates.EventListScreen}
             };
             DConsole.WriteLine("After");
-            BusinessProcess.DoAction("ViewMap",dictionary);
+            BusinessProcess.GlobalVariables["screenState"] = MapScreenStates.EventListScreen;
+            BusinessProcess.DoAction("ViewMap", dictionary);
         }
 
         internal void EventLayout_OnClick(object sender, EventArgs e)
@@ -279,7 +278,7 @@ namespace Test
         {
             var result = new ArrayList();
             DConsole.WriteLine("Start " + nameof(GetTodayEventsLocation));
-            
+
             foreach (var item in _eventsList)
             {
                 var itemElement = (EventListElement) item;
@@ -292,13 +291,13 @@ namespace Test
 #endif
                 {
                     DConsole.WriteLine("If");
-                    double longitude = Convert.ToDouble(itemElement.Longitude);
-                    double latitude = Convert.ToDouble(itemElement.Latitude);
+                    var longitude = Convert.ToDouble(itemElement.Longitude);
+                    var latitude = Convert.ToDouble(itemElement.Latitude);
 
                     DConsole.WriteLine($"{nameof(latitude)} {latitude} {nameof(longitude)} {longitude}");
                     var
-                    client = 
-                        new ClientLocation(itemElement.ClientDescription, latitude, longitude);
+                        client =
+                            new @string(itemElement.ClientDescription, latitude, longitude);
                     DConsole.WriteLine("Make clientLocation");
                     result.Add(client);
                 }
@@ -313,48 +312,43 @@ namespace Test
         }
     }
 
-    public class ClientLocation
+    public class @string
     {
         private GpsCoordinate _coordinate;
 
-        public ClientLocation(string clientDescription, double latitude, double longitude,MapMarkerColor markerColor = MapMarkerColor.Red)
+        public @string(string clientDescription, double latitude, double longitude,
+            MapMarkerColor markerColor = MapMarkerColor.Red)
         {
             GetValue(clientDescription, latitude, longitude);
-            this.ClientDescription = clientDescription;
+            ClientDescription = clientDescription;
 
-            isNullCoordinate(latitude,longitude);
+            isNullCoordinate(latitude, longitude);
 
             MarkerColor = string.Empty;
 
             switch (markerColor)
             {
-                case Test.MapMarkerColor.Red:
+                case MapMarkerColor.Red:
                     MarkerColor = "red";
                     break;
 
-                case Test.MapMarkerColor.Green:
+                case MapMarkerColor.Green:
                     MarkerColor = "green";
                     break;
 
-                case Test.MapMarkerColor.Blue:
+                case MapMarkerColor.Blue:
                     MarkerColor = "blue";
                     break;
 
-                case Test.MapMarkerColor.Orange:
+                case MapMarkerColor.Orange:
                     MarkerColor = "orange";
                     break;
-                case Test.MapMarkerColor.Yellow:
+                case MapMarkerColor.Yellow:
                     MarkerColor = "yellow";
                     break;
             }
 
             DConsole.WriteLine("Make Client Ok");
-        }
-
-        private void GetValue(string clientDescription, double latitude, double longitude)
-        {
-            DConsole.WriteLine($"client Desc {clientDescription}" +
-                               $"latitude {latitude} longitude {longitude}");
         }
 
 
@@ -366,6 +360,12 @@ namespace Test
         public double Longitude => _coordinate.Longitude;
 
         public string ClientDescription { get; }
+
+        private void GetValue(string clientDescription, double latitude, double longitude)
+        {
+            DConsole.WriteLine($"client Desc {clientDescription}" +
+                               $"latitude {latitude} longitude {longitude}");
+        }
 
         private void isNullCoordinate(double latitude, double longitude)
         {
@@ -382,10 +382,10 @@ namespace Test
     //    {
     //        ClientDescription = clientDescription;
 
-            //if (latitude != 0 && longitude != 0)
-            //    _clientLocation = new GpsCoordinate(latitude, longitude, DateTime.Now);
-            //else
-            //    _clientLocation = default(GpsCoordinate);
+    //if (latitude != 0 && longitude != 0)
+    //    _clientLocation = new GpsCoordinate(latitude, longitude, DateTime.Now);
+    //else
+    //    _clientLocation = default(GpsCoordinate);
 
     //        MapMarkerColor = default(string);
 
@@ -428,14 +428,12 @@ namespace Test
 
     public class Some
     {
-        private int i;
-
         public Some(int i)
         {
-            this.i = i;
+            Return = i;
         }
 
-        public int Return => i;
+        public int Return { get; }
     }
 
     public enum MapMarkerColor
