@@ -56,3 +56,8 @@ add		Add
 select_answer		Select value
 requests		Requests
 confirm		Confirm
+add_contact_enter_name		Enter name
+add_contact_enter_position		Enter position		    
+add_contact_enter_tel		Enter phone number
+add_contact_enter_email		Enter e-mail
+add_contact_add_button		Add contact

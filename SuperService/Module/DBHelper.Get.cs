@@ -794,5 +794,18 @@ namespace Test
             query.AddParameter("RIMId", rimId);
             return query.Execute();
         }
+
+        /// <summary>
+        ///     возвращает перечень невыполненных нарядов с их координатами
+        /// </summary>
+        public static DbRecordset GetEventsLocation()
+        {
+            var queryText = "";
+            var query = new Query(queryText);
+
+
+
+            return query.Execute();
+        }
     }
 }

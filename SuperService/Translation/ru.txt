@@ -56,3 +56,8 @@ add		Добавить
 select_answer		Выберите вариант
 requests		Заявки
 confirm		Подтвердить
+add_contact_enter_name		Введите имя
+add_contact_enter_position		Введите должность		    
+add_contact_enter_tel		Введите номер телефона
+add_contact_enter_email		Введите e-mail	
+add_contact_add_button		Добавить контакт
