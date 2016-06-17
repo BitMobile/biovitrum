@@ -1,7 +1,6 @@
 ﻿using System;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
-using BitMobile.DbEngine;
 using Test.Components;
 using Test.Entities.Document;
 using Test.Entities.Enum;
@@ -162,9 +161,7 @@ namespace Test
             _equipments.Comment = _taskCommentEditText.Text;
             _equipments.Result = ResultEvent.GetDbRefFromEnum(_resultEvent);
 
-            _equipments.Save();
-            DBHelper.Commit();
-            //DBHelper.SaveEntity(_equipments);
+            DBHelper.SaveEntity(_equipments);
             
             BusinessProcess.DoBack();
         }
