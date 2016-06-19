@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -9,7 +12,7 @@ namespace Test
     public class MapScreen : Screen
     {
         private WebMapGoogle _map;
-        private ArrayList _eventListLocation;
+        private ArrayList _location;
         private DbRecordset _data;
         private bool _isClientScreen = Convert.ToBoolean("False");
         private bool _isEventListScreen = Convert.ToBoolean("False");
@@ -33,10 +36,7 @@ namespace Test
 
         public override void OnShow()
         {
-            var screenState = Variables.GetValueOrDefault("screenState", MapScreenStates.Default);
-
-            var state = (MapScreenStates)screenState;
-            DConsole.WriteLine(state.ToString());
+            FillMap();
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
@@ -69,20 +69,34 @@ namespace Test
         }
 
 
-        private void isNotEmptyCoordinate()
+        private void IsNotEmptyCoordinate()
         {
-            DConsole.WriteLine(nameof(isNotEmptyCoordinate));
+            DConsole.WriteLine(nameof(IsNotEmptyCoordinate));
             if (_data != null)
             {
                 DConsole.WriteLine($"{_data.IsClosed}");
                 if (!_data.IsClosed)
                 {
-                    DConsole.WriteLine($"{_data.Unload().Count() != 0}");
-                    DConsole.WriteLine($"{_data.IsClosed}");
-                    if (_data.Unload().Count() != 0)
+                    while (_data.Next())
                     {
-                        _isNotEmptyLocationData = Convert.ToBoolean("True");
+                        var latitude = (double)_data["Latitude"];
+                        var longitude = (double) _data["Longitude"];
+
+                        Dictionary<string,object> dictionary =
+                            new Dictionary<string, object>()
+                            {
+                                {"Description",_data["Description"] },
+                                {"Latitude", latitude},
+                                {"Longitude",longitude }
+                            };
+                        _location.Add(dictionary);
                     }
+
+                    _isNotEmptyLocationData = Convert.ToBoolean(_location.Count > 0 ? "True" : "False");
+                }
+                else
+                {
+                    DConsole.WriteLine($"Error in {nameof(IsNotEmptyCoordinate)}");
                 }
             }
             else
@@ -91,19 +105,20 @@ namespace Test
             }
             DConsole.WriteLine(nameof(_isNotEmptyLocationData) + " = " +
                                _isNotEmptyLocationData);
-            //DConsole.WriteLine($"{_data}.Count = {_data.Unload().Count()}");
         }
 
         internal bool IsZeroArrayLenght()
         {
-            return _eventListLocation.Count == 0;
+            return _location.Count == 0;
         }
 
         private bool Init()
         {
             DConsole.WriteLine("Start " + nameof(Init));
+            _location = new ArrayList();
+
             var screenState = BusinessProcess.GlobalVariables.GetValueOrDefault("screenState", MapScreenStates.Default);
-            var locationData = BusinessProcess.GlobalVariables.GetValueOrDefault("locationData");
+            var locationData = BusinessProcess.GlobalVariables.GetValueOrDefault("clientId");
 
             var state = (MapScreenStates) screenState;
                 DConsole.WriteLine(state.ToString());
@@ -131,34 +146,32 @@ namespace Test
                 default:
                     DConsole.WriteLine("is Default");
                     _data = null;
-                    _eventListLocation = null;
+                    _location = null;
                     _isDefault = Convert.ToBoolean("True");
                     break;
             }
 
             _isInit = Convert.ToBoolean("True");
-            isNotEmptyCoordinate();
+            IsNotEmptyCoordinate();
             DConsole.WriteLine("End " + nameof(Init));
             return true;
         }
 
-        internal void FillMap()
+        private void FillMap()
         {
             DConsole.WriteLine("start FillMap");
-            _map = (WebMapGoogle)GetControl("Map", true);
-
-            DConsole.WriteLine($"{_data.IsClosed}");
-            if (!_data.IsClosed)
+            DConsole.WriteLine($"{nameof(_location)}.{nameof(_location.Count)} = {_location.Count}");
+            foreach (var element in _location)
             {
-                DConsole.WriteLine($"{_data.IsClosed}");
-                while (_data.Next())
-                {
-                    DConsole.WriteLine($"{_data.IsClosed}");
-                    string description = (string) _data["Description"];
-                    decimal latitude = (decimal) _data["Latitude"];
-                    decimal longitude = (decimal) _data["Longitude"];
-                    _map.AddMarker(description, Convert.ToDouble(latitude), Convert.ToDouble(longitude), "red");
-                }
+                var item = (Dictionary<string,object>) element;
+                string description = (string) item["Description"];
+                double latitude = (double) item["Latitude"];
+                double longitude = (double) item["Longitude"];
+
+                DConsole.WriteLine($"{nameof(description)}:{description} {Environment.NewLine} {nameof(latitude)}={latitude} {nameof(longitude)}={longitude}");
+
+
+                _map.AddMarker(description,latitude,longitude,"red");
             }
             DConsole.WriteLine("end FillMap");
         }

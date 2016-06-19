@@ -53,6 +53,7 @@
       <Action Name="ViewTasks" NextStep="TaskList"></Action>
       <Action Name="COC" NextStep="COC"></Action>
       <Action Name="ViewCheckList" NextStep="CheckList"></Action>
+      <Action Name="ViewMap" NextStep="Map"></Action>
     </Step>
 
     <Step Name="TaskList" Controller="TaskListScreen" StyleSheet="Style\fancy_taskList.css">
@@ -77,6 +78,7 @@
       <Action Name="ViewEvent" NextStep="Event"></Action>
       <Action Name="AddContact" NextStep="AddContact" />
       <Action Name="EditContact" NextStep="EditContact" />
+      <Action Name="ViewMap" NextStep="Map"></Action>
     </Step>
 
     <Step Name="AddContact" Controller="AddContactScreen" StyleSheet="Style\style.css">

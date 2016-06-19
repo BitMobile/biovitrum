@@ -6,24 +6,19 @@
 
     <s:Include File="Components\TopInfoComponent.xml" />
 
-    <s:Push Id="some" Value="$Init()"/>
-    
+    <s:Push Id="some" Value="$Init()" />
+
     <s:If Test="$GetIsEventListScreen()">
-
-      <s:Push Id="some" Value="$FillMap()" />
       <c:WebMapGoogle Id="Map" CssClass="RootLayout" />
-
     </s:If>
 
     <s:If Test="$GetIsClientOrEventScreen()">
-
       <s:If Test="$GetIsNotEmptyLocationData()">
-        <s:Push Id="some" Value="$FillMap()" />
         <c:WebMapGoogle Id="Map" CssClass="RootLayout" />
       </s:If>
-      
-      <c:Buttom CssClass="GetCoordinateBtn" Text="#get_coordinates#" />
-      
+      <s:Else>
+        <c:Buttom CssClass="GetCoordinateBtn" Text="#get_coordinates#" />
+      </s:Else>
     </s:If>
 
     <s:If Test="$GetIsDefault()">
