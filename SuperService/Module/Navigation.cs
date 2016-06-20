@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 
@@ -9,7 +8,6 @@ namespace Test
     {
         private const string DefaultStyle = @"Style\style.css";
         private static readonly Stack ScreenInfoStack = new Stack();
-        private static readonly Stack ScreenStack = new Stack();
 
         public static ScreenInfo CurrentScreenInfo { get; private set; }
 
@@ -66,7 +64,7 @@ namespace Test
         public static void ModalMove(ScreenInfo screenInfo, Dictionary<string, object> args = null)
         {
             DConsole.WriteLine("Trying to get screen from info");
-            var screen = screenInfo.Screen;
+            var screen = (Screen) screenInfo.Screen;
             DConsole.WriteLine("Basic screen interaction");
             screen.SetData(args);
             try
@@ -95,7 +93,7 @@ namespace Test
     public class ScreenInfo
     {
         public string Name { get; set; }
-        public Screen Screen { get; set; }
+        public object Screen { get; set; }
         public string Xml { get; set; }
         public string Css { get; set; }
     }
