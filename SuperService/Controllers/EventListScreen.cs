@@ -17,9 +17,10 @@ namespace Test
         {
             DConsole.WriteLine("OnLoanding EventList");
             _svlEventList = (ScrollView) GetControl("EventListScrollView", true);
-            _eventsList = GetEventsFromDb();
-            _tabBarComponent = new TabBarComponent(this);
 
+            _eventsList = GetEventsFromDb();
+
+            _tabBarComponent = new TabBarComponent(this);
 
             _topInfoComponent = new TopInfoComponent(this)
             {

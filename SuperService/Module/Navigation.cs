@@ -10,10 +10,22 @@ namespace Test
         private static readonly Stack ScreenInfoStack = new Stack();
         private static readonly Stack ScreenStack = new Stack();
 
+        // ReSharper disable once NotAccessedField.Local
+        private static Screen _lastScreen;
+
         /// <summary>
         ///     Информация о текущем отображаемом экране
         /// </summary>
         public static ScreenInfo CurrentScreenInfo { get; private set; }
+
+        public static string CurrentScreenName
+        {
+            get
+            {
+                DConsole.WriteLine("Are you fucking kidding me?");
+                return CurrentScreenInfo?.Name;
+            }
+        }
 
         /// <summary>
         ///     Ссылка на отображемый экран
@@ -33,6 +45,7 @@ namespace Test
             }
             var screenInfo = (ScreenInfo) ScreenInfoStack.Pop();
             var nextScreen = (Screen) ScreenStack.Pop();
+            _lastScreen = CurrentScreen;
             if (!reload)
                 ModalMove(screenInfo, screen: nextScreen);
             else
@@ -45,7 +58,7 @@ namespace Test
         /// <param name="name">Имя целевого экрана</param>
         /// <param name="args">Словарь аргументов</param>
         /// <param name="css">Путь к файлу стиля</param>
-        public static void Move(string name, Dictionary<string, object> args = null, string css = null)
+        public static void Move(string name, IDictionary<string, object> args = null, string css = null)
         {
             var screenInfo = CreateScreenInfoFromName(name, css);
             Move(screenInfo, args);
@@ -66,7 +79,7 @@ namespace Test
         /// </summary>
         /// <param name="screenInfo">Информация о следующем экране</param>
         /// <param name="args">Словарь аргументов</param>
-        public static void Move(ScreenInfo screenInfo, Dictionary<string, object> args = null)
+        public static void Move(ScreenInfo screenInfo, IDictionary<string, object> args = null)
         {
             if (CurrentScreenInfo != null)
             {
@@ -82,7 +95,7 @@ namespace Test
         /// <param name="name">Имя экрана</param>
         /// <param name="args">Словарь аргументов</param>
         /// <param name="css">Путь к файлу стилей</param>
-        public static void ModalMove(string name, Dictionary<string, object> args = null, string css = null)
+        public static void ModalMove(string name, IDictionary<string, object> args = null, string css = null)
         {
             var screenInfo = CreateScreenInfoFromName(name, css);
             ModalMove(screenInfo, args);
@@ -94,8 +107,9 @@ namespace Test
         /// <param name="screenInfo">Информация об экране</param>
         /// <param name="args">Словарь аргументов</param>
         /// <param name="screen">Ссылка на целевой экран</param>
-        public static void ModalMove(ScreenInfo screenInfo, Dictionary<string, object> args = null, Screen screen = null)
+        public static void ModalMove(ScreenInfo screenInfo, IDictionary<string, object> args = null, Screen screen = null)
         {
+            DConsole.WriteLine($"Moving to {screenInfo.Name}");
             screen = screen ?? (Screen) Application.CreateInstance($"Test.{screenInfo.Name}");
             screen.SetData(args);
             try
@@ -114,11 +128,11 @@ namespace Test
             {
                 screen.LoadStyleSheet(Application.GetResourceStream(DefaultStyle));
             }
-
-            screen.Show();
-
-            CurrentScreen = screen;
             CurrentScreenInfo = screenInfo;
+            DConsole.WriteLine(screenInfo.Name);
+            DConsole.WriteLine(CurrentScreenInfo.Name);
+            CurrentScreen = screen;
+            screen.Show();
         }
 
         /// <summary>

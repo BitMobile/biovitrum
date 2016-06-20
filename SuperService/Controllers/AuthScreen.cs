@@ -26,7 +26,7 @@ namespace Test
 
         internal void connectButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("Auth");
+            Navigation.ModalMove("EventListScreen");
             // TODO: Сделать авторизацию когда она будет работать
 /*            var req = WebRequest.Create("http://bitmobile1.bt/bitmobileX/platform/device/GetClientMetadata");
             DConsole.WriteLine("Web Request Created");
