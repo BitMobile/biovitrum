@@ -1,4 +1,5 @@
 ﻿using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
 
 namespace Test
 {
@@ -11,5 +12,6 @@ namespace Test
             DConsole.WriteLine("Starting application...");
             BusinessProcess.Init();
         }
+
     }
 }

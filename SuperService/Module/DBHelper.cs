@@ -29,10 +29,12 @@ namespace Test
             _db.CreateFromModel();
             DConsole.WriteLine("Filling DB with demo data");
 
-            var sql = Application.GetResourceStream("Model.main.sql");
-            var reader = new StreamReader(sql);
-            var queryText = reader.ReadToEnd();
-            DConsole.WriteLine(queryText.Substring(0, 15));
+            string queryText;
+            using (var sql = Application.GetResourceStream("Model.main.sql"))
+            using (var reader = new StreamReader(sql))
+            {
+                queryText = reader.ReadToEnd();
+            }
             var query = new Query(queryText);
             query.Execute();
             _db.Commit();
