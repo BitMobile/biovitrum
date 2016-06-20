@@ -61,3 +61,7 @@ add_contact_enter_position		Enter position
 add_contact_enter_tel		Enter phone number
 add_contact_enter_email		Enter e-mail
 add_contact_add_button		Add contact
+map		Map
+get_coordinates		Get coordinates
+save_coordinates		Save coordinates
+failed_coordinates		Failed to get the coordinates

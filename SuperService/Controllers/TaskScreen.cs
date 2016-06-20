@@ -53,6 +53,11 @@ namespace Test
             _rootLayout = (DockLayout) Controls[0];
         }
 
+        public override void OnShow()
+        {
+            GPS.StopTracking();
+        }
+
         internal void TaskFinishedButton_OnClick(object sender, EventArgs eventArgs)
         {
             switch (_resultEvent)

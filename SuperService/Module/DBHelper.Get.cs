@@ -42,7 +42,9 @@ namespace Test
                                   "  ifnull(client.Address, '') as Address, " +
                                   "  ifnull(Enum_StatusyEvents.Name, '') as statusName, " +
                                   //имя значения статуса (служебное имя)
-                                  "  ifnull(Enum_StatusyEvents.Description, '') as statusDescription " +
+                                  "  ifnull(Enum_StatusyEvents.Description, '') as statusDescription, " +
+                                  "  event.Latitude, " +
+                                  "  event.Longitude " +
                                   //представление статуса
                                   "from " +
                                   "  Document_Event as event " +
@@ -617,8 +619,10 @@ namespace Test
         /// </summary>
         /// <param name="docEventID">Идентификатор документа событие</param>
         /// <param name="rimID">Идентификатор искомого элемента справочинка Товары и услуги</param>
-        /// <returns>null - если в указанном документе нету номенклатуры с указанным идентификатором; 
-        /// Заполнненую структуру EventServicesMaterialsLine в случае если строка есть</returns>
+        /// <returns>
+        ///     null - если в указанном документе нету номенклатуры с указанным идентификатором;
+        ///     Заполнненую структуру EventServicesMaterialsLine в случае если строка есть
+        /// </returns>
         public static EventServicesMaterialsLine GetEventServicesMaterialsLineByRIMID(string docEventID, string rimID)
         {
             EventServicesMaterialsLine result = null;
@@ -756,7 +760,8 @@ namespace Test
         /// <summary>
         ///     Получает информацию по строке материалов и услуг документа Наряд
         /// </summary>
-        /// /// <param name="lineId">Идентификатор строки</param>
+        /// ///
+        /// <param name="lineId">Идентификатор строки</param>
         public static DbRecordset GetServiceMaterialPriceByLineID(string lineId)
         {
             var query = new Query("select " +
@@ -780,13 +785,15 @@ namespace Test
         /// <summary>
         ///     Получает информацию по строке материалов и услуг документа Наряд
         /// </summary>
-        /// /// <param name="rimId">Идентификатор строки</param>
+        /// ///
+        /// <param name="rimId">Идентификатор строки</param>
         public static DbRecordset GetServiceMaterialPriceByRIMID(string rimId)
         {
             var query = new Query("select " +
                                   "      _Catalog_RIM.id, " +
                                   "      _Catalog_RIM.Description, " +
                                   "      _Catalog_RIM.Price, " +
+                                  "      _Catalog_RIM.Unit,  " +
                                   "      1 as AmountFact, " +
                                   "      _Catalog_RIM.Price as SumFact " +
                                   "from " +
@@ -826,6 +833,44 @@ namespace Test
                 SID = (DbRef) dbRecordset["SID"],
                 Terget = (string) dbRecordset["Terget"]
             };
+        }
+
+        public static DbRecordset GetClientLocationByClientId(string clientId)
+        {
+            var query = new Query(@"select
+                                    client.Description as Description,
+                                    client.Latitude as Latitude,
+                                    client.Longitude as Longitude
+                                from 
+                                    _Catalog_Client as client
+                                where
+                                    client.Latitude != 0
+                                    and client.Longitude != 0
+                                    and client.Id = @clientId");
+
+            query.AddParameter("clientId", clientId);
+
+            return query.Execute();
+        }
+
+        public static DbRecordset GetEventsLocationToday()
+        {
+            var query = new Query(@"select
+                                        client.Description as Description,
+                                        client.Latitude as Latitude,
+                                        client.Longitude as Longitude
+                                    from  
+                                        _Document_Event as event
+                                    left join _Catalog_Client as client
+                                        on event.client = client.id
+                                    where
+                                        event.DeletionMark = 0
+                                        and event.ResultInteractions != '@ref[Enum_ResultEvent]:81270b2c-190a-faf2-440f-4a593042495e'
+                                        and date(event.StartDatePlan) = date('now','start of day')
+                                        and client.Latitude != 0
+                                        and client.Longitude != 0");
+
+            return query.Execute();
         }
     }
 }

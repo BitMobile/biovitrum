@@ -294,7 +294,7 @@ namespace Test
 
                 query.AddParameter("LineID" + lineCounter, $"@ref[Document_NeedMat_Matireals]:{Guid.NewGuid()}");
                 query.AddParameter("SKUID" + lineCounter, (string) lineDicinary["SKU"]);
-                query.AddParameter("Count" + lineCounter, (decimal) lineDicinary["count"]);
+                query.AddParameter("Count" + lineCounter, (decimal) lineDicinary["Count"]);
 
                 lineCounter++;
             }
@@ -352,6 +352,27 @@ namespace Test
             };
 
             InsertEventServicesMaterialsLine(line);
+        }
+        /// <summary>
+        /// Обновляет координаты клиента
+        /// </summary>
+        /// <param name="clientId"> id клиента </param>
+        /// <param name="latitude"> ширина </param>
+        /// <param name="longitude"> долгота </param>
+        public static void UpdateClientCoordinate(string clientId, decimal latitude, decimal longitude)
+        {
+            var query = new Query(@"
+                                   Update _Catalog_Client
+                                   Set Latitude = @latitude,
+                                   Longitude = @longitude
+                                   where Id = @clientId");
+
+            query.AddParameter("latitude",latitude);
+            query.AddParameter("longitude",longitude);
+            query.AddParameter("clientId",clientId);
+
+            query.Execute();
+            _db.Commit();
         }
     }
 }
