@@ -71,6 +71,9 @@ namespace Test
 
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
         {
+            /*TODO: Внимание не редактировать элементы до тех пор, пока не починят экран редактирования, а то
+             * приложение упадет
+             */
             var vl = (VerticalLayout) sender;
             var dictionary = new Dictionary<string, object>
             {
