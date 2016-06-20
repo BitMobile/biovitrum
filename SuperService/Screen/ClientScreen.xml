@@ -8,7 +8,7 @@
     <s:Push Id="clientItem" Value="$GetCurrentClient()" />
 
     <c:VerticalLayout Id="ClientDescriptionVL" CssClass="ClientDescriptionVL">
-      <c:TextView Id="ClientDescriptionTV" CssClass="ClientDescriptionTV" Text="$clientItem.Description" />
+      <c:TextView Id="ClientDescriptionTV" CssClass="ClientDescriptionTV" Text="$GetConstLenghtString($clientItem.Description)" />
     </c:VerticalLayout>
 
 
@@ -31,6 +31,9 @@
 
 
       <c:TextView CssClass="ContactsTV" Text="#contacts#" />
+      <c:VerticalLayout CssClass="FatLineContainerVL">
+      <c:HorizontalLine CssClass="FatLineHL"/>
+      </c:VerticalLayout>
 
 
       <c:VerticalLayout CssClass="ContactsListVL">
@@ -74,7 +77,10 @@
 
       <c:Button Text="#add_contact#" CssClass="AddContactBtn" OnClick="GoToAddContact_OnClick" />
 
-      <c:TextView CssClass="EquipmentsTV" Text="#equipment#" />
+      <c:TextView CssClass="EquipmentsTV" Text="#equipments#" />
+      <c:VerticalLayout CssClass="FatLineContainerVL">
+        <c:HorizontalLine CssClass="FatLineHL"/>
+      </c:VerticalLayout>
 
 
       <c:VerticalLayout CssClass="EquipmentVL">

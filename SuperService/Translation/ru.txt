@@ -30,9 +30,9 @@ per_month		За месяц
 todayUpper		СЕГОДНЯ
 client		Клиент
 clients		Клиенты
-contacts		Контакты
+contacts		КОНТАКТЫ
 add_contact		Добавить контакт
-equipment		Оборудование
+equipments		ОБОРУДОВАНИЕ
 task_finished		Работа выполнена
 task_refused		Не могу выполнить
 task		Задача

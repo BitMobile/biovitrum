@@ -30,9 +30,9 @@ per_month		per month
 todayUpper		TODAY
 client		Client
 clients		Clients
-contacts		Contacts
+contacts		CONTACTS
 add_contact		Add Contact
-equipment		Equipment
+equipments		EQUIPMENTS
 task_finished		Task finished
 task_refused		Can't complete
 task		Task

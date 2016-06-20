@@ -139,5 +139,10 @@ namespace Test
             DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} end");
             BusinessProcess.DoAction("ViewMap",dictionary);
         }
+
+        internal string GetConstLenghtString(string item)
+        {
+            return item.Length > 40 ? item.Substring(0, 40) : item;
+        }
     }
 }

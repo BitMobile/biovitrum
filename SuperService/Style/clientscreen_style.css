@@ -133,15 +133,16 @@ TextView {
 .ClientDescriptionVL {
     background-color: #626271;
     border-style: none;
-    height: 7sp;
+    height: 10sp;
     width: 100%;
 }
 
 .ClientDescriptionTV {
     color: #ffffff;
     font: 3sp arial;
-    height: 6sp;
-    /*margin-left: 5%;*/
+    height: 100%;
+    margin-left: 3%;
+    margin-right: 3%;
     padding-top: 25%;
     text-align: center;
     width: 26% auto;
@@ -181,8 +182,8 @@ TextView {
     padding-left: 2%;
     padding-top: 10%;
     text-align: left;
-    width: 100%;
     white-space: normal;
+    width: 100%;
 }
 
 
@@ -215,7 +216,7 @@ TextView {
     width: 100%
 }
 
-.ContactsListVL{
+.ContactsListVL {
     height: 0% auto;
     width: 100%
 }
@@ -306,6 +307,17 @@ TextView {
     padding-left: 2%;
     padding-top: 5%;
     text-align: left;
+    width: 100%;
+}
+
+.FatLineHL {
+    height: 100%;
+    width: 5%;
+    horizontal-align: center;
+    background-color: #c6c6c9;
+}
+.FatLineContainerVL {
+    height: 9px;
     width: 100%;
 }
 /* ------------------------------------ */
