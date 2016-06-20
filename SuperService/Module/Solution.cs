@@ -9,7 +9,7 @@ namespace Test
             DConsole.WriteLine("DB init...");
             DBHelper.Init();
             DConsole.WriteLine("Loading first screen");
-            Navigation.MoveTo("TestScreen");
+            Navigation.Move("TestScreen");
         }
 
     }
