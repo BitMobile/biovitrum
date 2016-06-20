@@ -33,40 +33,43 @@
       <c:TextView CssClass="ContactsTV" Text="#contacts#" />
 
 
-      <c:HorizontalLayout CssClass="ContactsListHL">
+      <c:VerticalLayout CssClass="ContactsListVL">
+        
         <s:Iterator Id="contact" Value="$GetContacts()">
-
-          <s:If Test="$IsNotEmptyString($contact.Tel)">
-            <c:VerticalLayout CssClass="ContactsContainerVL">
-              <c:TextView CssClass="ContactDescriptionTV" Text="$contact.Description" />
-              <c:TextView CssClass="ContactPositionTV" Text="$contact.Position" />
-            </c:VerticalLayout>
-
-
-            <c:VerticalLayout Id="$contact.Tel" CssClass="CallToClientButton" OnClick="Call_OnClick">
-              <c:HorizontalLayout CssClass="CallToClientContainer">
-                <c:Image Id="CallImage" CssClass="CallImageImg" Source="$GetResourceImage(clientscreen_phone)" />
-              </c:HorizontalLayout>
-            </c:VerticalLayout>
-
-          </s:If>
-          <s:Else>
-
-            <c:VerticalLayout CssClass="ContactsContainerVL">
-              <c:TextView CssClass="ContactDescriptionTV" Text="$contact.Description" />
-              <c:TextView CssClass="ContactPositionTV" Text="$contact.Position" />
-            </c:VerticalLayout>
+          <c:HorizontalLayout CssClass="ContactsListHL">
+            <s:If Test="$IsNotEmptyString($contact.Tel)">
+              <c:VerticalLayout CssClass="ContactsContainerVL">
+                <c:TextView CssClass="ContactDescriptionTV" Text="$contact.Description" />
+                <c:TextView CssClass="ContactPositionTV" Text="$contact.Position" />
+              </c:VerticalLayout>
 
 
-            <c:VerticalLayout CssClass="CallToClientButton">
-              <c:HorizontalLayout CssClass="CallToClientContainer">
-                <c:Image Id="CallImage" CssClass="CallImageImg" Visible="false" />
-              </c:HorizontalLayout>
-            </c:VerticalLayout>
+              <c:VerticalLayout Id="$contact.Tel" CssClass="CallToClientButton" OnClick="Call_OnClick">
+                <c:HorizontalLayout CssClass="CallToClientContainer">
+                  <c:Image Id="CallImage" CssClass="CallImageImg" Source="$GetResourceImage(clientscreen_phone)" />
+                </c:HorizontalLayout>
+              </c:VerticalLayout>
 
-          </s:Else>
+            </s:If>
+            <s:Else>
+
+              <c:VerticalLayout CssClass="ContactsContainerVL">
+                <c:TextView CssClass="ContactDescriptionTV" Text="$contact.Description" />
+                <c:TextView CssClass="ContactPositionTV" Text="$contact.Position" />
+              </c:VerticalLayout>
+
+
+              <c:VerticalLayout CssClass="CallToClientButton">
+                <c:HorizontalLayout CssClass="CallToClientContainer">
+                  <c:Image Id="CallImage" CssClass="CallImageImg" Visible="false" />
+                </c:HorizontalLayout>
+              </c:VerticalLayout>
+
+            </s:Else>
+          </c:HorizontalLayout>
         </s:Iterator>
-      </c:HorizontalLayout>
+      
+      </c:VerticalLayout>
 
 
       <c:Button Text="#add_contact#" CssClass="AddContactBtn" OnClick="GoToAddContact_OnClick" />

@@ -21,43 +21,36 @@ namespace Test
 
         internal void AddContactButton_OnClick(object sender, EventArgs e)
         {
-            DConsole.WriteLine("Trying to save");
-           
 
-            DConsole.WriteLine("Get controls");
-            var name = ((EditText)GetControl("name"));
+            object clientId;
+            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId", out clientId))
+            {
+                DConsole.WriteLine("Adding contact error. Can't find current client ID. Unnable to add contact to DB. Going to crash");
+                return;
+            }
 
-            DConsole.WriteLine("Get controls 2 name=" + name);
+            var name = ((EditText)Variables["name"]).Text;
+            var position = ((EditText)Variables["position"]).Text;
+            var tel = ((EditText)Variables["tel"]).Text;
+            var email = ((EditText)Variables["email"]).Text;
 
-            DConsole.WriteLine("Get controls 2");
-            var position = ((EditText)GetControl("position")).Text;
-            var tel = ((EditText)GetControl("tel")).Text;
-            var email = ((EditText)GetControl("email")).Text;
-
-            DConsole.WriteLine("name=" + name + " pos=" + position);
-
-            DConsole.WriteLine("create contact");
             var newContact = new Contacts()
             {
-                Description = "" + name,
-                Position = "" + position,
-                EMail = "fgdgss",
-                Tel = "fsfsfewfwe"
+                Description = name,
+                Position = position,
+                EMail = tel,
+                Tel = email
             };
 
-            /*DConsole.WriteLine("Set propirties " + newContact + "   " + newContact.Id);
-            newContact.Description = etName.Text.ToString();
-            DConsole.WriteLine("Set propirties 1");
-            newContact.Position = etPosition.Text;
-            DConsole.WriteLine("Set propirties 2");
-            newContact.EMail = etEmail.Text;
-            DConsole.WriteLine("Set propirties 3");
-            newContact.Tel = etTel.Text;
-            DConsole.WriteLine("Set propirties 4");*/
-
-            DConsole.WriteLine("save " + newContact);
-
             DBHelper.SaveEntity(newContact);
+
+            var newClientContact = new Client_Contacts()
+            {
+               Ref = DbRef.FromString((string)clientId),
+               Contact = newContact.Id
+            };
+
+            DBHelper.SaveEntity(newClientContact);
         }
 
 

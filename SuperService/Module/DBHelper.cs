@@ -43,7 +43,7 @@ namespace Test
         {
             DConsole.WriteLine("SaveEntity");
 
-            DConsole.WriteLine($"Saving [{entity.GetTableName()}]:[{entity.EntityId}]");
+           // DConsole.WriteLine($"Saving [{entity.GetTableName()}]:[{entity.EntityId}]");
             entity.Save();
             _db.Commit();
         }

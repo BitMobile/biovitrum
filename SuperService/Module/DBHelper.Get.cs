@@ -277,6 +277,7 @@ namespace Test
         /// </summary>
         public static DbRecordset GetContactsByClientID(string clientID)
         {
+
             var query = new Query("select " +
                                   "     Contacts.Id, " + //гиуд контакноголица
                                   "     Contacts.DeletionMark, " + // признак пометки удаления
