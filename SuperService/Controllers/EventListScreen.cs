@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using BitMobile.Application.Tracking;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -24,7 +26,7 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 LeftButtonImage = {Source = ResourceManager.GetImage("topheading_filter")},
-                RightButtonImage = {Source = ResourceManager.GetImage("topheading_map") },
+                RightButtonImage = {Source = ResourceManager.GetImage("topheading_map")},
                 HeadingTextView = {Text = Translator.Translate("orders")},
                 LeftExtraLayout = {CssClass = "ExtraLeftLayoutCss"},
                 RightExtraLayout = {CssClass = "ExtraRightLayoutCss"}
@@ -49,6 +51,11 @@ namespace Test
         }
 
 
+        public override void OnShow()
+        {
+            GPS.StartTracking();
+        }
+
         private void FillingOrderList()
         {
             if (_eventsList == null)
@@ -59,10 +66,9 @@ namespace Test
             VerticalLayout orderInfoLayout = null;
 
 
-            foreach (var VARIABLE in _eventsList)
+            foreach (var variable in _eventsList)
             {
-                var itemElement = (EventListElement) VARIABLE;
-
+                var itemElement = (EventListElement) variable;
 
                 if (itemElement.StartDatePlan.Date <= currenDate.Date)
                 {
@@ -221,7 +227,14 @@ namespace Test
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("GO to map");
-            BusinessProcess.DoAction("ViewMap");
+            DConsole.WriteLine("Before dictionary");
+            var dictionary = new Dictionary<string, object>
+            {
+                {"screenState", MapScreenStates.EventListScreen}
+            };
+            DConsole.WriteLine("After");
+            BusinessProcess.GlobalVariables["screenState"] = MapScreenStates.EventListScreen;
+            BusinessProcess.DoAction("ViewMap", dictionary);
         }
 
         internal void EventLayout_OnClick(object sender, EventArgs e)
@@ -265,5 +278,77 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
+
+    }
+
+
+
+    //public class ClientLocation
+    //{
+    //    public ClientLocation(string clientDescription, System.Double latitude, System.Double longitude, MapMarkerColor markerColor = Test.MapMarkerColor.Red)
+    //    {
+    //        ClientDescription = clientDescription;
+
+    //if (latitude != 0 && longitude != 0)
+    //    _clientLocation = new GpsCoordinate(latitude, longitude, DateTime.Now);
+    //else
+    //    _clientLocation = default(GpsCoordinate);
+
+    //        MapMarkerColor = default(string);
+
+    //        switch (markerColor)
+    //        {
+    //            case Test.MapMarkerColor.Red:
+    //                MapMarkerColor = "red";
+    //                break;
+
+    //            case Test.MapMarkerColor.Green:
+    //                MapMarkerColor = "green";
+    //                break;
+
+    //            case Test.MapMarkerColor.Blue:
+    //                MapMarkerColor = "blue";
+    //                break;
+
+    //            case Test.MapMarkerColor.Orange:
+    //                MapMarkerColor = "orange";
+    //                break;
+    //            case Test.MapMarkerColor.Yellow:
+    //                MapMarkerColor = "yellow";
+    //                break;
+    //        }
+    //    }
+
+    //    private GpsCoordinate _clientLocation;
+    //    public string ClientDescription { get; private set; }
+
+    //    public double Latitude => _clientLocation.Latitude;
+
+    //    public double Longitude => _clientLocation.Longitude;
+
+    //    public string MapMarkerColor { get; private set; }
+
+    //    public bool IsEmpty => _clientLocation.Empty;
+
+    //    public bool NotEmpty => _clientLocation.NotEmpty;
+    //}
+
+    public class Some
+    {
+        public Some(int i)
+        {
+            Return = i;
+        }
+
+        public int Return { get; }
+    }
+
+    public enum MapMarkerColor
+    {
+        Red,
+        Green,
+        Blue,
+        Yellow,
+        Orange
     }
 }

@@ -1,7 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<c:Screen xmlns:c="BitMobile.ClientModel3.UI">
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+
   <c:VerticalLayout CssClass="RootLayout">
-    <c:TextView Text="Map"/>
-    <c:Button Id="BackButton" OnClick="BackButton_OnClick" />
+
+    <s:Include File="Components\TopInfoComponent.xml" />
+
+    <s:Push Id="some" Value="$Init()" />
+
+    <s:If Test="$GetIsEventListScreen()">
+      <c:WebMapGoogle Id="Map" CssClass="RootLayout" />
+    </s:If>
+
+    <s:If Test="$GetIsClientOrEventScreen()">
+      <s:If Test="$GetIsNotEmptyLocationData()">
+        <c:WebMapGoogle Id="Map" CssClass="RootLayout" />
+      </s:If>
+      <s:Else>
+        <c:HorizontalLayout CssClass="RootLayout">
+        <c:Button CssClass="GetCoordinateBtn" Text="#get_coordinates#" OnClick="GetLocation_OnClick"/>
+        </c:HorizontalLayout>
+      </s:Else>
+    </s:If>
+
+    <s:If Test="$GetIsDefault()">
+      <c:WebMapGoogle Id="Map" CssClass="RootLayout" />
+    </s:If>
+
   </c:VerticalLayout>
+
 </c:Screen>

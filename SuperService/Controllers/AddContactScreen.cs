@@ -59,5 +59,10 @@ namespace Test
             //BusinessProcess.DoAction("BackToEvent");
             BusinessProcess.DoBack();
         }
+
+        public override void OnShow()
+        {
+            GPS.StopTracking();
+        }
     }
 }

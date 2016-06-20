@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using BitMobile.DbEngine;
 
 namespace Test.Entities.Catalog
@@ -14,7 +14,7 @@ namespace Test.Entities.Catalog
         public decimal Longitude { get; set; }
         public string Address { get; set; }
         public DbRef Contractor { get; set; }
-
+        
         public Client(DbRef id = null)
         {
             Id = id ?? DbRef.CreateInstance("Catalog_Client", Guid.NewGuid());

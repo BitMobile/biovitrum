@@ -14,7 +14,7 @@
 
     <c:ScrollView Id="ClientSV" CssClass="ClientSV">
 
-      <c:HorizontalLayout Id="MapClientContainer" CssClass="MapContainerHL">
+      <c:HorizontalLayout Id="MapClientContainer" CssClass="MapContainerHL" OnClick="GoToMapScreen_OnClick">
         <c:WebMapGoogle Id="MapClient" CssClass="MapStyleClient" />
       </c:HorizontalLayout>
 
