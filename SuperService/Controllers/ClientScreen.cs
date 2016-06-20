@@ -93,13 +93,15 @@ namespace Test
 
         internal DbRecordset GetContacts()
         {
+
             object clientContacts;
             if (!BusinessProcess.GlobalVariables.TryGetValue("clientId",out clientContacts))
             {
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
-            DbRecordset items = DBHelper.GetContactsByClientID((string)clientContacts);
-            DConsole.WriteLine((string)clientContacts);
+
+            var items = DBHelper.GetContactsByClientID((string)clientContacts);
+
             return items;
         }
 
@@ -117,7 +119,7 @@ namespace Test
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
 
-            DbRecordset equipment = DBHelper.GetEquipmentByClientID((string) clientContacts);
+            var equipment = DBHelper.GetEquipmentByClientID((string) clientContacts);
             return equipment;
         }
 
