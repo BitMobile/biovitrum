@@ -21,6 +21,9 @@ namespace Test
         private bool _isNotEmptyLocationData = Convert.ToBoolean("False");
         private TopInfoComponent _topInfoComponent;
         private bool _isDefault = Convert.ToBoolean("False");
+        private string _clientId;
+        private decimal _clientLatitude;
+        private decimal _clientLongitude;
 
         public override void OnLoading()
         {
@@ -134,13 +137,19 @@ namespace Test
                 case MapScreenStates.ClientScreen:
                     _isClientScreen = Convert.ToBoolean("True");
                     if (locationData != null)
+                    {
                         _data = DBHelper.GetClientLocationByClientId((string) locationData);
+                        _clientId = (string) locationData;
+                    }
                     break;
 
                 case MapScreenStates.EventScreen:
                     _isEventScreen = Convert.ToBoolean("True");
                     if (locationData != null)
-                        _data = DBHelper.GetClientLocationByClientId((string)locationData);
+                    {
+                        _data = DBHelper.GetClientLocationByClientId((string) locationData);
+                        _clientId = (string) locationData;
+                    }
                     break;
 
                 default:
@@ -184,6 +193,44 @@ namespace Test
         internal bool GetIsNotEmptyLocationData()
         {
             return _isNotEmptyLocationData;
+        }
+
+        internal void GetLocation_OnClick(object sender, EventArgs e)
+        {
+            if (GPS.CurrentLocation.NotEmpty)
+            {
+#if DEBUG
+                DConsole.WriteLine($"{nameof(GPS.CurrentLocation.Latitude)}:{GPS.CurrentLocation.Latitude}" +
+                                   $"{nameof(GPS.CurrentLocation.Longitude)}:{GPS.CurrentLocation.Longitude}");
+#endif
+
+                _clientLatitude = Convert.ToDecimal(GPS.CurrentLocation.Latitude);
+                _clientLongitude = Convert.ToDecimal(GPS.CurrentLocation.Longitude);
+
+#if DEBUG
+                DConsole.WriteLine($"{nameof(_clientLatitude)}:{_clientLatitude} " +
+                                   $"{Environment.NewLine}" +
+                                   $"{nameof(_clientLongitude)}:{_clientLongitude}");
+#endif
+
+                var btn = (Button) sender;
+                btn.Text = Translator.Translate("save_coordinates");
+                btn.OnClick -= GetLocation_OnClick;
+                btn.OnClick += SaveClientLocation_OnClick;
+            }
+            else
+            {
+                ((Button) sender).Text = Translator.Translate("failed_coordinates");
+            }
+        }
+
+        internal void SaveClientLocation_OnClick(object sender, EventArgs e)
+        {
+            DBHelper.UpdateClientCoordinate(_clientId,_clientLatitude,_clientLongitude);
+            var btn = (Button) sender;
+            btn.Text = Translator.Translate("get_coordinates");
+            btn.OnClick -= SaveClientLocation_OnClick;
+            btn.OnClick += GetLocation_OnClick;
         }
     }
 

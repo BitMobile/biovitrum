@@ -56,7 +56,14 @@ namespace Test
                 CssClass = "TopInfoSideText"
             });
 
+            DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} before add");
             _topInfoComponent.LeftExtraLayout.OnClick += GoToMapScreen_OnClick;
+            DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} after");
+        }
+
+        public override void OnShow()
+        {
+            GPS.StartTracking();
         }
 
         private void LoadControls()

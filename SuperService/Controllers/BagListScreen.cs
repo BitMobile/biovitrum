@@ -26,6 +26,11 @@ namespace Test
             _tabBarComponent = new TabBarComponent(this);
         }
 
+        public override void OnShow()
+        {
+            GPS.StopTracking();
+        }
+
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
             BusinessProcess.DoAction("RequestHistory");

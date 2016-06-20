@@ -353,5 +353,26 @@ namespace Test
 
             InsertEventServicesMaterialsLine(line);
         }
+        /// <summary>
+        /// Обновляет координаты клиента
+        /// </summary>
+        /// <param name="clientId"> id клиента </param>
+        /// <param name="latitude"> ширина </param>
+        /// <param name="longitude"> долгота </param>
+        public static void UpdateClientCoordinate(string clientId, decimal latitude, decimal longitude)
+        {
+            var query = new Query(@"
+                                   Update _Catalog_Client
+                                   Set Latitude = @latitude,
+                                   Longitude = @longitude
+                                   where Id = @clientId");
+
+            query.AddParameter("latitude",latitude);
+            query.AddParameter("longitude",longitude);
+            query.AddParameter("clientId",clientId);
+
+            query.Execute();
+            _db.Commit();
+        }
     }
 }

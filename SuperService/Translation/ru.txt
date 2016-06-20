@@ -58,3 +58,4 @@ requests		Заявки
 confirm		Подтвердить
 map		Карта
 get_coordinates		Получить координаты
+save_coordinates		Сохранить координаты

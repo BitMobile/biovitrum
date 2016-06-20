@@ -17,7 +17,9 @@
         <c:WebMapGoogle Id="Map" CssClass="RootLayout" />
       </s:If>
       <s:Else>
-        <c:Buttom CssClass="GetCoordinateBtn" Text="#get_coordinates#" />
+        <c:HorizontalLayout CssClass="RootLayout">
+        <c:Button CssClass="GetCoordinateBtn" Text="#get_coordinates#" OnClick="GetLocation_OnClick"/>
+        </c:HorizontalLayout>
       </s:Else>
     </s:If>
 

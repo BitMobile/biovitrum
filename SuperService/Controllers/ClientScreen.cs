@@ -31,6 +31,11 @@ namespace Test
             DConsole.WriteLine("Client end");
         }
 
+        public override void OnShow()
+        {
+            GPS.StartTracking();
+        }
+
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
             BusinessProcess.DoBack();

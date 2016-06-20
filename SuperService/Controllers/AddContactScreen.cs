@@ -15,5 +15,10 @@ namespace Test
         {
             BusinessProcess.DoAction("Client");
         }
+
+        public override void OnShow()
+        {
+            GPS.StopTracking();
+        }
     }
 }

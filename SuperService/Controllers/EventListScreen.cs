@@ -51,6 +51,11 @@ namespace Test
         }
 
 
+        public override void OnShow()
+        {
+            GPS.StartTracking();
+        }
+
         private void FillingOrderList()
         {
             if (_eventsList == null)
