@@ -55,10 +55,6 @@ namespace Test
 
         public static void Commit()
         {
-        }
-
-        public static void Commit()
-        {
             _db.Commit();
         }
     }

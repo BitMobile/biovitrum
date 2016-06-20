@@ -51,6 +51,7 @@ namespace Test
             };
 
             DBHelper.SaveEntity(newClientContact);
+            BusinessProcess.DoBack();
         }
 
 
