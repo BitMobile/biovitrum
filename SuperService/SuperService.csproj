@@ -62,12 +62,16 @@
     <EmbeddedResource Include="Image\**" />
     <EmbeddedResource Include="Model\metadata.xml" />
     <Compile Include="Module\**" />
-    <Compile Include="Objects\**" />
+    <Compile Include="Objects\EventListElement.cs" />
+    <Compile Include="Objects\EventServicesMaterialsLine.cs" />
+    <Compile Include="Objects\EventsStatistic.cs" />
+    <Compile Include="Objects\RIMType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Screen\**" />
     <EmbeddedResource Include="Style\**" />
     <EmbeddedResource Include="Translation\**" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)..\SDK\BitMobileSDK\BitMobileSDK.exe $(TargetPath)
