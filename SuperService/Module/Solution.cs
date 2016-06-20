@@ -1,5 +1,4 @@
 ﻿using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
 
 namespace Test
 {
@@ -9,8 +8,8 @@ namespace Test
         {
             DConsole.WriteLine("DB init...");
             DBHelper.Init();
-            DConsole.WriteLine("Starting application...");
-            BusinessProcess.Init();
+            DConsole.WriteLine("Loading first screen");
+            Navigation.MoveTo("TestScreen");
         }
 
     }

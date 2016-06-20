@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 
@@ -6,6 +7,7 @@ namespace Test
 {
     public static class Navigation
     {
+        private const string DefaultStyle = @"Style\style.css";
         private static readonly Stack ScreenStack = new Stack();
 
         public static ScreenInfo CurrentScreenInfo { get; private set; }
@@ -57,8 +59,22 @@ namespace Test
         {
             var screen = screenInfo.Screen;
             screen.SetData(args);
-            screen.LoadFromStream(Application.GetResourceStream(screenInfo.Xml));
-            screen.LoadStyleSheet(Application.GetResourceStream(screenInfo.Css));
+            try
+            {
+                screen.LoadFromStream(Application.GetResourceStream(screenInfo.Xml));
+            }
+            catch
+            {
+                DConsole.WriteLine($"Can't find xml file for {screenInfo.Name}");
+            }
+            try
+            {
+                screen.LoadStyleSheet(Application.GetResourceStream(screenInfo.Css));
+            }
+            catch
+            {
+                screen.LoadStyleSheet(Application.GetResourceStream(DefaultStyle));
+            }
             screen.Show();
             CurrentScreenInfo = screenInfo;
         }
