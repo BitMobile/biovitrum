@@ -83,10 +83,10 @@ namespace Test
             }
 
             DConsole.WriteLine($"{Environment.NewLine}{Environment.NewLine}");
-            printMaterialsData();
+            PrintMaterialsData();
         }
 
-        private void printMaterialsData()
+        private void PrintMaterialsData()
         {
             DConsole.WriteLine($"{nameof(_data)}.{nameof(_data.Count)} = {_data.Count}");
 
@@ -189,7 +189,7 @@ namespace Test
             DConsole.WriteLine($"{nameof(btn.Id)} = {btn.Id}");
             var shl = (ISwipeHorizontalLayout3) btn.Parent;
             deleteElement(btn.Id);
-            printMaterialsData();
+            PrintMaterialsData();
             shl.CssClass = "NoHeight";
             ((IVerticalLayout3) shl.Parent).Refresh();
         }

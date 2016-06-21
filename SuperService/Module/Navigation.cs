@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
@@ -142,9 +143,10 @@ namespace Test
             {
                 screen.LoadFromStream(Application.GetResourceStream(screenInfo.Xml));
             }
-            catch
+            catch (Exception e)
             {
-                DConsole.WriteLine($"Can't find xml file for {screenInfo.Name}");
+                DConsole.WriteLine($"Can't find xml file for {screenInfo.Name} ({screenInfo.Xml})");
+                DConsole.WriteLine($"{e.Message}");
             }
             try
             {

@@ -58,14 +58,14 @@ namespace Test
         {
             BusinessProcess.GlobalVariables["isService"] = true;
             var dictionary = new Dictionary<string, object> {{"isService", true}};
-            Navigation.Move("AddServicesOrMaterialsScreen", dictionary);
+            Navigation.Move("RIMListScreen", dictionary);
         }
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
             BusinessProcess.GlobalVariables["isService"] = false;
             var dictionary = new Dictionary<string, object> {{"isService", false}};
-            Navigation.Move("AddServicesOrMaterialsScreen", dictionary);
+            Navigation.Move("RIMListScreen", dictionary);
         }
 
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)

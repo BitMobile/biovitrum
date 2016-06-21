@@ -126,7 +126,7 @@ namespace Test
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
 
-            if (isService != null) _isService = (bool) isService;
+            _isService = (bool) isService;
             DbRecordset result;
 
             if (_isService)
