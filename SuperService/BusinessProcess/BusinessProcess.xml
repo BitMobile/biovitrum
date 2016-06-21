@@ -7,7 +7,7 @@
       <Action Name="Auth" NextStep="EventList"></Action>
     </Step>
 
-    <Step Name="Map" Controller="MapScreen" StyleSheet="Style\style.css">
+    <Step Name="Map" Controller="MapScreen" StyleSheet="Style\MapScreen.css">
       <Action Name="BackToEventList" NextStep="EventList" />
     </Step>
 
@@ -53,6 +53,7 @@
       <Action Name="ViewTasks" NextStep="TaskList"></Action>
       <Action Name="COC" NextStep="COC"></Action>
       <Action Name="ViewCheckList" NextStep="CheckList"></Action>
+      <Action Name="ViewMap" NextStep="Map"></Action>
     </Step>
 
     <Step Name="TaskList" Controller="TaskListScreen" StyleSheet="Style\fancy_taskList.css">
@@ -77,6 +78,7 @@
       <Action Name="ViewEvent" NextStep="Event"></Action>
       <Action Name="AddContact" NextStep="AddContact" />
       <Action Name="EditContact" NextStep="EditContact" />
+      <Action Name="ViewMap" NextStep="Map"></Action>
     </Step>
 
     <Step Name="AddContact" Controller="AddContactScreen" StyleSheet="Style\AddContactScreen.css">
@@ -104,6 +106,7 @@
     <Step Name="MeterialsRequestScreen" Controller="MeterialsRequestScreen" StyleSheet="Style\MeterialsRequestScreen.css">
       <Action Name="COC" NextStep="COC"></Action>
       <Action Name="AddServicesOrMaterials" NextStep="RIMList"></Action>
+      <Action Name="EditServicesOrMaterials" NextStep="EditServicesOrMaterials"></Action>
     </Step>
 
     <Step Name="Test" Controller="TestScreen" StyleSheet="Style\style.css">
@@ -114,7 +117,7 @@
     <Step Name="RIMList" Controller="RIMListScreen" StyleSheet="Style\RIMListScreen.css">
       <Action Name="RIMAdded" NextStep="COC" />
       <Action Name="ViewCOC" NextStep="COC" />
-      
+      <Action Name="EditServicesOrMaterials" NextStep="EditServicesOrMaterials"></Action>
       <!-- СТЕП ДЛЯ ПЕРЕХОДА В ЭКРАН РЕДАКТИРВОНиЯ количЕсТВА-->
     </Step>
     

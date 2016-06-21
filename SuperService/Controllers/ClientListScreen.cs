@@ -27,6 +27,11 @@ namespace Test
             _tabBarComponent = new TabBarComponent(this);
         }
 
+        public override void OnShow()
+        {
+            GPS.StopTracking();
+        }
+
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Events_OnClick(sender, eventArgs);

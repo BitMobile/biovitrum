@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -10,6 +11,7 @@ namespace Test
         private DbRecordset _client;
         private WebMapGoogle _map;
         private TopInfoComponent _topInfoComponent;
+        private string _clientId;
 
         public override void OnLoading()
         {
@@ -27,6 +29,11 @@ namespace Test
                 "red");
 
             DConsole.WriteLine("Client end");
+        }
+
+        public override void OnShow()
+        {
+            GPS.StartTracking();
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
@@ -66,7 +73,8 @@ namespace Test
             {
                 DConsole.WriteLine("Can't find current client ID, going to crash");
             }
-            _client = DBHelper.GetClientByID((string) clientId);
+            _clientId = (string) clientId;
+            _client = DBHelper.GetClientByID(_clientId);
             return _client;
         }
 
@@ -85,13 +93,15 @@ namespace Test
 
         internal DbRecordset GetContacts()
         {
+
             object clientContacts;
             if (!BusinessProcess.GlobalVariables.TryGetValue("clientId",out clientContacts))
             {
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
-            DbRecordset items = DBHelper.GetContactsByClientID((string)clientContacts);
-            DConsole.WriteLine((string)clientContacts);
+
+            var items = DBHelper.GetContactsByClientID((string)clientContacts);
+
             return items;
         }
 
@@ -109,8 +119,25 @@ namespace Test
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
 
-            DbRecordset equipment = DBHelper.GetEquipmentByClientID((string) clientContacts);
+            var equipment = DBHelper.GetEquipmentByClientID((string) clientContacts);
             return equipment;
+        }
+
+        internal void GoToMapScreen_OnClick(object sender, EventArgs e)
+        {
+            DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} Start");
+            var dictionary = new Dictionary<string,object>()
+            {
+                {"screenState",MapScreenStates.ClientScreen },
+                {"clientId",_clientId }
+            };
+            BusinessProcess.GlobalVariables.Remove("screenState");
+            BusinessProcess.GlobalVariables.Remove("clientId");
+            BusinessProcess.GlobalVariables["screenState"] = MapScreenStates.ClientScreen;
+            BusinessProcess.GlobalVariables["clientId"] = _clientId;
+
+            DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} end");
+            BusinessProcess.DoAction("ViewMap",dictionary);
         }
     }
 }

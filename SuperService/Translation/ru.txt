@@ -61,3 +61,6 @@ add_contact_enter_position		Введите должность
 add_contact_enter_tel		Введите номер телефона
 add_contact_enter_email		Введите e-mail	
 add_contact_add_button		Добавить контакт
+map		Карта
+get_coordinates		Получить координаты
+save_coordinates		Сохранить координаты

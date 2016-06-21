@@ -19,7 +19,7 @@ namespace Test.Entities.Catalog
         {
             Id = id ?? DbRef.CreateInstance("Catalog_Client", Guid.NewGuid());
         }
-}
+    }
     public class Client_Files : DbEntity
     {
         public DbRef Id { get; set; }
@@ -28,11 +28,11 @@ namespace Test.Entities.Catalog
         public string FullFileName { get; set; }
         public DbRef FileName { get; set; }
 
-        public Client_Files (DbRef id = null)
+        public Client_Files(DbRef id = null)
         {
-            Id = id ?? DbRef.CreateInstance("Catalog_Client_Files", Guid.NewGuid());					
+            Id = id ?? DbRef.CreateInstance("Catalog_Client_Files", Guid.NewGuid());
         }
-   }
+    }
     public class Client_Contacts : DbEntity
     {
         public DbRef Id { get; set; }
@@ -41,11 +41,11 @@ namespace Test.Entities.Catalog
         public DbRef Contact { get; set; }
         public bool Actual { get; set; }
 
-        public Client_Contacts (DbRef id = null)
+        public Client_Contacts(DbRef id = null)
         {
-            Id = id ?? DbRef.CreateInstance("Catalog_Client_Contacts", Guid.NewGuid());					
+            Id = id ?? DbRef.CreateInstance("Catalog_Client_Contacts", Guid.NewGuid());
         }
-   }
+    }
     public class Client_Parameters : DbEntity
     {
         public DbRef Id { get; set; }
@@ -54,12 +54,11 @@ namespace Test.Entities.Catalog
         public DbRef Parameter { get; set; }
         public string Val { get; set; }
 
-        public Client_Parameters (DbRef id = null)
+        public Client_Parameters(DbRef id = null)
         {
-            Id = id ?? DbRef.CreateInstance("Catalog_Client_Parameters", Guid.NewGuid());					
+            Id = id ?? DbRef.CreateInstance("Catalog_Client_Parameters", Guid.NewGuid());
         }
-   }
+    }
 
 
 }
-    

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -58,7 +58,33 @@
     <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
     <EmbeddedResource Include="Components\**" />
     <Compile Include="Controllers\**" />
-    <Compile Include="Entities\**" />
+    <Compile Include="Entities\Catalog\Accounts.cs" />
+    <Compile Include="Entities\Catalog\Actions.cs" />
+    <Compile Include="Entities\Catalog\Client.cs" />
+    <Compile Include="Entities\Catalog\ClientOptions.cs" />
+    <Compile Include="Entities\Catalog\Contacts.cs" />
+    <Compile Include="Entities\Catalog\Equipment.cs" />
+    <Compile Include="Entities\Catalog\EquipmentOptions.cs" />
+    <Compile Include="Entities\Catalog\EventOptions.cs" />
+    <Compile Include="Entities\Catalog\RIM.cs" />
+    <Compile Include="Entities\Catalog\ServiceAgreement.cs" />
+    <Compile Include="Entities\Catalog\SettingMobileApplication.cs" />
+    <Compile Include="Entities\Catalog\SKU.cs" />
+    <Compile Include="Entities\Catalog\TypesDepartures.cs" />
+    <Compile Include="Entities\Catalog\User.cs" />
+    <Compile Include="Entities\Document\CheckList.cs" />
+    <Compile Include="Entities\Document\Event.cs" />
+    <Compile Include="Entities\Document\NeedMat.cs" />
+    <Compile Include="Entities\Document\Reminder.cs" />
+    <Compile Include="Entities\Enum\CheckListStatus.cs" />
+    <Compile Include="Entities\Enum\FoReminders.cs" />
+    <Compile Include="Entities\Enum\ResultEvent.cs" />
+    <Compile Include="Entities\Enum\StatsNeedNum.cs" />
+    <Compile Include="Entities\Enum\StatusEquipment.cs" />
+    <Compile Include="Entities\Enum\StatusImportance.cs" />
+    <Compile Include="Entities\Enum\StatusyEvents.cs" />
+    <Compile Include="Entities\Enum\TypesDataParameters.cs" />
+    <Compile Include="Entities\Enum\TypesEvents.cs" />
     <EmbeddedResource Include="Image\**" />
     <EmbeddedResource Include="Model\metadata.xml" />
     <EmbeddedResource Include="Model\demo.sql" />
@@ -69,6 +95,15 @@
     <EmbeddedResource Include="Screen\**" />
     <EmbeddedResource Include="Style\**" />
     <EmbeddedResource Include="Translation\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

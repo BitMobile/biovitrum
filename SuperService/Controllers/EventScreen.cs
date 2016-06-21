@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -54,6 +55,15 @@ namespace Test
                 Text = (string) _currentEventRecordset["clientDescription"],
                 CssClass = "TopInfoSideText"
             });
+
+            DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} before add");
+            _topInfoComponent.LeftExtraLayout.OnClick += GoToMapScreen_OnClick;
+            DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} after");
+        }
+
+        public override void OnShow()
+        {
+            GPS.StartTracking();
         }
 
         private void LoadControls()
@@ -203,6 +213,23 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
+        }
+
+        internal void GoToMapScreen_OnClick(object sender, EventArgs e)
+        {
+            var clientId = (string) _currentEventRecordset["clientId"];
+            var dictionary = new Dictionary<string, object>
+            {
+                {"screenState", MapScreenStates.EventScreen},
+                {"clientId", clientId}
+            };
+
+            BusinessProcess.GlobalVariables.Remove("screenState");
+            BusinessProcess.GlobalVariables.Remove("clientId");
+            BusinessProcess.GlobalVariables["screenState"] = MapScreenStates.EventScreen;
+            BusinessProcess.GlobalVariables["clientId"] = clientId;
+
+            BusinessProcess.DoAction("ViewMap", dictionary);
         }
     }
 }

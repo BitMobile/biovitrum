@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
@@ -29,6 +30,11 @@ namespace Test
             };
         }
 
+        public override void OnShow()
+        {
+            GPS.StopTracking();
+        }
+
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
@@ -51,19 +57,28 @@ namespace Test
         internal void AddService_OnClick(object sender, EventArgs e)
         {
             BusinessProcess.GlobalVariables["isService"] = true;
+            var dictionary = new Dictionary<string, object> {{"isService", true}};
             Navigation.Move("AddServicesOrMaterialsScreen");
         }
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
             BusinessProcess.GlobalVariables["isService"] = false;
+            var dictionary = new Dictionary<string, object> {{"isService", false}};
             Navigation.Move("AddServicesOrMaterialsScreen");
         }
 
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
         {
+            /*TODO: Внимание не редактировать элементы до тех пор, пока не починят экран редактирования, а то
+             * приложение упадет
+             */
             var vl = (VerticalLayout) sender;
-            BusinessProcess.GlobalVariables["currentServicesMaterialsId"] = vl.Id;
+            var dictionary = new Dictionary<string, object>
+            {
+                {"behaviour", BehaviourEditServicesOrMaterialsScreen.UpdateDB},
+                {"lineId", vl.Id}
+            };
             Navigation.Move("EditServicesOrMaterialsScreen");
         }
 
