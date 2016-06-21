@@ -7,23 +7,23 @@
 /* Common */
 
 
-EditText{
-    height: 4sp;
-    width: 60%;
-    font: 3sp arial;
+EditText {
     color: #ffffff;
+    font: 3sp arial;
+    height: 4sp;
     horizontal-align: center;
+    width: 60%;
 }
 
 Button {
     background-color: #fd724c;
     border-color: #fd724c;
-    selected-background: #fdb29e;
     border-radius: 200dp;
     border-style: solid;
     border-width: 2px;
     color: #ffffff;
     horizontal-align: center;
+    selected-background: #fdb29e;
 }
 
 .RootLayout {
@@ -37,22 +37,18 @@ Button {
 /* AuthScreen style */
 
 .AuthScreenBitTV {
+    color: #ffffff;
+    font: 5sp arial;
     height: 6sp;
     horizontal-align: center;
-    width: 60%;
     margin-top: 30sp;
-    font: 5sp arial;
-    color: #ffffff;
     text-align: center;
+    width: 60%;
 }
 
-.AuthScreenLoginET {
-    margin-top: 10sp;
-}
+.AuthScreenLoginET { margin-top: 10sp; }
 
-.AuthScreenPasswordET {
-    margin-top: 5sp;
-}
+.AuthScreenPasswordET { margin-top: 5sp; }
 
 .AuthScreenConnectBTN {
     font: 4sp arial;
@@ -69,8 +65,8 @@ Button {
 }
 
 .RootLayoutWithPattern {
-    background-color: #4a4b5e;
-    background-image: url(Image\pattern.png);
+    /*background-color: #4a4b5e;*/
+    background-image: url(Image\AuthScreen\background.png);
     height: 100%;
     width: 100%;
 }
