@@ -30,7 +30,7 @@ namespace Test
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("Back to screen .....");
-            BusinessProcess.DoBack();
+            Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
@@ -105,14 +105,14 @@ namespace Test
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
             //TODO: Отсюда переходим на экран добавления материалов.
-         Dictionary<string,object> dictionary = new Dictionary<string, object>()
+         var dictionary = new Dictionary<string, object>()
          {
              {"isService",false },
              {"isMaterialsRequest",true }
          };
             BusinessProcess.GlobalVariables["isService"] = false;
             BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
-            BusinessProcess.DoAction("AddServicesOrMaterials",dictionary);
+            Navigation.Move("AddServicesOrMaterials", dictionary);
         }
 
         internal void SendData_OnClick(object sender, EventArgs e)

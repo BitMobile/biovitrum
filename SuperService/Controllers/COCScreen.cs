@@ -22,12 +22,11 @@ namespace Test
                 LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
                 CommentTextView =
                 {
-                    Text = Translator.Translate("total") + Environment.NewLine + Convert.ToDouble((double)_sums["Sum"]) 
-                    + Translator.Translate("currency")
+                    Text = Translator.Translate("total") + Environment.NewLine + Convert.ToDouble((double) _sums["Sum"])
+                           + Translator.Translate("currency")
                 },
                 BigArrowActive = false
             };
-            
         }
 
         internal string GetResourceImage(string tag)
@@ -37,7 +36,7 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("ViewEvent");
+            Navigation.Back(true);
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
@@ -46,30 +45,31 @@ namespace Test
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
+            _topInfoComponent.Arrow_OnClick(sender, e);
         }
 
         internal void AddService_OnClick(object sender, EventArgs e)
         {
             BusinessProcess.GlobalVariables["isService"] = true;
-            BusinessProcess.DoAction("AddServicesOrMaterials");
+            Navigation.Move("AddServicesOrMaterialsScreen");
         }
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
             BusinessProcess.GlobalVariables["isService"] = false;
-            BusinessProcess.DoAction("AddServicesOrMaterials");
+            Navigation.Move("AddServicesOrMaterialsScreen");
         }
 
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
         {
             var vl = (VerticalLayout) sender;
             BusinessProcess.GlobalVariables["currentServicesMaterialsId"] = vl.Id;
-            BusinessProcess.DoAction("EditServicesOrMaterials");
+            Navigation.Move("EditServicesOrMaterialsScreen");
         }
 
         internal void ApplicatioMaterials_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("MeterialsRequestScreen");
+            Navigation.Move("MeterialsRequestScreen");
         }
 
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
@@ -96,7 +96,7 @@ namespace Test
             return "\u2022" + Convert.ToDouble(number) + Translator.Translate("currency");
         }
 
-      
+
         internal DbRecordset GetSums()
 
         {
@@ -108,9 +108,9 @@ namespace Test
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
             DConsole.WriteLine("In to: " + nameof(GetSums));
-           _sums = DBHelper.GetCocSumsByEventId((string) eventId);
+            _sums = DBHelper.GetCocSumsByEventId((string) eventId);
 
-           return _sums;
+            return _sums;
         }
 
         internal DbRecordset GetServices()

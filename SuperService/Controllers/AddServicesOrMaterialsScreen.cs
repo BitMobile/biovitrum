@@ -13,7 +13,7 @@ namespace Test
 
         internal void Back_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("COC");
+            Navigation.Back();
         }
     }
 }

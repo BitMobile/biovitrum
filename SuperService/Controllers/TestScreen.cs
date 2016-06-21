@@ -35,7 +35,7 @@ namespace Test
 
         internal void Button_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("TestEditServicesOrMaterials", new Dictionary<string, object>
+            Navigation.Move("EditServicesOrMaterialsScreen", new Dictionary<string, object>
             {
                 {"priceVisible", true},
                 {"priceEditable", true},

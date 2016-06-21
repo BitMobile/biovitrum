@@ -15,9 +15,6 @@ namespace Test
         {
             DConsole.WriteLine("RIMListScreen init");
 
-            var title = "";
-
-
             _topInfoComponent = new TopInfoComponent(this)
             {
                 HeadingTextView =
@@ -37,7 +34,12 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoBack();
+            Navigation.Back();
+        }
+
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
+        {
+            _topInfoComponent.Arrow_OnClick(sender, e);
         }
 
         internal void RIMLayout_OnClick(object sender, EventArgs eventArgs)
@@ -57,13 +59,15 @@ namespace Test
             if (line == null)
             {
                 DConsole.WriteLine("Позиция не найдена, просто добавлеям новую");
-                line = new EventServicesMaterialsLine();
-                line.Ref = (string) currentEventId;
-                line.SKU = rimID;
-                line.Price = price;
-                line.AmountPlan = 0;
-                line.SumPlan = 0;
-                line.AmountFact = 1;
+                line = new EventServicesMaterialsLine
+                {
+                    Ref = (string) currentEventId,
+                    SKU = rimID,
+                    Price = price,
+                    AmountPlan = 0,
+                    SumPlan = 0,
+                    AmountFact = 1
+                };
                 line.SumFact = line.AmountFact*line.Price;
 
                 DBHelper.InsertEventServicesMaterialsLine(line);
@@ -80,7 +84,7 @@ namespace Test
             }
 
             DConsole.WriteLine("Пытаемся перейти на экран АВР");
-            BusinessProcess.DoAction("RIMAdded");
+            Navigation.Move("COCScreen");
         }
 
 
@@ -94,8 +98,8 @@ namespace Test
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
 
-            _isService = (bool) isService;
-            DbRecordset result = null;
+            if (isService != null) _isService = (bool) isService;
+            DbRecordset result;
 
             if (_isService)
             {

@@ -14,7 +14,7 @@ namespace Test
         internal void Back_OnClick(object sender, EventArgs e)
         {
             //BusinessProcess.DoAction("Client");
-            BusinessProcess.DoBack();
+            Navigation.Back();
         }
 
         internal void AddContactButton_OnClick(object sender, EventArgs e)
@@ -26,7 +26,7 @@ namespace Test
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
             //BusinessProcess.DoAction("BackToEvent");
-            BusinessProcess.DoBack();
+            Navigation.Back();
         }
     }
 }

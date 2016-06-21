@@ -23,7 +23,7 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("BackToEvent");
+            Navigation.Back(true);
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
@@ -33,7 +33,7 @@ namespace Test
         internal void TaskLayout_OnClick(object sender, EventArgs eventArgs)
         {
             BusinessProcess.GlobalVariables["currentTaskId"] = ((HorizontalLayout) sender).Id;
-            BusinessProcess.DoAction("ViewTask");
+            Navigation.Move("TaskScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sernder, EventArgs eventArgs)

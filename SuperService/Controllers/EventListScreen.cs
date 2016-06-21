@@ -222,7 +222,7 @@ namespace Test
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("GO to map");
-            BusinessProcess.DoAction("ViewMap");
+            Navigation.Move("MapScreen");
         }
 
         internal void EventLayout_OnClick(object sender, EventArgs e)
@@ -230,7 +230,7 @@ namespace Test
             DConsole.WriteLine("Go To View Event");
             var currentEvent = (HorizontalLayout) sender;
             BusinessProcess.GlobalVariables["currentEventId"] = currentEvent.Id;
-            BusinessProcess.DoAction("ViewEvent");
+            Navigation.Move("EventScreen");
         }
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)

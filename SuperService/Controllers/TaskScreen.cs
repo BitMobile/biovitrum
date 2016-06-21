@@ -163,7 +163,7 @@ namespace Test
 
             DBHelper.SaveEntity(_equipments);
             
-            BusinessProcess.DoBack();
+            Navigation.Back(true);
         }
 
         internal object GetTask()

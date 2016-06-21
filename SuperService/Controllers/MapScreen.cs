@@ -13,7 +13,7 @@ namespace Test
 
         internal void BackButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("BackToEventList");
+            Navigation.Back();
         }
 
         internal string GetResourceImage(string tag)

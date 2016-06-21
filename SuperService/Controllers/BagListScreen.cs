@@ -28,12 +28,12 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("RequestHistory");
+            Navigation.Move("RequestHistoryScreen");
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("MeterialsRequestScreen");
+            Navigation.Move("MaterialsRequestScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)

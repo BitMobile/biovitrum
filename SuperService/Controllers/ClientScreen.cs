@@ -31,12 +31,12 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("ClientList");
+            Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("EditContact");
+            Navigation.Move("EditContactScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
@@ -51,12 +51,12 @@ namespace Test
 
         internal void GoToAddContact_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("AddContact");
+            Navigation.Move("AddContactScreen");
         }
 
         internal void GoToEditContact_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("EditContact");
+            Navigation.Move("EditContactScreen");
         }
 
         internal DbRecordset GetCurrentClient()

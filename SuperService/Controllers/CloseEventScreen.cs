@@ -89,7 +89,8 @@ namespace Test
             if (!string.IsNullOrEmpty(_commentaryMemoEdit.Text))
                 DBHelper.UpdateClosingEventComment(eventId, _commentaryMemoEdit.Text);
 
-            BusinessProcess.DoAction("FinishEvent");
+            Navigation.CleanStack();
+            Navigation.ModalMove("EventListScreen");
         }
 
         internal string GetResourceImage(string tag)
