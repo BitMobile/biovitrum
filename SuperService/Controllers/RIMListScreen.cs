@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -8,15 +9,13 @@ namespace Test
 {
     public class RIMListScreen : Screen
     {
+        private bool _isMaterialRequest;
         private bool _isService;
         private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
             DConsole.WriteLine("RIMListScreen init");
-
-            var title = "";
-
 
             _topInfoComponent = new TopInfoComponent(this)
             {
@@ -28,6 +27,9 @@ namespace Test
                 RightButtonImage = {Visible = false},
                 ExtraLayoutVisible = false
             };
+
+            var isMaterialRequest = Variables.GetValueOrDefault("isMaterialsRequest", Convert.ToBoolean("False"));
+            _isMaterialRequest = (bool) isMaterialRequest;
         }
 
         internal string GetResourceImage(string tag)
@@ -37,7 +39,12 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoBack();
+            Navigation.Back();
+        }
+
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
+        {
+            _topInfoComponent.Arrow_OnClick(sender, e);
         }
 
         internal void RIMLayout_OnClick(object sender, EventArgs eventArgs)
@@ -57,13 +64,15 @@ namespace Test
             if (line == null)
             {
                 DConsole.WriteLine("Позиция не найдена, просто добавлеям новую");
-                line = new EventServicesMaterialsLine();
-                line.Ref = (string) currentEventId;
-                line.SKU = rimID;
-                line.Price = price;
-                line.AmountPlan = 0;
-                line.SumPlan = 0;
-                line.AmountFact = 1;
+                line = new EventServicesMaterialsLine
+                {
+                    Ref = (string) currentEventId,
+                    SKU = rimID,
+                    Price = price,
+                    AmountPlan = 0,
+                    SumPlan = 0,
+                    AmountFact = 1
+                };
                 line.SumFact = line.AmountFact*line.Price;
 
                 DBHelper.InsertEventServicesMaterialsLine(line);
@@ -79,8 +88,31 @@ namespace Test
                 DConsole.WriteLine("Обновили");
             }
 
-            DConsole.WriteLine("Пытаемся перейти на экран АВР");
-            BusinessProcess.DoAction("RIMAdded");
+            if (_isMaterialRequest)
+            {
+                var key = Variables.GetValueOrDefault("returnKey", "newItem");
+                var dictionary = new Dictionary<string, object>
+                {
+                    {"rimId", rimID},
+                    {"priceVisible", Convert.ToBoolean("False")},
+                    {"behaviour", BehaviourEditServicesOrMaterialsScreen.ReturnValue},
+                    {"returnKey", key},
+                    {"lineId", null}
+                };
+                DConsole.WriteLine("Go to EditServicesOrMaterials is Material Request true");
+                Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
+            }
+            else
+            {
+                var dictionary = new Dictionary<string, object>
+                {
+                    {"rimId", rimID},
+                    {"behaviour", BehaviourEditServicesOrMaterialsScreen.InsertIntoDB}
+                };
+
+                DConsole.WriteLine("Go to EditServicesOrMaterials is Material Request false");
+                Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
+            }
         }
 
 
@@ -95,7 +127,7 @@ namespace Test
             }
 
             _isService = (bool) isService;
-            DbRecordset result = null;
+            DbRecordset result;
 
             if (_isService)
             {

@@ -52,7 +52,7 @@
 
         <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddService_OnClick">
           <c:HorizontalLayout CssClass="AddContainerHL">
-            <c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)" />
+            <c:Image CssClass="AddImg" Source="$GetResourceImage(clientscreen_plus)" />
             <c:TextView CssClass="AddTV" Text="#add_service#" />
           </c:HorizontalLayout>
         </c:VerticalLayout>

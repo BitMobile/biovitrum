@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -54,6 +55,15 @@ namespace Test
                 Text = (string) _currentEventRecordset["clientDescription"],
                 CssClass = "TopInfoSideText"
             });
+
+            DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} before add");
+            _topInfoComponent.LeftExtraLayout.OnClick += GoToMapScreen_OnClick;
+            DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} after");
+        }
+
+        public override void OnShow()
+        {
+            GPS.StartTracking();
         }
 
         private void LoadControls()
@@ -66,13 +76,13 @@ namespace Test
 
         internal void ClientInfoButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("Client");
+            Navigation.Move("ClientScreen");
         }
 
         internal void RefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
             DBHelper.UpdateCancelEventById((string) BusinessProcess.GlobalVariables["currentEventId"]);
-            BusinessProcess.DoAction("EventList");
+            Navigation.Back(true);
         }
 
         internal string FormatEventStartDatePlanTime(string eventStartDatePlanTime)
@@ -114,7 +124,7 @@ namespace Test
                 {
                     DBHelper.UpdateActualEndDateByEventId(DateTime.Now,
                         (string) BusinessProcess.GlobalVariables["currentEventId"]);
-                    BusinessProcess.DoAction("CloseEvent");
+                    Navigation.Move("CloseEventScreen");
                 }
             }, null,
                 Translator.Translate("yes"), Translator.Translate("no"));
@@ -134,13 +144,13 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("EventList");
+            Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
         {
             BusinessProcess.GlobalVariables["clientId"] = _currentEventRecordset["clientId"].ToString();
-            BusinessProcess.DoAction("Client");
+            Navigation.Move("ClientScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
@@ -152,7 +162,7 @@ namespace Test
         internal void TaskCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
             if (CheckBigButtonActive(sender))
-                BusinessProcess.DoAction("ViewTasks");
+                Navigation.Move("TaskListScreen");
         }
 
         private bool CheckBigButtonActive(object sender)
@@ -164,12 +174,12 @@ namespace Test
 
         internal void GoToCOCScreen_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("COC");
+            Navigation.Move("COCScreen");
         }
 
         internal void CheckListCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("ViewCheckList");
+            Navigation.Move("CheckListScreen");
         }
 
         internal DbRecordset GetCurrentEvent()
@@ -203,6 +213,23 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
+        }
+
+        internal void GoToMapScreen_OnClick(object sender, EventArgs e)
+        {
+            var clientId = (string) _currentEventRecordset["clientId"];
+            var dictionary = new Dictionary<string, object>
+            {
+                {"screenState", MapScreenStates.EventScreen},
+                {"clientId", clientId}
+            };
+
+            BusinessProcess.GlobalVariables.Remove("screenState");
+            BusinessProcess.GlobalVariables.Remove("clientId");
+            BusinessProcess.GlobalVariables["screenState"] = MapScreenStates.EventScreen;
+            BusinessProcess.GlobalVariables["clientId"] = clientId;
+
+            Navigation.Move("MapScreen", dictionary);
         }
     }
 }

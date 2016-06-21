@@ -89,7 +89,7 @@ namespace Test
 
         internal void BackButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoBack();
+            Navigation.Back();
         }
 
         internal void AddServiceMaterialButton_OnClick(object sender, EventArgs eventArgs)
@@ -106,7 +106,7 @@ namespace Test
                     ReturnValue();
                     break;
             }
-            BusinessProcess.DoBack();
+            Navigation.Back();
         }
 
         private void ReturnValue()

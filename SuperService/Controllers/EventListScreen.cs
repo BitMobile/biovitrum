@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using BitMobile.Application.Tracking;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -17,14 +19,15 @@ namespace Test
         {
             DConsole.WriteLine("OnLoanding EventList");
             _svlEventList = (ScrollView) GetControl("EventListScrollView", true);
-            _eventsList = GetEventsFromDb();
-            _tabBarComponent = new TabBarComponent(this);
 
+            _eventsList = GetEventsFromDb();
+
+            _tabBarComponent = new TabBarComponent(this);
 
             _topInfoComponent = new TopInfoComponent(this)
             {
                 LeftButtonImage = {Source = ResourceManager.GetImage("topheading_filter")},
-                RightButtonImage = {Source = ResourceManager.GetImage("topheading_map") },
+                RightButtonImage = {Source = ResourceManager.GetImage("topheading_map")},
                 HeadingTextView = {Text = Translator.Translate("orders")},
                 LeftExtraLayout = {CssClass = "ExtraLeftLayoutCss"},
                 RightExtraLayout = {CssClass = "ExtraRightLayoutCss"}
@@ -49,6 +52,11 @@ namespace Test
         }
 
 
+        public override void OnShow()
+        {
+            GPS.StartTracking();
+        }
+
         private void FillingOrderList()
         {
             if (_eventsList == null)
@@ -59,10 +67,9 @@ namespace Test
             VerticalLayout orderInfoLayout = null;
 
 
-            foreach (var VARIABLE in _eventsList)
+            foreach (var variable in _eventsList)
             {
-                var itemElement = (EventListElement) VARIABLE;
-
+                var itemElement = (EventListElement) variable;
 
                 if (itemElement.StartDatePlan.Date <= currenDate.Date)
                 {
@@ -221,7 +228,14 @@ namespace Test
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("GO to map");
-            BusinessProcess.DoAction("ViewMap");
+            DConsole.WriteLine("Before dictionary");
+            var dictionary = new Dictionary<string, object>
+            {
+                {"screenState", MapScreenStates.EventListScreen}
+            };
+            DConsole.WriteLine("After");
+            BusinessProcess.GlobalVariables["screenState"] = MapScreenStates.EventListScreen;
+            Navigation.Move("MapScreen", dictionary);
         }
 
         internal void EventLayout_OnClick(object sender, EventArgs e)
@@ -229,31 +243,27 @@ namespace Test
             DConsole.WriteLine("Go To View Event");
             var currentEvent = (HorizontalLayout) sender;
             BusinessProcess.GlobalVariables["currentEventId"] = currentEvent.Id;
-            BusinessProcess.DoAction("ViewEvent");
+            Navigation.Move("EventScreen");
         }
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
             //_tabBarComponent.Events_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Events");
         }
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Bag_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Bag");
         }
 
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Clients_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Clients");
         }
 
         internal void TabBarFourthButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Settings_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Settings");
         }
 
         private ArrayList GetEventsFromDb()
@@ -265,5 +275,15 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
+
+    }
+
+    public enum MapMarkerColor
+    {
+        Red,
+        Green,
+        Blue,
+        Yellow,
+        Orange
     }
 }

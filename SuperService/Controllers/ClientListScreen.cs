@@ -27,6 +27,11 @@ namespace Test
             _tabBarComponent = new TabBarComponent(this);
         }
 
+        public override void OnShow()
+        {
+            GPS.StopTracking();
+        }
+
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Events_OnClick(sender, eventArgs);
@@ -51,6 +56,11 @@ namespace Test
             DConsole.WriteLine("Clients Settings");
         }
 
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
+        {
+            _topInfoComponent.Arrow_OnClick(sender, eventArgs);
+        }
+
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
@@ -61,7 +71,7 @@ namespace Test
             DConsole.WriteLine("ClientLayout_OnClick " + ((VerticalLayout)sender).Id);
             // TODO: Передача Id конкретной таски
             BusinessProcess.GlobalVariables["clientId"] = ((VerticalLayout)sender).Id;
-            BusinessProcess.DoAction("ViewClient");
+            Navigation.Move("ClientScreen");
         }
 
 

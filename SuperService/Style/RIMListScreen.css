@@ -6,122 +6,122 @@
 
 
 body {
-	background-color: #ffffff;
-	height: 100%;
-	width: 100%;
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
 }
 
 TextView {
-	color: #51595b;
-	font: 2.5sp arial;
-	height: 3.5sp auto;
-	horizontal-align: center;
-	text-align: center;
-	vertical-align: center;
-	white-space: normal;
-	width: 100%;
+    color: #51595b;
+    font: 2.5sp arial;
+    height: 3.5sp auto;
+    horizontal-align: center;
+    text-align: center;
+    vertical-align: center;
+    white-space: normal;
+    width: 100%;
 }
 
 .NoHeight {
-	height: 0%;
-	width: 100%;
+    height: 0%;
+    width: 100%;
 }
 
 .RootLayout {
-	background-color: #ffffff;
-	height: 100%;
-	width: 100%;
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
 }
 
 /* Top Info Component */
 
 .TopInfoLayout {
-	background-color: #4a4b5e;
-	dock-align: top;
-	height: 4sp auto;
-	padding-top: 1sp;
-	width: 100%;
+    background-color: #4a4b5e;
+    dock-align: top;
+    height: 4sp auto;
+    padding-top: 1sp;
+    width: 100%;
 }
 
 .TopInfoHeadingLayout {
-	height: 7sp auto;
-	/*margin-top: 2.5sp;*/
-	width: 100%;
+    height: 7sp auto;
+    /*margin-top: 2.5sp;*/
+    width: 100%;
 }
 
 .TopInfoHeading {
-	background-color: #4a4b5e;
-	border-style: none;
-	border-width: 0px;
-	color: #ffffff;
-	font: 40% arial;
-	height: 100% auto;
-	padding-top: 26%;
-	text-align: center;
-	width: 68%;
+    background-color: #4a4b5e;
+    border-style: none;
+    border-width: 0px;
+    color: #ffffff;
+    font: 40% arial;
+    height: 100% auto;
+    padding-top: 26%;
+    text-align: center;
+    width: 68%;
 }
 
 .TopInfoButton {
-	background-color: #4a4b5e;
-	border-style: none;
-	border-width: 0px;
-	color: #ffffff;
-	font: 40% arial;
-	height: 100%;
-	selected-background: #64657e;
-	text-align: center;
-	width: 16%;
+    background-color: #4a4b5e;
+    border-style: none;
+    border-width: 0px;
+    color: #ffffff;
+    font: 40% arial;
+    height: 100%;
+    selected-background: #64657e;
+    text-align: center;
+    width: 16%;
 }
 
 .TopInfoButtonImage {
-	height: 60%;
-	horizontal-align: center;
-	margin-top: 20%;
+    height: 60%;
+    horizontal-align: center;
+    margin-top: 20%;
 }
 
 .TopInfoComment {
-	color: #c4c4c9;
-	font: 2.4sp arial;
-	height: 0sp auto;
-	horizontal-align: center;
-	text-align: center;
-	white-space: normal;
-	width: 58%;
+    color: #c4c4c9;
+    font: 2.4sp arial;
+    height: 0sp auto;
+    horizontal-align: center;
+    text-align: center;
+    white-space: normal;
+    width: 58%;
 }
 
 .TopInfoArrowDown {
-	horizontal-align: center;
-	width: 100sp;
+    horizontal-align: center;
+    width: 100sp;
 }
 
 .TopInfoExtraLayout {
-	background-color: #4a4b5e;
-	dock-align: top;
-	height: 1sp auto;
-	width: 100%;
+    background-color: #4a4b5e;
+    dock-align: top;
+    height: 1sp auto;
+    width: 100%;
 }
 
 .TopInfoImageLayout {
-	background-color: #ffffff;
-	dock-align: top;
-	height: 1sp auto;
-	width: 100%;
+    background-color: #ffffff;
+    dock-align: top;
+    height: 1sp auto;
+    width: 100%;
 }
 
 .TopInfoExtraButtonsLayout {
-	height: 10sp auto;
-	horizontal-align: center;
-	width: 80%;
+    height: 10sp auto;
+    horizontal-align: center;
+    width: 80%;
 }
 
 .TopInfoSideExtraLayout {
-	height: 100% auto;
-	width: 50%;
+    height: 100% auto;
+    width: 50%;
 }
 
 .TopInfoSideImage {
-	height: 50%;
-	horizontal-align: center;
+    height: 50%;
+    horizontal-align: center;
 }
 
 .TopInfoSideText { 
@@ -167,16 +167,16 @@ TextView {
 /*  CleintList */
 
 .RIMListLayout {
-	height: auto;
-	width: 100%;
+    height: auto;
+    width: 100%;
     margin-top: 1sp;
     margin-bottom: 0sp;
 }
 
 .RIMItemLayout {
-	height: 12sp;
-	horizontal-align: center;
-	width: 90%;
+    height: 12sp;
+    horizontal-align: center;
+    width: 90%;
 }
 
 .RIMItemDescription {
@@ -197,10 +197,10 @@ TextView {
 }
 
 .RIMBreaker {
-	background-color: #f3f3f4;
-	height: 3px;
+    background-color: #f3f3f4;
+    height: 3px;
     margin-left: 2sp;
     width: 90%;
-	horizontal-align: left;
+    horizontal-align: left;
     vertical-align: center;
 }

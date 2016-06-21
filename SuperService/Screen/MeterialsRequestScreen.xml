@@ -28,7 +28,7 @@
           <c:VerticalLayout Id="VerticalLayout">
 
             <s:Iterator Id="item" Value="$GetData()">
-              <c:SwipeHorizontalLayout Id="$item.Id" CssClass="SwipeContainerSHL" OnSwipe="OnSwipe_Swipe">
+              <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL" OnSwipe="OnSwipe_Swipe">
                 <c:HorizontalLayout CssClass="InfoNodeMaterialsRequestHL">
                   <!-- Красный круг с минусом -->
                   <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
@@ -39,14 +39,14 @@
 
                   <!--TODO: Заменить у итемнов (first и second) на имена полей из запроса-->
                   <!--Два TextView с информацией об услугах-->
-                  <c:VerticalLayout Id="Test" CssClass="InfoTextContainerVL">
-                    <c:TextView CssClass="NameTV" Text="$item.first" />
-                    <c:TextView CssClass="CountTV" Text="$item.second" />
+                  <c:VerticalLayout Id="$item.SKU" CssClass="InfoTextContainerVL" OnClick="EditNode_OnClick">
+                    <c:TextView CssClass="NameTV" Text="$item.Description" />
+                    <c:TextView CssClass="CountTV" Text="$Concat($item.Count, $item.Unit)" />
                   </c:VerticalLayout>
 
                 </c:HorizontalLayout>
 
-                <c:Button CssClass="DeleteButtonBtn" Text="#delete_question#" OnClick="DeleteButton_OnClick" />
+                <c:Button Id="$item.SKU" CssClass="DeleteButtonBtn" Text="#delete_question#" OnClick="DeleteButton_OnClick" />
 
               </c:SwipeHorizontalLayout>
             </s:Iterator>
