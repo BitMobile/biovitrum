@@ -19,9 +19,10 @@ namespace Test
         {
             DConsole.WriteLine("OnLoanding EventList");
             _svlEventList = (ScrollView) GetControl("EventListScrollView", true);
-            _eventsList = GetEventsFromDb();
-            _tabBarComponent = new TabBarComponent(this);
 
+            _eventsList = GetEventsFromDb();
+
+            _tabBarComponent = new TabBarComponent(this);
 
             _topInfoComponent = new TopInfoComponent(this)
             {
@@ -234,7 +235,7 @@ namespace Test
             };
             DConsole.WriteLine("After");
             BusinessProcess.GlobalVariables["screenState"] = MapScreenStates.EventListScreen;
-            BusinessProcess.DoAction("ViewMap", dictionary);
+            Navigation.Move("MapScreen", dictionary);
         }
 
         internal void EventLayout_OnClick(object sender, EventArgs e)
@@ -242,31 +243,27 @@ namespace Test
             DConsole.WriteLine("Go To View Event");
             var currentEvent = (HorizontalLayout) sender;
             BusinessProcess.GlobalVariables["currentEventId"] = currentEvent.Id;
-            BusinessProcess.DoAction("ViewEvent");
+            Navigation.Move("EventScreen");
         }
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
             //_tabBarComponent.Events_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Events");
         }
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Bag_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Bag");
         }
 
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Clients_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Clients");
         }
 
         internal void TabBarFourthButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Settings_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Settings");
         }
 
         private ArrayList GetEventsFromDb()
@@ -280,58 +277,6 @@ namespace Test
         }
 
     }
-
-
-
-    //public class ClientLocation
-    //{
-    //    public ClientLocation(string clientDescription, System.Double latitude, System.Double longitude, MapMarkerColor markerColor = Test.MapMarkerColor.Red)
-    //    {
-    //        ClientDescription = clientDescription;
-
-    //if (latitude != 0 && longitude != 0)
-    //    _clientLocation = new GpsCoordinate(latitude, longitude, DateTime.Now);
-    //else
-    //    _clientLocation = default(GpsCoordinate);
-
-    //        MapMarkerColor = default(string);
-
-    //        switch (markerColor)
-    //        {
-    //            case Test.MapMarkerColor.Red:
-    //                MapMarkerColor = "red";
-    //                break;
-
-    //            case Test.MapMarkerColor.Green:
-    //                MapMarkerColor = "green";
-    //                break;
-
-    //            case Test.MapMarkerColor.Blue:
-    //                MapMarkerColor = "blue";
-    //                break;
-
-    //            case Test.MapMarkerColor.Orange:
-    //                MapMarkerColor = "orange";
-    //                break;
-    //            case Test.MapMarkerColor.Yellow:
-    //                MapMarkerColor = "yellow";
-    //                break;
-    //        }
-    //    }
-
-    //    private GpsCoordinate _clientLocation;
-    //    public string ClientDescription { get; private set; }
-
-    //    public double Latitude => _clientLocation.Latitude;
-
-    //    public double Longitude => _clientLocation.Longitude;
-
-    //    public string MapMarkerColor { get; private set; }
-
-    //    public bool IsEmpty => _clientLocation.Empty;
-
-    //    public bool NotEmpty => _clientLocation.NotEmpty;
-    //}
 
     public enum MapMarkerColor
     {

@@ -76,13 +76,13 @@ namespace Test
 
         internal void ClientInfoButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("Client");
+            Navigation.Move("ClientScreen");
         }
 
         internal void RefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
             DBHelper.UpdateCancelEventById((string) BusinessProcess.GlobalVariables["currentEventId"]);
-            BusinessProcess.DoAction("EventList");
+            Navigation.Back(true);
         }
 
         internal string FormatEventStartDatePlanTime(string eventStartDatePlanTime)
@@ -124,7 +124,7 @@ namespace Test
                 {
                     DBHelper.UpdateActualEndDateByEventId(DateTime.Now,
                         (string) BusinessProcess.GlobalVariables["currentEventId"]);
-                    BusinessProcess.DoAction("CloseEvent");
+                    Navigation.Move("CloseEventScreen");
                 }
             }, null,
                 Translator.Translate("yes"), Translator.Translate("no"));
@@ -144,13 +144,13 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("EventList");
+            Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
         {
             BusinessProcess.GlobalVariables["clientId"] = _currentEventRecordset["clientId"].ToString();
-            BusinessProcess.DoAction("Client");
+            Navigation.Move("ClientScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
@@ -162,7 +162,7 @@ namespace Test
         internal void TaskCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
             if (CheckBigButtonActive(sender))
-                BusinessProcess.DoAction("ViewTasks");
+                Navigation.Move("TaskListScreen");
         }
 
         private bool CheckBigButtonActive(object sender)
@@ -174,12 +174,12 @@ namespace Test
 
         internal void GoToCOCScreen_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("COC");
+            Navigation.Move("COCScreen");
         }
 
         internal void CheckListCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("ViewCheckList");
+            Navigation.Move("CheckListScreen");
         }
 
         internal DbRecordset GetCurrentEvent()
@@ -229,7 +229,7 @@ namespace Test
             BusinessProcess.GlobalVariables["screenState"] = MapScreenStates.EventScreen;
             BusinessProcess.GlobalVariables["clientId"] = clientId;
 
-            BusinessProcess.DoAction("ViewMap", dictionary);
+            Navigation.Move("MapScreen", dictionary);
         }
     }
 }

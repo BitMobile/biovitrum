@@ -106,7 +106,7 @@ namespace Test
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("Back to screen .....");
-            BusinessProcess.DoBack();
+            Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
@@ -240,7 +240,7 @@ namespace Test
             BusinessProcess.GlobalVariables["isService"] = false;
             BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
             _isAdd = Convert.ToBoolean("True");
-            BusinessProcess.DoAction("AddServicesOrMaterials", dictionary, false);
+            Navigation.Move("AddServicesOrMaterials", dictionary);
         }
 
         internal void SendData_OnClick(object sender, EventArgs e)
@@ -250,7 +250,7 @@ namespace Test
             _data = null;
             _isAdd = _isEdit = Convert.ToBoolean("False");
             DConsole.WriteLine("Data is saved");
-            BusinessProcess.DoBack();
+            Navigation.Back(true);
         }
 
         internal void OnSwipe_Swipe(object sender, EventArgs e)
@@ -272,7 +272,7 @@ namespace Test
             BusinessProcess.GlobalVariables["isService"] = false;
             BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
             _isEdit = Convert.ToBoolean("True");
-            BusinessProcess.DoAction("EditServicesOrMaterials", dictionary);
+            Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
         }
 
         internal string Concat(string first, string secont)

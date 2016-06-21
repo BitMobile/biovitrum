@@ -38,12 +38,12 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoBack();
+            Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("EditContact");
+            Navigation.Move("EditContactScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
@@ -58,12 +58,12 @@ namespace Test
 
         internal void GoToAddContact_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("AddContact");
+            Navigation.Move("AddContactScreen");
         }
 
         internal void GoToEditContact_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("EditContact");
+            Navigation.Move("EditContactScreen");
         }
 
         internal DbRecordset GetCurrentClient()
@@ -137,9 +137,8 @@ namespace Test
             BusinessProcess.GlobalVariables["clientId"] = _clientId;
 
             DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} end");
-            BusinessProcess.DoAction("ViewMap",dictionary);
+            Navigation.Move("MapScreen", dictionary);
         }
-
         internal string GetConstLenghtString(string item)
         {
             return item.Length > 40 ? item.Substring(0, 40) : item;

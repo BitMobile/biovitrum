@@ -41,7 +41,7 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("BackToEvent");
+            Navigation.Back(true);
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
@@ -240,7 +240,7 @@ namespace Test
 
         internal void BackButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("BackToEvent");
+            Navigation.Back(true);
         }
 
         internal bool IsNotEmptyString(string item)

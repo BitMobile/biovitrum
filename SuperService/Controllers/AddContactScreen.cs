@@ -16,7 +16,7 @@ namespace Test
         internal void Back_OnClick(object sender, EventArgs e)
         {
             //BusinessProcess.DoAction("Client");
-            BusinessProcess.DoBack();
+            Navigation.Back();
         }
 
         internal void AddContactButton_OnClick(object sender, EventArgs e)
@@ -51,14 +51,14 @@ namespace Test
             };
 
             DBHelper.SaveEntity(newClientContact);
-            BusinessProcess.DoBack();
+            Navigation.Back(true);
         }
 
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
             //BusinessProcess.DoAction("BackToEvent");
-            BusinessProcess.DoBack();
+            Navigation.Back();
         }
 
         public override void OnShow()

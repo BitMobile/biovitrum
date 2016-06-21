@@ -42,7 +42,7 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("ViewEvent");
+            Navigation.Back(true);
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
@@ -51,22 +51,21 @@ namespace Test
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
+            _topInfoComponent.Arrow_OnClick(sender, e);
         }
 
         internal void AddService_OnClick(object sender, EventArgs e)
         {
             BusinessProcess.GlobalVariables["isService"] = true;
             var dictionary = new Dictionary<string, object> {{"isService", true}};
-
-            BusinessProcess.DoAction("AddServicesOrMaterials", dictionary, false);
+            Navigation.Move("AddServicesOrMaterialsScreen", dictionary);
         }
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
             BusinessProcess.GlobalVariables["isService"] = false;
             var dictionary = new Dictionary<string, object> {{"isService", false}};
-
-            BusinessProcess.DoAction("AddServicesOrMaterials", dictionary, false);
+            Navigation.Move("AddServicesOrMaterialsScreen", dictionary);
         }
 
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
@@ -80,12 +79,12 @@ namespace Test
                 {"behaviour", BehaviourEditServicesOrMaterialsScreen.UpdateDB},
                 {"lineId", vl.Id}
             };
-            BusinessProcess.DoAction("EditServicesOrMaterials",dictionary);
+            Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
         }
 
         internal void ApplicatioMaterials_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("MeterialsRequestScreen");
+            Navigation.Move("MeterialsRequestScreen");
         }
 
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
