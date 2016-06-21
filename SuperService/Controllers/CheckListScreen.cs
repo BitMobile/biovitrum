@@ -143,10 +143,23 @@ namespace Test
         // Булево
         internal void CheckListBoolean_OnClick(object sender, EventArgs e)
         {
-            _currentCheckListItemID = ((VerticalLayout) sender).Id;
-            _checkBox = (CheckBox) ((VerticalLayout) sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout)sender).Id;
+            _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
-            DBHelper.UpdateCheckListItem(_currentCheckListItemID, _checkBox.Checked ? "Нет" : "Да");
+            var items = new Dictionary<object, string>();
+            items.Add("true", Translator.Translate("yes"));
+            items.Add("false", Translator.Translate("no"));
+            items.Add("fuck", Translator.Translate("not_choosed"));
+
+            Dialog.Choose(Translator.Translate("select_answer"), items, BooleanCallback);
+
+            //DBHelper.UpdateCheckListItem(_currentCheckListItemID, _checkBox.Checked ? "Нет" : "Да");
+        }
+
+        internal void BooleanCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
+        {
+            _textView.Text = args.Result.Value;
+            DBHelper.UpdateCheckListItem(_currentCheckListItemID, _textView.Text);
         }
 
         // С точкой
