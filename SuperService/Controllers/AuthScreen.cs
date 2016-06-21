@@ -3,6 +3,7 @@ using System.Net;
 using System.Text;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Application;
 
 namespace Test
 {
@@ -17,6 +18,15 @@ namespace Test
 
             _loginEditText = (EditText) GetControl("AuthScreenLoginET", true);
             _passwordEditText = (EditText) GetControl("AuthScreenPasswordET", true);
+        }
+
+        public override void OnShow()
+        {
+            var displayInfo = ApplicationContext.Current.DisplayProvider;
+
+            DConsole.WriteLine($"{nameof(displayInfo.Height)}={displayInfo.Height} {Environment.NewLine}" +
+                               $"{nameof(displayInfo.Width)}={displayInfo.Width} {Environment.NewLine}" +
+                               $"{nameof(displayInfo.PxPerMm)}={displayInfo.PxPerMm}");
         }
 
         internal void exitButton_OnClick(object sender, EventArgs e)
