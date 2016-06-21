@@ -236,25 +236,21 @@ namespace Test
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
             //_tabBarComponent.Events_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Events");
         }
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Bag_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Bag");
         }
 
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Clients_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Clients");
         }
 
         internal void TabBarFourthButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Settings_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Settings");
         }
 
         private ArrayList GetEventsFromDb()

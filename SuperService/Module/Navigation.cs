@@ -155,8 +155,6 @@ namespace Test
                 screen.LoadStyleSheet(Application.GetResourceStream(DefaultStyle));
             }
             CurrentScreenInfo = screenInfo;
-            DConsole.WriteLine(screenInfo.Name);
-            DConsole.WriteLine(CurrentScreenInfo.Name);
             CurrentScreen = screen;
             screen.Show();
         }
