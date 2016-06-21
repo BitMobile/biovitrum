@@ -333,16 +333,6 @@ namespace Test
     //    public bool NotEmpty => _clientLocation.NotEmpty;
     //}
 
-    public class Some
-    {
-        public Some(int i)
-        {
-            Return = i;
-        }
-
-        public int Return { get; }
-    }
-
     public enum MapMarkerColor
     {
         Red,

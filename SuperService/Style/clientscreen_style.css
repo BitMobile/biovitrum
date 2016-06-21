@@ -193,10 +193,10 @@ TextView {
 }
 
 .ClientDistanceTV {
-    color: #000000;
+    color: #909499;
     font: 2sp arial;
     height: auto;
-    padding-top: 25%;
+    padding-top: 10%;
     text-align: center;
     width: auto;
 }
@@ -253,13 +253,13 @@ TextView {
 
 .CallToClientContainer {
     height: 100%;
-    vertical-align: center;
-    width: 50%;
+    horizontal-align: center;
+    width: 0% auto;
 }
 
 .CallImageImg {
-    horizontal-align: center;
-    width: 100%;
+    height: 4sp;
+    vertical-align: center;
 }
 
 .AddContactBtn {
@@ -311,13 +311,60 @@ TextView {
 }
 
 .FatLineHL {
-    height: 100%;
-    width: 5%;
-    horizontal-align: center;
     background-color: #c6c6c9;
+    height: 100%;
+    horizontal-align: center;
+    width: 5%;
 }
+
 .FatLineContainerVL {
     height: 9px;
     width: 100%;
+}
+
+.WideLineHL {
+    background-color: f3f3f4;
+    height: 3px;
+    width: 100%;
+}
+
+.ContainerLineSplitter {
+    height: 3px;
+    width: 100%;
+}
+
+.LineSplitter {
+    height: 100%;
+    width: 90%;
+    horizontal-align: center;
+    background-color: #f3f3f4;
+}
+
+.AddButtonVl {
+    height: 10sp;
+    width: 100%;
+}
+
+.AddContainerHL {
+    height: 90%;
+    horizontal-align: center;
+    padding-left: 20%;
+    width: 90%;
+}
+
+.AddImg {
+    height: 2sp;
+    vertical-align: center;
+}
+
+.AddTV {
+    color: #fd724c;
+    font: 3sp arial;
+    height: 80%;
+    padding-top: 22%;
+    text-align: left;
+    vertical-align: center;
+    width: 40% auto;
+    margin-left: 3%
 }
 /* ------------------------------------ */

@@ -64,3 +64,4 @@ add_contact_add_button		Добавить контакт
 map		Карта
 get_coordinates		Получить координаты
 save_coordinates		Сохранить координаты
+uom_distance		км

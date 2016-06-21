@@ -65,3 +65,4 @@ map		Map
 get_coordinates		Get coordinates
 save_coordinates		Save coordinates
 failed_coordinates		Failed to get the coordinates
+uom_distance		km
