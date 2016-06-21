@@ -30,9 +30,9 @@ per_month		per month
 todayUpper		TODAY
 client		Client
 clients		Clients
-contacts		Contacts
+contacts		CONTACTS
 add_contact		Add Contact
-equipment		Equipment
+equipments		EQUIPMENTS
 task_finished		Task finished
 task_refused		Can't complete
 task		Task
@@ -65,3 +65,4 @@ map		Map
 get_coordinates		Get coordinates
 save_coordinates		Save coordinates
 failed_coordinates		Failed to get the coordinates
+uom_distance		km
