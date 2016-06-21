@@ -100,7 +100,7 @@ namespace Test
                     {"lineId", null}
                 };
                 DConsole.WriteLine("Go to EditServicesOrMaterials is Material Request true");
-                BusinessProcess.DoAction("EditServicesOrMaterials", dictionary);
+                Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
             }
             else
             {
@@ -111,7 +111,7 @@ namespace Test
                 };
 
                 DConsole.WriteLine("Go to EditServicesOrMaterials is Material Request false");
-                BusinessProcess.DoAction("EditServicesOrMaterials", dictionary);
+                Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
             }
         }
 

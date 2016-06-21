@@ -58,14 +58,14 @@ namespace Test
         {
             BusinessProcess.GlobalVariables["isService"] = true;
             var dictionary = new Dictionary<string, object> {{"isService", true}};
-            Navigation.Move("AddServicesOrMaterialsScreen");
+            Navigation.Move("AddServicesOrMaterialsScreen", dictionary);
         }
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
             BusinessProcess.GlobalVariables["isService"] = false;
             var dictionary = new Dictionary<string, object> {{"isService", false}};
-            Navigation.Move("AddServicesOrMaterialsScreen");
+            Navigation.Move("AddServicesOrMaterialsScreen", dictionary);
         }
 
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
@@ -79,7 +79,7 @@ namespace Test
                 {"behaviour", BehaviourEditServicesOrMaterialsScreen.UpdateDB},
                 {"lineId", vl.Id}
             };
-            Navigation.Move("EditServicesOrMaterialsScreen");
+            Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
         }
 
         internal void ApplicatioMaterials_OnClick(object sender, EventArgs e)

@@ -229,7 +229,7 @@ namespace Test
             BusinessProcess.GlobalVariables["screenState"] = MapScreenStates.EventScreen;
             BusinessProcess.GlobalVariables["clientId"] = clientId;
 
-            BusinessProcess.DoAction("ViewMap", dictionary);
+            Navigation.Move("MapScreen", dictionary);
         }
     }
 }

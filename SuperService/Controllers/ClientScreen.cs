@@ -137,7 +137,7 @@ namespace Test
             BusinessProcess.GlobalVariables["clientId"] = _clientId;
 
             DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} end");
-            BusinessProcess.DoAction("ViewMap",dictionary);
+            Navigation.Move("MapScreen", dictionary);
         }
     }
 }
