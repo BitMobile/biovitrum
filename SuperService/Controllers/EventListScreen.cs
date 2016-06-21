@@ -235,7 +235,7 @@ namespace Test
             };
             DConsole.WriteLine("After");
             BusinessProcess.GlobalVariables["screenState"] = MapScreenStates.EventListScreen;
-            Navigation.Move("MapScreen");
+            Navigation.Move("MapScreen", dictionary);
         }
 
         internal void EventLayout_OnClick(object sender, EventArgs e)
