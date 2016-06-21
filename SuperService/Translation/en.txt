@@ -44,7 +44,8 @@ do_not_have_enough_material		Do not have enough material?
 delete_question		Delete
 currency		₽
 total		Total
-not_choosed		Not choosed..
+not_choosedwpoints		Not choosed..
+not_choosed		Not choosed
 not_specified		Not specified
 text		Text..
 description_materialrequest_screen		Please add materials

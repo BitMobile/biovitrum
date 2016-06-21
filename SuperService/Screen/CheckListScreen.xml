@@ -74,7 +74,7 @@
           </s:If>
 
           <!--БУЛЕВО-->
-          <s:If Test="$CheckList.TypeName == Boolean">
+          <!--<s:If Test="$CheckList.TypeName == Boolean">
             <c:VerticalLayout CssClass="CheckListQuestionVL">
               <c:TextView Text="$CheckList.Description" CssClass="CheckListDescriptionTV" />
             </c:VerticalLayout>
@@ -86,6 +86,31 @@
               </s:If>
               <s:Else>
                 <c:CheckBox Visible="true" Checked="False" CssClass="CheckListAnswerBool" />
+              </s:Else>
+            </c:VerticalLayout>
+          </s:If>-->
+
+
+          <s:If Test="$CheckList.TypeName == ValList">
+            <c:VerticalLayout CssClass="CheckListQuestionVL">
+              <c:TextView Text="$CheckList.Description" CssClass="CheckListDescriptionTV" />
+            </c:VerticalLayout>
+
+            <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$CheckList.CheckListId"
+                              OnClick="CheckListBoolean_OnClick">
+              <s:If Test="$CheckList.Result == Да">
+                <c:TextView Text="#yes#" Id="$CheckList.ActionId"
+                            CssClass="CheckListAnswerElement" />
+              </s:If>
+              <s:Else>
+                <s:If Test="$CheckList.Result == Нет">
+                  <c:TextView Text="#no#" Id="$CheckList.ActionId"
+                              CssClass="CheckListAnswerElement" />
+                </s:If>
+              </s:Else>
+              <s:Else>
+                <c:TextView Text="#not_choosed#" Id="$CheckList.ActionId"
+                            CssClass="CheckListAnswerElement" />
               </s:Else>
             </c:VerticalLayout>
           </s:If>

@@ -115,7 +115,6 @@ namespace Test
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _textView.Text);
         }
 
-        // TODO: при загрузке данных из БД (в xml) приводить DateTime в просто Date
         // Дата
         internal void CheckListDateTime_OnClick(object sender, EventArgs e)
         {
