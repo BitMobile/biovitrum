@@ -19,7 +19,7 @@ namespace Test.Components
         internal void SwitchActiveTab(Screen parentScreen)
         {
             DConsole.WriteLine("Test");
-            var screenName = Navigation.CurrentScreenName;
+            var screenName = Navigation.CurrentScreenInfo.Name;
             DConsole.WriteLine(screenName);
 //        DConsole.WriteLine(screenInfo.Name);
             switch (screenName)

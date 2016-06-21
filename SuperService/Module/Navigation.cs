@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using Stack = BitMobile.ClientModel3.Stack;
 
 namespace Test
 {
@@ -13,24 +15,47 @@ namespace Test
         // ReSharper disable once NotAccessedField.Local
         private static Screen _lastScreen;
 
+        private static readonly ArrayList CurrentScreenInfoRef = new ArrayList();
+
+        private static readonly ArrayList CurrentScreenRef = new ArrayList();
+
         /// <summary>
         ///     Информация о текущем отображаемом экране
         /// </summary>
-        public static ScreenInfo CurrentScreenInfo { get; private set; }
-
-        public static string CurrentScreenName
+        public static ScreenInfo CurrentScreenInfo
         {
-            get
+            get { return CurrentScreenInfoRef.Count == 0 ? null : (ScreenInfo) CurrentScreenInfoRef[0]; }
+            private set
             {
-                DConsole.WriteLine("Are you fucking kidding me?");
-                return CurrentScreenInfo?.Name;
+                if (CurrentScreenInfoRef.Count == 0)
+                {
+                    CurrentScreenInfoRef.Add(value);
+                }
+                else
+                {
+                    CurrentScreenInfoRef[0] = value;
+                }
             }
         }
 
         /// <summary>
         ///     Ссылка на отображемый экран
         /// </summary>
-        public static Screen CurrentScreen { get; private set; }
+        public static Screen CurrentScreen
+        {
+            get { return CurrentScreenRef.Count == 0 ? null : (Screen) CurrentScreenRef[0]; }
+            private set
+            {
+                if (CurrentScreenRef.Count == 0)
+                {
+                    CurrentScreenRef.Add(value);
+                }
+                else
+                {
+                    CurrentScreenRef[0] = value;
+                }
+            }
+        }
 
         /// <summary>
         ///     Перейти на один экран по стеку назад
@@ -107,7 +132,8 @@ namespace Test
         /// <param name="screenInfo">Информация об экране</param>
         /// <param name="args">Словарь аргументов</param>
         /// <param name="screen">Ссылка на целевой экран</param>
-        public static void ModalMove(ScreenInfo screenInfo, IDictionary<string, object> args = null, Screen screen = null)
+        public static void ModalMove(ScreenInfo screenInfo, IDictionary<string, object> args = null,
+            Screen screen = null)
         {
             DConsole.WriteLine($"Moving to {screenInfo.Name}");
             screen = screen ?? (Screen) Application.CreateInstance($"Test.{screenInfo.Name}");
