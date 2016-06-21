@@ -66,3 +66,6 @@ get_coordinates		Получить координаты
 save_coordinates		Сохранить координаты
 failed_coordinates		Координаты не получены
 uom_distance		км
+equipment		Оборудование
+PARAMETERS		ПАРАМЕТРЫ
+SERVICEHISTORY		ИСТОРИЯ ОБСЛУЖИВАНИЯ
