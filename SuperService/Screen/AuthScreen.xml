@@ -2,7 +2,7 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   
-  <c:VerticalLayout CssClass="RootLayout">
+  <c:VerticalLayout CssClass="RootLayoutWithPattern">
     <c:TextView Text ="БИТ.СуперСервис" CssClass="AuthScreenBitTV"/>
     <c:EditText Mask="^\d+$" Id="AuthScreenLoginET" Placeholder="Введите логин" CssClass = "AuthScreenLoginET"/>
     <c:EditText Id="AuthScreenPasswordET" Placeholder="Введите пароль" CssClass = "AuthScreenPasswordET"/>
