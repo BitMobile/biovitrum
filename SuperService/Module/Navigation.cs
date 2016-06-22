@@ -1,8 +1,8 @@
-﻿using System;
+﻿using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
 using Stack = BitMobile.ClientModel3.Stack;
 
 namespace Test
@@ -13,8 +13,7 @@ namespace Test
         private static readonly Stack ScreenInfoStack = new Stack();
         private static readonly Stack ScreenStack = new Stack();
 
-        // ReSharper disable once NotAccessedField.Local
-        private static Screen _lastScreen;
+        private static bool _nonModalMove = false;
 
         private static readonly ArrayList CurrentScreenInfoRef = new ArrayList();
 
@@ -25,7 +24,7 @@ namespace Test
         /// </summary>
         public static ScreenInfo CurrentScreenInfo
         {
-            get { return CurrentScreenInfoRef.Count == 0 ? null : (ScreenInfo) CurrentScreenInfoRef[0]; }
+            get { return CurrentScreenInfoRef.Count == 0 ? null : (ScreenInfo)CurrentScreenInfoRef[0]; }
             private set
             {
                 if (CurrentScreenInfoRef.Count == 0)
@@ -44,7 +43,7 @@ namespace Test
         /// </summary>
         public static Screen CurrentScreen
         {
-            get { return CurrentScreenRef.Count == 0 ? null : (Screen) CurrentScreenRef[0]; }
+            get { return CurrentScreenRef.Count == 0 ? null : (Screen)CurrentScreenRef[0]; }
             private set
             {
                 if (CurrentScreenRef.Count == 0)
@@ -69,9 +68,8 @@ namespace Test
                 DConsole.WriteLine("Can't go back when stack is empty");
                 return;
             }
-            var screenInfo = (ScreenInfo) ScreenInfoStack.Pop();
-            var nextScreen = (Screen) ScreenStack.Pop();
-            _lastScreen = CurrentScreen;
+            var screenInfo = (ScreenInfo)ScreenInfoStack.Pop();
+            var nextScreen = (Screen)ScreenStack.Pop();
             if (!reload)
                 ModalMove(screenInfo, screen: nextScreen);
             else
@@ -86,6 +84,7 @@ namespace Test
         /// <param name="css">Путь к файлу стиля</param>
         public static void Move(string name, IDictionary<string, object> args = null, string css = null)
         {
+            _nonModalMove = true;
             var screenInfo = CreateScreenInfoFromName(name, css);
             Move(screenInfo, args);
         }
@@ -107,6 +106,7 @@ namespace Test
         /// <param name="args">Словарь аргументов</param>
         public static void Move(ScreenInfo screenInfo, IDictionary<string, object> args = null)
         {
+            _nonModalMove = true;
             if (CurrentScreenInfo != null)
             {
                 ScreenInfoStack.Push(CurrentScreenInfo);
@@ -137,7 +137,18 @@ namespace Test
             Screen screen = null)
         {
             DConsole.WriteLine($"Moving to {screenInfo.Name}");
-            screen = screen ?? (Screen) Application.CreateInstance($"Test.{screenInfo.Name}");
+            try
+            {
+                screen = screen ?? (Screen)Application.CreateInstance($"Test.{screenInfo.Name}");
+            }
+            catch
+            {
+                DConsole.WriteLine($"Can't load screen with name {screenInfo.Name}");
+                if (!_nonModalMove || ScreenInfoStack.Count < 1) return;
+                ScreenInfoStack.Pop();
+                ScreenStack.Pop();
+                return;
+            }
             screen.SetData(args);
             try
             {
@@ -159,6 +170,7 @@ namespace Test
             CurrentScreenInfo = screenInfo;
             CurrentScreen = screen;
             screen.Show();
+            _nonModalMove = false;
         }
 
         /// <summary>
