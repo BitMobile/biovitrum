@@ -327,18 +327,18 @@ TextView {
 }
 
 .FatLineContainerVL {
-    height: 9px;
+    height: 9dp;
     width: 100%;
 }
 
 .WideLineHL {
     background-color: f3f3f4;
-    height: 3px;
+    height: 3dp;
     width: 100%;
 }
 
 .ContainerLineSplitter {
-    height: 3px;
+    height: 3dp;
     width: 100%;
 }
 
