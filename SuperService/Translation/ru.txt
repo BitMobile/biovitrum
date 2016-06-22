@@ -66,3 +66,7 @@ get_coordinates		Получить координаты
 save_coordinates		Сохранить координаты
 failed_coordinates		Координаты не получены
 uom_distance		км
+login		Логин
+password		Пароль
+log_in		Войти
+cant_signing		Не получается войти?

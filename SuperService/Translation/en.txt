@@ -66,3 +66,7 @@ get_coordinates		Get coordinates
 save_coordinates		Save coordinates
 failed_coordinates		Failed to get the coordinates
 uom_distance		km
+login		Login
+password		Password
+log_in		Log In
+cant_signing		Can't signing?

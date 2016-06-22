@@ -3,7 +3,6 @@ using System.Net;
 using System.Text;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
-using BitMobile.Application;
 
 namespace Test
 {
@@ -22,16 +21,11 @@ namespace Test
 
         public override void OnShow()
         {
-            var displayInfo = ApplicationContext.Current.DisplayProvider;
-
-            DConsole.WriteLine($"{nameof(displayInfo.Height)}={displayInfo.Height} {Environment.NewLine}" +
-                               $"{nameof(displayInfo.Width)}={displayInfo.Width} {Environment.NewLine}" +
-                               $"{nameof(displayInfo.PxPerMm)}={displayInfo.PxPerMm}");
         }
 
-        internal void exitButton_OnClick(object sender, EventArgs e)
+        internal void CantSigningButton_OnClick(object sender, EventArgs e)
         {
-            Application.Terminate();
+            DConsole.WriteLine("Can't signing?");
         }
 
         internal void connectButton_OnClick(object sender, EventArgs e)

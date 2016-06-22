@@ -66,6 +66,10 @@ namespace Test
             {"editservicesormaterialsscreen_plus", @"Image\EditServicesOrMaterialsScreen\Plus.png"},
             {"editservicesormaterialsscreen_minus", @"Image\EditServicesOrMaterialsScreen\delete_img.png"},
             {"editservicesormaterialsscreen_close", @"Image\EditServicesOrMaterialsScreen\close.png"},
+            // AuthScreen
+            {"authscreen_logo", @"Image\AuthScreen\logo.png"},
+            {"authscreen_password", @"Image\AuthScreen\password.png"},
+            {"authscreen_username", @"Image\AuthScreen\username.png"},
         };
 
         public static string GetImage(string tag)

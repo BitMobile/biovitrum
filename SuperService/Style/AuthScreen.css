@@ -11,8 +11,9 @@ EditText {
     color: #ffffff;
     font: 3sp arial;
     height: 4sp;
-    horizontal-align: center;
-    width: 60%;
+    margin-left: 3%;
+    placeholder-color: #ffffff;
+    width: 100%;
 }
 
 Button {
@@ -36,6 +37,9 @@ Button {
 
 /* AuthScreen style */
 
+
+/* TODO: подлежит удалению в будущем */
+
 .AuthScreenBitTV {
     color: #ffffff;
     font: 5sp arial;
@@ -46,28 +50,73 @@ Button {
     width: 60%;
 }
 
-.AuthScreenLoginET { margin-top: 10sp; }
-
-.AuthScreenPasswordET { margin-top: 5sp; }
-
 .AuthScreenConnectBTN {
     font: 4sp arial;
     height: 10sp;
-    margin-top: 5sp;
-    width: 60sp;
+    margin-top: 10sp;
+    width: 90%;
 }
 
-.AuthScreenExitBTN {
-    font: 3sp arial;
-    height: 8sp;
-    margin-top: 10sp;
-    width: 20sp;
+.AuthScreenResetPasswordBTN {
+    background-color: none;
+    border-style: none;
+    color: #d2d2d8;
+    font: 2.5sp arial;
+    height: 9sp;
+    selected-background: none;
+    /*margin-top: 10sp;*/
+    width: 100%;
 }
 
 .RootLayoutWithPattern {
-    /*background-color: #4a4b5e;*/
     background-image: url(Image\AuthScreen\background.png);
     height: 100%;
     width: 100%;
+}
+
+.ImgContainerVL {
+    dock-align: top;
+    height: 30sp;
+    margin-bottom: 20sp;
+    width: 100%;
+}
+
+.ImgContainerHL {
+    height: 100%;
+    horizontal-align: center;
+    width: 0% auto;
+}
+
+.LogoImg {
+    height: 8sp;
+    vertical-align: bottom;
+}
+
+.LoginPasswordContainerFirstHL {
+    height: 4sp;
+    margin-left: 10%;
+    width: 80%;
+}
+
+.LoginPasswordContainerSecondHL {
+    height: 4sp;
+    margin-left: 10%;
+    margin-top: 5sp;
+    width: 80%;
+}
+
+.LoginPasswordImg { height: 3.2sp; }
+
+.BreakerContainerVL {
+    height: 3dp;
+    margin-top: 2sp;
+    width: 100%;
+}
+
+.BreakerHL {
+    background-color: #5b5c6d;
+    height: 100%;
+    horizontal-align: center;
+    width: 90%;
 }
 /* End of AuthScreen style */
