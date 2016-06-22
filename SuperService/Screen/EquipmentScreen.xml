@@ -1,24 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  <c:SwipeVerticalLayout CssClass="RootLayout">
-    <s:Push Id="equipment" Value="$GetEquipmentInfo()" />
-    <c:Button Text="#back#" OnClick="BackButton_OnClick" />
-    <c:TextView Text="#equipment#" />
-    <c:TextView Text="$equipment.Desctiption" />
-    <c:TextView Text="#PARAMETERS#" />
-    <s:Iterator Id="parameter" Value="$GetParameters()">
+  <c:ScrollView CssClass="RootLayout">
+    <c:VerticalLayout>
+      <s:Include File="Components\TopInfoComponent.xml" />
+      <s:Push Id="equipment" Value="$GetEquipmentInfo()" />
+      <c:TextView Text="$equipment.Desctiption" CssClass="HeadingTextView" />
+      <c:TextView Text="" CssClass="EquipDescTextView" />
+      <c:HorizontalLine CssClass="HeadingBreaker" />
+      <c:HorizontalLayout CssClass="EmptySpace2sp" />
+      <c:TextView Text="#PARAMETERS#" CssClass="SubHeading" />
+      <c:HorizontalLayout CssClass="EmptySpace2sp" />
+      <s:Iterator Id="parameter" Value="$GetParameters()">
+        <c:HorizontalLine />
+        <c:HorizontalLayout CssClass="ListElement">
+          <c:TextView Text="$parameter.Parameter" CssClass="ParameterNameView" />
+          <c:TextView Text="$parameter.Value" CssClass="ParameterValueView" />
+        </c:HorizontalLayout>
+      </s:Iterator>
       <c:HorizontalLine />
-      <c:TextView Text="$parameter.Parameter" />
-      <c:TextView Text="$parameter.Value" />
-    </s:Iterator>
-    <c:HorizontalLine />
-    <c:TextView Text="#SERVICEHISTORY#" />
-    <s:Iterator Id="history" Value="$GetHistory()">
+      <c:HorizontalLayout CssClass="EmptySpace2sp" />
+      <c:HorizontalLayout CssClass="EmptySpace2sp" />
+      <c:TextView Text="#SERVICEHISTORY#" CssClass="SubHeading" />
+      <c:HorizontalLayout CssClass="EmptySpace2sp" />
+      <s:Iterator Id="history" Value="$GetHistory()">
+        <c:HorizontalLine />
+
+        <c:VerticalLayout CssClass="ListElement">
+          <c:HorizontalLayout CssClass="EmptySpace2sp" />
+          <c:HorizontalLayout>
+            <c:VerticalLayout CssClass="HistoryDescriptionResultLayout">
+              <c:TextView Text="$history.Description" CssClass="HistoryDescriptionView" />
+              <s:If Test="$history.ResultName == Done">
+                <c:TextView Text="$history.Result" CssClass="HistoryResultViewDone" />
+              </s:If>
+              <s:Else>
+                <c:TextView Text="$history.Result" CssClass="HistoryResultViewNotDone" />
+              </s:Else>
+            </c:VerticalLayout>
+            <c:TextView Text="$FormatDateString($history.Date)" CssClass="HistoryDateView" />
+          </c:HorizontalLayout>
+          <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        </c:VerticalLayout>
+      </s:Iterator>
       <c:HorizontalLine />
-      <c:TextView Text="$history.Description" />
-      <c:TextView Text="$history.Result" />
-      <c:TextView Text="$history.Date" />
-    </s:Iterator>
-  </c:SwipeVerticalLayout>
+    </c:VerticalLayout>
+  </c:ScrollView>
 </c:Screen>
