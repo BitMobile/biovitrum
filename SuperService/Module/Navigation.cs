@@ -1,8 +1,8 @@
-﻿using System;
+﻿using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
 using Stack = BitMobile.ClientModel3.Stack;
 
 namespace Test
@@ -25,7 +25,7 @@ namespace Test
         /// </summary>
         public static ScreenInfo CurrentScreenInfo
         {
-            get { return CurrentScreenInfoRef.Count == 0 ? null : (ScreenInfo) CurrentScreenInfoRef[0]; }
+            get { return CurrentScreenInfoRef.Count == 0 ? null : (ScreenInfo)CurrentScreenInfoRef[0]; }
             private set
             {
                 if (CurrentScreenInfoRef.Count == 0)
@@ -44,7 +44,7 @@ namespace Test
         /// </summary>
         public static Screen CurrentScreen
         {
-            get { return CurrentScreenRef.Count == 0 ? null : (Screen) CurrentScreenRef[0]; }
+            get { return CurrentScreenRef.Count == 0 ? null : (Screen)CurrentScreenRef[0]; }
             private set
             {
                 if (CurrentScreenRef.Count == 0)
@@ -69,8 +69,8 @@ namespace Test
                 DConsole.WriteLine("Can't go back when stack is empty");
                 return;
             }
-            var screenInfo = (ScreenInfo) ScreenInfoStack.Pop();
-            var nextScreen = (Screen) ScreenStack.Pop();
+            var screenInfo = (ScreenInfo)ScreenInfoStack.Pop();
+            var nextScreen = (Screen)ScreenStack.Pop();
             _lastScreen = CurrentScreen;
             if (!reload)
                 ModalMove(screenInfo, screen: nextScreen);
@@ -137,7 +137,7 @@ namespace Test
             Screen screen = null)
         {
             DConsole.WriteLine($"Moving to {screenInfo.Name}");
-            screen = screen ?? (Screen) Application.CreateInstance($"Test.{screenInfo.Name}");
+            screen = screen ?? (Screen)Application.CreateInstance($"Test.{screenInfo.Name}");
             screen.SetData(args);
             try
             {
@@ -156,6 +156,10 @@ namespace Test
             {
                 screen.LoadStyleSheet(Application.GetResourceStream(DefaultStyle));
             }
+            if (CurrentScreenInfoRef.Count < 2)
+                CurrentScreenInfoRef.Add(CurrentScreenInfo);
+            else
+                CurrentScreenInfoRef[1] = CurrentScreenInfo;
             CurrentScreenInfo = screenInfo;
             CurrentScreen = screen;
             screen.Show();
