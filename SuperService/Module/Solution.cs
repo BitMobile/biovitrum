@@ -11,6 +11,5 @@ namespace Test
             DConsole.WriteLine("Loading first screen");
             Navigation.Move("AuthScreen");
         }
-
     }
 }
