@@ -44,7 +44,8 @@ do_not_have_enough_material		Не хватает материала?
 delete_question		Удалить
 currency		₽
 total		Итоговая сумма
-not_choosed		Не выбрано..
+not_choosedwpoints		Не выбрано..
+not_choosed		Не выбрано
 not_specified		Не указано
 text		Текст..
 description_materialrequest_screen		Добавьте материалы, чтобы сформировать заявку
