@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:SwipeVerticalLayout CssClass="RootLayout">
+    <s:Push Id="equipment" Value="$GetEquipmentInfo()" />
+    <c:Button Text="#back#" OnClick="BackButton_OnClick" />
+    <c:TextView Text="#equipment#" />
+    <c:TextView Text="$equipment.Desctiption" />
+    <c:TextView Text="#PARAMETERS#" />
+    <s:Iterator Id="parameter" Value="$GetParameters()">
+      <c:HorizontalLine />
+      <c:TextView Text="$parameter.Parameter" />
+      <c:TextView Text="$parameter.Value" />
+    </s:Iterator>
+    <c:HorizontalLine />
+    <c:TextView Text="#SERVICEHISTORY#" />
+    <s:Iterator Id="history" Value="$GetHistory()">
+      <c:HorizontalLine />
+      <c:TextView Text="$history.Description" />
+      <c:TextView Text="$history.Result" />
+      <c:TextView Text="$history.Date" />
+    </s:Iterator>
+  </c:SwipeVerticalLayout>
+</c:Screen>

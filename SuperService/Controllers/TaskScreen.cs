@@ -1,6 +1,6 @@
-﻿using System;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using System;
 using Test.Components;
 using Test.Entities.Document;
 using Test.Entities.Enum;
@@ -33,24 +33,24 @@ namespace Test
         {
             _topInfoComponent = new TopInfoComponent(this)
             {
-                HeadingTextView = {Text = Translator.Translate("task")},
-                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
-                RightButtonImage = {Visible = false},
+                HeadingTextView = { Text = Translator.Translate("task") },
+                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
+                RightButtonImage = { Visible = false },
                 ExtraLayoutVisible = false
             };
 
-            _taskCommentTextView = (TextView) GetControl("TaskCommentTextView", true);
-            _wrapUnwrapImage = (Image) GetControl("WrapUnwrapImage", true);
+            _taskCommentTextView = (TextView)GetControl("TaskCommentTextView", true);
+            _wrapUnwrapImage = (Image)GetControl("WrapUnwrapImage", true);
 
-            _taskFinishedButton = (HorizontalLayout) GetControl("TaskFinishedButton", true);
-            _taskRefuseButton = (HorizontalLayout) GetControl("TaskRefuseButton", true);
-            _taskFinishedButtonTextView = (TextView) GetControl("TaskFinishedButtonTextView", true);
-            _taskRefuseButtonTextView = (TextView) GetControl("TaskRefuseButtonTextView", true);
-            _taskFinishedButtonImage = (Image) GetControl("TaskFinishedButtonImage", true);
-            _taskRefuseButtonImage = (Image) GetControl("TaskRefuseButtonImage", true);
+            _taskFinishedButton = (HorizontalLayout)GetControl("TaskFinishedButton", true);
+            _taskRefuseButton = (HorizontalLayout)GetControl("TaskRefuseButton", true);
+            _taskFinishedButtonTextView = (TextView)GetControl("TaskFinishedButtonTextView", true);
+            _taskRefuseButtonTextView = (TextView)GetControl("TaskRefuseButtonTextView", true);
+            _taskFinishedButtonImage = (Image)GetControl("TaskFinishedButtonImage", true);
+            _taskRefuseButtonImage = (Image)GetControl("TaskRefuseButtonImage", true);
 
-            _taskCommentEditText = (MemoEdit) GetControl("TaskCommentEditText", true);
-            _rootLayout = (DockLayout) Controls[0];
+            _taskCommentEditText = (MemoEdit)GetControl("TaskCommentEditText", true);
+            _rootLayout = (DockLayout)Controls[0];
         }
 
         public override void OnShow()
@@ -66,9 +66,11 @@ namespace Test
                 case ResultEventEnum.New:
                     ChangeTaskToDone();
                     break;
+
                 case ResultEventEnum.Done:
                     ChangeTaskToNew();
                     break;
+
                 default:
                     throw new ArgumentException("Неправильный результат задания");
             }
@@ -110,9 +112,11 @@ namespace Test
                 case ResultEventEnum.New:
                     ChangeTaskToNotDone();
                     break;
+
                 case ResultEventEnum.NotDone:
                     ChangeTaskToNew();
                     break;
+
                 default:
                     throw new ArgumentException("Неправильный результат задания");
             }
@@ -167,23 +171,29 @@ namespace Test
             _equipments.Result = ResultEvent.GetDbRefFromEnum(_resultEvent);
 
             DBHelper.SaveEntity(_equipments);
-            
+
             Navigation.Back(true);
+        }
+
+        internal void EquipmentDescriptionLayout_OnClick(object sender, EventArgs eventArgs)
+        {
+            // TODO(SUPS-718): Передавать информацию об оборудовании
+            Navigation.Move("EquipmentScreen");
         }
 
         internal object GetTask()
         {
-//            return new Dictionary<string, object>
-//            {
-//                {
-//                    "Target",
-//                    "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum."
-//                },
-//                {"EquipmentDescription", "Asus 509-k"},
-//                {"TypeDepartures", "Монтаж"},
-//                {"resultName", "New"}
-//            };
-            string currentTaskId = (string) BusinessProcess.GlobalVariables["currentTaskId"];
+            //            return new Dictionary<string, object>
+            //            {
+            //                {
+            //                    "Target",
+            //                    "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum."
+            //                },
+            //                {"EquipmentDescription", "Asus 509-k"},
+            //                {"TypeDepartures", "Монтаж"},
+            //                {"resultName", "New"}
+            //            };
+            string currentTaskId = (string)BusinessProcess.GlobalVariables["currentTaskId"];
             _equipments = DBHelper.GetEventEquipmentsById(currentTaskId);
             return DBHelper.GetTaskById(currentTaskId);
         }
@@ -201,12 +211,15 @@ namespace Test
                 case "New":
                     _resultEvent = ResultEventEnum.New;
                     break;
+
                 case "NotDone":
                     _resultEvent = ResultEventEnum.NotDone;
                     break;
+
                 case "Done":
                     _resultEvent = ResultEventEnum.Done;
                     break;
+
                 default:
                     _resultEvent = ResultEventEnum.New;
                     break;

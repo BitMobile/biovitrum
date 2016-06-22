@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Application;
 using Test.Components;
 
 namespace Test
@@ -98,24 +99,39 @@ namespace Test
         internal void CheckListValList_OnClick(object sender, EventArgs e)
         {
             _currentCheckListItemID = ((VerticalLayout) sender).Id;
-            _textView = (TextView) ((VerticalLayout) sender).GetControl(0);
-
-            var items = new Dictionary<object, string>();
+            _textView = (TextView)((VerticalLayout)sender).GetControl(0);
+            DConsole.WriteLine("asd0");
+            var items = new Dictionary<object, string>
+            {
+                {"", Translator.Translate("not_choosed")}
+            };
+            DConsole.WriteLine("asd1");
             var temp = DBHelper.GetActionValuesList(_textView.Id);
+            DConsole.WriteLine("asd2");
             while (temp.Next())
             {
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
             }
+            DConsole.WriteLine("asd3");
             Dialog.Choose(Translator.Translate("select_answer"), items, ValListCallback);
         }
 
         internal void ValListCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
         {
-            _textView.Text = args.Result.Value;
-            DBHelper.UpdateCheckListItem(_currentCheckListItemID, _textView.Text);
+            if (args.Result.Value == Translator.Translate("not_choosed"))
+            {
+                _textView.Text = Translator.Translate("not_choosed");
+                DBHelper.UpdateCheckListItem(_currentCheckListItemID, "");
+                _textView.Refresh();
+            }
+            else
+            {
+                _textView.Text = args.Result.Value;
+                DBHelper.UpdateCheckListItem(_currentCheckListItemID, _textView.Text);
+                _textView.Refresh();
+            }
         }
 
-        // TODO: при загрузке данных из БД (в xml) приводить DateTime в просто Date
         // Дата
         internal void CheckListDateTime_OnClick(object sender, EventArgs e)
         {
@@ -144,10 +160,33 @@ namespace Test
         // Булево
         internal void CheckListBoolean_OnClick(object sender, EventArgs e)
         {
-            _currentCheckListItemID = ((VerticalLayout) sender).Id;
-            _checkBox = (CheckBox) ((VerticalLayout) sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout)sender).Id;
+            _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
-            DBHelper.UpdateCheckListItem(_currentCheckListItemID, _checkBox.Checked ? "Нет" : "Да");
+            var items = new Dictionary<object, string>
+            {
+                {"true", Translator.Translate("yes")},
+                {"false", Translator.Translate("no")},
+                {"", Translator.Translate("not_choosed")}
+            };
+
+            Dialog.Choose(Translator.Translate("select_answer"), items, BooleanCallback);
+        }
+
+        internal void BooleanCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
+        {
+            if (args.Result.Value == Translator.Translate("not_choosed"))
+            {
+                _textView.Text = Translator.Translate("not_choosed");
+                DBHelper.UpdateCheckListItem(_currentCheckListItemID, "");
+                _textView.Refresh();
+            }
+            else
+            {
+                _textView.Text = args.Result.Value;
+                DBHelper.UpdateCheckListItem(_currentCheckListItemID, _textView.Text);
+                _textView.Refresh();
+            }
         }
 
         // С точкой
@@ -247,6 +286,12 @@ namespace Test
         {
             DConsole.WriteLine(item);
             return !(string.IsNullOrEmpty(item) && string.IsNullOrWhiteSpace(item));
+        }
+
+        internal bool IsEmptyString(string item)
+        {
+            DConsole.WriteLine("empty: " + item);
+            return string.IsNullOrEmpty(item) && string.IsNullOrWhiteSpace(item);
         }
 
         internal string GetResourceImage(string tag)

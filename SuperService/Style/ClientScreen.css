@@ -133,15 +133,16 @@ TextView {
 .ClientDescriptionVL {
     background-color: #626271;
     border-style: none;
-    height: 7sp;
+    height: 10sp;
     width: 100%;
 }
 
 .ClientDescriptionTV {
     color: #ffffff;
     font: 3sp arial;
-    height: 6sp;
-    /*margin-left: 5%;*/
+    height: 100%;
+    margin-left: 3%;
+    margin-right: 3%;
     padding-top: 25%;
     text-align: center;
     width: 26% auto;
@@ -179,24 +180,24 @@ TextView {
     height: 100%;
     horizontal-align: left;
     padding-left: 2%;
-    padding-top: 10%;
+    padding-top: 40%;
     text-align: left;
-    width: 100%;
     white-space: normal;
+    width: 100%;
 }
 
 
-.DistanceVL {
+.DistanceHL {
     height: 100%;
     width: 20%;
 }
 
 .ClientDistanceTV {
-    color: #000000;
+    color: #909499;
     font: 2sp arial;
     height: auto;
-    padding-top: 25%;
-    text-align: center;
+    padding-top: 40%;
+    text-align: left;
     width: auto;
 }
 
@@ -215,7 +216,7 @@ TextView {
     width: 100%
 }
 
-.ContactsListVL{
+.ContactsListVL {
     height: 0% auto;
     width: 100%
 }
@@ -229,9 +230,10 @@ TextView {
     color: #51595b;
     font: 2.5sp arial;
     height: 50%;
-    padding-left: 2%;
+    padding-left: 5%;
     padding-top: 25%;
     text-align: left;
+    white-space: nowrap;
     width: 100%;
 }
 
@@ -239,9 +241,10 @@ TextView {
     color: #9b9fa0;
     font: 2.5sp arial;
     height: 50%;
-    padding-left: 2%;
+    padding-left: 5%;
     padding-top: 5%;
     text-align: left;
+    white-space: nowrap;
     width: 100%;
 }
 
@@ -252,13 +255,20 @@ TextView {
 
 .CallToClientContainer {
     height: 100%;
-    vertical-align: center;
-    width: 50%;
+    horizontal-align: center;
+    width: 0% auto;
 }
 
 .CallImageImg {
+    height: 4sp;
+    vertical-align: center;
+}
+
+.GPSImage {
+    height: 1.3sp;
+    margin-top: 48%;
+    margin-left: 30%;
     horizontal-align: center;
-    width: 100%;
 }
 
 .AddContactBtn {
@@ -307,5 +317,63 @@ TextView {
     padding-top: 5%;
     text-align: left;
     width: 100%;
+}
+
+.FatLineHL {
+    background-color: #c6c6c9;
+    height: 100%;
+    horizontal-align: center;
+    width: 5%;
+}
+
+.FatLineContainerVL {
+    height: 9px;
+    width: 100%;
+}
+
+.WideLineHL {
+    background-color: f3f3f4;
+    height: 3px;
+    width: 100%;
+}
+
+.ContainerLineSplitter {
+    height: 3px;
+    width: 100%;
+}
+
+.LineSplitter {
+    background-color: #f3f3f4;
+    height: 100%;
+    horizontal-align: center;
+    width: 90%;
+}
+
+.AddButtonVl {
+    height: 10sp;
+    width: 100%;
+}
+
+.AddContainerHL {
+    height: 90%;
+    horizontal-align: center;
+    padding-left: 20%;
+    width: 90%;
+}
+
+.AddImg {
+    height: 2sp;
+    vertical-align: center;
+}
+
+.AddTV {
+    color: #fd724c;
+    font: 3sp arial;
+    height: 80%;
+    margin-left: 3%;
+    padding-top: 22%;
+    text-align: left;
+    vertical-align: center;
+    width: 40% auto;
 }
 /* ------------------------------------ */
