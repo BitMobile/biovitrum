@@ -4,6 +4,7 @@
   <c:VerticalLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
 
+    <s:Push Id="void_ crutch" Value="$InitClassFields()" />
     <s:Push Id="sums" Value="$GetSums()"/>
     
     <c:VerticalLayout Id="ServicesInfoVL" CssClass="TotalPriceInfoVL">

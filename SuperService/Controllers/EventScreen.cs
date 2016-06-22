@@ -174,7 +174,17 @@ namespace Test
 
         internal void GoToCOCScreen_OnClick(object sender, EventArgs e)
         {
-            Navigation.Move("COCScreen");
+            object eventId;
+            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
+            {
+                DConsole.WriteLine("Can't find current event ID, going to crash");
+            }
+
+            var dictinory = new Dictionary<string, object>()
+            {
+                {"currentEventId",(string)eventId }
+            };
+            Navigation.Move("COCScreen", dictinory);
         }
 
         internal void CheckListCounterLayout_OnClick(object sender, EventArgs eventArgs)
