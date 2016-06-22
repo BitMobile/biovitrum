@@ -70,3 +70,7 @@ uom_distance		km
 equipment		Equipment
 PARAMETERS		PARAMETERS
 SERVICEHISTORY		SERVICE HISTORY
+login		Login
+password		Password
+log_in		Log In
+cant_signing		Can't signing?

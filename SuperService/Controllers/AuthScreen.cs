@@ -19,9 +19,13 @@ namespace Test
             _passwordEditText = (EditText) GetControl("AuthScreenPasswordET", true);
         }
 
-        internal void exitButton_OnClick(object sender, EventArgs e)
+        public override void OnShow()
         {
-            Application.Terminate();
+        }
+
+        internal void CantSigningButton_OnClick(object sender, EventArgs e)
+        {
+            DConsole.WriteLine("Can't signing?");
         }
 
         internal void connectButton_OnClick(object sender, EventArgs e)

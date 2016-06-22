@@ -70,3 +70,7 @@ uom_distance		км
 equipment		Оборудование
 PARAMETERS		ПАРАМЕТРЫ
 SERVICEHISTORY		ИСТОРИЯ ОБСЛУЖИВАНИЯ
+login		Логин
+password		Пароль
+log_in		Войти
+cant_signing		Не получается войти?
