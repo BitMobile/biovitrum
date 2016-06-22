@@ -80,7 +80,7 @@ namespace Test
         internal void RIMLayout_OnClick(object sender, EventArgs eventArgs)
         {
 
-           /* if (_isMaterialRequest == true)
+            if (_isMaterialRequest == true)
             {
                 //пришли из экрана заявки на материалы
 
@@ -88,7 +88,6 @@ namespace Test
             }
             else
             {
-
                 var rimID = ((VerticalLayout)sender).Id;
                 var price = decimal.Parse(((TextView)((VerticalLayout)sender).Controls[1]).Text);
 
@@ -122,7 +121,7 @@ namespace Test
                     DBHelper.InsertEventServicesMaterialsLine(line);
 
                     DConsole.WriteLine("Добавили");*/
-      /*          }
+                }
                 else
                 {
                     DConsole.WriteLine("Позиция найдена, открываем окно редактирования количества ");
@@ -137,14 +136,14 @@ namespace Test
 
                     /*
                     var dictionary = new Dictionary<string, object>
-                {
-                    {"behaviour", BehaviourEditServicesOrMaterialsScreen.UpdateDB},
-                    {"lineId", line.ID}
-                };
+                    {
+                        {"behaviour", BehaviourEditServicesOrMaterialsScreen.UpdateDB},
+                        {"lineId", line.ID}
+                    };
 
-                Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
-*/
-           //     }
+                    Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
+                    */
+                }
 
 
 
@@ -180,10 +179,7 @@ namespace Test
                 }
                 */
                 
-        //    }
-
-
-
+           }
 
         }
 

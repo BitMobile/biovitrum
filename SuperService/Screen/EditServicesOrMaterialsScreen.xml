@@ -2,7 +2,7 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
-    <s:Push Id="рпопо" Value="$InitClassFields()" />
+    <s:Push Id="void_ crutch" Value="$InitClassFields()" />
     <s:Push Id="serviceMaterial" Value="$GetServiceMaterialInfo()" />
     <s:Push Id="void" Value="$SetPrice($serviceMaterial.Price)" />
     <c:VerticalLayout OnClick="BackButton_OnClick">
