@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using System;
+using System.Collections.Generic;
 using Test.Components;
 
 namespace Test
@@ -19,13 +19,13 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = false,
-                HeadingTextView = {Text = Translator.Translate("client")},
-                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
-                RightButtonImage = {Source = ResourceManager.GetImage("topheading_edit")}
+                HeadingTextView = { Text = Translator.Translate("client") },
+                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
+                RightButtonImage = { Source = ResourceManager.GetImage("topheading_edit") }
             };
 
-            _map = (WebMapGoogle) GetControl("MapClient", true);
-            _map.AddMarker((string) _client["Description"], (double) _client["Latitude"], (double) _client["Longitude"],
+            _map = (WebMapGoogle)GetControl("MapClient", true);
+            _map.AddMarker((string)_client["Description"], (double)_client["Latitude"], (double)_client["Longitude"],
                 "red");
 
             DConsole.WriteLine("Client end");
@@ -66,6 +66,13 @@ namespace Test
             Navigation.Move("EditContactScreen");
         }
 
+        internal void EquipmentLayout_OnClick(object sender, EventArgs e)
+        {
+            var layout = (VerticalLayout)sender;
+            // TODO: Передавать информацию об оборудовании
+            Navigation.Move("EquipmentScreen");
+        }
+
         internal DbRecordset GetCurrentClient()
         {
             object clientId;
@@ -73,17 +80,17 @@ namespace Test
             {
                 DConsole.WriteLine("Can't find current client ID, going to crash");
             }
-            _clientId = (string) clientId;
+            _clientId = (string)clientId;
             _client = DBHelper.GetClientByID(_clientId);
             return _client;
         }
 
         /// <summary>
-        /// Проверяет строку на то, что она null, пустая 
+        /// Проверяет строку на то, что она null, пустая
         /// или представляет пробельный символ
         /// </summary>
         /// <param name="item">Строка для проверки</param>
-        /// <returns>True если строка пустая, null или 
+        /// <returns>True если строка пустая, null или
         ///     пробельный символ.
         /// </returns>
         internal bool IsNotEmptyString(string item)
@@ -93,9 +100,8 @@ namespace Test
 
         internal DbRecordset GetContacts()
         {
-
             object clientContacts;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId",out clientContacts))
+            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId", out clientContacts))
             {
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
@@ -119,14 +125,14 @@ namespace Test
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
 
-            var equipment = DBHelper.GetEquipmentByClientID((string) clientContacts);
+            var equipment = DBHelper.GetEquipmentByClientID((string)clientContacts);
             return equipment;
         }
 
         internal void GoToMapScreen_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} Start");
-            var dictionary = new Dictionary<string,object>()
+            var dictionary = new Dictionary<string, object>()
             {
                 {"screenState",MapScreenStates.ClientScreen },
                 {"clientId",_clientId }
@@ -139,6 +145,7 @@ namespace Test
             DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} end");
             Navigation.Move("MapScreen", dictionary);
         }
+
         internal string GetConstLenghtString(string item)
         {
             return item.Length > 40 ? item.Substring(0, 40) : item;
@@ -146,7 +153,7 @@ namespace Test
 
         internal string GetDistance()
         {
-            return new Random().Next(0,101) + Translator.Translate("uom_distance");
+            return new Random().Next(0, 101) + Translator.Translate("uom_distance");
         }
     }
 }

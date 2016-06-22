@@ -66,3 +66,6 @@ get_coordinates		Get coordinates
 save_coordinates		Save coordinates
 failed_coordinates		Failed to get the coordinates
 uom_distance		km
+equipment		Equipment
+PARAMETERS		PARAMETERS
+SERVICEHISTORY		SERVICE HISTORY
