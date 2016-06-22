@@ -190,7 +190,7 @@ Image {
 
 .CheckListQuestionVL {
     height: 9sp auto;
-    width: 70%;
+    width: 65%;
 }
 
 .CheckListDescriptionTV {
@@ -205,7 +205,7 @@ Image {
 
 .CheckListAnswerVL {
     height: 9sp auto;
-    width: 29%;
+    width: 34%;
 }
 
 .CheckListAnswerElement {

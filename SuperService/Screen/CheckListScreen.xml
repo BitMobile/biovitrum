@@ -46,11 +46,11 @@
             <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$CheckList.CheckListId"
                               OnClick="CheckListValList_OnClick">
               <s:If Test="$IsNotEmptyString($CheckList.Result)">
-                <c:TextView Visible="true" Text="$CheckList.Result" Id="$CheckList.ActionId"
+                <c:TextView Text="$CheckList.Result" Id="$CheckList.ActionId"
                             CssClass="CheckListAnswerElement" />
               </s:If>
               <s:Else>
-                <c:TextView Visible="true" Text="#not_choosed#" Id="$CheckList.ActionId"
+                <c:TextView Text="#not_choosed#" Id="$CheckList.ActionId"
                             CssClass="CheckListAnswerElement" />
               </s:Else>
             </c:VerticalLayout>
@@ -65,17 +65,15 @@
             <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$CheckList.CheckListId"
                               OnClick="CheckListDateTime_OnClick">
               <s:If Test="$IsNotEmptyString($CheckList.Result)">
-                <c:TextView Visible="true" Text="$ToDate($CheckList.Result)" CssClass="CheckListAnswerElement" />
+                <c:TextView Text="$ToDate($CheckList.Result)" CssClass="CheckListAnswerElement" />
               </s:If>
               <s:Else>
-                <c:TextView Visible="true" Text="#not_specified#" CssClass="CheckListAnswerElement" />
+                <c:TextView Text="#not_specified#" CssClass="CheckListAnswerElement" />
               </s:Else>
             </c:VerticalLayout>
           </s:If>
 
           <!--БУЛЕВО-->
-
-
           <s:If Test="$CheckList.TypeName == Boolean">
             <c:VerticalLayout CssClass="CheckListQuestionVL">
               <c:TextView Text="$CheckList.Description" CssClass="CheckListDescriptionTV" />
@@ -83,22 +81,29 @@
 
             <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$CheckList.CheckListId"
                               OnClick="CheckListBoolean_OnClick">
-              <s:If Test="$CheckList.Result == Да">
-                <c:TextView Text="#yes#" Id="$CheckList.ActionId"
-                            CssClass="CheckListAnswerElement" />
-              </s:If>
-              
-              <s:Else>
-                <s:If Test="$CheckList.Result == Нет">
-                  <c:TextView Text="#no#" Id="$CheckList.ActionId"
-                              CssClass="CheckListAnswerElement" />
-                </s:If>
-              </s:Else>
-              
-              <s:Else>
+
+
+              <s:If Test="$IsEmptyString($CheckList.Result)">
                 <c:TextView Text="#not_choosed#" Id="$CheckList.ActionId"
                             CssClass="CheckListAnswerElement" />
+              </s:If>
+              <s:Else>
+                <s:If Test="$CheckList.Result == #yes#">
+                  <c:TextView Enabled="False" Text="#yes#" Id="$CheckList.ActionId"
+                              CssClass="CheckListAnswerElement" />
+                </s:If>
+                <s:Else>
+                  <s:If Test="$CheckList.Result == #no#">
+                    <c:TextView Text="#no#" Id="$CheckList.ActionId"
+                                CssClass="CheckListAnswerElement" />
+                  </s:If>
+                  <s:Else>
+                    <c:TextView Text="#not_choosed#" Id="$CheckList.ActionId"
+                                CssClass="CheckListAnswerElement" />
+                  </s:Else>
+                </s:Else>
               </s:Else>
+
             </c:VerticalLayout>
           </s:If>
 
