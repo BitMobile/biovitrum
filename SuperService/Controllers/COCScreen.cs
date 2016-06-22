@@ -79,6 +79,7 @@ namespace Test
                 {"behaviour", BehaviourEditServicesOrMaterialsScreen.UpdateDB},
                 {"lineId", vl.Id}
             };
+
             Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
         }
 
@@ -142,7 +143,10 @@ namespace Test
 
         internal string Concat(float amountFact, float price)
         {
-            return Convert.ToSingle(amountFact) + " x " + Convert.ToSingle(price);
+
+            DConsole.WriteLine("Concat - amountFact=" + amountFact + " type=" + amountFact.GetType() + " price=" + price + " type="+ price.GetType());
+           // return Convert.ToSingle(amountFact) + " x " + Convert.ToSingle(price);
+            return "" + amountFact + " x " + price;
         }
 
         internal DbRecordset GetMaterials()
@@ -159,3 +163,4 @@ namespace Test
         }
     }
 }
+ 

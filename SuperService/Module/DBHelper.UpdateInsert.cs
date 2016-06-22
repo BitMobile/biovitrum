@@ -316,7 +316,9 @@ namespace Test
         public static void UpdateServiceMaterialAmount(string lineID, decimal newPrice, decimal newAmountFact,
             decimal newSumFact)
         {
-            var query = new Query("update _Document_Event_ServicesMaterials " +
+
+
+           var query = new Query("update _Document_Event_ServicesMaterials " +
                                   "    set " +
                                   "       price = @price, " +
                                   "       amountFact = @amountFact, " +
@@ -324,10 +326,11 @@ namespace Test
                                   "       isDirty = 1 " +
                                   "" +
                                   "    where id = @lineID");
+
             query.AddParameter("lineID", lineID);
             query.AddParameter("price", newPrice);
             query.AddParameter("amountFact", newAmountFact);
-            query.AddParameter("newSumFact", newSumFact);
+            query.AddParameter("sumFact", newSumFact);
 
             query.Execute();
 

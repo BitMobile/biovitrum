@@ -8,6 +8,7 @@ namespace Test
 {
     public class EditServicesOrMaterialsScreen : Screen
     {
+        private bool _fieldsAreInitialized = false;
         private BehaviourEditServicesOrMaterialsScreen _behaviourEditServicesOrMaterialsScreen;
         private EditText _countEditText;
         private bool _editPrices;
@@ -44,21 +45,39 @@ namespace Test
             }
         }
 
-        public override void OnLoading()
+        public int InitClassFields()
         {
-            _key = (string) Variables.GetValueOrDefault("returnKey", "somNewValue");
-            _minimum = (int) Variables.GetValueOrDefault("minimum", 0);
-            _showPrices = (bool) Variables.GetValueOrDefault("priceVisible", true);
-            _editPrices = (bool) Variables.GetValueOrDefault("priceEditable", false);
-            _rimId = (string) Variables.GetValueOrDefault("rimId");
-            _lineId = (string) Variables.GetValueOrDefault("lineId");
 
+            DConsole.WriteLine("InitClassFields()");
+
+            if (_fieldsAreInitialized)
+            {
+                return 0;
+            }
             _behaviourEditServicesOrMaterialsScreen =
-                (BehaviourEditServicesOrMaterialsScreen)
-                    Variables.GetValueOrDefault("behaviour", BehaviourEditServicesOrMaterialsScreen.None);
+                    (BehaviourEditServicesOrMaterialsScreen)
+                        Variables.GetValueOrDefault("behaviour", BehaviourEditServicesOrMaterialsScreen.None);
 
+            _key = (string)Variables.GetValueOrDefault("returnKey", "somNewValue");
+            _minimum = (int)Variables.GetValueOrDefault("minimum", 0);
+            _showPrices = (bool)Variables.GetValueOrDefault("priceVisible", true);
+            _editPrices = (bool)Variables.GetValueOrDefault("priceEditable", false);
+            _rimId = (string)Variables.GetValueOrDefault("rimId");
+            _lineId = (string)Variables.GetValueOrDefault("lineId");
 
             BusinessProcess.GlobalVariables.Remove(_key);
+
+            _fieldsAreInitialized = true;
+
+            return 0;
+
+        }
+
+        public override void OnLoading()
+        {
+
+            DConsole.WriteLine("OnLoading()");
+            InitClassFields();
 
             _countEditText = (EditText) GetControl("CountEditText", true);
             _priceEditText = (EditText) Variables["PriceEditText"];
@@ -97,12 +116,15 @@ namespace Test
             switch (_behaviourEditServicesOrMaterialsScreen)
             {
                 case BehaviourEditServicesOrMaterialsScreen.InsertIntoDB:
+                    DConsole.WriteLine("InsertIntoDB");
                     InsertIntoDb();
                     break;
                 case BehaviourEditServicesOrMaterialsScreen.UpdateDB:
+                    DConsole.WriteLine("UpdateDB");
                     UpdateDb();
                     break;
                 case BehaviourEditServicesOrMaterialsScreen.ReturnValue:
+                    DConsole.WriteLine("ReturnValue");
                     ReturnValue();
                     break;
             }
@@ -120,11 +142,22 @@ namespace Test
 
         private void UpdateDb()
         {
+            //TODO: Переделать на объектную модель когда она будет починена (начнет работать метод GetObject())
+
+            //TODO: DEBUG
+            // 
+
+            DConsole.WriteLine("UpdateDb()  _lineId=" + _lineId + " Price=" + Price + " Count=" + Count);
+
+            //
+
             DBHelper.UpdateServiceMaterialAmount(_lineId, Price, Count, Price*Count);
         }
 
         private void InsertIntoDb()
         {
+            //TODO: Переделать на объектную модель когда она будет починена (начнет работать метод GetObject())
+
             DBHelper.InsertServiceMatherial((string) BusinessProcess.GlobalVariables["currentEventId"], _rimId, Price,
                 Count, Price*Count);
         }
@@ -189,6 +222,10 @@ namespace Test
 
         internal IEnumerable GetServiceMaterialInfo()
         {
+            DConsole.WriteLine("GetServiceMaterialInfo");
+
+            InitClassFields();
+
             return _lineId != null
                 ? DBHelper.GetServiceMaterialPriceByLineID(_lineId)
                 : DBHelper.GetServiceMaterialPriceByRIMID(_rimId);
