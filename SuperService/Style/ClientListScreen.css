@@ -210,41 +210,42 @@ TextView {
 
 /*  ClientList */
 
-.ClientListLayout {
+.ClientListMainSVL {
 	height: auto;
 	width: 100%;
-	margin-top: 1sp;
 	margin-bottom: 0sp;
 }
 
-.ClientItemLayout {
-	height: 12sp;
+.ClientListItemVL {
+	height: 10sp auto;
 	horizontal-align: center;
-	width: 90%;
+	width: 100%;
 }
 
-.ClientItemName {
+.ClientListNameTV {
+    width: 90%;
 	font: 3sp arial;
 	horizontal-align: left;
 	text-align: left;
-	color: #000000;
-	margin-top: 0sp;
-	margin-left: 2sp;
+	color: #51595b;
+	margin-top: 3sp;
+	margin-left: 5%;
 }
 
-.ClientItemAddress {
+.ClientListAddressTV {
+    width: 90%;
 	font: 2.5sp arial;
 	horizontal-align: left;
 	text-align: left;
-	margin-bottom: 1sp;
-	margin-left: 2sp;
+    color: #9b9fa0;
+	margin-bottom: 2.5sp;
+    margin-top: 1sp;
+	margin-left: 5%;
 }
 
-.ClientBreaker {
-	background-color: #f3f3f4;
-	height: 3px;
-	margin-left: 2sp;
-	width: 95%;
-	horizontal-align: left;
-	vertical-align: center;
+.ClientListBreaker {
+	background-color: #f4f4f4;
+	height: 2px;
+    margin-left: 5%;
+	width: 90%;
 }
