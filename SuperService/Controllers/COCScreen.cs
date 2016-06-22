@@ -11,10 +11,14 @@ namespace Test
     {
         private DbRecordset _sums;
         private TopInfoComponent _topInfoComponent;
+        private string _currentEventId;
+
+        private bool _fieldsAreInitialized = false;
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("In to: " + nameof(OnLoading));
+            InitClassFields();
+
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = true,
@@ -28,6 +32,21 @@ namespace Test
                 },
                 BigArrowActive = false
             };
+        }
+
+
+        public int InitClassFields()
+        {
+            if (_fieldsAreInitialized)
+            {
+                return 0;
+            }
+
+            _currentEventId = (string)Variables.GetValueOrDefault("currentEventId", string.Empty);
+
+            _fieldsAreInitialized = true;
+
+            return 0;
         }
 
         public override void OnShow()
@@ -56,15 +75,22 @@ namespace Test
 
         internal void AddService_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.GlobalVariables["isService"] = true;
-            var dictionary = new Dictionary<string, object> {{"isService", true}};
+            var dictionary = new Dictionary<string, object>
+            {
+                {"isService", true},
+                {"currentEventId", _currentEventId}
+            };
             Navigation.Move("RIMListScreen", dictionary);
         }
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.GlobalVariables["isService"] = false;
-            var dictionary = new Dictionary<string, object> {{"isService", false}};
+            var dictionary = new Dictionary<string, object>
+            {
+                {"isService", false},
+                {"currentEventId", _currentEventId}
+
+            };
             Navigation.Move("RIMListScreen", dictionary);
         }
 
@@ -85,7 +111,7 @@ namespace Test
 
         internal void ApplicatioMaterials_OnClick(object sender, EventArgs e)
         {
-            Navigation.Move("MeterialsRequestScreen");
+            Navigation.Move("MaterialsRequestScreen");
         }
 
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
@@ -114,10 +140,8 @@ namespace Test
 
 
         internal DbRecordset GetSums()
-
         {
-            DConsole.WriteLine("COC - GetSums()");
-
+ 
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
             {
@@ -131,7 +155,6 @@ namespace Test
 
         internal DbRecordset GetServices()
         {
-            DConsole.WriteLine("COC - GetServices()");
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
             {
@@ -151,8 +174,6 @@ namespace Test
 
         internal DbRecordset GetMaterials()
         {
-            DConsole.WriteLine("COC - GetMaterials()");
-
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
             {

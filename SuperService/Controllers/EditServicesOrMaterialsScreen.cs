@@ -48,8 +48,6 @@ namespace Test
         public int InitClassFields()
         {
 
-            DConsole.WriteLine("InitClassFields()");
-
             if (_fieldsAreInitialized)
             {
                 return 0;
@@ -76,7 +74,6 @@ namespace Test
         public override void OnLoading()
         {
 
-            DConsole.WriteLine("OnLoading()");
             InitClassFields();
 
             _countEditText = (EditText) GetControl("CountEditText", true);
@@ -135,21 +132,14 @@ namespace Test
         {
             var value = new EditServiceOrMaterialsScreenResult(Count, Price, Count*Price, _rimId);
 
-            if (BusinessProcess.GlobalVariables.ContainsKey(_key))
-                BusinessProcess.GlobalVariables.Remove(_key);
-            BusinessProcess.GlobalVariables.Add(_key, value);
+            if (Variables.ContainsKey(_key))
+                Variables.Remove(_key);
+            Variables.Add(_key, value);
         }
 
         private void UpdateDb()
         {
             //TODO: Переделать на объектную модель когда она будет починена (начнет работать метод GetObject())
-
-            //TODO: DEBUG
-            // 
-
-            DConsole.WriteLine("UpdateDb()  _lineId=" + _lineId + " Price=" + Price + " Count=" + Count);
-
-            //
 
             DBHelper.UpdateServiceMaterialAmount(_lineId, Price, Count, Price*Count);
         }
@@ -222,9 +212,16 @@ namespace Test
 
         internal IEnumerable GetServiceMaterialInfo()
         {
-            DConsole.WriteLine("GetServiceMaterialInfo");
 
             InitClassFields();
+
+            DConsole.WriteLine("rim_id =" + _rimId);
+
+            var res = DBHelper.GetServiceMaterialPriceByRIMID(_rimId);
+            res.Next();
+
+            //DConsole.WriteLine("rim_id =" + _rimId)
+
 
             return _lineId != null
                 ? DBHelper.GetServiceMaterialPriceByLineID(_lineId)

@@ -9,7 +9,7 @@ using Test.Components;
 namespace Test
 {
     // TODO: Сделать задвигающие SwipeHorizontalLayout
-    public class MeterialsRequestScreen : Screen
+    public class MaterialsRequestScreen : Screen
     {
         private static ArrayList _data;
         private static bool _isAdd = Convert.ToBoolean("False");
@@ -19,6 +19,7 @@ namespace Test
 
         public override void OnLoading()
         {
+
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = false,
@@ -33,7 +34,7 @@ namespace Test
             DConsole.WriteLine($"{nameof(_isAdd)} = {_isAdd} {nameof(_isEdit)} {_isEdit}");
             if (_isAdd)
             {
-                var newItem = BusinessProcess.GlobalVariables.GetValueOrDefault("newItem");
+                var newItem = Variables.GetValueOrDefault("newItem");
 
                 if (newItem != null)
                 {
@@ -54,7 +55,7 @@ namespace Test
                         DConsole.WriteLine($"Element is added _data.Count = {_data.Count}");
                     }
                 }
-                BusinessProcess.GlobalVariables.Remove("newItem");
+                Variables.Remove("newItem");
                 _isAdd = Convert.ToBoolean("False");
             }
             else if (_isEdit)
@@ -156,6 +157,7 @@ namespace Test
         /// <returns>true - если БД вернула 0 записей, иначе false</returns>
         internal bool GetIsEmptyList()
         {
+            DConsole.WriteLine("GetIsEmptyList()");
             if (_data == null)
             {
                 _isAdd = _isEdit = Convert.ToBoolean("False");
@@ -235,12 +237,14 @@ namespace Test
             {
                 {"isService", false},
                 {"isMaterialsRequest", true},
-                {"returnKey", "newItem"}
+                {"returnKey", "newItem"},
+                {"behaviour", BehaviourEditServicesOrMaterialsScreen.ReturnValue}
             };
-            BusinessProcess.GlobalVariables["isService"] = false;
-            BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
+
             _isAdd = Convert.ToBoolean("True");
-            Navigation.Move("AddServicesOrMaterials", dictionary);
+
+            Navigation.Move("RIMListScreen", dictionary);
+
         }
 
         internal void SendData_OnClick(object sender, EventArgs e)

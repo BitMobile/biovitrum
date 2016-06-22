@@ -13,8 +13,6 @@ namespace Test
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("BagListScreen init");
-
             _topInfoComponent = new TopInfoComponent(this)
             {
                 HeadingTextView = {Text = Translator.Translate("bag")},
