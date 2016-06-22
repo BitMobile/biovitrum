@@ -91,15 +91,29 @@ namespace Test
                 {
                     ["Description"] = "Монтаж",
                     ["Result"] = "Выполнено",
+                    ["ResultName"] = "Done",
                     ["Date"] = DateTime.Now
                 },
                 new Dictionary<string, object>
                 {
                     ["Description"] = "Ремонт",
                     ["Result"] = "Не выполнено",
+                    ["ResultName"] = "NotDone",
                     ["Date"] = DateTime.Now.Date
-                }
+                },
+                new Dictionary<string, object>
+                {
+                    ["Description"] = "Ремонт",
+                    ["Result"] = "Не выполнено",
+                    ["ResultName"] = "NotDone",
+                    ["Date"] = DateTime.Now.Date
+                },
             };
+        }
+
+        internal string FormatDateString(DateTime dateTime)
+        {
+            return dateTime.ToString("M");
         }
 
         internal string GetResourceImage(string tag)
