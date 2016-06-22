@@ -23,9 +23,10 @@
           <c:TextView CssClass="ClientAdressTV" Text="$clientItem.Address" />
         </c:VerticalLayout>
 
-        <c:VerticalLayout CssClass="DistanceVL">
+        <c:HorizontalLayout CssClass="DistanceHL">
+          <c:Image Id="GPSImage" CssClass="GPSImage" Source="$GetResourceImage(clientscreen_gps)" />
           <c:TextView CssClass="ClientDistanceTV" Text="$GetDistance()" />
-        </c:VerticalLayout>
+        </c:HorizontalLayout>
       </c:HorizontalLayout>
       <c:HorizontalLine CssClass="WideLineHL" />
 
@@ -89,7 +90,8 @@
 
         <s:Iterator Id="equipments" Value="$GetEquipments()">
 
-          <c:VerticalLayout Id="$equipments.equipmentID" CssClass="EquipmentContainerVL" OnClick="EquipmentLayout_OnClick">
+          <c:VerticalLayout Id="$equipments.equipmentID" CssClass="EquipmentContainerVL"
+                            OnClick="EquipmentLayout_OnClick">
             <!-- TODO: Несоответствие верстки и прототипа -->
             <c:TextView CssClass="EquipmentTypeTV" Text="Тип оборудования" />
             <c:TextView CssClass="EquipmentNameTV" Text="$equipments.Description" />

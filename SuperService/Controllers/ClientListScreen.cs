@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
-using System.Collections;
 
 namespace Test
 {
@@ -13,14 +13,13 @@ namespace Test
 
         public override void OnLoading()
         {
-           
             DConsole.WriteLine("ClientListScreen init");
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                HeadingTextView = { Text = Translator.Translate("clients") },
-                LeftButtonImage = { Visible = false },
-                RightButtonImage = { Visible = false },
+                HeadingTextView = {Text = Translator.Translate("clients")},
+                LeftButtonImage = {Visible = false},
+                RightButtonImage = {Visible = false},
                 ExtraLayoutVisible = false
             };
 
@@ -68,9 +67,9 @@ namespace Test
 
         internal void ClientLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            DConsole.WriteLine("ClientLayout_OnClick " + ((VerticalLayout)sender).Id);
+            DConsole.WriteLine("ClientLayout_OnClick " + ((VerticalLayout) sender).Id);
             // TODO: Передача Id конкретной таски
-            BusinessProcess.GlobalVariables["clientId"] = ((VerticalLayout)sender).Id;
+            BusinessProcess.GlobalVariables["clientId"] = ((VerticalLayout) sender).Id;
             Navigation.Move("ClientScreen");
         }
 
@@ -82,7 +81,7 @@ namespace Test
             DConsole.WriteLine("Получили клиентов");
 
             //var result2 = DBHelper.GetClients();
-           // var dbEx = result2.Unload();
+            // var dbEx = result2.Unload();
             //DConsole.WriteLine("in result " + dbEx.Count());
 
             return result;

@@ -9,15 +9,15 @@
 
     <!-- Tab Bar-->
     <s:Include File="Components\TabBarСomponent.xml" />
-   
+
     <!-- Список контактов -->
     <c:SwipeVerticalLayout CssClass="ClientListMainSVL">
       <s:Iterator Id="client" Value="$GetClients()">
         <c:VerticalLayout Id="$client.Id" onClick="ClientLayout_OnClick" CssClass="ClientListItemVL">
-          <c:TextView Text="$client.Description" CssClass="ClientListNameTV"/>
-          <c:TextView Text="$client.Address" CssClass="ClientListAddressTV"/>
+          <c:TextView Text="$client.Description" CssClass="ClientListNameTV" />
+          <c:TextView Text="$client.Address" CssClass="ClientListAddressTV" />
           <c:HorizontalLine CssClass="ClientListBreaker" />
-        </c:VerticalLayout>       
+        </c:VerticalLayout>
       </s:Iterator>
     </c:SwipeVerticalLayout>
 
