@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.DbEngine;
+using System;
+using System.Collections;
 using Test.Entities.Document;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
@@ -19,7 +19,6 @@ namespace Test
         {
             return GetEvents(new DateTime());
         }
-
 
         /// <summary>
         ///     Method returns list of events which plan start date biger then param
@@ -93,7 +92,6 @@ namespace Test
             return events;
         }
 
-
         /// <summary>
         ///     Полуает статистику по нарядам (событиям). Возвращает объект содержащий: количество нарядов на день, количество
         ///     закрытых
@@ -130,15 +128,14 @@ namespace Test
 
             if (result.Next())
             {
-                statistic.DayTotalAmount = (int) result["DayTotalAmount"];
-                statistic.DayCompleteAmout = (int) result["DayCompleteAmout"];
-                statistic.MonthTotalAmount = (int) result["MonthCompleteAmout"];
-                statistic.MonthCompleteAmout = (int) result["MonthTotalAmount"];
+                statistic.DayTotalAmount = (int)result["DayTotalAmount"];
+                statistic.DayCompleteAmout = (int)result["DayCompleteAmout"];
+                statistic.MonthTotalAmount = (int)result["MonthCompleteAmout"];
+                statistic.MonthCompleteAmout = (int)result["MonthTotalAmount"];
             }
 
             return statistic;
         }
-
 
         /// <summary>
         ///     Получает полную информацию по событию
@@ -169,7 +166,7 @@ namespace Test
                             "    client.Description as clientDescription,  " + //имя клиента
                             "    client.Address as clientAddress,  " + //адрес клиента
                             "    docCheckList.Required as checkListRequired, " +
-                            // количество обязательных вопросов в чеклистах 
+                            // количество обязательных вопросов в чеклистах
                             "    docCheckList.RequiredAnswered as checkListRequiredAnswered, " +
                             //количество отвеченных обязательных вопросов в чеклистах
                             "    case  " +
@@ -241,7 +238,6 @@ namespace Test
             return result;
         }
 
-
         /// <summary>
         ///     Получает список задач события
         /// </summary>
@@ -280,7 +276,6 @@ namespace Test
         /// </summary>
         public static DbRecordset GetContactsByClientID(string clientID)
         {
-
             var query = new Query("select " +
                                   "     Contacts.Id, " + //гиуд контакноголица
                                   "     Contacts.DeletionMark, " + // признак пометки удаления
@@ -303,7 +298,6 @@ namespace Test
 
             return query.Execute();
         }
-
 
         /// <summary>
         ///     Возвращает перечень оборудования клиента. Возвращается все оборудование во всех статусах
@@ -341,7 +335,6 @@ namespace Test
             return query.Execute();
         }
 
-
         /// <summary>
         ///     Возвращает список всех клиентов
         /// </summary>
@@ -359,10 +352,8 @@ namespace Test
                                   "where " +
                                   "    Catalog_Client.DeletionMark = 0");
 
-
             return query.Execute();
         }
-
 
         /// <summary>
         ///     Возвращает информацию по клиенту
@@ -418,7 +409,6 @@ namespace Test
             return query.Execute();
         }
 
-
         /// <summary>
         ///     Получает список вариантов ответов для действий (вопросов)  с типом результата "выбор из списка"
         /// </summary>
@@ -436,7 +426,6 @@ namespace Test
             query.AddParameter("actionID", actionID);
             return query.Execute();
         }
-
 
         /// <summary>
         ///     Возвращает задачу по ее идентификатору
@@ -668,7 +657,6 @@ namespace Test
             return result;
         }
 
-
         /// <summary>
         ///     Возвращает строку табличной части "услуги и материалы" документа Событие по ее идентификатору
         /// </summary>
@@ -725,7 +713,6 @@ namespace Test
             return query.Execute();
         }
 
-
         /// <summary>
         ///     Получает список документов заявка на материалы
         /// </summary>
@@ -749,12 +736,10 @@ namespace Test
                             "order by " +
                             "   _Document_NeedMat.Date desc";
 
-
             var query = new Query(queryText);
 
             return query.Execute();
         }
-
 
         /// <summary>
         ///     Получает информацию по строке материалов и услуг документа Наряд
@@ -812,8 +797,6 @@ namespace Test
             var queryText = "";
             var query = new Query(queryText);
 
-
-
             return query.Execute();
         }
 
@@ -822,15 +805,15 @@ namespace Test
             var query = new Query("select * from Document_Event_Equipments where id = @id");
             query.AddParameter("id", id);
             var dbRecordset = query.Execute();
-            return new Event_Equipments((DbRef) dbRecordset["Id"])
+            return new Event_Equipments((DbRef)dbRecordset["Id"])
             {
-                Comment = (string) dbRecordset["Comment"],
-                Equipment = (DbRef) dbRecordset["Equipment"],
-                LineNumber = (int) dbRecordset["LineNumber"],
-                Ref = (DbRef) dbRecordset["Ref"],
-                Result = (DbRef) dbRecordset["Result"],
-                SID = (DbRef) dbRecordset["SID"],
-                Terget = (string) dbRecordset["Terget"]
+                Comment = (string)dbRecordset["Comment"],
+                Equipment = (DbRef)dbRecordset["Equipment"],
+                LineNumber = (int)dbRecordset["LineNumber"],
+                Ref = (DbRef)dbRecordset["Ref"],
+                Result = (DbRef)dbRecordset["Result"],
+                SID = (DbRef)dbRecordset["SID"],
+                Terget = (string)dbRecordset["Terget"]
             };
         }
 
@@ -840,7 +823,7 @@ namespace Test
                                     client.Description as Description,
                                     client.Latitude as Latitude,
                                     client.Longitude as Longitude
-                                from 
+                                from
                                     _Catalog_Client as client
                                 where
                                     client.Latitude != 0
@@ -858,7 +841,7 @@ namespace Test
                                         client.Description as Description,
                                         client.Latitude as Latitude,
                                         client.Longitude as Longitude
-                                    from  
+                                    from
                                         _Document_Event as event
                                     left join _Catalog_Client as client
                                         on event.client = client.id

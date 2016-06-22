@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using BitMobile.ClientModel3;
-using Test.Entities.Catalog;
+﻿using BitMobile.ClientModel3;
 
 namespace Test
 {
@@ -11,7 +9,7 @@ namespace Test
             DConsole.WriteLine("DB init...");
             DBHelper.Init();
             DConsole.WriteLine("Loading first screen");
-            Navigation.Move("EquipmentScreen");
+            Navigation.Move("AuthScreen");
         }
     }
 }

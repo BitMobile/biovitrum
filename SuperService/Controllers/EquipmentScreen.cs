@@ -1,7 +1,7 @@
-﻿using System;
+﻿using BitMobile.ClientModel3.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using BitMobile.ClientModel3.UI;
 
 namespace Test
 {
@@ -9,7 +9,7 @@ namespace Test
     {
         internal void BackButton_OnClick(object sender, EventArgs eventArgs)
         {
-            Navigation.Back();
+            Navigation.Back(true);
         }
 
         internal IEnumerable GetEquipmentInfo()
@@ -33,7 +33,7 @@ namespace Test
                 {
                     ["Parameter"] = "Вид протокола",
                     ["Value"] = "Не выбрано"
-                }, 
+                },
                 new Dictionary<string, object>
                 {
                     ["Parameter"] = "Есть индикаторы",
