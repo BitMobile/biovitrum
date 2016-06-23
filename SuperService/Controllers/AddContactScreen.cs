@@ -23,7 +23,7 @@ namespace Test
         {
 
             object clientId;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId", out clientId))
+            if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdClientId, out clientId))
             {
                 DConsole.WriteLine("Adding contact error. Can't find current client ID. Unnable to add contact to DB. Going to crash");
                 return;

@@ -54,14 +54,14 @@ namespace Test
             }
             _behaviourEditServicesOrMaterialsScreen =
                     (BehaviourEditServicesOrMaterialsScreen)
-                        Variables.GetValueOrDefault("behaviour", BehaviourEditServicesOrMaterialsScreen.None);
+                        Variables.GetValueOrDefault(Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.None);
 
             _key = (string)Variables.GetValueOrDefault("returnKey", "somNewValue");
             _minimum = (int)Variables.GetValueOrDefault("minimum", 0);
             _showPrices = (bool)Variables.GetValueOrDefault("priceVisible", true);
             _editPrices = (bool)Variables.GetValueOrDefault("priceEditable", false);
             _rimId = (string)Variables.GetValueOrDefault("rimId");
-            _lineId = (string)Variables.GetValueOrDefault("lineId");
+            _lineId = (string)Variables.GetValueOrDefault(Parameters.IdLineId);
 
             BusinessProcess.GlobalVariables.Remove(_key);
 
@@ -148,7 +148,7 @@ namespace Test
         {
             //TODO: Переделать на объектную модель когда она будет починена (начнет работать метод GetObject())
 
-            DBHelper.InsertServiceMatherial((string) BusinessProcess.GlobalVariables["currentEventId"], _rimId, Price,
+            DBHelper.InsertServiceMatherial((string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId], _rimId, Price,
                 Count, Price*Count);
         }
 

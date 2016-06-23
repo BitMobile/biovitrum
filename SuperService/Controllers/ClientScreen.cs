@@ -76,7 +76,7 @@ namespace Test
         internal DbRecordset GetCurrentClient()
         {
             object clientId;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId", out clientId))
+            if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdClientId, out clientId))
             {
                 DConsole.WriteLine("Can't find current client ID, going to crash");
             }
@@ -101,7 +101,7 @@ namespace Test
         internal DbRecordset GetContacts()
         {
             object clientContacts;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId", out clientContacts))
+            if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdClientId, out clientContacts))
             {
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
@@ -120,7 +120,7 @@ namespace Test
         internal DbRecordset GetEquipments()
         {
             object clientContacts;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId", out clientContacts))
+            if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdClientId, out clientContacts))
             {
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
@@ -134,13 +134,13 @@ namespace Test
             DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} Start");
             var dictionary = new Dictionary<string, object>()
             {
-                {"screenState",MapScreenStates.ClientScreen },
-                {"clientId",_clientId }
+                {Parameters.IdScreenStateId, MapScreenStates.ClientScreen },
+                {Parameters.IdClientId,_clientId }
             };
-            BusinessProcess.GlobalVariables.Remove("screenState");
-            BusinessProcess.GlobalVariables.Remove("clientId");
-            BusinessProcess.GlobalVariables["screenState"] = MapScreenStates.ClientScreen;
-            BusinessProcess.GlobalVariables["clientId"] = _clientId;
+            BusinessProcess.GlobalVariables.Remove(Parameters.IdScreenStateId);
+            BusinessProcess.GlobalVariables.Remove(Parameters.IdClientId);
+            BusinessProcess.GlobalVariables[Parameters.IdScreenStateId] = MapScreenStates.ClientScreen;
+            BusinessProcess.GlobalVariables[Parameters.IdClientId] = _clientId;
 
             DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} end");
             Navigation.Move("MapScreen", dictionary);
