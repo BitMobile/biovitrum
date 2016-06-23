@@ -124,7 +124,7 @@ namespace Test
                     dateText = new TextView
                     {
                         CssClass = "DateText",
-                        Text = itemElement.StartDatePlan.Date.ToString("dddd, dd MMMM")
+                        Text = itemElement.StartDatePlan.Date.ToString("dddd, dd MMMM").ToUpper()
                     };
                     finalDateLine = new HorizontalLine {CssClass = "FinalDateLine"};
                     _svlEventList.AddChild(dateText);

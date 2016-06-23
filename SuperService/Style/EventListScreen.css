@@ -236,7 +236,7 @@ TextView {
 }
 
 .OrderInfoContainer {
-	height: 10sp;
+	height: 10sp auto;
 	width: 100%;
 }
 
@@ -290,16 +290,17 @@ TextView {
 }
 
 .OrderInfo {
-	height: 100%;
-	width: auto;
+	height: 10sp auto;
+	width: 100%;
 }
 
 .ClientDescription {
 	color: #51595b;
 	font: 3sp arial;
-	height: 35%;
-	margin-left: 5%;
-	padding-top: 10%;
+	height: 3.5sp;
+	margin-top: 2sp;
+    margin-left: 2sp;
+    margin-right: 3sp;
 	text-align: left;
 	width: 100%;
 }
@@ -307,8 +308,10 @@ TextView {
 .ClientAdress {
 	color: #51595b;
 	font: 2sp arial;
-	height: 30%;
-	margin-left: 5%;
+	height: 2.5sp;
+    margin-top: 0.5sp;
+	margin-left: 2sp;
+    margin-right: 3sp;
 	text-align: left;
 	width: 100%;
 }
@@ -316,9 +319,11 @@ TextView {
 .TypesDepartures {
 	color: #7d7777;
 	font: 2sp arial;
-	height: 30%;
-	margin-bottom: 2%;
-	margin-left: 5%;
+	height: 2.5sp;
+	margin-top: 1sp;
+	margin-left: 2sp;
+    margin-right: 3sp;
+    margin-bottom: 2sp;
 	text-align: left;
 	width: 100%;
 }
@@ -369,25 +374,25 @@ TextView {
 	height: 15sp;
 	margin-right: 25%;
 	margin-top: 25%;
-	width: 15sp;
+	width: 50%;
 }
 
 .ExtraInfo {
 	background-color: #4a4b5e;
-	color: #9595a3;
+	color: #ffffff;
 	font: 3sp arial;
 	height: 50%;
 	text-align: center;
-	width: 100%;
+	width: 10sp;
 }
 
 .BottonExtraInfo {
 	background-color: #4a4b5e;
-	color: #9595a3;
+	color: #ffffff;
 	font: 2sp arial;
-	height: 50%;
+	height: 5sp;
 	text-align: center;
-	width: 100%;
+	width: 15sp;
 }
 
 /* Tab Bar style */
