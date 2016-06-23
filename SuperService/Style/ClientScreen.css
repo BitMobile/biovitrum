@@ -230,7 +230,7 @@ TextView {
     color: #51595b;
     font: 2.5sp arial;
     height: 50%;
-    padding-left: 5%;
+    padding-left: 5sp;
     padding-top: 25%;
     text-align: left;
     white-space: nowrap;
@@ -241,7 +241,7 @@ TextView {
     color: #9b9fa0;
     font: 2.5sp arial;
     height: 50%;
-    padding-left: 5%;
+    padding-left: 5sp;
     padding-top: 5%;
     text-align: left;
     white-space: nowrap;
@@ -303,7 +303,7 @@ TextView {
     color: #51595b;
     font: 2.5sp arial;
     height: 50%;
-    padding-left: 5%;
+    padding-left: 5sp;
     padding-top: 25%;
     text-align: left;
     width: 100%;
@@ -313,7 +313,7 @@ TextView {
     color: #a6a9aa;
     font: 2.5sp arial;
     height: 50%;
-    padding-left: 5%;
+    padding-left: 5sp;
     padding-top: 5%;
     text-align: left;
     width: 100%;
