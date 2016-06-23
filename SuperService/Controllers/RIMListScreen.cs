@@ -9,17 +9,16 @@ namespace Test
 {
     public class RIMListScreen : Screen
     {
+        private string _currentEventID;
+
+        private bool _fieldsAreInitialized;
         private bool _isMaterialRequest;
         private bool _isService;
-        private string _currentEventID;
 
         private TopInfoComponent _topInfoComponent;
 
-        private bool _fieldsAreInitialized = false;
-
         public override void OnLoading()
         {
-
             InitClassFields();
 
             _topInfoComponent = new TopInfoComponent(this)
@@ -32,21 +31,18 @@ namespace Test
                 RightButtonImage = {Visible = false},
                 ExtraLayoutVisible = false
             };
-
-
         }
 
 
         public int InitClassFields()
         {
-
             if (_fieldsAreInitialized)
             {
                 return 0;
             }
 
-            _isMaterialRequest = (bool)Variables.GetValueOrDefault("isMaterialsRequest", Convert.ToBoolean("False"));
-            _isService = (bool)Variables.GetValueOrDefault("isService", Convert.ToBoolean("False"));
+            _isMaterialRequest = (bool) Variables.GetValueOrDefault("isMaterialsRequest", Convert.ToBoolean("False"));
+            _isService = (bool) Variables.GetValueOrDefault("isService", Convert.ToBoolean("False"));
             _currentEventID = (string) Variables.GetValueOrDefault("currentEventId", string.Empty);
             _fieldsAreInitialized = true;
 
@@ -71,8 +67,8 @@ namespace Test
 
         internal void RIMLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            var rimID = ((VerticalLayout)sender).Id;
-            if (_isMaterialRequest == true)
+            var rimID = ((VerticalLayout) sender).Id;
+            if (_isMaterialRequest)
             {
                 //пришли из экрана заявки на материалы
                 var key = Variables.GetValueOrDefault("returnKey", "newItem");
@@ -86,12 +82,11 @@ namespace Test
                 };
                 DConsole.WriteLine("Go to EditServicesOrMaterials is Material Request true");
                 Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
-
             }
             else
-            {         
-                DConsole.WriteLine("Пытаемся найти номенклатуру в документе " + (string)_currentEventID + " по гуиду " + rimID);
-                var line = DBHelper.GetEventServicesMaterialsLineByRIMID((string)_currentEventID, rimID);
+            {
+                DConsole.WriteLine("Пытаемся найти номенклатуру в документе " + _currentEventID + " по гуиду " + rimID);
+                var line = DBHelper.GetEventServicesMaterialsLineByRIMID(_currentEventID, rimID);
 
                 if (line == null)
                 {
@@ -100,7 +95,7 @@ namespace Test
                     var dictionary = new Dictionary<string, object>
                     {
                         {"behaviour", BehaviourEditServicesOrMaterialsScreen.InsertIntoDB},
-                        {"rimId"    , rimID}
+                        {"rimId", rimID}
                     };
 
                     Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
@@ -111,12 +106,12 @@ namespace Test
                     var dictionary = new Dictionary<string, object>
                     {
                         {"behaviour", BehaviourEditServicesOrMaterialsScreen.UpdateDB},
-                        {"lineId"   , line.ID}
+                        {"lineId", line.ID}
                     };
 
-                    Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);              
-                }            
-           }
+                    Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
+                }
+            }
         }
 
 
@@ -134,8 +129,18 @@ namespace Test
             }
             else
             {
-                result = DBHelper.GetRIMByType(RIMType.Material);
-                DConsole.WriteLine("Получили товары " + RIMType.Material);
+                var isBag = DBHelper.GetIsBag();
+
+                if (!isBag)
+                {
+                    result = DBHelper.GetRIMByType(RIMType.Material);
+                    DConsole.WriteLine("Получили товары " + RIMType.Material);
+                }
+                else
+                {
+                    result = DBHelper.GetRIMFromBag();
+                    DConsole.WriteLine("Получаем материалы из рюкзака");
+                }
             }
 
             return result;
