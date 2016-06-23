@@ -81,7 +81,7 @@ namespace Test
 
         internal void RefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
-            DBHelper.UpdateCancelEventById((string) BusinessProcess.GlobalVariables["currentEventId"]);
+            DBHelper.UpdateCancelEventById((string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
             Navigation.Back(true);
         }
 
@@ -123,7 +123,7 @@ namespace Test
                 if (CheckEventBeforeClosing() && args.Result == 0)
                 {
                     DBHelper.UpdateActualEndDateByEventId(DateTime.Now,
-                        (string) BusinessProcess.GlobalVariables["currentEventId"]);
+                        (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
                     Navigation.Move("CloseEventScreen");
                 }
             }, null,
@@ -139,7 +139,7 @@ namespace Test
         private void Event_OnStart()
         {
             DBHelper.UpdateActualStartDateByEventId(DateTime.Now,
-                (string) BusinessProcess.GlobalVariables["currentEventId"]);
+                (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
@@ -149,7 +149,7 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.GlobalVariables["clientId"] = _currentEventRecordset["clientId"].ToString();
+            BusinessProcess.GlobalVariables[Parameters.IdClientId] = _currentEventRecordset[Parameters.IdClientId].ToString();
             Navigation.Move("ClientScreen");
         }
 
@@ -175,14 +175,14 @@ namespace Test
         internal void GoToCOCScreen_OnClick(object sender, EventArgs e)
         {
             object eventId;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
+            if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
 
             var dictinory = new Dictionary<string, object>()
             {
-                {"currentEventId",(string)eventId }
+                {Parameters.IdCurrentEventId,(string)eventId }
             };
             Navigation.Move("COCScreen", dictinory);
         }
@@ -195,7 +195,7 @@ namespace Test
         internal DbRecordset GetCurrentEvent()
         {
             object eventId;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
+            if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
@@ -227,17 +227,17 @@ namespace Test
 
         internal void GoToMapScreen_OnClick(object sender, EventArgs e)
         {
-            var clientId = (string) _currentEventRecordset["clientId"];
+            var clientId = (string) _currentEventRecordset[Parameters.IdClientId];
             var dictionary = new Dictionary<string, object>
             {
-                {"screenState", MapScreenStates.EventScreen},
-                {"clientId", clientId}
+                {Parameters.IdScreenStateId, MapScreenStates.EventScreen},
+                {Parameters.IdClientId, clientId}
             };
 
-            BusinessProcess.GlobalVariables.Remove("screenState");
-            BusinessProcess.GlobalVariables.Remove("clientId");
-            BusinessProcess.GlobalVariables["screenState"] = MapScreenStates.EventScreen;
-            BusinessProcess.GlobalVariables["clientId"] = clientId;
+            BusinessProcess.GlobalVariables.Remove(Parameters.IdScreenStateId);
+            BusinessProcess.GlobalVariables.Remove(Parameters.IdClientId);
+            BusinessProcess.GlobalVariables[Parameters.IdScreenStateId] = MapScreenStates.EventScreen;
+            BusinessProcess.GlobalVariables[Parameters.IdClientId] = clientId;
 
             Navigation.Move("MapScreen", dictionary);
         }

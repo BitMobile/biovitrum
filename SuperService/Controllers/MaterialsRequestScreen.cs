@@ -235,10 +235,10 @@ namespace Test
             //TODO: Отсюда переходим на экран добавления материалов.
             var dictionary = new Dictionary<string, object>
             {
-                {"isService", false},
+                {Parameters.IdIsService, false},
                 {"isMaterialsRequest", true},
                 {"returnKey", "newItem"},
-                {"behaviour", BehaviourEditServicesOrMaterialsScreen.ReturnValue}
+                {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue}
             };
 
             _isAdd = Convert.ToBoolean("True");
@@ -270,10 +270,10 @@ namespace Test
                 {"returnKey", "editItem"},
                 {"rimId", vl.Id},
                 {"priceVisible", Convert.ToBoolean("False")},
-                {"behaviour", BehaviourEditServicesOrMaterialsScreen.ReturnValue},
-                {"lineId", null}
+                {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue},
+                {Parameters.IdLineId, null}
             };
-            BusinessProcess.GlobalVariables["isService"] = false;
+            BusinessProcess.GlobalVariables[Parameters.IdIsService] = false;
             BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
             _isEdit = Convert.ToBoolean("True");
             Navigation.Move("EditServicesOrMaterialsScreen", dictionary);

@@ -231,10 +231,10 @@ namespace Test
             DConsole.WriteLine("Before dictionary");
             var dictionary = new Dictionary<string, object>
             {
-                {"screenState", MapScreenStates.EventListScreen}
+                {Parameters.IdScreenStateId, MapScreenStates.EventListScreen}
             };
             DConsole.WriteLine("After");
-            BusinessProcess.GlobalVariables["screenState"] = MapScreenStates.EventListScreen;
+            BusinessProcess.GlobalVariables[Parameters.IdScreenStateId] = MapScreenStates.EventListScreen;
             Navigation.Move("MapScreen", dictionary);
         }
 
@@ -242,7 +242,7 @@ namespace Test
         {
             DConsole.WriteLine("Go To View Event");
             var currentEvent = (HorizontalLayout) sender;
-            BusinessProcess.GlobalVariables["currentEventId"] = currentEvent.Id;
+            BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId] = currentEvent.Id;
             Navigation.Move("EventScreen");
         }
 

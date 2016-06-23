@@ -48,7 +48,7 @@ namespace Test
 
         internal object GetEvent()
         {
-            return DBHelper.GetEventByID((string) BusinessProcess.GlobalVariables["currentEventId"]);
+            return DBHelper.GetEventByID((string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
         }
 
         internal IEnumerable GetTasks()
@@ -84,7 +84,7 @@ namespace Test
 //                    {"Done", false}
 //                }
 //            };
-            return DBHelper.GetTasksByEventID((string) BusinessProcess.GlobalVariables["currentEventId"]);
+            return DBHelper.GetTasksByEventID((string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
         }
 
         internal string GetResourceImage(string tag)

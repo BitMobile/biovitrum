@@ -42,7 +42,7 @@ namespace Test
                 return 0;
             }
 
-            _currentEventId = (string)Variables.GetValueOrDefault("currentEventId", string.Empty);
+            _currentEventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
 
             _fieldsAreInitialized = true;
 
@@ -77,8 +77,8 @@ namespace Test
         {
             var dictionary = new Dictionary<string, object>
             {
-                {"isService", true},
-                {"currentEventId", _currentEventId}
+                {Parameters.IdIsService, true},
+                {Parameters.IdCurrentEventId, _currentEventId}
             };
             Navigation.Move("RIMListScreen", dictionary);
         }
@@ -87,8 +87,8 @@ namespace Test
         {
             var dictionary = new Dictionary<string, object>
             {
-                {"isService", false},
-                {"currentEventId", _currentEventId}
+                {Parameters.IdIsService, false},
+                {Parameters.IdCurrentEventId, _currentEventId}
 
             };
             Navigation.Move("RIMListScreen", dictionary);
@@ -102,8 +102,8 @@ namespace Test
             var vl = (VerticalLayout) sender;
             var dictionary = new Dictionary<string, object>
             {
-                {"behaviour", BehaviourEditServicesOrMaterialsScreen.UpdateDB},
-                {"lineId", vl.Id}
+                {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
+                {Parameters.IdLineId, vl.Id}
             };
 
             Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
@@ -143,7 +143,7 @@ namespace Test
         {
  
             object eventId;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
+            if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
@@ -156,7 +156,7 @@ namespace Test
         internal DbRecordset GetServices()
         {
             object eventId;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
+            if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
@@ -175,7 +175,7 @@ namespace Test
         internal DbRecordset GetMaterials()
         {
             object eventId;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
+            if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }

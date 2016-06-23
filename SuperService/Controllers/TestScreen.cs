@@ -40,7 +40,7 @@ namespace Test
                 {"priceVisible", true},
                 {"priceEditable", true},
                 {"minimum", 0},
-                {"behaviour", BehaviourEditServicesOrMaterialsScreen.ReturnValue},
+                {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue},
                 {"returnKey", "serviceMaterialNumber"}
             });
         }

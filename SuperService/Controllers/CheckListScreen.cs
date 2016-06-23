@@ -274,7 +274,7 @@ namespace Test
 
         internal IEnumerable GetCheckList()
         {
-            return DBHelper.GetCheckListByEventID((string) BusinessProcess.GlobalVariables["currentEventId"]);
+            return DBHelper.GetCheckListByEventID((string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
         }
 
         internal void BackButton_OnClick(object sender, EventArgs eventArgs)

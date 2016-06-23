@@ -120,8 +120,8 @@ namespace Test
             DConsole.WriteLine("Start " + nameof(Init));
             _location = new ArrayList();
 
-            var screenState = BusinessProcess.GlobalVariables.GetValueOrDefault("screenState", MapScreenStates.Default);
-            var locationData = BusinessProcess.GlobalVariables.GetValueOrDefault("clientId");
+            var screenState = BusinessProcess.GlobalVariables.GetValueOrDefault(Parameters.IdScreenStateId, MapScreenStates.Default);
+            var locationData = BusinessProcess.GlobalVariables.GetValueOrDefault(Parameters.IdClientId);
 
             var state = (MapScreenStates) screenState;
                 DConsole.WriteLine(state.ToString());

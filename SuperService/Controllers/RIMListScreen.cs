@@ -46,8 +46,8 @@ namespace Test
             }
 
             _isMaterialRequest = (bool)Variables.GetValueOrDefault("isMaterialsRequest", Convert.ToBoolean("False"));
-            _isService = (bool)Variables.GetValueOrDefault("isService", Convert.ToBoolean("False"));
-            _currentEventID = (string) Variables.GetValueOrDefault("currentEventId", string.Empty);
+            _isService = (bool)Variables.GetValueOrDefault(Parameters.IdIsService, Convert.ToBoolean("False"));
+            _currentEventID = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
             _fieldsAreInitialized = true;
 
             return 0;
@@ -80,9 +80,9 @@ namespace Test
                 {
                     {"rimId", rimID},
                     {"priceVisible", Convert.ToBoolean("False")},
-                    {"behaviour", BehaviourEditServicesOrMaterialsScreen.ReturnValue},
+                    {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue},
                     {"returnKey", key},
-                    {"lineId", null}
+                    {Parameters.IdLineId, null}
                 };
                 DConsole.WriteLine("Go to EditServicesOrMaterials is Material Request true");
                 Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
@@ -99,7 +99,7 @@ namespace Test
 
                     var dictionary = new Dictionary<string, object>
                     {
-                        {"behaviour", BehaviourEditServicesOrMaterialsScreen.InsertIntoDB},
+                        {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.InsertIntoDB},
                         {"rimId"    , rimID}
                     };
 
@@ -110,8 +110,8 @@ namespace Test
                     DConsole.WriteLine("Позиция найдена, открываем окно редактирования количества ");
                     var dictionary = new Dictionary<string, object>
                     {
-                        {"behaviour", BehaviourEditServicesOrMaterialsScreen.UpdateDB},
-                        {"lineId"   , line.ID}
+                        {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
+                        {Parameters.IdLineId   , line.ID}
                     };
 
                     Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);              
