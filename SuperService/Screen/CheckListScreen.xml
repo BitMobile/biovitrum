@@ -8,15 +8,16 @@
     <c:SwipeVerticalLayout CssClass="CheckListMainSVL">
 
       <s:Iterator Id="CheckList" Value="$GetCheckList()">
-        <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListItemHL">
+        <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListItemHL"
+                            OnClick="CheckListElementLayout_OnClick">
 
           <!--Индикатор обязательности-->
           <s:If Test="$CheckList.Required">
             <s:If Test="$IsNotEmptyString($CheckList.Result)">
-              <c:VerticalLayout CssClass="CheckListRequiredDoneVL" Id="VLRequired" />
+              <c:VerticalLayout CssClass="CheckListRequiredDoneVL" />
             </s:If>
             <s:Else>
-              <c:VerticalLayout CssClass="CheckListRequiredVL" Id="VLRequired" />
+              <c:VerticalLayout CssClass="CheckListRequiredVL" />
             </s:Else>
           </s:If>
 
@@ -82,14 +83,13 @@
             <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$CheckList.CheckListId"
                               OnClick="CheckListBoolean_OnClick">
 
-
               <s:If Test="$IsEmptyString($CheckList.Result)">
                 <c:TextView Text="#not_choosed#" Id="$CheckList.ActionId"
                             CssClass="CheckListAnswerElement" />
               </s:If>
               <s:Else>
                 <s:If Test="$CheckList.Result == #yes#">
-                  <c:TextView Enabled="False" Text="#yes#" Id="$CheckList.ActionId"
+                  <c:TextView Text="#yes#" Id="$CheckList.ActionId"
                               CssClass="CheckListAnswerElement" />
                 </s:If>
                 <s:Else>
@@ -103,7 +103,6 @@
                   </s:Else>
                 </s:Else>
               </s:Else>
-
             </c:VerticalLayout>
           </s:If>
 
@@ -141,12 +140,9 @@
                           OnLostFocus="CheckListString_OnLostFocus" Id="$CheckList.CheckListId" />
             </c:VerticalLayout>
           </s:If>
-
         </c:HorizontalLayout>
         <c:HorizontalLine CssClass="CheckListBreaker" />
       </s:Iterator>
-
     </c:SwipeVerticalLayout>
-
   </c:VerticalLayout>
 </c:Screen>

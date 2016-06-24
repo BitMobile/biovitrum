@@ -156,7 +156,7 @@ namespace Test
             }
             catch (Exception e)
             {
-                DConsole.WriteLine($"Can't find xml file for {screenInfo.Name} ({screenInfo.Xml})");
+                DConsole.WriteLine($"Error while loading {screenInfo.Name}'s xml ({screenInfo.Xml})");
                 DConsole.WriteLine($"{e.Message}");
             }
             try
