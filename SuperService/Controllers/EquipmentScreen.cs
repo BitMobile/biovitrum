@@ -44,6 +44,8 @@ namespace Test
 
             //TODO: сделать получение по гуиду через getObject когда его починят
 
+            
+
             _equipmentId = (string)Variables.GetValueOrDefault(Parameters.IdEquipmentId, "");
             var equipmentRS = DBHelper.GetEquipmentById(_equipmentId);
             if (equipmentRS.Next())

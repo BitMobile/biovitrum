@@ -6,7 +6,7 @@
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:ScrollView CssClass="RootLayout">
       <c:VerticalLayout CssClass="RootLayout">
-        <c:VerticalLayout OnClick="EquipmentDescriptionLayout_OnClick">
+        <c:VerticalLayout Id="$task.EquipmentId" OnClick="EquipmentDescriptionLayout_OnClick">
           <c:TextView Text="$task.EquipmentDescription" CssClass="TargetTextView" />
           <c:TextView Text="" CssClass="EquipDescTextView" />
         </c:VerticalLayout>
