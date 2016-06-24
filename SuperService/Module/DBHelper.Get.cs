@@ -440,6 +440,7 @@ namespace Test
                                   "      tasks.Ref as EventID, " + //гуид наряда (события) к которому относится задача
                                   "      tasks.terget as Target, " + //Цель
                                   "      tasks.Comment as Comment, " + // комментарий
+                                  "      equipment.Id as EquipmentId, " + //идентификатор оборудования
                                   "      equipment.Description as EquipmentDescription, " + //наименование оборудование
                                   "      Enum_ResultEvent.Name as resultName, " + //результат имя
                                   "      Enum_ResultEvent.Description as resultDescription, " +
@@ -854,5 +855,89 @@ namespace Test
 
             return query.Execute();
         }
+
+
+        /// <summary>
+        ///     возвращает параметры оборудования с их значениями по ИД оборудования
+        /// </summary>
+        ///       
+        /// <param name="equipmentId">Идентификатор оборудования</param>
+        public static DbRecordset GetEquipmentParametersById(string equipmentId)
+        {
+            var queryText = "select " +
+                            "   param.Description as Parameter, " +
+                            "   equipParam.val as Value " +
+                            "from " +
+                            "   Catalog_Equipment_Parameters as equipParam " +
+                            "      left join Catalog_EquipmentOptions as param " +
+                            "         on equipParam.id = @equipId and equipParam.Parameter = param.Id " +
+                            "" +
+                            "    where " +
+                            "        equipParam.id = @equipId ";
+
+
+            var query = new Query(queryText);
+            query.AddParameter("equipId", equipmentId);
+
+            return query.Execute();
+        }
+
+
+        /// <summary>
+        ///     Возвращает историю оборудования начиная с указанноЙ даты 
+        /// </summary>
+        ///       
+        /// <param name="equipmentId">Идентификатор оборудования</param>
+        /// <param name="afterDate">Дата начиная с которой выводится история</param>
+        public static DbRecordset GetEquipmentHistoryById(string equpmentId, DateTime afterDate)
+        {
+
+            DConsole.WriteLine("GetEquipmentHistoryById");
+            var queryText = "select " +
+                            "   history.Period as Date, " +
+                            "   history.Target as Description, " +
+                            "   _Enum_ResultEvent.Description as result, " +
+                            "   _Enum_ResultEvent.Name as ResultName " +
+                            "from " +
+                            "   _Catalog_Equipment_EquiementsHistory as history " +
+                            "       left join _Enum_ResultEvent " +
+                            "            on history.Result = _Enum_ResultEvent.Id " +
+                            "where " +
+                            "     history.Equiements = @equipmentId " +
+                            "     and history.Period > date(@startDate) " +
+                            " " +
+                            " order by Date desc";
+
+            var query = new Query(queryText);
+            query.AddParameter("equipmentId", equpmentId);
+            query.AddParameter("startDate", afterDate);
+
+            DConsole.WriteLine("GetEquipmentHistoryById");
+
+            return query.Execute();
+        }
+
+
+        //TODO: удалить метод GetEquipmentById когда починят getObject у dbEntity
+
+        /// <summary>
+        ///     Возвращает описание оборудования
+        /// </summary>
+        ///       
+        /// <param name="equipmentId">Идентификатор оборудования</param>
+        public static DbRecordset GetEquipmentById(string equipmentId)
+        {
+            var queryText = "select " +
+                            "   Description " +
+                            "from " +
+                            "   Catalog_Equipment " +
+                            "where " +
+                            "   id = @equipmentId";
+            var query = new Query(queryText);
+            query.AddParameter("equipmentId", equipmentId);
+
+            return query.Execute();
+        }
+
     }
 }
