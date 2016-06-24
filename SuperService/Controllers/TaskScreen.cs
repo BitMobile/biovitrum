@@ -1,6 +1,7 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
+using System.Collections.Generic;
 using Test.Components;
 using Test.Entities.Document;
 using Test.Entities.Enum;
@@ -178,21 +179,19 @@ namespace Test
         internal void EquipmentDescriptionLayout_OnClick(object sender, EventArgs eventArgs)
         {
             // TODO(SUPS-718): Передавать информацию об оборудовании
-            Navigation.Move("EquipmentScreen");
+
+            var v1 = (VerticalLayout)sender;
+
+            var dictionary = new Dictionary<string, object>()
+            {
+                {Parameters.IdEquipmentId, v1.Id}
+            };
+
+            Navigation.Move("EquipmentScreen", dictionary);
         }
 
         internal object GetTask()
         {
-            //            return new Dictionary<string, object>
-            //            {
-            //                {
-            //                    "Target",
-            //                    "Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum."
-            //                },
-            //                {"EquipmentDescription", "Asus 509-k"},
-            //                {"TypeDepartures", "Монтаж"},
-            //                {"resultName", "New"}
-            //            };
             string currentTaskId = (string)BusinessProcess.GlobalVariables["currentTaskId"];
             _equipments = DBHelper.GetEventEquipmentsById(currentTaskId);
             return DBHelper.GetTaskById(currentTaskId);

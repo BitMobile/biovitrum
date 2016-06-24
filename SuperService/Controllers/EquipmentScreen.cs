@@ -10,16 +10,21 @@ namespace Test
 {
     public class EquipmentScreen : Screen
     {
+
+        private bool _fieldsAreInitialized = false;
+
         private TopInfoComponent _topInfoComponent;
+
+        //TODO: Когда починят метод getObject сделать чтение в этот объект по Гуиду, пока пересозаем его в initClassFields 
         private Equipment _equipment;
+        private string _equipmentId;
+        private string _equipmentDescription;
+
 
         public override void OnLoading()
         {
-            // TODO: Получение Equipment из БД
-            _equipment = new Equipment()
-            {
-                Description = "Роутер ASUS"
-            };
+            InitClassFields();
+
             _topInfoComponent = new TopInfoComponent(this)
             {
                 HeadingTextView = { Text = Translator.Translate("equipment") },
@@ -28,6 +33,32 @@ namespace Test
                 ExtraLayoutVisible = false
             };
         }
+
+
+        public int InitClassFields()
+        {
+            if (_fieldsAreInitialized)
+            {
+                return 0;
+            }
+
+            //TODO: сделать получение по гуиду через getObject когда его починят
+
+            
+
+            _equipmentId = (string)Variables.GetValueOrDefault(Parameters.IdEquipmentId, "");
+            var equipmentRS = DBHelper.GetEquipmentById(_equipmentId);
+            if (equipmentRS.Next())
+            {
+                _equipmentDescription = equipmentRS.GetString(0);
+            }
+
+
+            _fieldsAreInitialized = true;
+
+            return 0;
+        }
+
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
@@ -48,72 +79,27 @@ namespace Test
             Navigation.Back(true);
         }
 
-        internal IEnumerable GetEquipmentInfo()
+        internal string GetEquipmentDescription()
         {
-            return new Dictionary<string, object>
-            {
-                ["Desctiption"] = "Роутер ASUS"
-            };
+            return _equipmentDescription;
         }
 
-        internal IEnumerable GetParameters()
+
+        internal DbRecordset GetParameters()
         {
-            return new ArrayList
-            {
-                new Dictionary<string, object>
-                {
-                    ["Parameter"] = "Стандарты связи",
-                    ["Value"] = "154i"
-                },
-                new Dictionary<string, object>
-                {
-                    ["Parameter"] = "Вид протокола",
-                    ["Value"] = "Не выбрано"
-                },
-                new Dictionary<string, object>
-                {
-                    ["Parameter"] = "Есть индикаторы",
-                    ["Value"] = "нет"
-                },
-                new Dictionary<string, object>
-                {
-                    ["Parameter"] = "Серийный номер",
-                    ["Value"] = "17-2016gi"
-                }
-            };
+            return DBHelper.GetEquipmentParametersById(_equipmentId);
         }
 
-        internal IEnumerable GetHistory()
+
+        internal DbRecordset GetHistory()
         {
-            return new ArrayList
-            {
-                new Dictionary<string, object>
-                {
-                    ["Description"] = "Монтаж",
-                    ["Result"] = "Выполнено",
-                    ["ResultName"] = "Done",
-                    ["Date"] = DateTime.Now
-                },
-                new Dictionary<string, object>
-                {
-                    ["Description"] = "Ремонт",
-                    ["Result"] = "Не выполнено",
-                    ["ResultName"] = "NotDone",
-                    ["Date"] = DateTime.Now.Date
-                },
-                new Dictionary<string, object>
-                {
-                    ["Description"] = "Ремонт",
-                    ["Result"] = "Не выполнено",
-                    ["ResultName"] = "NotDone",
-                    ["Date"] = DateTime.Now.Date
-                },
-            };
+            var res = DBHelper.GetEquipmentHistoryById(_equipmentId, new DateTime());
+            return res;
         }
 
-        internal string FormatDateString(DateTime dateTime)
+        internal string FormatDateString(string dateTime)
         {
-            return dateTime.ToString("M");
+            return dateTime.Substring(5, 5);
         }
 
         internal string GetResourceImage(string tag)

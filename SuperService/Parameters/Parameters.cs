@@ -17,6 +17,7 @@ namespace Test
         public const string IdIsService = "isService";
         public const string IdBehaviour = "behaviour";
         public const string IdLineId = "lineId";
+        public const string IdEquipmentId = "idEquipmentId";
 
 
     }

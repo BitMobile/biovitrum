@@ -4,8 +4,8 @@
   <c:ScrollView CssClass="RootLayout">
     <c:VerticalLayout>
       <s:Include File="Components\TopInfoComponent.xml" />
-      <s:Push Id="equipment" Value="$GetEquipmentInfo()" />
-      <c:TextView Text="$equipment.Desctiption" CssClass="HeadingTextView" />
+      <s:Push Id="void_ crutch" Value="$InitClassFields()" />
+      <c:TextView Text="$GetEquipmentDescription()" CssClass="HeadingTextView" />
       <c:TextView Text="" CssClass="EquipDescTextView" />
       <c:HorizontalLine CssClass="HeadingBreaker" />
       <c:HorizontalLayout CssClass="EmptySpace2sp" />
