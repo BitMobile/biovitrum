@@ -10,8 +10,9 @@
 
     <!-- Список контактов -->
     <c:SwipeVerticalLayout CssClass="RIMListLayout">
-     
-        <s:Push Id="void_ crutch" Value="$InitClassFields()" />
+
+      <s:Push Id="void_ crutch" Value="$InitClassFields()" />
+      <s:If Test="$GetIsNotEmpty()">
         <s:Iterator Id="rim" Value="$GetRIM()">
           <c:VerticalLayout Id="$rim.Id" onClick="RIMLayout_OnClick" CssClass="RIMItemLayout">
             <c:TextView Text="$rim.Description" CssClass="RIMItemDescription" />
@@ -19,7 +20,11 @@
             <c:HorizontalLine CssClass="RIMBreaker" />
           </c:VerticalLayout>
         </s:Iterator>
-      <c:VerticalLayout CssClass="RootLayout"/>
+      </s:If>
+      <s:Else>
+        <c:TextView Text="#bag_empty#"/>
+      </s:Else>
+      <c:VerticalLayout CssClass="EmptySpace2sp" />
     </c:SwipeVerticalLayout>
 
   </c:DockLayout>

@@ -13,6 +13,7 @@ namespace Test
 
         private bool _fieldsAreInitialized;
         private bool _isMaterialRequest;
+        private bool _isNotEmptyData;
         private bool _isService;
 
         private TopInfoComponent _topInfoComponent;
@@ -119,7 +120,13 @@ namespace Test
         {
             DConsole.WriteLine("получение позиций товаров и услуг");
 
+            var result = GetDataFromDb();
 
+            return result;
+        }
+
+        private DbRecordset GetDataFromDb()
+        {
             DbRecordset result;
 
             if (_isService)
@@ -142,8 +149,21 @@ namespace Test
                     DConsole.WriteLine($"Получаем материалы из рюкзака ");
                 }
             }
-
             return result;
+        }
+
+        internal bool GetIsNotEmpty()
+        {
+
+            var result = GetDataFromDb();
+
+            while (result.Next())
+            {
+                _isNotEmptyData = Convert.ToBoolean("True");
+                break;
+            }
+
+            return _isNotEmptyData;
         }
     }
 }
