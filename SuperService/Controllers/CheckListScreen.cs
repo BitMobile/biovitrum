@@ -9,9 +9,6 @@ namespace Test
 {
     public class CheckListScreen : Screen
     {
-        // Для булева
-        private CheckBox _checkBox;
-
         // Для обновления
         private string _currentCheckListItemID;
 
@@ -52,6 +49,7 @@ namespace Test
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
+            _topInfoComponent.Arrow_OnClick(sender, e);
         }
 
         // Камера
@@ -59,39 +57,21 @@ namespace Test
         {
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _newGuid = Guid.NewGuid().ToString();
-            _pathToImg = @"\private\" + _newGuid + @".jpg";
+            _pathToImg = $@"\private\{_newGuid}.jpg";
 
             _imgToReplace = (Image)((VerticalLayout)sender).GetControl(0);
-            //_img.Source =;
-
-            //var zz = (Image)(_buf GetControl(0));
-
-            DConsole.WriteLine("ДО СНЭПШОТА");
 
             Camera.MakeSnapshot(_pathToImg, int.MaxValue, CameraCallback, sender);
-
-            DConsole.WriteLine("ПОСЛЕ СНЭПШОТА");
-
-            // TODO: понять как получить изображение с памяти устройства
-            //Gallery.Copy(temp);
-            //Gallery.Copy(@"\private\order.jpg",
+            // TODO: Ожидать фичи получения изображения с памяти устройства
         }
 
-        internal void CameraCallback(object state, ResultEventArgs<bool> args)
+        private void CameraCallback(object state, ResultEventArgs<bool> args)
         {
-            DConsole.WriteLine("КОЛЛБЭК1");
-
             //Document.Order order = (Document.Order)state;
             //order.HasPhoto = args.Result;
 
-            DConsole.WriteLine("_newGuid: " + _newGuid);
-            DConsole.WriteLine("_pathToImg: " + _pathToImg);
-            DConsole.WriteLine("File Exists: " + FileSystem.Exists(_pathToImg));
-
             _imgToReplace.Source = _pathToImg;
-            DConsole.WriteLine("КОЛЛБЭК2");
             //_imgToReplace.Refresh();
-            DConsole.WriteLine("КОЛЛБЭК3");
         }
 
         // Список
@@ -99,36 +79,24 @@ namespace Test
         {
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
-            DConsole.WriteLine("asd0");
             var items = new Dictionary<object, string>
             {
                 {"", Translator.Translate("not_choosed")}
             };
-            DConsole.WriteLine("asd1");
             var temp = DBHelper.GetActionValuesList(_textView.Id);
-            DConsole.WriteLine("asd2");
             while (temp.Next())
             {
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
             }
-            DConsole.WriteLine("asd3");
             Dialog.Choose(Translator.Translate("select_answer"), items, ValListCallback);
         }
 
-        internal void ValListCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
+        private void ValListCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
         {
-            if (args.Result.Value == Translator.Translate("not_choosed"))
-            {
-                _textView.Text = Translator.Translate("not_choosed");
-                DBHelper.UpdateCheckListItem(_currentCheckListItemID, "");
-                _textView.Refresh();
-            }
-            else
-            {
-                _textView.Text = args.Result.Value;
-                DBHelper.UpdateCheckListItem(_currentCheckListItemID, _textView.Text);
-                _textView.Refresh();
-            }
+            _textView.Text = args.Result.Value;
+            DBHelper.UpdateCheckListItem(_currentCheckListItemID,
+                args.Result.Value == Translator.Translate("not_choosed") ? "" : _textView.Text);
+            _textView.Refresh();
         }
 
         // Дата
@@ -143,16 +111,14 @@ namespace Test
         internal string ToDate(string datetime)
         {
             DateTime temp;
-            if (DateTime.TryParse(datetime, out temp))
-            {
-                return temp.ToString("dd MMMM yyyy");
-            }
-            return Translator.Translate("not_specified");
+            return DateTime.TryParse(datetime, out temp)
+                ? temp.ToString("dd MMMM yyyy")
+                : Translator.Translate("not_specified");
         }
 
         internal void DateCallback(object state, ResultEventArgs<DateTime> args)
         {
-            _textView.Text = args.Result.Date.Date.ToString("dd MMMM yyyy");
+            _textView.Text = args.Result.Date.ToString("dd MMMM yyyy");
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _textView.Text);
         }
 
@@ -174,18 +140,10 @@ namespace Test
 
         internal void BooleanCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
         {
-            if (args.Result.Value == Translator.Translate("not_choosed"))
-            {
-                _textView.Text = Translator.Translate("not_choosed");
-                DBHelper.UpdateCheckListItem(_currentCheckListItemID, "");
-                _textView.Refresh();
-            }
-            else
-            {
-                _textView.Text = args.Result.Value;
-                DBHelper.UpdateCheckListItem(_currentCheckListItemID, _textView.Text);
-                _textView.Refresh();
-            }
+            _textView.Text = args.Result.Value;
+            DBHelper.UpdateCheckListItem(_currentCheckListItemID,
+                args.Result.Value == Translator.Translate("not_choosed") ? "" : _textView.Text);
+            _textView.Refresh();
         }
 
         // С точкой
@@ -258,16 +216,6 @@ namespace Test
             //}
             // TODO: Непонятное поведение Refresh(), из-за чего не можем оперативно сменить индикатор важности. Работает на android 4, не работает на android 6
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _editText.Text);
-        }
-
-        internal bool Checktest(int item)
-        {
-            DConsole.WriteLine(item.ToString());
-            if (item == 1)
-            {
-                return true;
-            }
-            return false;
         }
 
         internal IEnumerable GetCheckList()
