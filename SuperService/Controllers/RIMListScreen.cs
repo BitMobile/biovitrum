@@ -9,17 +9,17 @@ namespace Test
 {
     public class RIMListScreen : Screen
     {
-        private bool _isMaterialRequest;
-        private bool _isService;
         private string _currentEventID;
+
+        private bool _fieldsAreInitialized;
+        private bool _isMaterialRequest;
+        private bool _isNotEmptyData;
+        private bool _isService;
 
         private TopInfoComponent _topInfoComponent;
 
-        private bool _fieldsAreInitialized = false;
-
         public override void OnLoading()
         {
-
             InitClassFields();
 
             _topInfoComponent = new TopInfoComponent(this)
@@ -32,14 +32,11 @@ namespace Test
                 RightButtonImage = {Visible = false},
                 ExtraLayoutVisible = false
             };
-
-
         }
 
 
         public int InitClassFields()
         {
-
             if (_fieldsAreInitialized)
             {
                 return 0;
@@ -71,8 +68,8 @@ namespace Test
 
         internal void RIMLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            var rimID = ((VerticalLayout)sender).Id;
-            if (_isMaterialRequest == true)
+            var rimID = ((VerticalLayout) sender).Id;
+            if (_isMaterialRequest)
             {
                 //пришли из экрана заявки на материалы
                 var key = Variables.GetValueOrDefault("returnKey", "newItem");
@@ -86,12 +83,11 @@ namespace Test
                 };
                 DConsole.WriteLine("Go to EditServicesOrMaterials is Material Request true");
                 Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
-
             }
             else
-            {         
-                DConsole.WriteLine("Пытаемся найти номенклатуру в документе " + (string)_currentEventID + " по гуиду " + rimID);
-                var line = DBHelper.GetEventServicesMaterialsLineByRIMID((string)_currentEventID, rimID);
+            {
+                DConsole.WriteLine("Пытаемся найти номенклатуру в документе " + _currentEventID + " по гуиду " + rimID);
+                var line = DBHelper.GetEventServicesMaterialsLineByRIMID(_currentEventID, rimID);
 
                 if (line == null)
                 {
@@ -114,9 +110,9 @@ namespace Test
                         {Parameters.IdLineId   , line.ID}
                     };
 
-                    Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);              
-                }            
-           }
+                    Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
+                }
+            }
         }
 
 
@@ -124,7 +120,13 @@ namespace Test
         {
             DConsole.WriteLine("получение позиций товаров и услуг");
 
+            var result = GetDataFromDb();
 
+            return result;
+        }
+
+        private DbRecordset GetDataFromDb()
+        {
             DbRecordset result;
 
             if (_isService)
@@ -134,11 +136,34 @@ namespace Test
             }
             else
             {
-                result = DBHelper.GetRIMByType(RIMType.Material);
-                DConsole.WriteLine("Получили товары " + RIMType.Material);
+                var isBag = DBHelper.GetIsBag();
+
+                if (!isBag)
+                {
+                    result = DBHelper.GetRIMByType(RIMType.Material);
+                    DConsole.WriteLine("Получили товары " + RIMType.Material);
+                }
+                else
+                {
+                    result = DBHelper.GetRIMFromBag();
+                    DConsole.WriteLine($"Получаем материалы из рюкзака ");
+                }
+            }
+            return result;
+        }
+
+        internal bool GetIsNotEmpty()
+        {
+
+            var result = GetDataFromDb();
+
+            while (result.Next())
+            {
+                _isNotEmptyData = Convert.ToBoolean("True");
+                break;
             }
 
-            return result;
+            return _isNotEmptyData;
         }
     }
 }

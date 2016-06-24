@@ -854,5 +854,44 @@ namespace Test
 
             return query.Execute();
         }
+        /// <summary>
+        /// Получаем значение связанное с тем,
+        /// что используется ли рюкзак или нет.
+        /// возращяет булевское значение упакованное в object
+        /// </summary>
+        /// <returns>true используется рюкзак монтажника,
+        /// false если не используется. null если таблица пустая или не найдено значение</returns>
+        public static bool GetIsBag()
+        {
+            var query = new Query(@"SELECT LogicValue
+                                    FROM _Catalog_SettingMobileApplication
+                                    WHERE Description = 'UsedServiceBag' ");
+
+            var dbResult = query.Execute();
+
+
+            return dbResult.Next() ? (bool) dbResult["LogicValue"] : Convert.ToBoolean("False");
+            
+        }
+
+        public static DbRecordset GetRIMFromBag(RIMType type = RIMType.Material)
+        {
+            var query = new Query(@"SELECT _Catalog_RIM.Id as id, 
+                                           _Catalog_RIM.Description as Description,
+                                           _Catalog_RIM.Price as Price,
+                                           _Catalog_RIM.Unit as Unit
+                                    FROM
+                                           _Catalog_User_Bag
+                                    LEFT JOIN
+                                           _Catalog_Rim
+                                    ON _Catalog_User_Bag.Materials =  _Catalog_RIM.Id
+                                    WHERE _Catalog_RIM.IsFolder = 0 and
+                                          _Catalog_RIM.DeletionMark = 0 and
+                                           service = @isService ");
+
+            query.AddParameter("isService",(int)type);
+
+            return query.Execute();
+        }
     }
 }
