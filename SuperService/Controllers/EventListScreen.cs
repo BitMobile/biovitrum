@@ -42,7 +42,7 @@ namespace Test
             });
             _topInfoComponent.RightExtraLayout.AddChild(
                 new TextView($"{statistic.MonthCompleteAmout}/{statistic.MonthTotalAmount}") {CssClass = "ExtraInfo"});
-            _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
+            _topInfoComponent.RightExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
             {
                 CssClass = "BottonExtraInfo"
             });
@@ -124,7 +124,7 @@ namespace Test
                     dateText = new TextView
                     {
                         CssClass = "DateText",
-                        Text = itemElement.StartDatePlan.Date.ToString("dddd, dd MMMM")
+                        Text = itemElement.StartDatePlan.Date.ToString("dddd, dd MMMM").ToUpper()
                     };
                     finalDateLine = new HorizontalLine {CssClass = "FinalDateLine"};
                     _svlEventList.AddChild(dateText);
