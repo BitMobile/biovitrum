@@ -82,7 +82,6 @@
             <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$CheckList.CheckListId"
                               OnClick="CheckListBoolean_OnClick">
 
-
               <s:If Test="$IsEmptyString($CheckList.Result)">
                 <c:TextView Text="#not_choosed#" Id="$CheckList.ActionId"
                             CssClass="CheckListAnswerElement" />
@@ -103,7 +102,6 @@
                   </s:Else>
                 </s:Else>
               </s:Else>
-
             </c:VerticalLayout>
           </s:If>
 
@@ -141,12 +139,9 @@
                           OnLostFocus="CheckListString_OnLostFocus" Id="$CheckList.CheckListId" />
             </c:VerticalLayout>
           </s:If>
-
         </c:HorizontalLayout>
         <c:HorizontalLine CssClass="CheckListBreaker" />
       </s:Iterator>
-
     </c:SwipeVerticalLayout>
-
   </c:VerticalLayout>
 </c:Screen>

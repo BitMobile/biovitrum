@@ -1,9 +1,8 @@
-﻿using System;
+﻿using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
-using BitMobile.Application;
 using Test.Components;
 
 namespace Test
@@ -21,11 +20,13 @@ namespace Test
 
         // Для камеры
         private Image _imgToReplace;
+
         private string _newGuid;
         private string _pathToImg;
 
         // Для списка и даты
         private TextView _textView;
+
         private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
@@ -34,9 +35,9 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = false,
-                HeadingTextView = {Text = Translator.Translate("clist")},
-                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
-                RightButtonImage = {Visible = false}
+                HeadingTextView = { Text = Translator.Translate("clist") },
+                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
+                RightButtonImage = { Visible = false }
             };
         }
 
@@ -56,13 +57,12 @@ namespace Test
         // Камера
         internal void CheckListSnapshot_OnClick(object sender, EventArgs eventArgs)
         {
-            _currentCheckListItemID = ((VerticalLayout) sender).Id;
+            _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _newGuid = Guid.NewGuid().ToString();
             _pathToImg = @"\private\" + _newGuid + @".jpg";
 
-            _imgToReplace = (Image) ((VerticalLayout) sender).GetControl(0);
+            _imgToReplace = (Image)((VerticalLayout)sender).GetControl(0);
             //_img.Source =;
-
 
             //var zz = (Image)(_buf GetControl(0));
 
@@ -84,7 +84,6 @@ namespace Test
             //Document.Order order = (Document.Order)state;
             //order.HasPhoto = args.Result;
 
-
             DConsole.WriteLine("_newGuid: " + _newGuid);
             DConsole.WriteLine("_pathToImg: " + _pathToImg);
             DConsole.WriteLine("File Exists: " + FileSystem.Exists(_pathToImg));
@@ -98,7 +97,7 @@ namespace Test
         // Список
         internal void CheckListValList_OnClick(object sender, EventArgs e)
         {
-            _currentCheckListItemID = ((VerticalLayout) sender).Id;
+            _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
             DConsole.WriteLine("asd0");
             var items = new Dictionary<object, string>
@@ -135,8 +134,8 @@ namespace Test
         // Дата
         internal void CheckListDateTime_OnClick(object sender, EventArgs e)
         {
-            _currentCheckListItemID = ((VerticalLayout) sender).Id;
-            _textView = (TextView) ((VerticalLayout) sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout)sender).Id;
+            _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
             Dialog.DateTime(@"Выберите дату", DateTime.Now, DateCallback);
         }
@@ -192,8 +191,8 @@ namespace Test
         // С точкой
         internal void CheckListDecimal_OnLostFocus(object sender, EventArgs e)
         {
-            _editText = (EditText) sender;
-            _currentCheckListItemID = ((EditText) sender).Id;
+            _editText = (EditText)sender;
+            _currentCheckListItemID = ((EditText)sender).Id;
 
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _editText.Text);
         }
@@ -201,8 +200,8 @@ namespace Test
         //Целое
         internal void CheckListInteger_OnLostFocus(object sender, EventArgs e)
         {
-            _editText = (EditText) sender;
-            _currentCheckListItemID = ((EditText) sender).Id;
+            _editText = (EditText)sender;
+            _currentCheckListItemID = ((EditText)sender).Id;
 
             //var vl1 = (IHorizontalLayout3)_editText.Parent;
             //var hl = (IVerticalLayout3)vl1.Parent;
@@ -226,15 +225,14 @@ namespace Test
         // Строка
         internal void CheckListString_OnLostFocus(object sender, EventArgs e)
         {
-            _editText = (EditText) sender;
-            _currentCheckListItemID = ((EditText) sender).Id;
+            _editText = (EditText)sender;
+            _currentCheckListItemID = ((EditText)sender).Id;
 
             //var vl = (IVerticalLayout3)_editText.Parent;
             //var hl = (IHorizontalLayout3)vl.Parent;
             //var vltarget = (IVerticalLayout3) hl.Controls[0];
 
             //DConsole.WriteLine("CSS " + vltarget.CssClass.ToString());
-
 
             //vltarget.CssClass = "VLRequiredDone";
             //DConsole.WriteLine("1");
@@ -274,7 +272,7 @@ namespace Test
 
         internal IEnumerable GetCheckList()
         {
-            return DBHelper.GetCheckListByEventID((string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+            return DBHelper.GetCheckListByEventID((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
         }
 
         internal void BackButton_OnClick(object sender, EventArgs eventArgs)
