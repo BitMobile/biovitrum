@@ -10,6 +10,8 @@ namespace Test
     {
         private TabBarComponent _tabBarComponent;
         private TopInfoComponent _topInfoComponent;
+        private bool _needTodayBreaker = Convert.ToBoolean("True");
+        private bool _needTodayLayout = Convert.ToBoolean("True");
 
         public override void OnLoading()
         {
@@ -44,7 +46,96 @@ namespace Test
                 CssClass = "BottonExtraInfo"
             });
         }
-        
+
+        internal string GetDateNowEventList()
+        {
+            DConsole.WriteLine(DateTime.Now.ToString("dddd dd MMMM"));
+            return DateTime.Now.ToString("dddd dd MMMM");
+        }
+        internal string DateTimeToDateWithWeekCheck(string datetime)
+        {
+            var workDate = DateTime.Parse(datetime).Date;
+            var currentDate = DateTime.Now.Date;
+
+            var workDateWeekNumber = (workDate.DayOfYear + 6) / 7;
+            if (workDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
+            {
+                ++workDateWeekNumber;
+            }
+
+            var currentDateWeekNumber = (currentDate.DayOfYear + 6) / 7;
+            if (currentDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
+            {
+                ++currentDateWeekNumber;
+            }
+
+            if (workDateWeekNumber == currentDateWeekNumber)
+            {
+                return DateTime.Parse(datetime).ToString("dddd, dd MMMM").ToUpper();
+            }
+            return DateTime.Parse(datetime).ToString("dd MMMM yyyy").ToUpper();
+        }
+        internal bool IsTodayLayoutNeed()
+        {
+            DConsole.WriteLine(_needTodayLayout.ToString());
+            if (_needTodayLayout)
+            {
+                DConsole.WriteLine("TodayLayoutNeed");
+                return Convert.ToBoolean("True");
+            }
+            DConsole.WriteLine("TodayLayoutNOTNeed");
+            return Convert.ToBoolean("False");
+        }
+        internal bool IsTodayBreakerNeed()
+        {
+            if (_needTodayBreaker)
+            {
+                return true;
+            }
+            return false;
+        }
+        internal int SetTodayLayoutToFalse()
+        {
+            DConsole.WriteLine("in ToFalse entered");
+            _needTodayLayout = Convert.ToBoolean("False");
+            return 0;
+        }
+        internal int SetTodayBreakerToFalse()
+        {
+            _needTodayBreaker = Convert.ToBoolean("False");
+            return 0;
+        }
+        internal bool IsDateEquals(string lastdate, string nowdate)
+        {
+            if (DateTime.Parse(lastdate).Date == DateTime.Parse(nowdate).Date)
+            {
+                return true;
+            }
+            return false;
+        }
+        internal bool IsDateEqualsOrLess(string lastdate, string nowdate)
+        {
+            DConsole.WriteLine("lastdate " + lastdate);
+            DConsole.WriteLine("nowdate " + nowdate);
+            if (DateTime.Parse(lastdate).Date <= DateTime.Parse(nowdate).Date)
+            {
+                return true;
+            }
+            return false;
+        }
+        internal bool IsDateChanged(string lastdate, string nowdate)
+        {
+            if (DateTime.Parse(lastdate).Date < DateTime.Parse(nowdate).Date)
+            {
+                return true;
+            }
+            return false;
+        }
+        internal string DateTimeToDate(string datetime)
+        {
+            return DateTime.Parse(datetime).ToString("dddd dd MMMM");
+        }
+
         // TopInfo parts
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
