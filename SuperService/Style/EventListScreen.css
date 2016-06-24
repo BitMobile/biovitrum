@@ -271,21 +271,21 @@ TextView {
 .ImportanceIndicatorCritical {
 	background-color: #ff0000;
 	height: 25%;
-	margin-top: 10%;
+	margin-top: 2.5sp;
 	width: 100%;
 }
 
 .ImportanceIndicatorHigh {
 	background-color: #e79a1a;
 	height: 25%;
-	margin-top: 10%;
+	margin-top: 2.5sp;
 	width: 100%;
 }
 
 .ImportanceIndicatorStandart {
 	background-color: #bca5a5;
 	height: 25%;
-	margin-top: 10%;
+    margin-top: 2.5sp;
 	width: 100%;
 }
 
@@ -374,16 +374,16 @@ TextView {
 	height: 15sp;
 	margin-right: 25%;
 	margin-top: 25%;
-	width: 50%;
+	width: 15sp;
 }
 
 .ExtraInfo {
 	background-color: #4a4b5e;
 	color: #ffffff;
 	font: 3sp arial;
-	height: 50%;
+	height: 8sp;
 	text-align: center;
-	width: 10sp;
+	width: 15sp;
 }
 
 .BottonExtraInfo {
