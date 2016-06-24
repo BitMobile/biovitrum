@@ -39,7 +39,7 @@ namespace Test
             {
                 CssClass = "ExtraInfo"
             });
-            _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
+            _topInfoComponent.RightExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
             {
                 CssClass = "BottonExtraInfo"
             });

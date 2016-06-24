@@ -14,18 +14,20 @@
 
       <!--<s:Push Id="LastEventListDate" Value="$GetDateNowEventList()" />-->
 
-      <c:HorizontalLayout CssClass="RequestHistoryItemHL">
+      <c:HorizontalLayout CssClass="EventListItemHL">
 
         <c:VerticalLayout CssClass="EventListTimeVL">
-          <c:TextView Text="10.00" CssClass="RequestHistoryNumberTV" />
+          <c:TextView Text="10.00" CssClass="EventListTimeTV" />
         </c:VerticalLayout>
 
-        <c:VerticalLayout CssClass="EventListStatusVL" />
+        <c:VerticalLayout CssClass="EventListStatusVL">
+          <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(test)" />
+        </c:VerticalLayout>
 
         <c:VerticalLayout CssClass="EventListDescriptionVL">
-          <c:TextView Text="Сбербанк" CssClass="RequestHistoryStatusTVNew" />
-          <c:TextView Text="Петровка" CssClass="RequestHistoryStatusTVNew" />
-          <c:TextView Text="Ремонт" CssClass="RequestHistoryStatusTVNew" />
+          <c:TextView Text="Сбербанк" CssClass="EventListItemName" />
+          <c:TextView Text="Петровка" CssClass="EventListItemAddress" />
+          <c:TextView Text="Ремонт" CssClass="EventListItemType" />
         </c:VerticalLayout>
 
       </c:HorizontalLayout>

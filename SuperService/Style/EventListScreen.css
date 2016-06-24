@@ -4,6 +4,7 @@
 /* ReSharper disable RedundantUnits */
 /* ReSharper disable UnexpectedValue */
 
+/* Start of Common Styles */
 
 body {
 	background-color: #ffffff;
@@ -22,6 +23,16 @@ TextView {
 	width: 100%;
 }
 
+/* End of Common Styles */
+
+/* Start of EventList Styles */
+
+.RootLayout {
+	background-color: #ffffff;
+	height: 100%;
+	width: 100%;
+}
+
 .EventListMainSVL {
 	height: auto;
 	width: 100%;
@@ -36,32 +47,59 @@ TextView {
 
 .EventListTimeVL {
 	height: 11sp auto;
-	width: 30%;
+	width: 20%;
+}
+
+.EventListTimeTV {
+    color: #51595b;
+    margin-top: 2sp;
+    font: 3sp arial;
+    width: 80%;
 }
 
 .EventListStatusVL {
 	height: 11sp auto;
-	width: 20%;
+	width: 5%;
+}
+
+.EventListStatusIMG {
+    horizontal-align: center;
+    margin-top: 2sp;
+    height: 3sp;
 }
 
 .EventListDescriptionVL {
 	height: 11sp auto;
-    width: 50%;
+    width: 75%;
 }
 
-.NoHeight {
-	height: 0%;
-	width: 100%;
+.EventListItemName {
+    color: #51595b;
+    margin-top: 2sp;
+    margin-right: 3sp;
+    font: 3sp arial;
+    width: 100%;
 }
 
-.RootLayout {
-	background-color: #ffffff;
-	height: 100%;
-	width: 100%;
+.EventListItemAddress {
+    color: #51595b;
+    margin-top: 1sp;
+    margin-right: 3sp;
+    font: 2.5sp arial;
+    width: 100%;
 }
 
+.EventListItemType {
+    color: #9b9fa0;
+    margin-top: 1sp;
+    margin-right: 3sp;
+    margin-bottom: 1sp;
+    font: 2sp arial;
+    width: 100%;
+}
+
+/* --------------------------------------------- */
 /* Top Info Component */
-
 .TopInfoLayout {
 	background-color: #4a4b5e;
 	dock-align: top;
@@ -150,238 +188,12 @@ TextView {
 	horizontal-align: center;
 }
 
-.TopInfoSideText { color: #ffffff; }
-
-/* Event Screen */
-
-.EventScreenMainLayout {
-	dock-align: top;
-	height: auto;
-	width: 100%;
+.TopInfoSideText {
+    color: #ffffff;
 }
 
-.LightInfoLayout {
-	height: 5sp auto;
-	horizontal-align: center;
-	width: 90%;
-}
-
-.LightInfoBox {
-	height: 5sp auto;
-	margin-top: 1sp;
-	width: 50%;
-}
-
-.LightInfoTitle {
-	color: #a4a8a9;
-	font: 2sp arial;
-	height: 3sp;
-}
-
-.LightInfoContent { height: 4sp auto; }
-
-
-.LayoutBreaker {
-	background-color: #a4a8a9;
-	height: 0.1sp;
-	horizontal-align: center;
-	width: 90%;
-}
-
-.CommentLayout {
-	height: 10sp auto;
-	horizontal-align: center;
-	margin-bottom: 3sp;
-	margin-top: 2sp;
-	width: 80%;
-}
-
-.Comment { height: 7.5sp auto; }
-
-.InfoLayout {
-	border-color: #a4a8a9;
-	border-style: solid;
-	border-width: 2px;
-	height: 10sp;
-	horizontal-align: center;
-	margin-bottom: 2sp;
-	padding-bottom: 2sp;
-	padding-top: 2sp;
-	width: 90%;
-}
-
-.InfoImage {
-	height: 80%;
-	margin-left: 5%;
-	vertical-align: center;
-}
-
-.InfoTitle {
-	font: 4sp arial;
-	height: 80%;
-	margin-left: 2%;
-	padding-top: 1sp;
-	text-align: left;
-	width: 50%;
-}
-
-.InfoContent {
-	color: #a4a8a9;
-	font: 4sp arial;
-	height: 80%;
-	margin-right: 5%;
-	padding-top: 1sp;
-	text-align: right;
-	width: 35%;
-}
-
-.StartButton {
-	background-color: #94da4f;
-	color: #d0ffa1;
-	dock-align: bottom;
-	font: 3.5sp arial;
-	height: 10sp;
-	width: 100%;
-}
-
-.FinishButton {
-	background-color: #fe9c81;
-	color: #fecbc0;
-	dock-align: bottom;
-	font: 3.5sp arial;
-	height: 10sp;
-	width: 100%;
-}
-
-/* Order List Screen */
-
-.SWL {
-	background-color: #ffffff;
-	height: 100%;
-	width: 100%;
-}
-
-.OrderInfoContainer {
-	height: 10sp;
-	width: 100%;
-}
-
-.OrderTimeContainer {
-	height: 100%;
-	width: 20%;
-}
-
-.StartDatePlan {
-	color: #000000;
-	font: 2.5sp arial;
-	height: 60%;
-	padding-top: 10%;
-	text-align: center;
-	width: 100%;
-}
-
-.ActualStartDate {
-	color: #feb3a3;
-	font: 2sp arial;
-	height: auto;
-	padding-top: 15%;
-	text-align: center;
-	width: 100%;
-}
-
-.ImportanceContainer {
-	height: 100%;
-	width: 5%;
-}
-
-.ImportanceIndicatorCritical {
-	background-color: #ff0000;
-	height: 25%;
-	margin-top: 10%;
-	width: 100%;
-}
-
-.ImportanceIndicatorHigh {
-	background-color: #e79a1a;
-	height: 25%;
-	margin-top: 10%;
-	width: 100%;
-}
-
-.ImportanceIndicatorStandart {
-	background-color: #bca5a5;
-	height: 25%;
-	margin-top: 10%;
-	width: 100%;
-}
-
-.OrderInfo {
-	height: 100%;
-	width: auto;
-}
-
-.ClientDescription {
-	color: #51595b;
-	font: 3sp arial;
-	height: 35%;
-	margin-left: 5%;
-	padding-top: 10%;
-	text-align: left;
-	width: 100%;
-}
-
-.ClientAdress {
-	color: #51595b;
-	font: 2sp arial;
-	height: 30%;
-	margin-left: 5%;
-	text-align: left;
-	width: 100%;
-}
-
-.TypesDepartures {
-	color: #7d7777;
-	font: 2sp arial;
-	height: 30%;
-	margin-bottom: 2%;
-	margin-left: 5%;
-	text-align: left;
-	width: 100%;
-}
-
-.ClientHorizontalLine {
-	background-color: #fbf6f6;
-	height: 2%;
-	horizontal-align: right;
-	margin-left: 5%;
-	width: 100%;
-}
-
-.DateContainer {
-	height: 15% auto;
-	width: 100%;
-}
-
-.DateText {
-	color: #9b9fa0;
-	font: 2.5sp arial;
-	height: 5sp;
-	padding-left: 3sp;
-	padding-top: 40%;
-	text-align: left;
-	width: 80%;
-}
-
-.FinalDateLine {
-	background-color: #fbf6f6;
-	height: 0.1sp;
-	width: 100%;
-}
-
-/* --------------------------------------------- */
 
 /* Top Info Bar LeftExtraLayout and RightExtraLayout*/
-
 .ExtraLeftLayoutCss {
 	background-color: #4a4b5e;
 	height: 15sp;
@@ -417,7 +229,6 @@ TextView {
 }
 
 /* Tab Bar style */
-
 .TabBarHL {
 	background-color: #ffffff;
 	dock-align: bottom;
@@ -457,5 +268,4 @@ TextView {
 	color: #9b9fa0;
 	text-align: center;
 }
-
 /* End of Tab Bar style */
