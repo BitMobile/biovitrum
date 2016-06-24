@@ -26,7 +26,7 @@ clients		Клиенты
 settings		Настройки
 areYouSure		Вы уверены?
 today		сегодня
-per_month		За месяц
+per_month		за месяц
 todayUpper		СЕГОДНЯ
 client		Клиент
 clients		Клиенты
@@ -74,3 +74,4 @@ login		Логин
 password		Пароль
 log_in		Войти
 cant_signing		Не получается войти?
+bag_empty		Не указан саписок материалов для рюкзака
