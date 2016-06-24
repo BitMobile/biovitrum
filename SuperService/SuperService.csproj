@@ -59,7 +59,7 @@
     <Compile Include="Controllers\**" />
     <Compile Include="Entities\**" />
     <EmbeddedResource Include="Image\**" />
-    <EmbeddedResource Include="Model\metadata.xml" />
+    <EmbeddedResource Include="Model\**" />
     <Compile Include="Module\**" />
     <Compile Include="Objects\**" />
     <Compile Include="Parameters\**" />
