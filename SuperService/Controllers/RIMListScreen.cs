@@ -139,7 +139,7 @@ namespace Test
                 else
                 {
                     result = DBHelper.GetRIMFromBag();
-                    DConsole.WriteLine("Получаем материалы из рюкзака");
+                    DConsole.WriteLine($"Получаем материалы из рюкзака ");
                 }
             }
 
