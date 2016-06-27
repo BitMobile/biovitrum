@@ -13,7 +13,7 @@ namespace Test
         private static readonly Stack ScreenInfoStack = new Stack();
         private static readonly Stack ScreenStack = new Stack();
 
-        private static bool _nonModalMove = false;
+        private static bool _nonModalMove;
 
         private static readonly ArrayList CurrentScreenInfoRef = new ArrayList();
 
@@ -60,8 +60,8 @@ namespace Test
         /// <summary>
         ///     Перейти на один экран по стеку назад
         /// </summary>
-        /// <param name="reload">Перезагржать ли целевой экран</param>
-        public static void Back(bool reload = false)
+        /// <param name="reload">Перезагржать ли целевой экран (ВНИМАНИЕ, СТАВИТЬ СЮДА false ОПАСНО)</param>
+        public static void Back(bool reload = true)
         {
             if (ScreenInfoStack.Count == 0)
             {
