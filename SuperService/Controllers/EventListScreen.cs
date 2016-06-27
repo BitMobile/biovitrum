@@ -90,6 +90,7 @@ namespace Test
         {
             if (_needTodayBreaker)
             {
+                DConsole.WriteLine("IsTodayBreakerNeed entered");
                 return true;
             }
             return false;
@@ -117,7 +118,7 @@ namespace Test
         {
             DConsole.WriteLine("lastdate " + lastdate);
             DConsole.WriteLine("nowdate " + nowdate);
-            if (DateTime.Parse(lastdate).Date <= DateTime.Parse(nowdate).Date)
+            if (DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date)
             {
                 return true;
             }
@@ -125,6 +126,7 @@ namespace Test
         }
         internal bool IsDateChanged(string lastdate, string nowdate)
         {
+            DConsole.WriteLine("IsDateChanged entered");
             if (DateTime.Parse(lastdate).Date < DateTime.Parse(nowdate).Date)
             {
                 return true;

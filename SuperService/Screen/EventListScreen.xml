@@ -12,15 +12,14 @@
     <!-- Main SVL-->
     <c:SwipeVerticalLayout CssClass="EventListMainSVL">
 
-      <s:Push Id="LastEventListDate" Value="$GetDateNowEventList()" />
-
+      <s:Push Id="EventListLastDate" Value="$GetDateNowEventList()" />
+      <s:Push Id="EventListCurrentDate" Value="$GetDateNowEventList()" />
       <s:Iterator Id="EventList" Value="$GetEvents()">
-
 
         <!-- Проверка на необходимость плашки "Сегодня" -->
         <s:If Test="$IsTodayLayoutNeed()">
 
-          <s:If Test="$IsDateEqualsOrLess($LastEventListDate, $EventList.startDatePlanDate)">
+          <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $EventList.startDatePlanDate)">
             <c:HorizontalLayout CssClass="EventListDateHL">
               <c:TextView Text="#todayUpper#" CssClass="EventListDateTV" />
             </c:HorizontalLayout>
@@ -32,15 +31,14 @@
         <!-- Конец проверки на необходимость плашки "Сегодня" -->
 
         <!-- Проверка на необходимость плашки с датой и брейкера-->
-        <s:If Test="$IsDateChanged($LastEventListDate, $EventList.startDatePlanDate)">
-          <c:HorizontalLine CssClass="EventListLongBreaker" />
+        <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $EventList.startDatePlanDate)">
+          <!--<c:HorizontalLine CssClass="EventListLongBreaker" />-->
 
-          <c:HorizontalLayout CssClass="EventListDateHL">
+          <!--<c:HorizontalLayout CssClass="EventListDateHL">
             <c:TextView Text="$DateTimeToDateWithWeekCheck($EventList.startDatePlanDate)" CssClass="EventListDateTV" />
-          </c:HorizontalLayout>
+          </c:HorizontalLayout>-->
 
-
-          <c:HorizontalLine CssClass="EventListLongBreaker" />
+          <!--<c:HorizontalLine CssClass="EventListLongBreaker" />-->
         </s:If>
 
         <s:Else>
@@ -48,8 +46,18 @@
             <s:Push Id="void" Value="$SetTodayBreakerToFalse()" />
           </s:If>
           <s:Else>
-            <c:HorizontalLine CssClass="EventListShortBreaker" />
+            <!--<c:HorizontalLine CssClass="EventListShortBreaker" />-->
           </s:Else>
+
+          <s:If Test="$IsDateChanged($EventListLastDate, $EventList.startDatePlanDate)">
+            <c:HorizontalLine CssClass="EventListLongBreaker" />
+
+            <c:HorizontalLayout CssClass="EventListDateHL">
+              <c:TextView Text="$DateTimeToDateWithWeekCheck($EventList.startDatePlanDate)" CssClass="EventListDateTV" />
+            </c:HorizontalLayout>
+
+            <c:HorizontalLine CssClass="EventListLongBreaker" />
+          </s:If>
         </s:Else>
         <!-- Конец проверки на необходимость плашки с датой и брейкера-->
 
@@ -63,7 +71,7 @@
 
           <c:VerticalLayout CssClass="EventListStatusVL">
             <c:VerticalLayout CssClass="EventListLineBeforeVL" />
-            <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(test)" />
+            <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_done)" />
             <c:VerticalLayout CssClass="EventListLineAfterVL" />
           </c:VerticalLayout>
 
@@ -75,7 +83,7 @@
 
         </c:HorizontalLayout>
 
-        <s:Push Id="LastEventListDate" Value="$DateTimeToDate($EventList.startDatePlanDate)" />
+        <s:Push Id="EventListLastDate" Value="$DateTimeToDate($EventList.startDatePlanDate)" />
 
       </s:Iterator>
     </c:SwipeVerticalLayout>
