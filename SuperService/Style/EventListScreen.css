@@ -68,8 +68,11 @@ TextView {
 .EventListShortBreaker {
 	background-color: #f3f3f4;
 	height: 2px;
-	horizontal-align: center;
-	width: 95%;
+	horizontal-align: right;
+	width: 100%;
+    margin-left: 3sp;
+    margin-top: 1sp;
+    margin-right: 3sp;
 }
 
 .EventListItemHL {
@@ -105,7 +108,7 @@ TextView {
     horizontal-align: center;
     height: 2sp;
 	width: 3px;
-    background-color: #ededed;
+    background-color: #f3f3f4;
 }
 
 .EventListStatusIMG {
@@ -117,7 +120,7 @@ TextView {
     horizontal-align: center;
     height: 100%;
 	width: 3px;
-    background-color: #ededed;
+    background-color: #f3f3f4;
 }
 
 .EventListDescriptionVL {
@@ -150,7 +153,6 @@ TextView {
     margin-top: 1sp;
     margin-left: 3sp;
     margin-right: 3sp;
-    /*margin-bottom: 1sp;*/
     font: 2sp arial;
     text-align: left;
     width: 100%;
@@ -238,6 +240,7 @@ TextView {
 
 .TopInfoSideExtraLayout {
 	height: 100% auto;
+    horizontal-align: center;
 	width: 50%;
 }
 
@@ -270,33 +273,47 @@ TextView {
 
 .ExtraInfo {
 	background-color: #4a4b5e;
-	color: #9595a3;
+	color: #ffffff;
 	font: 3sp arial;
-	height: 50%;
+	height: 8sp;
 	text-align: center;
-	width: 100%;
+	width: 15sp;
 }
 
-.BottonExtraInfo {
+.ButtonExtraInfo {
 	background-color: #4a4b5e;
-	color: #9595a3;
+	color: #ffffff;
 	font: 2sp arial;
-	height: 50%;
+	height: 5sp;
 	text-align: center;
-	width: 100%;
+	width: 15sp;
 }
 
 /* Tab Bar style */
-.TabBarHL {
-	background-color: #ffffff;
+.TabBarMainVL {
+    background-color: #ffffff;
 	dock-align: bottom;
-	height: 10%;
+	height: 9%;
 	horizontal-align: center;
-	/*margin-top: 2%;*/
 	width: 100%;
 }
 
-.TabBarVL {
+.TabBarHL {
+	background-color: #ffffff;
+	dock-align: bottom;
+	height: 100%;
+	horizontal-align: center;
+	width: 100%;
+}
+
+.TabBarBreaker {
+    background-color: #f3f3f4;
+	height: 1dp;
+	horizontal-align: center;
+	width: 100%;
+}
+
+.TabBarItemVL {
 	background-color: #ffffff;
 	color: #ffffff;
 	height: 100%;

@@ -34,7 +34,7 @@ namespace Test
             });
             _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("today"))
             {
-                CssClass = "BottonExtraInfo"
+                CssClass = "ButtonExtraInfo"
             });
 
             _topInfoComponent.RightExtraLayout.AddChild(new TextView($"{statistic.MonthCompleteAmout}/{statistic.MonthTotalAmount}")
@@ -43,13 +43,13 @@ namespace Test
             });
             _topInfoComponent.RightExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
             {
-                CssClass = "BottonExtraInfo"
+                CssClass = "ButtonExtraInfo"
             });
         }
 
         internal string GetDateNowEventList()
         {
-            DConsole.WriteLine(DateTime.Now.ToString("dddd dd MMMM"));
+            //DConsole.WriteLine(DateTime.Now.ToString("dddd dd MMMM"));
             return DateTime.Now.ToString("dddd dd MMMM");
         }
         internal string DateTimeToDateWithWeekCheck(string datetime)
@@ -75,26 +75,7 @@ namespace Test
             }
             return DateTime.Parse(datetime).ToString("dd MMMM yyyy").ToUpper();
         }
-        internal bool IsTodayLayoutNeed()
-        {
-            DConsole.WriteLine(_needTodayLayout.ToString());
-            if (_needTodayLayout)
-            {
-                DConsole.WriteLine("TodayLayoutNeed");
-                return Convert.ToBoolean("True");
-            }
-            DConsole.WriteLine("TodayLayoutNOTNeed");
-            return Convert.ToBoolean("False");
-        }
-        internal bool IsTodayBreakerNeed()
-        {
-            if (_needTodayBreaker)
-            {
-                DConsole.WriteLine("IsTodayBreakerNeed entered");
-                return true;
-            }
-            return false;
-        }
+
         internal int SetTodayLayoutToFalse()
         {
             DConsole.WriteLine("in ToFalse entered");
@@ -103,9 +84,11 @@ namespace Test
         }
         internal int SetTodayBreakerToFalse()
         {
+            DConsole.WriteLine("SetTodayBreakerToFalse entered");
             _needTodayBreaker = Convert.ToBoolean("False");
             return 0;
         }
+
         internal bool IsDateEquals(string lastdate, string nowdate)
         {
             if (DateTime.Parse(lastdate).Date == DateTime.Parse(nowdate).Date)
@@ -116,8 +99,8 @@ namespace Test
         }
         internal bool IsDateEqualsOrLess(string lastdate, string nowdate)
         {
-            DConsole.WriteLine("lastdate " + lastdate);
-            DConsole.WriteLine("nowdate " + nowdate);
+            //DConsole.WriteLine("lastdate " + lastdate);
+            //DConsole.WriteLine("nowdate " + nowdate);
             if (DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date)
             {
                 return true;
@@ -126,8 +109,28 @@ namespace Test
         }
         internal bool IsDateChanged(string lastdate, string nowdate)
         {
-            DConsole.WriteLine("IsDateChanged entered");
+            DConsole.WriteLine("--IsDateChanged entered");
             if (DateTime.Parse(lastdate).Date < DateTime.Parse(nowdate).Date)
+            {
+                return true;
+            }
+            return false;
+        }
+        internal bool IsTodayLayoutNeed()
+        {
+            //DConsole.WriteLine(_needTodayLayout.ToString());
+            if (_needTodayLayout)
+            {
+                //DConsole.WriteLine("TodayLayoutNeed");
+                return Convert.ToBoolean("True");
+            }
+            //DConsole.WriteLine("TodayLayoutNOTNeed");
+            return Convert.ToBoolean("False");
+        }
+        internal bool IsTodayBreakerNeed()
+        {
+            DConsole.WriteLine("IsTodayBreakerNeed entered");
+            if (_needTodayBreaker)
             {
                 return true;
             }
@@ -138,22 +141,29 @@ namespace Test
             return DateTime.Parse(datetime).ToString("dddd dd MMMM");
         }
 
+
+        internal IEnumerable GetEvents()
+        {
+            return DBHelper.GetEvents();
+        }
+        internal string GetResourceImage(string tag)
+        {
+            return ResourceManager.GetImage(tag);
+        }
+
         // TopInfo parts
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
         }
-
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
             _topInfoComponent.Arrow_OnClick(sender, e);
         }
-
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("GO to map");
             BusinessProcess.DoAction("ViewMap");
         }
-
         internal void EventLayout_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("Go To View Event");
@@ -168,33 +178,20 @@ namespace Test
             //_tabBarComponent.Events_OnClick(sender, eventArgs);
             DConsole.WriteLine("Settings Events");
         }
-
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Bag_OnClick(sender, eventArgs);
             DConsole.WriteLine("Settings Bag");
         }
-
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Clients_OnClick(sender, eventArgs);
             DConsole.WriteLine("Settings Clients");
         }
-
         internal void TabBarFourthButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Settings_OnClick(sender, eventArgs);
             DConsole.WriteLine("Settings Settings");
-        }
-
-        internal IEnumerable GetEvents()
-        {
-            return DBHelper.GetEvents();
-        }
-
-        internal string GetResourceImage(string tag)
-        {
-            return ResourceManager.GetImage(tag);
         }
     }
 }

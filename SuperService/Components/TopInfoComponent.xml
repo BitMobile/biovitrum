@@ -3,23 +3,28 @@
 <c:Component xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="TopInfoLayout">
     <c:HorizontalLayout CssClass="TopInfoHeadingLayout">
+      
       <c:VerticalLayout Id="TopInfoLeftButton" CssClass="TopInfoButton" OnClick="TopInfo_LeftButton_OnClick">
         <c:Image Id="TopInfoLeftButtonImage" Source="$GetResourceImage(topheading_back)" CssClass="TopInfoButtonImage" />
       </c:VerticalLayout>
+      
       <c:TextView Id="TopInfoHeadingTextView" CssClass="TopInfoHeading" />
+      
       <c:VerticalLayout Id="TopInfoRightButton" CssClass="TopInfoButton" OnClick="TopInfo_RightButton_OnClick">
         <c:Image Id="TopInfoRightButtonImage" Source="$GetResourceImage(topheading_back)" CssClass="TopInfoButtonImage" />
       </c:VerticalLayout>
+      
     </c:HorizontalLayout>
   </c:VerticalLayout>
+  
   <c:VerticalLayout Id="TopInfoExtraLayout" CssClass="TopInfoExtraLayout">
     <c:TextView Id="TopInfoCommentTextView" CssClass="TopInfoComment" />
+    
     <c:HorizontalLayout Id="TopInfoExtraButtonsLayout" CssClass="NoHeight">
-      <c:VerticalLayout Id="TopInfoLeftExtraLayout" CssClass="TopInfoSideExtraLayout">
-      </c:VerticalLayout>
-      <c:VerticalLayout Id="TopInfoRightExtraLayout" CssClass="TopInfoSideExtraLayout">
-      </c:VerticalLayout>
+      <c:VerticalLayout Id="TopInfoLeftExtraLayout" CssClass="TopInfoSideExtraLayout"/>
+      <c:VerticalLayout Id="TopInfoRightExtraLayout" CssClass="TopInfoSideExtraLayout"/>
     </c:HorizontalLayout>
+    
   </c:VerticalLayout>
   <c:VerticalLayout Id="TopInfoImageLayout" CssClass="TopInfoImageLayout" OnClick="TopInfo_Arrow_OnClick">
     <c:Image Id="TopInfoArrowImage" Source="$GetResourceImage(topinfo_downarrow)" CssClass="TopInfoArrowDown" />

@@ -202,17 +202,30 @@ EditText{
 /* End of BagList style */
 
 /* Tab Bar style */
+.TabBarMainVL {
+    background-color: #ffffff;
+	dock-align: bottom;
+	height: 9%;
+	horizontal-align: center;
+	width: 100%;
+}
 
 .TabBarHL {
 	background-color: #ffffff;
 	dock-align: bottom;
-	height: 10%;
+	height: 100%;
 	horizontal-align: center;
-	/*margin-top: 2%;*/
 	width: 100%;
 }
 
-.TabBarVL {
+.TabBarBreaker {
+    background-color: #f3f3f4;
+	height: 1dp;
+	horizontal-align: center;
+	width: 100%;
+}
+
+.TabBarItemVL {
 	background-color: #ffffff;
 	color: #ffffff;
 	height: 100%;
@@ -242,5 +255,4 @@ EditText{
 	color: #9b9fa0;
 	text-align: center;
 }
-
 /* End of Tab Bar style */

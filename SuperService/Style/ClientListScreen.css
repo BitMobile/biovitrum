@@ -164,52 +164,7 @@ TextView {
 	width: 100%;
 }
 
-/* Tab Bar style */
-
-.TabBarHL {
-	background-color: #ffffff;
-	dock-align: bottom;
-	height: 10%;
-	horizontal-align: center;
-	/*margin-top: 2%;*/
-	width: 100%;
-}
-
-.TabBarVL {
-	background-color: #ffffff;
-	color: #ffffff;
-	height: 100%;
-	horizontal-align: center;
-	margin-bottom: 0%;
-	vertical-align: center;
-	width: 25%;
-}
-
-.TabImage {
-	background-color: #ffffff;
-	color: #ffffff;
-	margin-top: 10%;
-	height: 50%;
-	horizontal-align: center;
-	vertical-align: center;
-}
-
-.TabTextViewActive {
-	background-color: #ffffff;
-	color: #fd724c;
-	text-align: center;
-}
-
-.TabTextViewNotActive {
-	background-color: #ffffff;
-	color: #9b9fa0;
-	text-align: center;
-}
-
-/* End of Tab Bar style */
-
 /*  ClientList */
-
 .ClientListLayout {
 	height: auto;
 	width: 100%;
@@ -248,3 +203,60 @@ TextView {
 	horizontal-align: left;
 	vertical-align: center;
 }
+/* End of ClientList */
+
+/* Tab Bar style */
+.TabBarMainVL {
+    background-color: #ffffff;
+	dock-align: bottom;
+	height: 9%;
+	horizontal-align: center;
+	width: 100%;
+}
+
+.TabBarHL {
+	background-color: #ffffff;
+	dock-align: bottom;
+	height: 100%;
+	horizontal-align: center;
+	width: 100%;
+}
+
+.TabBarBreaker {
+    background-color: #f3f3f4;
+	height: 1dp;
+	horizontal-align: center;
+	width: 100%;
+}
+
+.TabBarItemVL {
+	background-color: #ffffff;
+	color: #ffffff;
+	height: 100%;
+	horizontal-align: center;
+	margin-bottom: 0%;
+	vertical-align: center;
+	width: 25%;
+}
+
+.TabImage {
+	background-color: #ffffff;
+	color: #ffffff;
+	margin-top: 10%;
+	height: 50%;
+	horizontal-align: center;
+	vertical-align: center;
+}
+
+.TabTextViewActive {
+	background-color: #ffffff;
+	color: #fd724c;
+	text-align: center;
+}
+
+.TabTextViewNotActive {
+	background-color: #ffffff;
+	color: #9b9fa0;
+	text-align: center;
+}
+/* End of Tab Bar style */
