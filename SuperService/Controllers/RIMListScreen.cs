@@ -1,8 +1,8 @@
-﻿using System;
+﻿using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
 using Test.Components;
 
 namespace Test
@@ -28,12 +28,11 @@ namespace Test
                 {
                     Text = _isService ? Translator.Translate("services") : Translator.Translate("materials")
                 },
-                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
-                RightButtonImage = {Visible = false},
+                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
+                RightButtonImage = { Visible = false },
                 ExtraLayoutVisible = false
             };
         }
-
 
         public int InitClassFields()
         {
@@ -44,12 +43,11 @@ namespace Test
 
             _isMaterialRequest = (bool)Variables.GetValueOrDefault("isMaterialsRequest", Convert.ToBoolean("False"));
             _isService = (bool)Variables.GetValueOrDefault(Parameters.IdIsService, Convert.ToBoolean("False"));
-            _currentEventID = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            _currentEventID = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
             _fieldsAreInitialized = true;
 
             return 0;
         }
-
 
         internal string GetResourceImage(string tag)
         {
@@ -68,7 +66,7 @@ namespace Test
 
         internal void RIMLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            var rimID = ((VerticalLayout) sender).Id;
+            var rimID = ((VerticalLayout)sender).Id;
             if (_isMaterialRequest)
             {
                 //пришли из экрана заявки на материалы
@@ -79,7 +77,6 @@ namespace Test
                     {"priceVisible", Convert.ToBoolean("False")},
                     {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue},
                     {"returnKey", key},
-                    {Parameters.IdLineId, null}
                 };
                 DConsole.WriteLine("Go to EditServicesOrMaterials is Material Request true");
                 Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
@@ -114,7 +111,6 @@ namespace Test
                 }
             }
         }
-
 
         internal IEnumerable GetRIM()
         {
@@ -154,7 +150,6 @@ namespace Test
 
         internal bool GetIsNotEmpty()
         {
-
             var result = GetDataFromDb();
 
             while (result.Next())
