@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
+using System;
+using System.Collections.Generic;
 using Test.Components;
 
 namespace Test
@@ -22,9 +22,9 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = true,
-                HeadingTextView = {Text = Translator.Translate("coc")},
-                RightButtonImage = {Visible = false},
-                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
+                HeadingTextView = { Text = Translator.Translate("coc") },
+                RightButtonImage = { Visible = false },
+                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
                 CommentTextView =
                 {
                     Text = Translator.Translate("total") + Environment.NewLine + Convert.ToDouble((double) _sums["Sum"])
@@ -33,7 +33,6 @@ namespace Test
                 BigArrowActive = false
             };
         }
-
 
         public int InitClassFields()
         {
@@ -89,7 +88,6 @@ namespace Test
             {
                 {Parameters.IdIsService, false},
                 {Parameters.IdCurrentEventId, _currentEventId}
-
             };
             Navigation.Move("RIMListScreen", dictionary);
         }
@@ -99,7 +97,7 @@ namespace Test
             /*TODO: Внимание не редактировать элементы до тех пор, пока не починят экран редактирования, а то
              * приложение упадет
              */
-            var vl = (VerticalLayout) sender;
+            var vl = (VerticalLayout)sender;
             var dictionary = new Dictionary<string, object>
             {
                 {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
@@ -117,38 +115,36 @@ namespace Test
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
         {
             //TODO: Обходной путь получения парента. Внимание!!!!! .
-            var vl = (VerticalLayout) sender;
-            var hl = (IHorizontalLayout3) vl.Parent;
-            var shl = (ISwipeHorizontalLayout3) hl.Parent;
+            var vl = (VerticalLayout)sender;
+            var hl = (IHorizontalLayout3)vl.Parent;
+            var shl = (ISwipeHorizontalLayout3)hl.Parent;
             ++shl.Index;
         }
 
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
             //TODO: Обходной путь получения парента. Внимание!!!!!.
-            var vl = (VerticalLayout) sender;
+            var vl = (VerticalLayout)sender;
             DBHelper.DeleteServiceOrMaterialById(vl.Id);
-            var shl = (ISwipeHorizontalLayout3) vl.Parent;
+            var shl = (ISwipeHorizontalLayout3)vl.Parent;
             shl.CssClass = "NoHeight";
             shl.Refresh();
         }
 
         internal string GetFormatStringForSums(double number)
         {
-            return "\u2022" + Convert.ToDouble(number) + Translator.Translate("currency");
+            return $"\u2022 {Convert.ToDouble(number)} {Translator.Translate("currency")}";
         }
-
 
         internal DbRecordset GetSums()
         {
- 
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
             DConsole.WriteLine("In to: " + nameof(GetSums));
-            _sums = DBHelper.GetCocSumsByEventId((string) eventId);
+            _sums = DBHelper.GetCocSumsByEventId((string)eventId);
 
             return _sums;
         }
@@ -161,15 +157,13 @@ namespace Test
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
 
-            return DBHelper.GetServicesByEventId((string) eventId);
+            return DBHelper.GetServicesByEventId((string)eventId);
         }
 
-        internal string Concat(float amountFact, float price)
+        internal string Concat(float amountFact, float price, string unit)
         {
-
-            DConsole.WriteLine("Concat - amountFact=" + amountFact + " type=" + amountFact.GetType() + " price=" + price + " type="+ price.GetType());
-           // return Convert.ToSingle(amountFact) + " x " + Convert.ToSingle(price);
-            return "" + amountFact + " x " + price;
+            DConsole.WriteLine("Concat - amountFact=" + amountFact + " type=" + amountFact.GetType() + " price=" + price + " type=" + price.GetType());
+            return $"{amountFact} {unit} x {price} {Translator.Translate("currency")}";
         }
 
         internal DbRecordset GetMaterials()
@@ -180,8 +174,7 @@ namespace Test
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
 
-            return DBHelper.GetMaterialsByEventId((string) eventId);
+            return DBHelper.GetMaterialsByEventId((string)eventId);
         }
     }
 }
- 
