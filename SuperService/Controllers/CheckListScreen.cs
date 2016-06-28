@@ -99,7 +99,7 @@ namespace Test
             DBHelper.UpdateCheckListItem(_currentCheckListItemID,
                 args.Result.Value == Translator.Translate("not_choosed") ? "" : _textView.Text);
             _textView.Refresh();
-            ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result.Value == Translator.Translate("not_choosed"));
+            ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result.Value != Translator.Translate("not_choosed"));
         }
 
         // Дата
@@ -139,7 +139,7 @@ namespace Test
             _textView.Text = args.Result.Value;
             DBHelper.UpdateCheckListItem(_currentCheckListItemID,
                 args.Result.Value == Translator.Translate("not_choosed") ? "" : _textView.Text);
-            ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result.Value == Translator.Translate("not_choosed"));
+            ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result.Value != Translator.Translate("not_choosed"));
             _textView.Refresh();
         }
 
@@ -229,6 +229,7 @@ namespace Test
             if (requiredIndecator.CssClass == "CheckListNotRequiredVL")
                 return;
             requiredIndecator.CssClass = done ? "CheckListRequiredDoneVL" : "CheckListRequiredVL";
+            requiredIndecator.Refresh();
         }
 
         internal IEnumerable GetCheckList()
