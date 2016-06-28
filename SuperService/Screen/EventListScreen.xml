@@ -26,31 +26,37 @@
             <c:HorizontalLine CssClass="EventListLongBreaker" />
           </s:If>
           <s:Push Id="void" Value="$SetTodayLayoutToFalse()" />
+          <s:Push Id="void" Value="$SetTodayBreakerToFalse()" />
         </s:If>
         <!-- Конец проверки на необходимость плашки "Сегодня" -->
 
         <!-- Проверка на необходимость плашки с датой-->
-        <s:If Test="$IsDateChanged($EventListLastDate, $EventList.startDatePlanDate)">
-          <c:HorizontalLine CssClass="EventListLongBreaker" />
 
-          <c:HorizontalLayout CssClass="EventListDateHL">
-            <c:TextView Text="$DateTimeToDateWithWeekCheck($EventList.startDatePlanDate)" CssClass="EventListDateTV" />
-          </c:HorizontalLayout>
-
-          <c:HorizontalLine CssClass="EventListLongBreaker" />
+        <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $EventList.startDatePlanDate)">
         </s:If>
-        <!--<s:Else>
-          <s:If Test="$IsTodayBreakerNeed()">
-            <s:Push Id="void" Value="$SetTodayBreakerToFalse()" />
+        <s:Else>
+          <s:If Test="$IsDateChanged($EventListLastDate, $EventList.startDatePlanDate)">
+            <c:HorizontalLine CssClass="EventListLongBreaker" />
+
+            <c:HorizontalLayout CssClass="EventListDateHL">
+              <c:TextView Text="$DateTimeToDateWithWeekCheck($EventList.startDatePlanDate)" CssClass="EventListDateTV" />
+            </c:HorizontalLayout>
+
+            <c:HorizontalLine CssClass="EventListLongBreaker" />
           </s:If>
           <s:Else>
-            <c:HorizontalLine CssClass="EventListShortBreaker" />
+            <s:If Test="$IsTodayBreakerNeed()">
+              <s:Push Id="void" Value="$SetTodayBreakerToFalse()" />
+            </s:If>
+            <s:Else>
+              <!--<c:HorizontalLine CssClass="EventListShortBreaker" />-->
+            </s:Else>
           </s:Else>
-        </s:Else>-->
+        </s:Else>
         <!-- Конец проверки на необходимость плашки с датой-->
 
 
-        <c:HorizontalLayout CssClass="EventListItemHL">
+        <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick">
 
           <c:VerticalLayout CssClass="EventListTimeVL">
             <c:TextView Text="10.00" CssClass="EventListTimeTV" />
@@ -59,28 +65,38 @@
 
           <c:VerticalLayout CssClass="EventListStatusVL">
             <c:VerticalLayout CssClass="EventListLineBeforeVL" />
-            <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_done)" />
+
+            <s:If Test="$EventList.ImportanceName == Standart">
+              <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_done)" />
+            </s:If>
+            <s:If Test="$EventList.ImportanceName == High">
+              <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_notdone)" />
+            </s:If>
+            <s:If Test="$EventList.ImportanceName == Critical">
+              <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_specdone)" />
+            </s:If>
+
             <c:VerticalLayout CssClass="EventListLineAfterVL" />
           </c:VerticalLayout>
 
           <c:VerticalLayout CssClass="EventListDescriptionVL">
-            <c:TextView Text="Сбербанк" CssClass="EventListItemName" />
-            <c:TextView Text="Петровка" CssClass="EventListItemAddress" />
-            <c:TextView Text="Ремонт" CssClass="EventListItemType" />
+            <c:TextView Text="$EventList.Description" CssClass="EventListItemName" />
+            <c:TextView Text="$EventList.Address" CssClass="EventListItemAddress" />
+            <c:TextView Text="$EventList.TypeDeparture" CssClass="EventListItemType" />
 
             <!-- Проверка на необходимость брейкера-->
             <s:If Test="$IsDateChanged($EventListLastDate, $EventList.startDatePlanDate)">
+              <!--<c:HorizontalLine CssClass="EventListShortBreaker" />-->
             </s:If>
             <s:Else>
+              <c:HorizontalLine CssClass="EventListShortBreaker" />
               <s:If Test="$IsTodayBreakerNeed()">
-                <c:HorizontalLine CssClass="EventListShortBreaker" />
-                <s:Push Id="void" Value="$SetTodayBreakerToFalse()" />
               </s:If>
               <s:Else>
                 <!--<c:HorizontalLine CssClass="EventListShortBreaker" />-->
               </s:Else>
             </s:Else>
-            <!-- Конец проверки на необходимость брейкера-->
+            <!--Конец проверки на необходимость брейкера-->
 
             <!--<c:HorizontalLine CssClass="EventListShortBreaker" />-->
           </c:VerticalLayout>

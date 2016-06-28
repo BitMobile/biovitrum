@@ -49,7 +49,7 @@ namespace Test
 
         internal string GetDateNowEventList()
         {
-            //DConsole.WriteLine(DateTime.Now.ToString("dddd dd MMMM"));
+            DConsole.WriteLine(DateTime.Now.ToString("dddd dd MMMM"));
             return DateTime.Now.ToString("dddd dd MMMM");
         }
         internal string DateTimeToDateWithWeekCheck(string datetime)
@@ -78,13 +78,13 @@ namespace Test
 
         internal int SetTodayLayoutToFalse()
         {
-            DConsole.WriteLine("in ToFalse entered");
+            //DConsole.WriteLine("in ToFalse entered");
             _needTodayLayout = Convert.ToBoolean("False");
             return 0;
         }
         internal int SetTodayBreakerToFalse()
         {
-            DConsole.WriteLine("SetTodayBreakerToFalse entered");
+            DConsole.WriteLine("SetTodayBreakerToFalse setted to false");
             _needTodayBreaker = Convert.ToBoolean("False");
             return 0;
         }
@@ -99,8 +99,7 @@ namespace Test
         }
         internal bool IsDateEqualsOrLess(string lastdate, string nowdate)
         {
-            //DConsole.WriteLine("lastdate " + lastdate);
-            //DConsole.WriteLine("nowdate " + nowdate);
+            //DConsole.WriteLine("EqualOrLess comparing " + lastdate + " and " + nowdate);
             if (DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date)
             {
                 return true;
@@ -109,11 +108,12 @@ namespace Test
         }
         internal bool IsDateChanged(string lastdate, string nowdate)
         {
-            DConsole.WriteLine("--IsDateChanged entered");
             if (DateTime.Parse(lastdate).Date < DateTime.Parse(nowdate).Date)
             {
+                DConsole.WriteLine("IsDateChanged returns true");
                 return true;
             }
+            DConsole.WriteLine("IsDateChanged returns false");
             return false;
         }
         internal bool IsTodayLayoutNeed()
@@ -129,11 +129,12 @@ namespace Test
         }
         internal bool IsTodayBreakerNeed()
         {
-            DConsole.WriteLine("IsTodayBreakerNeed entered");
             if (_needTodayBreaker)
             {
+                DConsole.WriteLine("IsTodayBreakerNeed needed");
                 return true;
             }
+            DConsole.WriteLine("IsTodayBreakerNeed NOTneeded");
             return false;
         }
         internal string DateTimeToDate(string datetime)
@@ -164,7 +165,7 @@ namespace Test
             DConsole.WriteLine("GO to map");
             BusinessProcess.DoAction("ViewMap");
         }
-        internal void EventLayout_OnClick(object sender, EventArgs e)
+        internal void EventListItemHL_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("Go To View Event");
             var currentEvent = (HorizontalLayout) sender;
