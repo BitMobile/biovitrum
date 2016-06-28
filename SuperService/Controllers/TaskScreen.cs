@@ -190,6 +190,12 @@ namespace Test
             Navigation.Move("EquipmentScreen", dictionary);
         }
 
+        internal void TaskCommentEditText_OnChange(object sender, EventArgs eventArgs)
+        {
+            var memoEdit = (MemoEdit)sender;
+            memoEdit.Refresh();
+        }
+
         internal object GetTask()
         {
             string currentTaskId = (string)BusinessProcess.GlobalVariables["currentTaskId"];

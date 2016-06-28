@@ -20,7 +20,8 @@
           <c:HorizontalLine CssClass="WrapUnwrapLine" />
         </c:HorizontalLayout>
         <c:VerticalLayout CssClass="CommentLayout">
-          <c:MemoEdit Text="$task.Comment" Id="TaskCommentEditText" Placeholder="#comment...#" CssClass="Comment" />
+          <c:MemoEdit Text="$task.Comment" Id="TaskCommentEditText" Placeholder="#comment...#"
+                      CssClass="Comment" OnChange="TaskCommentEditText_OnChange" />
           <c:HorizontalLine CssClass="CommentEndLine" />
         </c:VerticalLayout>
 
