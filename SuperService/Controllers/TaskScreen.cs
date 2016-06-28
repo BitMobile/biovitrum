@@ -1,5 +1,6 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Common.Controls;
 using System;
 using System.Collections.Generic;
 using Test.Components;
@@ -188,6 +189,10 @@ namespace Test
             };
 
             Navigation.Move("EquipmentScreen", dictionary);
+        }
+
+        internal void TaskCommentEditText_OnChange(object sender, EventArgs eventArgs)
+        {
         }
 
         internal object GetTask()
