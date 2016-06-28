@@ -8,7 +8,6 @@ namespace Test
     {
         public ContactScreen()
         {
-            DConsole.WriteLine("Constructor");
             Variables["contact"] = new Contacts
             {
                 Description = "Сергеев Алексей",
@@ -20,7 +19,6 @@ namespace Test
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("OnLoading");
         }
     }
 }
