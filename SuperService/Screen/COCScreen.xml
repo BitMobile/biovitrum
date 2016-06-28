@@ -5,8 +5,8 @@
     <s:Include File="Components\TopInfoComponent.xml" />
 
     <s:Push Id="void_ crutch" Value="$InitClassFields()" />
-    <s:Push Id="sums" Value="$GetSums()"/>
-    
+    <s:Push Id="sums" Value="$GetSums()" />
+
     <c:VerticalLayout Id="ServicesInfoVL" CssClass="TotalPriceInfoVL">
       <c:HorizontalLayout Id="ServicesInfoHL" CssClass="TotalPriceInfoHL">
         <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#services#" />
@@ -22,32 +22,29 @@
         <!-- Итератор по услугам будет здесь-->
         <s:Iterator Id="services" Value="$GetServices()">
 
-        <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL">
-          <c:HorizontalLayout CssClass="InfoNodeHL">
-            <!-- Красный круг с минусом -->
-            <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
-              <c:HorizontalLayout Id="Test" CssClass="InfoImageContainerHL">
-                <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)" />
-              </c:HorizontalLayout>
+          <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL">
+            <c:HorizontalLayout CssClass="InfoNodeHL">
+              <!-- Красный круг с минусом -->
+              <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
+                <c:HorizontalLayout Id="Test" CssClass="InfoImageContainerHL">
+                  <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)" />
+                </c:HorizontalLayout>
+              </c:VerticalLayout>
+
+              <!--Два TextView с информацией об услугах-->
+              <c:VerticalLayout Id="$services.Id" CssClass="InfoTextContainerVL" OnClick="EditServicesOrMaterials_OnClick">
+                <c:TextView CssClass="NameTV" Text="$services.Description" />
+                <c:TextView CssClass="PriceTV" Text="$Concat($services.AmountFact, $services.Price, $services.Unit)" />
+              </c:VerticalLayout>
+            </c:HorizontalLayout>
+
+            <c:VerticalLayout Id="$services.Id" CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
+              <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
             </c:VerticalLayout>
-
-            <!--Два TextView с информацией об услугах-->
-            <c:VerticalLayout Id="$services.Id" CssClass="InfoTextContainerVL" OnClick="EditServicesOrMaterials_OnClick">
-              <c:TextView CssClass="NameTV" Text="$services.Description" />
-              <c:TextView CssClass="PriceTV" Text="$Concat($services.AmountFact, $services.Price)" />
-            </c:VerticalLayout>
-
-          </c:HorizontalLayout>
-
-          <c:VerticalLayout Id="$services.Id" CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
-            <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
-          </c:VerticalLayout>
-
-        </c:SwipeHorizontalLayout>
+          </c:SwipeHorizontalLayout>
         </s:Iterator>
 
         <c:HorizontalLine CssClass="MiddleHL" />
-
 
         <!-- Заканчивается здесь-->
 
@@ -70,36 +67,30 @@
         <c:HorizontalLine CssClass="WideHL" />
 
         <s:Iterator Id="materials" Value="$GetMaterials()">
-        <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL">
+          <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL">
 
+            <c:HorizontalLayout CssClass="InfoNodeHL">
+              <!-- Красный круг с минусом -->
+              <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
+                <c:HorizontalLayout CssClass="InfoImageContainerHL">
+                  <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)" />
+                </c:HorizontalLayout>
+              </c:VerticalLayout>
 
-          <c:HorizontalLayout CssClass="InfoNodeHL">
-            <!-- Красный круг с минусом -->
-            <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
-              <c:HorizontalLayout CssClass="InfoImageContainerHL">
-                <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)" />
-              </c:HorizontalLayout>
+              <!--Два TextView с информацией об услугах-->
+              <c:VerticalLayout Id="$materials.Id" CssClass="InfoTextContainerVL" OnClick="EditServicesOrMaterials_OnClick">
+                <c:TextView CssClass="NameTV" Text="$materials.Description" />
+                <c:TextView CssClass="PriceTV" Text="$Concat($materials.AmountFact, $materials.Price, $materials.Unit)" />
+              </c:VerticalLayout>
+            </c:HorizontalLayout>
+
+            <c:VerticalLayout Id="$materials.Id" CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
+              <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
             </c:VerticalLayout>
-
-            <!--Два TextView с информацией об услугах-->
-            <c:VerticalLayout Id="$materials.Id" CssClass="InfoTextContainerVL" OnClick="EditServicesOrMaterials_OnClick">
-              <c:TextView CssClass="NameTV" Text="$materials.Description" />
-              <c:TextView CssClass="PriceTV" Text="$Concat($materials.AmountFact, $materials.Price)" />
-            </c:VerticalLayout>
-          </c:HorizontalLayout>
-
-          <c:VerticalLayout Id="$materials.Id" CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
-            <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
-          </c:VerticalLayout>
-
-        </c:SwipeHorizontalLayout>
+          </c:SwipeHorizontalLayout>
         </s:Iterator>
-        
-        
+
         <c:HorizontalLine CssClass="MiddleHL" />
-
-
-        
 
         <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddMaterial_OnClick">
           <c:HorizontalLayout CssClass="AddContainerHL">
@@ -113,9 +104,7 @@
         <c:HorizontalLayout CssClass="BottomContainerHL" OnClick="ApplicatioMaterials_OnClick">
           <c:TextView CssClass="BottomTV" Text="#do_not_have_enough_material#" />
         </c:HorizontalLayout>
-
       </c:VerticalLayout>
     </c:ScrollView>
-
   </c:VerticalLayout>
 </c:Screen>
