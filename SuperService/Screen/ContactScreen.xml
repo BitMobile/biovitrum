@@ -2,16 +2,15 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
-    <s:Push Id="contact" Value="$GetContact()" />
-    <c:TextView Text="Контакт" />
+    <c:TextView Text="#contact#" />
     <c:TextView Text="$contact.Description" />
     <c:TextView Text="$contact.Position" />
-    <c:TextView Text="Телефон" />
+    <c:TextView Text="#phone#" />
     <c:TextView Text="$contact.Tel" />
-    <c:TextView Text="Мыло" />
+    <c:TextView Text="#email#" />
     <c:TextView Text="$contact.EMail" />
-    <c:Button Text="Позвонить" />
-    <c:Button Text="Отправить сообщение" />
-    <c:Button Text="Написать письмо" />
+    <c:Button Text="#call#" />
+    <c:Button Text="#send_message#" />
+    <c:Button Text="#write_letter#" />
   </c:VerticalLayout>
 </c:Screen>
