@@ -50,9 +50,13 @@ namespace Test
                 CssClass = "TopInfoSideImage",
                 Source = ResourceManager.GetImage("topinfo_extra_person")
             });
+
+            var visContact = (string)_currentEventRecordset["ContactVisitingDescription"];
+            DConsole.WriteLine(visContact);
+
             _topInfoComponent.RightExtraLayout.AddChild(new TextView
             {
-                Text = (string) _currentEventRecordset["clientDescription"],
+                Text = (string)_currentEventRecordset["ContactVisitingDescription"],
                 CssClass = "TopInfoSideText"
             });
 
