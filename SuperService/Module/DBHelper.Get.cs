@@ -176,7 +176,9 @@ namespace Test
                             //признак, что все обязательные вопросы в чеклистах отвечены
                             "    Enum_StatusyEvents.Name as statusName, " + //наименование статуса (служебное имя)
                             "    Enum_StatusyEvents.Description as statusDescription, " + //представление статуса +
-                            "    event.DetailedDescription " + //описание события
+                            "    event.DetailedDescription, " + //описание события
+                            "    Catalog_Contacts.Description as ContactVisitingDescription " +
+                            "    " + 
                             "from  " +
                             "    _Document_Event as event  " +
                             "        left join _Catalog_Client as client  " +
@@ -225,6 +227,9 @@ namespace Test
                             "    " +
                             "        left join (select Document_Event_Equipments.Ref, count(Document_Event_Equipments.Ref) as Total, TOTAL(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_Equipments where Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment " +
                             "           on event.id = docEquipment.ref " +
+                            "    " +
+                            "        left join Catalog_Contacts " +
+                            "           on event.ContactVisiting = Catalog_Contacts.Id " + 
                             "    " +
                             "        left join Enum_StatusyEvents " +
                             "           on event.status = Enum_StatusyEvents.Id     " +
