@@ -1,8 +1,8 @@
-﻿using System;
+﻿using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
+using System;
 using System.Collections;
 using System.Globalization;
-using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
 
 namespace Test
 {
@@ -15,6 +15,7 @@ namespace Test
         private string _key;
         private string _lineId;
         private int _minimum;
+        private int _value;
 
         private decimal _price;
         private EditText _priceEditText;
@@ -41,13 +42,12 @@ namespace Test
                 value = Math.Max(value, _minimum);
                 _countEditText.Text = value.ToString();
                 if (_totalPriceTextView != null)
-                    _totalPriceTextView.Text = (Price*Count).ToString(CultureInfo.CurrentCulture);
+                    _totalPriceTextView.Text = (Price * Count).ToString(CultureInfo.CurrentCulture);
             }
         }
 
         public int InitClassFields()
         {
-
             if (_fieldsAreInitialized)
             {
                 return 0;
@@ -57,28 +57,27 @@ namespace Test
                         Variables.GetValueOrDefault(Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.None);
 
             _key = (string)Variables.GetValueOrDefault("returnKey", "somNewValue");
-            _minimum = (int)Variables.GetValueOrDefault("minimum", 0);
+            _minimum = (int)Variables.GetValueOrDefault("minimum", 1);
             _showPrices = (bool)Variables.GetValueOrDefault("priceVisible", true);
             _editPrices = (bool)Variables.GetValueOrDefault("priceEditable", false);
             _rimId = (string)Variables.GetValueOrDefault("rimId");
             _lineId = (string)Variables.GetValueOrDefault(Parameters.IdLineId);
+            _value = (int)Variables.GetValueOrDefault("value", 0);
 
             BusinessProcess.GlobalVariables.Remove(_key);
 
             _fieldsAreInitialized = true;
 
             return 0;
-
         }
 
         public override void OnLoading()
         {
-
             InitClassFields();
 
-            _countEditText = (EditText) GetControl("CountEditText", true);
-            _priceEditText = (EditText) Variables["PriceEditText"];
-            _totalPriceTextView = (TextView) GetControl("TotalPriceTextView", true);
+            _countEditText = (EditText)GetControl("CountEditText", true);
+            _priceEditText = (EditText)Variables["PriceEditText"];
+            _totalPriceTextView = (TextView)GetControl("TotalPriceTextView", true);
         }
 
         public override void OnShow()
@@ -89,16 +88,19 @@ namespace Test
 
             FindEditTextAndChangeVisibilityAndEditable("PriceEditText", _showPrices, _editPrices);
             Price = _price;
+
+            if (_value > 0)
+                _countEditText.Text = $"{_value}";
         }
 
         private void FindTextViewAndChangeVisibility(string id, bool visibility)
         {
-            ((TextView) Variables[id]).Visible = visibility;
+            ((TextView)Variables[id]).Visible = visibility;
         }
 
         private void FindEditTextAndChangeVisibilityAndEditable(string id, bool visibility, bool editable)
         {
-            var et = (EditText) Variables[id];
+            var et = (EditText)Variables[id];
             et.Visible = visibility;
             et.Enabled = editable;
         }
@@ -116,10 +118,12 @@ namespace Test
                     DConsole.WriteLine("InsertIntoDB");
                     InsertIntoDb();
                     break;
+
                 case BehaviourEditServicesOrMaterialsScreen.UpdateDB:
                     DConsole.WriteLine("UpdateDB");
                     UpdateDb();
                     break;
+
                 case BehaviourEditServicesOrMaterialsScreen.ReturnValue:
                     DConsole.WriteLine("ReturnValue");
                     ReturnValue();
@@ -130,26 +134,26 @@ namespace Test
 
         private void ReturnValue()
         {
-            var value = new EditServiceOrMaterialsScreenResult(Count, Price, Count*Price, _rimId);
+            var value = new EditServiceOrMaterialsScreenResult(Count, Price, Count * Price, _rimId);
 
-            if (Variables.ContainsKey(_key))
-                Variables.Remove(_key);
-            Variables.Add(_key, value);
+            if (BusinessProcess.GlobalVariables.ContainsKey(_key))
+                BusinessProcess.GlobalVariables.Remove(_key);
+            BusinessProcess.GlobalVariables.Add(_key, value);
         }
 
         private void UpdateDb()
         {
             //TODO: Переделать на объектную модель когда она будет починена (начнет работать метод GetObject())
 
-            DBHelper.UpdateServiceMaterialAmount(_lineId, Price, Count, Price*Count);
+            DBHelper.UpdateServiceMaterialAmount(_lineId, Price, Count, Price * Count);
         }
 
         private void InsertIntoDb()
         {
             //TODO: Переделать на объектную модель когда она будет починена (начнет работать метод GetObject())
 
-            DBHelper.InsertServiceMatherial((string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId], _rimId, Price,
-                Count, Price*Count);
+            DBHelper.InsertServiceMatherial((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId], _rimId, Price,
+                Count, Price * Count);
         }
 
         internal void RemoveButton_OnClick(object sender, EventArgs eventArgs)
@@ -164,7 +168,7 @@ namespace Test
 
         internal void CountEditText_OnLostFocus(object sender, EventArgs eventArgs)
         {
-            GetAndCheckCountEditText((EditText) sender);
+            GetAndCheckCountEditText((EditText)sender);
         }
 
         internal int SetPrice(decimal price)
@@ -212,7 +216,6 @@ namespace Test
 
         internal IEnumerable GetServiceMaterialInfo()
         {
-
             InitClassFields();
 
             DConsole.WriteLine("rim_id =" + _rimId);
@@ -221,7 +224,6 @@ namespace Test
             res.Next();
 
             //DConsole.WriteLine("rim_id =" + _rimId)
-
 
             return _lineId != null
                 ? DBHelper.GetServiceMaterialPriceByLineID(_lineId)
