@@ -175,7 +175,8 @@ namespace Test
                             "    end as checkListAllRequiredIsAnswered, " +
                             //признак, что все обязательные вопросы в чеклистах отвечены
                             "    Enum_StatusyEvents.Name as statusName, " + //наименование статуса (служебное имя)
-                            "    Enum_StatusyEvents.Description as statusDescription " + //представление статуса +
+                            "    Enum_StatusyEvents.Description as statusDescription, " + //представление статуса +
+                            "    event.DetailedDescription " + //описание события
                             "from  " +
                             "    _Document_Event as event  " +
                             "        left join _Catalog_Client as client  " +
