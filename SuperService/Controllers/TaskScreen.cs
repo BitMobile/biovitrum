@@ -1,5 +1,6 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Common.Controls;
 using System;
 using System.Collections.Generic;
 using Test.Components;
@@ -192,8 +193,6 @@ namespace Test
 
         internal void TaskCommentEditText_OnChange(object sender, EventArgs eventArgs)
         {
-            var memoEdit = (MemoEdit)sender;
-            memoEdit.Refresh();
         }
 
         internal object GetTask()
