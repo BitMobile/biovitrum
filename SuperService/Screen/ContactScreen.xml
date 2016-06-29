@@ -2,6 +2,7 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
+    <c:Button Text="#back#" OnClick="BackButton_OnClick" />
     <c:TextView Text="#contact#" />
     <c:TextView Text="$contact.Description" />
     <c:TextView Text="$contact.Position" />

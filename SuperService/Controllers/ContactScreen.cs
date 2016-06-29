@@ -39,5 +39,10 @@ namespace Test
         {
             Dialog.Message("Мы не можем отправлять EMail");
         }
+
+        internal void BackButton_OnClick(object o, EventArgs e)
+        {
+            Navigation.Back();
+        }
     }
 }
