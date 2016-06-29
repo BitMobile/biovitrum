@@ -983,7 +983,7 @@ namespace Test
             var query = new Query("select * " +
                                   "from Catalog_Contacts " +
                                   "where id = @contactId");
-            query.AddParameter("id", contactId);
+            query.AddParameter("contactId", contactId);
             return query.Execute();
         }
     }

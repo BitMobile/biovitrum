@@ -158,7 +158,7 @@ namespace Test
                 DeletionMark = (bool)contact["DeletionMark"],
                 Description = (string)contact["Description"],
                 Code = (string)contact["Code"],
-                Position = (string)contact["Posistion"],
+                Position = (string)contact["Position"],
                 Tel = (string)contact["Tel"],
                 EMail = (string)contact["EMail"]
             };
