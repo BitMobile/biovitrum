@@ -12,12 +12,20 @@
     <!-- Main SVL-->
     <c:SwipeVerticalLayout CssClass="EventListMainSVL">
 
-      <s:Push Id="EventListLastDate" Value="$GetDateNowEventList()" />
+      <s:Push Id="EventListFutureDate" Value="$GetDateNowEventList()" />
       <s:Push Id="EventListCurrentDate" Value="$GetDateNowEventList()" />
-      <s:Iterator Id="EventList" Value="$GetEvents()">
 
+
+      <s:Iterator Id="EventList" Value="$GetEvents()" Status="Counter">
+        <s:If Test="$Counter.Index > 0">
+          <c:TextView Text="{$Counter.Index}: ИФ" CssClass="EventListDateTV" />
+
+        </s:If>
+        <s:Else>
+          <c:TextView Text="{$Counter.Index}: ЭЛС" CssClass="EventListDateTV" />
+        </s:Else>
         <!-- Проверка на необходимость плашки "Сегодня" -->
-        <s:If Test="$IsTodayLayoutNeed()">
+        <!--<s:If Test="$IsTodayLayoutNeed()">
 
           <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $EventList.startDatePlanDate)">
             <c:HorizontalLayout CssClass="EventListDateHL">
@@ -27,15 +35,12 @@
           </s:If>
           <s:Push Id="void" Value="$SetTodayLayoutToFalse()" />
           <s:Push Id="void" Value="$SetTodayBreakerToFalse()" />
-        </s:If>
+        </s:If>-->
         <!-- Конец проверки на необходимость плашки "Сегодня" -->
 
-        <!-- Проверка на необходимость плашки с датой-->
 
-        <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $EventList.startDatePlanDate)">
-        </s:If>
-        <s:Else>
-          <s:If Test="$IsDateChanged($EventListLastDate, $EventList.startDatePlanDate)">
+        <!-- Проверка на необходимость плашки с датой-->
+        <!--<s:If Test="$IsDateChanged($EventListLastDate, $EventList.startDatePlanDate)">
             <c:HorizontalLine CssClass="EventListLongBreaker" />
 
             <c:HorizontalLayout CssClass="EventListDateHL">
@@ -43,20 +48,12 @@
             </c:HorizontalLayout>
 
             <c:HorizontalLine CssClass="EventListLongBreaker" />
-          </s:If>
-          <s:Else>
-            <s:If Test="$IsTodayBreakerNeed()">
-              <s:Push Id="void" Value="$SetTodayBreakerToFalse()" />
-            </s:If>
-            <s:Else>
-              <!--<c:HorizontalLine CssClass="EventListShortBreaker" />-->
-            </s:Else>
-          </s:Else>
-        </s:Else>
+          </s:If>-->
         <!-- Конец проверки на необходимость плашки с датой-->
 
 
-        <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick">
+        <!-- Тело-->
+        <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick" Id ="EventList.Id">
 
           <c:VerticalLayout CssClass="EventListTimeVL">
             <c:TextView Text="10.00" CssClass="EventListTimeTV" />
@@ -84,22 +81,26 @@
             <c:TextView Text="$EventList.Address" CssClass="EventListItemAddress" />
             <c:TextView Text="$EventList.TypeDeparture" CssClass="EventListItemType" />
 
-            <!-- Проверка на необходимость брейкера-->
-            <s:If Test="$IsDateChanged($EventListLastDate, $EventList.startDatePlanDate)">
-              <!--<c:HorizontalLine CssClass="EventListShortBreaker" />-->
+
+          </c:VerticalLayout>
+
+          <!-- Тело-->
+
+
+          <!-- Проверка на необходимость брейкера-->
+          <!--<s:If Test="$IsDateChanged($EventListLastDate, $EventList.startDatePlanDate)">
             </s:If>
             <s:Else>
               <c:HorizontalLine CssClass="EventListShortBreaker" />
               <s:If Test="$IsTodayBreakerNeed()">
               </s:If>
               <s:Else>
-                <!--<c:HorizontalLine CssClass="EventListShortBreaker" />-->
+                <c:HorizontalLine CssClass="EventListShortBreaker" />
               </s:Else>
-            </s:Else>
-            <!--Конец проверки на необходимость брейкера-->
+            </s:Else>-->
+          <!--Конец проверки на необходимость брейкера-->
 
-            <!--<c:HorizontalLine CssClass="EventListShortBreaker" />-->
-          </c:VerticalLayout>
+          <!--</c:VerticalLayout>-->
 
         </c:HorizontalLayout>
 

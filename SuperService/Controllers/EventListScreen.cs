@@ -142,7 +142,6 @@ namespace Test
             return DateTime.Parse(datetime).ToString("dddd dd MMMM");
         }
 
-
         internal IEnumerable GetEvents()
         {
             return DBHelper.GetEvents();
