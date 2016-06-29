@@ -9,9 +9,9 @@ namespace Test
     public class ClientScreen : Screen
     {
         private DbRecordset _client;
+        private string _clientId;
         private WebMapGoogle _map;
         private TopInfoComponent _topInfoComponent;
-        private string _clientId;
 
         public override void OnLoading()
         {
@@ -86,11 +86,12 @@ namespace Test
         }
 
         /// <summary>
-        /// Проверяет строку на то, что она null, пустая
-        /// или представляет пробельный символ
+        ///     Проверяет строку на то, что она null, пустая
+        ///     или представляет пробельный символ
         /// </summary>
         /// <param name="item">Строка для проверки</param>
-        /// <returns>True если строка пустая, null или
+        /// <returns>
+        ///     True если строка пустая, null или
         ///     пробельный символ.
         /// </returns>
         internal bool IsNotEmptyString(string item)
@@ -113,7 +114,7 @@ namespace Test
 
         internal void Call_OnClick(object sender, EventArgs e)
         {
-            VerticalLayout callClientLayout = (VerticalLayout)sender;
+            var callClientLayout = (VerticalLayout)sender;
             Phone.Call(callClientLayout.Id);
         }
 
@@ -132,10 +133,10 @@ namespace Test
         internal void GoToMapScreen_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} Start");
-            var dictionary = new Dictionary<string, object>()
+            var dictionary = new Dictionary<string, object>
             {
-                {Parameters.IdScreenStateId, MapScreenStates.ClientScreen },
-                {Parameters.IdClientId,_clientId }
+                {Parameters.IdScreenStateId, MapScreenStates.ClientScreen},
+                {Parameters.IdClientId, _clientId}
             };
             BusinessProcess.GlobalVariables.Remove(Parameters.IdScreenStateId);
             BusinessProcess.GlobalVariables.Remove(Parameters.IdClientId);
@@ -153,7 +154,12 @@ namespace Test
 
         internal string GetDistance()
         {
-            return new Random().Next(0, 101) + Translator.Translate("uom_distance");
+            var distanceInKm =
+                Utils.GetDistance(GPS.CurrentLocation.Latitude, GPS.CurrentLocation.Longitude,
+                    (double)_client["Latitude"], (double)_client["Longitude"]) / 1000;
+            return
+                $"{Math.Round(distanceInKm, 2)}" +
+                $" {Translator.Translate("uom_distance")}";
         }
     }
 }
