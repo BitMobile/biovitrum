@@ -9,8 +9,8 @@
     <c:TextView Text="$contact.Tel" />
     <c:TextView Text="#email#" />
     <c:TextView Text="$contact.EMail" />
-    <c:Button Text="#call#" />
-    <c:Button Text="#send_message#" />
-    <c:Button Text="#write_letter#" />
+    <c:Button Id="CallButton" Text="#call#" OnClick="CallButton_OnClick" />
+    <c:Button Id="SendMessageButton" Text="#send_message#" OnClick="SendMessageButton_OnClick" />
+    <c:Button Id="WriteLetterButton" Text="#write_letter#" OnClick="WriteLetterButton_OnClick" />
   </c:VerticalLayout>
 </c:Screen>
