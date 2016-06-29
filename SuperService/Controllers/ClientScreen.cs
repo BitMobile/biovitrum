@@ -1,8 +1,11 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.DbEngine;
 using System;
 using System.Collections.Generic;
 using Test.Components;
+using Test.Entities.Catalog;
+using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 namespace Test
 {
@@ -68,7 +71,7 @@ namespace Test
 
         internal void EquipmentLayout_OnClick(object sender, EventArgs e)
         {
-            var layout = (VerticalLayout)sender;
+            // var layout = (VerticalLayout)sender;
             // TODO: Передавать информацию об оборудовании
             Navigation.Move("EquipmentScreen");
         }
@@ -145,6 +148,25 @@ namespace Test
 
             DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} end");
             Navigation.Move("MapScreen", dictionary);
+        }
+
+        internal void ContactLayout_OnClick(object sender, EventArgs eventArgs)
+        {
+            var id = ((HorizontalLayout)sender).Id;
+            var contact = DBHelper.GetContactById(id);
+            var contacts = new Contacts((DbRef)contact["Id"])
+            {
+                DeletionMark = (bool)contact["DeletionMark"],
+                Description = (string)contact["Description"],
+                Code = (string)contact["Code"],
+                Position = (string)contact["Position"],
+                Tel = (string)contact["Tel"],
+                EMail = (string)contact["EMail"]
+            };
+            Navigation.Move("ContactScreen", new Dictionary<string, object>
+            {
+                [Parameters.Contact] = contacts
+            });
         }
 
         internal string GetConstLenghtString(string item)

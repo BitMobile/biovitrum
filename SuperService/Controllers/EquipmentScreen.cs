@@ -1,25 +1,21 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Test.Components;
-using Test.Entities.Catalog;
 
 namespace Test
 {
     public class EquipmentScreen : Screen
     {
-
         private bool _fieldsAreInitialized = false;
 
         private TopInfoComponent _topInfoComponent;
 
-        //TODO: Когда починят метод getObject сделать чтение в этот объект по Гуиду, пока пересозаем его в initClassFields 
-        private Equipment _equipment;
+        //TODO: Когда починят метод getObject сделать чтение в этот объект по Гуиду, пока пересозаем его в initClassFields
+        //private Equipment _equipment;
         private string _equipmentId;
-        private string _equipmentDescription;
 
+        private string _equipmentDescription;
 
         public override void OnLoading()
         {
@@ -34,7 +30,6 @@ namespace Test
             };
         }
 
-
         public int InitClassFields()
         {
             if (_fieldsAreInitialized)
@@ -44,8 +39,6 @@ namespace Test
 
             //TODO: сделать получение по гуиду через getObject когда его починят
 
-            
-
             _equipmentId = (string)Variables.GetValueOrDefault(Parameters.IdEquipmentId, "");
             var equipmentRS = DBHelper.GetEquipmentById(_equipmentId);
             if (equipmentRS.Next())
@@ -53,16 +46,14 @@ namespace Test
                 _equipmentDescription = equipmentRS.GetString(0);
             }
 
-
             _fieldsAreInitialized = true;
 
             return 0;
         }
 
-
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
-            Navigation.Back(true);
+            Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
@@ -76,7 +67,7 @@ namespace Test
 
         internal void BackButton_OnClick(object sender, EventArgs eventArgs)
         {
-            Navigation.Back(true);
+            Navigation.Back();
         }
 
         internal string GetEquipmentDescription()
@@ -84,12 +75,10 @@ namespace Test
             return _equipmentDescription;
         }
 
-
         internal DbRecordset GetParameters()
         {
             return DBHelper.GetEquipmentParametersById(_equipmentId);
         }
-
 
         internal DbRecordset GetHistory()
         {

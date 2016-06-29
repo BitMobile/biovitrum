@@ -38,7 +38,7 @@
       <c:VerticalLayout CssClass="ContactsListVL">
 
         <s:Iterator Id="contact" Value="$GetContacts()">
-          <c:HorizontalLayout CssClass="ContactsListHL">
+          <c:HorizontalLayout Id="$contact.Id" OnClick="ContactLayout_OnClick" CssClass="ContactsListHL">
             <s:If Test="$IsNotEmptyString($contact.Tel)">
               <c:VerticalLayout CssClass="ContactsContainerVL">
                 <c:TextView CssClass="ContactDescriptionTV" Text="$contact.Description" />

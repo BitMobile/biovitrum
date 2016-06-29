@@ -75,3 +75,9 @@ password		Пароль
 log_in		Войти
 cant_signing		Не получается войти?
 bag_empty		Не указан саписок материалов для рюкзака
+contact		Контакт
+phone		Телефон
+email		E-mail
+call		Позвонить
+send_message		Отправить сообщение
+write_letter		Написать письмо
