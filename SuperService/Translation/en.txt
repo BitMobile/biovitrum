@@ -30,9 +30,9 @@ per_month		per month
 todayUpper		TODAY
 client		Client
 clients		Clients
-contacts		Contacts
+contacts		CONTACTS
 add_contact		Add Contact
-equipment		Equipment
+equipments		EQUIPMENTS
 task_finished		Task finished
 task_refused		Can't complete
 task		Task
@@ -44,7 +44,8 @@ do_not_have_enough_material		Do not have enough material?
 delete_question		Delete
 currency		₽
 total		Total
-not_choosed		Not choosed..
+not_choosedwpoints		Not choosed..
+not_choosed		Not choosed
 not_specified		Not specified
 text		Text..
 description_materialrequest_screen		Please add materials
@@ -61,3 +62,16 @@ add_contact_enter_position		Enter position
 add_contact_enter_tel		Enter phone number
 add_contact_enter_email		Enter e-mail
 add_contact_add_button		Add contact
+map		Map
+get_coordinates		Get coordinates
+save_coordinates		Save coordinates
+failed_coordinates		Failed to get the coordinates
+uom_distance		km
+equipment		Equipment
+PARAMETERS		PARAMETERS
+SERVICEHISTORY		SERVICE HISTORY
+login		Login
+password		Password
+log_in		Log In
+cant_signing		Can't signing?
+bag_empty		The backpack is not material

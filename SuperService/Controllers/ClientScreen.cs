@@ -1,6 +1,7 @@
-﻿using System;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using System;
+using System.Collections.Generic;
 using Test.Components;
 
 namespace Test
@@ -8,6 +9,7 @@ namespace Test
     public class ClientScreen : Screen
     {
         private DbRecordset _client;
+        private string _clientId;
         private WebMapGoogle _map;
         private TopInfoComponent _topInfoComponent;
 
@@ -17,26 +19,31 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = false,
-                HeadingTextView = {Text = Translator.Translate("client")},
-                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
-                RightButtonImage = {Source = ResourceManager.GetImage("topheading_edit")}
+                HeadingTextView = { Text = Translator.Translate("client") },
+                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
+                RightButtonImage = { Source = ResourceManager.GetImage("topheading_edit") }
             };
 
-            _map = (WebMapGoogle) GetControl("MapClient", true);
-            _map.AddMarker((string) _client["Description"], (double) _client["Latitude"], (double) _client["Longitude"],
+            _map = (WebMapGoogle)GetControl("MapClient", true);
+            _map.AddMarker((string)_client["Description"], (double)_client["Latitude"], (double)_client["Longitude"],
                 "red");
 
             DConsole.WriteLine("Client end");
         }
 
+        public override void OnShow()
+        {
+            GPS.StartTracking();
+        }
+
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("ClientList");
+            Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("EditContact");
+            Navigation.Move("EditContactScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
@@ -51,31 +58,40 @@ namespace Test
 
         internal void GoToAddContact_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("AddContact");
+            Navigation.Move("AddContactScreen");
         }
 
         internal void GoToEditContact_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("EditContact");
+            Navigation.Move("EditContactScreen");
+        }
+
+        internal void EquipmentLayout_OnClick(object sender, EventArgs e)
+        {
+            var layout = (VerticalLayout)sender;
+            // TODO: Передавать информацию об оборудовании
+            Navigation.Move("EquipmentScreen");
         }
 
         internal DbRecordset GetCurrentClient()
         {
             object clientId;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId", out clientId))
+            if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdClientId, out clientId))
             {
                 DConsole.WriteLine("Can't find current client ID, going to crash");
             }
-            _client = DBHelper.GetClientByID((string) clientId);
+            _clientId = (string)clientId;
+            _client = DBHelper.GetClientByID(_clientId);
             return _client;
         }
 
         /// <summary>
-        /// Проверяет строку на то, что она null, пустая 
-        /// или представляет пробельный символ
+        ///     Проверяет строку на то, что она null, пустая
+        ///     или представляет пробельный символ
         /// </summary>
         /// <param name="item">Строка для проверки</param>
-        /// <returns>True если строка пустая, null или 
+        /// <returns>
+        ///     True если строка пустая, null или
         ///     пробельный символ.
         /// </returns>
         internal bool IsNotEmptyString(string item)
@@ -86,31 +102,64 @@ namespace Test
         internal DbRecordset GetContacts()
         {
             object clientContacts;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId",out clientContacts))
+            if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdClientId, out clientContacts))
             {
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
-            DbRecordset items = DBHelper.GetContactsByClientID((string)clientContacts);
-            DConsole.WriteLine((string)clientContacts);
+
+            var items = DBHelper.GetContactsByClientID((string)clientContacts);
+
             return items;
         }
 
         internal void Call_OnClick(object sender, EventArgs e)
         {
-            VerticalLayout callClientLayout = (VerticalLayout)sender;
+            var callClientLayout = (VerticalLayout)sender;
             Phone.Call(callClientLayout.Id);
         }
 
         internal DbRecordset GetEquipments()
         {
             object clientContacts;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("clientId", out clientContacts))
+            if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdClientId, out clientContacts))
             {
                 DConsole.WriteLine("Can't find current clientId, i'm crash.");
             }
 
-            DbRecordset equipment = DBHelper.GetEquipmentByClientID((string) clientContacts);
+            var equipment = DBHelper.GetEquipmentByClientID((string)clientContacts);
             return equipment;
+        }
+
+        internal void GoToMapScreen_OnClick(object sender, EventArgs e)
+        {
+            DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} Start");
+            var dictionary = new Dictionary<string, object>
+            {
+                {Parameters.IdScreenStateId, MapScreenStates.ClientScreen},
+                {Parameters.IdClientId, _clientId}
+            };
+            BusinessProcess.GlobalVariables.Remove(Parameters.IdScreenStateId);
+            BusinessProcess.GlobalVariables.Remove(Parameters.IdClientId);
+            BusinessProcess.GlobalVariables[Parameters.IdScreenStateId] = MapScreenStates.ClientScreen;
+            BusinessProcess.GlobalVariables[Parameters.IdClientId] = _clientId;
+
+            DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} end");
+            Navigation.Move("MapScreen", dictionary);
+        }
+
+        internal string GetConstLenghtString(string item)
+        {
+            return item.Length > 40 ? item.Substring(0, 40) : item;
+        }
+
+        internal string GetDistance()
+        {
+            var distanceInKm =
+                Utils.GetDistance(GPS.CurrentLocation.Latitude, GPS.CurrentLocation.Longitude,
+                    (double)_client["Latitude"], (double)_client["Longitude"]) / 1000;
+            return
+                $"{Math.Round(distanceInKm, 2)}" +
+                $" {Translator.Translate("uom_distance")}";
         }
     }
 }

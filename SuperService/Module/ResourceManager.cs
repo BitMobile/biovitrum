@@ -46,6 +46,7 @@ namespace Test
             // Client Screen
             {"clientscreen_phone", @"Image\ClientScreen\Phone.png"},
             {"clientscreen_plus", @"Image\ClientScreen\Plus.png"},
+            {"clientscreen_gps", @"Image\ClientScreen\GPS.png"},
             //
             {"longtext_expand", @"Image\down_arrow_full_message.png"},
             {"longtext_close", @"Image\up_arrow_full_message.png"},
@@ -66,6 +67,10 @@ namespace Test
             {"editservicesormaterialsscreen_plus", @"Image\EditServicesOrMaterialsScreen\Plus.png"},
             {"editservicesormaterialsscreen_minus", @"Image\EditServicesOrMaterialsScreen\delete_img.png"},
             {"editservicesormaterialsscreen_close", @"Image\EditServicesOrMaterialsScreen\close.png"},
+            // AuthScreen
+            {"authscreen_logo", @"Image\AuthScreen\logo.png"},
+            {"authscreen_password", @"Image\AuthScreen\password.png"},
+            {"authscreen_username", @"Image\AuthScreen\username.png"},
         };
 
         public static string GetImage(string tag)

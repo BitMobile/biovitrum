@@ -6,8 +6,10 @@
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:ScrollView CssClass="RootLayout">
       <c:VerticalLayout CssClass="RootLayout">
-        <c:TextView Text="$task.EquipmentDescription" CssClass="TargetTextView" />
-        <c:TextView Text="" CssClass="EquipDescTextView" />
+        <c:VerticalLayout Id="$task.EquipmentId" OnClick="EquipmentDescriptionLayout_OnClick">
+          <c:TextView Text="$task.EquipmentDescription" CssClass="TargetTextView" />
+          <c:TextView Text="" CssClass="EquipDescTextView" />
+        </c:VerticalLayout>
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
         <c:HorizontalLine />
         <c:TextView Text="$task.TypeDepartures" CssClass="SubHeading" />
@@ -18,7 +20,8 @@
           <c:HorizontalLine CssClass="WrapUnwrapLine" />
         </c:HorizontalLayout>
         <c:VerticalLayout CssClass="CommentLayout">
-          <c:MemoEdit Text="$task.Comment" Id="TaskCommentEditText" Placeholder="#comment...#" CssClass="Comment" />
+          <c:MemoEdit Text="$task.Comment" Id="TaskCommentEditText" Placeholder="#comment...#"
+                      CssClass="Comment" OnChange="TaskCommentEditText_OnChange" />
           <c:HorizontalLine CssClass="CommentEndLine" />
         </c:VerticalLayout>
 

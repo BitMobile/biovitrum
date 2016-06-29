@@ -8,8 +8,8 @@ namespace Test
         {
             DConsole.WriteLine("DB init...");
             DBHelper.Init();
-            DConsole.WriteLine("Starting application...");
-            BusinessProcess.Init();
+            DConsole.WriteLine("Loading first screen");
+            Navigation.Move("AuthScreen");
         }
     }
 }

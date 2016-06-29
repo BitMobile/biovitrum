@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System.Collections;
+using System.IO;
 using BitMobile.ClientModel3;
-
+using BitMobile.DbEngine;
+using Database = BitMobile.ClientModel3.Database;
 
 namespace Test
 {
@@ -27,12 +29,34 @@ namespace Test
             _db.CreateFromModel();
             DConsole.WriteLine("Filling DB with demo data");
 
-            var sql = Application.GetResourceStream("Model.main.sql");
-            var reader = new StreamReader(sql);
-            var queryText = reader.ReadToEnd();
-            DConsole.WriteLine(queryText.Substring(0, 15));
+            string queryText;
+            using (var sql = Application.GetResourceStream("Model.main.sql"))
+            using (var reader = new StreamReader(sql))
+            {
+                queryText = reader.ReadToEnd();
+            }
             var query = new Query(queryText);
             query.Execute();
+            _db.Commit();
+        }
+
+        public static void SaveEntity(DbEntity entity)
+        {
+            entity.Save();
+            _db.Commit();
+        }
+
+        public static void SaveEntities(IEnumerable entities)
+        {
+            foreach (DbEntity entity in entities)
+            {
+                entity.Save();
+            }
+            _db.Commit();
+        }
+
+        public static void Commit()
+        {
             _db.Commit();
         }
     }

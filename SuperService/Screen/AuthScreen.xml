@@ -1,13 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  
-  <c:VerticalLayout CssClass="RootLayout">
-    <c:TextView Text ="БИТ.СуперСервис" CssClass="AuthScreenBitTV"/>
-    <c:EditText Mask="^\d+$" Id="AuthScreenLoginET" Placeholder="Введите логин" CssClass = "AuthScreenLoginET"/>
-    <c:EditText Id="AuthScreenPasswordET" Placeholder="Введите пароль" CssClass = "AuthScreenPasswordET"/>
-    <c:Button Text="Подключиться" OnClick="connectButton_OnClick" CssClass = "AuthScreenConnectBTN"/>
-    <c:Button Text="Выход" OnClick="exitButton_OnClick" CssClass = "AuthScreenExitBTN"/>
+
+  <c:VerticalLayout CssClass="RootLayoutWithPattern">
+    <c:VerticalLayout CssClass="ImgContainerVL">
+      <c:HorizontalLayout CssClass="ImgContainerHL">
+        <c:Image CssClass="LogoImg" Source="$GetResourceImage(authscreen_logo)" />
+      </c:HorizontalLayout>
+    </c:VerticalLayout>
+
+    <c:HorizontalLayout CssClass="LoginPasswordContainerFirstHL">
+      <c:Image CssClass="LoginPasswordImg" Source="$GetResourceImage(authscreen_username)" />
+      <c:EditText Mask="^\d+$" Id="AuthScreenLoginET" Placeholder="#login#" CssClass="AuthScreenLoginET" />
+    </c:HorizontalLayout>
+    <c:VerticalLayout CssClass="BreakerContainerVL">
+      <c:HorizontalLine CssClass="BreakerHL" />
+    </c:VerticalLayout>
+    <c:HorizontalLayout CssClass="LoginPasswordContainerSecondHL">
+      <c:Image CssClass="LoginPasswordImg" Source="$GetResourceImage(authscreen_password)" />
+      <c:EditText Id="AuthScreenPasswordET" Placeholder="#password#" CssClass="AuthScreenPasswordET" />
+    </c:HorizontalLayout>
+    <c:VerticalLayout CssClass="BreakerContainerVL">
+      <c:HorizontalLine CssClass="BreakerHL" />
+    </c:VerticalLayout>
+    <c:Button Text="#log_in#" OnClick="connectButton_OnClick" CssClass="AuthScreenConnectBTN" />
+    <c:Button Text="#cant_signing#" OnClick="CantSigningButton_OnClick" CssClass="AuthScreenResetPasswordBTN" />
   </c:VerticalLayout>
-  
+
 </c:Screen>

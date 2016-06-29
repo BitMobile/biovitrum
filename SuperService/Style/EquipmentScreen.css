@@ -1,0 +1,237 @@
+/* ReSharper disable CssNotResolved */
+/* ReSharper disable Html.TagNotResolved */
+/* ReSharper disable InvalidValue */
+/* ReSharper disable RedundantUnits */
+/* ReSharper disable UnexpectedValue */
+
+body {
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+}
+
+vl {
+    height: 0px auto;
+    width: 100%;
+    horizontal-align: center;
+    vertical-align: center;
+}
+
+hl {
+    height: 0px auto;
+    width: 100%;
+    horizontal-align: center;
+    vertical-align: center;
+}
+
+HorizontalLine {
+    width: 90%;
+    height: 2px;
+    background-color: #f3f3f4;
+    horizontal-align: center;
+    vertical-align: center;
+}
+
+TextView {
+    color: #51595b;
+    font: 2.5sp arial;
+    height: 3.5sp auto;
+    horizontal-align: center;
+    text-align: center;
+    vertical-align: center;
+    white-space: normal;
+    width: 100%;
+}
+
+.NoHeight {
+    height: 0%;
+    width: 100%;
+}
+
+.EmptySpace2sp {
+    height: 2sp;
+    width: 100%;
+}
+
+.EmptySpace6sp {
+    height: 6sp;
+    width: 100%;
+}
+
+.RootLayout {
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+}
+
+/* Top Info Component */
+
+.TopInfoLayout {
+    background-color: #4a4b5e;
+    dock-align: top;
+    height: 4sp auto;
+    padding-top: 1sp;
+    width: 100%;
+}
+
+.TopInfoHeadingLayout {
+    height: 7sp auto;
+    /*margin-top: 2.5sp;*/
+    width: 100%;
+}
+
+.TopInfoHeading {
+    background-color: #4a4b5e;
+    border-style: none;
+    border-width: 0px;
+    color: #ffffff;
+    font: 40% arial;
+    height: 100% auto;
+    padding-top: 26%;
+    text-align: center;
+    width: 68%;
+}
+
+.TopInfoButton {
+    background-color: #4a4b5e;
+    border-style: none;
+    border-width: 0px;
+    color: #ffffff;
+    font: 40% arial;
+    height: 100%;
+    selected-background: #64657e;
+    text-align: center;
+    width: 16%;
+}
+
+.TopInfoButtonImage {
+    height: 60%;
+    horizontal-align: center;
+    margin-top: 20%;
+}
+
+.TopInfoComment {
+    color: #c4c4c9;
+    font: 2.4sp arial;
+    height: 0sp auto;
+    horizontal-align: center;
+    text-align: center;
+    white-space: normal;
+    width: 58%;
+}
+
+.TopInfoArrowDown {
+    horizontal-align: center;
+    width: 100sp;
+}
+
+.TopInfoExtraLayout {
+    background-color: #4a4b5e;
+    dock-align: top;
+    height: 1sp auto;
+    width: 100%;
+}
+
+.TopInfoImageLayout {
+    background-color: #ffffff;
+    dock-align: top;
+    height: 1sp auto;
+    width: 100%;
+}
+
+.TopInfoExtraButtonsLayout {
+    height: 10sp auto;
+    horizontal-align: center;
+    width: 80%;
+}
+
+.TopInfoSideExtraLayout {
+    height: 100% auto;
+    width: 50%;
+}
+
+.TopInfoSideImage {
+    height: 50%;
+    horizontal-align: center;
+}
+
+.TopInfoSideText {
+    color: #ffffff;
+}
+
+/* EquipmentScreen */
+
+.HeadingTextView {
+    color: #8587b1;
+    font: 2.8sp arial;
+    height: 3sp;
+    margin-top: 2.8sp;
+}
+
+.EquipDescTextView {
+    margin-top: 1sp;
+}
+
+.SubHeading {
+    color: #a7abab;
+    margin-top: 2sp;
+}
+
+.ListElement {
+    height: 9sp auto;
+    width: 85%;
+}
+
+.ParameterNameView {
+    width: 70%;
+    text-align: left;
+}
+
+.ParameterValueView {
+    width: 30%;
+    text-align: right;
+    color: #babbd2;
+}
+
+.HeadingBreaker {
+    width: 5%;
+    height: 6px;
+    color: #c6c6c6;
+}
+
+.HistoryDescriptionResultLayout {
+    width: 60%;
+}
+
+    .HistoryDescriptionResultLayout TextView {
+        text-align: left;
+    }
+
+.HistoryDateView {
+    vertical-align: top;
+    text-align: right;
+}
+
+.HistoryDescriptionView {
+    font: 3sp arial;
+    height: 3.4sp;
+}
+
+.HistoryResultView {
+    margin-top: 0.5sp;
+}
+
+.HistoryResultViewDone {
+    margin-top: 0.5sp;
+    color: #8dc63f;
+}
+
+HistoryResultViewNotDone {
+    margin-top: 0.5sp;
+    color: #eb4040;
+}
+
+.HistoryDateView {
+    font: 2.2sp arial;
+    color: #9b9fa0;
+}

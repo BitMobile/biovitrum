@@ -24,7 +24,20 @@ namespace Test
                 ExtraLayoutVisible = false
             };
         }
-        
+
+        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
+        {
+            Navigation.Back();
+        }
+
+        internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
+        {
+        }
+
         internal bool IsTodayLayoutNeed()
         {
             if (_needTodayLayout)

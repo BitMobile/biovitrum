@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -55,14 +55,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BusinessProcess\BusinessProcess.xml" />
     <EmbeddedResource Include="Components\**" />
     <Compile Include="Controllers\**" />
     <Compile Include="Entities\**" />
     <EmbeddedResource Include="Image\**" />
-    <EmbeddedResource Include="Model\metadata.xml" />
+    <EmbeddedResource Include="Model\**" />
     <Compile Include="Module\**" />
     <Compile Include="Objects\**" />
+    <Compile Include="Parameters\**" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Screen\**" />
     <EmbeddedResource Include="Style\**" />

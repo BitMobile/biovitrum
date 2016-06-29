@@ -19,14 +19,18 @@ namespace Test
             _passwordEditText = (EditText) GetControl("AuthScreenPasswordET", true);
         }
 
-        internal void exitButton_OnClick(object sender, EventArgs e)
+        public override void OnShow()
         {
-            Application.Terminate();
+        }
+
+        internal void CantSigningButton_OnClick(object sender, EventArgs e)
+        {
+            DConsole.WriteLine("Can't signing?");
         }
 
         internal void connectButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("Auth");
+            Navigation.ModalMove("EventListScreen");
             // TODO: Сделать авторизацию когда она будет работать
 /*            var req = WebRequest.Create("http://bitmobile1.bt/bitmobileX/platform/device/GetClientMetadata");
             DConsole.WriteLine("Web Request Created");

@@ -8,12 +8,12 @@ namespace Test
         public override void OnLoading()
         {
             DConsole.WriteLine("Add Services Or Materials Screen");
-            DConsole.WriteLine(BusinessProcess.GlobalVariables["isService"].ToString());
+            DConsole.WriteLine(BusinessProcess.GlobalVariables[Parameters.IdIsService].ToString());
         }
 
         internal void Back_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("COC");
+            Navigation.Back();
         }
     }
 }

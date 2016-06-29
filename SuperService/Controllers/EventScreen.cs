@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -49,11 +50,24 @@ namespace Test
                 CssClass = "TopInfoSideImage",
                 Source = ResourceManager.GetImage("topinfo_extra_person")
             });
+
+            var visContact = (string)_currentEventRecordset["ContactVisitingDescription"];
+            DConsole.WriteLine(visContact);
+
             _topInfoComponent.RightExtraLayout.AddChild(new TextView
             {
-                Text = (string) _currentEventRecordset["clientDescription"],
+                Text = (string)_currentEventRecordset["ContactVisitingDescription"],
                 CssClass = "TopInfoSideText"
             });
+
+            DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} before add");
+            _topInfoComponent.LeftExtraLayout.OnClick += GoToMapScreen_OnClick;
+            DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} after");
+        }
+
+        public override void OnShow()
+        {
+            GPS.StartTracking();
         }
 
         private void LoadControls()
@@ -66,13 +80,13 @@ namespace Test
 
         internal void ClientInfoButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("Client");
+            Navigation.Move("ClientScreen");
         }
 
         internal void RefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
-            DBHelper.UpdateCancelEventById((string) BusinessProcess.GlobalVariables["currentEventId"]);
-            BusinessProcess.DoAction("EventList");
+            DBHelper.UpdateCancelEventById((string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+            Navigation.Back(true);
         }
 
         internal string FormatEventStartDatePlanTime(string eventStartDatePlanTime)
@@ -113,8 +127,8 @@ namespace Test
                 if (CheckEventBeforeClosing() && args.Result == 0)
                 {
                     DBHelper.UpdateActualEndDateByEventId(DateTime.Now,
-                        (string) BusinessProcess.GlobalVariables["currentEventId"]);
-                    BusinessProcess.DoAction("CloseEvent");
+                        (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+                    Navigation.Move("CloseEventScreen");
                 }
             }, null,
                 Translator.Translate("yes"), Translator.Translate("no"));
@@ -129,18 +143,18 @@ namespace Test
         private void Event_OnStart()
         {
             DBHelper.UpdateActualStartDateByEventId(DateTime.Now,
-                (string) BusinessProcess.GlobalVariables["currentEventId"]);
+                (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("EventList");
+            Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.GlobalVariables["clientId"] = _currentEventRecordset["clientId"].ToString();
-            BusinessProcess.DoAction("Client");
+            BusinessProcess.GlobalVariables[Parameters.IdClientId] = _currentEventRecordset[Parameters.IdClientId].ToString();
+            Navigation.Move("ClientScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
@@ -152,7 +166,7 @@ namespace Test
         internal void TaskCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
             if (CheckBigButtonActive(sender))
-                BusinessProcess.DoAction("ViewTasks");
+                Navigation.Move("TaskListScreen");
         }
 
         private bool CheckBigButtonActive(object sender)
@@ -164,18 +178,28 @@ namespace Test
 
         internal void GoToCOCScreen_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("COC");
+            object eventId;
+            if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
+            {
+                DConsole.WriteLine("Can't find current event ID, going to crash");
+            }
+
+            var dictinory = new Dictionary<string, object>()
+            {
+                {Parameters.IdCurrentEventId,(string)eventId }
+            };
+            Navigation.Move("COCScreen", dictinory);
         }
 
         internal void CheckListCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.DoAction("ViewCheckList");
+            Navigation.Move("CheckListScreen");
         }
 
         internal DbRecordset GetCurrentEvent()
         {
             object eventId;
-            if (!BusinessProcess.GlobalVariables.TryGetValue("currentEventId", out eventId))
+            if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
@@ -203,6 +227,23 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
+        }
+
+        internal void GoToMapScreen_OnClick(object sender, EventArgs e)
+        {
+            var clientId = (string) _currentEventRecordset[Parameters.IdClientId];
+            var dictionary = new Dictionary<string, object>
+            {
+                {Parameters.IdScreenStateId, MapScreenStates.EventScreen},
+                {Parameters.IdClientId, clientId}
+            };
+
+            BusinessProcess.GlobalVariables.Remove(Parameters.IdScreenStateId);
+            BusinessProcess.GlobalVariables.Remove(Parameters.IdClientId);
+            BusinessProcess.GlobalVariables[Parameters.IdScreenStateId] = MapScreenStates.EventScreen;
+            BusinessProcess.GlobalVariables[Parameters.IdClientId] = clientId;
+
+            Navigation.Move("MapScreen", dictionary);
         }
     }
 }

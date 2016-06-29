@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
-using System.Collections;
 
 namespace Test
 {
@@ -13,18 +13,22 @@ namespace Test
 
         public override void OnLoading()
         {
-           
             DConsole.WriteLine("ClientListScreen init");
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                HeadingTextView = { Text = Translator.Translate("clients") },
-                LeftButtonImage = { Visible = false },
-                RightButtonImage = { Visible = false },
+                HeadingTextView = {Text = Translator.Translate("clients")},
+                LeftButtonImage = {Visible = false},
+                RightButtonImage = {Visible = false},
                 ExtraLayoutVisible = false
             };
 
             _tabBarComponent = new TabBarComponent(this);
+        }
+
+        public override void OnShow()
+        {
+            GPS.StopTracking();
         }
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
@@ -51,6 +55,11 @@ namespace Test
             DConsole.WriteLine("Clients Settings");
         }
 
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
+        {
+            _topInfoComponent.Arrow_OnClick(sender, eventArgs);
+        }
+
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
@@ -58,10 +67,10 @@ namespace Test
 
         internal void ClientLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            DConsole.WriteLine("ClientLayout_OnClick " + ((VerticalLayout)sender).Id);
+            DConsole.WriteLine("ClientLayout_OnClick " + ((VerticalLayout) sender).Id);
             // TODO: Передача Id конкретной таски
-            BusinessProcess.GlobalVariables["clientId"] = ((VerticalLayout)sender).Id;
-            BusinessProcess.DoAction("ViewClient");
+            BusinessProcess.GlobalVariables[Parameters.IdClientId] = ((VerticalLayout) sender).Id;
+            Navigation.Move("ClientScreen");
         }
 
 
@@ -72,7 +81,7 @@ namespace Test
             DConsole.WriteLine("Получили клиентов");
 
             //var result2 = DBHelper.GetClients();
-           // var dbEx = result2.Unload();
+            // var dbEx = result2.Unload();
             //DConsole.WriteLine("in result " + dbEx.Count());
 
             return result;

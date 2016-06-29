@@ -1,6 +1,9 @@
-﻿using System;
+﻿using BitMobile.ClientModel3;
+using BitMobile.DbEngine;
+using System;
 using System.Collections;
-using BitMobile.ClientModel3;
+using Test.Entities.Document;
+using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 //using Database = BitMobile.ClientModel3.Database;
 
@@ -16,7 +19,6 @@ namespace Test
         {
             return GetEvents(new DateTime());
         }
-
 
         /// <summary>
         ///     Method returns list of events which plan start date biger then param
@@ -83,7 +85,6 @@ namespace Test
             return query.Execute();
         }
 
-
         /// <summary>
         ///     Полуает статистику по нарядам (событиям). Возвращает объект содержащий: количество нарядов на день, количество
         ///     закрытых
@@ -120,15 +121,14 @@ namespace Test
 
             if (result.Next())
             {
-                statistic.DayTotalAmount = (int) result["DayTotalAmount"];
-                statistic.DayCompleteAmout = (int) result["DayCompleteAmout"];
-                statistic.MonthTotalAmount = (int) result["MonthCompleteAmout"];
-                statistic.MonthCompleteAmout = (int) result["MonthTotalAmount"];
+                statistic.DayTotalAmount = (int)result["DayTotalAmount"];
+                statistic.DayCompleteAmout = (int)result["DayCompleteAmout"];
+                statistic.MonthTotalAmount = (int)result["MonthCompleteAmout"];
+                statistic.MonthCompleteAmout = (int)result["MonthTotalAmount"];
             }
 
             return statistic;
         }
-
 
         /// <summary>
         ///     Получает полную информацию по событию
@@ -159,7 +159,7 @@ namespace Test
                             "    client.Description as clientDescription,  " + //имя клиента
                             "    client.Address as clientAddress,  " + //адрес клиента
                             "    docCheckList.Required as checkListRequired, " +
-                            // количество обязательных вопросов в чеклистах 
+                            // количество обязательных вопросов в чеклистах
                             "    docCheckList.RequiredAnswered as checkListRequiredAnswered, " +
                             //количество отвеченных обязательных вопросов в чеклистах
                             "    case  " +
@@ -168,7 +168,10 @@ namespace Test
                             "    end as checkListAllRequiredIsAnswered, " +
                             //признак, что все обязательные вопросы в чеклистах отвечены
                             "    Enum_StatusyEvents.Name as statusName, " + //наименование статуса (служебное имя)
-                            "    Enum_StatusyEvents.Description as statusDescription " + //представление статуса +
+                            "    Enum_StatusyEvents.Description as statusDescription, " + //представление статуса +
+                            "    event.DetailedDescription, " + //описание события
+                            "    Catalog_Contacts.Description as ContactVisitingDescription " +
+                            "    " + 
                             "from  " +
                             "    _Document_Event as event  " +
                             "        left join _Catalog_Client as client  " +
@@ -218,6 +221,9 @@ namespace Test
                             "        left join (select Document_Event_Equipments.Ref, count(Document_Event_Equipments.Ref) as Total, TOTAL(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_Equipments where Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment " +
                             "           on event.id = docEquipment.ref " +
                             "    " +
+                            "        left join Catalog_Contacts " +
+                            "           on event.ContactVisiting = Catalog_Contacts.Id " + 
+                            "    " +
                             "        left join Enum_StatusyEvents " +
                             "           on event.status = Enum_StatusyEvents.Id     " +
                             "    " +
@@ -230,7 +236,6 @@ namespace Test
 
             return result;
         }
-
 
         /// <summary>
         ///     Получает список задач события
@@ -293,7 +298,6 @@ namespace Test
             return query.Execute();
         }
 
-
         /// <summary>
         ///     Возвращает перечень оборудования клиента. Возвращается все оборудование во всех статусах
         /// </summary>
@@ -330,7 +334,6 @@ namespace Test
             return query.Execute();
         }
 
-
         /// <summary>
         ///     Возвращает список всех клиентов
         /// </summary>
@@ -348,10 +351,8 @@ namespace Test
                                   "where " +
                                   "    Catalog_Client.DeletionMark = 0");
 
-
             return query.Execute();
         }
-
 
         /// <summary>
         ///     Возвращает информацию по клиенту
@@ -407,7 +408,6 @@ namespace Test
             return query.Execute();
         }
 
-
         /// <summary>
         ///     Получает список вариантов ответов для действий (вопросов)  с типом результата "выбор из списка"
         /// </summary>
@@ -426,7 +426,6 @@ namespace Test
             return query.Execute();
         }
 
-
         /// <summary>
         ///     Возвращает задачу по ее идентификатору
         /// </summary>
@@ -440,6 +439,7 @@ namespace Test
                                   "      tasks.Ref as EventID, " + //гуид наряда (события) к которому относится задача
                                   "      tasks.terget as Target, " + //Цель
                                   "      tasks.Comment as Comment, " + // комментарий
+                                  "      equipment.Id as EquipmentId, " + //идентификатор оборудования
                                   "      equipment.Description as EquipmentDescription, " + //наименование оборудование
                                   "      Enum_ResultEvent.Name as resultName, " + //результат имя
                                   "      Enum_ResultEvent.Description as resultDescription, " +
@@ -607,8 +607,10 @@ namespace Test
         /// </summary>
         /// <param name="docEventID">Идентификатор документа событие</param>
         /// <param name="rimID">Идентификатор искомого элемента справочинка Товары и услуги</param>
-        /// <returns>null - если в указанном документе нету номенклатуры с указанным идентификатором; 
-        /// Заполнненую структуру EventServicesMaterialsLine в случае если строка есть</returns>
+        /// <returns>
+        ///     null - если в указанном документе нету номенклатуры с указанным идентификатором;
+        ///     Заполнненую структуру EventServicesMaterialsLine в случае если строка есть
+        /// </returns>
         public static EventServicesMaterialsLine GetEventServicesMaterialsLineByRIMID(string docEventID, string rimID)
         {
             EventServicesMaterialsLine result = null;
@@ -654,7 +656,6 @@ namespace Test
 
             return result;
         }
-
 
         /// <summary>
         ///     Возвращает строку табличной части "услуги и материалы" документа Событие по ее идентификатору
@@ -712,7 +713,6 @@ namespace Test
             return query.Execute();
         }
 
-
         /// <summary>
         ///     Получает список документов заявка на материалы
         /// </summary>
@@ -736,17 +736,16 @@ namespace Test
                             "order by " +
                             "   _Document_NeedMat.Date desc";
 
-
             var query = new Query(queryText);
 
             return query.Execute();
         }
 
-
         /// <summary>
         ///     Получает информацию по строке материалов и услуг документа Наряд
         /// </summary>
-        /// /// <param name="lineId">Идентификатор строки</param>
+        /// ///
+        /// <param name="lineId">Идентификатор строки</param>
         public static DbRecordset GetServiceMaterialPriceByLineID(string lineId)
         {
             var query = new Query("select " +
@@ -770,13 +769,15 @@ namespace Test
         /// <summary>
         ///     Получает информацию по строке материалов и услуг документа Наряд
         /// </summary>
-        /// /// <param name="rimId">Идентификатор строки</param>
+        /// ///
+        /// <param name="rimId">Идентификатор строки</param>
         public static DbRecordset GetServiceMaterialPriceByRIMID(string rimId)
         {
             var query = new Query("select " +
                                   "      _Catalog_RIM.id, " +
                                   "      _Catalog_RIM.Description, " +
                                   "      _Catalog_RIM.Price, " +
+                                  "      _Catalog_RIM.Unit,  " +
                                   "      1 as AmountFact, " +
                                   "      _Catalog_RIM.Price as SumFact " +
                                   "from " +
@@ -796,7 +797,183 @@ namespace Test
             var queryText = "";
             var query = new Query(queryText);
 
+            return query.Execute();
+        }
 
+        public static Event_Equipments GetEventEquipmentsById(string id)
+        {
+            var query = new Query("select * from Document_Event_Equipments where id = @id");
+            query.AddParameter("id", id);
+            var dbRecordset = query.Execute();
+            return new Event_Equipments((DbRef)dbRecordset["Id"])
+            {
+                Comment = (string)dbRecordset["Comment"],
+                Equipment = (DbRef)dbRecordset["Equipment"],
+                LineNumber = (int)dbRecordset["LineNumber"],
+                Ref = (DbRef)dbRecordset["Ref"],
+                Result = (DbRef)dbRecordset["Result"],
+                SID = (DbRef)dbRecordset["SID"],
+                Terget = (string)dbRecordset["Terget"]
+            };
+        }
+
+        public static DbRecordset GetClientLocationByClientId(string clientId)
+        {
+            var query = new Query(@"select
+                                    client.Description as Description,
+                                    client.Latitude as Latitude,
+                                    client.Longitude as Longitude
+                                from
+                                    _Catalog_Client as client
+                                where
+                                    client.Latitude != 0
+                                    and client.Longitude != 0
+                                    and client.Id = @clientId");
+
+            query.AddParameter("clientId", clientId);
+
+            return query.Execute();
+        }
+
+        public static DbRecordset GetEventsLocationToday()
+        {
+            var query = new Query(@"select
+                                        client.Description as Description,
+                                        client.Latitude as Latitude,
+                                        client.Longitude as Longitude
+                                    from
+                                        _Document_Event as event
+                                    left join _Catalog_Client as client
+                                        on event.client = client.id
+                                    where
+                                        event.DeletionMark = 0
+                                        and event.ResultInteractions != '@ref[Enum_ResultEvent]:81270b2c-190a-faf2-440f-4a593042495e'
+                                        and date(event.StartDatePlan) = date('now','start of day')
+                                        and client.Latitude != 0
+                                        and client.Longitude != 0");
+
+            return query.Execute();
+        }
+        
+        /// <summary>
+        /// Получаем значение связанное с тем,
+        /// что используется ли рюкзак или нет.
+        /// возращяет булевское значение упакованное в object
+        /// </summary>
+        /// <returns>true используется рюкзак монтажника,
+        /// false если не используется. null если таблица пустая или не найдено значение</returns>
+        public static bool GetIsBag()
+        {
+            var query = new Query(@"SELECT LogicValue
+                                    FROM _Catalog_SettingMobileApplication
+                                    WHERE Description = 'UsedServiceBag' ");
+
+            var dbResult = query.Execute();
+
+
+            return dbResult.Next() ? (bool) dbResult["LogicValue"] : Convert.ToBoolean("False");
+            
+        }
+
+        public static DbRecordset GetRIMFromBag(RIMType type = RIMType.Material)
+        {
+            var query = new Query(@"SELECT _Catalog_RIM.Id as id, 
+                                           _Catalog_RIM.Description as Description,
+                                           _Catalog_RIM.Price as Price,
+                                           _Catalog_RIM.Unit as Unit
+                                    FROM
+                                           _Catalog_User_Bag
+                                    LEFT JOIN
+                                           _Catalog_Rim
+                                    ON _Catalog_User_Bag.Materials =  _Catalog_RIM.Id
+                                    WHERE _Catalog_RIM.IsFolder = 0 and
+                                          _Catalog_RIM.DeletionMark = 0 and
+                                           service = @isService ");
+
+            query.AddParameter("isService",(int)type);
+
+        
+            return query.Execute();
+        }
+                            
+	/// <summary>
+        ///     возвращает параметры оборудования с их значениями по ИД оборудования
+        /// </summary>
+        ///       
+        /// <param name="equipmentId">Идентификатор оборудования</param>
+        public static DbRecordset GetEquipmentParametersById(string equipmentId)
+        {
+            var queryText = "select " +
+                            "   param.Description as Parameter, " +
+                            "   equipParam.val as Value " +
+                            "from " +
+                            "   Catalog_Equipment_Parameters as equipParam " +
+                            "      left join Catalog_EquipmentOptions as param " +
+                            "         on equipParam.id = @equipId and equipParam.Parameter = param.Id " +
+                            "" +
+                            "    where " +
+                            "        equipParam.id = @equipId ";
+
+
+            var query = new Query(queryText);
+            query.AddParameter("equipId", equipmentId);
+
+            return query.Execute();
+        }
+
+
+        /// <summary>
+        ///     Возвращает историю оборудования начиная с указанноЙ даты 
+        /// </summary>
+        ///       
+        /// <param name="equipmentId">Идентификатор оборудования</param>
+        /// <param name="afterDate">Дата начиная с которой выводится история</param>
+        public static DbRecordset GetEquipmentHistoryById(string equpmentId, DateTime afterDate)
+        {
+
+            DConsole.WriteLine("GetEquipmentHistoryById");
+            var queryText = "select " +
+                            "   history.Period as Date, " +
+                            "   history.Target as Description, " +
+                            "   _Enum_ResultEvent.Description as result, " +
+                            "   _Enum_ResultEvent.Name as ResultName " +
+                            "from " +
+                            "   _Catalog_Equipment_EquiementsHistory as history " +
+                            "       left join _Enum_ResultEvent " +
+                            "            on history.Result = _Enum_ResultEvent.Id " +
+                            "where " +
+                            "     history.Equiements = @equipmentId " +
+                            "     and history.Period > date(@startDate) " +
+                            " " +
+                            " order by Date desc";
+
+            var query = new Query(queryText);
+            query.AddParameter("equipmentId", equpmentId);
+            query.AddParameter("startDate", afterDate);
+
+            DConsole.WriteLine("GetEquipmentHistoryById");
+
+            return query.Execute();
+        }
+
+
+        //TODO: удалить метод GetEquipmentById когда починят getObject у dbEntity
+
+        /// <summary>
+        ///     Возвращает описание оборудования
+        /// </summary>
+        ///       
+        /// <param name="equipmentId">Идентификатор оборудования</param>
+        public static DbRecordset GetEquipmentById(string equipmentId)
+        {
+            var queryText = "select " +
+                            "   Description " +
+                            "from " +
+                            "   Catalog_Equipment " +
+                            "where " +
+                            "   id = @equipmentId";
+            var query = new Query(queryText);
+            query.AddParameter("equipmentId", equipmentId);
 
             return query.Execute();
         }

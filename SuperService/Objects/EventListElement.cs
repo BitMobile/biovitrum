@@ -32,6 +32,7 @@ namespace Test
             eventElement.ImportanceName = recordSet.GetString(6);
             eventElement.ClientDescription = recordSet.GetString(7);
             eventElement.ClientAddress = recordSet.GetString(8);
+            DConsole.WriteLine(nameof(CreateFromRecordSet));
 
             return eventElement;
         }

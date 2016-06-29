@@ -13,8 +13,6 @@ namespace Test
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("BagListScreen init");
-
             _topInfoComponent = new TopInfoComponent(this)
             {
                 HeadingTextView = {Text = Translator.Translate("bag")},
@@ -26,14 +24,19 @@ namespace Test
             _tabBarComponent = new TabBarComponent(this);
         }
 
+        public override void OnShow()
+        {
+            GPS.StopTracking();
+        }
+
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("RequestHistory");
+            Navigation.Move("RequestHistoryScreen");
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("MeterialsRequestScreen");
+            Navigation.Move("MaterialsRequestScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)

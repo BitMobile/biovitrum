@@ -26,13 +26,13 @@ clients		Клиенты
 settings		Настройки
 areYouSure		Вы уверены?
 today		сегодня
-per_month		За месяц
+per_month		за месяц
 todayUpper		СЕГОДНЯ
 client		Клиент
 clients		Клиенты
-contacts		Контакты
+contacts		КОНТАКТЫ
 add_contact		Добавить контакт
-equipment		Оборудование
+equipments		ОБОРУДОВАНИЕ
 task_finished		Работа выполнена
 task_refused		Не могу выполнить
 task		Задача
@@ -44,7 +44,8 @@ do_not_have_enough_material		Не хватает материала?
 delete_question		Удалить
 currency		₽
 total		Итоговая сумма
-not_choosed		Не выбрано..
+not_choosedwpoints		Не выбрано..
+not_choosed		Не выбрано
 not_specified		Не указано
 text		Текст..
 description_materialrequest_screen		Добавьте материалы, чтобы сформировать заявку
@@ -61,3 +62,16 @@ add_contact_enter_position		Введите должность
 add_contact_enter_tel		Введите номер телефона
 add_contact_enter_email		Введите e-mail	
 add_contact_add_button		Добавить контакт
+map		Карта
+get_coordinates		Получить координаты
+save_coordinates		Сохранить координаты
+failed_coordinates		Координаты не получены
+uom_distance		км
+equipment		Оборудование
+PARAMETERS		ПАРАМЕТРЫ
+SERVICEHISTORY		ИСТОРИЯ ОБСЛУЖИВАНИЯ
+login		Логин
+password		Пароль
+log_in		Войти
+cant_signing		Не получается войти?
+bag_empty		Не указан саписок материалов для рюкзака
