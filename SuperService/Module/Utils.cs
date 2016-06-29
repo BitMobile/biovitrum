@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BitMobile.ClientModel3;
+using System;
 using System.Collections.Generic;
 
 namespace Test
@@ -25,16 +26,20 @@ namespace Test
             //where	f is latitude, l is longitude, R is earth’s radius (mean radius = 6,371km);
             //note that angles need to be in radians to pass to trig functions!
 
+            lat1 = Convert.ToDouble(lat1);
+            lon1 = Convert.ToDouble(lon1);
+            lat2 = Convert.ToDouble(lat2);
+            lon2 = Convert.ToDouble(lon2);
             const double r = 6371;
-            double f1 = lat1 * Math.PI / 180;
-            double f2 = lat2 * Math.PI / 180;
-            double deltaf = f2 - f1;
-            double deltal = (lon2 - lon1) * Math.PI / 180;
+            var f1 = lat1 * Math.PI / 180;
+            var f2 = lat2 * Math.PI / 180;
+            var deltaf = f2 - f1;
+            var deltal = (lon2 - lon1) * Math.PI / 180;
 
-            double a = Math.Pow(Math.Sin(deltaf / 2), 2)
-                + Math.Cos(f1) * Math.Cos(f2) * Math.Pow(Math.Sin(deltal / 2), 2);
-            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            double result = r * c;
+            var a = Math.Pow(Math.Sin(deltaf / 2), 2)
+                       + Math.Cos(f1) * Math.Cos(f2) * Math.Pow(Math.Sin(deltal / 2), 2);
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            var result = r * c;
 
             return Math.Abs(result * 1000);
         }
