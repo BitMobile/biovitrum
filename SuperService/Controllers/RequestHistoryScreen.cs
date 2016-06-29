@@ -25,18 +25,6 @@ namespace Test
             };
         }
 
-        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
-        {
-            Navigation.Back();
-        }
-
-        internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
-        {
-        }
-
-        internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
-        {
-        }
 
         internal bool IsTodayLayoutNeed()
         {
@@ -131,7 +119,7 @@ namespace Test
         // TopInfo parts
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            BusinessProcess.DoAction("BackToBag");
+            Navigation.Back();
         }
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
