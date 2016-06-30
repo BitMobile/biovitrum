@@ -43,7 +43,7 @@
             <c:VerticalLayout CssClass="EventListStatusVL">
               <c:VerticalLayout CssClass="EventListLineBeforeVL" />
 
-              <s:If Test="$ImportanceName == Standart">
+              <!--<s:If Test="$ImportanceName == Standart">
                 <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_done)" />
               </s:If>
               <s:If Test="$ImportanceName == High">
@@ -51,7 +51,9 @@
               </s:If>
               <s:If Test="$ImportanceName == Critical">
                 <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_specdone)" />
-              </s:If>
+              </s:If>-->
+
+              <c:Image CssClass="EventListStatusIMG" Source="$GetStatusPicture($ImportanceName, $StatusName)" />
 
               <c:VerticalLayout CssClass="EventListLineAfterVL" />
             </c:VerticalLayout>
@@ -62,34 +64,23 @@
               <c:TextView Text="$TypeDeparture" CssClass="EventListItemType" />
 
               <!-- Проверка на необходимость брейкера-->
-              <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $StartPlanDate)">
+              <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $EventList.startDatePlanDate)">
                 <c:HorizontalLine CssClass="EventListShortBreaker" />
               </s:If>
-              <!--<s:Else>
-              </s:Else>-->
               <s:Else>
-                <!--<s:If Test="$IsDateChanged($EventList.startDatePlanDate, $StartPlanDate)">-->
-                <c:HorizontalLine CssClass="EventListShortBreaker" />
-                <!--</s:If>-->
-                <!--<s:Else>-->
-                  <!--<c:HorizontalLine CssClass="EventListShortBreaker" />-->
-                  <!--<s:If Test="$IsTodayBreakerNeed()">
-                  <c:HorizontalLine CssClass="EventListShortBreaker" />
+                <s:If Test="$IsDateChanged($StartPlanDate, $EventList.startDatePlanDate)">
                 </s:If>
                 <s:Else>
                   <c:HorizontalLine CssClass="EventListShortBreaker" />
-                </s:Else>-->
-                <!--</s:Else>-->
+                </s:Else>
               </s:Else>
               <!--Конец проверки на необходимость брейкера-->
 
-              <!--<c:HorizontalLine CssClass="EventListShortBreaker" />-->
             </c:VerticalLayout>
-
           </c:HorizontalLayout>
 
           <!-- Проверка на необходимость плашки с датой-->
-          <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $StartPlanDate)">
+          <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $EventList.startDatePlanDate)">
           </s:If>
           <s:Else>
             <s:If Test="$IsDateChanged($StartPlanDate, $EventList.startDatePlanDate)">
@@ -109,6 +100,7 @@
         <s:Push Id="StartPlanDate" Value="$EventList.startDatePlanDate" />
         <s:Push Id="TypeDeparture" Value="$EventList.TypeDeparture" />
         <s:Push Id="ActualStartDate" Value="$EventList.ActualStartDate" />
+        <s:Push Id="StatusName" Value="$EventList.statusName" />
         <s:Push Id="ImportanceName" Value="$EventList.ImportanceName" />
         <s:Push Id="Description" Value="$EventList.Description" />
         <s:Push Id="Address" Value="$EventList.Address" />
@@ -128,7 +120,7 @@
         <c:VerticalLayout CssClass="EventListStatusVL">
           <c:VerticalLayout CssClass="EventListLineBeforeVL" />
 
-          <s:If Test="$ImportanceName == Standart">
+          <!--<s:If Test="$ImportanceName == Standart">
             <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_done)" />
           </s:If>
           <s:If Test="$ImportanceName == High">
@@ -136,7 +128,8 @@
           </s:If>
           <s:If Test="$ImportanceName == Critical">
             <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_specdone)" />
-          </s:If>
+          </s:If>-->
+          <c:Image CssClass="EventListStatusIMG" Source="$GetStatusPicture($ImportanceName, $StatusName)" />
 
           <c:VerticalLayout CssClass="EventListLineAfterVL" />
         </c:VerticalLayout>

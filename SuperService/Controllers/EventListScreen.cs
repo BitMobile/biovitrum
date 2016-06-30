@@ -17,7 +17,7 @@ namespace Test
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("OnLoanding EventList");
+            DConsole.WriteLine("OnLoading EventList");
 
             _tabBarComponent = new TabBarComponent(this);
             _topInfoComponent = new TopInfoComponent(this)
@@ -49,6 +49,38 @@ namespace Test
             });
         }
 
+        internal string GetStatusPicture(string importance, string status)
+        {
+            DConsole.WriteLine("getstatus: importance - " + importance + " status - " + status);
+            string pictureTag = @"$GetResourceImage(eventlistscreen_";
+
+            if (importance == "Standart")
+            {
+                pictureTag += "blue";
+            }
+            else if (importance == "High")
+            {
+                pictureTag += "yellow";
+            }
+            else if (importance == "Critical")
+            {
+                pictureTag += "red";
+            }
+
+            if (status == "Appointed")
+            {
+                pictureTag += "border)";
+            }
+            else if (status == "Done")
+            {
+                pictureTag += "done)";
+            }
+            else if (status == "InWork")
+            {
+                pictureTag += "circle)";
+            }
+            return pictureTag;
+        }
         internal string GetDateNowEventList()
         {
             //DConsole.WriteLine(DateTime.Now.ToString("dddd dd MMMM"));
