@@ -81,3 +81,4 @@ email		E-mail
 call		Позвонить
 send_message		Отправить сообщение
 write_letter		Написать письмо
+edit		Изменить

@@ -81,3 +81,4 @@ email		E-mail
 call		Call
 send_message		Send message
 write_letter		Write a letter
+edit		Edit
