@@ -53,7 +53,7 @@ namespace Test
         {
             //DConsole.WriteLine(DateTime.Now.ToString("dddd dd MMMM"));
             //return DateTime.Now.ToString("dddd dd MMMM");
-            DConsole.WriteLine(DateTime.Now.ToString("dd-MM-yyyy"));
+            //DConsole.WriteLine(DateTime.Now.ToString("dd-MM-yyyy"));
             return DateTime.Now.ToString("dd-MM-yyyy");
         }
         internal string DateTimeToDateWithWeekCheck(string datetime)
@@ -88,7 +88,7 @@ namespace Test
         }
         internal int SetTodayBreakerToFalse()
         {
-            DConsole.WriteLine("SetTodayBreakerToFalse setted to false");
+            //DConsole.WriteLine("SetTodayBreakerToFalse setted to false");
             _needTodayBreaker = Convert.ToBoolean("False");
             return 0;
         }
@@ -103,21 +103,23 @@ namespace Test
         }
         internal bool IsDateEqualsOrLess(string lastdate, string nowdate)
         {
-            DConsole.WriteLine("EqualOrLess comparing " + lastdate + " and " + nowdate);
+            
             if (DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date)
             {
+                DConsole.WriteLine("EqualOrLess comparing: " + lastdate + " >= " + nowdate);
                 return true;
             }
+            DConsole.WriteLine("EqualOrLess comparing: " + lastdate + " < " + nowdate);
             return false;
         }
         internal bool IsDateChanged(string lastdate, string nowdate)
         {
             if (DateTime.Parse(lastdate).Date < DateTime.Parse(nowdate).Date)
             {
-                DConsole.WriteLine("IsDateChanged returns " + lastdate + " < " + nowdate);
+                //DConsole.WriteLine("IsDateChanged returns " + lastdate + " < " + nowdate);
                 return true;
             }
-            DConsole.WriteLine("IsDateChanged returns " + lastdate + " not < " + nowdate);
+            //DConsole.WriteLine("IsDateChanged returns " + lastdate + " not < " + nowdate);
             return false;
         }
         internal bool IsTodayLayoutNeed()
@@ -135,10 +137,10 @@ namespace Test
         {
             if (_needTodayBreaker)
             {
-                DConsole.WriteLine("IsTodayBreakerNeed needed");
+                //DConsole.WriteLine("IsTodayBreakerNeed needed");
                 return true;
             }
-            DConsole.WriteLine("IsTodayBreakerNeed NOTneeded");
+            //DConsole.WriteLine("IsTodayBreakerNeed NOTneeded");
             return false;
         }
         internal string DateTimeToDate(string datetime)
