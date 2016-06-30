@@ -29,8 +29,9 @@ namespace Test
 
         private void FillControls()
         {
-            _topInfoComponent.HeadingTextView.Text = (string) _currentEventRecordset["clientDescription"];
-            _topInfoComponent.CommentTextView.Text = (string) _currentEventRecordset["clientAddress"];
+
+            _topInfoComponent.HeadingTextView.Text = ((string) _currentEventRecordset["clientDescription"]).CutForUIOutput(17, 2);
+            _topInfoComponent.CommentTextView.Text = ((string) _currentEventRecordset["clientAddress"]).CutForUIOutput(17, 2);
             _topInfoComponent.LeftButtonImage.Source = ResourceManager.GetImage("topheading_back");
             _topInfoComponent.RightButtonImage.Source = ResourceManager.GetImage("topheading_info");
 
@@ -51,14 +52,13 @@ namespace Test
                 Source = ResourceManager.GetImage("topinfo_extra_person")
             });
 
-            var visContact = (string)_currentEventRecordset["ContactVisitingDescription"];
-            DConsole.WriteLine(visContact);
-
             _topInfoComponent.RightExtraLayout.AddChild(new TextView
             {
-                Text = (string)_currentEventRecordset["ContactVisitingDescription"],
+                Text = ((string)_currentEventRecordset["ContactVisitingDescription"]).CutForUIOutput(12, 1),
                 CssClass = "TopInfoSideText"
             });
+
+            
 
             DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} before add");
             _topInfoComponent.LeftExtraLayout.OnClick += GoToMapScreen_OnClick;
