@@ -51,8 +51,10 @@ namespace Test
 
         internal string GetDateNowEventList()
         {
-            DConsole.WriteLine(DateTime.Now.ToString("dddd dd MMMM"));
-            return DateTime.Now.ToString("dddd dd MMMM");
+            //DConsole.WriteLine(DateTime.Now.ToString("dddd dd MMMM"));
+            //return DateTime.Now.ToString("dddd dd MMMM");
+            DConsole.WriteLine(DateTime.Now.ToString("dd-MM-yyyy"));
+            return DateTime.Now.ToString("dd-MM-yyyy");
         }
         internal string DateTimeToDateWithWeekCheck(string datetime)
         {
@@ -101,7 +103,7 @@ namespace Test
         }
         internal bool IsDateEqualsOrLess(string lastdate, string nowdate)
         {
-            //DConsole.WriteLine("EqualOrLess comparing " + lastdate + " and " + nowdate);
+            DConsole.WriteLine("EqualOrLess comparing " + lastdate + " and " + nowdate);
             if (DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date)
             {
                 return true;
@@ -112,10 +114,10 @@ namespace Test
         {
             if (DateTime.Parse(lastdate).Date < DateTime.Parse(nowdate).Date)
             {
-                DConsole.WriteLine("IsDateChanged returns true");
+                DConsole.WriteLine("IsDateChanged returns " + lastdate + " < " + nowdate);
                 return true;
             }
-            DConsole.WriteLine("IsDateChanged returns false");
+            DConsole.WriteLine("IsDateChanged returns " + lastdate + " not < " + nowdate);
             return false;
         }
         internal bool IsTodayLayoutNeed()
