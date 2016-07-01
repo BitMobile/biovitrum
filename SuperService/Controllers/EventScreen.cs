@@ -29,8 +29,10 @@ namespace Test
 
         private void FillControls()
         {
-            _topInfoComponent.HeadingTextView.Text = ((string)_currentEventRecordset["clientDescription"]).CutForUIOutput(17, 2);
-            _topInfoComponent.CommentTextView.Text = ((string)_currentEventRecordset["clientAddress"]).CutForUIOutput(17, 2);
+            _topInfoComponent.HeadingTextView.Text =
+                ((string)_currentEventRecordset["clientDescription"]).CutForUIOutput(17, 2);
+            _topInfoComponent.CommentTextView.Text =
+                ((string)_currentEventRecordset["clientAddress"]).CutForUIOutput(17, 2);
             _topInfoComponent.LeftButtonImage.Source = ResourceManager.GetImage("topheading_back");
             _topInfoComponent.RightButtonImage.Source = ResourceManager.GetImage("topheading_info");
 
@@ -112,23 +114,44 @@ namespace Test
             _refuseButton.Refresh();
             _startFinishButton.CssClass = "FinishButton";
             _startFinishButton?.Refresh();
-            _startFinishButton.Text = Translator.Translate("finish");
+            _startFinishButton.Text = $"{Translator.Translate("finish")}" +
+                                      $"{Environment.NewLine}" +
+                                      $"{DateTime.Now.Date.ToString("HH:mm")}";
             _rootLayout.Refresh();
             Event_OnStart();
         }
 
         internal void StartFinishButton_OnClick(object sender, EventArgs eventArgs)
         {
-            Dialog.Alert(Translator.Translate("closeeventquestion"), (o, args) =>
+            var result = DBHelper.GetTotalFinishedRequireQuestionByEventId(
+                (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+
+            long countQuestion = -1;
+
+            var isActiveEvent = result.Next()
+                ? (countQuestion = (long)result["count"]) == 0
+                : Convert.ToBoolean("True");
+
+#if DEBUG
+            DConsole.WriteLine($"первое условие {(countQuestion = (long)result["count"]) == 0}" +
+                               $" {nameof(countQuestion)}={countQuestion}" +
+                               $"{Environment.NewLine}" +
+                               $"{nameof(isActiveEvent)}={isActiveEvent}");
+#endif
+
+            if (isActiveEvent)
             {
-                if (CheckEventBeforeClosing() && args.Result == 0)
+                Dialog.Alert(Translator.Translate("closeeventquestion"), (o, args) =>
                 {
-                    DBHelper.UpdateActualEndDateByEventId(DateTime.Now,
-                        (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
-                    Navigation.Move("CloseEventScreen");
-                }
-            }, null,
-                Translator.Translate("yes"), Translator.Translate("no"));
+                    if (CheckEventBeforeClosing() && args.Result == 0)
+                    {
+                        DBHelper.UpdateActualEndDateByEventId(DateTime.Now,
+                            (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+                        Navigation.Move("CloseEventScreen");
+                    }
+                }, null,
+                    Translator.Translate("yes"), Translator.Translate("no"));
+            }
         }
 
         private bool CheckEventBeforeClosing()
@@ -150,7 +173,8 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.GlobalVariables[Parameters.IdClientId] = _currentEventRecordset[Parameters.IdClientId].ToString();
+            BusinessProcess.GlobalVariables[Parameters.IdClientId] =
+                _currentEventRecordset[Parameters.IdClientId].ToString();
             Navigation.Move("ClientScreen");
         }
 
@@ -181,9 +205,9 @@ namespace Test
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
 
-            var dictinory = new Dictionary<string, object>()
+            var dictinory = new Dictionary<string, object>
             {
-                {Parameters.IdCurrentEventId,(string)eventId }
+                {Parameters.IdCurrentEventId, (string) eventId}
             };
             Navigation.Move("COCScreen", dictinory);
         }
@@ -246,6 +270,20 @@ namespace Test
         internal bool IsEmptyCheckList(long count)
         {
             return Convert.ToInt64(count) != Convert.ToInt64(0L);
+        }
+
+        internal string GetFormatString(string translate, object date)
+        {
+            DateTime startActualDate;
+            var isOk = DateTime.TryParse((string)date, out startActualDate);
+
+            if (isOk)
+            {
+                return $"{Translator.Translate(translate)}" +
+                  $"{Environment.NewLine}" +
+                  $"{(DateTime.Now - startActualDate).ToString(@"hh\:mm")}";
+            }
+            throw new Exception("Parsing error");
         }
     }
 }
