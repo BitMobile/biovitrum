@@ -82,3 +82,5 @@ call		Call
 send_message		Send message
 write_letter		Write a letter
 edit		Edit
+send_sms		Send SMS
+send_email		Send e-mail

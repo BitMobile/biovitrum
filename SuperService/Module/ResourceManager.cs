@@ -71,6 +71,10 @@ namespace Test
             {"authscreen_logo", @"Image\AuthScreen\logo.png"},
             {"authscreen_password", @"Image\AuthScreen\password.png"},
             {"authscreen_username", @"Image\AuthScreen\username.png"},
+            // Client Screen
+            {"contactscreen_phone", @"Image\ContactScreen\Phone.png"},
+            {"contactscreen_sms"  , @"Image\ContactScreen\sms.png"},
+            {"contactscreen_email", @"Image\ContactScreen\email.png"},
         };
 
         public static string GetImage(string tag)

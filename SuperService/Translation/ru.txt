@@ -82,3 +82,5 @@ call		Позвонить
 send_message		Отправить сообщение
 write_letter		Написать письмо
 edit		Изменить
+send_sms		Отправить сообщение
+send_email		Написать письмо
