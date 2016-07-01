@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using BitMobile.Application.Tracking;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -10,10 +9,10 @@ namespace Test
 {
     public class EventListScreen : Screen
     {
-        private TabBarComponent _tabBarComponent;
-        private TopInfoComponent _topInfoComponent;
         private bool _needTodayBreaker = Convert.ToBoolean("True");
         private bool _needTodayLayout = Convert.ToBoolean("True");
+        private TabBarComponent _tabBarComponent;
+        private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
@@ -30,19 +29,21 @@ namespace Test
             };
 
             var statistic = DBHelper.GetEventsStatistic();
-            _topInfoComponent.LeftExtraLayout.AddChild(new TextView($"{statistic.DayCompleteAmout}/{statistic.DayTotalAmount}")
-            {
-                CssClass = "ExtraInfo"
-            });
+            _topInfoComponent.LeftExtraLayout.AddChild(
+                new TextView($"{statistic.DayCompleteAmout}/{statistic.DayTotalAmount}")
+                {
+                    CssClass = "ExtraInfo"
+                });
             _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("today"))
             {
                 CssClass = "ButtonExtraInfo"
             });
 
-            _topInfoComponent.RightExtraLayout.AddChild(new TextView($"{statistic.MonthCompleteAmout}/{statistic.MonthTotalAmount}")
-            {
-                CssClass = "ExtraInfo"
-            });
+            _topInfoComponent.RightExtraLayout.AddChild(
+                new TextView($"{statistic.MonthCompleteAmout}/{statistic.MonthTotalAmount}")
+                {
+                    CssClass = "ExtraInfo"
+                });
             _topInfoComponent.RightExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
             {
                 CssClass = "ButtonExtraInfo"
@@ -52,7 +53,7 @@ namespace Test
         internal string GetStatusPicture(string importance, string status)
         {
             DConsole.WriteLine("getstatus: importance - " + importance + " status - " + status);
-            string pictureTag = @"$GetResourceImage(eventlistscreen_";
+            var pictureTag = @"eventlistscreen_";
 
             if (importance == "Standart")
             {
@@ -69,18 +70,20 @@ namespace Test
 
             if (status == "Appointed")
             {
-                pictureTag += "border)";
+                pictureTag += "border";
             }
             else if (status == "Done")
             {
-                pictureTag += "done)";
+                pictureTag += "done";
             }
             else if (status == "InWork")
             {
-                pictureTag += "circle)";
+                pictureTag += "circle";
             }
-            return pictureTag;
+            DConsole.WriteLine("pictureTag: " + pictureTag);
+            return ResourceManager.GetImage(pictureTag);
         }
+
         internal string GetDateNowEventList()
         {
             //DConsole.WriteLine(DateTime.Now.ToString("dddd dd MMMM"));
@@ -88,18 +91,19 @@ namespace Test
             //DConsole.WriteLine(DateTime.Now.ToString("dd-MM-yyyy"));
             return DateTime.Now.ToString("dd-MM-yyyy");
         }
+
         internal string DateTimeToDateWithWeekCheck(string datetime)
         {
             var workDate = DateTime.Parse(datetime).Date;
             var currentDate = DateTime.Now.Date;
 
-            var workDateWeekNumber = (workDate.DayOfYear + 6) / 7;
+            var workDateWeekNumber = (workDate.DayOfYear + 6)/7;
             if (workDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
             {
                 ++workDateWeekNumber;
             }
 
-            var currentDateWeekNumber = (currentDate.DayOfYear + 6) / 7;
+            var currentDateWeekNumber = (currentDate.DayOfYear + 6)/7;
             if (currentDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
             {
                 ++currentDateWeekNumber;
@@ -112,12 +116,38 @@ namespace Test
             return DateTime.Parse(datetime).ToString("dd MMMM yyyy").ToUpper();
         }
 
+        internal string GetStartDate(string startPlan, string endPlan)
+        {
+            var startTime = DateTime.Parse(startPlan); //DateTime.Parse(startPlan).ToString("HH:mm:ss");
+            var endTime = DateTime.Parse(endPlan); // .ToString("HH:mm");
+            if (endTime - startTime > new TimeSpan(23, 59, 00))
+            {
+                return Translator.Translate("allday");
+            }
+            return startTime.ToString("HH:mm");
+        }
+
+        internal string GetTimeCounter(string actualStartDate, string statusName)
+        {
+            DConsole.WriteLine("actualStartDate: " + actualStartDate);
+            var actualTime = DateTime.Parse(actualStartDate); // .ToString("HH:mm");
+
+            if ((actualTime != default(DateTime)) && statusName == "Appointed")
+            {
+                var ans = DateTime.Now - actualTime; // .ToString(@"hh\:mm");
+                DConsole.WriteLine(ans.ToString());
+                return ans.Days*24 + ans.Hours + ":" + ans.Minutes; // @"hh\:mm");
+            }
+            return "";
+        }
+
         internal int SetTodayLayoutToFalse()
         {
             //DConsole.WriteLine("in ToFalse entered");
             _needTodayLayout = Convert.ToBoolean("False");
             return 0;
         }
+
         internal int SetTodayBreakerToFalse()
         {
             //DConsole.WriteLine("SetTodayBreakerToFalse setted to false");
@@ -133,9 +163,9 @@ namespace Test
             }
             return false;
         }
+
         internal bool IsDateEqualsOrLess(string lastdate, string nowdate)
         {
-            
             if (DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date)
             {
                 DConsole.WriteLine("EqualOrLess comparing: " + lastdate + " >= " + nowdate);
@@ -144,6 +174,7 @@ namespace Test
             DConsole.WriteLine("EqualOrLess comparing: " + lastdate + " < " + nowdate);
             return false;
         }
+
         internal bool IsDateChanged(string lastdate, string nowdate)
         {
             if (DateTime.Parse(lastdate).Date < DateTime.Parse(nowdate).Date)
@@ -154,6 +185,7 @@ namespace Test
             //DConsole.WriteLine("IsDateChanged returns " + lastdate + " not < " + nowdate);
             return false;
         }
+
         internal bool IsTodayLayoutNeed()
         {
             //DConsole.WriteLine(_needTodayLayout.ToString());
@@ -165,6 +197,7 @@ namespace Test
             //DConsole.WriteLine("TodayLayoutNOTNeed");
             return Convert.ToBoolean("False");
         }
+
         internal bool IsTodayBreakerNeed()
         {
             if (_needTodayBreaker)
@@ -175,6 +208,7 @@ namespace Test
             //DConsole.WriteLine("IsTodayBreakerNeed NOTneeded");
             return false;
         }
+
         internal string DateTimeToDate(string datetime)
         {
             return DateTime.Parse(datetime).ToString("dddd dd MMMM");
@@ -184,6 +218,7 @@ namespace Test
         {
             return DBHelper.GetEvents();
         }
+
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
@@ -193,10 +228,12 @@ namespace Test
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
         }
+
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
             _topInfoComponent.Arrow_OnClick(sender, e);
         }
+
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("GO to map");
@@ -209,6 +246,7 @@ namespace Test
             BusinessProcess.GlobalVariables[Parameters.IdScreenStateId] = MapScreenStates.EventListScreen;
             Navigation.Move("MapScreen", dictionary);
         }
+
         internal void EventListItemHL_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("Go To View Event");
@@ -222,14 +260,17 @@ namespace Test
         {
             //_tabBarComponent.Events_OnClick(sender, eventArgs);
         }
+
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Bag_OnClick(sender, eventArgs);
         }
+
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Clients_OnClick(sender, eventArgs);
         }
+
         internal void TabBarFourthButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent.Settings_OnClick(sender, eventArgs);

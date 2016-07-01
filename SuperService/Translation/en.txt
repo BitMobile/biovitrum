@@ -75,3 +75,4 @@ password		Password
 log_in		Log In
 cant_signing		Can't signing?
 bag_empty		The backpack is not material
+allday		All day

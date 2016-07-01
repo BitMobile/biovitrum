@@ -1,7 +1,6 @@
-﻿using BitMobile.ClientModel3;
+﻿using System;
+using BitMobile.ClientModel3;
 using BitMobile.DbEngine;
-using System;
-using System.Collections;
 using Test.Entities.Document;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
@@ -27,54 +26,55 @@ namespace Test
         /// <param name="eventSinceDate"> Дата начания с которой необходимо получить события</param>
         public static DbRecordset GetEvents(DateTime eventSinceDate)
         {
-            var queryString =     "  select " +
-                                  "  event.Id, " +
-                                  "  event.StartDatePlan, " + //full date
-                                  "  date(event.StartDatePlan) as startDatePlanDate, " + //date only
-                                  "  ifnull(TypeDeparturesTable.description, '') as TypeDeparture, " +
-                                  "  event.ActualStartDate as ActualStartDate, " + //4
-                                  "  ifnull(Enum_StatusImportance.Description, '') as Importance, " +
-                                  "  ifnull(Enum_StatusImportance.Name, '') as ImportanceName, " +
-                                  "  ifnull(client.Description, '') as Description, " +
-                                  "  ifnull(client.Address, '') as Address, " +
-                                  "  ifnull(Enum_StatusyEvents.Name, '') as statusName, " +
-                                  //имя значения статуса (служебное имя)
-                                  "  ifnull(Enum_StatusyEvents.Description, '') as statusDescription " +
-                                  //представление статуса
-                                  "from " +
-                                  "  Document_Event as event " +
-                                  "    left join Catalog_Client as client " +
-                                  "    on event.client = client.Id " +
-                                  "      left join " +
-                                  "         (select " +
-                                  "             Document_Event_TypeDepartures.Ref, " +
-                                  "             Catalog_TypesDepartures.description " +
-                                  "          from " +
-                                  "             (select " +
-                                  "                 ref, " +
-                                  "                 min(lineNumber) as lineNumber " +
-                                  "              from " +
-                                  "                 Document_Event_TypeDepartures " +
-                                  "              where " +
-                                  "                 active = 1 " +
-                                  "              group by " +
-                                  "                 ref) as t1 " +
-                                  "                       left join Document_Event_TypeDepartures " +
-                                  "                             on t1.ref= Document_Event_TypeDepartures.ref " +
-                                  "                                     and t1.lineNumber = Document_Event_TypeDepartures.lineNumber " +
-                                  "                       left join Catalog_TypesDepartures " +
-                                  "                             on Document_Event_TypeDepartures.typeDeparture = Catalog_TypesDepartures.id) as TypeDeparturesTable " +
-                                  "     on event.id = TypeDeparturesTable.Ref " +
-                                  "          left join Enum_StatusImportance " +
-                                  "               on event.Importance = Enum_StatusImportance.Id " +
-                                  "  " +
-                                  "  left join Enum_StatusyEvents " +
-                                  "      on event.status = Enum_StatusyEvents.Id " +
-                                  "  where " +
-                                  "      event.DeletionMark = 0 " +
-                                  "      AND (event.StartDatePlan >= @eventDate OR (event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel))) " +
-                                  " order by " +
-                                  "  event.StartDatePlan";
+            var queryString = "  select " +
+                              "  event.Id, " +
+                              "  event.StartDatePlan, " + //full date
+                              "  date(event.StartDatePlan) as startDatePlanDate, " + //date only
+                              "  event.EndDatePlan, " +
+                              "  ifnull(TypeDeparturesTable.description, '') as TypeDeparture, " +
+                              "  event.ActualStartDate as ActualStartDate, " + //4
+                              "  ifnull(Enum_StatusImportance.Description, '') as Importance, " +
+                              "  ifnull(Enum_StatusImportance.Name, '') as ImportanceName, " +
+                              "  ifnull(client.Description, '') as Description, " +
+                              "  ifnull(client.Address, '') as Address, " +
+                              "  ifnull(Enum_StatusyEvents.Name, '') as statusName, " +
+                              //имя значения статуса (служебное имя)
+                              "  ifnull(Enum_StatusyEvents.Description, '') as statusDescription " +
+                              //представление статуса
+                              "from " +
+                              "  Document_Event as event " +
+                              "    left join Catalog_Client as client " +
+                              "    on event.client = client.Id " +
+                              "      left join " +
+                              "         (select " +
+                              "             Document_Event_TypeDepartures.Ref, " +
+                              "             Catalog_TypesDepartures.description " +
+                              "          from " +
+                              "             (select " +
+                              "                 ref, " +
+                              "                 min(lineNumber) as lineNumber " +
+                              "              from " +
+                              "                 Document_Event_TypeDepartures " +
+                              "              where " +
+                              "                 active = 1 " +
+                              "              group by " +
+                              "                 ref) as t1 " +
+                              "                       left join Document_Event_TypeDepartures " +
+                              "                             on t1.ref= Document_Event_TypeDepartures.ref " +
+                              "                                     and t1.lineNumber = Document_Event_TypeDepartures.lineNumber " +
+                              "                       left join Catalog_TypesDepartures " +
+                              "                             on Document_Event_TypeDepartures.typeDeparture = Catalog_TypesDepartures.id) as TypeDeparturesTable " +
+                              "     on event.id = TypeDeparturesTable.Ref " +
+                              "          left join Enum_StatusImportance " +
+                              "               on event.Importance = Enum_StatusImportance.Id " +
+                              "  " +
+                              "  left join Enum_StatusyEvents " +
+                              "      on event.status = Enum_StatusyEvents.Id " +
+                              "  where " +
+                              "      event.DeletionMark = 0 " +
+                              "      AND (event.StartDatePlan >= @eventDate OR (event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel))) " +
+                              " order by " +
+                              "  event.StartDatePlan";
 
             var query = new Query(queryString);
 
@@ -121,10 +121,10 @@ namespace Test
 
             if (result.Next())
             {
-                statistic.DayTotalAmount = (int)result["DayTotalAmount"];
-                statistic.DayCompleteAmout = (int)result["DayCompleteAmout"];
-                statistic.MonthTotalAmount = (int)result["MonthCompleteAmout"];
-                statistic.MonthCompleteAmout = (int)result["MonthTotalAmount"];
+                statistic.DayTotalAmount = (int) result["DayTotalAmount"];
+                statistic.DayCompleteAmout = (int) result["DayCompleteAmout"];
+                statistic.MonthTotalAmount = (int) result["MonthCompleteAmout"];
+                statistic.MonthCompleteAmout = (int) result["MonthTotalAmount"];
             }
 
             return statistic;
@@ -171,7 +171,7 @@ namespace Test
                             "    Enum_StatusyEvents.Description as statusDescription, " + //представление статуса +
                             "    event.DetailedDescription, " + //описание события
                             "    Catalog_Contacts.Description as ContactVisitingDescription " +
-                            "    " + 
+                            "    " +
                             "from  " +
                             "    _Document_Event as event  " +
                             "        left join _Catalog_Client as client  " +
@@ -222,7 +222,7 @@ namespace Test
                             "           on event.id = docEquipment.ref " +
                             "    " +
                             "        left join Catalog_Contacts " +
-                            "           on event.ContactVisiting = Catalog_Contacts.Id " + 
+                            "           on event.ContactVisiting = Catalog_Contacts.Id " +
                             "    " +
                             "        left join Enum_StatusyEvents " +
                             "           on event.status = Enum_StatusyEvents.Id     " +
@@ -805,15 +805,15 @@ namespace Test
             var query = new Query("select * from Document_Event_Equipments where id = @id");
             query.AddParameter("id", id);
             var dbRecordset = query.Execute();
-            return new Event_Equipments((DbRef)dbRecordset["Id"])
+            return new Event_Equipments((DbRef) dbRecordset["Id"])
             {
-                Comment = (string)dbRecordset["Comment"],
-                Equipment = (DbRef)dbRecordset["Equipment"],
-                LineNumber = (int)dbRecordset["LineNumber"],
-                Ref = (DbRef)dbRecordset["Ref"],
-                Result = (DbRef)dbRecordset["Result"],
-                SID = (DbRef)dbRecordset["SID"],
-                Terget = (string)dbRecordset["Terget"]
+                Comment = (string) dbRecordset["Comment"],
+                Equipment = (DbRef) dbRecordset["Equipment"],
+                LineNumber = (int) dbRecordset["LineNumber"],
+                Ref = (DbRef) dbRecordset["Ref"],
+                Result = (DbRef) dbRecordset["Result"],
+                SID = (DbRef) dbRecordset["SID"],
+                Terget = (string) dbRecordset["Terget"]
             };
         }
 
@@ -854,14 +854,16 @@ namespace Test
 
             return query.Execute();
         }
-        
+
         /// <summary>
-        /// Получаем значение связанное с тем,
-        /// что используется ли рюкзак или нет.
-        /// возращяет булевское значение упакованное в object
+        ///     Получаем значение связанное с тем,
+        ///     что используется ли рюкзак или нет.
+        ///     возращяет булевское значение упакованное в object
         /// </summary>
-        /// <returns>true используется рюкзак монтажника,
-        /// false если не используется. null если таблица пустая или не найдено значение</returns>
+        /// <returns>
+        ///     true используется рюкзак монтажника,
+        ///     false если не используется. null если таблица пустая или не найдено значение
+        /// </returns>
         public static bool GetIsBag()
         {
             var query = new Query(@"SELECT LogicValue
@@ -872,7 +874,6 @@ namespace Test
 
 
             return dbResult.Next() ? (bool) dbResult["LogicValue"] : Convert.ToBoolean("False");
-            
         }
 
         public static DbRecordset GetRIMFromBag(RIMType type = RIMType.Material)
@@ -890,16 +891,15 @@ namespace Test
                                           _Catalog_RIM.DeletionMark = 0 and
                                            service = @isService ");
 
-            query.AddParameter("isService",(int)type);
+            query.AddParameter("isService", (int) type);
 
-        
+
             return query.Execute();
         }
-                            
-	/// <summary>
+
+        /// <summary>
         ///     возвращает параметры оборудования с их значениями по ИД оборудования
         /// </summary>
-        ///       
         /// <param name="equipmentId">Идентификатор оборудования</param>
         public static DbRecordset GetEquipmentParametersById(string equipmentId)
         {
@@ -923,14 +923,12 @@ namespace Test
 
 
         /// <summary>
-        ///     Возвращает историю оборудования начиная с указанноЙ даты 
+        ///     Возвращает историю оборудования начиная с указанноЙ даты
         /// </summary>
-        ///       
         /// <param name="equipmentId">Идентификатор оборудования</param>
         /// <param name="afterDate">Дата начиная с которой выводится история</param>
         public static DbRecordset GetEquipmentHistoryById(string equpmentId, DateTime afterDate)
         {
-
             DConsole.WriteLine("GetEquipmentHistoryById");
             var queryText = "select " +
                             "   history.Period as Date, " +
@@ -962,7 +960,6 @@ namespace Test
         /// <summary>
         ///     Возвращает описание оборудования
         /// </summary>
-        ///       
         /// <param name="equipmentId">Идентификатор оборудования</param>
         public static DbRecordset GetEquipmentById(string equipmentId)
         {

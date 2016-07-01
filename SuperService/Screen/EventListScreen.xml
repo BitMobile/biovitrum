@@ -36,25 +36,13 @@
           <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick" Id="$EventID">
 
             <c:VerticalLayout CssClass="EventListTimeVL">
-              <c:TextView Text="10.00" CssClass="EventListTimeTV" />
-              <c:TextView Text="$StartPlanDate" CssClass="EventListCounterTV" />
+              <c:TextView Text="$GetStartDate($StartPlan, $EndPlan)" CssClass="EventListTimeTV" />
+              <c:TextView Text="$GetTimeCounter($ActualStartDate, $StatusName)" CssClass="EventListCounterTV" />
             </c:VerticalLayout>
 
             <c:VerticalLayout CssClass="EventListStatusVL">
               <c:VerticalLayout CssClass="EventListLineBeforeVL" />
-
-              <!--<s:If Test="$ImportanceName == Standart">
-                <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_done)" />
-              </s:If>
-              <s:If Test="$ImportanceName == High">
-                <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_notdone)" />
-              </s:If>
-              <s:If Test="$ImportanceName == Critical">
-                <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_specdone)" />
-              </s:If>-->
-
               <c:Image CssClass="EventListStatusIMG" Source="$GetStatusPicture($ImportanceName, $StatusName)" />
-
               <c:VerticalLayout CssClass="EventListLineAfterVL" />
             </c:VerticalLayout>
 
@@ -97,7 +85,9 @@
         </s:Else>
 
         <s:Push Id="EventID" Value="$EventList.Id" />
+        <s:Push Id="StartPlan" Value="$EventList.StartDatePlan" />
         <s:Push Id="StartPlanDate" Value="$EventList.startDatePlanDate" />
+        <s:Push Id="EndPlan" Value="$EventList.EndDatePlan" />
         <s:Push Id="TypeDeparture" Value="$EventList.TypeDeparture" />
         <s:Push Id="ActualStartDate" Value="$EventList.ActualStartDate" />
         <s:Push Id="StatusName" Value="$EventList.statusName" />
@@ -113,24 +103,13 @@
       <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick" Id="$EventID">
 
         <c:VerticalLayout CssClass="EventListTimeVL">
-          <c:TextView Text="10.00" CssClass="EventListTimeTV" />
-          <c:TextView Text="$StartPlanDate" CssClass="EventListCounterTV" />
+          <c:TextView Text="$GetStartDate($StartPlan, $EndPlan)" CssClass="EventListTimeTV" />
+          <c:TextView Text="$GetTimeCounter($ActualStartDate, $StatusName)" CssClass="EventListCounterTV" />
         </c:VerticalLayout>
 
         <c:VerticalLayout CssClass="EventListStatusVL">
           <c:VerticalLayout CssClass="EventListLineBeforeVL" />
-
-          <!--<s:If Test="$ImportanceName == Standart">
-            <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_done)" />
-          </s:If>
-          <s:If Test="$ImportanceName == High">
-            <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_notdone)" />
-          </s:If>
-          <s:If Test="$ImportanceName == Critical">
-            <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(tasklist_specdone)" />
-          </s:If>-->
           <c:Image CssClass="EventListStatusIMG" Source="$GetStatusPicture($ImportanceName, $StatusName)" />
-
           <c:VerticalLayout CssClass="EventListLineAfterVL" />
         </c:VerticalLayout>
 
