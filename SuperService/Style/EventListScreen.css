@@ -136,6 +136,7 @@ TextView {
     font: 3sp arial;
     text-align: left;
     width: 100%;
+    white-space: nowrap;
 }
 
 .EventListItemAddress {
@@ -146,6 +147,7 @@ TextView {
     font: 2.5sp arial;
     text-align: left;
     width: 100%;
+    white-space: nowrap;
 }
 
 .EventListItemType {
@@ -156,6 +158,7 @@ TextView {
     font: 2sp arial;
     text-align: left;
     width: 100%;
+    white-space: nowrap;
 }
 
 /* --------------------------------------------- */
