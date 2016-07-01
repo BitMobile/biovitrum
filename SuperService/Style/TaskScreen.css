@@ -5,9 +5,9 @@
 /* ReSharper disable UnexpectedValue */
 
 body {
-	background-color: #ffffff;
-	height: 100%;
-	width: 100%;
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
 }
 
 vl {
@@ -16,317 +16,323 @@ vl {
 }
 
 TextView {
-	color: #51595b;
-	font: 2.5sp arial;
-	height: 3.5sp auto;
-	horizontal-align: center;
-	text-align: center;
-	vertical-align: center;
-	white-space: normal;
-	width: 100%;
+    color: #51595b;
+    font: 2.5sp arial;
+    height: 3.5sp auto;
+    horizontal-align: center;
+    text-align: center;
+    vertical-align: center;
+    white-space: normal;
+    width: 100%;
 }
 
 HorizontalLine {
-	background-color: #f4f4f5;
-	height: 2px;
-	horizontal-align: center;
-	width: 90%;
+    background-color: #f4f4f5;
+    height: 2px;
+    horizontal-align: center;
+    width: 90%;
 }
 
 .NoHeight {
-	dock-align: top;
-	height: 0%;
-	width: 100%;
+    dock-align: top;
+    height: 0%;
+    width: 100%;
 }
 
 .EmptySpace2sp {
-	height: 2sp;
-	width: 100%;
+    height: 2sp;
+    width: 100%;
 }
 
 .EmptySpace6sp {
-	height: 6sp;
-	width: 100%;
+    height: 6sp;
+    width: 100%;
 }
 
 .RootLayout {
-	background-color: #ffffff;
-	height: 100% auto;
-	width: 100%;
+    background-color: #ffffff;
+    height: 100% auto;
+    width: 100%;
 }
 
 /* Top Info Component */
 
 .TopInfoLayout {
-	background-color: #4a4b5e;
-	dock-align: top;
-	height: 4sp auto;
-	padding-top: 1sp;
-	width: 100%;
+    background-color: #4a4b5e;
+    dock-align: top;
+    height: 4sp auto;
+    padding-top: 1sp;
+    width: 100%;
 }
 
 .TopInfoHeadingLayout {
-	height: 7sp auto;
-	/*margin-top: 2.5sp;*/
-	width: 100%;
+    height: 7sp auto;
+    /*margin-top: 2.5sp;*/
+    width: 100%;
 }
 
 .TopInfoHeading {
-	background-color: #4a4b5e;
-	border-style: none;
-	border-width: 0px;
-	color: #ffffff;
-	font: 40% arial;
-	height: 100% auto;
-	padding-top: 26%;
-	text-align: center;
-	width: 68%;
+    background-color: #4a4b5e;
+    border-style: none;
+    border-width: 0px;
+    color: #ffffff;
+    font: 40% arial;
+    height: 100% auto;
+    padding-top: 26%;
+    text-align: center;
+    width: 68%;
 }
 
 .TopInfoButton {
-	background-color: #4a4b5e;
-	border-style: none;
-	border-width: 0px;
-	color: #ffffff;
-	font: 40% arial;
-	height: 100%;
-	selected-background: #64657e;
-	text-align: center;
-	width: 16%;
+    background-color: #4a4b5e;
+    border-style: none;
+    border-width: 0px;
+    color: #ffffff;
+    font: 40% arial;
+    height: 100%;
+    selected-background: #64657e;
+    text-align: center;
+    width: 16%;
 }
 
 .TopInfoButtonImage {
-	height: 60%;
-	horizontal-align: center;
-	margin-top: 20%;
+    height: 60%;
+    horizontal-align: center;
+    margin-top: 20%;
 }
 
 .TopInfoComment {
-	color: #c4c4c9;
-	font: 2.4sp arial;
-	height: 0sp auto;
-	horizontal-align: center;
-	text-align: center;
-	white-space: normal;
-	width: 58%;
+    color: #c4c4c9;
+    font: 2.4sp arial;
+    height: 0sp auto;
+    horizontal-align: center;
+    text-align: center;
+    white-space: normal;
+    width: 58%;
 }
 
 .TopInfoArrowDown {
-	horizontal-align: center;
-	width: 100sp;
+    horizontal-align: center;
+    width: 100sp;
 }
 
 .TopInfoExtraLayout {
-	background-color: #4a4b5e;
-	dock-align: top;
-	height: 1sp auto;
-	width: 100%;
+    background-color: #4a4b5e;
+    dock-align: top;
+    height: 1sp auto;
+    width: 100%;
 }
 
 .TopInfoImageLayout {
-	background-color: #ffffff;
-	dock-align: top;
-	height: 1sp auto;
-	width: 100%;
+    background-color: #ffffff;
+    dock-align: top;
+    height: 1sp auto;
+    width: 100%;
 }
 
 .TopInfoExtraButtonsLayout {
-	height: 10sp auto;
-	horizontal-align: center;
-	width: 80%;
+    height: 10sp auto;
+    horizontal-align: center;
+    width: 80%;
 }
 
 .TopInfoSideExtraLayout {
-	height: 100% auto;
-	width: 50%;
+    height: 100% auto;
+    width: 50%;
 }
 
 .TopInfoSideImage {
-	height: 50%;
-	horizontal-align: center;
+    height: 50%;
+    horizontal-align: center;
 }
 
-.TopInfoSideText { color: #ffffff; }
+.TopInfoSideText {
+    color: #ffffff;
+}
 
 /*  Task */
 
 .TargetTextView {
-	color: #8587b1;
-	font: 2.8sp arial;
-	height: 3sp;
-	margin-top: 2.8sp;
+    color: #8587b1;
+    font: 2.8sp arial;
+    height: 3sp;
+    margin-top: 2.8sp;
 }
 
-.EquipDescTextView { margin-top: 0.7sp; }
+.EquipDescTextView {
+    margin-top: 0.7sp;
+}
 
 .SubHeading {
-	color: #a7abab;
-	margin-top: 2sp;
+    color: #a7abab;
+    margin-top: 2sp;
 }
 
 .SubComment {
-	height: 9sp;
-	margin-top: 1.5sp;
-	width: 87%;
+    height: 9sp;
+    margin-top: 1.5sp;
+    width: 87%;
 }
 
 .SubCommentExpanded {
-	height: 9sp auto;
-	margin-top: 1.5sp;
-	width: 90%;
+    height: 9sp auto;
+    margin-top: 1.5sp;
+    width: 90%;
 }
 
 .WrapUnwrapLayout {
-	height: 6sp;
-	horizontal-align: center;
-	margin-top: 1sp;
-	width: 90%;
+    height: 6sp;
+    horizontal-align: center;
+    margin-top: 1sp;
+    width: 90%;
 }
 
 .WrapUnwrapImage {
-	vertical-align: center;
-	width: 10%;
+    vertical-align: center;
+    width: 10%;
 }
 
 .WrapUnwrapLine {
-	vertical-align: center;
-	width: 45%;
+    vertical-align: center;
+    width: 45%;
 }
 
 .CommentLayout {
-	height: 4sp auto;
-	horizontal-align: center;
-	margin-top: 3sp;
-	width: 90%;
+    height: 10sp auto;
+    horizontal-align: center;
+    margin-top: 3sp;
+    width: 90%;
 }
 
 .Comment {
-	background-color: #ffffff;
-	color: #51595b;
-	height: 4sp auto;
-	margin-bottom: 0.5sp;
-	padding-left: 3sp;
-	padding-right: 3sp;
-	placeholder-color: #a2a2aa;
-	width: 100%;
+    background-color: #ffffff;
+    color: #51595b;
+    height: 10sp auto;
+    margin-bottom: 0.5sp;
+    padding-left: 3sp;
+    padding-right: 3sp;
+    placeholder-color: #a2a2aa;
+    width: 100%;
 }
 
-.CommentEndLine { width: 100%; }
+.CommentEndLine {
+    width: 100%;
+}
 
 /* Task Finish/Refuse Buttons */
 
 .FinishedRefuseButtonImageWrapper {
-	height: 6sp;
-	vertical-align: center;
-	width: 20%;
+    height: 6sp;
+    vertical-align: center;
+    width: 20%;
 }
 
 .FinishedRefuseButtonImage {
-	height: 100%;
-	horizontal-align: center;
+    height: 100%;
+    horizontal-align: center;
 }
 
 .FinishedButtonInactive {
-	margin-top: 1.5sp;
-	border-color: #f2f2f3;
-	border-style: solid;
-	border-width: 3px;
-	height: 11sp;
-	horizontal-align: center;
-	width: 90%;
+    margin-top: 1.5sp;
+    border-color: #f2f2f3;
+    border-style: solid;
+    border-width: 3px;
+    height: 11sp;
+    horizontal-align: center;
+    width: 90%;
 }
 
 .FinishedButtonActive {
-	margin-top: 1.5sp;
-	border-color: #f0f1f2;
-	border-style: solid;
-	border-width: 3px;
-	height: 11sp;
-	horizontal-align: center;
-	width: 90%;
+    margin-top: 1.5sp;
+    border-color: #f0f1f2;
+    border-style: solid;
+    border-width: 3px;
+    height: 11sp;
+    horizontal-align: center;
+    width: 90%;
 }
 
 .FinishedButtonPressed {
-	margin-top: 1.5sp;
-	border-color: #97c66b;
-	border-style: solid;
-	border-width: 3px;
-	height: 11sp;
-	horizontal-align: center;
-	width: 90%;
+    margin-top: 1.5sp;
+    border-color: #97c66b;
+    border-style: solid;
+    border-width: 3px;
+    height: 11sp;
+    horizontal-align: center;
+    width: 90%;
 }
 
 .RefuseButton {
-	margin-top: 1.5sp;
-	border-color: #f6f6f7;
-	border-style: solid;
-	border-width: 3px;
-	height: 11sp;
-	horizontal-align: center;
-	width: 90%;
+    margin-top: 1.5sp;
+    border-color: #f6f6f7;
+    border-style: solid;
+    border-width: 3px;
+    height: 11sp;
+    horizontal-align: center;
+    width: 90%;
 }
 
 .RefuseButtonPressed {
-	margin-top: 1.5sp;
-	border-color: #eb5040;
-	border-style: solid;
-	border-width: 3px;
-	height: 11sp;
-	horizontal-align: center;
-	width: 90%;
+    margin-top: 1.5sp;
+    border-color: #eb5040;
+    border-style: solid;
+    border-width: 3px;
+    height: 11sp;
+    horizontal-align: center;
+    width: 90%;
 }
 
 .FinishedButtonInactiveText {
-	color: #c4c4c9;
-	font: 3.75sp arial;
-	padding-left: 5sp;
-	padding-bottom: 0.1sp;
-	height: 3.87sp;
-	text-align: left;
-	vertical-align: center;
-	width: 80%;
+    color: #c4c4c9;
+    font: 3.75sp arial;
+    padding-left: 5sp;
+    padding-bottom: 0.1sp;
+    height: 3.87sp;
+    text-align: left;
+    vertical-align: center;
+    width: 80%;
 }
 
 .FinishedButtonActiveText {
-	color: #8abf57;
-	font: 3.75sp arial;
-	padding-left: 5sp;
-	padding-bottom: 0.1sp;
-	height: 3.87sp;
-	text-align: left;
-	vertical-align: center;
-	width: 80%;
+    color: #8abf57;
+    font: 3.75sp arial;
+    padding-left: 5sp;
+    padding-bottom: 0.1sp;
+    height: 3.87sp;
+    text-align: left;
+    vertical-align: center;
+    width: 80%;
 }
 
 .FinishedButtonPressedText {
-	color: #8abf57;
-	font: 3.75sp arial;
-	padding-left: 5sp;
-	padding-bottom: 0.1sp;
-	height: 3.87sp;
-	text-align: left;
-	vertical-align: center;
-	width: 80%;
+    color: #8abf57;
+    font: 3.75sp arial;
+    padding-left: 5sp;
+    padding-bottom: 0.1sp;
+    height: 3.87sp;
+    text-align: left;
+    vertical-align: center;
+    width: 80%;
 }
 
 .RefuseButtonText {
-	color: #eb5040;
-	font: 3.75sp arial;
-	padding-left: 5sp;
-	padding-bottom: 0.1sp;
-	height: 3.87sp;
-	text-align: left;
-	vertical-align: center;
-	width: 80%;
+    color: #eb5040;
+    font: 3.75sp arial;
+    padding-left: 5sp;
+    padding-bottom: 0.1sp;
+    height: 3.87sp;
+    text-align: left;
+    vertical-align: center;
+    width: 80%;
 }
 
 .RefuseButtonPressedText {
-	color: #eb5040;
-	font: 3.75sp arial;
-	padding-left: 5sp;
-	padding-bottom: 0.1sp;
-	height: 3.87sp;
-	text-align: left;
-	vertical-align: center;
-	width: 80%;
+    color: #eb5040;
+    font: 3.75sp arial;
+    padding-left: 5sp;
+    padding-bottom: 0.1sp;
+    height: 3.87sp;
+    text-align: left;
+    vertical-align: center;
+    width: 80%;
 }

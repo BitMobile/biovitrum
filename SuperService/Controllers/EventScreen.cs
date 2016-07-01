@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using System;
+using System.Collections.Generic;
 using Test.Components;
 
 namespace Test
@@ -24,13 +24,13 @@ namespace Test
             LoadControls();
             FillControls();
 
-            IsEmptyDateTime((string) _currentEventRecordset["ActualStartDate"]);
+            IsEmptyDateTime((string)_currentEventRecordset["ActualStartDate"]);
         }
 
         private void FillControls()
         {
-            _topInfoComponent.HeadingTextView.Text = (string) _currentEventRecordset["clientDescription"];
-            _topInfoComponent.CommentTextView.Text = (string) _currentEventRecordset["clientAddress"];
+            _topInfoComponent.HeadingTextView.Text = ((string)_currentEventRecordset["clientDescription"]).CutForUIOutput(17, 2);
+            _topInfoComponent.CommentTextView.Text = ((string)_currentEventRecordset["clientAddress"]).CutForUIOutput(17, 2);
             _topInfoComponent.LeftButtonImage.Source = ResourceManager.GetImage("topheading_back");
             _topInfoComponent.RightButtonImage.Source = ResourceManager.GetImage("topheading_info");
 
@@ -50,9 +50,10 @@ namespace Test
                 CssClass = "TopInfoSideImage",
                 Source = ResourceManager.GetImage("topinfo_extra_person")
             });
+
             _topInfoComponent.RightExtraLayout.AddChild(new TextView
             {
-                Text = (string) _currentEventRecordset["clientDescription"],
+                Text = ((string)_currentEventRecordset["ContactVisitingDescription"]).CutForUIOutput(12, 1),
                 CssClass = "TopInfoSideText"
             });
 
@@ -68,10 +69,10 @@ namespace Test
 
         private void LoadControls()
         {
-            _rootLayout = (DockLayout) GetControl("RootLayout");
-            _startFinishButton = (Button) GetControl("StartFinishButton", true);
-            _startButton = (Button) GetControl("StartButton", true);
-            _refuseButton = (Button) GetControl("RefuseButton", true);
+            _rootLayout = (DockLayout)GetControl("RootLayout");
+            _startFinishButton = (Button)GetControl("StartFinishButton", true);
+            _startButton = (Button)GetControl("StartButton", true);
+            _refuseButton = (Button)GetControl("RefuseButton", true);
         }
 
         internal void ClientInfoButton_OnClick(object sender, EventArgs eventArgs)
@@ -81,7 +82,7 @@ namespace Test
 
         internal void RefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
-            DBHelper.UpdateCancelEventById((string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+            DBHelper.UpdateCancelEventById((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
             Navigation.Back(true);
         }
 
@@ -123,7 +124,7 @@ namespace Test
                 if (CheckEventBeforeClosing() && args.Result == 0)
                 {
                     DBHelper.UpdateActualEndDateByEventId(DateTime.Now,
-                        (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+                        (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
                     Navigation.Move("CloseEventScreen");
                 }
             }, null,
@@ -139,7 +140,7 @@ namespace Test
         private void Event_OnStart()
         {
             DBHelper.UpdateActualStartDateByEventId(DateTime.Now,
-                (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+                (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
@@ -168,8 +169,8 @@ namespace Test
         private bool CheckBigButtonActive(object sender)
         {
             // TODO: Сделать проверку более аккуратной?
-            var layout = (HorizontalLayout) sender;
-            return ((TextView) layout.Controls[2]).Text != "0";
+            var layout = (HorizontalLayout)sender;
+            return ((TextView)layout.Controls[2]).Text != "0";
         }
 
         internal void GoToCOCScreen_OnClick(object sender, EventArgs e)
@@ -199,14 +200,14 @@ namespace Test
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
-            _currentEventRecordset = DBHelper.GetEventByID((string) eventId);
+            _currentEventRecordset = DBHelper.GetEventByID((string)eventId);
             return _currentEventRecordset;
         }
 
         internal string GetStringPartOfTotal(double part, double total)
         {
             if (Convert.ToInt64(part) != 0) return $"{part}/{total}";
-//            DConsole.WriteLine($"{part == 0L}, {Convert.ToInt64(total) == 0L}, {part}, {total}");
+            //            DConsole.WriteLine($"{part == 0L}, {Convert.ToInt64(total) == 0L}, {part}, {total}");
             return $"{Convert.ToInt64(total)}";
         }
 
@@ -227,7 +228,7 @@ namespace Test
 
         internal void GoToMapScreen_OnClick(object sender, EventArgs e)
         {
-            var clientId = (string) _currentEventRecordset[Parameters.IdClientId];
+            var clientId = (string)_currentEventRecordset[Parameters.IdClientId];
             var dictionary = new Dictionary<string, object>
             {
                 {Parameters.IdScreenStateId, MapScreenStates.EventScreen},
@@ -240,6 +241,11 @@ namespace Test
             BusinessProcess.GlobalVariables[Parameters.IdClientId] = clientId;
 
             Navigation.Move("MapScreen", dictionary);
+        }
+
+        internal bool IsEmptyCheckList(long count)
+        {
+            return Convert.ToInt64(count) != Convert.ToInt64(0L);
         }
     }
 }

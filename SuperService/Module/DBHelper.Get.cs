@@ -175,7 +175,10 @@ namespace Test
                             "    end as checkListAllRequiredIsAnswered, " +
                             //признак, что все обязательные вопросы в чеклистах отвечены
                             "    Enum_StatusyEvents.Name as statusName, " + //наименование статуса (служебное имя)
-                            "    Enum_StatusyEvents.Description as statusDescription " + //представление статуса +
+                            "    Enum_StatusyEvents.Description as statusDescription, " + //представление статуса +
+                            "    event.DetailedDescription, " + //описание события
+                            "    Catalog_Contacts.Description as ContactVisitingDescription " +
+                            "    " +
                             "from  " +
                             "    _Document_Event as event  " +
                             "        left join _Catalog_Client as client  " +
@@ -224,6 +227,9 @@ namespace Test
                             "    " +
                             "        left join (select Document_Event_Equipments.Ref, count(Document_Event_Equipments.Ref) as Total, TOTAL(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_Equipments where Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment " +
                             "           on event.id = docEquipment.ref " +
+                            "    " +
+                            "        left join Catalog_Contacts " +
+                            "           on event.ContactVisiting = Catalog_Contacts.Id " +
                             "    " +
                             "        left join Enum_StatusyEvents " +
                             "           on event.status = Enum_StatusyEvents.Id     " +
@@ -855,7 +861,7 @@ namespace Test
 
             return query.Execute();
         }
-        
+
         /// <summary>
         /// Получаем значение связанное с тем,
         /// что используется ли рюкзак или нет.
@@ -871,14 +877,12 @@ namespace Test
 
             var dbResult = query.Execute();
 
-
-            return dbResult.Next() ? (bool) dbResult["LogicValue"] : Convert.ToBoolean("False");
-            
+            return dbResult.Next() ? (bool)dbResult["LogicValue"] : Convert.ToBoolean("False");
         }
 
         public static DbRecordset GetRIMFromBag(RIMType type = RIMType.Material)
         {
-            var query = new Query(@"SELECT _Catalog_RIM.Id as id, 
+            var query = new Query(@"SELECT _Catalog_RIM.Id as id,
                                            _Catalog_RIM.Description as Description,
                                            _Catalog_RIM.Price as Price,
                                            _Catalog_RIM.Unit as Unit
@@ -891,16 +895,15 @@ namespace Test
                                           _Catalog_RIM.DeletionMark = 0 and
                                            service = @isService ");
 
-            query.AddParameter("isService",(int)type);
+            query.AddParameter("isService", (int)type);
 
-        
             return query.Execute();
         }
-                            
-	/// <summary>
+
+        /// <summary>
         ///     возвращает параметры оборудования с их значениями по ИД оборудования
         /// </summary>
-        ///       
+        ///
         /// <param name="equipmentId">Идентификатор оборудования</param>
         public static DbRecordset GetEquipmentParametersById(string equipmentId)
         {
@@ -915,23 +918,20 @@ namespace Test
                             "    where " +
                             "        equipParam.id = @equipId ";
 
-
             var query = new Query(queryText);
             query.AddParameter("equipId", equipmentId);
 
             return query.Execute();
         }
 
-
         /// <summary>
-        ///     Возвращает историю оборудования начиная с указанноЙ даты 
+        ///     Возвращает историю оборудования начиная с указанноЙ даты
         /// </summary>
-        ///       
-        /// <param name="equipmentId">Идентификатор оборудования</param>
+        ///
+        /// <param name="equpmentId">Идентификатор оборудования</param>
         /// <param name="afterDate">Дата начиная с которой выводится история</param>
         public static DbRecordset GetEquipmentHistoryById(string equpmentId, DateTime afterDate)
         {
-
             DConsole.WriteLine("GetEquipmentHistoryById");
             var queryText = "select " +
                             "   history.Period as Date, " +
@@ -957,13 +957,12 @@ namespace Test
             return query.Execute();
         }
 
-
         //TODO: удалить метод GetEquipmentById когда починят getObject у dbEntity
 
         /// <summary>
         ///     Возвращает описание оборудования
         /// </summary>
-        ///       
+        ///
         /// <param name="equipmentId">Идентификатор оборудования</param>
         public static DbRecordset GetEquipmentById(string equipmentId)
         {
@@ -976,6 +975,15 @@ namespace Test
             var query = new Query(queryText);
             query.AddParameter("equipmentId", equipmentId);
 
+            return query.Execute();
+        }
+
+        public static DbRecordset GetContactById(string contactId)
+        {
+            var query = new Query("select * " +
+                                  "from Catalog_Contacts " +
+                                  "where id = @contactId");
+            query.AddParameter("contactId", contactId);
             return query.Execute();
         }
     }

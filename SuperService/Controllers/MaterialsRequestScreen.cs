@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using Test.Components;
 
 namespace Test
@@ -19,26 +19,31 @@ namespace Test
 
         public override void OnLoading()
         {
-
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ExtraLayoutVisible = false,
-                HeadingTextView = {Text = Translator.Translate("request")},
-                RightButtonImage = {Visible = false},
-                LeftButtonImage = {Source = ResourceManager.GetImage("close")}
+                HeadingTextView = { Text = Translator.Translate("request") },
+                RightButtonImage = { Visible = false },
+                LeftButtonImage = { Source = ResourceManager.GetImage("close") }
             };
         }
 
         public override void OnShow()
         {
+        }
+
+        private void GetValueFromOtherScreen()
+        {
+#if DEBUG
             DConsole.WriteLine($"{nameof(_isAdd)} = {_isAdd} {nameof(_isEdit)} {_isEdit}");
+#endif
             if (_isAdd)
             {
-                var newItem = Variables.GetValueOrDefault("newItem");
+                var newItem = BusinessProcess.GlobalVariables.GetValueOrDefault("newItem");
 
                 if (newItem != null)
                 {
-                    var item = (EditServiceOrMaterialsScreenResult) newItem;
+                    var item = (EditServiceOrMaterialsScreenResult)newItem;
 
                     if (!CombineIfExist(item))
                     {
@@ -52,7 +57,9 @@ namespace Test
                             {"Description", (string) itemInfo["Description"]}
                         };
                         _data.Add(dictionary);
+#if DEBUG
                         DConsole.WriteLine($"Element is added _data.Count = {_data.Count}");
+#endif
                     }
                 }
                 Variables.Remove("newItem");
@@ -64,12 +71,12 @@ namespace Test
 
                 if (editItem != null)
                 {
-                    var item = (EditServiceOrMaterialsScreenResult) editItem;
+                    var item = (EditServiceOrMaterialsScreenResult)editItem;
 
                     foreach (var element in _data)
                     {
-                        var dictionary = (Dictionary<string, object>) element;
-                        var elementRimId = (string) dictionary["SKU"];
+                        var dictionary = (Dictionary<string, object>)element;
+                        var elementRimId = (string)dictionary["SKU"];
 
                         if (string.Compare(elementRimId, item.RimId, false) == 0)
                         {
@@ -77,14 +84,18 @@ namespace Test
                             break;
                         }
                     }
+#if DEBUG
                     DConsole.WriteLine("element is changed!");
+#endif
                 }
                 BusinessProcess.GlobalVariables.Remove("editItem");
                 _isEdit = Convert.ToBoolean("False");
             }
 
+#if DEBUG
             DConsole.WriteLine($"{Environment.NewLine}{Environment.NewLine}");
             PrintMaterialsData();
+#endif
         }
 
         private void PrintMaterialsData()
@@ -93,7 +104,7 @@ namespace Test
 
             foreach (var item in _data)
             {
-                var element = (Dictionary<string, object>) item;
+                var element = (Dictionary<string, object>)item;
 
                 foreach (var i in element)
                 {
@@ -130,15 +141,14 @@ namespace Test
         {
             foreach (var element in _data)
             {
-                var dictionary = (Dictionary<string, object>) element;
-                var elementRimId = (string) dictionary["SKU"];
-
+                var dictionary = (Dictionary<string, object>)element;
+                var elementRimId = (string)dictionary["SKU"];
 
                 if (string.Compare(elementRimId, item.RimId, false) == 0)
                 {
-                    DConsole.WriteLine($"Count before {(int) dictionary["Count"]} SKU = {(string) dictionary["SKU"]}");
-                    dictionary["Count"] = (int) dictionary["Count"] + item.Count;
-                    DConsole.WriteLine($"Element is Exist and changed count = {(int) dictionary["Count"]}");
+                    DConsole.WriteLine($"Count before {(int)dictionary["Count"]} SKU = {(string)dictionary["SKU"]}");
+                    dictionary["Count"] = (int)dictionary["Count"] + item.Count;
+                    DConsole.WriteLine($"Element is Exist and changed count = {(int)dictionary["Count"]}");
                     return true;
                 }
             }
@@ -154,7 +164,7 @@ namespace Test
         ///     Проверяет данные, которые получили в поле
         ///     _data.
         /// </summary>
-        /// <returns>true - если БД вернула 0 записей, иначе false</returns>
+        /// <returns>true - если данных нет у поля _data, иначе false</returns>
         internal bool GetIsEmptyList()
         {
             DConsole.WriteLine("GetIsEmptyList()");
@@ -163,37 +173,29 @@ namespace Test
                 _isAdd = _isEdit = Convert.ToBoolean("False");
                 _data = new ArrayList();
             }
-
-            DConsole.WriteLine($"{nameof(_data)} {nameof(_data.Count)} = {_data.Count}");
-            if (_data.Count > 0)
-            {
-                _isEmptyList = Convert.ToBoolean("False");
-            }
             else
-            {
-                _isEmptyList = Convert.ToBoolean("True");
-            }
+                GetValueFromOtherScreen();
 
-            return _isEmptyList;
+            return _isEmptyList = Convert.ToBoolean(_data.Count > 0 ? "False" : "True");
         }
 
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
         {
-            var vl = (VerticalLayout) sender;
-            var hl = (IHorizontalLayout3) vl.Parent;
-            var shl = (ISwipeHorizontalLayout3) hl.Parent;
+            var vl = (VerticalLayout)sender;
+            var hl = (IHorizontalLayout3)vl.Parent;
+            var shl = (ISwipeHorizontalLayout3)hl.Parent;
             ++shl.Index;
         }
 
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
-            var btn = (Button) sender;
+            var btn = (Button)sender;
             DConsole.WriteLine($"{nameof(btn.Id)} = {btn.Id}");
-            var shl = (ISwipeHorizontalLayout3) btn.Parent;
-            deleteElement(btn.Id);
+            var shl = (ISwipeHorizontalLayout3)btn.Parent;
+            DeleteElement(btn.Id);
             PrintMaterialsData();
             shl.CssClass = "NoHeight";
-            ((IVerticalLayout3) shl.Parent).Refresh();
+            ((IVerticalLayout3)shl.Parent).Refresh();
         }
 
         internal ArrayList GetData()
@@ -202,18 +204,20 @@ namespace Test
             return _data;
         }
 
-        private void deleteElement(string id)
+        private void DeleteElement(string id)
         {
             var index = -1;
 
             for (var i = 0; i < _data.Count; i++)
             {
-                var element = (Dictionary<string, object>) _data[i];
-                var skuId = (string) element["SKU"];
+                var element = (Dictionary<string, object>)_data[i];
+                var skuId = (string)element["SKU"];
                 if (string.Compare(skuId, id, false) == 0)
                 {
                     index = i;
+#if DEBUG
                     DConsole.WriteLine("Index naiden" + Environment.NewLine);
+#endif
                     break;
                 }
             }
@@ -221,13 +225,17 @@ namespace Test
             if (index >= 0)
             {
                 _data.RemoveAt(index);
+#if DEBUG
                 DConsole.WriteLine($"Element {id} with {nameof(index)} = {index} is deleted {Environment.NewLine}");
+#endif
             }
+#if DEBUG
             else
             {
                 DConsole.WriteLine(
-                    $"Element is not deleted Error in method {nameof(deleteElement)} {Environment.NewLine}");
+                    $"Element is not deleted Error in method {nameof(DeleteElement)} {Environment.NewLine}");
             }
+#endif
         }
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
@@ -244,7 +252,6 @@ namespace Test
             _isAdd = Convert.ToBoolean("True");
 
             Navigation.Move("RIMListScreen", dictionary);
-
         }
 
         internal void SendData_OnClick(object sender, EventArgs e)
@@ -263,20 +270,37 @@ namespace Test
 
         internal void EditNode_OnClick(object sender, EventArgs e)
         {
-            var vl = (VerticalLayout) sender;
+            var vl = (VerticalLayout)sender;
             //TODO: Если будет починен экран редактирования то колличесто передавать отсюда.
             var dictionary = new Dictionary<string, object>
             {
                 {"returnKey", "editItem"},
                 {"rimId", vl.Id},
                 {"priceVisible", Convert.ToBoolean("False")},
-                {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue},
-                {Parameters.IdLineId, null}
+                {"value", GetNumberOfTheItem(vl.Id)},
+                {"minimum", 1},
+                {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue}
             };
+
             BusinessProcess.GlobalVariables[Parameters.IdIsService] = false;
             BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
             _isEdit = Convert.ToBoolean("True");
             Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
+        }
+
+        private int GetNumberOfTheItem(string id)
+        {
+            foreach (var element in _data)
+            {
+                var dictionary = (Dictionary<string, object>)element;
+                var elementRimId = (string)dictionary["SKU"];
+
+                if (string.Compare(elementRimId, id, false) == 0)
+                {
+                    return (int)dictionary["Count"];
+                }
+            }
+            return 0;
         }
 
         internal string Concat(string first, string secont)

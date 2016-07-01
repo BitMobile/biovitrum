@@ -75,3 +75,9 @@ password		Password
 log_in		Log In
 cant_signing		Can't signing?
 bag_empty		The backpack is not material
+contact		Contact
+phone		Phone number
+email		E-mail
+call		Call
+send_message		Send message
+write_letter		Write a letter

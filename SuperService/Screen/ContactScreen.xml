@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:VerticalLayout CssClass="RootLayout">
+    <c:Button Text="#back#" OnClick="BackButton_OnClick" />
+    <c:TextView Text="#contact#" />
+    <c:TextView Text="$contact.Description" />
+    <c:TextView Text="$contact.Position" />
+    <c:TextView Text="#phone#" />
+    <c:TextView Text="$contact.Tel" />
+    <c:TextView Text="#email#" />
+    <c:TextView Text="$contact.EMail" />
+    <c:Button Id="CallButton" Text="#call#" OnClick="CallButton_OnClick" />
+    <c:Button Id="SendMessageButton" Text="#send_message#" OnClick="SendMessageButton_OnClick" />
+    <c:Button Id="WriteLetterButton" Text="#write_letter#" OnClick="WriteLetterButton_OnClick" />
+  </c:VerticalLayout>
+</c:Screen>
