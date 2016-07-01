@@ -163,6 +163,8 @@ namespace Test
                 Tel = (string)contact["Tel"],
                 EMail = (string)contact["EMail"]
             };
+
+            DConsole.WriteLine("мыло контакта =" + contacts.EMail);
             Navigation.Move("ContactScreen", new Dictionary<string, object>
             {
                 [Parameters.Contact] = contacts
