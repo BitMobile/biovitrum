@@ -53,7 +53,6 @@ namespace Test
 
         internal string GetStatusPicture(string importance, string status)
         {
-            DConsole.WriteLine("getstatus: importance - " + importance + " status - " + status);
             var pictureTag = @"eventlistscreen_";
 
             if (importance == "Standart")
@@ -81,15 +80,11 @@ namespace Test
             {
                 pictureTag += "circle";
             }
-            DConsole.WriteLine("pictureTag: " + pictureTag);
             return ResourceManager.GetImage(pictureTag);
         }
 
         internal string GetDateNowEventList()
         {
-            //DConsole.WriteLine(DateTime.Now.ToString("dddd dd MMMM"));
-            //return DateTime.Now.ToString("dddd dd MMMM");
-            //DConsole.WriteLine(DateTime.Now.ToString("dd-MM-yyyy"));
             return DateTime.Now.ToString("dd-MM-yyyy");
         }
 
@@ -130,13 +125,11 @@ namespace Test
 
         internal string GetTimeCounter(string actualStartDate, string statusName)
         {
-            DConsole.WriteLine("actualStartDate: " + actualStartDate);
             var actualTime = DateTime.Parse(actualStartDate); // .ToString("HH:mm");
 
             if ((actualTime != default(DateTime)) && statusName == "Appointed")
             {
                 var ans = DateTime.Now - actualTime; // .ToString(@"hh\:mm");
-                DConsole.WriteLine(ans.ToString());
                 return ans.Days*24 + ans.Hours + ":" + ans.Minutes; // @"hh\:mm");
             }
             return "";
@@ -144,14 +137,12 @@ namespace Test
 
         internal int SetTodayLayoutToFalse()
         {
-            //DConsole.WriteLine("in ToFalse entered");
             _needTodayLayout = Convert.ToBoolean("False");
             return 0;
         }
 
         internal int SetTodayBreakerToFalse()
         {
-            //DConsole.WriteLine("SetTodayBreakerToFalse setted to false");
             _needTodayBreaker = Convert.ToBoolean("False");
             return 0;
         }
@@ -169,10 +160,8 @@ namespace Test
         {
             if (DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date)
             {
-                DConsole.WriteLine("EqualOrLess comparing: " + lastdate + " >= " + nowdate);
                 return true;
             }
-            DConsole.WriteLine("EqualOrLess comparing: " + lastdate + " < " + nowdate);
             return false;
         }
 
@@ -180,22 +169,17 @@ namespace Test
         {
             if (DateTime.Parse(lastdate).Date < DateTime.Parse(nowdate).Date)
             {
-                //DConsole.WriteLine("IsDateChanged returns " + lastdate + " < " + nowdate);
                 return true;
             }
-            //DConsole.WriteLine("IsDateChanged returns " + lastdate + " not < " + nowdate);
             return false;
         }
 
         internal bool IsTodayLayoutNeed()
         {
-            //DConsole.WriteLine(_needTodayLayout.ToString());
             if (_needTodayLayout)
             {
-                //DConsole.WriteLine("TodayLayoutNeed");
                 return Convert.ToBoolean("True");
             }
-            //DConsole.WriteLine("TodayLayoutNOTNeed");
             return Convert.ToBoolean("False");
         }
 
@@ -203,10 +187,8 @@ namespace Test
         {
             if (_needTodayBreaker)
             {
-                //DConsole.WriteLine("IsTodayBreakerNeed needed");
                 return true;
             }
-            //DConsole.WriteLine("IsTodayBreakerNeed NOTneeded");
             return false;
         }
 
@@ -277,16 +259,6 @@ namespace Test
             _tabBarComponent.Settings_OnClick(sender, eventArgs);
         }
     }
-
-    public enum MapMarkerColor
-    {
-        Red,
-        Green,
-        Blue,
-        Yellow,
-        Orange
-    }
-
     public enum MapMarkerColor
     {
         Red,

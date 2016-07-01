@@ -25,11 +25,6 @@ namespace Test
             };
         }
 
-        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
-        {
-            Navigation.Back();
-        }
-
         internal bool IsTodayLayoutNeed()
         {
             if (_needTodayLayout)
