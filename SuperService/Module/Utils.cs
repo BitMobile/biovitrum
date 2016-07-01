@@ -45,24 +45,21 @@ namespace Test
             return Math.Abs(result * 1000);
         }
 
-
         /// <summary>
         ///    Преобразует входящую строку к виду, который помесится в указанное количество строк интерфейса
         /// </summary>
-        /// <param name="outputLineLength"> длина строк в символах</param>
-        /// <param name="outputLinesAmount"> количество строк</param>
+        /// <param name="str">Строка для красивого обрезания</param>
+        /// <param name="outputLineLength">Длина одной строки в интерфейсе</param>
+        /// <param name="outputLinesAmount">Количество строк в интерфейсе</param>
         /// <returns></returns>
-        public static string CutForUIOutput(this String str, int outputLineLength, int outputLinesAmount)
+        public static string CutForUIOutput(this string str, int outputLineLength, int outputLinesAmount)
         {
-            //пока это заглушка, т.к. алгоритм обрезки использовал рекурсию которая не поддерживается. 
-
-            var res =  str.Substring(0, Math.Min(str.Length, outputLineLength * outputLinesAmount));
-            if(str.Length > outputLineLength * outputLinesAmount)
+            var res = str.Substring(0, Math.Min(str.Length, outputLineLength * outputLinesAmount));
+            if (str.Length > outputLineLength * outputLinesAmount)
             {
-                res = res.Substring(0, outputLineLength*outputLinesAmount - 3) + "...";
+                res = res.Substring(0, outputLineLength * outputLinesAmount - 3) + "...";
             }
             return res;
         }
-
     }
 }
