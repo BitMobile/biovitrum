@@ -83,7 +83,7 @@ namespace Test
         internal void RefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
             DBHelper.UpdateCancelEventById((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
-            Navigation.Back(true);
+            Navigation.Back();
         }
 
         internal string FormatEventStartDatePlanTime(string eventStartDatePlanTime)
@@ -204,11 +204,9 @@ namespace Test
             return _currentEventRecordset;
         }
 
-        internal string GetStringPartOfTotal(double part, double total)
+        internal string GetStringPartOfTotal(long part, long total)
         {
-            if (Convert.ToInt64(part) != 0) return $"{part}/{total}";
-            //            DConsole.WriteLine($"{part == 0L}, {Convert.ToInt64(total) == 0L}, {part}, {total}");
-            return $"{Convert.ToInt64(total)}";
+            return Converter.ToDecimal(part) != 0 ? $"{part}/{total}" : $"{total}";
         }
 
         internal bool IsEmptyDateTime(string dateTime)
@@ -243,7 +241,7 @@ namespace Test
             Navigation.Move("MapScreen", dictionary);
         }
 
-        internal bool IsEmptyCheckList(long count)
+        internal bool IsNotZero(long count)
         {
             return Convert.ToInt64(count) != Convert.ToInt64(0L);
         }
