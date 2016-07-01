@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 // ReSharper disable LoopCanBeConvertedToQuery
 
@@ -66,9 +65,9 @@ namespace Test
                 if (!string.IsNullOrWhiteSpace(word))
                     words.Add(word);
             }
-
-            var lines = CreateLinesFromWords(outputLineLength, outputLinesAmount, words);
-            TrimLastLine(outputLineLength, lines);
+            bool fitAll;
+            var lines = CreateLinesFromWords(outputLineLength, outputLinesAmount, words, out fitAll);
+            TrimLastLine(outputLineLength, lines, fitAll);
 
             var res = "";
             foreach (var line in lines)
@@ -78,48 +77,64 @@ namespace Test
             return res;
         }
 
-        private static void TrimLastLine(int outputLineLength, ArrayList lines)
+        private static void TrimLastLine(int outputLineLength, IList lines, bool fitAll)
         {
-            var lastLine = (string)lines[lines.Count - 1];
-            if (lastLine.TrimEnd().Length < outputLineLength) return;
+            if (fitAll)
+                return;
 
-            if (lastLine.Substring(outputLineLength - 3).Contains(" "))
+            var last = lines.Count - 1;
+            var lastLine = (string)lines[last];
+            if (lastLine.TrimEnd().Length < outputLineLength)
+            {
+                lines[last] = lastLine.TrimEnd() + new string('.', Math.Min(3, outputLineLength - lastLine.Length));
+                DConsole.WriteLine(lastLine);
+                return;
+            }
+            if (lastLine.LastIndexOf(' ') >= outputLineLength - 3)
             {
                 var lastWhiteSpace = lastLine.LastIndexOf(' ');
-                lines[lines.Count - 1] = lastLine.Substring(0, lastWhiteSpace);
+                lastLine = lastLine.Substring(0, lastWhiteSpace);
+                lines[last] = lastLine + new string('.', Math.Min(3, outputLineLength - lastWhiteSpace));
             }
             else
             {
-                lines[lines.Count - 1] = lastLine.Substring(0, outputLineLength - 3) + "...";
+                lines[last] = lastLine.Substring(0, outputLineLength - 3) + "...";
             }
             DConsole.WriteLine(lastLine);
         }
 
-        private static ArrayList CreateLinesFromWords(int outputLineLength, int outputLinesAmount, IList words)
+        private static ArrayList CreateLinesFromWords(int outputLineLength, int outputLinesAmount, IList words, out bool fitAll)
         {
             var lines = new ArrayList { "" };
+            fitAll = words.Count == 0;
             for (var i = 0; i < words.Count && lines.Count <= outputLinesAmount; i++)
             {
+                DConsole.WriteLine($"{i}/{words.Count}:{lines.Count}");
+                fitAll = i == words.Count - 1;
                 var word = (string)words[i];
                 var last = lines.Count - 1;
                 var lastLine = $"{lines[last]} {word}";
-                if (((string)lines[last]).Length <= outputLineLength)
+                if (lastLine.Length <= outputLineLength)
                 {
                     lines[last] = lastLine;
                     continue;
                 }
                 if (word.Length > outputLineLength)
                 {
-                    words[i] = ((string)lines[last]).Substring(outputLineLength);
+                    words[i] = lastLine.Substring(outputLineLength);
                     lines[last] = lastLine.Substring(0, outputLineLength);
                     i--;
-                    lines.Add("");
+                    lines.Add(string.Empty);
                 }
                 else
                 {
                     lines.Add(word);
                 }
+                fitAll = false;
             }
+
+            if (lines.Count > outputLinesAmount)
+                lines[lines.Count - 1] = string.Empty;
             foreach (var line in lines)
             {
                 DConsole.WriteLine((string)line);
