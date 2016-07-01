@@ -49,9 +49,9 @@ namespace Test
             return DBHelper.GetUserBagByUserId("@ref[Catalog_User]:da98befe-ef7b-11e5-80db-005056011152");
         }
 
-        internal string ConcatCountUnit(string count, string unit)
+        internal string ConcatCountUnit(Single count, string unit)
         {
-            return string.Concat(count, unit);
+            return string.Concat(count.ToString(), unit);
         }
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
