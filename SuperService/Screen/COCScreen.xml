@@ -10,7 +10,7 @@
     <c:VerticalLayout Id="ServicesInfoVL" CssClass="TotalPriceInfoVL">
       <c:HorizontalLayout Id="ServicesInfoHL" CssClass="TotalPriceInfoHL">
         <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#services#" />
-        <c:TextView Id="RightInfoTV" CssClass="RightInfoTV" Text="$GetFormatString($sums.SumServices)" />
+        <c:TextView Id="RightInfoServicesTV" CssClass="RightInfoTV" Text="$GetFormatStringForSums($sums.SumServices)" />
       </c:HorizontalLayout>
     </c:VerticalLayout>
 
@@ -60,7 +60,7 @@
         <c:VerticalLayout Id="MaterialsInfoVL" CssClass="TotalPriceInfoVL">
           <c:HorizontalLayout Id="MaterialsInfoHL" CssClass="TotalPriceInfoHL">
             <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#materials#" />
-            <c:TextView Id="RightInfoTV" CssClass="RightInfoTV" Text="$GetFormatStringForSums($sums.SumMaterials)" />
+            <c:TextView Id="RightInfoMaterialsTV" CssClass="RightInfoTV" Text="$GetFormatStringForSums($sums.SumMaterials)" />
           </c:HorizontalLayout>
         </c:VerticalLayout>
 

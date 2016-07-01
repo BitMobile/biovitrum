@@ -11,6 +11,8 @@ namespace Test
     {
         private DbRecordset _sums;
         private TopInfoComponent _topInfoComponent;
+        private TextView _totalSumForServices;
+        private TextView _totalSumForMaterials;
         private string _currentEventId;
 
         private bool _fieldsAreInitialized = false;
@@ -27,11 +29,16 @@ namespace Test
                 LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
                 CommentTextView =
                 {
-                    Text = Translator.Translate("total") + Environment.NewLine + Convert.ToDouble((double) _sums["Sum"])
-                           + Translator.Translate("currency")
-                },
+                    Text = $"{Translator.Translate("total")}" +
+                                                     $"{Environment.NewLine}" +
+                                                     $"{Math.Round((double)_sums["Sum"],2)} " +
+                                                     $"{Translator.Translate("currency")}"
+        },
                 BigArrowActive = false
             };
+
+            _totalSumForServices = (TextView)GetControl("RightInfoServicesTV", true);
+            _totalSumForMaterials = (TextView)GetControl("RightInfoMaterialsTV", true);
         }
 
         public int InitClassFields()
@@ -128,6 +135,13 @@ namespace Test
             DBHelper.DeleteServiceOrMaterialById(vl.Id);
             var shl = (ISwipeHorizontalLayout3)vl.Parent;
             shl.CssClass = "NoHeight";
+            var sums = GetSums();
+            _totalSumForServices.Text = GetFormatStringForSums((double)sums["SumServices"]);
+            _totalSumForMaterials.Text = GetFormatStringForSums((double)sums["SumMaterials"]);
+            _topInfoComponent.CommentTextView.Text = $"{Translator.Translate("total")}" +
+                                                     $"{Environment.NewLine}" +
+                                                     $"{Math.Round((double)sums["Sum"], 2)} " +
+                                                     $"{Translator.Translate("currency")}";
             shl.Refresh();
         }
 
