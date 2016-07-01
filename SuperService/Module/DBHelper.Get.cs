@@ -993,5 +993,22 @@ namespace Test
             query.AddParameter("contactId", contactId);
             return query.Execute();
         }
+
+        public static DbRecordset GetTotalFinishedRequireQuestionByEventId(string eventId)
+        {
+            var query = new Query(@"select
+                                        SUM(case
+                                        when result like '' then 1
+                                        else 0
+                                        end) as count
+                                    from
+                                        _Document_Event_CheckList
+                                        where
+                                        Ref = @ref and Required = 1");
+
+            query.AddParameter("ref", eventId);
+
+            return query.Execute();
+        }
     }
 }
