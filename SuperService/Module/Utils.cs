@@ -70,12 +70,12 @@ namespace Test
             var lines = CreateLinesFromWords(outputLineLength, outputLinesAmount, words);
             TrimLastLine(outputLineLength, lines);
 
-            var res = new StringBuilder();
+            var res = "";
             foreach (var line in lines)
             {
-                res.Append(line);
+                res = $"{res} {line}";
             }
-            return res.ToString();
+            return res;
         }
 
         private static void TrimLastLine(int outputLineLength, ArrayList lines)
@@ -95,25 +95,27 @@ namespace Test
             DConsole.WriteLine(lastLine);
         }
 
-        private static ArrayList CreateLinesFromWords(int outputLineLength, int outputLinesAmount, ArrayList words)
+        private static ArrayList CreateLinesFromWords(int outputLineLength, int outputLinesAmount, IList words)
         {
             var lines = new ArrayList { "" };
             for (var i = 0; i < words.Count && lines.Count <= outputLinesAmount; i++)
             {
-                var word = ((string)words[i]);
+                var word = (string)words[i];
                 var last = lines.Count - 1;
-                lines[last] = $"{lines[last]} {word}";
+                var lastLine = $"{lines[last]} {word}";
                 if (((string)lines[last]).Length <= outputLineLength)
+                {
+                    lines[last] = lastLine;
                     continue;
-
-                if (((string)lines[last]).Length > outputLineLength && word.Length > outputLineLength)
+                }
+                if (word.Length > outputLineLength)
                 {
                     words[i] = ((string)lines[last]).Substring(outputLineLength);
-                    lines[last] = ((string)lines[last]).Substring(0, outputLineLength);
+                    lines[last] = lastLine.Substring(0, outputLineLength);
                     i--;
                     lines.Add("");
                 }
-                if (((string)lines[last]).Length > outputLineLength && word.Length <= outputLineLength)
+                else
                 {
                     lines.Add(word);
                 }

@@ -15,7 +15,7 @@ namespace Test
             try
             {
                 DConsole.WriteLine(
-                    $"{"Сбербанк, \tцентр обслуживания клиентов,  \n\r    новый офис".CutForUIOutput(10, 2)}");
+                    $"{"Сбербанк, \tцентр обслуживания клиентов,  \n\r    новый офис".CutForUIOutput(20, 2)}");
             }
             catch (Exception e)
             {
