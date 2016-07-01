@@ -225,7 +225,14 @@ namespace Test
                             "                       Document_Event_CheckList.Ref = @id group by Document_Event_CheckList.Ref ) as docCheckList " +
                             "           on event.id = docCheckList.ref " +
                             "    " +
-                            "        left join (select Document_Event_Equipments.Ref, count(Document_Event_Equipments.Ref) as Total, TOTAL(case when result is null or result = '' then 0 else 1 end) as Answered from Document_Event_Equipments where Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment " +
+                            "        left join (select " +
+                            "                       Document_Event_Equipments.Ref, " +
+                            "                       count(Document_Event_Equipments.Ref) as Total, " +
+                            "                       TOTAL(case when result is null or result = '' or result not in (select Id from Enum_ResultEvent where Name like 'Done') then 0 else 1 end) as Answered " +
+                            "                   from" +
+                            "                       Document_Event_Equipments " +
+                            "                   where " +
+                            "                       Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment " +
                             "           on event.id = docEquipment.ref " +
                             "    " +
                             "        left join Catalog_Contacts " +
