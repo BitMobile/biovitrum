@@ -33,11 +33,16 @@ TextView {
 	width: 100%;
 }
 
-.EventListMainSVL {
+.EventListMainSV {
 	height: auto;
 	width: 100%;
 	/*margin-top: 1sp;*/
 	margin-bottom: 0sp;
+}
+
+.EventListMainVL {
+    height: 0% auto;
+	width: 100%;
 }
 
 .EventListDateHL {
