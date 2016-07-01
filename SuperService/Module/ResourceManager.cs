@@ -39,11 +39,21 @@ namespace Test
             {"tasklist_done", @"Image\TaskList\done.png"},
             {"tasklist_notdone", @"Image\TaskList\notDone.png"},
             {"tasklist_specdone", @"Image\TaskList\spec_done.png"},
-            //
+            // EventListScreen
+            {"eventlistscreen_blueborder", @"Image\EventListScreen\blue_border.png"},
+            {"eventlistscreen_bluecircle", @"Image\EventListScreen\blue_circle.png"},
+            {"eventlistscreen_bluedone", @"Image\EventListScreen\blue_done.png"},
+            {"eventlistscreen_yellowborder", @"Image\EventListScreen\yellow_border.png"},
+            {"eventlistscreen_yellowcircle", @"Image\EventListScreen\yellow_circle.png"},
+            {"eventlistscreen_yellowdone", @"Image\EventListScreen\yellow_done.png"},
+            {"eventlistscreen_redborder", @"Image\EventListScreen\red_border.png"},
+            {"eventlistscreen_redcircle", @"Image\EventListScreen\red_circle.png"},
+            {"eventlistscreen_reddone", @"Image\EventListScreen\red_done.png"},
+            // EventScreen
             {"eventscreen_clist", @"Image\es_clist.png"},
             {"eventscreen_coc", @"Image\es_coc.png"},
             {"eventscreen_tasks", @"Image\es_tasks.png"},
-            // Client Screen
+            // ClientScreen
             {"clientscreen_phone", @"Image\ClientScreen\Phone.png"},
             {"clientscreen_plus", @"Image\ClientScreen\Plus.png"},
             {"clientscreen_gps", @"Image\ClientScreen\GPS.png"},

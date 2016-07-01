@@ -10,20 +10,16 @@ namespace Test
 {
     public class EventListScreen : Screen
     {
-        private ArrayList _eventsList;
-        private ScrollView _svlEventList;
+        private bool _needTodayBreaker = Convert.ToBoolean("True");
+        private bool _needTodayLayout = Convert.ToBoolean("True");
         private TabBarComponent _tabBarComponent;
         private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("OnLoanding EventList");
-            _svlEventList = (ScrollView) GetControl("EventListScrollView", true);
-
-            _eventsList = GetEventsFromDb();
+            DConsole.WriteLine("OnLoading EventList");
 
             _tabBarComponent = new TabBarComponent(this);
-
             _topInfoComponent = new TopInfoComponent(this)
             {
                 LeftButtonImage = {Source = ResourceManager.GetImage("topheading_filter")},
@@ -35,190 +31,204 @@ namespace Test
 
             var statistic = DBHelper.GetEventsStatistic();
             _topInfoComponent.LeftExtraLayout.AddChild(
-                new TextView($"{statistic.DayCompleteAmout}/{statistic.DayTotalAmount}") {CssClass = "ExtraInfo"});
+                new TextView($"{statistic.DayCompleteAmout}/{statistic.DayTotalAmount}")
+                {
+                    CssClass = "ExtraInfo"
+                });
             _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("today"))
             {
-                CssClass = "BottonExtraInfo"
+                CssClass = "ButtonExtraInfo"
             });
+
             _topInfoComponent.RightExtraLayout.AddChild(
-                new TextView($"{statistic.MonthCompleteAmout}/{statistic.MonthTotalAmount}") {CssClass = "ExtraInfo"});
+                new TextView($"{statistic.MonthCompleteAmout}/{statistic.MonthTotalAmount}")
+                {
+                    CssClass = "ExtraInfo"
+                });
             _topInfoComponent.RightExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
             {
-                CssClass = "BottonExtraInfo"
+                CssClass = "ButtonExtraInfo"
             });
-
-            DConsole.WriteLine("FillingOrderList");
-            FillingOrderList();
         }
 
-
-        public override void OnShow()
+        internal string GetStatusPicture(string importance, string status)
         {
-            GPS.StartTracking();
+            DConsole.WriteLine("getstatus: importance - " + importance + " status - " + status);
+            var pictureTag = @"eventlistscreen_";
+
+            if (importance == "Standart")
+            {
+                pictureTag += "blue";
+            }
+            else if (importance == "High")
+            {
+                pictureTag += "yellow";
+            }
+            else if (importance == "Critical")
+            {
+                pictureTag += "red";
+            }
+
+            if (status == "Appointed")
+            {
+                pictureTag += "border";
+            }
+            else if (status == "Done")
+            {
+                pictureTag += "done";
+            }
+            else if (status == "InWork")
+            {
+                pictureTag += "circle";
+            }
+            DConsole.WriteLine("pictureTag: " + pictureTag);
+            return ResourceManager.GetImage(pictureTag);
         }
 
-        private void FillingOrderList()
+        internal string GetDateNowEventList()
         {
-            if (_eventsList == null)
-                return;
-
-            var currenDate = DateTime.Now;
-            var isHeaderAdded = false;
-            VerticalLayout orderInfoLayout = null;
-
-
-            foreach (var variable in _eventsList)
-            {
-                var itemElement = (EventListElement) variable;
-
-                if (itemElement.StartDatePlan.Date <= currenDate.Date)
-                {
-                    if (orderInfoLayout != null)
-                    {
-                        orderInfoLayout.AddChild(new HorizontalLine {CssClass = "ClientHorizontalLine"});
-                    }
-
-                    FillEventList(ref isHeaderAdded, ref itemElement, ref orderInfoLayout);
-                }
-                else
-                {
-                    _svlEventList.AddChild(new HorizontalLine {CssClass = "FinalDateLine"});
-                    currenDate = itemElement.StartDatePlan;
-                    isHeaderAdded = false;
-                    FillEventList(ref isHeaderAdded, ref itemElement, ref orderInfoLayout);
-                }
-            }
+            //DConsole.WriteLine(DateTime.Now.ToString("dddd dd MMMM"));
+            //return DateTime.Now.ToString("dddd dd MMMM");
+            //DConsole.WriteLine(DateTime.Now.ToString("dd-MM-yyyy"));
+            return DateTime.Now.ToString("dd-MM-yyyy");
         }
 
-
-        private void FillEventList(ref bool isHeaderAdded, ref EventListElement itemElement,
-            ref VerticalLayout orderInfoRefLayout)
+        internal string DateTimeToDateWithWeekCheck(string datetime)
         {
-            TextView dateText;
-            HorizontalLine finalDateLine;
-            HorizontalLayout eventLayout;
-            VerticalLayout timeLayout;
-            TextView startDatePlaneTextView;
-            TextView actualStartDateTextView;
-            VerticalLayout importanceLayout;
-            HorizontalLayout importanceIndicatorLayout;
-            VerticalLayout orderInfoLayout;
-            TextView clientDescriptionTextView;
-            TextView clientAdressTextView;
-            TextView typeDeparturesTextView;
+            var workDate = DateTime.Parse(datetime).Date;
+            var currentDate = DateTime.Now.Date;
 
-
-            if (!isHeaderAdded)
+            var workDateWeekNumber = (workDate.DayOfYear + 6)/7;
+            if (workDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
             {
-                if (itemElement.StartDatePlan.Date <= DateTime.Now.Date)
-                {
-                    dateText = new TextView(Translator.Translate("todayUpper")) {CssClass = "DateText"};
-                    finalDateLine = new HorizontalLine {CssClass = "FinalDateLine"};
-                    _svlEventList.AddChild(dateText);
-                    _svlEventList.AddChild(finalDateLine);
-                    isHeaderAdded = true;
-                }
-
-                else
-                {
-                    dateText = new TextView
-                    {
-                        CssClass = "DateText",
-                        Text = itemElement.StartDatePlan.Date.ToString("dddd, dd MMMM").ToUpper()
-                    };
-                    finalDateLine = new HorizontalLine {CssClass = "FinalDateLine"};
-                    _svlEventList.AddChild(dateText);
-                    _svlEventList.AddChild(finalDateLine);
-                    isHeaderAdded = true;
-                }
+                ++workDateWeekNumber;
             }
 
-            eventLayout = new HorizontalLayout {CssClass = "OrderInfoContainer", Id = itemElement.Id};
-            eventLayout.OnClick += EventLayout_OnClick;
-
-            timeLayout = new VerticalLayout {CssClass = "OrderTimeContainer"};
-            startDatePlaneTextView = new TextView
+            var currentDateWeekNumber = (currentDate.DayOfYear + 6)/7;
+            if (currentDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
             {
-                Text = itemElement.StartDatePlan.ToString("HH:mm"),
-                CssClass = "StartDatePlan"
-            };
-
-            actualStartDateTextView = new TextView
-            {
-                CssClass = "ActualStartDate"
-            };
-
-            if (itemElement.ActualStartDate != default(DateTime))
-            {
-                actualStartDateTextView.Text = (DateTime.Now - itemElement.ActualStartDate).ToString(@"hh\:mm");
-            }
-            else
-            {
-                actualStartDateTextView.Visible = false;
+                ++currentDateWeekNumber;
             }
 
-            timeLayout.AddChild(startDatePlaneTextView);
-            timeLayout.AddChild(actualStartDateTextView);
-
-            importanceLayout = new VerticalLayout {CssClass = "ImportanceContainer"};
-            importanceIndicatorLayout = new HorizontalLayout();
-
-            switch (itemElement.ImportanceName)
+            if (workDateWeekNumber == currentDateWeekNumber)
             {
-                case "Critical":
-                    importanceIndicatorLayout.CssClass = "ImportanceIndicatorCritical";
-                    break;
-                case "High":
-                    importanceIndicatorLayout.CssClass = "ImportanceIndicatorHigh";
-                    break;
-                case "Standart":
-                    importanceIndicatorLayout.CssClass = "ImportanceIndicatorStandart";
-                    break;
-                default:
-                    importanceIndicatorLayout.CssClass = "ImportanceIndicatorStandart";
-                    break;
+                return DateTime.Parse(datetime).ToString("dddd, dd MMMM").ToUpper();
             }
-
-            importanceLayout.AddChild(importanceIndicatorLayout);
-
-            orderInfoLayout = new VerticalLayout {CssClass = "OrderInfo"};
-            orderInfoRefLayout = orderInfoLayout;
-            clientDescriptionTextView = new TextView
-            {
-                CssClass = "ClientDescription",
-                Text = itemElement.ClientDescription
-            };
-
-            clientAdressTextView = new TextView
-            {
-                CssClass = "ClientAdress",
-                Text = itemElement.ClientAddress
-            };
-
-            typeDeparturesTextView = new TextView
-            {
-                CssClass = "TypesDepartures",
-                Text = itemElement.TypeDeparture
-            };
-
-
-            orderInfoLayout.AddChild(clientDescriptionTextView);
-            orderInfoLayout.AddChild(clientAdressTextView);
-            orderInfoLayout.AddChild(typeDeparturesTextView);
-
-
-            eventLayout.AddChild(timeLayout);
-            eventLayout.AddChild(importanceLayout);
-            eventLayout.AddChild(orderInfoLayout);
-
-
-            _svlEventList.AddChild(eventLayout);
+            return DateTime.Parse(datetime).ToString("dd MMMM yyyy").ToUpper();
         }
 
+        internal string GetStartDate(string startPlan, string endPlan)
+        {
+            var startTime = DateTime.Parse(startPlan); //DateTime.Parse(startPlan).ToString("HH:mm:ss");
+            var endTime = DateTime.Parse(endPlan); // .ToString("HH:mm");
+            if (endTime - startTime > new TimeSpan(23, 59, 00))
+            {
+                return Translator.Translate("allday");
+            }
+            return startTime.ToString("HH:mm");
+        }
+
+        internal string GetTimeCounter(string actualStartDate, string statusName)
+        {
+            DConsole.WriteLine("actualStartDate: " + actualStartDate);
+            var actualTime = DateTime.Parse(actualStartDate); // .ToString("HH:mm");
+
+            if ((actualTime != default(DateTime)) && statusName == "Appointed")
+            {
+                var ans = DateTime.Now - actualTime; // .ToString(@"hh\:mm");
+                DConsole.WriteLine(ans.ToString());
+                return ans.Days*24 + ans.Hours + ":" + ans.Minutes; // @"hh\:mm");
+            }
+            return "";
+        }
+
+        internal int SetTodayLayoutToFalse()
+        {
+            //DConsole.WriteLine("in ToFalse entered");
+            _needTodayLayout = Convert.ToBoolean("False");
+            return 0;
+        }
+
+        internal int SetTodayBreakerToFalse()
+        {
+            //DConsole.WriteLine("SetTodayBreakerToFalse setted to false");
+            _needTodayBreaker = Convert.ToBoolean("False");
+            return 0;
+        }
+
+        internal bool IsDateEquals(string lastdate, string nowdate)
+        {
+            if (DateTime.Parse(lastdate).Date == DateTime.Parse(nowdate).Date)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        internal bool IsDateEqualsOrLess(string lastdate, string nowdate)
+        {
+            if (DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date)
+            {
+                DConsole.WriteLine("EqualOrLess comparing: " + lastdate + " >= " + nowdate);
+                return true;
+            }
+            DConsole.WriteLine("EqualOrLess comparing: " + lastdate + " < " + nowdate);
+            return false;
+        }
+
+        internal bool IsDateChanged(string lastdate, string nowdate)
+        {
+            if (DateTime.Parse(lastdate).Date < DateTime.Parse(nowdate).Date)
+            {
+                //DConsole.WriteLine("IsDateChanged returns " + lastdate + " < " + nowdate);
+                return true;
+            }
+            //DConsole.WriteLine("IsDateChanged returns " + lastdate + " not < " + nowdate);
+            return false;
+        }
+
+        internal bool IsTodayLayoutNeed()
+        {
+            //DConsole.WriteLine(_needTodayLayout.ToString());
+            if (_needTodayLayout)
+            {
+                //DConsole.WriteLine("TodayLayoutNeed");
+                return Convert.ToBoolean("True");
+            }
+            //DConsole.WriteLine("TodayLayoutNOTNeed");
+            return Convert.ToBoolean("False");
+        }
+
+        internal bool IsTodayBreakerNeed()
+        {
+            if (_needTodayBreaker)
+            {
+                //DConsole.WriteLine("IsTodayBreakerNeed needed");
+                return true;
+            }
+            //DConsole.WriteLine("IsTodayBreakerNeed NOTneeded");
+            return false;
+        }
+
+        internal string DateTimeToDate(string datetime)
+        {
+            return DateTime.Parse(datetime).ToString("dddd dd MMMM");
+        }
+
+        internal IEnumerable GetEvents()
+        {
+            return DBHelper.GetEvents();
+        }
+
+        internal string GetResourceImage(string tag)
+        {
+            return ResourceManager.GetImage(tag);
+        }
+
+        // TopInfo parts
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
         }
-
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
@@ -238,7 +248,7 @@ namespace Test
             Navigation.Move("MapScreen", dictionary);
         }
 
-        internal void EventLayout_OnClick(object sender, EventArgs e)
+        internal void EventListItemHL_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("Go To View Event");
             var currentEvent = (HorizontalLayout) sender;
@@ -246,6 +256,7 @@ namespace Test
             Navigation.Move("EventScreen");
         }
 
+        // TabBar parts
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
             //_tabBarComponent.Events_OnClick(sender, eventArgs);
@@ -265,17 +276,15 @@ namespace Test
         {
             _tabBarComponent.Settings_OnClick(sender, eventArgs);
         }
+    }
 
-        private ArrayList GetEventsFromDb()
-        {
-            return DBHelper.GetEvents();
-        }
-
-        internal string GetResourceImage(string tag)
-        {
-            return ResourceManager.GetImage(tag);
-        }
-
+    public enum MapMarkerColor
+    {
+        Red,
+        Green,
+        Blue,
+        Yellow,
+        Orange
     }
 
     public enum MapMarkerColor

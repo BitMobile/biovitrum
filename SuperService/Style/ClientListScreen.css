@@ -162,7 +162,47 @@ TextView {
     width: 100%;
 }
 
+.ClientItemLayout {
+	height: 12sp;
+	horizontal-align: center;
+	width: 90%;
+}
+
+.ClientItemName {
+	font: 3sp arial;
+	horizontal-align: left;
+	text-align: left;
+	color: #000000;
+	margin-top: 0sp;
+	margin-left: 2sp;
+}
+
+.ClientItemAddress {
+	font: 2.5sp arial;
+	horizontal-align: left;
+	text-align: left;
+	margin-bottom: 1sp;
+	margin-left: 2sp;
+}
+
+.ClientBreaker {
+	background-color: #f3f3f4;
+	height: 3px;
+	margin-left: 2sp;
+	width: 95%;
+	horizontal-align: left;
+	vertical-align: center;
+}
+/* End of ClientList */
+
 /* Tab Bar style */
+.TabBarMainVL {
+    background-color: #ffffff;
+	dock-align: bottom;
+	height: 9%;
+	horizontal-align: center;
+	width: 100%;
+}
 
 .TabBarHL {
     background-color: #ffffff;
@@ -203,7 +243,6 @@ TextView {
     color: #9b9fa0;
     text-align: center;
 }
-
 /* End of Tab Bar style */
 
 /*  ClientList */

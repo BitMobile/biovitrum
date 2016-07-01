@@ -30,14 +30,6 @@ namespace Test
             Navigation.Back();
         }
 
-        internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
-        {
-        }
-
-        internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
-        {
-        }
-
         internal bool IsTodayLayoutNeed()
         {
             if (_needTodayLayout)
@@ -46,10 +38,23 @@ namespace Test
             }
             return Convert.ToBoolean("False");
         }
+        internal bool IsTodayBreakerNeed()
+        {
+            if (_needTodayBreaker)
+            {
+                return true;
+            }
+            return false;
+        }
 
         internal int SetTodayLayoutBoolToFalse()
         {
             _needTodayLayout = Convert.ToBoolean("False");
+            return 0;
+        }
+        internal int SetTodayBreakerToFalse()
+        {
+            _needTodayBreaker = Convert.ToBoolean("False");
             return 0;
         }
 
@@ -57,12 +62,10 @@ namespace Test
         {
             return DateTime.Now.ToString("dddd dd MMMM");
         }
-
         internal string DateTimeToDate(string datetime)
         {
             return DateTime.Parse(datetime).ToString("dddd dd MMMM");
         }
-
         internal string DateTimeToDateWithWeekCheck(string datetime)
         {
             var workDate = DateTime.Parse(datetime).Date;
@@ -86,7 +89,10 @@ namespace Test
             }
             return DateTime.Parse(datetime).ToString("dd MMMM yyyy").ToUpper();
         }
-
+        internal string ToHoursMinutes(string datetime)
+        {
+            return TimeSpan.Parse(datetime).ToString(@"hh\:mm");
+        }
         internal bool IsDateChanged(string lastdate, string nowdate)
         {
             if (DateTime.Parse(lastdate).Date > DateTime.Parse(nowdate).Date)
@@ -95,7 +101,6 @@ namespace Test
             }
             return false;
         }
-
         internal bool IsDateEquals(string lastdate, string nowdate)
         {
             if (DateTime.Parse(lastdate).Date == DateTime.Parse(nowdate).Date)
@@ -105,34 +110,26 @@ namespace Test
             return false;
         }
 
-        internal bool IsTodayBreakerNeed()
-        {
-            if (_needTodayBreaker)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        internal int SetTodayBreakerToFalse()
-        {
-            _needTodayBreaker = Convert.ToBoolean("False");
-            return 0;
-        }
-
-        internal string ToHoursMinutes(string datetime)
-        {
-            return TimeSpan.Parse(datetime).ToString(@"hh\:mm");
-        }
 
         internal IEnumerable GetNeedMats()
         {
             return DBHelper.GetNeedMats();
         }
-
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
+        }
+
+        // TopInfo parts
+        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
+        {
+            Navigation.Back();
+        }
+        internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
+        {
+        }
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
+        {
         }
     }
 }
