@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Security.Policy;
+using System.Text;
+
+// ReSharper disable LoopCanBeConvertedToQuery
 
 namespace Test
 {
@@ -15,7 +17,7 @@ namespace Test
         }
 
         /// <summary>
-        /// Distance in meters
+        ///     Distance in meters
         /// </summary>
         /// <returns></returns>
         public static double GetDistance(double lat1, double lon1, double lat2, double lon2)
@@ -38,7 +40,7 @@ namespace Test
             var deltal = (lon2 - lon1) * Math.PI / 180;
 
             var a = Math.Pow(Math.Sin(deltaf / 2), 2)
-                       + Math.Cos(f1) * Math.Cos(f2) * Math.Pow(Math.Sin(deltal / 2), 2);
+                    + Math.Cos(f1) * Math.Cos(f2) * Math.Pow(Math.Sin(deltal / 2), 2);
             var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
             var result = r * c;
 
@@ -46,7 +48,7 @@ namespace Test
         }
 
         /// <summary>
-        ///    Преобразует входящую строку к виду, который помесится в указанное количество строк интерфейса
+        ///     Преобразует входящую строку к виду, который помесится в указанное количество строк интерфейса
         /// </summary>
         /// <param name="str">Строка для красивого обрезания</param>
         /// <param name="outputLineLength">Длина одной строки в интерфейсе</param>
@@ -54,12 +56,49 @@ namespace Test
         /// <returns></returns>
         public static string CutForUIOutput(this string str, int outputLineLength, int outputLinesAmount)
         {
-            var res = str.Substring(0, Math.Min(str.Length, outputLineLength * outputLinesAmount));
-            if (str.Length > outputLineLength * outputLinesAmount)
+            var split = str.Split(null);
+            var words = new ArrayList();
+            foreach (var word in split)
             {
-                res = res.Substring(0, outputLineLength * outputLinesAmount - 3) + "...";
+                if (!string.IsNullOrWhiteSpace(word))
+                    words.Add(word);
             }
-            return res;
+
+            var lines = new ArrayList();
+            for (var i = 0; i < words.Count && lines.Count <= outputLinesAmount; i++)
+            {
+                var word = (string)words[i] + " ";
+                var last = lines.Count - 1;
+                lines[last] += word;
+                if (((string)lines[last]).Length > outputLineLength)
+                {
+                    words[i] = ((string)lines[last]).Substring(outputLineLength);
+                    lines[last] = ((string)lines[last]).Substring(0, outputLineLength);
+                    i--;
+                    lines.Add("");
+                }
+            }
+
+            var lastLine = (string)lines[lines.Count - 1];
+            if (lastLine.TrimEnd().Length >= outputLineLength)
+            {
+                if (lastLine.Substring(outputLineLength - 3).Contains(" "))
+                {
+                    var lastWhiteSpace = lastLine.LastIndexOf(' ');
+                    lines[lines.Count - 1] = lastLine.Substring(0, lastWhiteSpace);
+                }
+                else
+                {
+                    lines[lines.Count - 1] = lastLine.Substring(0, outputLineLength - 3) + "...";
+                }
+            }
+
+            var res = new StringBuilder();
+            foreach (var line in lines)
+            {
+                res.Append(line);
+            }
+            return res.ToString();
         }
     }
 }
