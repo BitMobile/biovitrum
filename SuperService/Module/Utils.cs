@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BitMobile.ClientModel3;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -53,10 +54,12 @@ namespace Test
         /// <param name="str">Строка для красивого обрезания</param>
         /// <param name="outputLineLength">Длина одной строки в интерфейсе</param>
         /// <param name="outputLinesAmount">Количество строк в интерфейсе</param>
-        /// <returns></returns>
+        /// <returns>Преобразованная строка</returns>
         public static string CutForUIOutput(this string str, int outputLineLength, int outputLinesAmount)
         {
             var split = str.Split(null);
+            outputLineLength = Convert.ToInt32(outputLineLength);
+            outputLinesAmount = Convert.ToInt32(outputLinesAmount);
             var words = new ArrayList();
             foreach (var word in split)
             {
@@ -64,34 +67,8 @@ namespace Test
                     words.Add(word);
             }
 
-            var lines = new ArrayList();
-            for (var i = 0; i < words.Count && lines.Count <= outputLinesAmount; i++)
-            {
-                var word = (string)words[i] + " ";
-                var last = lines.Count - 1;
-                lines[last] += word;
-                if (((string)lines[last]).Length > outputLineLength)
-                {
-                    words[i] = ((string)lines[last]).Substring(outputLineLength);
-                    lines[last] = ((string)lines[last]).Substring(0, outputLineLength);
-                    i--;
-                    lines.Add("");
-                }
-            }
-
-            var lastLine = (string)lines[lines.Count - 1];
-            if (lastLine.TrimEnd().Length >= outputLineLength)
-            {
-                if (lastLine.Substring(outputLineLength - 3).Contains(" "))
-                {
-                    var lastWhiteSpace = lastLine.LastIndexOf(' ');
-                    lines[lines.Count - 1] = lastLine.Substring(0, lastWhiteSpace);
-                }
-                else
-                {
-                    lines[lines.Count - 1] = lastLine.Substring(0, outputLineLength - 3) + "...";
-                }
-            }
+            var lines = CreateLinesFromWords(outputLineLength, outputLinesAmount, words);
+            TrimLastLine(outputLineLength, lines);
 
             var res = new StringBuilder();
             foreach (var line in lines)
@@ -99,6 +76,54 @@ namespace Test
                 res.Append(line);
             }
             return res.ToString();
+        }
+
+        private static void TrimLastLine(int outputLineLength, ArrayList lines)
+        {
+            var lastLine = (string)lines[lines.Count - 1];
+            if (lastLine.TrimEnd().Length < outputLineLength) return;
+
+            if (lastLine.Substring(outputLineLength - 3).Contains(" "))
+            {
+                var lastWhiteSpace = lastLine.LastIndexOf(' ');
+                lines[lines.Count - 1] = lastLine.Substring(0, lastWhiteSpace);
+            }
+            else
+            {
+                lines[lines.Count - 1] = lastLine.Substring(0, outputLineLength - 3) + "...";
+            }
+            DConsole.WriteLine(lastLine);
+        }
+
+        private static ArrayList CreateLinesFromWords(int outputLineLength, int outputLinesAmount, ArrayList words)
+        {
+            var lines = new ArrayList { "" };
+            for (var i = 0; i < words.Count && lines.Count <= outputLinesAmount; i++)
+            {
+                var word = ((string)words[i]);
+                var last = lines.Count - 1;
+                lines[last] = $"{lines[last]} {word}";
+                if (((string)lines[last]).Length <= outputLineLength)
+                    continue;
+
+                if (((string)lines[last]).Length > outputLineLength && word.Length > outputLineLength)
+                {
+                    words[i] = ((string)lines[last]).Substring(outputLineLength);
+                    lines[last] = ((string)lines[last]).Substring(0, outputLineLength);
+                    i--;
+                    lines.Add("");
+                }
+                if (((string)lines[last]).Length > outputLineLength && word.Length <= outputLineLength)
+                {
+                    lines.Add(word);
+                }
+            }
+            foreach (var line in lines)
+            {
+                DConsole.WriteLine((string)line);
+            }
+
+            return lines;
         }
     }
 }
