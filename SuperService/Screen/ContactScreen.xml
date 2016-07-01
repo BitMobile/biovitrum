@@ -19,12 +19,13 @@
           <c:TextView Text="#phone#" CssClass="ContactTitleTextView" />
         </c:VerticalLayout>
 
-        <c:VerticalLayout CssClass="ImageActionButton" OnClick="CallButton_OnClick">
-          <c:Image Id="CallImage" CssClass="CallImageImg" Source="$GetResourceImage(contactscreen_phone)" />
-        </c:VerticalLayout>
-
+        
         <c:VerticalLayout CssClass="ImageActionButton" OnClick="SendMessageButton_OnClick">
           <c:Image Id="CallImage" CssClass="CallImageImg" Source="$GetResourceImage(contactscreen_sms)" />
+        </c:VerticalLayout>
+        
+        <c:VerticalLayout CssClass="ImageActionButton" OnClick="CallButton_OnClick">
+          <c:Image Id="CallImage" CssClass="CallImageImg" Source="$GetResourceImage(contactscreen_phone)" />
         </c:VerticalLayout>
 
       </c:HorizontalLayout>
