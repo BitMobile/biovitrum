@@ -114,9 +114,7 @@ namespace Test
             _refuseButton.Refresh();
             _startFinishButton.CssClass = "FinishButton";
             _startFinishButton?.Refresh();
-            _startFinishButton.Text = $"{Translator.Translate("finish")}" +
-                                      $"{Environment.NewLine}" +
-                                      $"{DateTime.Now.Date.ToString("HH:mm")}";
+            _startFinishButton.Text = $"{Translator.Translate("finish")}\n{DateTime.Now.Date.ToString("HH:mm")}";
             _rootLayout.Refresh();
             Event_OnStart();
         }
@@ -277,9 +275,7 @@ namespace Test
 
             if (isOk)
             {
-                return $"{Translator.Translate(translate)}" +
-                  $"{Environment.NewLine}" +
-                  $"{(DateTime.Now - startActualDate).ToString(@"hh\:mm")}";
+                return $"{Translator.Translate(translate)}\n{(DateTime.Now - startActualDate).ToString(@"hh\:mm")}";
             }
             throw new Exception("Parsing error");
         }
