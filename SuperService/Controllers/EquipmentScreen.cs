@@ -10,16 +10,15 @@ namespace Test
 {
     public class EquipmentScreen : Screen
     {
-
         private bool _fieldsAreInitialized = false;
 
         private TopInfoComponent _topInfoComponent;
 
-        //TODO: Когда починят метод getObject сделать чтение в этот объект по Гуиду, пока пересозаем его в initClassFields 
+        //TODO: Когда починят метод getObject сделать чтение в этот объект по Гуиду, пока пересозаем его в initClassFields
         private Equipment _equipment;
+
         private string _equipmentId;
         private string _equipmentDescription;
-
 
         public override void OnLoading()
         {
@@ -34,7 +33,6 @@ namespace Test
             };
         }
 
-
         public int InitClassFields()
         {
             if (_fieldsAreInitialized)
@@ -44,8 +42,6 @@ namespace Test
 
             //TODO: сделать получение по гуиду через getObject когда его починят
 
-            
-
             _equipmentId = (string)Variables.GetValueOrDefault(Parameters.IdEquipmentId, "");
             var equipmentRS = DBHelper.GetEquipmentById(_equipmentId);
             if (equipmentRS.Next())
@@ -53,12 +49,10 @@ namespace Test
                 _equipmentDescription = equipmentRS.GetString(0);
             }
 
-
             _fieldsAreInitialized = true;
 
             return 0;
         }
-
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
@@ -84,12 +78,10 @@ namespace Test
             return _equipmentDescription;
         }
 
-
         internal DbRecordset GetParameters()
         {
             return DBHelper.GetEquipmentParametersById(_equipmentId);
         }
-
 
         internal DbRecordset GetHistory()
         {
@@ -99,7 +91,14 @@ namespace Test
 
         internal string FormatDateString(string dateTime)
         {
-            return dateTime.Substring(5, 5);
+            DateTime date;
+
+            if (DateTime.TryParse(dateTime, out date))
+            {
+                return date.ToString("d MMMM");
+            }
+
+            throw new FormatException("Date format uncorrect");
         }
 
         internal string GetResourceImage(string tag)
