@@ -1,18 +1,16 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
+using Test.Catalog;
 using Test.Components;
-using Test.Entities.Catalog;
 
 namespace Test
 {
     public class ContactScreen : Screen
     {
-
         private TopInfoComponent _topInfoComponent;
         private Contacts _contact;
         private bool _fieldsAreInitialized = false;
-
 
         public override void OnLoading()
         {
@@ -43,7 +41,6 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
-
 
         /// <summary>
         ///     Проверяет строку на то, что она null, пустая

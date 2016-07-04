@@ -1,7 +1,7 @@
 using System;
 using BitMobile.DbEngine;
 
-namespace Test.Entities.Catalog
+namespace Test.Catalog
 {
     public class Equipment : DbEntity
     {
@@ -11,11 +11,6 @@ namespace Test.Entities.Catalog
         public string Description { get; set; }
         public string Code { get; set; }
         public DbRef SKU { get; set; }
-        
-        public Equipment(DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_Equipment", Guid.NewGuid());
-        }
 }
     public class Equipment_Equiements : DbEntity
     {
@@ -31,10 +26,6 @@ namespace Test.Entities.Catalog
         public string Info { get; set; }
         public DbRef Equiement { get; set; }
 
-        public Equipment_Equiements (DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_Equipment_Equiements", Guid.NewGuid());					
-        }
    }
     public class Equipment_EquiementsHistory : DbEntity
     {
@@ -50,10 +41,6 @@ namespace Test.Entities.Catalog
         public string Comment { get; set; }
         public DbRef Executor { get; set; }
 
-        public Equipment_EquiementsHistory (DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_Equipment_EquiementsHistory", Guid.NewGuid());					
-        }
    }
     public class Equipment_Files : DbEntity
     {
@@ -63,10 +50,6 @@ namespace Test.Entities.Catalog
         public string FullFileName { get; set; }
         public DbRef FileName { get; set; }
 
-        public Equipment_Files (DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_Equipment_Files", Guid.NewGuid());					
-        }
    }
     public class Equipment_Parameters : DbEntity
     {
@@ -76,10 +59,6 @@ namespace Test.Entities.Catalog
         public DbRef Parameter { get; set; }
         public string Val { get; set; }
 
-        public Equipment_Parameters (DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_Equipment_Parameters", Guid.NewGuid());					
-        }
    }
 
 

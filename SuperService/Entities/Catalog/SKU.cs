@@ -1,7 +1,6 @@
-using System;
 using BitMobile.DbEngine;
 
-namespace Test.Entities.Catalog
+namespace Test.Catalog
 {
     public class SKU : DbEntity
     {
@@ -12,11 +11,6 @@ namespace Test.Entities.Catalog
         public DbRef Parent { get; set; }
         public string Description { get; set; }
         public string Code { get; set; }
-        
-        public SKU(DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_SKU", Guid.NewGuid());
-        }
 }
 
 

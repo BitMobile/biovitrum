@@ -1,7 +1,7 @@
 using System;
 using BitMobile.DbEngine;
 
-namespace Test.Entities.Catalog
+namespace Test.Catalog
 {
     public class ServiceAgreement : DbEntity
     {
@@ -14,11 +14,6 @@ namespace Test.Entities.Catalog
         public string Organization { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
-        
-        public ServiceAgreement(DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_ServiceAgreement", Guid.NewGuid());
-        }
 }
 
 

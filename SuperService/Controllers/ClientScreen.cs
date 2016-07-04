@@ -3,8 +3,8 @@ using BitMobile.ClientModel3.UI;
 using BitMobile.DbEngine;
 using System;
 using System.Collections.Generic;
+using Test.Catalog;
 using Test.Components;
-using Test.Entities.Catalog;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 namespace Test
@@ -157,8 +157,9 @@ namespace Test
         {
             var id = ((HorizontalLayout)sender).Id;
             var contact = DBHelper.GetContactById(id);
-            var contacts = new Contacts((DbRef)contact["Id"])
+            var contacts = new Contacts
             {
+                Id = (DbRef)contact["Id"],
                 DeletionMark = (bool)contact["DeletionMark"],
                 Description = (string)contact["Description"],
                 Code = (string)contact["Code"],

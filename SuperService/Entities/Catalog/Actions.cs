@@ -1,7 +1,6 @@
-using System;
 using BitMobile.DbEngine;
 
-namespace Test.Entities.Catalog
+namespace Test.Catalog
 {
     public class Actions : DbEntity
     {
@@ -11,11 +10,6 @@ namespace Test.Entities.Catalog
         public string Description { get; set; }
         public string Code { get; set; }
         public DbRef ActionType { get; set; }
-        
-        public Actions(DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_Actions", Guid.NewGuid());
-        }
 }
     public class Actions_ValueList : DbEntity
     {
@@ -24,10 +18,6 @@ namespace Test.Entities.Catalog
         public DbRef Ref { get; set; }
         public string Val { get; set; }
 
-        public Actions_ValueList (DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_Actions_ValueList", Guid.NewGuid());					
-        }
    }
 
 

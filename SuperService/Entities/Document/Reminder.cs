@@ -1,7 +1,7 @@
 using System;
 using BitMobile.DbEngine;
 
-namespace Test.Entities.Document
+namespace Test.Document
 {
     public class Reminder : DbEntity
     {
@@ -13,11 +13,6 @@ namespace Test.Entities.Document
         public DbRef Reminders { get; set; }
         public DbRef ViewReminder { get; set; }
         public string Comment { get; set; }
-        
-        public Reminder(DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Document_Reminder", Guid.NewGuid());
-        }
 }
     public class Reminder_Photo : DbEntity
     {
@@ -26,10 +21,6 @@ namespace Test.Entities.Document
         public DbRef Ref { get; set; }
         public DbRef IDPhoto { get; set; }
 
-        public Reminder_Photo (DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Document_Reminder_Photo", Guid.NewGuid());					
-        }
    }
 
 

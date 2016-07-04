@@ -1,8 +1,7 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.DbEngine;
 using System;
-using System.Collections;
-using Test.Entities.Document;
+using Test.Document;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 //using Database = BitMobile.ClientModel3.Database;
@@ -813,8 +812,9 @@ namespace Test
             var query = new Query("select * from Document_Event_Equipments where id = @id");
             query.AddParameter("id", id);
             var dbRecordset = query.Execute();
-            return new Event_Equipments((DbRef)dbRecordset["Id"])
+            return new Event_Equipments
             {
+                Id = (DbRef)dbRecordset["Id"],
                 Comment = (string)dbRecordset["Comment"],
                 Equipment = (DbRef)dbRecordset["Equipment"],
                 LineNumber = (int)dbRecordset["LineNumber"],

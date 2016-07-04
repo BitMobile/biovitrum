@@ -1,7 +1,6 @@
-using System;
 using BitMobile.DbEngine;
 
-namespace Test.Entities.Enum
+namespace Test.Enum
 {
     public class TypesEvents : DbEntity
     {

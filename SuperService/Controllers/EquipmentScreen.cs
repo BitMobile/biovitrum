@@ -1,10 +1,8 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using Test.Catalog;
 using Test.Components;
-using Test.Entities.Catalog;
 
 namespace Test
 {

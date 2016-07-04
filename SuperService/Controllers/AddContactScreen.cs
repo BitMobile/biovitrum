@@ -1,8 +1,8 @@
-﻿using System;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
-using Test.Entities.Catalog;
 using BitMobile.DbEngine;
+using System;
+using Test.Catalog;
 
 namespace Test
 {
@@ -21,7 +21,6 @@ namespace Test
 
         internal void AddContactButton_OnClick(object sender, EventArgs e)
         {
-
             object clientId;
             if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdClientId, out clientId))
             {
@@ -46,14 +45,13 @@ namespace Test
 
             var newClientContact = new Client_Contacts()
             {
-               Ref = DbRef.FromString((string)clientId),
-               Contact = newContact.Id
+                Ref = DbRef.FromString((string)clientId),
+                Contact = newContact.Id
             };
 
             DBHelper.SaveEntity(newClientContact);
             Navigation.Back(true);
         }
-
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
