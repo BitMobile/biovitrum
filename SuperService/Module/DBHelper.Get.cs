@@ -27,10 +27,10 @@ namespace Test
         /// <param name="eventSinceDate"> Дата начания с которой необходимо получить события</param>
         public static DbRecordset GetEvents(DateTime eventSinceDate)
         {
-            var queryString = "  select " +
-                              "  event.Id, " +
-                              "  event.StartDatePlan, " + //full date
-                              "  date(event.StartDatePlan) as startDatePlanDate, " + //date only
+            var queryString = @"select 
+                                 event.Id, 
+                                 event.StartDatePlan,  
+                                 date(event.StartDatePlan) as startDatePlanDate, " + //date only
                               "  event.EndDatePlan, " +
                               "  ifnull(TypeDeparturesTable.description, '') as TypeDeparture, " +
                               "  event.ActualStartDate as ActualStartDate, " + //4
@@ -588,17 +588,18 @@ namespace Test
         /// <returns></returns>
         public static DbRecordset GetRIMByType(RIMType rimType)
         {
-            var query = new Query("select " +
-                                  "    id, " +
-                                  "    Description, " +
-                                  "    Price, " +
-                                  "    Unit " +
-                                  "from " +
-                                  "    Catalog_RIM " +
-                                  "where " +
-                                  "    deletionMark = 0 " +
-                                  "    and isFolder = 0 " +
-                                  "    and service = @rim_type");
+            var query = new Query(@"select 
+                                      id, 
+                                      Description, 
+                                      Price, 
+                                      Unit, 
+                                      service
+                                  from 
+                                      Catalog_RIM 
+                                  where 
+                                      deletionMark = 0 
+                                      and isFolder = 0 
+                                      and service = @rim_type");
 
             DConsole.WriteLine("rimType = " + rimType);
             if (rimType == RIMType.Material)
@@ -870,7 +871,7 @@ namespace Test
         /// </summary>
         /// <returns>true используется рюкзак монтажника,
         /// false если не используется. null если таблица пустая или не найдено значение</returns>
-        public static bool GetIsBag()
+        public static bool GetIsUseServiceBag()
         {
             var query = new Query(@"SELECT LogicValue
                                     FROM _Catalog_SettingMobileApplication
@@ -878,7 +879,52 @@ namespace Test
 
             var dbResult = query.Execute();
 
-            return dbResult.Next() ? (bool)dbResult["LogicValue"] : Convert.ToBoolean("False");
+            return dbResult.Next() ? dbResult.GetBoolean(0) : Convert.ToBoolean("False");
+        }
+
+        /// <summary>
+        /// Получаем значение связанное с тем, включено ли отображение цен или нет
+        /// возращяет булевское значение упакованное в object
+        /// </summary>
+        /// <returns>true , если включено отображение цен
+        /// false если не используется. null если таблица пустая или не найдено значение</returns>
+        public static bool GetIsUsedCalculateService()
+        {
+            var query = new Query(@"SELECT LogicValue
+                                    FROM _Catalog_SettingMobileApplication
+                                    WHERE Description = 'UsedCalculateService' ");
+
+            var dbResult = query.Execute();
+
+            return dbResult.Next() ? dbResult.GetBoolean(0) : Convert.ToBoolean("False");
+        }
+
+
+        /// <summary>
+        /// Получаем значение связанное с тем, включено ли отображение цен или нет
+        /// возращяет булевское значение упакованное в object
+        /// </summary>
+        /// <returns>true , если включено отображение цен
+        /// false если не используется. null если таблица пустая или не найдено значение</returns>
+        public static bool GetIsUsedCalculateMaterials()
+        {
+            var query = new Query(@"SELECT LogicValue
+                                    FROM _Catalog_SettingMobileApplication
+                                    WHERE Description = 'UsedCalculateMaterials' ");
+
+            var dbResult = query.Execute();
+
+            // 
+            /*dbResult.Next();
+            var res1 = dbResult.GetBoolean(0);
+            var res2 = (bool) dbResult["LogicValue"];
+            DConsole.WriteLine("GetIsUsedCalculateMaterials() getBoolean = " + res1);
+            DConsole.WriteLine("GetIsUsedCalculateMaterials() (bool) = " + res1);
+
+
+            return true;*/
+
+            return dbResult.Next() ? dbResult.GetBoolean(0) : Convert.ToBoolean("False");
         }
 
         public static DbRecordset GetRIMFromBag(RIMType type = RIMType.Material)

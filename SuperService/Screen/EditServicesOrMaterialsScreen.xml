@@ -3,13 +3,11 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
     <s:Push Id="void_ crutch" Value="$InitClassFields()" />
-    <s:Push Id="serviceMaterial" Value="$GetServiceMaterialInfo()" />
-    <s:Push Id="void" Value="$SetPrice($serviceMaterial.Price)" />
     <c:VerticalLayout OnClick="BackButton_OnClick">
       <c:Image CssClass="CloseButtonImage" Source="$GetResourceImage(editservicesormaterialsscreen_close)" />
     </c:VerticalLayout>
     <c:VerticalLayout CssClass="EmptySpace7sp" />
-    <c:TextView CssClass="EditScreenHeader" Text="$serviceMaterial.Description" />
+    <c:TextView CssClass="EditScreenHeader" Text="$GetRIMDescription()" />
     <c:VerticalLayout CssClass="EmptySpace8sp" />
     <c:TextView CssClass="SlightlyGrey" Text="#count#" />
     <c:VerticalLayout CssClass="EmptySpace3sp" />
@@ -17,8 +15,8 @@
       <c:VerticalLayout CssClass="PlusMinusImageWrapper" Id="RemoveButton" OnClick="RemoveButton_OnClick">
         <c:Image CssClass="PlusMinusImage" Source="$GetResourceImage(editservicesormaterialsscreen_minus)" />
       </c:VerticalLayout>
-      <c:EditText Id="CountEditText" Text="$serviceMaterial.AmountFact" Keyboard="numeric"
-                  OnLostFocus="CountEditText_OnLostFocus" />
+      <c:EditText Id="AmountFactEditText" Text="" Keyboard="numeric"
+                  OnLostFocus="AmountFactEditText_OnLostFocus" />
       <c:VerticalLayout CssClass="PlusMinusImageWrapper" Id="AddButton" OnClick="AddButton_OnClick">
         <c:Image CssClass="PlusMinusImage" Source="$GetResourceImage(editservicesormaterialsscreen_plus)" />
       </c:VerticalLayout>

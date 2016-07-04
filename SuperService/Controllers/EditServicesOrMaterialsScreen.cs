@@ -3,6 +3,7 @@ using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
 using System.Globalization;
+using Microsoft.SqlServer.Server;
 
 namespace Test
 {
@@ -10,7 +11,9 @@ namespace Test
     {
         private bool _fieldsAreInitialized = false;
         private BehaviourEditServicesOrMaterialsScreen _behaviourEditServicesOrMaterialsScreen;
-        private EditText _countEditText;
+        private bool _usedCalculateService;
+        private bool _usedCalculateMaterials;
+        private EditText _amountFactEditText;
         private bool _editPrices;
         private string _key;
         private string _lineId;
@@ -24,6 +27,7 @@ namespace Test
         private bool _showPrices;
         private TextView _totalPriceTextView;
 
+        private string _description;
         private decimal Price
         {
             get { return GetAndCheckPriceEditText(_priceEditText); }
@@ -34,17 +38,39 @@ namespace Test
             }
         }
 
-        private int Count
+        private int AmountFact
         {
-            get { return GetAndCheckCountEditText(_countEditText); }
+            get { return GetAndCheckCountEditText(_amountFactEditText); }
             set
             {
                 value = Math.Max(value, _minimum);
-                _countEditText.Text = value.ToString();
+                _amountFactEditText.Text = value.ToString();
                 if (_totalPriceTextView != null)
-                    _totalPriceTextView.Text = (Price * Count).ToString(CultureInfo.CurrentCulture);
+                    _totalPriceTextView.Text = (Price * AmountFact).ToString(CultureInfo.CurrentCulture);
             }
         }
+
+        internal string GetRIMDescription()
+        {
+            return _description;
+        }
+
+        internal string GetRIMAmountFact()
+        {
+            return AmountFact.ToString();
+        }
+
+        internal string GetPriceDescription()
+        {
+            return "";
+        }
+
+        internal string GetTotalPriceDescription()
+        {
+            return "";
+        }
+
+
 
         public int InitClassFields()
         {
@@ -55,6 +81,8 @@ namespace Test
             _behaviourEditServicesOrMaterialsScreen =
                     (BehaviourEditServicesOrMaterialsScreen)
                         Variables.GetValueOrDefault(Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.None);
+            _usedCalculateService = DBHelper.GetIsUsedCalculateService();
+            _usedCalculateMaterials = DBHelper.GetIsUsedCalculateMaterials();
 
             _key = (string)Variables.GetValueOrDefault("returnKey", "somNewValue");
             _minimum = (int)Variables.GetValueOrDefault("minimum", 1);
@@ -63,6 +91,15 @@ namespace Test
             _rimId = (string)Variables.GetValueOrDefault("rimId");
             _lineId = (string)Variables.GetValueOrDefault(Parameters.IdLineId);
             _value = (int)Variables.GetValueOrDefault("value", 0);
+
+            var queryResult = _lineId != null
+                ? DBHelper.GetServiceMaterialPriceByLineID(_lineId)
+                : DBHelper.GetServiceMaterialPriceByRIMID(_rimId);
+
+            queryResult.Next();
+            _description = Convert.ToString(queryResult["Description"]);
+            AmountFact = Convert.ToInt32(queryResult["AmountFact"]);
+            Price = Convert.ToDecimal(queryResult["Price"]);
 
             BusinessProcess.GlobalVariables.Remove(_key);
 
@@ -75,7 +112,7 @@ namespace Test
         {
             InitClassFields();
 
-            _countEditText = (EditText)GetControl("CountEditText", true);
+            _amountFactEditText = (EditText)GetControl("AmountFactEditText", true);
             _priceEditText = (EditText)Variables["PriceEditText"];
             _totalPriceTextView = (TextView)GetControl("TotalPriceTextView", true);
         }
@@ -90,7 +127,7 @@ namespace Test
             Price = _price;
 
             if (_value > 0)
-                _countEditText.Text = $"{_value}";
+                _amountFactEditText.Text = $"{_value}";
         }
 
         private void FindTextViewAndChangeVisibility(string id, bool visibility)
@@ -134,7 +171,7 @@ namespace Test
 
         private void ReturnValue()
         {
-            var value = new EditServiceOrMaterialsScreenResult(Count, Price, Count * Price, _rimId);
+            var value = new EditServiceOrMaterialsScreenResult(AmountFact, Price, AmountFact * Price, _rimId);
 
             if (BusinessProcess.GlobalVariables.ContainsKey(_key))
                 BusinessProcess.GlobalVariables.Remove(_key);
@@ -145,7 +182,7 @@ namespace Test
         {
             //TODO: Переделать на объектную модель когда она будет починена (начнет работать метод GetObject())
 
-            DBHelper.UpdateServiceMaterialAmount(_lineId, Price, Count, Price * Count);
+            DBHelper.UpdateServiceMaterialAmount(_lineId, Price, AmountFact, Price * AmountFact);
         }
 
         private void InsertIntoDb()
@@ -153,20 +190,20 @@ namespace Test
             //TODO: Переделать на объектную модель когда она будет починена (начнет работать метод GetObject())
 
             DBHelper.InsertServiceMatherial((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId], _rimId, Price,
-                Count, Price * Count);
+                AmountFact, Price * AmountFact);
         }
 
         internal void RemoveButton_OnClick(object sender, EventArgs eventArgs)
         {
-            Count--;
+            AmountFact--;
         }
 
         internal void AddButton_OnClick(object sender, EventArgs eventArgs)
         {
-            Count++;
+            AmountFact++;
         }
 
-        internal void CountEditText_OnLostFocus(object sender, EventArgs eventArgs)
+        internal void AmountFactEditText_OnLostFocus(object sender, EventArgs eventArgs)
         {
             GetAndCheckCountEditText((EditText)sender);
         }
@@ -214,21 +251,7 @@ namespace Test
             return ResourceManager.GetImage(tag);
         }
 
-        internal IEnumerable GetServiceMaterialInfo()
-        {
-            InitClassFields();
 
-            DConsole.WriteLine("rim_id =" + _rimId);
-
-            var res = DBHelper.GetServiceMaterialPriceByRIMID(_rimId);
-            res.Next();
-
-            //DConsole.WriteLine("rim_id =" + _rimId)
-
-            return _lineId != null
-                ? DBHelper.GetServiceMaterialPriceByLineID(_lineId)
-                : DBHelper.GetServiceMaterialPriceByRIMID(_rimId);
-        }
     }
 
     /// <summary>

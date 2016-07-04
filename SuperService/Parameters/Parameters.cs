@@ -17,5 +17,10 @@ namespace Test
         public const string IdLineId = "lineId";
         public const string IdEquipmentId = "idEquipmentId";
         public const string Contact = "contact";
+
+
+
+        //Представление пустой суммы для отобажения на экранах с отключенной настройкой отображения цен
+        public const string EmptyPriceDescription = " -,- ";
     }
 }
