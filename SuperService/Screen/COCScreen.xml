@@ -7,16 +7,16 @@
     <s:Push Id="void_crutch" Value="$InitClassFields()" />
     <s:Push Id="sums" Value="$GetSums()" />
 
-    <c:VerticalLayout Id="ServicesInfoVL" CssClass="TotalPriceInfoVL">
-      <c:HorizontalLayout Id="ServicesInfoHL" CssClass="TotalPriceInfoHL">
-        <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#services#" />
-        <c:TextView Id="RightInfoServicesTV" CssClass="RightInfoTV" Text="$GetFormatStringForSums($sums.SumServices)" />
-      </c:HorizontalLayout>
-    </c:VerticalLayout>
-
-    <c:HorizontalLine CssClass="WideHL" />
-
     <c:ScrollView CssClass="RootLayout">
+
+      <c:VerticalLayout Id="ServicesInfoVL" CssClass="TotalPriceInfoVL">
+        <c:HorizontalLayout Id="ServicesInfoHL" CssClass="TotalPriceInfoHL">
+          <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#services#" />
+          <c:TextView Id="RightInfoServicesTV" CssClass="RightInfoTV" Text="$GetFormatStringForSums($sums.SumServices)" />
+        </c:HorizontalLayout>
+      </c:VerticalLayout>
+
+      <c:HorizontalLine CssClass="WideHL" />
 
       <c:VerticalLayout CssClass="VLForSView">
         <!-- Итератор по услугам будет здесь-->
