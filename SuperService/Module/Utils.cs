@@ -67,78 +67,52 @@ namespace Test
             }
             bool fitAll;
             var lines = CreateLinesFromWords(outputLineLength, outputLinesAmount, words, out fitAll);
-            TrimLastLine(outputLineLength, lines, fitAll);
-
-            var res = "";
+            bool? test = fitAll;
+            string res = null;
             foreach (var line in lines)
             {
-                res = $"{res} {line}";
+                res = res == null ? (string)line : $"{res} {line}";
             }
-            return res;
-        }
-
-        private static void TrimLastLine(int outputLineLength, IList lines, bool fitAll)
-        {
-            if (fitAll)
-                return;
-
-            var last = lines.Count - 1;
-            var lastLine = (string)lines[last];
-            if (lastLine.TrimEnd().Length < outputLineLength)
-            {
-                lines[last] = lastLine.TrimEnd() + new string('.', Math.Min(3, outputLineLength - lastLine.Length));
-                DConsole.WriteLine(lastLine);
-                return;
-            }
-            if (lastLine.LastIndexOf(' ') >= outputLineLength - 3)
-            {
-                var lastWhiteSpace = lastLine.LastIndexOf(' ');
-                lastLine = lastLine.Substring(0, lastWhiteSpace);
-                lines[last] = lastLine + new string('.', Math.Min(3, outputLineLength - lastWhiteSpace));
-            }
-            else
-            {
-                lines[last] = lastLine.Substring(0, outputLineLength - 3) + "...";
-            }
-            DConsole.WriteLine(lastLine);
+            return (bool)test ? res : $"{res?.TrimEnd()}...";
         }
 
         private static ArrayList CreateLinesFromWords(int outputLineLength, int outputLinesAmount, IList words, out bool fitAll)
         {
             var lines = new ArrayList { "" };
-            fitAll = words.Count == 0;
-            for (var i = 0; i < words.Count && lines.Count <= outputLinesAmount; i++)
+            var lastLineNumber = 0;
+            var currentWordNumber = 0;
+            while (currentWordNumber < words.Count && lastLineNumber < outputLinesAmount)
             {
-                DConsole.WriteLine($"{i}/{words.Count}:{lines.Count}");
-                fitAll = i == words.Count - 1;
-                var word = (string)words[i];
-                var last = lines.Count - 1;
-                var lastLine = $"{lines[last]} {word}";
-                if (lastLine.Length <= outputLineLength)
+                var word = (string)words[currentWordNumber];
+                if (((string)lines[lastLineNumber]).Length + 1 + word.Length <= outputLineLength)
                 {
-                    lines[last] = lastLine;
+                    lines[lastLineNumber] = string.IsNullOrEmpty((string)lines[lastLineNumber])
+                        ? word
+                        : $"{lines[lastLineNumber]} {word}";
+                    currentWordNumber++;
                     continue;
                 }
                 if (word.Length > outputLineLength)
                 {
-                    words[i] = lastLine.Substring(outputLineLength);
-                    lines[last] = lastLine.Substring(0, outputLineLength);
-                    i--;
+                    if (string.IsNullOrEmpty((string)lines[lastLineNumber]))
+                    {
+                        words[currentWordNumber] = ((string)words[currentWordNumber]).Substring(outputLineLength);
+                        lines[lastLineNumber] = ((string)words[currentWordNumber]).Substring(0, outputLineLength);
+                    }
                     lines.Add(string.Empty);
+                    lastLineNumber++;
                 }
                 else
                 {
                     lines.Add(word);
+                    currentWordNumber++;
+                    lastLineNumber++;
                 }
-                fitAll = false;
             }
-
+            fitAll = currentWordNumber >= words.Count;
+            DConsole.WriteLine($"{fitAll} = {currentWordNumber} >= {words.Count}");
             if (lines.Count > outputLinesAmount)
                 lines[lines.Count - 1] = string.Empty;
-            foreach (var line in lines)
-            {
-                DConsole.WriteLine((string)line);
-            }
 
             return lines;
         }
