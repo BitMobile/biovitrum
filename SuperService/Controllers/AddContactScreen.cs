@@ -35,6 +35,7 @@ namespace Test
 
             var newContact = new Contacts()
             {
+                Id = DbRef.CreateInstance("Catalog_Contacts", Guid.NewGuid()),
                 Description = name,
                 Position = position,
                 EMail = tel,
