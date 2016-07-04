@@ -92,7 +92,6 @@
 
           <c:VerticalLayout Id="$equipments.equipmentID" CssClass="EquipmentContainerVL"
                             OnClick="EquipmentLayout_OnClick">
-            <!-- TODO: Несоответствие верстки и прототипа -->
             <c:TextView CssClass="EquipmentTypeTV" Text="Тип оборудования" />
             <c:TextView CssClass="EquipmentNameTV" Text="$equipments.Description" />
           </c:VerticalLayout>

@@ -71,9 +71,12 @@ namespace Test
 
         internal void EquipmentLayout_OnClick(object sender, EventArgs e)
         {
-            // var layout = (VerticalLayout)sender;
-            // TODO: Передавать информацию об оборудовании
-            Navigation.Move("EquipmentScreen");
+            var layout = (VerticalLayout)sender;
+            var dictionary = new Dictionary<string, object>()
+            {
+                {Parameters.IdEquipmentId,layout.Id }
+            };
+            Navigation.Move("EquipmentScreen", dictionary);
         }
 
         internal DbRecordset GetCurrentClient()
