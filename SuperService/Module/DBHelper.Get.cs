@@ -93,30 +93,30 @@ namespace Test
         public static EventsStatistic GetEventsStatistic()
         {
             var statistic = new EventsStatistic();
-            var query = new Query("select " +
-                                  "  TOTAL(CASE " +
-                                  "        when StartDatePlan > date('now','start of day') then 1 " +
-                                  "        else 0 " +
-                                  "   End) as DayTotalAmount, " +
-                                  "    TOTAL(CASE " +
-                                  "        when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now','start of day') then 1 " +
-                                  "        else 0 " +
-                                  "   End) as DayCompleteAmout, " +
-                                  "   TOTAL(CASE " +
-                                  "        when StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 " +
-                                  "        else 0 " +
-                                  "   End) as MonthCompleteAmout, " +
-                                  "   TOTAL(CASE " +
-                                  "        when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 " +
-                                  "        else 0 " +
-                                  "   End) as MonthTotalAmount " +
-                                  "  from " +
-                                  "      Document_Event as event " +
-                                  "       left join Enum_StatusyEvents " +
-                                  "         on event.Status = Enum_StatusyEvents.Id " +
-                                  " " +
-                                  "where " +
-                                  "     event.DeletionMark = 0");
+            var query = new Query(@"select 
+                                      TOTAL(CASE 
+                                           when StartDatePlan >= date('now','start of day') and StartDatePlan < date('now','start of day', '+1 day') then 1 
+                                           else 0  
+                                      End) as DayTotalAmount, 
+                                       TOTAL(CASE 
+                                           when Enum_StatusyEvents.name like 'Done' and StartDatePlan >= date('now','start of day') and StartDatePlan < date('now','start of day', '+1 day') then 1 
+                                           else 0 
+                                      End) as DayCompleteAmout, 
+                                      TOTAL(CASE 
+                                           when StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 
+                                           else 0 
+                                      End) as MonthCompleteAmout, 
+                                      TOTAL(CASE 
+                                           when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 
+                                           else 0 
+                                      End) as MonthTotalAmount 
+                                     from 
+                                         Document_Event as event 
+                                          left join Enum_StatusyEvents 
+                                            on event.Status = Enum_StatusyEvents.Id 
+                                  
+                                   where 
+                                        event.DeletionMark = 0");
             var result = query.Execute();
 
             if (result.Next())
