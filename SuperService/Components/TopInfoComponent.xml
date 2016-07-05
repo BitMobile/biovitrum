@@ -1,18 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <c:Component xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  <c:VerticalLayout CssClass="TopInfoLayout">
-    <c:HorizontalLayout CssClass="TopInfoHeadingLayout">
-      <c:VerticalLayout Id="TopInfoLeftButton" CssClass="TopInfoButtonLeft" OnClick="TopInfo_LeftButton_OnClick" />
-      <c:VerticalLayout CssClass="TopInfoHeadingTextLayout">
-        <c:TextView Id="TopInfoHeadingTextView" CssClass="TopInfoHeading" />
-      </c:VerticalLayout>
-      <c:VerticalLayout Id="TopInfoRightButton" CssClass="TopInfoButtonRight" OnClick="TopInfo_RightButton_OnClick" />
-    </c:HorizontalLayout>
-    <c:VerticalLayout CssClass="EmptySpace3-2sp" />
-    <c:VerticalLayout Id="TopInfoCommentLayout" CssClass="TopInfoCommentLayout" />
-    <c:VerticalLayout Id="TopInfoExtraLayout" CssClass="TopInfoExtraLayout" />
+  <c:VerticalLayout>
+    <c:VerticalLayout CssClass="TopInfoLayout">
+      <c:HorizontalLayout CssClass="TopInfoHeadingLayout">
+        <c:VerticalLayout Id="TopInfoLeftButton" CssClass="TopInfoButtonLeft" OnClick="TopInfo_LeftButton_OnClick" />
+        <c:VerticalLayout CssClass="TopInfoHeadingTextLayout">
+          <c:TextView Id="TopInfoHeadingTextView" CssClass="TopInfoHeading" />
+          <c:TextView Id="TopInfoSubHeadingTextView" CssClass="NoHeight" />
+        </c:VerticalLayout>
+        <c:VerticalLayout Id="TopInfoRightButton" CssClass="TopInfoButtonRight" OnClick="TopInfo_RightButton_OnClick" />
+      </c:HorizontalLayout>
+      <c:VerticalLayout CssClass="EmptySpace3-2sp" />
+      <c:VerticalLayout Id="TopInfoCommentLayout" CssClass="TopInfoCommentLayout" />
+      <c:VerticalLayout Id="TopInfoExtraLayout" CssClass="TopInfoExtraLayout" />
+    </c:VerticalLayout>
     <c:VerticalLayout Id="TopInfoImageLayout" CssClass="TopInfoImageLayout" OnClick="TopInfo_Arrow_OnClick">
+      <c:VerticalLayout CssClass="TopInfoEmptySpace1sp" />
       <c:Image Id="TopInfoArrowImage" Source="$GetResourceImage(topinfo_downarrow)" CssClass="TopInfoArrowDown" />
     </c:VerticalLayout>
   </c:VerticalLayout>

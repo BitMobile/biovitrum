@@ -2,15 +2,16 @@
 
 @margin-top: 0.75sp;
 @heading-size: @default-font-size * sqrt(2) + @margin-top;
-@background-color: #4a4b5e;
-@text-color: #ffffff;
-@button-color: #fd724c;
+@topheading-background-color: #4a4b5e;
+@topheading-text-color: #ffffff;
+@topheading-button-color: #fd724c;
 @topheading-text-size: @heading-size * 0.8 * 0.9;
+@header-width: 45%;
 
 .TopInfoLayout {
     dock-align: top;
     padding-top: @margin-top;
-    background-color: @background-color;
+    background-color: @topheading-background-color;
 }
 
 .TopInfoHeadingLayout {
@@ -19,28 +20,34 @@
     width: 100%;
 }
 
-@header-width: 40%;
-
 .TopInfoHeadingTextLayout {
     height: 100% auto;
     width: @header-width;
+    vertical-align: center;
 }
 
 .TopInfoHeading {
-    color: @text-color;
+    color: @topheading-text-color;
     .text-view-style(@topheading-text-size);
+    padding-top: @topheading-text-size * 8 / 86;
+}
+
+.TopInfoSubHeading {
+    color: @topheading-text-color;
+    .text-view-style(@topheading-text-size / sqrt(3));
 }
 
 .TopInfoButton() {
     width: (100% - @header-width) / 2;
-    height: 100%;
+    height: @heading-size * 0.9;
+    vertical-align: center;
 
     Image {
-        height: 90%;
+        height: @heading-size * 0.9;
     }
 
     TextView {
-        color: @button-color;
+        color: @topheading-button-color;
         .text-view-style(@topheading-text-size * 0.95);
         margin-top: (@topheading-text-size * 0.05) / 2;
         horizontal-align: center;
@@ -52,7 +59,7 @@
 
     Image {
         horizontal-align: left;
-        margin-left: 20%;
+        margin-left: 5sp;
     }
 }
 
@@ -61,6 +68,15 @@ TopInfoButtonRight {
 
     Image {
         horizontal-align: right;
-        margin-right: 20%;
+        margin-right: 5sp;
     }
+}
+
+.TopInfoEmptySpace1sp {
+    .empty-space(1sp);
+    background-color: @topheading-background-color;
+}
+
+.TopInfoArrowDown {
+    width: 100%;
 }

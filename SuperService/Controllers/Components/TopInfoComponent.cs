@@ -1,5 +1,4 @@
-﻿using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
+﻿using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
 using System;
 
@@ -9,35 +8,11 @@ namespace Test.Components
     {
         private readonly Screen _parentScreen;
         private VerticalLayout _leftButton;
+        private bool _minimized;
         private VerticalLayout _rightButton;
+        private Image _topInfoArrowImage;
         private TextView _topInfoHeadingTextView;
-
-        public IWrappedControl3 LeftButtonControl
-        {
-            set
-            {
-                AddIfNotEmpty(_leftButton, value);
-            }
-        }
-
-        public IWrappedControl3 RightButtonControl
-        {
-            set
-            {
-                AddIfNotEmpty(_rightButton, value);
-            }
-        }
-
-        public string Header
-        {
-            get { return _topInfoHeadingTextView.Text; }
-            set { _topInfoHeadingTextView.Text = value; }
-        }
-
-        private static void AddIfNotEmpty(IContainer verticalLayout, IWrappedControl3 control)
-        {
-            if (verticalLayout.Controls.Length == 0) verticalLayout.AddChild(control);
-        }
+        private TextView _topInfoSubHeadingTextView;
 
         /// <summary>
         ///     Конструктор контроллера компонента с заголовком, двумя кнопками и доп. инфой
@@ -51,17 +26,76 @@ namespace Test.Components
             OnLoading();
         }
 
+        public bool Minimized
+        {
+            get { return _minimized; }
+            set
+            {
+                _minimized = value;
+                _topInfoArrowImage.Source = ResourceManager.GetImage(value ? "topinfo_downarrow" : "topinfo_uparrow");
+                _topInfoArrowImage.Refresh();
+            }
+        }
+
+        public IWrappedControl3 LeftButtonControl
+        {
+            get { return GetIfNotEmpty(_leftButton); }
+            set { AddIfNotEmpty(_leftButton, value); }
+        }
+
+        public IWrappedControl3 RightButtonControl
+        {
+            get { return GetIfNotEmpty(_rightButton); }
+            set { AddIfNotEmpty(_rightButton, value); }
+        }
+
+        public string Header
+        {
+            get { return _topInfoHeadingTextView.Text; }
+            set { _topInfoHeadingTextView.Text = value; }
+        }
+
+        public string SubHeader
+        {
+            get { return _topInfoSubHeadingTextView.Text; }
+            set
+            {
+                _topInfoSubHeadingTextView.Text = value;
+                if (string.IsNullOrEmpty(value))
+                {
+                    _topInfoSubHeadingTextView.CssClass = "NoHeight";
+                    _topInfoSubHeadingTextView.Refresh();
+                }
+                else
+                {
+                    _topInfoSubHeadingTextView.CssClass = "TopInfoSubHeading";
+                    _topInfoSubHeadingTextView.Refresh();
+                }
+            }
+        }
+
+        private IWrappedControl3 GetIfNotEmpty(VerticalLayout layout)
+        {
+            return layout.Controls.Length == 0 ? null : (IWrappedControl3)layout.Controls[0];
+        }
+
+        private static void AddIfNotEmpty(VerticalLayout verticalLayout, IWrappedControl3 control)
+        {
+            if (verticalLayout.Controls.Length == 0) verticalLayout.AddChild(control);
+        }
+
         private void OnLoading()
         {
             _leftButton = (VerticalLayout)_parentScreen.Variables["TopInfoLeftButton"];
             _rightButton = (VerticalLayout)_parentScreen.Variables["TopInfoRightButton"];
             _topInfoHeadingTextView = (TextView)_parentScreen.Variables["TopInfoHeadingTextView"];
-            DConsole.WriteLine("test");
-            DConsole.WriteLine($"lb = {_leftButton}, rb = {_rightButton}, tihtv = {_topInfoHeadingTextView}");
+            _topInfoSubHeadingTextView = (TextView)_parentScreen.Variables["TopInfoSubHeadingTextView"];
+            _topInfoArrowImage = (Image)_parentScreen.Variables["TopInfoArrowImage"];
         }
 
         internal void Arrow_OnClick(object sender, EventArgs eventArgs)
         {
+            Minimized = !Minimized;
         }
     }
 }

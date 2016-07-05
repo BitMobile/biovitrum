@@ -4,7 +4,6 @@
   <c:DockLayout>
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:VerticalLayout>
-      <c:Button Text="123" OnClick="Button_OnClick" />
       <c:TextView  Text="#test#" Id="TestTextView" />
       <c:TextView CssClass="AnotherTextView" Text="1234" />
     </c:VerticalLayout>

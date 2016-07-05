@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BitMobile.ClientModel3;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -91,7 +92,7 @@ namespace Test
                     currentWordNumber++;
                     continue;
                 }
-                if (word.Length > outputLineLength)
+                if (word.Length >= outputLineLength)
                 {
                     if (string.IsNullOrEmpty((string)lines[lastLineNumber]))
                     {
@@ -108,7 +109,7 @@ namespace Test
                     lastLineNumber++;
                 }
             }
-            fitAll = currentWordNumber >= words.Count;
+            fitAll = currentWordNumber >= words.Count && ((string)words[words.Count - 1]).Length <= outputLineLength;
             if (lines.Count > outputLinesAmount)
                 lines[lines.Count - 1] = string.Empty;
 

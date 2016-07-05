@@ -1,7 +1,5 @@
-﻿using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
+﻿using BitMobile.ClientModel3.UI;
 using System;
-using System.Collections.Generic;
 using Test.Components;
 
 namespace Test
@@ -12,36 +10,23 @@ namespace Test
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("OnLoading?");
-            try
+            _topInfoComponent = new TopInfoComponent(this)
             {
-                _topInfoComponent = new TopInfoComponent(this)
-                {
-                    RightButtonControl = new Image() { Source = ResourceManager.GetImage("topheading_info") },
-                    LeftButtonControl = new Image() { Source = ResourceManager.GetImage("topheading_back") },
-                    Header = "Газпром нефть"
-                };
-            }
-            catch (Exception e)
-            {
-                DConsole.WriteLine("test");
-                DConsole.WriteLine(e.ToString());
-            }
-            DConsole.WriteLine("OnLoading end");
+                LeftButtonControl = new TextView("Отмена"),
+                RightButtonControl = new TextView("Сохранить"),
+                Header = "Чек-лист",
+                SubHeader = "998/999 вопросов отвечено",
+                Minimized = false
+            };
         }
 
         public override void OnShow()
         {
-            DConsole.WriteLine("OnShow?");
         }
 
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
-        }
-
-        internal void Button_OnClick(object sender, EventArgs eventArgs)
-        {
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
