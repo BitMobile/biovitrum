@@ -16,6 +16,7 @@ namespace Test
         private string _lineId;
         private int _minimum;
         private int _value;
+        private IEnumerable _serviceMaterialInfo;
 
         private decimal _price;
         private EditText _priceEditText;
@@ -78,6 +79,11 @@ namespace Test
             _countEditText = (EditText)GetControl("CountEditText", true);
             _priceEditText = (EditText)Variables["PriceEditText"];
             _totalPriceTextView = (TextView)GetControl("TotalPriceTextView", true);
+
+            var amountFact = (float)((DbRecordset)_serviceMaterialInfo)["AmountFact"];
+            _countEditText.Text = Convert.ToSingle(amountFact) >= Convert.ToSingle(_minimum)
+                ? $"{amountFact}"
+                : $"{_minimum}";
         }
 
         public override void OnShow()
@@ -225,7 +231,7 @@ namespace Test
 
             //DConsole.WriteLine("rim_id =" + _rimId)
 
-            return _lineId != null
+            return _serviceMaterialInfo = _lineId != null
                 ? DBHelper.GetServiceMaterialPriceByLineID(_lineId)
                 : DBHelper.GetServiceMaterialPriceByRIMID(_rimId);
         }
