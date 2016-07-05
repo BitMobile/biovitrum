@@ -244,7 +244,7 @@ namespace Test
             var dictionary = new Dictionary<string, object>
             {
                 {Parameters.IdIsService, false},
-                {"isMaterialsRequest", true},
+                {Parameters.IdIsMaterialsRequest, true},
                 {"returnKey", "newItem"},
                 {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue}
             };
@@ -283,7 +283,7 @@ namespace Test
             };
 
             BusinessProcess.GlobalVariables[Parameters.IdIsService] = false;
-            BusinessProcess.GlobalVariables["isMaterialsRequest"] = true;
+            BusinessProcess.GlobalVariables[Parameters.IdIsMaterialsRequest] = true;
             _isEdit = Convert.ToBoolean("True");
             Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
         }

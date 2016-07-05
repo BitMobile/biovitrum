@@ -16,7 +16,7 @@
         <s:Iterator Id="rim" Value="$GetRIM()">
           <c:VerticalLayout Id="$rim.Id" onClick="RIMLayout_OnClick" CssClass="RIMItemLayout">
             <c:TextView Text="$rim.Description" CssClass="RIMItemDescription" />
-            <c:TextView Text="$rim.Price" CssClass="RIMItemPrice" />
+            <c:TextView Text="$GetPriceDescription($rim)" CssClass="RIMItemPrice" />
             <c:HorizontalLine CssClass="RIMBreaker" />
           </c:VerticalLayout>
         </s:Iterator>
