@@ -11,6 +11,8 @@ namespace Test
     {
         private bool _fieldsAreInitialized = false;
         private BehaviourEditServicesOrMaterialsScreen _behaviourEditServicesOrMaterialsScreen;
+        private bool _isMaterialRequest; //признак того, что запрос пришел из рюкзака монтажника
+        private bool _isService; //отображать услуги в противном случае материалы
         private bool _usedCalculateService;
         private bool _usedCalculateMaterials;
         private EditText _amountFactEditText;
@@ -20,33 +22,38 @@ namespace Test
         private int _minimum;
         private int _value;
 
-        private decimal _price;
+
         private EditText _priceEditText;
         private string _rimId;
 
         private bool _showPrices;
         private TextView _totalPriceTextView;
 
+
         private string _description;
+        private decimal _price;
         private decimal Price
         {
-            get { return GetAndCheckPriceEditText(_priceEditText); }
+            get { return _price; }
             set
             {
                 value = Math.Max(value, 0);
                 _priceEditText.Text = value.ToString(CultureInfo.CurrentCulture);
+                if (_totalPriceTextView != null)
+                    _totalPriceTextView.Text = GetTotalPriceDescription();
             }
         }
-
+        private int _amountFact;
         private int AmountFact
         {
-            get { return GetAndCheckCountEditText(_amountFactEditText); }
+            get { return _amountFact; } 
             set
             {
                 value = Math.Max(value, _minimum);
+                _amountFact = value;
                 _amountFactEditText.Text = value.ToString();
                 if (_totalPriceTextView != null)
-                    _totalPriceTextView.Text = (Price * AmountFact).ToString(CultureInfo.CurrentCulture);
+                    _totalPriceTextView.Text = GetTotalPriceDescription();
             }
         }
 
@@ -62,14 +69,27 @@ namespace Test
 
         internal string GetPriceDescription()
         {
-            return "";
+            if (_isMaterialRequest || (_isService && !_usedCalculateService) || (!_isService && !_usedCalculateMaterials))
+            {
+                return "";
+            }
+            else
+            {
+                return Price.ToString();
+            }
         }
 
         internal string GetTotalPriceDescription()
         {
-            return "";
+            if (_isMaterialRequest || (_isService && !_usedCalculateService) || (!_isService && !_usedCalculateMaterials))
+            {
+                return "";
+            }
+            else
+            {
+                return (Price * AmountFact).ToString(CultureInfo.CurrentCulture); 
+            }
         }
-
 
 
         public int InitClassFields()
@@ -81,6 +101,8 @@ namespace Test
             _behaviourEditServicesOrMaterialsScreen =
                     (BehaviourEditServicesOrMaterialsScreen)
                         Variables.GetValueOrDefault(Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.None);
+            _isMaterialRequest = (bool)Variables.GetValueOrDefault("isMaterialsRequest", Convert.ToBoolean("False"));
+            _isService = (bool)Variables.GetValueOrDefault(Parameters.IdIsService, Convert.ToBoolean("False"));
             _usedCalculateService = DBHelper.GetIsUsedCalculateService();
             _usedCalculateMaterials = DBHelper.GetIsUsedCalculateMaterials();
 
@@ -214,36 +236,21 @@ namespace Test
             return 0;
         }
 
-        private int GetAndCheckCountEditText(EditText countEditText)
+        private void GetAndCheckCountEditText(EditText countEditText)
         {
-            int res;
+            int res = AmountFact;
             if (int.TryParse(countEditText.Text, out res))
             {
                 res = Convert.ToInt32(res);
-                if (res > _minimum) return res;
-                countEditText.Text = _minimum.ToString();
-                return _minimum;
             }
-            DConsole.WriteLine($"Unparsed text = {countEditText.Text}");
-            countEditText.Text = _minimum.ToString();
-            return _minimum;
-        }
-
-        private decimal GetAndCheckPriceEditText(EditText priceEditText)
-        {
-            // TODO: Разделитель целой и дробной части
-            decimal res;
-            if (decimal.TryParse(priceEditText.Text, out res))
+            else
             {
-                res = Convert.ToDecimal(res);
-                if (res > _minimum) return res;
-                priceEditText.Text = _minimum.ToString();
-                return _minimum;
+                DConsole.WriteLine($"Unparsed text = {countEditText.Text}");
             }
-            DConsole.WriteLine($"Unparsed text = {priceEditText.Text}");
-            res = new decimal(0, 0, 0, false, 0);
-            priceEditText.Text = res.ToString(CultureInfo.CurrentCulture);
-            return res;
+            if (res < _minimum)
+                res = _minimum;
+
+            AmountFact = res;
         }
 
         internal string GetResourceImage(string tag)

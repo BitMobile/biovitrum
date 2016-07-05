@@ -15,7 +15,7 @@
       <c:VerticalLayout CssClass="PlusMinusImageWrapper" Id="RemoveButton" OnClick="RemoveButton_OnClick">
         <c:Image CssClass="PlusMinusImage" Source="$GetResourceImage(editservicesormaterialsscreen_minus)" />
       </c:VerticalLayout>
-      <c:EditText Id="AmountFactEditText" Text="" Keyboard="numeric"
+      <c:EditText Id="AmountFactEditText" Text="$GetRIMAmountFact()" Keyboard="numeric"
                   OnLostFocus="AmountFactEditText_OnLostFocus" />
       <c:VerticalLayout CssClass="PlusMinusImageWrapper" Id="AddButton" OnClick="AddButton_OnClick">
         <c:Image CssClass="PlusMinusImage" Source="$GetResourceImage(editservicesormaterialsscreen_plus)" />
@@ -24,13 +24,13 @@
     <c:VerticalLayout CssClass="EmptySpace8sp" />
     <c:HorizontalLayout CssClass="PriceLayout">
       <c:TextView CssClass="PriceTitle" Id="PriceTitleTextView" Text="#price#" />
-      <c:EditText CssClass="Price" Id="PriceEditText" Text="$serviceMaterial.Price" />
+      <c:EditText CssClass="Price" Id="PriceEditText" Text="$GetPriceDescription()" />
       <c:TextView CssClass="PriceCurrency" Text="#currency#"/>
     </c:HorizontalLayout>
     <c:HorizontalLine />
     <c:HorizontalLayout CssClass="PriceLayout">
       <c:TextView CssClass="PriceTitle" Id="TotalPriceTitleTextView" Text="#total#" />
-      <c:TextView CssClass="TotalPrice" Id="TotalPriceTextView" Text="$serviceMaterial.SumFact" />
+      <c:TextView CssClass="TotalPrice" Id="TotalPriceTextView" Text="$GetTotalPriceDescription()" />
       <c:TextView CssClass="TotalPriceCurrency" Text="#currency#"/>
     </c:HorizontalLayout>
     <c:HorizontalLayout CssClass="AddButton" OnClick="AddServiceMaterialButton_OnClick">
