@@ -6,12 +6,17 @@
     <s:Include File="Components\TopInfoComponent.xml" />
 
     <s:If Test="$GetIsEmptyList()">
-      <c:Image CssClass="BigImageMaterialsRequestImg" Source="$GetResourceImage(basket)" />
-      <c:TextView CssClass="DescriptionMaterialsRequestTV" Text="#description_materialrequest_screen#" />
-      <c:Button CssClass="ButtonMaterialsRequestBtn" Text="#add_material#" OnClick="AddMaterial_OnClick" />
+      <c:Image Id="BigImageMaterialsRequest" CssClass="BigImageMaterialsRequestImg" Source="$GetResourceImage(basket)" />
+      <c:TextView Id="DescriptionMaterialsRequest" CssClass="DescriptionMaterialsRequestTV" Text="#description_materialrequest_screen#" />
+      <c:Button Id="ButtonMaterialsRequest" CssClass="ButtonMaterialsRequestBtn" Text="#add_material#" OnClick="AddMaterial_OnClick" />
     </s:If>
     <s:Else>
-      <c:DockLayout CssClass="RootLayout">
+
+      <c:Image Id="BigImageMaterialsRequest" CssClass="NoHeight" Source="$GetResourceImage(basket)" />
+      <c:TextView Id="DescriptionMaterialsRequest" CssClass="NoHeight" Text="#description_materialrequest_screen#" />
+      <c:Button Id="ButtonMaterialsRequest" CssClass="NoHeight" Text="#add_material#" OnClick="AddMaterial_OnClick" />
+
+      <c:DockLayout Id="State2DockLayout" CssClass="RootLayout">
 
         <c:VerticalLayout CssClass="AddButtonMaterialResourceVl" OnClick="AddMaterial_OnClick">
           <c:HorizontalLayout CssClass="AddContainerMaterialResourceHL">
@@ -22,7 +27,7 @@
 
         <c:HorizontalLine CssClass="WideHL" />
 
-        <c:Button CssClass="ButtonMaterialsRequestWithBackgroundBtn" Text="#send#" OnClick="SendData_OnClick" />
+        <c:Button Id="SendButton" CssClass="ButtonMaterialsRequestWithBackgroundBtn" Text="#send#" OnClick="SendData_OnClick" />
 
         <c:ScrollView CssClass="ScrollViewMaterialsRequest">
           <c:VerticalLayout Id="VerticalLayout">
@@ -37,23 +42,18 @@
                     </c:HorizontalLayout>
                   </c:VerticalLayout>
 
-                  <!--TODO: Заменить у итемнов (first и second) на имена полей из запроса-->
                   <!--Два TextView с информацией об услугах-->
                   <c:VerticalLayout Id="$item.SKU" CssClass="InfoTextContainerVL" OnClick="EditNode_OnClick">
                     <c:TextView CssClass="NameTV" Text="$item.Description" />
                     <c:TextView CssClass="CountTV" Text="$Concat($item.Count, $item.Unit)" />
                   </c:VerticalLayout>
-
                 </c:HorizontalLayout>
 
                 <c:Button Id="$item.SKU" CssClass="DeleteButtonBtn" Text="#delete_question#" OnClick="DeleteButton_OnClick" />
-
               </c:SwipeHorizontalLayout>
             </s:Iterator>
-
           </c:VerticalLayout>
         </c:ScrollView>
-
       </c:DockLayout>
     </s:Else>
   </c:VerticalLayout>

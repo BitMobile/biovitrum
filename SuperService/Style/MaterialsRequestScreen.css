@@ -1,7 +1,6 @@
 ﻿/* ReSharper disable CssNotResolved */
 /* ReSharper disable Html.TagNotResolved */
 /* ReSharper disable InvalidValue */
-/*TODO: Переименовать в materialsrequestscreen*/
 
 body {
     background-color: #ffffff;
@@ -27,7 +26,6 @@ TextView {
 
 .NoHeight {
     height: 0%;
-    width: 100%;
 }
 
 .RootLayout {
@@ -35,7 +33,6 @@ TextView {
     height: 100%;
     width: 100%;
 }
-
 
 /* Top Info Component */
 
@@ -128,12 +125,13 @@ TextView {
     horizontal-align: center;
 }
 
-.TopInfoSideText { color: #ffffff; }
+.TopInfoSideText {
+    color: #ffffff;
+}
 
 /* ---------------------------------- */
 
 /* Materials Request Screen */
-
 
 .DescriptionMaterialsRequestTV {
     color: #c7cdda;
@@ -220,12 +218,10 @@ TextView {
     width: 100%;
 }
 
-.SwipeContainerSHL {  
+.SwipeContainerSHL {
     height: 0% auto;
     width: 100%;
 }
-
-
 
 .InfoImageCondtainerVL {
     height: 10sp;
@@ -276,6 +272,5 @@ TextView {
     height: 4sp;
     vertical-align: center;
 }
-
 
 /* ---------------------------------- */
