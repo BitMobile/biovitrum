@@ -2,18 +2,32 @@
 using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections.Generic;
+using Test.Components;
 
 namespace Test
 {
     public class TestScreen : Screen
     {
-        private VerticalLayout _rootLayout;
-        private TextView _testTextView;
+        private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
-            _rootLayout = (VerticalLayout)Controls[0];
-            _testTextView = (TextView)_rootLayout.Controls[1];
+            DConsole.WriteLine("OnLoading?");
+            try
+            {
+                _topInfoComponent = new TopInfoComponent(this)
+                {
+                    RightButtonControl = new Image() { Source = ResourceManager.GetImage("topheading_info") },
+                    LeftButtonControl = new Image() { Source = ResourceManager.GetImage("topheading_back") },
+                    Header = "Газпром нефть"
+                };
+            }
+            catch (Exception e)
+            {
+                DConsole.WriteLine("test");
+                DConsole.WriteLine(e.ToString());
+            }
+            DConsole.WriteLine("OnLoading end");
         }
 
         public override void OnShow()
@@ -40,6 +54,7 @@ namespace Test
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
         {
+            _topInfoComponent.Arrow_OnClick(sender, eventArgs);
         }
     }
 }

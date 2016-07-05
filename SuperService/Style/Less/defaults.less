@@ -9,11 +9,21 @@
 @deafult-font: @default-font-size arial;
 
 .height-of-TextView(@font-size) {
-    height: @font-size * 1.4 auto;
+    height: @font-size * 1.11 auto;
+}
+
+.text-view-style(@font-size) {
+    font: @font-size arial;
+    .height-of-TextView(@font-size);
 }
 
 .auto-height() {
     height: 0sp auto;
+    width: 100%;
+}
+
+.empty-space(@empty) {
+    height: @empty;
     width: 100%;
 }
 
@@ -24,6 +34,10 @@ body {
 }
 
 vl {
+    .auto-height;
+}
+
+DockLayout {
     .auto-height;
 }
 
@@ -40,7 +54,6 @@ TextView {
 
 .NoHeight {
     height: 0%;
-    width: 100%;
 }
 
 .RootLayout {
@@ -49,17 +62,26 @@ TextView {
     width: 100%;
 }
 
+.EmptySpace3-2sp {
+    .empty-space(1.5sp)
+}
+
+.EmptySpace1sp {
+    .empty-space(1sp);
+}
+
+.EmptySpace2sp {
+    .empty-space(2sp);
+}
+
 .EmptySpace3sp {
-    height: 3sp;
-    width: 100%;
+    .empty-space(3sp);
 }
 
 .EmptySpace4sp {
-    height: 4sp;
-    width: 100%;
+    .empty-space(4sp);
 }
 
 .EmptySpace5sp {
-    height: 5sp;
-    width: 100%;
+    .empty-space(5sp);
 }

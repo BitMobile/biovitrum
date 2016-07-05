@@ -1,92 +1,66 @@
+@import "../defaults.less";
+
+@margin-top: 0.75sp;
+@heading-size: @default-font-size * sqrt(2) + @margin-top;
+@background-color: #4a4b5e;
+@text-color: #ffffff;
+@button-color: #fd724c;
+@topheading-text-size: @heading-size * 0.8 * 0.9;
+
 .TopInfoLayout {
-    background-color: #4a4b5e;
     dock-align: top;
-    height: 4sp auto;
-    padding-top: 1sp;
-    width: 100%;
+    padding-top: @margin-top;
+    background-color: @background-color;
 }
 
 .TopInfoHeadingLayout {
-    height: 7sp auto;
-    /*margin-top: 2.5sp;*/
+    margin-top: @margin-top;
+    height: @heading-size auto;
     width: 100%;
+}
+
+@header-width: 40%;
+
+.TopInfoHeadingTextLayout {
+    height: 100% auto;
+    width: @header-width;
 }
 
 .TopInfoHeading {
-    background-color: #4a4b5e;
-    border-style: none;
-    border-width: 0px;
-    color: #ffffff;
-    font: 40% arial;
-    height: 100% auto;
-    padding-top: 26%;
-    text-align: center;
-    width: 68%;
+    color: @text-color;
+    .text-view-style(@topheading-text-size);
 }
 
-.TopInfoButton {
-    background-color: #4a4b5e;
-    border-style: none;
-    border-width: 0px;
-    color: #ffffff;
-    font: 40% arial;
+.TopInfoButton() {
+    width: (100% - @header-width) / 2;
     height: 100%;
-    selected-background: #64657e;
-    text-align: center;
-    width: 16%;
+
+    Image {
+        height: 90%;
+    }
+
+    TextView {
+        color: @button-color;
+        .text-view-style(@topheading-text-size * 0.95);
+        margin-top: (@topheading-text-size * 0.05) / 2;
+        horizontal-align: center;
+    }
 }
 
-.TopInfoButtonImage {
-    height: 60%;
-    horizontal-align: center;
-    margin-top: 20%;
+.TopInfoButtonLeft {
+    .TopInfoButton;
+
+    Image {
+        horizontal-align: left;
+        margin-left: 20%;
+    }
 }
 
-.TopInfoComment {
-    color: #c4c4c9;
-    font: 2.4sp arial;
-    height: 0sp auto;
-    horizontal-align: center;
-    text-align: center;
-    white-space: normal;
-    width: 58%;
-}
+TopInfoButtonRight {
+    .TopInfoButton;
 
-.TopInfoArrowDown {
-    horizontal-align: center;
-    width: 100sp;
-}
-
-.TopInfoExtraLayout {
-    background-color: #4a4b5e;
-    dock-align: top;
-    height: 1sp auto;
-    width: 100%;
-}
-
-.TopInfoImageLayout {
-    background-color: #ffffff;
-    dock-align: top;
-    height: 1sp auto;
-    width: 100%;
-}
-
-.TopInfoExtraButtonsLayout {
-    height: 10sp auto;
-    horizontal-align: center;
-    width: 80%;
-}
-
-.TopInfoSideExtraLayout {
-    height: 100% auto;
-    width: 50%;
-}
-
-.TopInfoSideImage {
-    height: 50%;
-    horizontal-align: center;
-}
-
-.TopInfoSideText {
-    color: #ffffff;
+    Image {
+        horizontal-align: right;
+        margin-right: 20%;
+    }
 }

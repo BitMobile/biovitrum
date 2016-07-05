@@ -1,19 +1,43 @@
-﻿using System;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Common.Controls;
+using System;
 
 namespace Test.Components
 {
     public class TopInfoComponent
     {
         private readonly Screen _parentScreen;
-        private bool _bigArrowActive = true;
-        private bool _extraLayoutVisible;
-        private bool _minimized = true;
+        private VerticalLayout _leftButton;
+        private VerticalLayout _rightButton;
+        private TextView _topInfoHeadingTextView;
 
-        private Image _topInfoArrowImage;
-        private HorizontalLayout _topInfoExtraButtonsLayout;
+        public IWrappedControl3 LeftButtonControl
+        {
+            set
+            {
+                AddIfNotEmpty(_leftButton, value);
+            }
+        }
 
-        private VerticalLayout _topInfoImageLayout;
+        public IWrappedControl3 RightButtonControl
+        {
+            set
+            {
+                AddIfNotEmpty(_rightButton, value);
+            }
+        }
+
+        public string Header
+        {
+            get { return _topInfoHeadingTextView.Text; }
+            set { _topInfoHeadingTextView.Text = value; }
+        }
+
+        private static void AddIfNotEmpty(IContainer verticalLayout, IWrappedControl3 control)
+        {
+            if (verticalLayout.Controls.Length == 0) verticalLayout.AddChild(control);
+        }
 
         /// <summary>
         ///     Конструктор контроллера компонента с заголовком, двумя кнопками и доп. инфой
@@ -25,121 +49,19 @@ namespace Test.Components
         {
             _parentScreen = parentScreen;
             OnLoading();
-            _extraLayoutVisible = true;
-        }
-
-        /// <summary>
-        ///     Изображение на левой кнопке, менять свойство Source
-        /// </summary>
-        public Image LeftButtonImage { get; private set; }
-
-        /// <summary>
-        ///     Изображение на правой кнопке, менять свойство Source
-        /// </summary>
-        public Image RightButtonImage { get; private set; }
-
-        /// <summary>
-        ///     Левый Layout с дополнительной информацией. Использовать метод AddChild
-        /// </summary>
-        public VerticalLayout LeftExtraLayout { get; private set; }
-
-        /// <summary>
-        ///     Правый Layout с дополнительной информацией. Использовать метод AddChild
-        /// </summary>
-        public VerticalLayout RightExtraLayout { get; private set; }
-
-        /// <summary>
-        ///     Заголовок экрана
-        /// </summary>
-        public TextView HeadingTextView { get; private set; }
-
-        /// <summary>
-        ///     Комментарий, который ниже заголовка экрана
-        /// </summary>
-        public TextView CommentTextView { get; private set; }
-
-        /// <summary>
-        ///     Дополнительный контейнер ниже заголовка экрана, содержащий в себе комментарий
-        /// </summary>
-        public VerticalLayout ExtraLayout { get; private set; }
-
-        /// <summary>
-        ///     Видимость контейнера с дополнительной информацией
-        /// </summary>
-        public bool ExtraLayoutVisible
-        {
-            get { return _extraLayoutVisible; }
-            set
-            {
-                ChangeExtraVisibility(value);
-                _extraLayoutVisible = value;
-            }
-        }
-
-        /// <summary>
-        ///     Активность большой стрелки. Если false, то меняется внешний вид.
-        /// </summary>
-        public bool BigArrowActive
-        {
-            get { return _bigArrowActive; }
-            set
-            {
-                _bigArrowActive = value;
-                _topInfoArrowImage.Source = value
-                    ? ResourceManager.GetImage(_minimized ? "topinfo_downarrow" : "topinfo_uparrow")
-                    : ResourceManager.GetImage(_minimized ? "topinfo_downnoarrow" : "topinfo_upnoarrow");
-            }
-        }
-
-        private void ChangeExtraVisibility(bool visibility)
-        {
-            if (!visibility)
-            {
-                ExtraLayout.CssClass = "NoHeight";
-                _topInfoImageLayout.CssClass = "NoHeight";
-            }
-            else
-            {
-                ExtraLayout.CssClass = "TopInfoExtraLayout";
-                _topInfoImageLayout.CssClass = "TopInfoImageLayout";
-            }
         }
 
         private void OnLoading()
         {
-            _topInfoArrowImage = (Image) _parentScreen.GetControl("TopInfoArrowImage", true);
-            _topInfoExtraButtonsLayout = (HorizontalLayout) _parentScreen.GetControl("TopInfoExtraButtonsLayout", true);
-
-            LeftButtonImage = (Image) _parentScreen.GetControl("TopInfoLeftButtonImage", true);
-            RightButtonImage = (Image) _parentScreen.GetControl("TopInfoRightButtonImage", true);
-
-            LeftExtraLayout = (VerticalLayout) _parentScreen.GetControl("TopInfoLeftExtraLayout", true);
-            RightExtraLayout = (VerticalLayout) _parentScreen.GetControl("TopInfoRightExtraLayout", true);
-
-            HeadingTextView = (TextView) _parentScreen.GetControl("TopInfoHeadingTextView", true);
-            CommentTextView = (TextView) _parentScreen.GetControl("TopInfoCommentTextView", true);
-
-            ExtraLayout = (VerticalLayout) _parentScreen.GetControl("TopInfoExtraLayout", true);
-            _topInfoImageLayout = (VerticalLayout) _parentScreen.GetControl("TopInfoImageLayout", true);
+            _leftButton = (VerticalLayout)_parentScreen.Variables["TopInfoLeftButton"];
+            _rightButton = (VerticalLayout)_parentScreen.Variables["TopInfoRightButton"];
+            _topInfoHeadingTextView = (TextView)_parentScreen.Variables["TopInfoHeadingTextView"];
+            DConsole.WriteLine("test");
+            DConsole.WriteLine($"lb = {_leftButton}, rb = {_rightButton}, tihtv = {_topInfoHeadingTextView}");
         }
 
         internal void Arrow_OnClick(object sender, EventArgs eventArgs)
         {
-            if (!BigArrowActive) return;
-            if (_minimized)
-            {
-                _topInfoArrowImage.Source = ResourceManager.GetImage("topinfo_uparrow");
-                _topInfoExtraButtonsLayout.CssClass = "TopInfoExtraButtonsLayout";
-                _topInfoExtraButtonsLayout.Refresh();
-                _minimized = false;
-            }
-            else
-            {
-                _topInfoArrowImage.Source = ResourceManager.GetImage("topinfo_downarrow");
-                _topInfoExtraButtonsLayout.CssClass = "NoHeight";
-                _topInfoExtraButtonsLayout.Refresh();
-                _minimized = true;
-            }
         }
     }
 }
