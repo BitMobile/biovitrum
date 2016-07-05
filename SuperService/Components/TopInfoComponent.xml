@@ -16,7 +16,7 @@
       <c:VerticalLayout Id="TopInfoExtraLayout" CssClass="TopInfoExtraLayout" />
     </c:VerticalLayout>
     <c:VerticalLayout Id="TopInfoImageLayout" CssClass="TopInfoImageLayout" OnClick="TopInfo_Arrow_OnClick">
-      <c:VerticalLayout CssClass="TopInfoEmptySpace1sp" />
+      <c:VerticalLayout CssClass="TopInfoEmptySpace2sp" />
       <c:Image Id="TopInfoArrowImage" Source="$GetResourceImage(topinfo_downarrow)" CssClass="TopInfoArrowDown" />
     </c:VerticalLayout>
   </c:VerticalLayout>

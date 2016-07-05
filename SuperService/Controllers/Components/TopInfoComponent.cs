@@ -13,6 +13,8 @@ namespace Test.Components
         private Image _topInfoArrowImage;
         private TextView _topInfoHeadingTextView;
         private TextView _topInfoSubHeadingTextView;
+        private VerticalLayout _topInfoImageLayout;
+        private bool _arrowVisible;
 
         /// <summary>
         ///     Конструктор контроллера компонента с заголовком, двумя кнопками и доп. инфой
@@ -34,6 +36,17 @@ namespace Test.Components
                 _minimized = value;
                 _topInfoArrowImage.Source = ResourceManager.GetImage(value ? "topinfo_downarrow" : "topinfo_uparrow");
                 _topInfoArrowImage.Refresh();
+            }
+        }
+
+        public bool ArrowVisible
+        {
+            get { return _arrowVisible; }
+            set
+            {
+                _arrowVisible = value;
+                _topInfoImageLayout.CssClass = value ? "TopInfoImageLayout" : "NoHeight";
+                _topInfoImageLayout.Refresh();
             }
         }
 
@@ -91,6 +104,7 @@ namespace Test.Components
             _topInfoHeadingTextView = (TextView)_parentScreen.Variables["TopInfoHeadingTextView"];
             _topInfoSubHeadingTextView = (TextView)_parentScreen.Variables["TopInfoSubHeadingTextView"];
             _topInfoArrowImage = (Image)_parentScreen.Variables["TopInfoArrowImage"];
+            _topInfoImageLayout = (VerticalLayout)_parentScreen.Variables["TopInfoImageLayout"];
         }
 
         internal void Arrow_OnClick(object sender, EventArgs eventArgs)

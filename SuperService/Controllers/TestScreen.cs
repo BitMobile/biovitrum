@@ -16,7 +16,8 @@ namespace Test
                 RightButtonControl = new TextView("Сохранить"),
                 Header = "Чек-лист",
                 SubHeader = "998/999 вопросов отвечено",
-                Minimized = false
+                Minimized = false,
+                ArrowVisible = true
             };
         }
 

@@ -122,6 +122,26 @@ TopInfoButtonRight Image {
   horizontal-align: right;
   margin-right: 5sp;
 }
+.TopInfoEmptySpace5sp {
+  height: 5sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace4sp {
+  height: 4sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace3sp {
+  height: 3sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace2sp {
+  height: 2sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
 .TopInfoEmptySpace1sp {
   height: 1sp;
   width: 100%;

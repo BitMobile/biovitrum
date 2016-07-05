@@ -72,10 +72,16 @@ TopInfoButtonRight {
     }
 }
 
-.TopInfoEmptySpace1sp {
-    .empty-space(1sp);
-    background-color: @topheading-background-color;
+.TopInfoEmptySpace-loop (@i) when (@i > 0) {
+    .TopInfoEmptySpace@{i}sp {
+        .empty-space(~"@{i}sp");
+        background-color: @topheading-background-color;
+    }
+
+    .TopInfoEmptySpace-loop (@i - 1);
 }
+
+.TopInfoEmptySpace-loop(@emptyspaceiterations);
 
 .TopInfoArrowDown {
     width: 100%;
