@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  <c:VerticalLayout CssClass="RootLayout">
-    <c:Button Text="123" OnClick="Button_OnClick" />
-    <c:TextView Id="TestTextView" />
+  <c:VerticalLayout>
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:VerticalLayout>
+      <c:Button Text="123" OnClick="Button_OnClick" />
+      <c:TextView  Text="#test#" Id="TestTextView" />
+    </c:VerticalLayout>
   </c:VerticalLayout>
 </c:Screen>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -56,7 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Components\**" />
-    <Compile Include="Controllers\**" />
+    <Compile Include="Controllers\TestScreen.cs" />
+    <Compile Include="Controllers\Components\**" />
     <Compile Include="Entities\**" />
     <EmbeddedResource Include="Image\**" />
     <EmbeddedResource Include="Model\**" />
@@ -65,8 +66,15 @@
     <Compile Include="Parameters\**" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Screen\**" />
-    <EmbeddedResource Include="Style\**" />
+    <EmbeddedResource Include="Style\*" />
     <EmbeddedResource Include="Translation\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Style\Less\Components\TopInfoComponent.less" />
+    <Content Include="Style\Less\TestScreen.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Style\Less\defaults.less" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using System;
+using System.Collections.Generic;
 
 namespace Test
 {
@@ -12,20 +12,13 @@ namespace Test
 
         public override void OnLoading()
         {
-            _rootLayout = (VerticalLayout) Controls[0];
-            _testTextView = (TextView) _rootLayout.Controls[1];
+            _rootLayout = (VerticalLayout)Controls[0];
+            _testTextView = (TextView)_rootLayout.Controls[1];
         }
 
         public override void OnShow()
         {
             DConsole.WriteLine("OnShow?");
-
-            if (BusinessProcess.GlobalVariables.ContainsKey("serviceMaterialNumber"))
-            {
-                var result =
-                    (EditServiceOrMaterialsScreenResult) BusinessProcess.GlobalVariables["serviceMaterialNumber"];
-                _testTextView.Text = $"Price = {result.Price}, Count = {result.Count}, Full = {result.FullPrice}";
-            }
         }
 
         internal string GetResourceImage(string tag)
@@ -35,14 +28,18 @@ namespace Test
 
         internal void Button_OnClick(object sender, EventArgs eventArgs)
         {
-            Navigation.Move("EditServicesOrMaterialsScreen", new Dictionary<string, object>
-            {
-                {"priceVisible", true},
-                {"priceEditable", true},
-                {"minimum", 0},
-                {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue},
-                {"returnKey", "serviceMaterialNumber"}
-            });
+        }
+
+        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
+        {
+        }
+
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
+        {
         }
     }
 }

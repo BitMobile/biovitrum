@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Style/TestScreen.css",
+    "inputFile": "Style/Less/TestScreen.less",
+    "minify": {
+        "enabled": false
+    },
+
+  }
+]
