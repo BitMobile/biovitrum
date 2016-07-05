@@ -40,7 +40,6 @@ namespace Test
                 value = Math.Max(value, 0);
                 _price = value;
                 _priceEditText.Text = GetPriceDescription();
-                DConsole.WriteLine("Price.set  " + _priceEditText.Text);
                 if (_totalPriceTextView != null)
                     _totalPriceTextView.Text = GetTotalPriceDescription();
             }
@@ -51,14 +50,11 @@ namespace Test
             get { return _amountFact; } 
             set
             {
-                DConsole.WriteLine("amount fact set");
-
                value = Math.Max(value, _minimum);
                 _amountFact = value;
                 _amountFactEditText.Text = value.ToString();
                 if (_totalPriceTextView != null)
                     _totalPriceTextView.Text = GetTotalPriceDescription();
-                DConsole.WriteLine("set amount = " + _totalPriceTextView.Text);
             }
         }
 
@@ -74,9 +70,6 @@ namespace Test
 
         internal string GetPriceDescription()
         {
-            DConsole.WriteLine("GetPriceDescription() = _isMaterialRequest=" + _isMaterialRequest + " _isService=" + _isService + " _usedCalculateService=" + _usedCalculateService);
-            DConsole.WriteLine("price = " + Price.ToString(CultureInfo.CurrentCulture));
-
             if (_isMaterialRequest || (_isService && !_usedCalculateService) || (!_isService && !_usedCalculateMaterials))
             {
                 return Parameters.EmptyPriceDescription;
