@@ -44,7 +44,7 @@ namespace Test
                 return 0;
             }
 
-            _isMaterialRequest = (bool)Variables.GetValueOrDefault("isMaterialsRequest", Convert.ToBoolean("False"));
+            _isMaterialRequest = (bool)Variables.GetValueOrDefault(Parameters.IdIsMaterialsRequest, Convert.ToBoolean("False"));
             _isService = (bool)Variables.GetValueOrDefault(Parameters.IdIsService, Convert.ToBoolean("False"));
             _currentEventID = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
             _isUseServiceBag = DBHelper.GetIsUseServiceBag();
@@ -84,6 +84,8 @@ namespace Test
                     {"priceVisible", Convert.ToBoolean("False")},
                     {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue},
                     {"returnKey", key},
+                    {Parameters.IdIsService, _isService},
+                    {Parameters.IdIsMaterialsRequest, _isMaterialRequest }
                 };
                 DConsole.WriteLine("Go to EditServicesOrMaterials is Material Request true");
                 Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
@@ -100,7 +102,9 @@ namespace Test
                     var dictionary = new Dictionary<string, object>
                     {
                         {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.InsertIntoDB},
-                        {"rimId"    , rimID}
+                        {"rimId"    , rimID},
+                        {Parameters.IdIsService, _isService},
+                        {Parameters.IdIsMaterialsRequest, _isMaterialRequest }
                     };
 
                     Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
@@ -111,7 +115,9 @@ namespace Test
                     var dictionary = new Dictionary<string, object>
                     {
                         {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
-                        {Parameters.IdLineId   , line.ID}
+                        {Parameters.IdLineId   , line.ID},
+                        {Parameters.IdIsService, _isService},
+                        {Parameters.IdIsMaterialsRequest, _isMaterialRequest }
                     };
 
                     Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);

@@ -24,13 +24,13 @@
     <c:VerticalLayout CssClass="EmptySpace8sp" />
     <c:HorizontalLayout CssClass="PriceLayout">
       <c:TextView CssClass="PriceTitle" Id="PriceTitleTextView" Text="#price#" />
-      <c:EditText CssClass="Price" Id="PriceEditText" Text="$GetPriceDescription()" />
+      <c:EditText CssClass="Price" Id="PriceEditText" Text="$GetPriceDescription()" Enabled="False" />
       <c:TextView CssClass="PriceCurrency" Text="#currency#"/>
     </c:HorizontalLayout>
     <c:HorizontalLine />
     <c:HorizontalLayout CssClass="PriceLayout">
       <c:TextView CssClass="PriceTitle" Id="TotalPriceTitleTextView" Text="#total#" />
-      <c:TextView CssClass="TotalPrice" Id="TotalPriceTextView" Text="$GetTotalPriceDescription()" />
+      <c:TextView CssClass="TotalPrice" Id="TotalPriceTextView" Text="$GetTotalPriceDescription()"/>
       <c:TextView CssClass="TotalPriceCurrency" Text="#currency#"/>
     </c:HorizontalLayout>
     <c:HorizontalLayout CssClass="AddButton" OnClick="AddServiceMaterialButton_OnClick">

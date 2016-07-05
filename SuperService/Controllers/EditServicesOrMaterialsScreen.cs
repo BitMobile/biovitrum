@@ -38,7 +38,9 @@ namespace Test
             set
             {
                 value = Math.Max(value, 0);
-                _priceEditText.Text = value.ToString(CultureInfo.CurrentCulture);
+                _price = value;
+                _priceEditText.Text = GetPriceDescription();
+                DConsole.WriteLine("Price.set  " + _priceEditText.Text);
                 if (_totalPriceTextView != null)
                     _totalPriceTextView.Text = GetTotalPriceDescription();
             }
@@ -49,11 +51,14 @@ namespace Test
             get { return _amountFact; } 
             set
             {
-                value = Math.Max(value, _minimum);
+                DConsole.WriteLine("amount fact set");
+
+               value = Math.Max(value, _minimum);
                 _amountFact = value;
                 _amountFactEditText.Text = value.ToString();
                 if (_totalPriceTextView != null)
                     _totalPriceTextView.Text = GetTotalPriceDescription();
+                DConsole.WriteLine("set amount = " + _totalPriceTextView.Text);
             }
         }
 
@@ -69,13 +74,16 @@ namespace Test
 
         internal string GetPriceDescription()
         {
+            DConsole.WriteLine("GetPriceDescription() = _isMaterialRequest=" + _isMaterialRequest + " _isService=" + _isService + " _usedCalculateService=" + _usedCalculateService);
+            DConsole.WriteLine("price = " + Price.ToString(CultureInfo.CurrentCulture));
+
             if (_isMaterialRequest || (_isService && !_usedCalculateService) || (!_isService && !_usedCalculateMaterials))
             {
-                return "";
+                return Parameters.EmptyPriceDescription;
             }
             else
             {
-                return Price.ToString();
+                return Price.ToString(CultureInfo.CurrentCulture);//     Price.ToString();
             }
         }
 
@@ -83,7 +91,7 @@ namespace Test
         {
             if (_isMaterialRequest || (_isService && !_usedCalculateService) || (!_isService && !_usedCalculateMaterials))
             {
-                return "";
+                return Parameters.EmptyPriceDescription;
             }
             else
             {
@@ -101,8 +109,9 @@ namespace Test
             _behaviourEditServicesOrMaterialsScreen =
                     (BehaviourEditServicesOrMaterialsScreen)
                         Variables.GetValueOrDefault(Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.None);
-            _isMaterialRequest = (bool)Variables.GetValueOrDefault("isMaterialsRequest", Convert.ToBoolean("False"));
-            _isService = (bool)Variables.GetValueOrDefault(Parameters.IdIsService, Convert.ToBoolean("False"));
+            _isMaterialRequest = Convert.ToBoolean(Variables.GetValueOrDefault(Parameters.IdIsMaterialsRequest, Convert.ToBoolean("False")));
+            _isService = Convert.ToBoolean(Variables.GetValueOrDefault(Parameters.IdIsService, Convert.ToBoolean("False")));
+
             _usedCalculateService = DBHelper.GetIsUsedCalculateService();
             _usedCalculateMaterials = DBHelper.GetIsUsedCalculateMaterials();
 
@@ -119,7 +128,7 @@ namespace Test
                 : DBHelper.GetServiceMaterialPriceByRIMID(_rimId);
 
             queryResult.Next();
-            _description = Convert.ToString(queryResult["Description"]);
+            _description = (string)queryResult["Description"];
             AmountFact = Convert.ToInt32(queryResult["AmountFact"]);
             Price = Convert.ToDecimal(queryResult["Price"]);
 
@@ -141,12 +150,13 @@ namespace Test
 
         public override void OnShow()
         {
-            FindTextViewAndChangeVisibility("PriceTitleTextView", _showPrices);
+            DConsole.WriteLine("OnShow() = _showPrices=" + _showPrices);
+            /*FindTextViewAndChangeVisibility("PriceTitleTextView", _showPrices);
             FindTextViewAndChangeVisibility("TotalPriceTitleTextView", _showPrices);
             FindTextViewAndChangeVisibility("TotalPriceTextView", _showPrices);
 
             FindEditTextAndChangeVisibilityAndEditable("PriceEditText", _showPrices, _editPrices);
-            Price = _price;
+            */Price = _price;
 
             if (_value > 0)
                 _amountFactEditText.Text = $"{_value}";

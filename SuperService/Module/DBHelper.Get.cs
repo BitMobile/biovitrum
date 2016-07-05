@@ -533,7 +533,7 @@ namespace Test
             var query = new Query("select " +
                                   "    _Document_Event_ServicesMaterials.Id," +
                                   "    _Document_Event_ServicesMaterials.SKU," +
-                                  "    Catalog_RIM.Price," +
+                                  "    _Document_Event_ServicesMaterials.Price," +
                                   "    AmountPlan," +
                                   "    SumPlan," +
                                   "    AmountFact," +
@@ -562,7 +562,7 @@ namespace Test
             var query = new Query("select " +
                                   "    _Document_Event_ServicesMaterials.Id," +
                                   "    _Document_Event_ServicesMaterials.SKU," +
-                                  "    Catalog_RIM.Price," +
+                                  "    _Document_Event_ServicesMaterials.Price," +
                                   "    AmountPlan," +
                                   "    SumPlan," +
                                   "    AmountFact," +
