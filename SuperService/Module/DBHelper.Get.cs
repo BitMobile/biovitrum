@@ -929,15 +929,16 @@ namespace Test
 
         public static DbRecordset GetRIMFromBag(RIMType type = RIMType.Material)
         {
-            var query = new Query(@"SELECT _Catalog_RIM.Id as id,
-                                           _Catalog_RIM.Description as Description,
-                                           _Catalog_RIM.Price as Price,
-                                           _Catalog_RIM.Unit as Unit
+            var query = new Query(@"SELECT 
+                                        _Catalog_RIM.Id as id,
+                                        _Catalog_RIM.Description as Description,
+                                        _Catalog_RIM.Price as Price,
+                                        _Catalog_RIM.Unit as Unit,
+                                        _Catalog_RIM.service
                                     FROM
                                            _Catalog_User_Bag
-                                    LEFT JOIN
-                                           _Catalog_Rim
-                                    ON _Catalog_User_Bag.Materials =  _Catalog_RIM.Id
+                                              LEFT JOIN _Catalog_Rim
+                                                 ON _Catalog_User_Bag.Materials =  _Catalog_RIM.Id
                                     WHERE _Catalog_RIM.IsFolder = 0 and
                                           _Catalog_RIM.DeletionMark = 0 and
                                            service = @isService ");

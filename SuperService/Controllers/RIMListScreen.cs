@@ -44,14 +44,14 @@ namespace Test
                 return 0;
             }
 
-            _isMaterialRequest = (bool)Variables.GetValueOrDefault(Parameters.IdIsMaterialsRequest, Convert.ToBoolean("False"));
-            _isService = (bool)Variables.GetValueOrDefault(Parameters.IdIsService, Convert.ToBoolean("False"));
+            _isMaterialRequest = Convert.ToBoolean(Variables.GetValueOrDefault(Parameters.IdIsMaterialsRequest, Convert.ToBoolean("False")));
+            _isService = Convert.ToBoolean(Variables.GetValueOrDefault(Parameters.IdIsService, Convert.ToBoolean("False")));
             _currentEventID = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
             _isUseServiceBag = DBHelper.GetIsUseServiceBag();
             _usedCalculateService = DBHelper.GetIsUsedCalculateService();
             _usedCalculateMaterials = DBHelper.GetIsUsedCalculateMaterials();
 
-            
+            DConsole.WriteLine("InitClassFields() _isMaterialRequest=" + _isMaterialRequest + " _isService=" + _isService);
             _fieldsAreInitialized = true;
             return 0;
         }
@@ -154,6 +154,9 @@ namespace Test
                 else if(_isUseServiceBag)
                 {
                     //Если используется рюкзак монтажника, то отображаются только те материалы, которые есть в рюкзаке
+                    //TODO: заменить на метод DBHelper.GetUserBagByUserId когда будет реализована работа с пользователями и ИД. Пока выводим все номенклатуры
+                    //DBHelper.GetUserBagByUserId("@ref[Catalog_User]:838443ed-a3eb-11e5-8aad-f8a963e4bf15");
+
                     result = DBHelper.GetRIMFromBag();
                 }
                 else
@@ -174,7 +177,7 @@ namespace Test
                 //при запросе материалов в рюкзак цену не отображаем
                 result = "";
             }
-            else if ((Convert.ToBoolean(rimLine["service"]) && _usedCalculateService) || (!Convert.ToBoolean(rimLine["service"]) && _usedCalculateMaterials))
+            else if ((_usedCalculateService && Convert.ToBoolean(rimLine["service"])) || (_usedCalculateMaterials && !Convert.ToBoolean(rimLine["service"])))
             {
                 result = rimLine["Price"].ToString();
             }
