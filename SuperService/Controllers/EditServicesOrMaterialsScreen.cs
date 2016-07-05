@@ -3,7 +3,6 @@ using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
 using System.Globalization;
-using Microsoft.SqlServer.Server;
 
 namespace Test
 {
@@ -21,6 +20,7 @@ namespace Test
         private string _lineId;
         private int _minimum;
         private int _value;
+        private IEnumerable _serviceMaterialInfo;
 
 
         private EditText _priceEditText;
@@ -150,9 +150,9 @@ namespace Test
 
         public override void OnShow()
         {
-            DConsole.WriteLine("OnShow() = _showPrices=" + _showPrices);
+            
             /*FindTextViewAndChangeVisibility("PriceTitleTextView", _showPrices);
-            FindTextViewAndChangeVisibility("TotalPriceTitleTextView", _showPrices);
+            /*FindTextViewAndChangeVisibility("TotalPriceTitleTextView", _showPrices);
             FindTextViewAndChangeVisibility("TotalPriceTextView", _showPrices);
 
             FindEditTextAndChangeVisibilityAndEditable("PriceEditText", _showPrices, _editPrices);

@@ -1,7 +1,6 @@
-using System;
 using BitMobile.DbEngine;
 
-namespace Test.Entities.Catalog
+namespace Test.Catalog
 {
     public class EventOptions : DbEntity
     {
@@ -13,11 +12,6 @@ namespace Test.Entities.Catalog
         public DbRef DataTypeParameter { get; set; }
         public bool DisplayingBMA { get; set; }
         public bool EditingBMA { get; set; }
-        
-        public EventOptions(DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_EventOptions", Guid.NewGuid());
-        }
 }
     public class EventOptions_ListValues : DbEntity
     {
@@ -26,10 +20,6 @@ namespace Test.Entities.Catalog
         public DbRef Ref { get; set; }
         public string Val { get; set; }
 
-        public EventOptions_ListValues (DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_EventOptions_ListValues", Guid.NewGuid());					
-        }
    }
 
 

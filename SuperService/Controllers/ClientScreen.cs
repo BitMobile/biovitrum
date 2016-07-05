@@ -3,8 +3,8 @@ using BitMobile.ClientModel3.UI;
 using BitMobile.DbEngine;
 using System;
 using System.Collections.Generic;
+using Test.Catalog;
 using Test.Components;
-using Test.Entities.Catalog;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 namespace Test
@@ -71,9 +71,12 @@ namespace Test
 
         internal void EquipmentLayout_OnClick(object sender, EventArgs e)
         {
-            // var layout = (VerticalLayout)sender;
-            // TODO: Передавать информацию об оборудовании
-            Navigation.Move("EquipmentScreen");
+            var layout = (VerticalLayout)sender;
+            var dictionary = new Dictionary<string, object>()
+            {
+                {Parameters.IdEquipmentId,layout.Id }
+            };
+            Navigation.Move("EquipmentScreen", dictionary);
         }
 
         internal DbRecordset GetCurrentClient()
@@ -154,8 +157,9 @@ namespace Test
         {
             var id = ((HorizontalLayout)sender).Id;
             var contact = DBHelper.GetContactById(id);
-            var contacts = new Contacts((DbRef)contact["Id"])
+            var contacts = new Contacts
             {
+                Id = (DbRef)contact["Id"],
                 DeletionMark = (bool)contact["DeletionMark"],
                 Description = (string)contact["Description"],
                 Code = (string)contact["Code"],

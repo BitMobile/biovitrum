@@ -1,7 +1,6 @@
-using System;
 using BitMobile.DbEngine;
 
-namespace Test.Entities.Catalog
+namespace Test.Catalog
 {
     public class Contacts : DbEntity
     {
@@ -13,12 +12,8 @@ namespace Test.Entities.Catalog
         public string Position { get; set; }
         public string Tel { get; set; }
         public string EMail { get; set; }
-        
-        public Contacts(DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_Contacts", Guid.NewGuid());
-        }
-    }   
+}
+
 
 }
     

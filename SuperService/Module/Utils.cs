@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Security.Policy;
+
+// ReSharper disable LoopCanBeConvertedToQuery
 
 namespace Test
 {
@@ -15,7 +16,7 @@ namespace Test
         }
 
         /// <summary>
-        /// Distance in meters
+        ///     Distance in meters
         /// </summary>
         /// <returns></returns>
         public static double GetDistance(double lat1, double lon1, double lat2, double lon2)
@@ -38,31 +39,80 @@ namespace Test
             var deltal = (lon2 - lon1) * Math.PI / 180;
 
             var a = Math.Pow(Math.Sin(deltaf / 2), 2)
-                       + Math.Cos(f1) * Math.Cos(f2) * Math.Pow(Math.Sin(deltal / 2), 2);
+                    + Math.Cos(f1) * Math.Cos(f2) * Math.Pow(Math.Sin(deltal / 2), 2);
             var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
             var result = r * c;
 
             return Math.Abs(result * 1000);
         }
 
-
         /// <summary>
-        ///    Преобразует входящую строку к виду, который помесится в указанное количество строк интерфейса
+        ///     Преобразует входящую строку к виду, который помесится в указанное количество строк интерфейса
         /// </summary>
-        /// <param name="outputLineLength"> длина строк в символах</param>
-        /// <param name="outputLinesAmount"> количество строк</param>
-        /// <returns></returns>
-        public static string CutForUIOutput(this String str, int outputLineLength, int outputLinesAmount)
+        /// <param name="str">Строка для красивого обрезания</param>
+        /// <param name="outputLineLength">Длина одной строки в интерфейсе</param>
+        /// <param name="outputLinesAmount">Количество строк в интерфейсе</param>
+        /// <returns>Преобразованная строка</returns>
+        public static string CutForUIOutput(this string str, int outputLineLength, int outputLinesAmount)
         {
-            //пока это заглушка, т.к. алгоритм обрезки использовал рекурсию которая не поддерживается. 
-
-            var res =  str.Substring(0, Math.Min(str.Length, outputLineLength * outputLinesAmount));
-            if(str.Length > outputLineLength * outputLinesAmount)
+            var split = str.Split(null);
+            outputLineLength = Convert.ToInt32(outputLineLength);
+            outputLinesAmount = Convert.ToInt32(outputLinesAmount);
+            var words = new ArrayList();
+            foreach (var word in split)
             {
-                res = res.Substring(0, outputLineLength*outputLinesAmount - 3) + "...";
+                if (!string.IsNullOrWhiteSpace(word))
+                    words.Add(word);
             }
-            return res;
+            bool fitAll;
+            var lines = CreateLinesFromWords(outputLineLength, outputLinesAmount, words, out fitAll);
+            bool? test = fitAll;
+            string res = null;
+            foreach (var line in lines)
+            {
+                res = res == null ? (string)line : $"{res} {line}";
+            }
+            return (bool)test ? res : $"{res?.TrimEnd()}...";
         }
 
+        private static ArrayList CreateLinesFromWords(int outputLineLength, int outputLinesAmount, IList words, out bool fitAll)
+        {
+            var lines = new ArrayList { "" };
+            var lastLineNumber = 0;
+            var currentWordNumber = 0;
+            while (currentWordNumber < words.Count && lastLineNumber < outputLinesAmount)
+            {
+                var word = (string)words[currentWordNumber];
+                if (((string)lines[lastLineNumber]).Length + 1 + word.Length <= outputLineLength)
+                {
+                    lines[lastLineNumber] = string.IsNullOrEmpty((string)lines[lastLineNumber])
+                        ? word
+                        : $"{lines[lastLineNumber]} {word}";
+                    currentWordNumber++;
+                    continue;
+                }
+                if (word.Length > outputLineLength)
+                {
+                    if (string.IsNullOrEmpty((string)lines[lastLineNumber]))
+                    {
+                        lines[lastLineNumber] = ((string)words[currentWordNumber]).Substring(0, outputLineLength);
+                        words[currentWordNumber] = ((string)words[currentWordNumber]).Substring(outputLineLength);
+                    }
+                    lines.Add("");
+                    lastLineNumber++;
+                }
+                else
+                {
+                    lines.Add(word);
+                    currentWordNumber++;
+                    lastLineNumber++;
+                }
+            }
+            fitAll = currentWordNumber >= words.Count;
+            if (lines.Count > outputLinesAmount)
+                lines[lines.Count - 1] = string.Empty;
+
+            return lines;
+        }
     }
 }

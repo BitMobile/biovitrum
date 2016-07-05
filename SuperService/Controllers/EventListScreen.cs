@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using BitMobile.Application.Tracking;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
