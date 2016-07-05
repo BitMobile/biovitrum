@@ -16,6 +16,7 @@ namespace Test
         private static bool _isEdit = Convert.ToBoolean("False");
         private bool _isEmptyList;
         private TopInfoComponent _topInfoComponent;
+        private VerticalLayout _rootLayout;
 
         public override void OnLoading()
         {
@@ -26,6 +27,8 @@ namespace Test
                 RightButtonImage = { Visible = false },
                 LeftButtonImage = { Source = ResourceManager.GetImage("close") }
             };
+
+            _rootLayout = (VerticalLayout)GetControl("Root", true);
         }
 
         public override void OnShow()
@@ -62,7 +65,7 @@ namespace Test
 #endif
                     }
                 }
-                Variables.Remove("newItem");
+                BusinessProcess.GlobalVariables.Remove("newItem");
                 _isAdd = Convert.ToBoolean("False");
             }
             else if (_isEdit)
@@ -228,14 +231,28 @@ namespace Test
 #if DEBUG
                 DConsole.WriteLine($"Element {id} with {nameof(index)} = {index} is deleted {Environment.NewLine}");
 #endif
+                if (_data.Count == 0)
+                {
+                    var bigImage = (Image)GetControl("BigImageMaterialsRequest", true);
+                    var descriptionTextView = (TextView)GetControl("DescriptionMaterialsRequest", true);
+                    var button = (Button)GetControl("ButtonMaterialsRequest", true);
+                    var dockLayout = (DockLayout)GetControl("State2DockLayout", true);
+
+                    bigImage.CssClass = "BigImageMaterialsRequestImg";
+                    descriptionTextView.CssClass = "DescriptionMaterialsRequestTV";
+                    button.CssClass = "ButtonMaterialsRequestBtn";
+                    dockLayout.CssClass = "NoHeight";
+                    dockLayout.Visible = false;
+                    _rootLayout.Refresh();
+                }
             }
-#if DEBUG
             else
             {
+#if DEBUG
                 DConsole.WriteLine(
                     $"Element is not deleted Error in method {nameof(DeleteElement)} {Environment.NewLine}");
-            }
 #endif
+            }
         }
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)

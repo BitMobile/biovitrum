@@ -1,6 +1,9 @@
-﻿using System;
+﻿using BitMobile.ClientModel3;
+using BitMobile.Common.Controls;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using static System.String;
 
 // ReSharper disable LoopCanBeConvertedToQuery
 
@@ -61,7 +64,7 @@ namespace Test
             var words = new ArrayList();
             foreach (var word in split)
             {
-                if (!string.IsNullOrWhiteSpace(word))
+                if (!IsNullOrWhiteSpace(word))
                     words.Add(word);
             }
             bool fitAll;
@@ -75,7 +78,8 @@ namespace Test
             return (bool)test ? res : $"{res?.TrimEnd()}...";
         }
 
-        private static ArrayList CreateLinesFromWords(int outputLineLength, int outputLinesAmount, IList words, out bool fitAll)
+        private static ArrayList CreateLinesFromWords(int outputLineLength, int outputLinesAmount, IList words,
+            out bool fitAll)
         {
             var lines = new ArrayList { "" };
             var lastLineNumber = 0;
@@ -85,7 +89,7 @@ namespace Test
                 var word = (string)words[currentWordNumber];
                 if (((string)lines[lastLineNumber]).Length + 1 + word.Length <= outputLineLength)
                 {
-                    lines[lastLineNumber] = string.IsNullOrEmpty((string)lines[lastLineNumber])
+                    lines[lastLineNumber] = IsNullOrEmpty((string)lines[lastLineNumber])
                         ? word
                         : $"{lines[lastLineNumber]} {word}";
                     currentWordNumber++;
@@ -93,7 +97,7 @@ namespace Test
                 }
                 if (word.Length > outputLineLength)
                 {
-                    if (string.IsNullOrEmpty((string)lines[lastLineNumber]))
+                    if (IsNullOrEmpty((string)lines[lastLineNumber]))
                     {
                         lines[lastLineNumber] = ((string)words[currentWordNumber]).Substring(0, outputLineLength);
                         words[currentWordNumber] = ((string)words[currentWordNumber]).Substring(outputLineLength);
@@ -110,9 +114,96 @@ namespace Test
             }
             fitAll = currentWordNumber >= words.Count;
             if (lines.Count > outputLinesAmount)
-                lines[lines.Count - 1] = string.Empty;
+                lines[lines.Count - 1] = Empty;
 
             return lines;
+        }
+
+        /* TODO: Не удалять до тех пор пока платформа не даст разъяснений по поводу корректного удаления элементов.*/
+
+        /// <summary>
+        /// Пока данным методом не пользоваться, до выяснения обстоятельств
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="index"></param>
+        public static void RemoveChild(this IContainer container, int index)
+        {
+            if (index < 0)
+                throw new ArgumentException("Индекс удаляемого элемента не может быть отрицательным.");
+            if (index > container.Controls.Length)
+                throw new ArgumentException(
+                    $"Индекс превышает количество элементов фактически содержащихся в {container.GetType().Name}");
+
+            ((ILayoutableContainer)((IWrappedControl3)container).GetNativeControl()).Withdraw(index);
+            DConsole.WriteLine($"Deleted");
+        }
+
+        /// <summary>
+        /// Пока данным методом не пользоваться, до выяснения обстоятельств
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="childId"></param>
+        /// <returns></returns>
+        public static bool RemoveChild(this IContainer container, string childId)
+        {
+            int index;
+
+            if (!TryGetIndexByChildId(container, childId, out index)) return false;
+            DConsole.WriteLine($"Index = {index}");
+            RemoveChild(container, index + 1);
+            return true;
+        }
+
+        /// <summary>
+        /// Пока данным методом не пользоваться, до выяснения обстоятельств
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="childId"></param>
+        /// <returns></returns>
+        public static int GetChildIndexByChildId(this IContainer container, string childId)
+        {
+            for (var i = 0; i < container.Controls.Length; i++)
+            {
+                var id = (IIdentifiable)container.Controls[i];
+
+                if (CompareOrdinal(childId, id.Id) == 0)
+                {
+                    return i;
+                }
+            }
+            throw new ArgumentException($"Control with Id {childId} not found");
+        }
+
+        /// <summary>
+        /// Пока данным методом не пользоваться, до выяснения обстоятельств
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="childId"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static bool TryGetIndexByChildId(this IContainer container, string childId, out int index)
+        {
+            DConsole.WriteLine($"Container Lenght = {container.Controls.Length}");
+            foreach (var control in container.Controls)
+            {
+                var item = (IIdentifiable)control;
+                DConsole.WriteLine($"ID = {item.Id}");
+            }
+            DConsole.WriteLine("--------------");
+            for (var i = 0; i < container.Controls.Length; i++)
+            {
+                var id = (IIdentifiable)container.Controls[i];
+                DConsole.WriteLine($"{id.Id}");
+                if (CompareOrdinal(childId, id.Id) == 0)
+                {
+                    index = i;
+                    return true;
+                }
+            }
+
+            index = -1;
+
+            return false;
         }
     }
 }
