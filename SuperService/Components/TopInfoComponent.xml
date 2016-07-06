@@ -12,7 +12,7 @@
         <c:VerticalLayout Id="TopInfoRightButton" CssClass="TopInfoButtonRight" OnClick="TopInfo_RightButton_OnClick" />
       </c:HorizontalLayout>
       <c:VerticalLayout Id="TopInfoCommentLayout" CssClass="TopInfoCommentLayout" />
-      <c:VerticalLayout Id="TopInfoExtraLayout" CssClass="TopInfoExtraLayout" />
+      <c:VerticalLayout Id="TopInfoExtraLayout" CssClass="NoHeight" />
     </c:VerticalLayout>
     <c:VerticalLayout Id="TopInfoImageLayout" CssClass="TopInfoImageLayout" OnClick="TopInfo_Arrow_OnClick">
       <c:VerticalLayout CssClass="TopInfoEmptySpace2sp" />

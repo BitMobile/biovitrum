@@ -153,10 +153,11 @@ TopInfoButtonRight Image {
 .TopInfoCommentLayout {
   width: 80%;
   horizontal-align: center;
-  margin-top: 1sp;
+  margin-top: 1.2sp;
+  margin-bottom: 0.5sp;
 }
 .TopInfoCommentLayout TextView {
-  margin-top: 0.7sp;
+  margin-top: 0.5sp;
   font: 2.05705627sp arial;
   height: 2.28333247sp auto;
   color: #d4d4d7;

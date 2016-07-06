@@ -1,5 +1,6 @@
 ﻿using BitMobile.ClientModel3.UI;
 using System;
+using BitMobile.ClientModel3;
 using Test.Components;
 
 namespace Test
@@ -15,14 +16,9 @@ namespace Test
                 LeftButtonControl = new TextView("Отмена"),
                 RightButtonControl = new TextView("Сохранить"),
                 Header = "Курочка ряба",
-                SubHeader = "998/999 вопросов отвечено",
-                Minimized = true,
-                ArrowVisible = true,
-                ArrowActive = true
             };
-            _topInfoComponent.CommentLayout.AddChild(new TextView("17, Малая Бакланская, Санкт-Петербург, Россия, Земля, Солнце, Млечный Путь, Местное Скопление"));
-            _topInfoComponent.CommentLayout.AddChild(new TextView("Итоговая сумма"));
-            _topInfoComponent.CommentLayout.AddChild(new TextView("100500 ₽") {CssClass = "BigGreenTextView"});
+
+            _topInfoComponent.CommentLayout.AddChild(new TextView("Малая балканская, 17, Санкт-Петербург"));
 
             _topInfoComponent.ExtraLayout.AddChild(new TextView("Экстра инфо"));
             _topInfoComponent.ExtraLayout.AddChild(new TextView("Шамеймару, Марисса, Спелл Кард, Спелл Кард, Мастер Спарк, Экстра Фантазм"));
@@ -39,10 +35,12 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
+            DConsole.WriteLine("I am left");
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
         {
+            DConsole.WriteLine("I am right");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
