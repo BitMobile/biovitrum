@@ -1,6 +1,6 @@
-﻿using BitMobile.ClientModel3.UI;
+﻿using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
 using System;
-using BitMobile.ClientModel3;
 using Test.Components;
 
 namespace Test
@@ -25,8 +25,7 @@ namespace Test
         }
 
         public override void OnShow()
-        {
-        }
+        { }
 
         internal string GetResourceImage(string tag)
         {

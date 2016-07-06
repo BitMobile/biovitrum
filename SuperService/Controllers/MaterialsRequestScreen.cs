@@ -21,10 +21,8 @@ namespace Test
         {
             _topInfoComponent = new TopInfoComponent(this)
             {
-                ExtraLayoutVisible = false,
-                HeadingTextView = { Text = Translator.Translate("request") },
-                RightButtonImage = { Visible = false },
-                LeftButtonImage = { Source = ResourceManager.GetImage("close") }
+                Header = Translator.Translate("request"),
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("close") }
             };
         }
 

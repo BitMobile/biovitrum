@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using System;
+using System.Collections;
 using Test.Components;
 
 namespace Test
@@ -18,10 +18,8 @@ namespace Test
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                HeadingTextView = {Text = Translator.Translate("requests")},
-                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_back")},
-                RightButtonImage = {Visible = false},
-                ExtraLayoutVisible = false
+                Header = Translator.Translate("requests"),
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") }
             };
         }
 
@@ -33,6 +31,7 @@ namespace Test
             }
             return Convert.ToBoolean("False");
         }
+
         internal bool IsTodayBreakerNeed()
         {
             if (_needTodayBreaker)
@@ -47,6 +46,7 @@ namespace Test
             _needTodayLayout = Convert.ToBoolean("False");
             return 0;
         }
+
         internal int SetTodayBreakerToFalse()
         {
             _needTodayBreaker = Convert.ToBoolean("False");
@@ -57,22 +57,24 @@ namespace Test
         {
             return DateTime.Now.ToString("dddd dd MMMM");
         }
+
         internal string DateTimeToDate(string datetime)
         {
             return DateTime.Parse(datetime).ToString("dddd dd MMMM");
         }
+
         internal string DateTimeToDateWithWeekCheck(string datetime)
         {
             var workDate = DateTime.Parse(datetime).Date;
             var currentDate = DateTime.Now.Date;
 
-            var workDateWeekNumber = (workDate.DayOfYear + 6)/7;
+            var workDateWeekNumber = (workDate.DayOfYear + 6) / 7;
             if (workDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
             {
                 ++workDateWeekNumber;
             }
 
-            var currentDateWeekNumber = (currentDate.DayOfYear + 6)/7;
+            var currentDateWeekNumber = (currentDate.DayOfYear + 6) / 7;
             if (currentDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
             {
                 ++currentDateWeekNumber;
@@ -84,10 +86,12 @@ namespace Test
             }
             return DateTime.Parse(datetime).ToString("dd MMMM yyyy").ToUpper();
         }
+
         internal string ToHoursMinutes(string datetime)
         {
             return TimeSpan.Parse(datetime).ToString(@"hh\:mm");
         }
+
         internal bool IsDateChanged(string lastdate, string nowdate)
         {
             if (DateTime.Parse(lastdate).Date > DateTime.Parse(nowdate).Date)
@@ -96,6 +100,7 @@ namespace Test
             }
             return false;
         }
+
         internal bool IsDateEquals(string lastdate, string nowdate)
         {
             if (DateTime.Parse(lastdate).Date == DateTime.Parse(nowdate).Date)
@@ -105,11 +110,11 @@ namespace Test
             return false;
         }
 
-
         internal IEnumerable GetNeedMats()
         {
             return DBHelper.GetNeedMats();
         }
+
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
@@ -120,11 +125,14 @@ namespace Test
         {
             Navigation.Back();
         }
+
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
         }
+
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
+            _topInfoComponent.Arrow_OnClick(sender, e);
         }
     }
 }

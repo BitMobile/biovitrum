@@ -14,8 +14,9 @@ namespace Test
         private TextView _totalSumForServices;
         private TextView _totalSumForMaterials;
         private string _currentEventId;
+        private TextView _topInfoTotalTextView;
 
-        private bool _fieldsAreInitialized = false;
+        private bool _fieldsAreInitialized;
 
         public override void OnLoading()
         {
@@ -23,20 +24,15 @@ namespace Test
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                ExtraLayoutVisible = true,
-                HeadingTextView = { Text = Translator.Translate("coc") },
-                RightButtonImage = { Visible = false },
-                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
-                CommentTextView =
-                {
-                    Text = $"{Translator.Translate("total")}" +
-                                                     $"{Environment.NewLine}" +
-                                                     $"{Math.Round((double)_sums["Sum"],2)} " +
-                                                     $"{Translator.Translate("currency")}"
-        },
-                BigArrowActive = false
+                Header = Translator.Translate("coc"),
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                ArrowActive = false
             };
 
+            _topInfoComponent.CommentLayout.AddChild(new TextView($"{Translator.Translate("total")}"));
+            _topInfoTotalTextView =
+                new TextView($"{Math.Round((double)_sums["Sum"], 2)} {Translator.Translate("currency")}");
+            _topInfoComponent.CommentLayout.AddChild(_topInfoTotalTextView);
             _totalSumForServices = (TextView)GetControl("RightInfoServicesTV", true);
             _totalSumForMaterials = (TextView)GetControl("RightInfoMaterialsTV", true);
         }
@@ -67,7 +63,7 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            Navigation.Back(true);
+            Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
@@ -138,7 +134,7 @@ namespace Test
             var sums = GetSums();
             _totalSumForServices.Text = GetFormatStringForSums((double)sums["SumServices"]);
             _totalSumForMaterials.Text = GetFormatStringForSums((double)sums["SumMaterials"]);
-            _topInfoComponent.CommentTextView.Text = $"{Translator.Translate("total")}" +
+            _topInfoTotalTextView.Text = $"{Translator.Translate("total")}" +
                                                      $"{Environment.NewLine}" +
                                                      $"{Math.Round((double)sums["Sum"], 2)} " +
                                                      $"{Translator.Translate("currency")}";

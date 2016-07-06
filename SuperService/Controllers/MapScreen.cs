@@ -1,10 +1,8 @@
-﻿using System;
+﻿using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
 using Test.Components;
 
 namespace Test
@@ -27,12 +25,11 @@ namespace Test
 
         public override void OnLoading()
         {
-            _map = (WebMapGoogle) GetControl("Map", true);
+            _map = (WebMapGoogle)GetControl("Map", true);
             _topInfoComponent = new TopInfoComponent(this)
             {
-                ExtraLayoutVisible = false,
-                HeadingTextView = {Text = Translator.Translate("map")},
-                RightButtonImage = {Visible = false}
+                Header = Translator.Translate("map"),
+                LeftButtonControl = new Image() { Source = ResourceManager.GetImage("topheading_back") }
             };
             DConsole.WriteLine("MapScreen");
         }
@@ -54,6 +51,7 @@ namespace Test
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
+            _topInfoComponent.Arrow_OnClick(sender, e);
         }
 
         internal string GetResourceImage(string tag)
@@ -71,7 +69,6 @@ namespace Test
             return _isClientScreen || _isEventScreen;
         }
 
-
         private void IsNotEmptyCoordinate()
         {
             DConsole.WriteLine(nameof(IsNotEmptyCoordinate));
@@ -83,9 +80,9 @@ namespace Test
                     while (_data.Next())
                     {
                         var latitude = (double)_data["Latitude"];
-                        var longitude = (double) _data["Longitude"];
+                        var longitude = (double)_data["Longitude"];
 
-                        Dictionary<string,object> dictionary =
+                        Dictionary<string, object> dictionary =
                             new Dictionary<string, object>()
                             {
                                 {"Description",_data["Description"] },
@@ -123,9 +120,9 @@ namespace Test
             var screenState = BusinessProcess.GlobalVariables.GetValueOrDefault(Parameters.IdScreenStateId, MapScreenStates.Default);
             var locationData = BusinessProcess.GlobalVariables.GetValueOrDefault(Parameters.IdClientId);
 
-            var state = (MapScreenStates) screenState;
-                DConsole.WriteLine(state.ToString());
-            
+            var state = (MapScreenStates)screenState;
+            DConsole.WriteLine(state.ToString());
+
             switch (state)
             {
                 case MapScreenStates.EventListScreen:
@@ -138,8 +135,8 @@ namespace Test
                     _isClientScreen = Convert.ToBoolean("True");
                     if (locationData != null)
                     {
-                        _data = DBHelper.GetClientLocationByClientId((string) locationData);
-                        _clientId = (string) locationData;
+                        _data = DBHelper.GetClientLocationByClientId((string)locationData);
+                        _clientId = (string)locationData;
                     }
                     break;
 
@@ -147,8 +144,8 @@ namespace Test
                     _isEventScreen = Convert.ToBoolean("True");
                     if (locationData != null)
                     {
-                        _data = DBHelper.GetClientLocationByClientId((string) locationData);
-                        _clientId = (string) locationData;
+                        _data = DBHelper.GetClientLocationByClientId((string)locationData);
+                        _clientId = (string)locationData;
                     }
                     break;
 
@@ -172,15 +169,14 @@ namespace Test
             DConsole.WriteLine($"{nameof(_location)}.{nameof(_location.Count)} = {_location.Count}");
             foreach (var element in _location)
             {
-                var item = (Dictionary<string,object>) element;
-                string description = (string) item["Description"];
-                double latitude = (double) item["Latitude"];
-                double longitude = (double) item["Longitude"];
+                var item = (Dictionary<string, object>)element;
+                string description = (string)item["Description"];
+                double latitude = (double)item["Latitude"];
+                double longitude = (double)item["Longitude"];
 
                 DConsole.WriteLine($"{nameof(description)}:{description} {Environment.NewLine} {nameof(latitude)}={latitude} {nameof(longitude)}={longitude}");
 
-
-                _map.AddMarker(description,latitude,longitude,"red");
+                _map.AddMarker(description, latitude, longitude, "red");
             }
             DConsole.WriteLine("end FillMap");
         }
@@ -213,21 +209,21 @@ namespace Test
                                    $"{nameof(_clientLongitude)}:{_clientLongitude}");
 #endif
 
-                var btn = (Button) sender;
+                var btn = (Button)sender;
                 btn.Text = Translator.Translate("save_coordinates");
                 btn.OnClick -= GetLocation_OnClick;
                 btn.OnClick += SaveClientLocation_OnClick;
             }
             else
             {
-                ((Button) sender).Text = Translator.Translate("failed_coordinates");
+                ((Button)sender).Text = Translator.Translate("failed_coordinates");
             }
         }
 
         internal void SaveClientLocation_OnClick(object sender, EventArgs e)
         {
-            DBHelper.UpdateClientCoordinate(_clientId,_clientLatitude,_clientLongitude);
-            var btn = (Button) sender;
+            DBHelper.UpdateClientCoordinate(_clientId, _clientLatitude, _clientLongitude);
+            var btn = (Button)sender;
             btn.Text = Translator.Translate("get_coordinates");
             btn.OnClick -= SaveClientLocation_OnClick;
             btn.OnClick += GetLocation_OnClick;

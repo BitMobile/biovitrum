@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Globalization;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
@@ -15,10 +16,9 @@ namespace Test
         {
             _topInfoComponent = new TopInfoComponent(this)
             {
-                HeadingTextView = {Text = Translator.Translate("bag")},
-                LeftButtonImage = {Source = ResourceManager.GetImage("baglistscreen_busket")},
-                RightButtonImage = {Source = ResourceManager.GetImage("baglistscreen_plus")},
-                ExtraLayoutVisible = false
+                Header = Translator.Translate("bag"),
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("baglistscreen_busket") },
+                RightButtonControl = new Image { Source = ResourceManager.GetImage("baglistscreen_plus") }
             };
 
             _tabBarComponent = new TabBarComponent(this);
@@ -41,6 +41,7 @@ namespace Test
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
+            _topInfoComponent.Arrow_OnClick(sender, e);
         }
 
         internal IEnumerable GetUserBag()
@@ -51,7 +52,7 @@ namespace Test
 
         internal string ConcatCountUnit(Single count, string unit)
         {
-            return string.Concat(count.ToString(), unit);
+            return string.Concat(count.ToString(CultureInfo.CurrentCulture), unit);
         }
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)

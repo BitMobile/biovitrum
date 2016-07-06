@@ -32,10 +32,8 @@ namespace Test
             DConsole.WriteLine("CheckListScreen init");
             _topInfoComponent = new TopInfoComponent(this)
             {
-                ExtraLayoutVisible = false,
-                HeadingTextView = { Text = Translator.Translate("clist") },
-                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
-                RightButtonImage = { Visible = false }
+                Header = Translator.Translate("clist"),
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back")}
             };
         }
 

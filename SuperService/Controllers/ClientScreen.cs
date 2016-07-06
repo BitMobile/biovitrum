@@ -21,10 +21,9 @@ namespace Test
             DConsole.WriteLine("Client onloading");
             _topInfoComponent = new TopInfoComponent(this)
             {
-                ExtraLayoutVisible = false,
-                HeadingTextView = { Text = Translator.Translate("client") },
-                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
-                RightButtonImage = { Source = ResourceManager.GetImage("topheading_edit") }
+                Header = Translator.Translate("client"),
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_edit") }
             };
 
             _map = (WebMapGoogle)GetControl("MapClient", true);
