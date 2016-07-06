@@ -61,7 +61,7 @@
       </c:HorizontalLayout>
     </s:If>
 
-    <s:If Test="$IsNotEmptyString($contact.Tel)">
+    <s:If Test="$IsNotEmptyString($contact.EMail)">
       <c:HorizontalLayout CssClass="ActionButtonHL" OnClick="WriteEMailButton_OnClick">
         <!--c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)" /-->
         <c:TextView CssClass="ActionTextTV" Text="#send_email#" />
