@@ -6,7 +6,6 @@
 
 /* Common */
 
-
 EditText {
     color: #ffffff;
     font: 3sp arial;
@@ -36,7 +35,6 @@ Button {
 /* End of Common */
 
 /* AuthScreen style */
-
 
 /* TODO: подлежит удалению в будущем */
 
@@ -105,7 +103,9 @@ Button {
     width: 80%;
 }
 
-.LoginPasswordImg { height: 3.2sp; }
+.LoginPasswordImg {
+    height: 3.2sp;
+}
 
 .BreakerContainerVL {
     height: 3dp;
@@ -119,4 +119,5 @@ Button {
     horizontal-align: center;
     width: 90%;
 }
+
 /* End of AuthScreen style */
