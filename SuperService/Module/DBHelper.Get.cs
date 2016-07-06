@@ -955,16 +955,16 @@ namespace Test
         /// <param name="equipmentId">Идентификатор оборудования</param>
         public static DbRecordset GetEquipmentParametersById(string equipmentId)
         {
-            var queryText = "select " +
-                            "   param.Description as Parameter, " +
-                            "   equipParam.val as Value " +
-                            "from " +
-                            "   Catalog_Equipment_Parameters as equipParam " +
-                            "      left join Catalog_EquipmentOptions as param " +
-                            "         on equipParam.id = @equipId and equipParam.Parameter = param.Id " +
-                            "" +
-                            "    where " +
-                            "        equipParam.id = @equipId ";
+            var queryText = @"select 
+                               param.Description as Parameter, 
+                               equipParam.val as Value 
+                            from 
+                               Catalog_Equipment_Parameters as equipParam 
+                                  left join Catalog_EquipmentOptions as param 
+                                     on equipParam.Ref = @equipId and equipParam.Parameter = param.Id 
+                            
+                                where 
+                                    equipParam.Ref = @equipId ";
 
             var query = new Query(queryText);
             query.AddParameter("equipId", equipmentId);
