@@ -1,5 +1,6 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Common.Controls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace Test
         // Для камеры
         private Image _imgToReplace;
 
+        private VerticalLayout _lastClickedRequiredIndicatior;
+
         private string _newGuid;
         private string _pathToImg;
 
@@ -25,7 +28,6 @@ namespace Test
         private TextView _textView;
 
         private TopInfoComponent _topInfoComponent;
-        private VerticalLayout _lastClickedRequiredIndicatior;
 
         public override void OnLoading()
         {
@@ -81,6 +83,11 @@ namespace Test
         {
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
+
+            var hl = (IHorizontalLayout3)((VerticalLayout)sender).Parent;
+            var vl = (IVerticalLayout3)hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
+            var tv = (ITextView3)vl.Controls[0];
+
             var items = new Dictionary<object, string>
             {
                 {"", Translator.Translate("not_choosed")}
@@ -90,7 +97,7 @@ namespace Test
             {
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
             }
-            Dialog.Choose(Translator.Translate("select_answer"), items, ValListCallback);
+            Dialog.Choose(tv.Text, items, ValListCallback);
         }
 
         private void ValListCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
@@ -99,7 +106,8 @@ namespace Test
             DBHelper.UpdateCheckListItem(_currentCheckListItemID,
                 args.Result.Value == Translator.Translate("not_choosed") ? "" : _textView.Text);
             _textView.Refresh();
-            ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result.Value != Translator.Translate("not_choosed"));
+            ChangeRequiredIndicator(_lastClickedRequiredIndicatior,
+                args.Result.Value != Translator.Translate("not_choosed"));
         }
 
         // Дата
@@ -124,6 +132,10 @@ namespace Test
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
+            var hl = (IHorizontalLayout3)((VerticalLayout)sender).Parent;
+            var vl = (IVerticalLayout3)hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
+            var tv = (ITextView3)vl.Controls[0];
+
             var items = new Dictionary<object, string>
             {
                 {"true", Translator.Translate("yes")},
@@ -131,7 +143,7 @@ namespace Test
                 {"", Translator.Translate("not_choosed")}
             };
 
-            Dialog.Choose(Translator.Translate("select_answer"), items, BooleanCallback);
+            Dialog.Choose(tv.Text, items, BooleanCallback);
         }
 
         internal void BooleanCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
@@ -139,7 +151,8 @@ namespace Test
             _textView.Text = args.Result.Value;
             DBHelper.UpdateCheckListItem(_currentCheckListItemID,
                 args.Result.Value == Translator.Translate("not_choosed") ? "" : _textView.Text);
-            ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result.Value != Translator.Translate("not_choosed"));
+            ChangeRequiredIndicator(_lastClickedRequiredIndicatior,
+                args.Result.Value != Translator.Translate("not_choosed"));
             _textView.Refresh();
         }
 
