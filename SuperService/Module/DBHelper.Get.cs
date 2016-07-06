@@ -964,7 +964,7 @@ namespace Test
                                      on equipParam.Ref = @equipId and equipParam.Parameter = param.Id 
                             
                                 where 
-                                    equipParam.Ref = @equipId ";
+                                    equipParam.Ref = @equipId and param.DeletionMark = 0";
 
             var query = new Query(queryText);
             query.AddParameter("equipId", equipmentId);
