@@ -1,7 +1,6 @@
-using System;
 using BitMobile.DbEngine;
 
-namespace Test.Entities.Catalog
+namespace Test.Catalog
 {
     public class SettingMobileApplication : DbEntity
     {
@@ -13,11 +12,6 @@ namespace Test.Entities.Catalog
         public DbRef DataType { get; set; }
         public bool LogicValue { get; set; }
         public int NumericValue { get; set; }
-        
-        public SettingMobileApplication(DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_SettingMobileApplication", Guid.NewGuid());
-        }
 }
 
 

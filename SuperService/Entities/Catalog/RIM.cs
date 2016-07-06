@@ -1,7 +1,6 @@
-using System;
 using BitMobile.DbEngine;
 
-namespace Test.Entities.Catalog
+namespace Test.Catalog
 {
     public class RIM : DbEntity
     {
@@ -16,11 +15,6 @@ namespace Test.Entities.Catalog
         public bool Service { get; set; }
         public DbRef SKU { get; set; }
         public string Unit { get; set; }
-        
-        public RIM(DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_RIM", Guid.NewGuid());
-        }
 }
 
 

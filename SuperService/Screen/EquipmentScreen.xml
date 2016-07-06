@@ -29,7 +29,7 @@
         <c:VerticalLayout CssClass="ListElement">
           <c:HorizontalLayout CssClass="EmptySpace2sp" />
           <c:HorizontalLayout>
-            <c:VerticalLayout CssClass="HistoryDescriptionResultLayout">
+            <c:VerticalLayout CssClass="HistoryDescriptionResultLayout" >
               <c:TextView Text="$history.Description" CssClass="HistoryDescriptionView" />
               <s:If Test="$history.ResultName == Done">
                 <c:TextView Text="$history.Result" CssClass="HistoryResultViewDone" />

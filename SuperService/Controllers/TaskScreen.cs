@@ -3,8 +3,8 @@ using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections.Generic;
 using Test.Components;
-using Test.Entities.Document;
-using Test.Entities.Enum;
+using Test.Document;
+using Test.Enum;
 
 namespace Test
 {

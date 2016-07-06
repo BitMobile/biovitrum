@@ -1,8 +1,7 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.DbEngine;
 using System;
-using System.Collections;
-using Test.Entities.Document;
+using Test.Document;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 //using Database = BitMobile.ClientModel3.Database;
@@ -27,10 +26,10 @@ namespace Test
         /// <param name="eventSinceDate"> Дата начания с которой необходимо получить события</param>
         public static DbRecordset GetEvents(DateTime eventSinceDate)
         {
-            var queryString = "  select " +
-                              "  event.Id, " +
-                              "  event.StartDatePlan, " + //full date
-                              "  date(event.StartDatePlan) as startDatePlanDate, " + //date only
+            var queryString = @"select 
+                                 event.Id, 
+                                 event.StartDatePlan,  
+                                 date(event.StartDatePlan) as startDatePlanDate, " + //date only
                               "  event.EndDatePlan, " +
                               "  ifnull(TypeDeparturesTable.description, '') as TypeDeparture, " +
                               "  event.ActualStartDate as ActualStartDate, " + //4
@@ -94,30 +93,30 @@ namespace Test
         public static EventsStatistic GetEventsStatistic()
         {
             var statistic = new EventsStatistic();
-            var query = new Query("select " +
-                                  "  TOTAL(CASE " +
-                                  "        when StartDatePlan > date('now','start of day') then 1 " +
-                                  "        else 0 " +
-                                  "   End) as DayTotalAmount, " +
-                                  "    TOTAL(CASE " +
-                                  "        when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now','start of day') then 1 " +
-                                  "        else 0 " +
-                                  "   End) as DayCompleteAmout, " +
-                                  "   TOTAL(CASE " +
-                                  "        when StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 " +
-                                  "        else 0 " +
-                                  "   End) as MonthCompleteAmout, " +
-                                  "   TOTAL(CASE " +
-                                  "        when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 " +
-                                  "        else 0 " +
-                                  "   End) as MonthTotalAmount " +
-                                  "  from " +
-                                  "      Document_Event as event " +
-                                  "       left join Enum_StatusyEvents " +
-                                  "         on event.Status = Enum_StatusyEvents.Id " +
-                                  " " +
-                                  "where " +
-                                  "     event.DeletionMark = 0");
+            var query = new Query(@"select 
+                                      TOTAL(CASE 
+                                           when StartDatePlan >= date('now','start of day') and StartDatePlan < date('now','start of day', '+1 day') then 1 
+                                           else 0  
+                                      End) as DayTotalAmount, 
+                                       TOTAL(CASE 
+                                           when Enum_StatusyEvents.name like 'Done' and StartDatePlan >= date('now','start of day') and StartDatePlan < date('now','start of day', '+1 day') then 1 
+                                           else 0 
+                                      End) as DayCompleteAmout, 
+                                      TOTAL(CASE 
+                                           when StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 
+                                           else 0 
+                                      End) as MonthCompleteAmout, 
+                                      TOTAL(CASE 
+                                           when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 
+                                           else 0 
+                                      End) as MonthTotalAmount 
+                                     from 
+                                         Document_Event as event 
+                                          left join Enum_StatusyEvents 
+                                            on event.Status = Enum_StatusyEvents.Id 
+                                  
+                                   where 
+                                        event.DeletionMark = 0");
             var result = query.Execute();
 
             if (result.Next())
@@ -533,7 +532,7 @@ namespace Test
             var query = new Query("select " +
                                   "    _Document_Event_ServicesMaterials.Id," +
                                   "    _Document_Event_ServicesMaterials.SKU," +
-                                  "    Catalog_RIM.Price," +
+                                  "    _Document_Event_ServicesMaterials.Price," +
                                   "    AmountPlan," +
                                   "    SumPlan," +
                                   "    AmountFact," +
@@ -562,7 +561,7 @@ namespace Test
             var query = new Query("select " +
                                   "    _Document_Event_ServicesMaterials.Id," +
                                   "    _Document_Event_ServicesMaterials.SKU," +
-                                  "    Catalog_RIM.Price," +
+                                  "    _Document_Event_ServicesMaterials.Price," +
                                   "    AmountPlan," +
                                   "    SumPlan," +
                                   "    AmountFact," +
@@ -588,17 +587,18 @@ namespace Test
         /// <returns></returns>
         public static DbRecordset GetRIMByType(RIMType rimType)
         {
-            var query = new Query("select " +
-                                  "    id, " +
-                                  "    Description, " +
-                                  "    Price, " +
-                                  "    Unit " +
-                                  "from " +
-                                  "    Catalog_RIM " +
-                                  "where " +
-                                  "    deletionMark = 0 " +
-                                  "    and isFolder = 0 " +
-                                  "    and service = @rim_type");
+            var query = new Query(@"select 
+                                      id, 
+                                      Description, 
+                                      Price, 
+                                      Unit, 
+                                      service
+                                  from 
+                                      Catalog_RIM 
+                                  where 
+                                      deletionMark = 0 
+                                      and isFolder = 0 
+                                      and service = @rim_type");
 
             DConsole.WriteLine("rimType = " + rimType);
             if (rimType == RIMType.Material)
@@ -813,8 +813,9 @@ namespace Test
             var query = new Query("select * from Document_Event_Equipments where id = @id");
             query.AddParameter("id", id);
             var dbRecordset = query.Execute();
-            return new Event_Equipments((DbRef)dbRecordset["Id"])
+            return new Event_Equipments
             {
+                Id = (DbRef)dbRecordset["Id"],
                 Comment = (string)dbRecordset["Comment"],
                 Equipment = (DbRef)dbRecordset["Equipment"],
                 LineNumber = (int)dbRecordset["LineNumber"],
@@ -870,7 +871,7 @@ namespace Test
         /// </summary>
         /// <returns>true используется рюкзак монтажника,
         /// false если не используется. null если таблица пустая или не найдено значение</returns>
-        public static bool GetIsBag()
+        public static bool GetIsUseServiceBag()
         {
             var query = new Query(@"SELECT LogicValue
                                     FROM _Catalog_SettingMobileApplication
@@ -878,20 +879,66 @@ namespace Test
 
             var dbResult = query.Execute();
 
-            return dbResult.Next() ? (bool)dbResult["LogicValue"] : Convert.ToBoolean("False");
+            return dbResult.Next() ? dbResult.GetBoolean(0) : Convert.ToBoolean("False");
+        }
+
+        /// <summary>
+        /// Получаем значение связанное с тем, включено ли отображение цен или нет
+        /// возращяет булевское значение упакованное в object
+        /// </summary>
+        /// <returns>true , если включено отображение цен
+        /// false если не используется. null если таблица пустая или не найдено значение</returns>
+        public static bool GetIsUsedCalculateService()
+        {
+            var query = new Query(@"SELECT LogicValue
+                                    FROM _Catalog_SettingMobileApplication
+                                    WHERE Description = 'UsedCalculateService' ");
+
+            var dbResult = query.Execute();
+
+            return dbResult.Next() ? dbResult.GetBoolean(0) : Convert.ToBoolean("False");
+        }
+
+
+        /// <summary>
+        /// Получаем значение связанное с тем, включено ли отображение цен или нет
+        /// возращяет булевское значение упакованное в object
+        /// </summary>
+        /// <returns>true , если включено отображение цен
+        /// false если не используется. null если таблица пустая или не найдено значение</returns>
+        public static bool GetIsUsedCalculateMaterials()
+        {
+            var query = new Query(@"SELECT LogicValue
+                                    FROM _Catalog_SettingMobileApplication
+                                    WHERE Description = 'UsedCalculateMaterials' ");
+
+            var dbResult = query.Execute();
+
+            // 
+            /*dbResult.Next();
+            var res1 = dbResult.GetBoolean(0);
+            var res2 = (bool) dbResult["LogicValue"];
+            DConsole.WriteLine("GetIsUsedCalculateMaterials() getBoolean = " + res1);
+            DConsole.WriteLine("GetIsUsedCalculateMaterials() (bool) = " + res1);
+
+
+            return true;*/
+
+            return dbResult.Next() ? dbResult.GetBoolean(0) : Convert.ToBoolean("False");
         }
 
         public static DbRecordset GetRIMFromBag(RIMType type = RIMType.Material)
         {
-            var query = new Query(@"SELECT _Catalog_RIM.Id as id,
-                                           _Catalog_RIM.Description as Description,
-                                           _Catalog_RIM.Price as Price,
-                                           _Catalog_RIM.Unit as Unit
+            var query = new Query(@"SELECT 
+                                        _Catalog_RIM.Id as id,
+                                        _Catalog_RIM.Description as Description,
+                                        _Catalog_RIM.Price as Price,
+                                        _Catalog_RIM.Unit as Unit,
+                                        _Catalog_RIM.service
                                     FROM
                                            _Catalog_User_Bag
-                                    LEFT JOIN
-                                           _Catalog_Rim
-                                    ON _Catalog_User_Bag.Materials =  _Catalog_RIM.Id
+                                              LEFT JOIN _Catalog_Rim
+                                                 ON _Catalog_User_Bag.Materials =  _Catalog_RIM.Id
                                     WHERE _Catalog_RIM.IsFolder = 0 and
                                           _Catalog_RIM.DeletionMark = 0 and
                                            service = @isService ");
@@ -908,16 +955,16 @@ namespace Test
         /// <param name="equipmentId">Идентификатор оборудования</param>
         public static DbRecordset GetEquipmentParametersById(string equipmentId)
         {
-            var queryText = "select " +
-                            "   param.Description as Parameter, " +
-                            "   equipParam.val as Value " +
-                            "from " +
-                            "   Catalog_Equipment_Parameters as equipParam " +
-                            "      left join Catalog_EquipmentOptions as param " +
-                            "         on equipParam.id = @equipId and equipParam.Parameter = param.Id " +
-                            "" +
-                            "    where " +
-                            "        equipParam.id = @equipId ";
+            var queryText = @"select 
+                               param.Description as Parameter, 
+                               equipParam.val as Value 
+                            from 
+                               Catalog_Equipment_Parameters as equipParam 
+                                  left join Catalog_EquipmentOptions as param 
+                                     on equipParam.Ref = @equipId and equipParam.Parameter = param.Id 
+                            
+                                where 
+                                    equipParam.Ref = @equipId and param.DeletionMark = 0";
 
             var query = new Query(queryText);
             query.AddParameter("equipId", equipmentId);

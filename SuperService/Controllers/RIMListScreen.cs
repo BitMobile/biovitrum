@@ -12,9 +12,12 @@ namespace Test
         private string _currentEventID;
 
         private bool _fieldsAreInitialized;
-        private bool _isMaterialRequest;
+        private bool _isMaterialRequest; //признак того, что запрос пришел из рюкзака монтажника
         private bool _isNotEmptyData;
-        private bool _isService;
+        private bool _isService; //отображать услуги в противном случае материалы
+        private bool _isUseServiceBag; //признак того, что используется рюкзак монтажника
+        private bool _usedCalculateService;
+        private bool _usedCalculateMaterials;
 
         private TopInfoComponent _topInfoComponent;
 
@@ -36,11 +39,15 @@ namespace Test
                 return 0;
             }
 
-            _isMaterialRequest = (bool)Variables.GetValueOrDefault("isMaterialsRequest", Convert.ToBoolean("False"));
-            _isService = (bool)Variables.GetValueOrDefault(Parameters.IdIsService, Convert.ToBoolean("False"));
+            _isMaterialRequest = Convert.ToBoolean(Variables.GetValueOrDefault(Parameters.IdIsMaterialsRequest, Convert.ToBoolean("False")));
+            _isService = Convert.ToBoolean(Variables.GetValueOrDefault(Parameters.IdIsService, Convert.ToBoolean("False")));
             _currentEventID = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
-            _fieldsAreInitialized = true;
+            _isUseServiceBag = DBHelper.GetIsUseServiceBag();
+            _usedCalculateService = DBHelper.GetIsUsedCalculateService();
+            _usedCalculateMaterials = DBHelper.GetIsUsedCalculateMaterials();
 
+            DConsole.WriteLine("InitClassFields() _isMaterialRequest=" + _isMaterialRequest + " _isService=" + _isService);
+            _fieldsAreInitialized = true;
             return 0;
         }
 
@@ -76,6 +83,8 @@ namespace Test
                     {"priceVisible", Convert.ToBoolean("False")},
                     {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue},
                     {"returnKey", key},
+                    {Parameters.IdIsService, _isService},
+                    {Parameters.IdIsMaterialsRequest, _isMaterialRequest }
                 };
                 DConsole.WriteLine("Go to EditServicesOrMaterials is Material Request true");
                 Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
@@ -92,7 +101,9 @@ namespace Test
                     var dictionary = new Dictionary<string, object>
                     {
                         {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.InsertIntoDB},
-                        {"rimId"    , rimID}
+                        {"rimId"    , rimID},
+                        {Parameters.IdIsService, _isService},
+                        {Parameters.IdIsMaterialsRequest, _isMaterialRequest }
                     };
 
                     Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
@@ -103,7 +114,9 @@ namespace Test
                     var dictionary = new Dictionary<string, object>
                     {
                         {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
-                        {Parameters.IdLineId   , line.ID}
+                        {Parameters.IdLineId   , line.ID},
+                        {Parameters.IdIsService, _isService},
+                        {Parameters.IdIsMaterialsRequest, _isMaterialRequest }
                     };
 
                     Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
@@ -124,29 +137,53 @@ namespace Test
         {
             DbRecordset result;
 
-            if (_isService)
+            if (_isMaterialRequest)
             {
-                result = DBHelper.GetRIMByType(RIMType.Service);
-                DConsole.WriteLine("Получили услуги " + RIMType.Material);
+                //при запросе из рюкзака отображаем все материалы
+                result = DBHelper.GetRIMByType(RIMType.Material);
             }
             else
             {
-                var isBag = DBHelper.GetIsBag();
-
-                if (!isBag)
+                //запрос из АВР Наряда
+                if (_isService)
                 {
-                    result = DBHelper.GetRIMByType(RIMType.Material);
-                    DConsole.WriteLine("Получили товары " + RIMType.Material);
+                    //услуги всегда отображаем все
+                    result = DBHelper.GetRIMByType(RIMType.Service);
+                }
+                else if(_isUseServiceBag)
+                {
+                    //Если используется рюкзак монтажника, то отображаются только те материалы, которые есть в рюкзаке
+                    //TODO: заменить на метод DBHelper.GetUserBagByUserId когда будет реализована работа с пользователями и ИД. Пока выводим все номенклатуры
+                    //DBHelper.GetUserBagByUserId("@ref[Catalog_User]:838443ed-a3eb-11e5-8aad-f8a963e4bf15");
+
+                    result = DBHelper.GetRIMFromBag();
                 }
                 else
                 {
-                    result = DBHelper.GetRIMFromBag();
-                    DConsole.WriteLine($"Получаем материалы из рюкзака ");
+                    //если рюкзак не используется - получаем все материалы
+                    result = DBHelper.GetRIMByType(RIMType.Material);
                 }
             }
+            
             return result;
         }
 
+        internal string GetPriceDescription(DbRecordset rimLine)
+        {
+            var result = Parameters.EmptyPriceDescription;
+            if (_isMaterialRequest)
+            {
+                //при запросе материалов в рюкзак цену не отображаем
+                result = "";
+            }
+            else if ((_usedCalculateService && Convert.ToBoolean(rimLine["service"])) || (_usedCalculateMaterials && !Convert.ToBoolean(rimLine["service"])))
+            {
+                result = rimLine["Price"].ToString();
+            }
+
+            return result;
+        }
+            
         internal bool GetIsNotEmpty()
         {
             var result = GetDataFromDb();

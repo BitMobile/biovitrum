@@ -47,7 +47,7 @@ namespace Test
         internal IEnumerable GetUserBag()
         {
             // TODO: сделать передачу Id юзера когда будет авторизация
-            return DBHelper.GetUserBagByUserId("@ref[Catalog_User]:da98befe-ef7b-11e5-80db-005056011152");
+            return DBHelper.GetUserBagByUserId("@ref[Catalog_User]:838443ed-a3eb-11e5-8aad-f8a963e4bf15");
         }
 
         internal string ConcatCountUnit(Single count, string unit)

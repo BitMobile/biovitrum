@@ -1,8 +1,6 @@
-﻿using BitMobile.ClientModel3;
+﻿using System;
+using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
-using System;
-using System.Net;
-using System.Text;
 using Test.Components;
 
 namespace Test

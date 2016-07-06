@@ -1,7 +1,6 @@
-using System;
 using BitMobile.DbEngine;
 
-namespace Test.Entities.Catalog
+namespace Test.Catalog
 {
     public class User : DbEntity
     {
@@ -17,11 +16,6 @@ namespace Test.Entities.Catalog
         public DbRef UserID { get; set; }
         public string Phone { get; set; }
         public string Role { get; set; }
-        
-        public User(DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_User", Guid.NewGuid());
-        }
 }
     public class User_Bag : DbEntity
     {
@@ -31,10 +25,6 @@ namespace Test.Entities.Catalog
         public int LineNumber { get; set; }
         public DbRef Ref { get; set; }
 
-        public User_Bag (DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_User_Bag", Guid.NewGuid());					
-        }
    }
     public class User_RemainsNorms : DbEntity
     {
@@ -44,10 +34,6 @@ namespace Test.Entities.Catalog
         public int LineNumber { get; set; }
         public DbRef Ref { get; set; }
 
-        public User_RemainsNorms (DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Catalog_User_RemainsNorms", Guid.NewGuid());					
-        }
    }
 
 

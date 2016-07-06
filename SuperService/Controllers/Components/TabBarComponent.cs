@@ -1,5 +1,4 @@
 ﻿using System;
-using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 
 namespace Test.Components

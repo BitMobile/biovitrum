@@ -14,13 +14,25 @@ namespace Test
         private TextView _totalSumForServices;
         private TextView _totalSumForMaterials;
         private string _currentEventId;
-        private TextView _topInfoTotalTextView;
+        private bool _usedCalculateService;
+        private bool _usedCalculateMaterials;
 
         private bool _fieldsAreInitialized;
 
         public override void OnLoading()
         {
-            InitClassFields();
+           InitClassFields();
+            var totalSum = "";
+
+            if (!_usedCalculateMaterials && !_usedCalculateService)
+            {
+                totalSum = Parameters.EmptyPriceDescription;
+            }
+            else
+            {
+                totalSum =
+                    $"{Math.Round((_usedCalculateService ? (double) _sums["SumServices"] : 0) + (_usedCalculateMaterials ? (double) _sums["SumMaterials"] : 0), 2)}";
+            }
 
             _topInfoComponent = new TopInfoComponent(this)
             {
@@ -45,12 +57,16 @@ namespace Test
             }
 
             _currentEventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            _usedCalculateService = DBHelper.GetIsUsedCalculateService();
+            _usedCalculateMaterials = DBHelper.GetIsUsedCalculateMaterials();
+
+            GetSums();
 
             _fieldsAreInitialized = true;
 
             return 0;
         }
-
+        
         public override void OnShow()
         {
             GPS.StopTracking();
@@ -132,18 +148,35 @@ namespace Test
             var shl = (ISwipeHorizontalLayout3)vl.Parent;
             shl.CssClass = "NoHeight";
             var sums = GetSums();
-            _totalSumForServices.Text = GetFormatStringForSums((double)sums["SumServices"]);
-            _totalSumForMaterials.Text = GetFormatStringForSums((double)sums["SumMaterials"]);
-            _topInfoTotalTextView.Text = $"{Translator.Translate("total")}" +
+            _totalSumForServices.Text = GetFormatStringForServiceSums();
+            _totalSumForMaterials.Text = GetFormatStringForMaterialSums();
+            _topInfoComponent.CommentTextView.Text = $"{Translator.Translate("total")}" +
                                                      $"{Environment.NewLine}" +
                                                      $"{Math.Round((double)sums["Sum"], 2)} " +
                                                      $"{Translator.Translate("currency")}";
             shl.Refresh();
         }
 
-        internal string GetFormatStringForSums(double number)
+        internal string GetFormatStringForServiceSums()
         {
-            return $"\u2022 {Convert.ToDouble(number)} {Translator.Translate("currency")}";
+            var totalSum = Convert.ToDouble(_sums["SumServices"]).ToString();
+            return $"\u2022 {(_usedCalculateService?totalSum:Parameters.EmptyPriceDescription)} {Translator.Translate("currency")}";
+        }
+
+        internal string GetFormatStringForMaterialSums()
+        {
+            var totalSum = Convert.ToDouble(_sums["SumMaterials"]).ToString();
+            return $"\u2022 {(_usedCalculateMaterials ? totalSum : Parameters.EmptyPriceDescription)} {Translator.Translate("currency")}";
+        }
+
+        internal string GetServicePriceDescription(DbRecordset service)
+        {
+            return _usedCalculateService ? service["Price"].ToString() : Parameters.EmptyPriceDescription;
+        }
+
+        internal string GetMaterialPriceDescription(DbRecordset material)
+        {
+            return _usedCalculateMaterials ? material["Price"].ToString() : Parameters.EmptyPriceDescription;
         }
 
         internal DbRecordset GetSums()
@@ -170,9 +203,8 @@ namespace Test
             return DBHelper.GetServicesByEventId((string)eventId);
         }
 
-        internal string Concat(float amountFact, float price, string unit)
+        internal string Concat(float amountFact, string price, string unit)
         {
-            DConsole.WriteLine("Concat - amountFact=" + amountFact + " type=" + amountFact.GetType() + " price=" + price + " type=" + price.GetType());
             return $"{amountFact} {unit} x {price} {Translator.Translate("currency")}";
         }
 

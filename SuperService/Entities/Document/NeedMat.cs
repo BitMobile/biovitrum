@@ -1,7 +1,7 @@
 using System;
 using BitMobile.DbEngine;
 
-namespace Test.Entities.Document
+namespace Test.Document
 {
     public class NeedMat : DbEntity
     {
@@ -16,11 +16,6 @@ namespace Test.Entities.Document
         public bool FillFull { get; set; }
         public string SRMComment { get; set; }
         public string SRComment { get; set; }
-        
-        public NeedMat(DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Document_NeedMat", Guid.NewGuid());
-        }
 }
     public class NeedMat_Matireals : DbEntity
     {
@@ -30,10 +25,6 @@ namespace Test.Entities.Document
         public DbRef SKU { get; set; }
         public decimal Count { get; set; }
 
-        public NeedMat_Matireals (DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Document_NeedMat_Matireals", Guid.NewGuid());					
-        }
    }
 
 

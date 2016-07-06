@@ -1,7 +1,7 @@
 using System;
 using BitMobile.DbEngine;
 
-namespace Test.Entities.Document
+namespace Test.Document
 {
     public class CheckList : DbEntity
     {
@@ -13,11 +13,6 @@ namespace Test.Entities.Document
         public string Description { get; set; }
         public string Project { get; set; }
         public DbRef Status { get; set; }
-        
-        public CheckList(DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Document_CheckList", Guid.NewGuid());
-        }
 }
     public class CheckList_Actions : DbEntity
     {
@@ -27,10 +22,6 @@ namespace Test.Entities.Document
         public DbRef Action { get; set; }
         public bool Required { get; set; }
 
-        public CheckList_Actions (DbRef id = null)
-        {
-            Id = id ?? DbRef.CreateInstance("Document_CheckList_Actions", Guid.NewGuid());					
-        }
    }
 
 
