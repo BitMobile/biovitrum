@@ -56,8 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Components\**" />
-    <Compile Include="Controllers\TestScreen.cs" />
-    <Compile Include="Controllers\Components\**" />
+    <Compile Include="Controllers\**" />
     <Compile Include="Entities\**" />
     <EmbeddedResource Include="Image\**" />
     <EmbeddedResource Include="Model\**" />
@@ -68,13 +67,7 @@
     <EmbeddedResource Include="Screen\**" />
     <EmbeddedResource Include="Style\*" />
     <EmbeddedResource Include="Translation\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Style\Less\Components\TopInfoComponent.less" />
-    <Content Include="Style\Less\TestScreen.less" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Style\Less\defaults.less" />
+    <None Include="Style\Less\**" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
