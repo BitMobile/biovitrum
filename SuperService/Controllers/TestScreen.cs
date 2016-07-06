@@ -14,11 +14,18 @@ namespace Test
             {
                 LeftButtonControl = new TextView("Отмена"),
                 RightButtonControl = new TextView("Сохранить"),
-                Header = "Чек-лист",
+                Header = "Курочка ряба",
                 SubHeader = "998/999 вопросов отвечено",
-                Minimized = false,
-                ArrowVisible = true
+                Minimized = true,
+                ArrowVisible = true,
+                ArrowActive = true
             };
+            _topInfoComponent.CommentLayout.AddChild(new TextView("17, Малая Бакланская, Санкт-Петербург, Россия, Земля, Солнце, Млечный Путь, Местное Скопление"));
+            _topInfoComponent.CommentLayout.AddChild(new TextView("Итоговая сумма"));
+            _topInfoComponent.CommentLayout.AddChild(new TextView("100500 ₽") {CssClass = "BigGreenTextView"});
+
+            _topInfoComponent.ExtraLayout.AddChild(new TextView("Экстра инфо"));
+            _topInfoComponent.ExtraLayout.AddChild(new TextView("Шамеймару, Марисса, Спелл Кард, Спелл Кард, Мастер Спарк, Экстра Фантазм"));
         }
 
         public override void OnShow()

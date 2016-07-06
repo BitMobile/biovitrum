@@ -67,22 +67,12 @@ TextView {
     .empty-space(1.5sp)
 }
 
-.EmptySpace1sp {
-    .empty-space(1sp);
+.EmptySpace-loop (@i) when (@i > 0) {
+    .EmptySpace@{i}sp {
+        .empty-space(~"@{i}sp");
+    }
+
+    .EmptySpace-loop (@i - 1);
 }
 
-.EmptySpace2sp {
-    .empty-space(2sp);
-}
-
-.EmptySpace3sp {
-    .empty-space(3sp);
-}
-
-.EmptySpace4sp {
-    .empty-space(4sp);
-}
-
-.EmptySpace5sp {
-    .empty-space(5sp);
-}
+.EmptySpace-loop(@emptyspaceiterations);

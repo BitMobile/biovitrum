@@ -11,7 +11,6 @@
         </c:VerticalLayout>
         <c:VerticalLayout Id="TopInfoRightButton" CssClass="TopInfoButtonRight" OnClick="TopInfo_RightButton_OnClick" />
       </c:HorizontalLayout>
-      <c:VerticalLayout CssClass="EmptySpace3-2sp" />
       <c:VerticalLayout Id="TopInfoCommentLayout" CssClass="TopInfoCommentLayout" />
       <c:VerticalLayout Id="TopInfoExtraLayout" CssClass="TopInfoExtraLayout" />
     </c:VerticalLayout>

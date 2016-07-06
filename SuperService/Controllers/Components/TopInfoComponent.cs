@@ -1,20 +1,21 @@
-﻿using BitMobile.ClientModel3.UI;
+﻿using System;
+using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
-using System;
 
 namespace Test.Components
 {
     public class TopInfoComponent
     {
         private readonly Screen _parentScreen;
+        private bool _arrowActive = true;
+        private bool _arrowVisible = true;
         private VerticalLayout _leftButton;
-        private bool _minimized;
+        private bool _minimized = true;
         private VerticalLayout _rightButton;
         private Image _topInfoArrowImage;
         private TextView _topInfoHeadingTextView;
-        private TextView _topInfoSubHeadingTextView;
         private VerticalLayout _topInfoImageLayout;
-        private bool _arrowVisible;
+        private TextView _topInfoSubHeadingTextView;
 
         /// <summary>
         ///     Конструктор контроллера компонента с заголовком, двумя кнопками и доп. инфой
@@ -34,8 +35,9 @@ namespace Test.Components
             set
             {
                 _minimized = value;
-                _topInfoArrowImage.Source = ResourceManager.GetImage(value ? "topinfo_downarrow" : "topinfo_uparrow");
-                _topInfoArrowImage.Refresh();
+                UpdateArrowImage();
+                ExtraLayout.CssClass = value ? "NoHeight" : "TopInfoExtraLayout";
+                ExtraLayout.Refresh();
             }
         }
 
@@ -49,6 +51,18 @@ namespace Test.Components
                 _topInfoImageLayout.Refresh();
             }
         }
+
+        public bool ArrowActive
+        {
+            get { return _arrowActive; }
+            set
+            {
+                _arrowActive = value;
+                UpdateArrowImage();
+            }
+        }
+
+        public VerticalLayout CommentLayout { get; private set; }
 
         public IWrappedControl3 LeftButtonControl
         {
@@ -87,9 +101,18 @@ namespace Test.Components
             }
         }
 
+        private void UpdateArrowImage()
+        {
+            string imageTag = $"topinfo_{(Minimized ? "down" : "up")}{(ArrowActive ? "" : "no")}arrow";
+            _topInfoArrowImage.Source = ResourceManager.GetImage(imageTag);
+            _topInfoArrowImage.Refresh();
+        }
+
+        public VerticalLayout ExtraLayout { get; private set; }
+
         private IWrappedControl3 GetIfNotEmpty(VerticalLayout layout)
         {
-            return layout.Controls.Length == 0 ? null : (IWrappedControl3)layout.Controls[0];
+            return layout.Controls.Length == 0 ? null : (IWrappedControl3) layout.Controls[0];
         }
 
         private static void AddIfNotEmpty(VerticalLayout verticalLayout, IWrappedControl3 control)
@@ -99,17 +122,20 @@ namespace Test.Components
 
         private void OnLoading()
         {
-            _leftButton = (VerticalLayout)_parentScreen.Variables["TopInfoLeftButton"];
-            _rightButton = (VerticalLayout)_parentScreen.Variables["TopInfoRightButton"];
-            _topInfoHeadingTextView = (TextView)_parentScreen.Variables["TopInfoHeadingTextView"];
-            _topInfoSubHeadingTextView = (TextView)_parentScreen.Variables["TopInfoSubHeadingTextView"];
-            _topInfoArrowImage = (Image)_parentScreen.Variables["TopInfoArrowImage"];
-            _topInfoImageLayout = (VerticalLayout)_parentScreen.Variables["TopInfoImageLayout"];
+            _leftButton = (VerticalLayout) _parentScreen.Variables["TopInfoLeftButton"];
+            _rightButton = (VerticalLayout) _parentScreen.Variables["TopInfoRightButton"];
+            _topInfoHeadingTextView = (TextView) _parentScreen.Variables["TopInfoHeadingTextView"];
+            _topInfoSubHeadingTextView = (TextView) _parentScreen.Variables["TopInfoSubHeadingTextView"];
+            _topInfoArrowImage = (Image) _parentScreen.Variables["TopInfoArrowImage"];
+            _topInfoImageLayout = (VerticalLayout) _parentScreen.Variables["TopInfoImageLayout"];
+            CommentLayout = (VerticalLayout) _parentScreen.Variables["TopInfoCommentLayout"];
+            ExtraLayout = (VerticalLayout) _parentScreen.Variables["TopInfoExtraLayout"];
         }
 
         internal void Arrow_OnClick(object sender, EventArgs eventArgs)
         {
-            Minimized = !Minimized;
+            if (ArrowActive)
+                Minimized = !Minimized;
         }
     }
 }

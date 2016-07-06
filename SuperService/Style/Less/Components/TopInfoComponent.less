@@ -4,6 +4,7 @@
 @heading-size: @default-font-size * sqrt(2) + @margin-top;
 @topheading-background-color: #4a4b5e;
 @topheading-text-color: #ffffff;
+@topheading-subtext-color: #d4d4d7;
 @topheading-button-color: #fd724c;
 @topheading-text-size: @heading-size * 0.8 * 0.9;
 @header-width: 45%;
@@ -33,7 +34,7 @@
 }
 
 .TopInfoSubHeading {
-    color: @topheading-text-color;
+    color: @topheading-subtext-color;
     .text-view-style(@topheading-text-size / sqrt(3));
 }
 
@@ -85,4 +86,24 @@ TopInfoButtonRight {
 
 .TopInfoArrowDown {
     width: 100%;
+}
+
+.TopInfoCommentLayout {
+    width: 80%;
+    horizontal-align: center;
+    margin-top: 1sp;
+    TextView {
+        margin-top: 0.7sp;
+        .text-view-style(@topheading-text-size / 1.5);
+        color: @topheading-subtext-color;
+    }
+}
+
+.TopInfoExtraLayout {
+    .auto-height();
+    width: 80%;
+    horizontal-align: center;
+    TextView {
+        color: @topheading-text-color;
+    }
 }

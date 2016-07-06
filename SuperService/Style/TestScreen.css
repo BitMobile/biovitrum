@@ -38,24 +38,24 @@ TextView {
   height: 1.5sp;
   width: 100%;
 }
-.EmptySpace1sp {
-  height: 1sp;
-  width: 100%;
-}
-.EmptySpace2sp {
-  height: 2sp;
-  width: 100%;
-}
-.EmptySpace3sp {
-  height: 3sp;
+.EmptySpace5sp {
+  height: 5sp;
   width: 100%;
 }
 .EmptySpace4sp {
   height: 4sp;
   width: 100%;
 }
-.EmptySpace5sp {
-  height: 5sp;
+.EmptySpace3sp {
+  height: 3sp;
+  width: 100%;
+}
+.EmptySpace2sp {
+  height: 2sp;
+  width: 100%;
+}
+.EmptySpace1sp {
+  height: 1sp;
   width: 100%;
 }
 .TopInfoLayout {
@@ -80,7 +80,7 @@ TextView {
   padding-top: 0.28703111sp;
 }
 .TopInfoSubHeading {
-  color: #ffffff;
+  color: #d4d4d7;
   font: 1.78146299sp arial;
   height: 1.97742392sp auto;
 }
@@ -150,7 +150,32 @@ TopInfoButtonRight Image {
 .TopInfoArrowDown {
   width: 100%;
 }
+.TopInfoCommentLayout {
+  width: 80%;
+  horizontal-align: center;
+  margin-top: 1sp;
+}
+.TopInfoCommentLayout TextView {
+  margin-top: 0.7sp;
+  font: 2.05705627sp arial;
+  height: 2.28333247sp auto;
+  color: #d4d4d7;
+}
+.TopInfoExtraLayout {
+  height: 0sp auto;
+  width: 100%;
+  width: 80%;
+  horizontal-align: center;
+}
+.TopInfoExtraLayout TextView {
+  color: #ffffff;
+}
 .AnotherTextView {
   font: 6sp arial;
   height: 6.66sp auto;
+}
+.BigGreenTextView {
+  font: 3.08558441sp arial;
+  height: 3.4249987sp auto;
+  color: #8abf57;
 }
