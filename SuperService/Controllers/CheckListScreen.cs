@@ -84,9 +84,7 @@ namespace Test
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
-            var hl = (IHorizontalLayout3)((VerticalLayout)sender).Parent;
-            var vl = (IVerticalLayout3)hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
-            var tv = (ITextView3)vl.Controls[0];
+            var tv = GetTextView(sender);
 
             var items = new Dictionary<object, string>
             {
@@ -132,9 +130,7 @@ namespace Test
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
-            var hl = (IHorizontalLayout3)((VerticalLayout)sender).Parent;
-            var vl = (IVerticalLayout3)hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
-            var tv = (ITextView3)vl.Controls[0];
+            var tv = GetTextView(sender);
 
             var items = new Dictionary<object, string>
             {
@@ -144,6 +140,16 @@ namespace Test
             };
 
             Dialog.Choose(tv.Text, items, BooleanCallback);
+        }
+
+        //TODO: Костыль, возможно измениться в будущем.
+        //Костыльно. Получаем парента при помощи интерфейса, которого(интерфейс) у нас в SDK у класса нет.
+        private ITextView3 GetTextView(object sender)
+        {
+            var hl = (IHorizontalLayout3)((VerticalLayout)sender).Parent;
+            var vl = (IVerticalLayout3)hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
+            var tv = (ITextView3)vl.Controls[0];
+            return tv;
         }
 
         internal void BooleanCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
