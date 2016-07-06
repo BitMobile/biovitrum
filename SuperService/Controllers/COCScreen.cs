@@ -50,19 +50,12 @@ namespace Test
                 BigArrowActive = false
             };
 
-            DConsole.WriteLine("OnLoading() 9");
-
             _totalSumForServices = (TextView)GetControl("RightInfoServicesTV", true);
             _totalSumForMaterials = (TextView)GetControl("RightInfoMaterialsTV", true);
         }
 
         public int InitClassFields()
         {
-
-            DConsole.WriteLine("InitClassFields()");
-            //bool testBool = ?
-
-
             if (_fieldsAreInitialized)
             {
                 return 0;
@@ -217,7 +210,6 @@ namespace Test
 
         internal string Concat(float amountFact, string price, string unit)
         {
-            DConsole.WriteLine("Concat - amountFact=" + amountFact + " type=" + amountFact.GetType() + " price=" + price + " type=" + price.GetType());
             return $"{amountFact} {unit} x {price} {Translator.Translate("currency")}";
         }
 
