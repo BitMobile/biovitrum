@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using System;
+using System.Collections;
 using Test.Components;
 
 namespace Test
@@ -17,9 +17,9 @@ namespace Test
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                HeadingTextView = {Text = Translator.Translate("clients")},
-                LeftButtonImage = {Visible = false},
-                RightButtonImage = {Visible = false},
+                HeadingTextView = { Text = Translator.Translate("clients") },
+                LeftButtonImage = { Visible = false },
+                RightButtonImage = { Visible = false },
                 ExtraLayoutVisible = false
             };
 
@@ -67,12 +67,11 @@ namespace Test
 
         internal void ClientLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            DConsole.WriteLine("ClientLayout_OnClick " + ((VerticalLayout) sender).Id);
+            DConsole.WriteLine("ClientLayout_OnClick " + ((VerticalLayout)sender).Id);
             // TODO: Передача Id конкретной таски
-            BusinessProcess.GlobalVariables[Parameters.IdClientId] = ((VerticalLayout) sender).Id;
+            BusinessProcess.GlobalVariables[Parameters.IdClientId] = ((VerticalLayout)sender).Id;
             Navigation.Move("ClientScreen");
         }
-
 
         internal IEnumerable GetClients()
         {
