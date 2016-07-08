@@ -335,6 +335,7 @@ TopInfoButtonRight Image {
   margin-top: 3sp;
   text-align: left;
   width: 90%;
+  white-space: nowrap;
 }
 .ClientListAddressTV {
   color: #9b9fa0;
@@ -345,6 +346,7 @@ TopInfoButtonRight Image {
   margin-top: 1sp;
   text-align: left;
   width: 90%;
+  white-space: nowrap;
 }
 .ClientListBreaker {
   background-color: #f4f4f4;
@@ -352,8 +354,7 @@ TopInfoButtonRight Image {
   margin-left: 5%;
   width: 90%;
 }
-
 .VerticalLayoutForScroll {
-    height: 0% auto;
-    width: 100%;
+  height: 0% auto;
+  width: 100%;
 }
