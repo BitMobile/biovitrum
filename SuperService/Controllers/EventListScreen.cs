@@ -3,7 +3,6 @@ using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using Test.Components;
 
 namespace Test
@@ -61,31 +60,37 @@ namespace Test
         internal string GetStatusPicture(string importance, string status)
         {
             var pictureTag = @"eventlistscreen_";
+            DConsole.WriteLine($"importance = {importance}");
+            switch (importance)
+            {
+                case "Standart":
+                    pictureTag += "blue";
+                    break;
 
-            if (importance == "Standart")
-            {
-                pictureTag += "blue";
-            }
-            else if (importance == "High")
-            {
-                pictureTag += "yellow";
-            }
-            else if (importance == "Critical")
-            {
-                pictureTag += "red";
+                case "High":
+                    pictureTag += "yellow";
+                    break;
+
+                case "Critical":
+                    pictureTag += "red";
+                    break;
             }
 
-            if (status == "Appointed")
+            DConsole.WriteLine($"status = {status}");
+            switch (status)
             {
-                pictureTag += "border";
-            }
-            else if (status == "Done")
-            {
-                pictureTag += "done";
-            }
-            else if (status == "InWork")
-            {
-                pictureTag += "circle";
+                case "Cancel":
+                case "Appointed":
+                    pictureTag += "border";
+                    break;
+
+                case "Done":
+                    pictureTag += "done";
+                    break;
+
+                case "InWork":
+                    pictureTag += "circle";
+                    break;
             }
             return ResourceManager.GetImage(pictureTag);
         }
