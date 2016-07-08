@@ -45,7 +45,25 @@
           </c:VerticalLayout>
         </s:Iterator>
         <c:HorizontalLine />
-      </c:VerticalLayout>
-    </c:ScrollView>
-  </c:VerticalLayout>
+
+        <c:VerticalLayout CssClass="ListElement">
+          <c:HorizontalLayout CssClass="EmptySpace2sp" />
+          <c:HorizontalLayout>
+            <c:VerticalLayout CssClass="HistoryDescriptionResultLayout" >
+              <c:TextView Text="$history.Description" CssClass="HistoryDescriptionView" />
+              <s:If Test="$history.ResultName == Done">
+                <c:TextView Text="$history.Result" CssClass="HistoryResultViewDone" />
+              </s:If>
+              <s:Else>
+                <c:TextView Text="$history.Result" CssClass="HistoryResultViewNotDone" />
+              </s:Else>
+            </c:VerticalLayout>
+            <c:TextView Text="$FormatDateString($history.Date)" CssClass="HistoryDateView" />
+          </c:HorizontalLayout>
+          <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        </c:VerticalLayout>
+      </s:Iterator>
+      <c:HorizontalLine />
+    </c:VerticalLayout>
+  </c:ScrollView>
 </c:Screen>

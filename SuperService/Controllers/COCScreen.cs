@@ -68,7 +68,7 @@ namespace Test
 
             return 0;
         }
-
+        
         public override void OnShow()
         {
             GPS.StopTracking();

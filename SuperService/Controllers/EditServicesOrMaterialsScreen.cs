@@ -62,42 +62,6 @@ namespace Test
             }
         }
 
-        internal string GetRIMDescription()
-        {
-            return _description;
-        }
-
-        internal string GetRIMAmountFact()
-        {
-            return AmountFact.ToString();
-        }
-
-        internal string GetPriceDescription()
-        {
-            if (_isMaterialRequest || (_isService && !_usedCalculateService) ||
-                (!_isService && !_usedCalculateMaterials))
-            {
-                return Parameters.EmptyPriceDescription;
-            }
-            else
-            {
-                return Price.ToString(CultureInfo.CurrentCulture); //     Price.ToString();
-            }
-        }
-
-        internal string GetTotalPriceDescription()
-        {
-            if (_isMaterialRequest || (_isService && !_usedCalculateService) ||
-                (!_isService && !_usedCalculateMaterials))
-            {
-                return Parameters.EmptyPriceDescription;
-            }
-            else
-            {
-                return (Price * AmountFact).ToString(CultureInfo.CurrentCulture);
-            }
-        }
-
         public int InitClassFields()
         {
             if (_fieldsAreInitialized)
@@ -158,7 +122,6 @@ namespace Test
             FindTextViewAndChangeVisibility("TotalPriceTextView", _showPrices);
 
             FindEditTextAndChangeVisibilityAndEditable("PriceEditText", _showPrices, _editPrices);
-            */
             Price = _price;
 
             if (_value > 0)
@@ -256,7 +219,7 @@ namespace Test
 
         private void GetAndCheckCountEditText(EditText countEditText)
         {
-            int res;
+            int res = AmountFact;
             if (int.TryParse(countEditText.Text, out res))
             {
                 res = Convert.ToInt32(res);
@@ -274,6 +237,22 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
+        }
+
+        internal IEnumerable GetServiceMaterialInfo()
+        {
+            InitClassFields();
+
+            DConsole.WriteLine("rim_id =" + _rimId);
+
+            var res = DBHelper.GetServiceMaterialPriceByRIMID(_rimId);
+            res.Next();
+
+            //DConsole.WriteLine("rim_id =" + _rimId)
+
+            return _lineId != null
+                ? DBHelper.GetServiceMaterialPriceByLineID(_lineId)
+                : DBHelper.GetServiceMaterialPriceByRIMID(_rimId);
         }
     }
 
