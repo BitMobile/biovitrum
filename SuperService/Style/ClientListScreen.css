@@ -352,3 +352,8 @@ TopInfoButtonRight Image {
   margin-left: 5%;
   width: 90%;
 }
+
+.VerticalLayoutForScroll {
+    height: 0% auto;
+    width: 100%;
+}

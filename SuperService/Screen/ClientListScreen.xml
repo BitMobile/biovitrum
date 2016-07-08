@@ -11,16 +11,16 @@
     <s:Include File="Components\TabBarСomponent.xml" />
 
     <!-- Список контактов -->
-    <c:SwipeVerticalLayout CssClass="ClientListMainSVL">
-      <s:Iterator Id="client" Value="$GetClients()">
-        <c:VerticalLayout Id="$client.Id" onClick="ClientLayout_OnClick" CssClass="ClientListItemVL">
-          <c:TextView Text="$client.Description" CssClass="ClientListNameTV" />
-          <c:TextView Text="$client.Address" CssClass="ClientListAddressTV" />
-          <c:HorizontalLine CssClass="ClientListBreaker" />
-        </c:VerticalLayout>
-      </s:Iterator>
-    </c:SwipeVerticalLayout>
-
+    <c:ScrollView CssClass="ClientListMainSVL">
+      <c:VerticalLayout CssClass="VerticalLayoutForScroll">
+        <s:Iterator Id="client" Value="$GetClients()">
+          <c:VerticalLayout Id="$client.Id" onClick="ClientLayout_OnClick" CssClass="ClientListItemVL">
+            <c:TextView Text="$client.Description" CssClass="ClientListNameTV" />
+            <c:TextView Text="$client.Address" CssClass="ClientListAddressTV" />
+            <c:HorizontalLine CssClass="ClientListBreaker" />
+          </c:VerticalLayout>
+        </s:Iterator>
+      </c:VerticalLayout>
+    </c:ScrollView>
   </c:DockLayout>
-
 </c:Screen>
