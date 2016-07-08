@@ -16,6 +16,7 @@
           </c:HorizontalLayout>
         </c:VerticalLayout>
         <!--Конец кнопки выхода-->
+
         <!--Информация о пользователе-->
         <c:VerticalLayout>
           <c:TextView />
@@ -26,9 +27,33 @@
           </c:VerticalLayout>
         </c:VerticalLayout>
         <!--Конец информации о пользователе-->
+
         <!--Информация о компании-->
         <c:VerticalLayout>
+          <!--Стрелка-->
           <c:Image />
+          <!--Логотип SService-->
+          <c:VerticalLayout>
+            <c:HorizontalLayout>
+              <c:Image />
+            </c:HorizontalLayout>
+          </c:VerticalLayout>
+          <!--Версия-->
+          <c:TextView />
+          <!--Разработчик-->
+          <c:TextView />
+          <!--Линия-->
+          <c:VerticalLayout>
+            <c:HorizontalLine />
+          </c:VerticalLayout>
+          <!--Лого компании-->
+          <c:VerticalLayout>
+            <c:HorizontalLayout>
+              <c:Image />
+            </c:HorizontalLayout>
+          </c:VerticalLayout>
+          <!--Сайт компании-->
+          <c:TextView />
         </c:VerticalLayout>
         <!--Конец информации о компании-->
       </c:VerticalLayout>
