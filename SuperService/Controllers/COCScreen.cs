@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using Test.Components;
 
+// ReSharper disable SpecifyACultureInStringConversionExplicitly
+
 namespace Test
 {
     public class COCScreen : Screen
@@ -17,12 +19,13 @@ namespace Test
         private bool _usedCalculateService;
         private bool _usedCalculateMaterials;
 
-        private bool _fieldsAreInitialized = false;
+        private bool _fieldsAreInitialized;
+        private TextView _topInfoTotalTextView;
 
         public override void OnLoading()
         {
-           InitClassFields();
-            var totalSum = "";
+            InitClassFields();
+            string totalSum;
 
             if (!_usedCalculateMaterials && !_usedCalculateService)
             {
@@ -31,25 +34,19 @@ namespace Test
             else
             {
                 totalSum =
-                    $"{Math.Round((_usedCalculateService ? (double) _sums["SumServices"] : 0) + (_usedCalculateMaterials ? (double) _sums["SumMaterials"] : 0), 2)}";
+                    $"{Math.Round((_usedCalculateService ? (double)_sums["SumServices"] : 0) + (_usedCalculateMaterials ? (double)_sums["SumMaterials"] : 0), 2)}";
             }
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                ExtraLayoutVisible = true,
-                HeadingTextView = { Text = Translator.Translate("coc") },
-                RightButtonImage = { Visible = false },
-                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
-                CommentTextView =
-                {
-                    Text = $"{Translator.Translate("total")}" +
-                                                     $"{Environment.NewLine}" +
-                                                     totalSum +
-                                                     $" {Translator.Translate("currency")}"
-        },
-                BigArrowActive = false
+                Header = Translator.Translate("coc"),
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                ArrowActive = false
             };
 
+            _topInfoComponent.CommentLayout.AddChild(new TextView($"{Translator.Translate("total")}"));
+            _topInfoTotalTextView = new TextView($"{totalSum} {Translator.Translate("currency")}");
+            _topInfoComponent.CommentLayout.AddChild(_topInfoTotalTextView);
             _totalSumForServices = (TextView)GetControl("RightInfoServicesTV", true);
             _totalSumForMaterials = (TextView)GetControl("RightInfoMaterialsTV", true);
         }
@@ -84,7 +81,7 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            Navigation.Back(true);
+            Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
@@ -155,23 +152,22 @@ namespace Test
             var sums = GetSums();
             _totalSumForServices.Text = GetFormatStringForServiceSums();
             _totalSumForMaterials.Text = GetFormatStringForMaterialSums();
-            _topInfoComponent.CommentTextView.Text = $"{Translator.Translate("total")}" +
-                                                     $"{Environment.NewLine}" +
-                                                     $"{Math.Round((double)sums["Sum"], 2)} " +
-                                                     $"{Translator.Translate("currency")}";
+            _topInfoTotalTextView.Text = $"{Math.Round((double)sums["Sum"], 2)} {Translator.Translate("currency")}";
             shl.Refresh();
         }
 
         internal string GetFormatStringForServiceSums()
         {
             var totalSum = Convert.ToDouble(_sums["SumServices"]).ToString();
-            return $"\u2022 {(_usedCalculateService?totalSum:Parameters.EmptyPriceDescription)} {Translator.Translate("currency")}";
+            return
+                $"\u2022 {(_usedCalculateService ? totalSum : Parameters.EmptyPriceDescription)} {Translator.Translate("currency")}";
         }
 
         internal string GetFormatStringForMaterialSums()
         {
             var totalSum = Convert.ToDouble(_sums["SumMaterials"]).ToString();
-            return $"\u2022 {(_usedCalculateMaterials ? totalSum : Parameters.EmptyPriceDescription)} {Translator.Translate("currency")}";
+            return
+                $"\u2022 {(_usedCalculateMaterials ? totalSum : Parameters.EmptyPriceDescription)} {Translator.Translate("currency")}";
         }
 
         internal string GetServicePriceDescription(DbRecordset service)

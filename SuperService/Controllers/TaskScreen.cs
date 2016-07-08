@@ -34,10 +34,9 @@ namespace Test
         {
             _topInfoComponent = new TopInfoComponent(this)
             {
-                HeadingTextView = { Text = Translator.Translate("task") },
-                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
-                RightButtonImage = { Visible = false },
-                ExtraLayoutVisible = false
+                Header = Translator.Translate("task"),
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                ArrowVisible = false
             };
 
             _taskCommentTextView = (TextView)GetControl("TaskCommentTextView", true);
@@ -173,7 +172,7 @@ namespace Test
 
             DBHelper.SaveEntity(_equipments);
 
-            Navigation.Back(true);
+            Navigation.Back();
         }
 
         internal void EquipmentDescriptionLayout_OnClick(object sender, EventArgs eventArgs)

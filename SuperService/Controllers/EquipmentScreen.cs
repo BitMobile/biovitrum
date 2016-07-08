@@ -8,12 +8,14 @@ namespace Test
 {
     public class EquipmentScreen : Screen
     {
-        private bool _fieldsAreInitialized = false;
+        private bool _fieldsAreInitialized;
 
         private TopInfoComponent _topInfoComponent;
 
         //TODO: Когда починят метод getObject сделать чтение в этот объект по Гуиду, пока пересозаем его в initClassFields
-        private Equipment _equipment;
+        /*
+                private Equipment _equipment;
+        */
 
         private string _equipmentId;
         private string _equipmentDescription;
@@ -24,10 +26,9 @@ namespace Test
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                HeadingTextView = { Text = Translator.Translate("equipment") },
-                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
-                RightButtonImage = { Visible = false },
-                ExtraLayoutVisible = false
+                Header = Translator.Translate("equipment"),
+                LeftButtonControl = new Image() { Source = ResourceManager.GetImage("topheading_back") },
+                ArrowVisible = false
             };
         }
 
@@ -54,7 +55,7 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
-            Navigation.Back(true);
+            Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
@@ -68,7 +69,7 @@ namespace Test
 
         internal void BackButton_OnClick(object sender, EventArgs eventArgs)
         {
-            Navigation.Back(true);
+            Navigation.Back();
         }
 
         internal string GetEquipmentDescription()

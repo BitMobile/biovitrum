@@ -10,18 +10,17 @@ namespace Test
     {
         private TopInfoComponent _topInfoComponent;
         private Contacts _contact;
-        private bool _fieldsAreInitialized = false;
+        private bool _fieldsAreInitialized;
 
         public override void OnLoading()
         {
             InitClassFields();
             _topInfoComponent = new TopInfoComponent(this)
             {
-                ExtraLayoutVisible = false,
-                HeadingTextView = { Text = Translator.Translate("contact") },
-                RightButtonImage = { Source = ResourceManager.GetImage("topheading_edit") },
-                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
-                BigArrowActive = false
+                Header = Translator.Translate("contact"),
+                RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_edit") },
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                ArrowVisible = false
             };
         }
 
@@ -58,12 +57,17 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            Navigation.Back(true);
+            Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("Должны перейти на экран редактирования контакта");
+        }
+
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
+        {
+            _topInfoComponent.Arrow_OnClick(sender, e);
         }
 
         internal void CallButton_OnClick(object o, EventArgs e)

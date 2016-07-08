@@ -17,10 +17,8 @@ namespace Test
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                HeadingTextView = { Text = Translator.Translate("clients") },
-                LeftButtonImage = { Visible = false },
-                RightButtonImage = { Visible = false },
-                ExtraLayoutVisible = false
+                Header = Translator.Translate("clients"),
+                ArrowVisible = false
             };
 
             _tabBarComponent = new TabBarComponent(this);
@@ -53,6 +51,14 @@ namespace Test
         {
             _tabBarComponent.Settings_OnClick(sender, eventArgs);
             DConsole.WriteLine("Clients Settings");
+        }
+
+        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
+        {
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
