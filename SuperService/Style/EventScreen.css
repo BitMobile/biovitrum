@@ -208,7 +208,23 @@ TopInfoButtonRight Image {
 .TopInfoExtraLayout TextView {
   color: #ffffff;
 }
-/* Event Screen */
+.ExtraHorizontalLayout {
+  margin-top: 2.5sp;
+}
+.ExtraVerticalLayout {
+  width: 50%;
+}
+.TopInfoSideImage {
+  horizontal-align: center;
+  height: 7.5sp;
+}
+.TopInfoSideText {
+  horizontal-align: center;
+  width: 80%;
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  color: #ffffff;
+}
 .EventScreenMainLayout {
   dock-align: top;
   height: auto;

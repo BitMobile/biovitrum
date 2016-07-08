@@ -19,8 +19,8 @@ namespace Test
             {
                 Header = Translator.Translate("contact"),
                 RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_edit") },
-                LeftButtonControl = new Image() { Source = ResourceManager.GetImage("topheading_back") },
-                ArrowActive = false
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                ArrowVisible = false
             };
         }
 

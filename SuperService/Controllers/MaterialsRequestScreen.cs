@@ -23,7 +23,8 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("request"),
-                LeftButtonControl = new Image { Source = ResourceManager.GetImage("close") }
+                LeftButtonControl = new TextView(Translator.Translate("cancel")),
+                ArrowVisible = false
             };
 
             _rootLayout = (VerticalLayout)GetControl("Root", true);
@@ -128,6 +129,7 @@ namespace Test
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
+            _topInfoComponent.Arrow_OnClick(sender, e);
         }
 
         /// <summary>

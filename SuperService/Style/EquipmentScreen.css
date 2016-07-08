@@ -208,7 +208,12 @@ TopInfoButtonRight Image {
 .TopInfoExtraLayout TextView {
   color: #ffffff;
 }
-/* EquipmentScreen */
+hl {
+  horizontal-align: center;
+}
+vl {
+  horizontal-align: center;
+}
 .HeadingTextView {
   color: #8587b1;
   font: 2.8sp arial;
@@ -224,7 +229,7 @@ TopInfoButtonRight Image {
 }
 .ListElement {
   height: 9sp auto;
-  width: 85%;
+  width: 90%;
 }
 .ParameterNameView {
   width: 70%;

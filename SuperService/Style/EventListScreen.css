@@ -208,13 +208,6 @@ TopInfoButtonRight Image {
 .TopInfoExtraLayout TextView {
   color: #ffffff;
 }
-/* End of Common Styles */
-/* Start of EventList Styles */
-.RootLayout {
-  background-color: #ffffff;
-  height: 100%;
-  width: 100%;
-}
 .EventListMainSV {
   height: auto;
   width: 100%;
@@ -332,35 +325,32 @@ TopInfoButtonRight Image {
 }
 /* --------------------------------------------- */
 /* Top Info Bar LeftExtraLayout and RightExtraLayout*/
+.ExtraHorizontalLayout {
+  height: 0sp auto;
+  width: 100%;
+  horizontal-align: center;
+}
 .ExtraLeftLayoutCss {
-  background-color: #4a4b5e;
-  height: 15sp;
-  margin-left: 25%;
-  margin-top: 25%;
-  width: 15sp;
+  width: 40%;
+  margin-right: 10%;
 }
 .ExtraRightLayoutCss {
-  background-color: #4a4b5e;
-  height: 15sp;
-  margin-right: 25%;
-  margin-top: 25%;
-  width: 15sp;
+  width: 40%;
+  margin-left: 10%;
 }
 .ExtraInfo {
-  background-color: #4a4b5e;
   color: #ffffff;
-  font: 3sp arial;
-  height: 8sp;
+  font: 3.08558441sp arial;
+  height: 3.4249987sp auto;
   text-align: center;
-  width: 15sp;
+  width: 100%;
 }
 .ButtonExtraInfo {
-  background-color: #4a4b5e;
   color: #ffffff;
-  font: 2sp arial;
-  height: 5sp;
+  font: 2.5sp arial;
+  height: 2.775sp auto;
   text-align: center;
-  width: 15sp;
+  width: 100%;
 }
 /* Tab Bar style */
 .TabBarMainVL {

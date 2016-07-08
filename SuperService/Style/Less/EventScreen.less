@@ -1,7 +1,25 @@
 ﻿@import "defaults.less";
 @import "Components/TopInfoComponent.less";
 
-/* Event Screen */
+.ExtraHorizontalLayout {
+    margin-top: 2.5sp;
+}
+
+.ExtraVerticalLayout {
+    width: 50%;
+}
+
+.TopInfoSideImage {
+    horizontal-align: center;
+    height: 3 * @default-font-size;
+}
+
+.TopInfoSideText {
+    horizontal-align: center;
+    width: 80%;
+    .text-view-style(@default-font-size);
+    color: @topheading-text-color;
+}
 
 .EventScreenMainLayout {
     dock-align: top;

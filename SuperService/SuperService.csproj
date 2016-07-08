@@ -70,7 +70,7 @@
     <None Include="Style\Less\**" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>               
+  <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)..\SDK\BitMobileSDK\BitMobileSDK.exe $(TargetPath)
 echo $(TargetPath).zip &gt; "$(TargetDir)package.txt</PostBuildEvent>
   </PropertyGroup>

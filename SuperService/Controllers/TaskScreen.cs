@@ -35,7 +35,8 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("task"),
-                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") }
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                ArrowVisible = false
             };
 
             _taskCommentTextView = (TextView)GetControl("TaskCommentTextView", true);

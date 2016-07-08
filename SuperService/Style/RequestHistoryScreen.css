@@ -208,8 +208,6 @@ TopInfoButtonRight Image {
 .TopInfoExtraLayout TextView {
   color: #ffffff;
 }
-/* End of Common */
-/* RequestHistory style */
 .RequestHistoryMainSVL {
   height: auto;
   width: 100%;
@@ -219,7 +217,7 @@ TopInfoButtonRight Image {
 .RequestHistoryItemHL {
   height: 0% auto;
   horizontal-align: center;
-  width: 100%;
+  width: 95%;
 }
 .RequestHistoryDateHL {
   height: 3sp;
@@ -314,4 +312,3 @@ TopInfoButtonRight Image {
   horizontal-align: center;
   width: 100%;
 }
-/* End of RequestHistory style */

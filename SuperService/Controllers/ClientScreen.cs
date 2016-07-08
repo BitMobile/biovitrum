@@ -23,7 +23,8 @@ namespace Test
             {
                 Header = Translator.Translate("client"),
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
-                RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_edit") }
+                RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_edit") },
+                ArrowVisible = false
             };
 
             _map = (WebMapGoogle)GetControl("MapClient", true);

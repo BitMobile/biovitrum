@@ -28,7 +28,6 @@ namespace Test
 
             var statistic = DBHelper.GetEventsStatistic();
 
-            // TODO: Чекнуть css-ки
             var extraHorizontalLayout = new HorizontalLayout { CssClass = "ExtraHorizontalLayout" };
             var leftExtraLayout = new VerticalLayout { CssClass = "ExtraLeftLayoutCss" };
             var rightExtraLayout = new VerticalLayout { CssClass = "ExtraRightLayoutCss" };
@@ -54,6 +53,8 @@ namespace Test
             {
                 CssClass = "ButtonExtraInfo"
             });
+
+            _topInfoComponent.ExtraLayout.AddChild(extraHorizontalLayout);
         }
 
         internal string GetStatusPicture(string importance, string status)

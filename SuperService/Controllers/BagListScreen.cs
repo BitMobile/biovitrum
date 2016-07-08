@@ -1,8 +1,8 @@
-﻿using System;
+﻿using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
+using System;
 using System.Collections;
 using System.Globalization;
-using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
 using Test.Components;
 
 namespace Test
@@ -18,7 +18,8 @@ namespace Test
             {
                 Header = Translator.Translate("bag"),
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("baglistscreen_busket") },
-                RightButtonControl = new Image { Source = ResourceManager.GetImage("baglistscreen_plus") }
+                RightButtonControl = new Image { Source = ResourceManager.GetImage("baglistscreen_plus") },
+                ArrowVisible = false
             };
 
             _tabBarComponent = new TabBarComponent(this);

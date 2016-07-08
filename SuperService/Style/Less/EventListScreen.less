@@ -1,14 +1,5 @@
 ﻿@import "defaults.less";
 @import "Components/TopInfoComponent.less";
-/* End of Common Styles */
-
-/* Start of EventList Styles */
-
-.RootLayout {
-    background-color: #ffffff;
-    height: 100%;
-    width: 100%;
-}
 
 .EventListMainSV {
     height: auto;
@@ -146,38 +137,37 @@
 /* --------------------------------------------- */
 
 /* Top Info Bar LeftExtraLayout and RightExtraLayout*/
+.ExtraHorizontalLayout {
+    .auto-height;
+    horizontal-align: center;
+}
+
+.ExtraLayoutCss() {
+    width: 40%;
+}
+
 .ExtraLeftLayoutCss {
-    background-color: #4a4b5e;
-    height: 15sp;
-    margin-left: 25%;
-    margin-top: 25%;
-    width: 15sp;
+    .ExtraLayoutCss;
+    margin-right: 10%;
 }
 
 .ExtraRightLayoutCss {
-    background-color: #4a4b5e;
-    height: 15sp;
-    margin-right: 25%;
-    margin-top: 25%;
-    width: 15sp;
+    .ExtraLayoutCss;
+    margin-left: 10%;
 }
 
 .ExtraInfo {
-    background-color: #4a4b5e;
     color: #ffffff;
-    font: 3sp arial;
-    height: 8sp;
+    .text-view-style(@topheading-text-size);
     text-align: center;
-    width: 15sp;
+    width: 100%;
 }
 
 .ButtonExtraInfo {
-    background-color: #4a4b5e;
     color: #ffffff;
-    font: 2sp arial;
-    height: 5sp;
+    .text-view-style(@default-font-size);
     text-align: center;
-    width: 15sp;
+    width: 100%;
 }
 
 /* Tab Bar style */

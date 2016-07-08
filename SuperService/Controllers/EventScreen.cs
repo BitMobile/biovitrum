@@ -36,9 +36,9 @@ namespace Test
             _topInfoComponent.LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") };
             _topInfoComponent.RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_info") };
 
-            var extraHorizontalLayout = new HorizontalLayout();
-            var leftExtraLayout = new VerticalLayout();
-            var rightExtraLayout = new VerticalLayout();
+            var extraHorizontalLayout = new HorizontalLayout { CssClass = "ExtraHorizontalLayout" };
+            var leftExtraLayout = new VerticalLayout { CssClass = "ExtraVerticalLayout" };
+            var rightExtraLayout = new VerticalLayout { CssClass = "ExtraVerticalLayout" };
 
             _topInfoComponent.ExtraLayout.AddChild(extraHorizontalLayout);
             extraHorizontalLayout.AddChild(leftExtraLayout);
@@ -61,9 +61,11 @@ namespace Test
                 Source = ResourceManager.GetImage("topinfo_extra_person")
             });
 
+            var text = (string)_currentEventRecordset["ContactVisitingDescription"];
+            DConsole.WriteLine("text: " + text);
             rightExtraLayout.AddChild(new TextView
             {
-                Text = ((string)_currentEventRecordset["ContactVisitingDescription"]).CutForUIOutput(12, 1),
+                Text = ((string)_currentEventRecordset["ContactVisitingDescription"]).CutForUIOutput(12, 2),
                 CssClass = "TopInfoSideText"
             });
 

@@ -17,7 +17,8 @@ namespace Test
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                Header = Translator.Translate("clients")
+                Header = Translator.Translate("clients"),
+                ArrowVisible = false
             };
 
             _tabBarComponent = new TabBarComponent(this);
