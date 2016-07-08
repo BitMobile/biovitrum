@@ -5,7 +5,6 @@ using BitMobile.DbEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using BitMobile.DbEngine;
 using Test.Components;
 
 namespace Test
@@ -208,7 +207,6 @@ namespace Test
         //Целое
         internal void CheckListInteger_OnLostFocus(object sender, EventArgs e)
         {
-
             _editText = (EditText)sender;
             _currentCheckListItemID = ((EditText)sender).Id;
 
@@ -260,7 +258,6 @@ namespace Test
         // Строка
         internal void CheckListString_OnLostFocus(object sender, EventArgs e)
         {
-
             _editText = (EditText)sender;
             _currentCheckListItemID = ((EditText)sender).Id;
 
