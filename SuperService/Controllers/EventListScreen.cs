@@ -3,6 +3,7 @@ using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using Test.Components;
 
 namespace Test
@@ -99,17 +100,10 @@ namespace Test
             var workDate = DateTime.Parse(datetime).Date;
             var currentDate = DateTime.Now.Date;
 
-            var workDateWeekNumber = (workDate.DayOfYear + 6) / 7;
-            if (workDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
-            {
-                ++workDateWeekNumber;
-            }
+            DConsole.WriteLine($"week = {currentDate.GetWeekNumber()}");
 
-            var currentDateWeekNumber = (currentDate.DayOfYear + 6) / 7;
-            if (currentDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
-            {
-                ++currentDateWeekNumber;
-            }
+            var workDateWeekNumber = workDate.GetWeekNumber();
+            var currentDateWeekNumber = currentDate.GetWeekNumber();
 
             if (workDateWeekNumber == currentDateWeekNumber)
             {
@@ -133,7 +127,7 @@ namespace Test
         {
             var actualTime = DateTime.Parse(actualStartDate); // .ToString("HH:mm");
 
-            if ((actualTime != default(DateTime)) && statusName == "Appointed")
+            if ((actualTime != default(DateTime)) && statusName == "InWork")
             {
                 var ans = DateTime.Now - actualTime; // .ToString(@"hh\:mm");
                 return ans.Days * 24 + ans.Hours + ":" + ans.Minutes; // @"hh\:mm");

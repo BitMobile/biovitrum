@@ -205,5 +205,14 @@ namespace Test
 
             return false;
         }
+
+        /// <summary>
+        /// Возвращает номер недели указанной даты
+        /// </summary>
+        public static int GetWeekNumber(this DateTime date)
+        {
+            var thursday = date + new TimeSpan(3 - ((int)date.DayOfWeek + 6) % 7, 0, 0, 0);
+            return 1 + (thursday.DayOfYear - 1) / 7;
+        }
     }
 }
