@@ -1,37 +1,39 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
-using System.Collections;
 using System.Globalization;
 
 namespace Test
 {
     public class EditServicesOrMaterialsScreen : Screen
     {
-        private bool _fieldsAreInitialized = false;
+        private bool _fieldsAreInitialized;
         private BehaviourEditServicesOrMaterialsScreen _behaviourEditServicesOrMaterialsScreen;
         private bool _isMaterialRequest; //признак того, что запрос пришел из рюкзака монтажника
         private bool _isService; //отображать услуги в противном случае материалы
         private bool _usedCalculateService;
         private bool _usedCalculateMaterials;
         private EditText _amountFactEditText;
-        private bool _editPrices;
+
+        //private bool _editPrices;
         private string _key;
+
         private string _lineId;
         private int _minimum;
         private int _value;
-        private IEnumerable _serviceMaterialInfo;
-
+        /*
+                private IEnumerable _serviceMaterialInfo;
+        */
 
         private EditText _priceEditText;
         private string _rimId;
 
-        private bool _showPrices;
+        //private bool _showPrices;
         private TextView _totalPriceTextView;
-
 
         private string _description;
         private decimal _price;
+
         private decimal Price
         {
             get { return _price; }
@@ -44,13 +46,15 @@ namespace Test
                     _totalPriceTextView.Text = GetTotalPriceDescription();
             }
         }
+
         private int _amountFact;
+
         private int AmountFact
         {
-            get { return _amountFact; } 
+            get { return _amountFact; }
             set
             {
-               value = Math.Max(value, _minimum);
+                value = Math.Max(value, _minimum);
                 _amountFact = value;
                 _amountFactEditText.Text = value.ToString();
                 if (_totalPriceTextView != null)
@@ -70,28 +74,29 @@ namespace Test
 
         internal string GetPriceDescription()
         {
-            if (_isMaterialRequest || (_isService && !_usedCalculateService) || (!_isService && !_usedCalculateMaterials))
+            if (_isMaterialRequest || (_isService && !_usedCalculateService) ||
+                (!_isService && !_usedCalculateMaterials))
             {
                 return Parameters.EmptyPriceDescription;
             }
             else
             {
-                return Price.ToString(CultureInfo.CurrentCulture);//     Price.ToString();
+                return Price.ToString(CultureInfo.CurrentCulture); //     Price.ToString();
             }
         }
 
         internal string GetTotalPriceDescription()
         {
-            if (_isMaterialRequest || (_isService && !_usedCalculateService) || (!_isService && !_usedCalculateMaterials))
+            if (_isMaterialRequest || (_isService && !_usedCalculateService) ||
+                (!_isService && !_usedCalculateMaterials))
             {
                 return Parameters.EmptyPriceDescription;
             }
             else
             {
-                return (Price * AmountFact).ToString(CultureInfo.CurrentCulture); 
+                return (Price * AmountFact).ToString(CultureInfo.CurrentCulture);
             }
         }
-
 
         public int InitClassFields()
         {
@@ -100,18 +105,23 @@ namespace Test
                 return 0;
             }
             _behaviourEditServicesOrMaterialsScreen =
-                    (BehaviourEditServicesOrMaterialsScreen)
-                        Variables.GetValueOrDefault(Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.None);
-            _isMaterialRequest = Convert.ToBoolean(Variables.GetValueOrDefault(Parameters.IdIsMaterialsRequest, Convert.ToBoolean("False")));
-            _isService = Convert.ToBoolean(Variables.GetValueOrDefault(Parameters.IdIsService, Convert.ToBoolean("False")));
+                (BehaviourEditServicesOrMaterialsScreen)
+                    Variables.GetValueOrDefault(Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.None);
+            _isMaterialRequest =
+                Convert.ToBoolean(Variables.GetValueOrDefault(Parameters.IdIsMaterialsRequest,
+                    Convert.ToBoolean("False")));
+            _isService =
+                Convert.ToBoolean(Variables.GetValueOrDefault(Parameters.IdIsService, Convert.ToBoolean("False")));
 
             _usedCalculateService = DBHelper.GetIsUsedCalculateService();
             _usedCalculateMaterials = DBHelper.GetIsUsedCalculateMaterials();
 
             _key = (string)Variables.GetValueOrDefault("returnKey", "somNewValue");
             _minimum = (int)Variables.GetValueOrDefault("minimum", 1);
-            _showPrices = (bool)Variables.GetValueOrDefault("priceVisible", true);
-            _editPrices = (bool)Variables.GetValueOrDefault("priceEditable", false);
+            // TODO: Не используется?
+            //_showPrices = (bool) Variables.GetValueOrDefault("priceVisible", true);
+            // TODO: Пока что мы никогда не можем редактировать цены
+            //_editPrices = (bool)Variables.GetValueOrDefault("priceEditable", false);
             _rimId = (string)Variables.GetValueOrDefault("rimId");
             _lineId = (string)Variables.GetValueOrDefault(Parameters.IdLineId);
             _value = (int)Variables.GetValueOrDefault("value", 0);
@@ -143,29 +153,33 @@ namespace Test
 
         public override void OnShow()
         {
-            
             /*FindTextViewAndChangeVisibility("PriceTitleTextView", _showPrices);
             /*FindTextViewAndChangeVisibility("TotalPriceTitleTextView", _showPrices);
             FindTextViewAndChangeVisibility("TotalPriceTextView", _showPrices);
 
             FindEditTextAndChangeVisibilityAndEditable("PriceEditText", _showPrices, _editPrices);
-            */Price = _price;
+            */
+            Price = _price;
 
             if (_value > 0)
                 _amountFactEditText.Text = $"{_value}";
         }
 
-        private void FindTextViewAndChangeVisibility(string id, bool visibility)
-        {
-            ((TextView)Variables[id]).Visible = visibility;
-        }
+        /*
+                private void FindTextViewAndChangeVisibility(string id, bool visibility)
+                {
+                    ((TextView) Variables[id]).Visible = visibility;
+                }
+        */
 
-        private void FindEditTextAndChangeVisibilityAndEditable(string id, bool visibility, bool editable)
-        {
-            var et = (EditText)Variables[id];
-            et.Visible = visibility;
-            et.Enabled = editable;
-        }
+        /*
+                private void FindEditTextAndChangeVisibilityAndEditable(string id, bool visibility, bool editable)
+                {
+                    var et = (EditText) Variables[id];
+                    et.Visible = visibility;
+                    et.Enabled = editable;
+                }
+        */
 
         internal void BackButton_OnClick(object sender, EventArgs e)
         {
@@ -214,7 +228,8 @@ namespace Test
         {
             //TODO: Переделать на объектную модель когда она будет починена (начнет работать метод GetObject())
 
-            DBHelper.InsertServiceMatherial((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId], _rimId, Price,
+            DBHelper.InsertServiceMatherial((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId],
+                _rimId, Price,
                 AmountFact, Price * AmountFact);
         }
 
@@ -241,7 +256,7 @@ namespace Test
 
         private void GetAndCheckCountEditText(EditText countEditText)
         {
-            int res = AmountFact;
+            int res;
             if (int.TryParse(countEditText.Text, out res))
             {
                 res = Convert.ToInt32(res);
@@ -260,8 +275,6 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
-
-
     }
 
     /// <summary>

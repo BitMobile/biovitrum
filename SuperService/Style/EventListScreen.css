@@ -3,351 +3,411 @@
 /* ReSharper disable InvalidValue */
 /* ReSharper disable RedundantUnits */
 /* ReSharper disable UnexpectedValue */
-
-/* Start of Common Styles */
-
 body {
-    background-color: #ffffff;
-    height: 100%;
-    width: 100%;
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
 }
-
+vl {
+  height: 0sp auto;
+  width: 100%;
+}
+hl {
+  height: 0sp auto;
+  width: 100%;
+}
+DockLayout {
+  height: 0sp auto;
+  width: 100%;
+}
 TextView {
-    color: #51595b;
-    font: 2.5sp arial;
-    height: 3.5sp auto;
-    horizontal-align: center;
-    text-align: center;
-    vertical-align: center;
-    white-space: normal;
-    width: 100%;
+  color: #51595b;
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  horizontal-align: center;
+  text-align: center;
+  vertical-align: center;
+  white-space: normal;
+  width: 100%;
 }
-
-/* End of Common Styles */
-
-/* Start of EventList Styles */
-
+HorizontalLine {
+  background-color: #f4f4f5;
+  height: 2px;
+  horizontal-align: center;
+  width: 90%;
+}
+.NoHeight {
+  height: 0%;
+}
 .RootLayout {
-    background-color: #ffffff;
-    height: 100%;
-    width: 100%;
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
 }
-
-.EventListMainSV {
-    height: auto;
-    width: 100%;
-    /*margin-top: 1sp;*/
-    margin-bottom: 0sp;
+.EmptySpace3-2sp {
+  height: 1.5sp;
+  width: 100%;
 }
-
-.EventListMainVL {
-    height: 0% auto;
-    width: 100%;
+.EmptySpace8sp {
+  height: 8sp;
+  width: 100%;
 }
-
-.EventListDateHL {
-    height: 3sp;
-    width: 100%;
-    margin-top: 2sp;
-    horizontal-align: center;
+.EmptySpace7sp {
+  height: 7sp;
+  width: 100%;
 }
-
-.EventListDateTV {
-    width: 95%;
-    color: #9b9fa0;
-    font: 2sp arial;
-    text-align: left;
-    margin-top: 0sp;
-    margin-left: 2sp;
-    vertical-align: center;
-    horizontal-align: center;
+.EmptySpace6sp {
+  height: 6sp;
+  width: 100%;
 }
-
-.EventListLongBreaker {
-    background-color: #f3f3f4;
-    height: 2px;
-    horizontal-align: center;
-    width: 100%;
+.EmptySpace5sp {
+  height: 5sp;
+  width: 100%;
 }
-
-.EventListShortBreaker {
-    background-color: #f3f3f4;
-    height: 2px;
-    horizontal-align: right;
-    width: 100%;
-    margin-left: 3sp;
-    margin-top: 1sp;
-    margin-right: 3sp;
+.EmptySpace4sp {
+  height: 4sp;
+  width: 100%;
 }
-
-.EventListItemHL {
-    height: 0% auto;
-    width: 100%;
+.EmptySpace3sp {
+  height: 3sp;
+  width: 100%;
 }
-
-.EventListTimeVL {
-    height: 11sp auto;
-    width: 20%;
+.EmptySpace2sp {
+  height: 2sp;
+  width: 100%;
 }
-
-.EventListTimeTV {
-    color: #51595b;
-    margin-top: 2sp;
-    font: 3sp arial;
-    width: 80%;
+.EmptySpace1sp {
+  height: 1sp;
+  width: 100%;
 }
-
-.EventListCounterTV {
-    color: #feb3a3;
-    margin-top: 4sp;
-    font: 2sp arial;
-    width: 70%;
-}
-
-.EventListStatusVL {
-    height: 11sp auto;
-    width: 5%;
-}
-
-.EventListLineBeforeVL {
-    horizontal-align: center;
-    height: 2sp;
-    width: 3px;
-    background-color: #f3f3f4;
-}
-
-.EventListStatusIMG {
-    horizontal-align: center;
-    height: 3sp;
-}
-
-.EventListLineAfterVL {
-    horizontal-align: center;
-    height: 100%;
-    width: 3px;
-    background-color: #f3f3f4;
-}
-
-.EventListDescriptionVL {
-    height: 11sp auto;
-    width: 75%;
-}
-
-.EventListItemName {
-    color: #51595b;
-    margin-top: 2sp;
-    margin-left: 3sp;
-    margin-right: 3sp;
-    font: 3sp arial;
-    text-align: left;
-    width: 100%;
-    white-space: nowrap;
-}
-
-.EventListItemAddress {
-    color: #51595b;
-    margin-top: 1sp;
-    margin-left: 3sp;
-    margin-right: 3sp;
-    font: 2.5sp arial;
-    text-align: left;
-    width: 100%;
-    white-space: nowrap;
-}
-
-.EventListItemType {
-    color: #9b9fa0;
-    margin-top: 1sp;
-    margin-left: 3sp;
-    margin-right: 3sp;
-    font: 2sp arial;
-    text-align: left;
-    width: 100%;
-    white-space: nowrap;
-}
-
-/* --------------------------------------------- */
-/* Top Info Component */
 .TopInfoLayout {
-    background-color: #4a4b5e;
-    dock-align: top;
-    height: 4sp auto;
-    padding-top: 1sp;
-    width: 100%;
+  dock-align: top;
+  padding-top: 0.75sp;
+  background-color: #4a4b5e;
 }
-
 .TopInfoHeadingLayout {
-    height: 7sp;
-    width: 100%;
+  margin-top: 0.75sp;
+  height: 4.28553391sp auto;
+  width: 100%;
 }
-
+.TopInfoHeadingTextLayout {
+  height: 100% auto;
+  width: 45%;
+  vertical-align: center;
+}
 .TopInfoHeading {
-    background-color: #4a4b5e;
-    border-style: none;
-    border-width: 0px;
-    color: #ffffff;
-    font: 40% arial;
-    height: 100%;
-    padding-top: 26%;
-    text-align: center;
-    width: 68%;
+  color: #ffffff;
+  font: 3.08558441sp arial;
+  height: 3.4249987sp auto;
+  padding-top: 0.28703111sp;
 }
-
-.TopInfoButton {
-    background-color: #4a4b5e;
-    border-style: none;
-    border-width: 0px;
-    color: #ffffff;
-    font: 40% arial;
-    height: 100%;
-    selected-background: #64657e;
-    text-align: center;
-    width: 16%;
+.TopInfoSubHeading {
+  color: #d4d4d7;
+  font: 1.78146299sp arial;
+  height: 1.97742392sp auto;
 }
-
-.TopInfoButtonImage {
-    height: 60%;
-    horizontal-align: center;
-    margin-top: 20%;
+.TopInfoButtonLeft {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
 }
-
-.TopInfoComment {
-    color: #c4c4c9;
-    font: 2.4sp arial;
-    height: 0sp auto;
-    horizontal-align: center;
-    text-align: center;
-    white-space: normal;
-    width: 58%;
+.TopInfoButtonLeft Image {
+  height: 3.85698052sp;
 }
-
+.TopInfoButtonLeft TextView {
+  color: #fd724c;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonLeft Image {
+  horizontal-align: left;
+  margin-left: 5sp;
+}
+TopInfoButtonRight {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+TopInfoButtonRight Image {
+  height: 3.85698052sp;
+}
+TopInfoButtonRight TextView {
+  color: #fd724c;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+TopInfoButtonRight Image {
+  horizontal-align: right;
+  margin-right: 5sp;
+}
+.TopInfoEmptySpace8sp {
+  height: 8sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace7sp {
+  height: 7sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace6sp {
+  height: 6sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace5sp {
+  height: 5sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace4sp {
+  height: 4sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace3sp {
+  height: 3sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace2sp {
+  height: 2sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace1sp {
+  height: 1sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
 .TopInfoArrowDown {
-    horizontal-align: center;
-    width: 100sp;
+  width: 100%;
 }
-
+.TopInfoCommentLayout {
+  width: 80%;
+  horizontal-align: center;
+  margin-top: 1.2sp;
+  margin-bottom: 0.5sp;
+}
+.TopInfoCommentLayout TextView {
+  margin-top: 0.5sp;
+  font: 2.05705627sp arial;
+  height: 2.28333247sp auto;
+  color: #d4d4d7;
+}
 .TopInfoExtraLayout {
-    background-color: #4a4b5e;
-    dock-align: top;
-    height: 1sp auto;
-    width: 100%;
+  height: 0sp auto;
+  width: 100%;
+  width: 80%;
+  horizontal-align: center;
 }
-
-.TopInfoImageLayout {
-    background-color: #ffffff;
-    dock-align: top;
-    height: 1sp auto;
-    width: 100%;
+.TopInfoExtraLayout TextView {
+  color: #ffffff;
 }
-
-.TopInfoExtraButtonsLayout {
-    height: 10sp auto;
-    horizontal-align: center;
-    width: 80%;
+/* End of Common Styles */
+/* Start of EventList Styles */
+.RootLayout {
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
 }
-
-.TopInfoSideExtraLayout {
-    height: 100% auto;
-    horizontal-align: center;
-    width: 50%;
+.EventListMainSV {
+  height: auto;
+  width: 100%;
+  /*margin-top: 1sp;*/
+  margin-bottom: 0sp;
 }
-
-.TopInfoSideImage {
-    height: 50%;
-    horizontal-align: center;
+.EventListMainVL {
+  height: 0% auto;
+  width: 100%;
 }
-
-.TopInfoSideText {
-    color: #ffffff;
+.EventListDateHL {
+  height: 3sp;
+  width: 100%;
+  margin-top: 2sp;
+  horizontal-align: center;
 }
-
+.EventListDateTV {
+  width: 95%;
+  color: #9b9fa0;
+  font: 2sp arial;
+  text-align: left;
+  margin-top: 0sp;
+  margin-left: 2sp;
+  vertical-align: center;
+  horizontal-align: center;
+}
+.EventListLongBreaker {
+  background-color: #f3f3f4;
+  height: 2px;
+  horizontal-align: center;
+  width: 100%;
+}
+.EventListShortBreaker {
+  background-color: #f3f3f4;
+  height: 2px;
+  horizontal-align: right;
+  width: 100%;
+  margin-left: 3sp;
+  margin-top: 1sp;
+  margin-right: 3sp;
+}
+.EventListItemHL {
+  height: 0% auto;
+  width: 100%;
+}
+.EventListTimeVL {
+  height: 11sp auto;
+  width: 20%;
+}
+.EventListTimeTV {
+  color: #51595b;
+  margin-top: 2sp;
+  font: 3sp arial;
+  width: 80%;
+}
+.EventListCounterTV {
+  color: #feb3a3;
+  margin-top: 4sp;
+  font: 2sp arial;
+  width: 70%;
+}
+.EventListStatusVL {
+  height: 11sp auto;
+  width: 5%;
+}
+.EventListLineBeforeVL {
+  horizontal-align: center;
+  height: 2sp;
+  width: 3px;
+  background-color: #f3f3f4;
+}
+.EventListStatusIMG {
+  horizontal-align: center;
+  height: 3sp;
+}
+.EventListLineAfterVL {
+  horizontal-align: center;
+  height: 100%;
+  width: 3px;
+  background-color: #f3f3f4;
+}
+.EventListDescriptionVL {
+  height: 11sp auto;
+  width: 75%;
+}
+.EventListItemName {
+  color: #51595b;
+  margin-top: 2sp;
+  margin-left: 3sp;
+  margin-right: 3sp;
+  font: 3sp arial;
+  text-align: left;
+  width: 100%;
+  white-space: nowrap;
+}
+.EventListItemAddress {
+  color: #51595b;
+  margin-top: 1sp;
+  margin-left: 3sp;
+  margin-right: 3sp;
+  font: 2.5sp arial;
+  text-align: left;
+  width: 100%;
+  white-space: nowrap;
+}
+.EventListItemType {
+  color: #9b9fa0;
+  margin-top: 1sp;
+  margin-left: 3sp;
+  margin-right: 3sp;
+  font: 2sp arial;
+  text-align: left;
+  width: 100%;
+  white-space: nowrap;
+}
+/* --------------------------------------------- */
 /* Top Info Bar LeftExtraLayout and RightExtraLayout*/
 .ExtraLeftLayoutCss {
-    background-color: #4a4b5e;
-    height: 15sp;
-    margin-left: 25%;
-    margin-top: 25%;
-    width: 15sp;
+  background-color: #4a4b5e;
+  height: 15sp;
+  margin-left: 25%;
+  margin-top: 25%;
+  width: 15sp;
 }
-
 .ExtraRightLayoutCss {
-    background-color: #4a4b5e;
-    height: 15sp;
-    margin-right: 25%;
-    margin-top: 25%;
-    width: 15sp;
+  background-color: #4a4b5e;
+  height: 15sp;
+  margin-right: 25%;
+  margin-top: 25%;
+  width: 15sp;
 }
-
 .ExtraInfo {
-    background-color: #4a4b5e;
-    color: #ffffff;
-    font: 3sp arial;
-    height: 8sp;
-    text-align: center;
-    width: 15sp;
+  background-color: #4a4b5e;
+  color: #ffffff;
+  font: 3sp arial;
+  height: 8sp;
+  text-align: center;
+  width: 15sp;
 }
-
 .ButtonExtraInfo {
-    background-color: #4a4b5e;
-    color: #ffffff;
-    font: 2sp arial;
-    height: 5sp;
-    text-align: center;
-    width: 15sp;
+  background-color: #4a4b5e;
+  color: #ffffff;
+  font: 2sp arial;
+  height: 5sp;
+  text-align: center;
+  width: 15sp;
 }
-
 /* Tab Bar style */
 .TabBarMainVL {
-    background-color: #ffffff;
-    dock-align: bottom;
-    height: 9%;
-    horizontal-align: center;
-    width: 100%;
+  background-color: #ffffff;
+  dock-align: bottom;
+  height: 9%;
+  horizontal-align: center;
+  width: 100%;
 }
-
 .TabBarHL {
-    background-color: #ffffff;
-    dock-align: bottom;
-    height: 100%;
-    horizontal-align: center;
-    width: 100%;
+  background-color: #ffffff;
+  dock-align: bottom;
+  height: 100%;
+  horizontal-align: center;
+  width: 100%;
 }
-
 .TabBarBreaker {
-    background-color: #f3f3f4;
-    height: 1dp;
-    horizontal-align: center;
-    width: 100%;
+  background-color: #f3f3f4;
+  height: 1dp;
+  horizontal-align: center;
+  width: 100%;
 }
-
 .TabBarItemVL {
-    background-color: #ffffff;
-    color: #ffffff;
-    height: 100%;
-    horizontal-align: center;
-    margin-bottom: 0%;
-    vertical-align: center;
-    width: 25%;
+  background-color: #ffffff;
+  color: #ffffff;
+  height: 100%;
+  horizontal-align: center;
+  margin-bottom: 0%;
+  vertical-align: center;
+  width: 25%;
 }
-
 .TabImage {
-    background-color: #ffffff;
-    color: #ffffff;
-    margin-top: 10%;
-    height: 50%;
-    horizontal-align: center;
-    vertical-align: center;
+  background-color: #ffffff;
+  color: #ffffff;
+  margin-top: 10%;
+  height: 50%;
+  horizontal-align: center;
+  vertical-align: center;
 }
-
 .TabTextViewActive {
-    background-color: #ffffff;
-    color: #fd724c;
-    text-align: center;
+  background-color: #ffffff;
+  color: #fd724c;
+  text-align: center;
 }
-
 .TabTextViewNotActive {
-    background-color: #ffffff;
-    color: #9b9fa0;
-    text-align: center;
+  background-color: #ffffff;
+  color: #9b9fa0;
+  text-align: center;
 }
 /* End of Tab Bar style */

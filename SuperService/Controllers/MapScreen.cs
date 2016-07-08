@@ -3,8 +3,6 @@ using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
 using Test.Components;
 
 namespace Test
@@ -114,8 +112,9 @@ namespace Test
             return _location.Count == 0;
         }
 
-        private bool Init()
+        internal bool Init()
         {
+            if (_isInit) return _isInit;
             DConsole.WriteLine("Start " + nameof(Init));
             _location = new ArrayList();
 

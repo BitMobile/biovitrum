@@ -136,41 +136,49 @@ namespace Test
         public static void ModalMove(ScreenInfo screenInfo, IDictionary<string, object> args = null,
             Screen screen = null)
         {
-            DConsole.WriteLine($"Moving to {screenInfo.Name}");
             try
             {
-                screen = screen ?? (Screen)Application.CreateInstance($"Test.{screenInfo.Name}");
-            }
-            catch
-            {
-                DConsole.WriteLine($"Can't load screen with name {screenInfo.Name}");
-                if (!_nonModalMove || ScreenInfoStack.Count < 1) return;
-                ScreenInfoStack.Pop();
-                ScreenStack.Pop();
-                return;
-            }
-            screen.SetData(args);
-            try
-            {
-                screen.LoadFromStream(Application.GetResourceStream(screenInfo.Xml));
+                DConsole.WriteLine($"Moving to {screenInfo.Name}");
+                try
+                {
+                    screen = screen ?? (Screen)Application.CreateInstance($"Test.{screenInfo.Name}");
+                }
+                catch
+                {
+                    DConsole.WriteLine($"Can't load screen with name {screenInfo.Name}");
+                    if (!_nonModalMove || ScreenInfoStack.Count < 1) return;
+                    ScreenInfoStack.Pop();
+                    ScreenStack.Pop();
+                    return;
+                }
+                screen.SetData(args);
+                try
+                {
+                    screen.LoadFromStream(Application.GetResourceStream(screenInfo.Xml));
+                }
+                catch (Exception e)
+                {
+                    DConsole.WriteLine($"Error while loading {screenInfo.Name}'s xml ({screenInfo.Xml})");
+                    DConsole.WriteLine($"{e.Message}");
+                }
+                try
+                {
+                    screen.LoadStyleSheet(Application.GetResourceStream(screenInfo.Css));
+                }
+                catch
+                {
+                    screen.LoadStyleSheet(Application.GetResourceStream(DefaultStyle));
+                }
+                CurrentScreenInfo = screenInfo;
+                CurrentScreen = screen;
+                screen.Show();
+                _nonModalMove = false;
             }
             catch (Exception e)
             {
-                DConsole.WriteLine($"Error while loading {screenInfo.Name}'s xml ({screenInfo.Xml})");
-                DConsole.WriteLine($"{e.Message}");
+                DConsole.WriteLine($"{e.GetType().FullName}:{e.Message}");
+                DConsole.WriteLine($"{e.StackTrace}");
             }
-            try
-            {
-                screen.LoadStyleSheet(Application.GetResourceStream(screenInfo.Css));
-            }
-            catch
-            {
-                screen.LoadStyleSheet(Application.GetResourceStream(DefaultStyle));
-            }
-            CurrentScreenInfo = screenInfo;
-            CurrentScreen = screen;
-            screen.Show();
-            _nonModalMove = false;
         }
 
         /// <summary>

@@ -30,6 +30,12 @@ TextView {
   white-space: normal;
   width: 100%;
 }
+HorizontalLine {
+  background-color: #f4f4f5;
+  height: 2px;
+  horizontal-align: center;
+  width: 90%;
+}
 .NoHeight {
   height: 0%;
 }
@@ -40,6 +46,18 @@ TextView {
 }
 .EmptySpace3-2sp {
   height: 1.5sp;
+  width: 100%;
+}
+.EmptySpace8sp {
+  height: 8sp;
+  width: 100%;
+}
+.EmptySpace7sp {
+  height: 7sp;
+  width: 100%;
+}
+.EmptySpace6sp {
+  height: 6sp;
   width: 100%;
 }
 .EmptySpace5sp {
@@ -125,6 +143,21 @@ TopInfoButtonRight TextView {
 TopInfoButtonRight Image {
   horizontal-align: right;
   margin-right: 5sp;
+}
+.TopInfoEmptySpace8sp {
+  height: 8sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace7sp {
+  height: 7sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace6sp {
+  height: 6sp;
+  width: 100%;
+  background-color: #4a4b5e;
 }
 .TopInfoEmptySpace5sp {
   height: 5sp;

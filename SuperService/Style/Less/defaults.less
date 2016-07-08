@@ -7,7 +7,7 @@
 @default-text-color: #51595b;
 @default-font-size: 2.5sp;
 @deafult-font: @default-font-size arial;
-@emptyspaceiterations: 5;
+@emptyspaceiterations: 8;
 
 .height-of-TextView(@font-size) {
     height: @font-size * 1.11 auto;
@@ -55,6 +55,13 @@ TextView {
     vertical-align: center;
     white-space: normal;
     width: 100%;
+}
+
+HorizontalLine {
+    background-color: #f4f4f5;
+    height: 2px;
+    horizontal-align: center;
+    width: 90%;
 }
 
 .NoHeight {
