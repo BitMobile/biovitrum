@@ -23,7 +23,6 @@
 
             <s:Push Id="void" Value="$SetTodayLayoutBoolToFalse()" />
           </s:If>
-
         </s:If>
         <!-- Конец проверки на необходимость плашки "Сегодня" -->
 
@@ -69,13 +68,10 @@
               <c:TextView Text="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVConfirmed" />
             </s:If>
           </c:VerticalLayout>
-
         </c:HorizontalLayout>
 
         <s:Push Id="LastRequestHistoryDate" Value="$DateTimeToDate($RequestHistory.Date)" />
-
       </s:Iterator>
     </c:SwipeVerticalLayout>
   </c:DockLayout>
-
 </c:Screen>

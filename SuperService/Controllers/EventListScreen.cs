@@ -1,8 +1,8 @@
-﻿using System;
+﻿using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
 using Test.Components;
 
 namespace Test
@@ -21,33 +21,40 @@ namespace Test
             _tabBarComponent = new TabBarComponent(this);
             _topInfoComponent = new TopInfoComponent(this)
             {
-                LeftButtonImage = {Source = ResourceManager.GetImage("topheading_filter")},
-                RightButtonImage = {Source = ResourceManager.GetImage("topheading_map")},
-                HeadingTextView = {Text = Translator.Translate("orders")},
-                LeftExtraLayout = {CssClass = "ExtraLeftLayoutCss"},
-                RightExtraLayout = {CssClass = "ExtraRightLayoutCss"}
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_filter") },
+                RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_map") },
+                Header = Translator.Translate("orders")
             };
 
             var statistic = DBHelper.GetEventsStatistic();
-            _topInfoComponent.LeftExtraLayout.AddChild(
+
+            var extraHorizontalLayout = new HorizontalLayout { CssClass = "ExtraHorizontalLayout" };
+            var leftExtraLayout = new VerticalLayout { CssClass = "ExtraLeftLayoutCss" };
+            var rightExtraLayout = new VerticalLayout { CssClass = "ExtraRightLayoutCss" };
+            extraHorizontalLayout.AddChild(leftExtraLayout);
+            extraHorizontalLayout.AddChild(rightExtraLayout);
+
+            leftExtraLayout.AddChild(
                 new TextView($"{statistic.DayCompleteAmout}/{statistic.DayTotalAmount}")
                 {
                     CssClass = "ExtraInfo"
                 });
-            _topInfoComponent.LeftExtraLayout.AddChild(new TextView(Translator.Translate("today"))
+            leftExtraLayout.AddChild(new TextView(Translator.Translate("today"))
             {
                 CssClass = "ButtonExtraInfo"
             });
 
-            _topInfoComponent.RightExtraLayout.AddChild(
+            rightExtraLayout.AddChild(
                 new TextView($"{statistic.MonthCompleteAmout}/{statistic.MonthTotalAmount}")
                 {
                     CssClass = "ExtraInfo"
                 });
-            _topInfoComponent.RightExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
+            rightExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
             {
                 CssClass = "ButtonExtraInfo"
             });
+
+            _topInfoComponent.ExtraLayout.AddChild(extraHorizontalLayout);
         }
 
         internal string GetStatusPicture(string importance, string status)
@@ -92,13 +99,13 @@ namespace Test
             var workDate = DateTime.Parse(datetime).Date;
             var currentDate = DateTime.Now.Date;
 
-            var workDateWeekNumber = (workDate.DayOfYear + 6)/7;
+            var workDateWeekNumber = (workDate.DayOfYear + 6) / 7;
             if (workDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
             {
                 ++workDateWeekNumber;
             }
 
-            var currentDateWeekNumber = (currentDate.DayOfYear + 6)/7;
+            var currentDateWeekNumber = (currentDate.DayOfYear + 6) / 7;
             if (currentDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
             {
                 ++currentDateWeekNumber;
@@ -129,7 +136,7 @@ namespace Test
             if ((actualTime != default(DateTime)) && statusName == "Appointed")
             {
                 var ans = DateTime.Now - actualTime; // .ToString(@"hh\:mm");
-                return ans.Days*24 + ans.Hours + ":" + ans.Minutes; // @"hh\:mm");
+                return ans.Days * 24 + ans.Hours + ":" + ans.Minutes; // @"hh\:mm");
             }
             return "";
         }
@@ -232,7 +239,7 @@ namespace Test
         internal void EventListItemHL_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("Go To View Event");
-            var currentEvent = (HorizontalLayout) sender;
+            var currentEvent = (HorizontalLayout)sender;
             BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId] = currentEvent.Id;
             Navigation.Move("EventScreen");
         }
@@ -258,6 +265,7 @@ namespace Test
             _tabBarComponent.Settings_OnClick(sender, eventArgs);
         }
     }
+
     public enum MapMarkerColor
     {
         Red,

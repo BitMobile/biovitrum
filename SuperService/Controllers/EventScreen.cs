@@ -29,38 +29,48 @@ namespace Test
 
         private void FillControls()
         {
-            _topInfoComponent.HeadingTextView.Text =
+            _topInfoComponent.Header =
                 ((string)_currentEventRecordset["clientDescription"]).CutForUIOutput(17, 2);
-            _topInfoComponent.CommentTextView.Text =
-                ((string)_currentEventRecordset["clientAddress"]).CutForUIOutput(17, 2);
-            _topInfoComponent.LeftButtonImage.Source = ResourceManager.GetImage("topheading_back");
-            _topInfoComponent.RightButtonImage.Source = ResourceManager.GetImage("topheading_info");
+            _topInfoComponent.CommentLayout.AddChild(new TextView(
+                ((string)_currentEventRecordset["clientAddress"]).CutForUIOutput(17, 2)));
+            _topInfoComponent.LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") };
+            _topInfoComponent.RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_info") };
 
-            _topInfoComponent.LeftExtraLayout.AddChild(new Image
+            var extraHorizontalLayout = new HorizontalLayout { CssClass = "ExtraHorizontalLayout" };
+            var leftExtraLayout = new VerticalLayout { CssClass = "ExtraVerticalLayout" };
+            var rightExtraLayout = new VerticalLayout { CssClass = "ExtraVerticalLayout" };
+
+            _topInfoComponent.ExtraLayout.AddChild(extraHorizontalLayout);
+            extraHorizontalLayout.AddChild(leftExtraLayout);
+            extraHorizontalLayout.AddChild(rightExtraLayout);
+
+            leftExtraLayout.AddChild(new Image
             {
                 CssClass = "TopInfoSideImage",
                 Source = ResourceManager.GetImage("topinfo_extra_map")
             });
-            _topInfoComponent.LeftExtraLayout.AddChild(new TextView
+            leftExtraLayout.AddChild(new TextView
             {
                 Text = Translator.Translate("onmap"),
                 CssClass = "TopInfoSideText"
             });
 
-            _topInfoComponent.RightExtraLayout.AddChild(new Image
+            rightExtraLayout.AddChild(new Image
             {
                 CssClass = "TopInfoSideImage",
                 Source = ResourceManager.GetImage("topinfo_extra_person")
             });
 
-            _topInfoComponent.RightExtraLayout.AddChild(new TextView
+            var text = (string)_currentEventRecordset["ContactVisitingDescription"];
+            DConsole.WriteLine("text: " + text);
+            rightExtraLayout.AddChild(new TextView
             {
-                Text = ((string)_currentEventRecordset["ContactVisitingDescription"]).CutForUIOutput(12, 1),
+                Text = ((string)_currentEventRecordset["ContactVisitingDescription"]).CutForUIOutput(12, 2),
                 CssClass = "TopInfoSideText"
             });
 
             DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} before add");
-            _topInfoComponent.LeftExtraLayout.OnClick += GoToMapScreen_OnClick;
+            leftExtraLayout.OnClick += GoToMapScreen_OnClick;
             DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} after");
         }
 
@@ -124,18 +134,9 @@ namespace Test
             var result = DBHelper.GetTotalFinishedRequireQuestionByEventId(
                 (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
 
-            long countQuestion = -1;
-
             var isActiveEvent = result.Next()
-                ? (countQuestion = (long)result["count"]) == 0
+                ? ((long)result["count"]) == 0
                 : Convert.ToBoolean("True");
-
-#if DEBUG
-            DConsole.WriteLine($"первое условие {(countQuestion = (long)result["count"]) == 0}" +
-                               $" {nameof(countQuestion)}={countQuestion}" +
-                               $"{Environment.NewLine}" +
-                               $"{nameof(isActiveEvent)}={isActiveEvent}");
-#endif
 
             if (isActiveEvent)
             {

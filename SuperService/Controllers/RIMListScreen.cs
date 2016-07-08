@@ -27,13 +27,9 @@ namespace Test
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                HeadingTextView =
-                {
-                    Text = _isService ? Translator.Translate("services") : Translator.Translate("materials")
-                },
-                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
-                RightButtonImage = { Visible = false },
-                ExtraLayoutVisible = false
+                Header = _isService ? Translator.Translate("services") : Translator.Translate("materials"),
+                LeftButtonControl = new Image() { Source = ResourceManager.GetImage("topheading_back") },
+                ArrowVisible = false
             };
         }
 
@@ -64,6 +60,10 @@ namespace Test
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
             Navigation.Back();
+        }
+
+        internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
+        {
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
@@ -151,7 +151,7 @@ namespace Test
                     //услуги всегда отображаем все
                     result = DBHelper.GetRIMByType(RIMType.Service);
                 }
-                else if(_isUseServiceBag)
+                else if (_isUseServiceBag)
                 {
                     //Если используется рюкзак монтажника, то отображаются только те материалы, которые есть в рюкзаке
                     //TODO: заменить на метод DBHelper.GetUserBagByUserId когда будет реализована работа с пользователями и ИД. Пока выводим все номенклатуры
@@ -165,7 +165,7 @@ namespace Test
                     result = DBHelper.GetRIMByType(RIMType.Material);
                 }
             }
-            
+
             return result;
         }
 
@@ -184,7 +184,7 @@ namespace Test
 
             return result;
         }
-            
+
         internal bool GetIsNotEmpty()
         {
             var result = GetDataFromDb();

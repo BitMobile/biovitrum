@@ -22,16 +22,15 @@ namespace Test
         private int _value;
         private IEnumerable _serviceMaterialInfo;
 
-
         private EditText _priceEditText;
         private string _rimId;
 
         private bool _showPrices;
         private TextView _totalPriceTextView;
 
-
         private string _description;
         private decimal _price;
+
         private decimal Price
         {
             get { return _price; }
@@ -44,13 +43,15 @@ namespace Test
                     _totalPriceTextView.Text = GetTotalPriceDescription();
             }
         }
+
         private int _amountFact;
+
         private int AmountFact
         {
-            get { return _amountFact; } 
+            get { return _amountFact; }
             set
             {
-               value = Math.Max(value, _minimum);
+                value = Math.Max(value, _minimum);
                 _amountFact = value;
                 _amountFactEditText.Text = value.ToString();
                 if (_totalPriceTextView != null)
@@ -88,10 +89,9 @@ namespace Test
             }
             else
             {
-                return (Price * AmountFact).ToString(CultureInfo.CurrentCulture); 
+                return (Price * AmountFact).ToString(CultureInfo.CurrentCulture);
             }
         }
-
 
         public int InitClassFields()
         {
@@ -143,13 +143,13 @@ namespace Test
 
         public override void OnShow()
         {
-            
             /*FindTextViewAndChangeVisibility("PriceTitleTextView", _showPrices);
             /*FindTextViewAndChangeVisibility("TotalPriceTitleTextView", _showPrices);
             FindTextViewAndChangeVisibility("TotalPriceTextView", _showPrices);
 
             FindEditTextAndChangeVisibilityAndEditable("PriceEditText", _showPrices, _editPrices);
-            */Price = _price;
+            */
+            Price = _price;
 
             if (_value > 0)
                 _amountFactEditText.Text = $"{_value}";
@@ -260,8 +260,6 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
-
-
     }
 
     /// <summary>

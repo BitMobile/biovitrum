@@ -85,3 +85,4 @@ edit		Edit
 send_sms		Send SMS
 send_email		Send e-mail
 allday		All day
+cancel		Cancel

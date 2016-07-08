@@ -1,48 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using System;
+using Test.Components;
 
 namespace Test
 {
     public class TestScreen : Screen
     {
-        private VerticalLayout _rootLayout;
-        private TextView _testTextView;
+        private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
-            _rootLayout = (VerticalLayout) Controls[0];
-            _testTextView = (TextView) _rootLayout.Controls[1];
+            _topInfoComponent = new TopInfoComponent(this)
+            {
+                LeftButtonControl = new TextView("Отмена"),
+                RightButtonControl = new TextView("Сохранить"),
+                Header = "Курочка ряба",
+            };
+
+            _topInfoComponent.CommentLayout.AddChild(new TextView("Малая балканская, 17, Санкт-Петербург"));
+
+            _topInfoComponent.ExtraLayout.AddChild(new TextView("Экстра инфо"));
+            _topInfoComponent.ExtraLayout.AddChild(new TextView("Шамеймару, Марисса, Спелл Кард, Спелл Кард, Мастер Спарк, Экстра Фантазм"));
         }
 
         public override void OnShow()
-        {
-            DConsole.WriteLine("OnShow?");
-
-            if (BusinessProcess.GlobalVariables.ContainsKey("serviceMaterialNumber"))
-            {
-                var result =
-                    (EditServiceOrMaterialsScreenResult) BusinessProcess.GlobalVariables["serviceMaterialNumber"];
-                _testTextView.Text = $"Price = {result.Price}, Count = {result.Count}, Full = {result.FullPrice}";
-            }
-        }
+        { }
 
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
         }
 
-        internal void Button_OnClick(object sender, EventArgs eventArgs)
+        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
-            Navigation.Move("EditServicesOrMaterialsScreen", new Dictionary<string, object>
-            {
-                {"priceVisible", true},
-                {"priceEditable", true},
-                {"minimum", 0},
-                {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue},
-                {"returnKey", "serviceMaterialNumber"}
-            });
+            DConsole.WriteLine("I am left");
+        }
+
+        internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            DConsole.WriteLine("I am right");
+        }
+
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
+        {
+            _topInfoComponent.Arrow_OnClick(sender, eventArgs);
         }
     }
 }

@@ -95,7 +95,7 @@ namespace Test
                     currentWordNumber++;
                     continue;
                 }
-                if (word.Length > outputLineLength)
+                if (word.Length >= outputLineLength)
                 {
                     if (IsNullOrEmpty((string)lines[lastLineNumber]))
                     {
@@ -112,7 +112,7 @@ namespace Test
                     lastLineNumber++;
                 }
             }
-            fitAll = currentWordNumber >= words.Count;
+            fitAll = currentWordNumber >= words.Count && ((string)words[words.Count - 1]).Length <= outputLineLength;
             if (lines.Count > outputLinesAmount)
                 lines[lines.Count - 1] = Empty;
 

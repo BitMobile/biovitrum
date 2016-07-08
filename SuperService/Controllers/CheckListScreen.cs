@@ -1,10 +1,10 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
+using BitMobile.DbEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using BitMobile.DbEngine;
 using Test.Components;
 
 namespace Test
@@ -35,10 +35,9 @@ namespace Test
             DConsole.WriteLine("CheckListScreen init");
             _topInfoComponent = new TopInfoComponent(this)
             {
-                ExtraLayoutVisible = false,
-                HeadingTextView = { Text = Translator.Translate("clist") },
-                LeftButtonImage = { Source = ResourceManager.GetImage("topheading_back") },
-                RightButtonImage = { Visible = false }
+                Header = Translator.Translate("clist"),
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                ArrowVisible = false
             };
         }
 
@@ -86,9 +85,9 @@ namespace Test
 
             _imgToReplace.Source = _pathToImg;
             //_imgToReplace.Refresh();
-            
+
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result);
-            if(args.Result)
+            if (args.Result)
                 ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
             else
                 ChangeRequiredIndicatorForRequired(_lastClickedRequiredIndicatior);
@@ -121,13 +120,11 @@ namespace Test
                 args.Result.Value == Translator.Translate("not_choosed") ? "" : _textView.Text);
             _textView.Refresh();
 
-
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result.Value != Translator.Translate("not_choosed"));
             if (args.Result.Value != Translator.Translate("not_choosed"))
                 ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
             else
                 ChangeRequiredIndicatorForRequired(_lastClickedRequiredIndicatior);
-
         }
 
         // Дата
@@ -205,13 +202,11 @@ namespace Test
                 ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
             else
                 ChangeRequiredIndicatorForRequired(_lastClickedRequiredIndicatior);
-
         }
 
         //Целое
         internal void CheckListInteger_OnLostFocus(object sender, EventArgs e)
         {
-
             _editText = (EditText)sender;
             _currentCheckListItemID = ((EditText)sender).Id;
 
@@ -233,9 +228,8 @@ namespace Test
 
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _editText.Text);
 
+            _lastClickedRequiredIndicatior = (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
 
-            _lastClickedRequiredIndicatior = (VerticalLayout) GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
-                
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов  ChangeRequiredIndicator(_lastClickedRequiredIndicatior, string.IsNullOrWhiteSpace(_editText.Text));
             if (!string.IsNullOrWhiteSpace(_editText.Text))
                 ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
@@ -245,31 +239,25 @@ namespace Test
 
         internal void CheckListString_OnGetFocus(object sender, EventArgs e)
         {
-
             _currentCheckListItemID = ((EditText)sender).Id;
             _lastClickedRequiredIndicatior = (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
-
-         }
+        }
 
         internal void CheckListDecimal_OnGetFocus(object sender, EventArgs e)
         {
             _currentCheckListItemID = ((EditText)sender).Id;
             _lastClickedRequiredIndicatior = (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
-
         }
 
         internal void CheckListInteger_OnGetFocus(object sender, EventArgs e)
         {
             _currentCheckListItemID = ((EditText)sender).Id;
             _lastClickedRequiredIndicatior = (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
-
         }
-
 
         // Строка
         internal void CheckListString_OnLostFocus(object sender, EventArgs e)
         {
-
             _editText = (EditText)sender;
             _currentCheckListItemID = ((EditText)sender).Id;
 
@@ -304,15 +292,13 @@ namespace Test
             // TODO: Непонятное поведение Refresh(), из-за чего не можем оперативно сменить индикатор важности. Работает на android 4, не работает на android 6
             DBHelper.UpdateCheckListItem(_currentCheckListItemID, _editText.Text);
 
+            _lastClickedRequiredIndicatior = (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
 
-            _lastClickedRequiredIndicatior = (VerticalLayout) GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
- 
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов  ChangeRequiredIndicator(_lastClickedRequiredIndicatior, string.IsNullOrWhiteSpace(_editText.Text)););
             if (!string.IsNullOrWhiteSpace(_editText.Text))
                 ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
             else
                 ChangeRequiredIndicatorForRequired(_lastClickedRequiredIndicatior);
-
         }
 
         internal void CheckListElementLayout_OnClick(object sender, EventArgs e)

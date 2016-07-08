@@ -1,19 +1,21 @@
 ﻿using System;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Common.Controls;
 
 namespace Test.Components
 {
     public class TopInfoComponent
     {
         private readonly Screen _parentScreen;
-        private bool _bigArrowActive = true;
-        private bool _extraLayoutVisible;
+        private bool _arrowActive = true;
+        private bool _arrowVisible = true;
+        private VerticalLayout _leftButton;
         private bool _minimized = true;
-
+        private VerticalLayout _rightButton;
         private Image _topInfoArrowImage;
-        private HorizontalLayout _topInfoExtraButtonsLayout;
-
+        private TextView _topInfoHeadingTextView;
         private VerticalLayout _topInfoImageLayout;
+        private TextView _topInfoSubHeadingTextView;
 
         /// <summary>
         ///     Конструктор контроллера компонента с заголовком, двумя кнопками и доп. инфой
@@ -25,121 +27,115 @@ namespace Test.Components
         {
             _parentScreen = parentScreen;
             OnLoading();
-            _extraLayoutVisible = true;
         }
 
-        /// <summary>
-        ///     Изображение на левой кнопке, менять свойство Source
-        /// </summary>
-        public Image LeftButtonImage { get; private set; }
+        public bool Minimized
+        {
+            get { return _minimized; }
+            set
+            {
+                _minimized = value;
+                UpdateArrowImage();
+                ExtraLayout.CssClass = value ? "NoHeight" : "TopInfoExtraLayout";
+                ExtraLayout.Refresh();
+            }
+        }
 
-        /// <summary>
-        ///     Изображение на правой кнопке, менять свойство Source
-        /// </summary>
-        public Image RightButtonImage { get; private set; }
+        public bool ArrowVisible
+        {
+            get { return _arrowVisible; }
+            set
+            {
+                _arrowVisible = value;
+                _topInfoImageLayout.CssClass = value ? "TopInfoImageLayout" : "NoHeight";
+                _topInfoImageLayout.Refresh();
+            }
+        }
 
-        /// <summary>
-        ///     Левый Layout с дополнительной информацией. Использовать метод AddChild
-        /// </summary>
-        public VerticalLayout LeftExtraLayout { get; private set; }
+        public bool ArrowActive
+        {
+            get { return _arrowActive; }
+            set
+            {
+                _arrowActive = value;
+                UpdateArrowImage();
+            }
+        }
 
-        /// <summary>
-        ///     Правый Layout с дополнительной информацией. Использовать метод AddChild
-        /// </summary>
-        public VerticalLayout RightExtraLayout { get; private set; }
+        public VerticalLayout CommentLayout { get; private set; }
 
-        /// <summary>
-        ///     Заголовок экрана
-        /// </summary>
-        public TextView HeadingTextView { get; private set; }
+        public IWrappedControl3 LeftButtonControl
+        {
+            get { return GetIfNotEmpty(_leftButton); }
+            set { AddIfNotEmpty(_leftButton, value); }
+        }
 
-        /// <summary>
-        ///     Комментарий, который ниже заголовка экрана
-        /// </summary>
-        public TextView CommentTextView { get; private set; }
+        public IWrappedControl3 RightButtonControl
+        {
+            get { return GetIfNotEmpty(_rightButton); }
+            set { AddIfNotEmpty(_rightButton, value); }
+        }
 
-        /// <summary>
-        ///     Дополнительный контейнер ниже заголовка экрана, содержащий в себе комментарий
-        /// </summary>
+        public string Header
+        {
+            get { return _topInfoHeadingTextView.Text; }
+            set { _topInfoHeadingTextView.Text = value; }
+        }
+
+        public string SubHeader
+        {
+            get { return _topInfoSubHeadingTextView.Text; }
+            set
+            {
+                _topInfoSubHeadingTextView.Text = value;
+                if (string.IsNullOrEmpty(value))
+                {
+                    _topInfoSubHeadingTextView.CssClass = "NoHeight";
+                    _topInfoSubHeadingTextView.Refresh();
+                }
+                else
+                {
+                    _topInfoSubHeadingTextView.CssClass = "TopInfoSubHeading";
+                    _topInfoSubHeadingTextView.Refresh();
+                }
+            }
+        }
+
+        private void UpdateArrowImage()
+        {
+            string imageTag = $"topinfo_{(Minimized ? "down" : "up")}{(ArrowActive ? "" : "no")}arrow";
+            _topInfoArrowImage.Source = ResourceManager.GetImage(imageTag);
+            _topInfoArrowImage.Refresh();
+        }
+
         public VerticalLayout ExtraLayout { get; private set; }
 
-        /// <summary>
-        ///     Видимость контейнера с дополнительной информацией
-        /// </summary>
-        public bool ExtraLayoutVisible
+        private IWrappedControl3 GetIfNotEmpty(VerticalLayout layout)
         {
-            get { return _extraLayoutVisible; }
-            set
-            {
-                ChangeExtraVisibility(value);
-                _extraLayoutVisible = value;
-            }
+            return layout.Controls.Length == 0 ? null : (IWrappedControl3) layout.Controls[0];
         }
 
-        /// <summary>
-        ///     Активность большой стрелки. Если false, то меняется внешний вид.
-        /// </summary>
-        public bool BigArrowActive
+        private static void AddIfNotEmpty(VerticalLayout verticalLayout, IWrappedControl3 control)
         {
-            get { return _bigArrowActive; }
-            set
-            {
-                _bigArrowActive = value;
-                _topInfoArrowImage.Source = value
-                    ? ResourceManager.GetImage(_minimized ? "topinfo_downarrow" : "topinfo_uparrow")
-                    : ResourceManager.GetImage(_minimized ? "topinfo_downnoarrow" : "topinfo_upnoarrow");
-            }
-        }
-
-        private void ChangeExtraVisibility(bool visibility)
-        {
-            if (!visibility)
-            {
-                ExtraLayout.CssClass = "NoHeight";
-                _topInfoImageLayout.CssClass = "NoHeight";
-            }
-            else
-            {
-                ExtraLayout.CssClass = "TopInfoExtraLayout";
-                _topInfoImageLayout.CssClass = "TopInfoImageLayout";
-            }
+            if (verticalLayout.Controls.Length == 0) verticalLayout.AddChild(control);
         }
 
         private void OnLoading()
         {
-            _topInfoArrowImage = (Image) _parentScreen.GetControl("TopInfoArrowImage", true);
-            _topInfoExtraButtonsLayout = (HorizontalLayout) _parentScreen.GetControl("TopInfoExtraButtonsLayout", true);
-
-            LeftButtonImage = (Image) _parentScreen.GetControl("TopInfoLeftButtonImage", true);
-            RightButtonImage = (Image) _parentScreen.GetControl("TopInfoRightButtonImage", true);
-
-            LeftExtraLayout = (VerticalLayout) _parentScreen.GetControl("TopInfoLeftExtraLayout", true);
-            RightExtraLayout = (VerticalLayout) _parentScreen.GetControl("TopInfoRightExtraLayout", true);
-
-            HeadingTextView = (TextView) _parentScreen.GetControl("TopInfoHeadingTextView", true);
-            CommentTextView = (TextView) _parentScreen.GetControl("TopInfoCommentTextView", true);
-
-            ExtraLayout = (VerticalLayout) _parentScreen.GetControl("TopInfoExtraLayout", true);
-            _topInfoImageLayout = (VerticalLayout) _parentScreen.GetControl("TopInfoImageLayout", true);
+            _leftButton = (VerticalLayout) _parentScreen.Variables["TopInfoLeftButton"];
+            _rightButton = (VerticalLayout) _parentScreen.Variables["TopInfoRightButton"];
+            _topInfoHeadingTextView = (TextView) _parentScreen.Variables["TopInfoHeadingTextView"];
+            _topInfoSubHeadingTextView = (TextView) _parentScreen.Variables["TopInfoSubHeadingTextView"];
+            _topInfoArrowImage = (Image) _parentScreen.Variables["TopInfoArrowImage"];
+            _topInfoImageLayout = (VerticalLayout) _parentScreen.Variables["TopInfoImageLayout"];
+            CommentLayout = (VerticalLayout) _parentScreen.Variables["TopInfoCommentLayout"];
+            ExtraLayout = (VerticalLayout) _parentScreen.Variables["TopInfoExtraLayout"];
         }
 
         internal void Arrow_OnClick(object sender, EventArgs eventArgs)
         {
-            if (!BigArrowActive) return;
-            if (_minimized)
-            {
-                _topInfoArrowImage.Source = ResourceManager.GetImage("topinfo_uparrow");
-                _topInfoExtraButtonsLayout.CssClass = "TopInfoExtraButtonsLayout";
-                _topInfoExtraButtonsLayout.Refresh();
-                _minimized = false;
-            }
-            else
-            {
-                _topInfoArrowImage.Source = ResourceManager.GetImage("topinfo_downarrow");
-                _topInfoExtraButtonsLayout.CssClass = "NoHeight";
-                _topInfoExtraButtonsLayout.Refresh();
-                _minimized = true;
-            }
+            if (ArrowActive)
+                Minimized = !Minimized;
         }
     }
 }

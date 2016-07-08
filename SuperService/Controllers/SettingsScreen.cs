@@ -1,6 +1,6 @@
-﻿using System;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using System;
 using Test.Components;
 
 namespace Test
@@ -18,10 +18,7 @@ namespace Test
 
             _topInfoComponent = new TopInfoComponent(this)
             {
-                HeadingTextView = { Text = Translator.Translate("settings") },
-                LeftButtonImage = { Visible = false },
-                RightButtonImage = { Visible = false },
-                ExtraLayoutVisible = false
+                Header = Translator.Translate("settings"),
             };
 
             _tabBarComponent = new TabBarComponent(this);
