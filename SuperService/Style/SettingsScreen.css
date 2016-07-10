@@ -209,7 +209,70 @@ TopInfoButtonRight Image {
   color: #ffffff;
 }
 /* Settings style */
+.MainInfoContainer {
+  height: 100%;
+  width: 100%;
+}
+.MainPartContainer {
+  height: 100%;
+  width: 100%;
+}
+.ExternalImageContainerExit {
+  height: 8%;
+  width: 8%;
+  horizontal-align: right;
+}
+.InternalImageContainerExit {
+  height: 0sp auto;
+  width: 0sp auto;
+  horizontal-align: center;
+}
+.ExitImage {
+  height: 5sp;
+  vertical-align: center;
+}
+.UserInfo {
+  height: 40%;
+  width: 100%;
+}
+.UserInitialContainer {
+  height: 20%;
+  width: 20%;
+  border-radius: 200dp;
+  horizontal-align: center;
+}
+.UserInitials {
+  height: 100%;
+  width: 100%;
+  font: 2.5sp + 1.5 arial;
+  padding-top: 25%;
+  text-align: center;
+  white-space: nowrap;
+  horizontal-align: center;
+  color: #000000;
+  background-color: #ff0000;
+}
+.UserFandLName {
+  height: 4.44sp auto;
+  width: 60%;
+  horizontal-align: center;
+  padding-top: 25%;
+  text-align: center;
+  white-space: nowrap;
+  color: #000000;
+}
+.FatHorizontalLineLayout {
+  height: 5dp;
+  width: 100%;
+}
+.FatHorizontalLine {
+  height: 100%;
+  width: 5%;
+  horizontal-align: center;
+}
 /* End settings style*/
+/* Mix-in */
+/* End of Mix-in*/
 /* Tab Bar style */
 .TabBarMainVL {
   background-color: #ffffff;

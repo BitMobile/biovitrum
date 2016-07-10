@@ -2,9 +2,85 @@
 @import "Components/TopInfoComponent.less";
 
 /* Settings style */
+.MainInfoContainer {
+    height: 100%;
+    width: 100%;
+}
 
+.MainPartContainer {
+    .height-and-width(100%,100%);
+}
+
+.ExternalImageContainerExit {
+    .height-and-width(8%,8%);
+    horizontal-align: right;
+}
+
+.InternalImageContainerExit {
+    .image-container-HorizontalLayout(0sp auto,0sp auto);
+}
+
+.ExitImage {
+    .image-element(5sp);
+}
+
+.UserInfo {
+    .height-and-width(40%,100%);
+}
+
+.UserInitialContainer {
+    .height-and-width(20%;20%);
+    border-radius: 200dp;
+    horizontal-align: center;
+}
+
+.UserInitials {
+    .height-and-width(100%,100%);
+    font: @default-font-size + 1.5 arial;
+    padding-top: 25%;
+    text-align: center;
+    white-space: nowrap;
+    horizontal-align: center;
+    color: #000000;
+    background-color: #ff0000;
+}
+
+.UserFandLName {
+    .height-of-TextView(@default-font-size + 1.5);
+    width: 60%;
+    horizontal-align: center;
+    padding-top: 25%;
+    text-align: center;
+    white-space: nowrap;
+    color: #000000;
+}
+
+.FatHorizontalLineLayout {
+    .height-and-width(5dp,100%);
+}
+
+.FatHorizontalLine {
+    .height-and-width(100%,5%);
+    horizontal-align: center;
+}
 /* End settings style*/
+/* Mix-in */
+.height-and-width(@_height, @_width) {
+    height: @_height;
+    width: @_width;
+}
 
+.image-container-HorizontalLayout(@_height, @_width, @_horizontal-align: center) {
+    height: @_height;
+    width: @_width;
+    horizontal-align: @_horizontal-align;
+}
+
+.image-element(@_height, @_vertical-align: center) {
+    height: @_height;
+    vertical-align: @_vertical-align;
+}
+/* End of Mix-in*/
 /* Tab Bar style */
 .TabBarMainVL {
     background-color: #ffffff;

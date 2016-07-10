@@ -6,24 +6,26 @@
     <!-- Tab Bar-->
     <s:Include File="Components\TabBarСomponent.xml" />
 
-    <c:ScrollView>
-      <c:VerticalLayout>
+    <c:ScrollView CssClass="MainInfoContainer">
+      <c:VerticalLayout CssClass="MainPartContainer">
 
         <!--Кнопка выхода-->
-        <c:VerticalLayout>
-          <c:HorizontalLayout>
-            <c:Image />
+        <c:VerticalLayout CssClass="ExternalImageContainerExit">
+          <c:HorizontalLayout CssClass="InternalImageContainerExit">
+            <c:Image CssClass="ExitImage" Source="$GetResourceImage(test)" />
           </c:HorizontalLayout>
         </c:VerticalLayout>
         <!--Конец кнопки выхода-->
 
         <!--Информация о пользователе-->
-        <c:VerticalLayout>
-          <c:TextView />
-          <c:TextView />
+        <c:VerticalLayout CssClass="UserInfo">
+          <c:VerticalLayout CssClass="UserInitialContainer">
+            <c:TextView CssClass="UserInitials" Text="Test" />
+          </c:VerticalLayout>
+          <c:TextView CssClass="UserFandLName" Text="Test Test" />
           <!--Толстая линия по центру-->
-          <c:VerticalLayout>
-            <c:HorizontalLine />
+          <c:VerticalLayout CssClass="FatHorizontalLineLayout">
+            <c:HorizontalLine CssClass="FatHorizontalLine" />
           </c:VerticalLayout>
         </c:VerticalLayout>
         <!--Конец информации о пользователе-->
@@ -54,6 +56,14 @@
           </c:VerticalLayout>
           <!--Сайт компании-->
           <c:TextView />
+          <!-- Лого Твиттера-->
+          <c:VerticalLayuot>
+            <c:Image />
+          </c:VerticalLayuot>
+          <!-- Лого Фейсбука -->
+          <c:VerticalLayuot>
+            <c:Image />
+          </c:VerticalLayuot>
         </c:VerticalLayout>
         <!--Конец информации о компании-->
       </c:VerticalLayout>
