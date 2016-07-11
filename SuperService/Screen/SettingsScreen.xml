@@ -36,7 +36,7 @@
           <!--Логотип SService-->
           <c:Image CssClass="SserviceLogo" Source="$GetResourceImage(settingsscreen_sservice_logo)" />
           <!--Версия-->
-          <c:TextView CssClass="ProductVersion" Text="3.0.0.99" />
+          <c:TextView CssClass="ProductVersion" Text="v. 3.0.0.99" />
           <!--Разработчик-->
           <c:TextView CssClass="TranslateDeveloper" Text="#developer#" />
           <!--Линия-->
