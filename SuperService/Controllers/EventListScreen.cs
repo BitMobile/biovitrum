@@ -1,4 +1,5 @@
-﻿using BitMobile.ClientModel3;
+﻿using BitMobile.Application;
+using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
@@ -79,11 +80,11 @@ namespace Test
             DConsole.WriteLine($"status = {status}");
             switch (status)
             {
-                case "Cancel":
                 case "Appointed":
                     pictureTag += "border";
                     break;
 
+                case "Cancel":
                 case "Done":
                     pictureTag += "done";
                     break;
