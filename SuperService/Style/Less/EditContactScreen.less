@@ -35,6 +35,24 @@ hl {
     }
 }
 
+@remove-button-width: 6%;
+@remove-button-margin: 3%;
+
+.ContactFieldWithDelete {
+    .ContactField;
+
+    VerticalLayout {
+        .auto-height;
+        width: @remove-button-width;
+        vertical-align: center;
+        margin-right: @remove-button-margin;
+    }
+
+    EditText {
+        width: 100% - @text-view-width - @remove-button-width - @remove-button-margin;
+    }
+}
+
 .FullWidth {
     width: 100%;
 }
@@ -54,4 +72,8 @@ hl {
         color: @default-clickable-color;
         width: 10% auto;
     }
+}
+
+.RemoveImage {
+    width: unit(unit(@remove-button-width),sp);
 }

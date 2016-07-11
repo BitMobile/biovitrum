@@ -17,7 +17,6 @@ namespace Test
                 {
                     Description = "Один Одиныч",
                     Position = "Президентыч",
-                    Tel = "+1 (234) 567-89-00",
                     EMail = "omg@example.huy"
                 }
             });

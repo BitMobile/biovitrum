@@ -87,6 +87,7 @@ namespace Test
             {"contactscreen_email", @"Image\ContactScreen\email.png"},
             // EditContactScreen
             {"editcontactscreen_plus", @"Image\EditContactScreen\plus_img.png" },
+            {"editcontactscreen_minus", @"Image\EditContactScreen\delete_img.png" },
         };
 
         public static string GetImage(string tag)

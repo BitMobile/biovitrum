@@ -233,6 +233,34 @@ hl {
   vertical-align: center;
   text-align: right;
 }
+.ContactFieldWithDelete {
+  horizontal-align: center;
+  width: 90%;
+}
+.ContactFieldWithDelete TextView {
+  width: 40%;
+  vertical-align: center;
+  text-align: left;
+}
+.ContactFieldWithDelete EditText {
+  width: 60%;
+  font: 2.5sp arial;
+  height: 3.75sp;
+  color: #8587b1;
+  placeholder-color: #9b9fa0;
+  vertical-align: center;
+  text-align: right;
+}
+.ContactFieldWithDelete VerticalLayout {
+  height: 0sp auto;
+  width: 100%;
+  width: 6%;
+  vertical-align: center;
+  margin-right: 3%;
+}
+.ContactFieldWithDelete EditText {
+  width: 51%;
+}
 .FullWidth {
   width: 100%;
 }
@@ -249,4 +277,7 @@ hl {
 .AddButton TextView {
   color: #fd724c;
   width: 10% auto;
+}
+.RemoveImage {
+  width: 6sp;
 }
