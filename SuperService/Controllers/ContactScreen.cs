@@ -1,6 +1,7 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
+using System.Collections.Generic;
 using Test.Catalog;
 using Test.Components;
 
@@ -62,7 +63,10 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            Navigation.Move("EditContactScreen");
+            Navigation.Move("EditContactScreen", new Dictionary<string, object>
+            {
+                [Parameters.Contact] = _contact
+            });
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
