@@ -7,12 +7,12 @@
       <c:VerticalLayout Id="RootLayout">
         <c:HorizontalLayout CssClass="ContactField">
           <c:TextView Text="#name#" />
-          <c:EditText Placeholder="#not_specified#" Text="$contact.Description" />
+          <c:EditText Placeholder="#not_specified#" Text="$GetName($contact.Description)" />
         </c:HorizontalLayout>
         <c:HorizontalLine />
         <c:HorizontalLayout CssClass="ContactField">
           <c:TextView Text="#surname#" />
-          <c:EditText PlaceHolder="#not_specified" Text="$contact.Description" />
+          <c:EditText PlaceHolder="#not_specified" Text="$GetSurname($contact.Description)" />
         </c:HorizontalLayout>
         <c:HorizontalLine />
         <c:HorizontalLayout CssClass="ContactField">

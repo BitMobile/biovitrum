@@ -15,7 +15,7 @@ namespace Test
             {
                 ["contact"] = new Contacts()
                 {
-                    Description = "Один одиныч",
+                    Description = "Один Одиныч",
                     Position = "Президентыч",
                     Tel = "+1 (234) 567-89-00",
                     EMail = "omg@example.huy"

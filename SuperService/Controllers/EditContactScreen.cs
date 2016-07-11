@@ -20,6 +20,17 @@ namespace Test
             };
         }
 
+        internal string GetName(string description)
+        {
+            var words = description.Split(null);
+            return words[0];
+        }
+
+        internal string GetSurname(string description)
+        {
+            return description.Substring(GetName(description).Length + 1);
+        }
+
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
             Navigation.Back();
