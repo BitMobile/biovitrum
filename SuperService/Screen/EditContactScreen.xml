@@ -4,7 +4,7 @@
   <c:DockLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:ScrollView CssClass="RootLayout">
-      <c:VerticalLayout CssClass="RootLayout">
+      <c:VerticalLayout Id="RootLayout">
         <c:HorizontalLayout CssClass="ContactField">
           <c:TextView Text="#name#" />
           <c:EditText Placeholder="#not_specified#" Text="$contact.Description" />
@@ -31,9 +31,15 @@
         </c:HorizontalLayout>
         <c:VerticalLayout CssClass="EmptySpace2sp" />
         <c:HorizontalLine CssClass="FullWidth" />
-        <c:HorizontalLayout>
+        <c:HorizontalLayout CssClass="AddButton">
+          <c:Image Source="$GetResourceImage(editcontactscreen_plus)" />
+          <c:TextView Text="#add_phone#" />
         </c:HorizontalLayout>
         <c:HorizontalLine CssClass="FullWidth" />
+        <c:HorizontalLayout CssClass="AddButton">
+          <c:Image Source="$GetResourceImage(editcontactscreen_plus)" />
+          <c:TextView Text="#add_email#" />
+        </c:HorizontalLayout>
       </c:VerticalLayout>
     </c:ScrollView>
   </c:DockLayout>

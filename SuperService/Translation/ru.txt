@@ -93,3 +93,5 @@ name		Имя
 surname		Фамилия
 position		Должность
 save		Сохранить
+add_phone		Добавить телефон
+add_email		Добавить e-mail

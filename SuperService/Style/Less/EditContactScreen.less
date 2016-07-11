@@ -5,7 +5,7 @@
 @edittext-placeholder-color: #9b9fa0;
 
 hl {
-    height: 5 * @default-font-size;
+    height: 4 * @default-font-size;
 }
 
 .ContactFields {
@@ -32,5 +32,26 @@ hl {
         placeholder-color: @edittext-placeholder-color;
         vertical-align: center;
         text-align: right;
+    }
+}
+
+.FullWidth {
+    width: 100%;
+}
+
+.AddButton {
+    height: @default-font-size * 4;
+    horizontal-align: center;
+    width: 10sp auto;
+
+    Image {
+        width: 4sp;
+        vertical-align: center;
+        margin-right: 3sp;
+    }
+
+    TextView {
+        color: @default-clickable-color;
+        width: 10% auto;
     }
 }

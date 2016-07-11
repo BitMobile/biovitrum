@@ -32,7 +32,7 @@ TextView {
 }
 HorizontalLine {
   background-color: #f4f4f5;
-  height: 2px;
+  height: 0.15sp;
   horizontal-align: center;
   width: 90%;
 }
@@ -209,7 +209,7 @@ TopInfoButtonRight Image {
   color: #ffffff;
 }
 hl {
-  height: 12.5sp;
+  height: 10sp;
 }
 .ContactFields {
   height: 0sp auto;
@@ -232,4 +232,21 @@ hl {
   placeholder-color: #9b9fa0;
   vertical-align: center;
   text-align: right;
+}
+.FullWidth {
+  width: 100%;
+}
+.AddButton {
+  height: 10sp;
+  horizontal-align: center;
+  width: 10sp auto;
+}
+.AddButton Image {
+  width: 4sp;
+  vertical-align: center;
+  margin-right: 3sp;
+}
+.AddButton TextView {
+  color: #fd724c;
+  width: 10% auto;
 }

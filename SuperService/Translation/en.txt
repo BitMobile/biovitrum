@@ -93,3 +93,5 @@ name		Name
 surname		Surname
 position		Position
 save		Save
+add_phone		Add phone
+add_email		Add e-mail

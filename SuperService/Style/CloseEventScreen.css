@@ -32,7 +32,7 @@ TextView {
 }
 HorizontalLine {
   background-color: #f4f4f5;
-  height: 2px;
+  height: 0.15sp;
   horizontal-align: center;
   width: 90%;
 }
@@ -248,7 +248,7 @@ TopInfoButtonRight Image {
 .Comment {
   background-color: #4a4b5e;
   color: #ffffff;
-  height: 13sp auto;
+  height: 4sp auto;
   margin-bottom: 0.5sp;
   padding-left: 3sp;
   padding-right: 3sp;
