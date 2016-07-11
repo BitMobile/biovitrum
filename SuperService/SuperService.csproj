@@ -64,11 +64,35 @@
     <Compile Include="Objects\**" />
     <Compile Include="Parameters\**" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Screen\**" />
+    <EmbeddedResource Include="Screen\AddContactScreen.xml" />
+    <EmbeddedResource Include="Screen\AuthScreen.xml" />
+    <EmbeddedResource Include="Screen\BagListScreen.xml" />
+    <EmbeddedResource Include="Screen\CheckListScreen.xml" />
+    <EmbeddedResource Include="Screen\ClientListScreen.xml" />
+    <EmbeddedResource Include="Screen\ClientScreen.xml" />
+    <EmbeddedResource Include="Screen\CloseEventScreen.xml" />
+    <EmbeddedResource Include="Screen\COCScreen.xml" />
+    <EmbeddedResource Include="Screen\ContactScreen.xml" />
+    <EmbeddedResource Include="Screen\EditContactScreen.xml" />
+    <EmbeddedResource Include="Screen\EditServicesOrMaterialsScreen.xml" />
+    <EmbeddedResource Include="Screen\EquipmentScreen.xml" />
+    <EmbeddedResource Include="Screen\EventListScreen.xml" />
+    <EmbeddedResource Include="Screen\EventScreen.xml" />
+    <EmbeddedResource Include="Screen\MapScreen.xml" />
+    <EmbeddedResource Include="Screen\MaterialsRequestScreen.xml" />
+    <EmbeddedResource Include="Screen\RequestHistoryScreen.xml" />
+    <EmbeddedResource Include="Screen\RIMListScreen.xml" />
+    <EmbeddedResource Include="Screen\SettingsScreen.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Screen\TaskListScreen.xml" />
+    <EmbeddedResource Include="Screen\TaskScreen.xml" />
+    <EmbeddedResource Include="Screen\TestScreen.xml" />
     <EmbeddedResource Include="Style\*" />
     <EmbeddedResource Include="Translation\**" />
     <None Include="Style\Less\**" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)..\SDK\BitMobileSDK\BitMobileSDK.exe $(TargetPath)

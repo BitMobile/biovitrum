@@ -11,61 +11,87 @@
 
         <!--Кнопка выхода-->
         <c:VerticalLayout CssClass="ExternalImageContainerExit">
-          <c:HorizontalLayout CssClass="InternalImageContainerExit">
-            <c:Image CssClass="ExitImage" Source="$GetResourceImage(test)" />
-          </c:HorizontalLayout>
+          <c:Image CssClass="ExitImage" Source="$GetResourceImage(settingsscreen_logout)" />
         </c:VerticalLayout>
         <!--Конец кнопки выхода-->
 
         <!--Информация о пользователе-->
         <c:VerticalLayout CssClass="UserInfo">
-          <c:VerticalLayout CssClass="UserInitialContainer">
-            <c:TextView CssClass="UserInitials" Text="Test" />
-          </c:VerticalLayout>
-          <c:TextView CssClass="UserFandLName" Text="Test Test" />
-          <!--Толстая линия по центру-->
+          <c:HorizontalLayout CssClass="UserInfoContainerHorizontalAlign">
+            <c:VerticalLayout CssClass="UserInfoContainerVerticalAlign">
+              <c:TextView CssClass="UserInitials" Text="Test" />
+              <c:TextView CssClass="UserFandLName" Text="Test Test" />
+              <!--Толстая линия по центру-->
+              <c:VerticalLayout CssClass="FatHorizontalLineLayout">
+                <c:HorizontalLine CssClass="FatHorizontalLine" />
+              </c:VerticalLayout>
+            </c:VerticalLayout>
+          </c:HorizontalLayout>
+        </c:VerticalLayout>
+        <c:Image CssClass="ArrowDown" Source="$GetResourceImage(settingsscreen_grey_arrow)" />
+        <!--Конец информации о пользователе--><!--Информация о компании-->
+        <c:VerticalLayout CssClass="CompanyInfoContainer">
+          <!--Стрелка-->
+          <!--<c:Image CssClass="ArrowDown" Source="$GetResourceImage(settingsscreen_grey_arrow)" />-->
+          <!--Логотип SService-->
+          <c:Image CssClass="SserviceLogo" Source="$GetResourceImage(settingsscreen_sservice_logo)" />
+          <!--Версия-->
+          <c:TextView CssClass="ProductVersion" Text="3.0.0.99" />
+          <!--Разработчик-->
+          <c:TextView CssClass="TranslateDeveloper" Text="#developer#" />
+          <!--Линия-->
           <c:VerticalLayout CssClass="FatHorizontalLineLayout">
             <c:HorizontalLine CssClass="FatHorizontalLine" />
           </c:VerticalLayout>
-        </c:VerticalLayout>
-        <!--Конец информации о пользователе-->
-
-        <!--Информация о компании-->
-        <c:VerticalLayout>
-          <!--Стрелка-->
-          <c:Image />
-          <!--Логотип SService-->
-          <c:VerticalLayout>
-            <c:HorizontalLayout>
-              <c:Image />
-            </c:HorizontalLayout>
-          </c:VerticalLayout>
-          <!--Версия-->
-          <c:TextView />
-          <!--Разработчик-->
-          <c:TextView />
-          <!--Линия-->
-          <c:VerticalLayout>
-            <c:HorizontalLine />
-          </c:VerticalLayout>
           <!--Лого компании-->
-          <c:VerticalLayout>
-            <c:HorizontalLayout>
-              <c:Image />
-            </c:HorizontalLayout>
-          </c:VerticalLayout>
+          <c:Image CssClass="CompanyLogo" Source="$GetResourceImage(settingsscreen_company_logo)" />
           <!--Сайт компании-->
-          <c:TextView />
+          <c:TextView CssClass="CompanySite" Text="www.testsite.com" />
           <!-- Лого Твиттера-->
-          <c:VerticalLayuot>
-            <c:Image />
-          </c:VerticalLayuot>
-          <!-- Лого Фейсбука -->
-          <c:VerticalLayuot>
-            <c:Image />
-          </c:VerticalLayuot>
+          <c:HorizontalLayout CssClass="MainSocialLogoContainer">
+            <c:VerticalLayout CssClass="HorizontalAlignLogoContainer">
+              <c:VerticalLayout CssClass="SocialLogoContainerLeft">
+                <c:Image CssClass="SocialLogo" Source="$GetResourceImage(settingsscreen_twitter)" />
+              </c:VerticalLayout>
+            </c:VerticalLayout>
+            <!-- Лого Фейсбука -->
+            <c:VerticalLayout CssClass="HorizontalAlignLogoContainer">
+              <c:VerticalLayout CssClass="SocialLogoContainerRight">
+                <c:Image CssClass="SocialLogo" Source="$GetResourceImage(settingsscreen_facebook)" />
+              </c:VerticalLayout>
+            </c:VerticalLayout>
+          </c:HorizontalLayout>
         </c:VerticalLayout>
         <!--Конец информации о компании-->
+        <!-- Кнопки отзыв и лог -->
+        <!--Стрелка вниз серого цвета-->
+        <c:VerticalLayout CssClass="ReportLayout">
+          <c:Image CssClass="ArrowDown" Source="$GetResourceImage(settingsscreen_white_arrow)" />
+          <c:HorizontalLayout CssClass="ReportContainer">
+            <!-- Сообщить об ошибке -->
+            <c:VerticalLayout CssClass="ExternalButtonContainer">
+              <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
+                <c:VerticalLayout CssClass="ButtonContainerVerticalAlign">
+                  <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_error)" />
+                  <c:TextView CssClass="ReportText" Text="#report_an_error#" />
+                </c:VerticalLayout>
+              </c:HorizontalLayout>
+            </c:VerticalLayout>
+            <!-- Вертикальная линия -->
+            <c:VerticalLayout CssClass="VerticalLineContainer">
+              <c:VerticalLayout CssClass="VerticalLine" />
+            </c:VerticalLayout>
+            <!-- Отправить лог -->
+            <c:VerticalLayout CssClass="ExternalButtonContainer">
+              <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
+                <c:VerticalLayout CssClass="ButtonContainerVerticalAlign">
+                  <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_log)" />
+                  <c:TextView CssClass="ReportText" Text="#send_log" />
+                </c:VerticalLayout>
+              </c:HorizontalLayout>
+            </c:VerticalLayout>
+          </c:HorizontalLayout>
+        </c:VerticalLayout>
       </c:VerticalLayout>
     </c:ScrollView>
   </c:DockLayout>

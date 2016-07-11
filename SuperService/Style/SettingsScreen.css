@@ -32,7 +32,7 @@ TextView {
 }
 HorizontalLine {
   background-color: #f4f4f5;
-  height: 2px;
+  height: 0.15sp;
   horizontal-align: center;
   width: 90%;
 }
@@ -214,60 +214,181 @@ TopInfoButtonRight Image {
   width: 100%;
 }
 .MainPartContainer {
-  height: 100%;
+  height: 100% auto;
   width: 100%;
 }
 .ExternalImageContainerExit {
-  height: 8%;
-  width: 8%;
-  horizontal-align: right;
-}
-.InternalImageContainerExit {
   height: 0sp auto;
-  width: 0sp auto;
-  horizontal-align: center;
+  width: 8% auto;
+  horizontal-align: right;
+  margin-top: 3sp;
+  margin-right: 3sp;
 }
 .ExitImage {
-  height: 5sp;
+  height: 4sp;
   vertical-align: center;
+  horizontal-align: center;
 }
 .UserInfo {
-  height: 40%;
+  height: 40% auto;
   width: 100%;
 }
-.UserInitialContainer {
-  height: 20%;
-  width: 20%;
-  border-radius: 200dp;
-  horizontal-align: center;
-}
-.UserInitials {
+.UserInfoContainerHorizontalAlign {
   height: 100%;
-  width: 100%;
-  font: 2.5sp + 1.5 arial;
-  padding-top: 25%;
-  text-align: center;
-  white-space: nowrap;
-  horizontal-align: center;
-  color: #000000;
-  background-color: #ff0000;
-}
-.UserFandLName {
-  height: 4.44sp auto;
   width: 60%;
   horizontal-align: center;
-  padding-top: 25%;
-  text-align: center;
+}
+.UserInfoContainerVerticalAlign {
+  height: 0sp auto;
+  width: 100%;
+  vertical-align: center;
+}
+.UserInitials {
+  font: 3.75sp arial;
+  height: 4.1625sp auto;
+  width: 100%;
   white-space: nowrap;
-  color: #000000;
+  color: #51595b;
+  horizontal-align: center;
+}
+.UserFandLName {
+  font: 5sp arial;
+  height: 5.55sp auto;
+  width: 100%;
+  color: #51595b;
+  horizontal-align: center;
+  white-space: nowrap;
 }
 .FatHorizontalLineLayout {
   height: 5dp;
   width: 100%;
+  margin-top: 1sp;
 }
 .FatHorizontalLine {
   height: 100%;
-  width: 5%;
+  width: 5sp;
+  horizontal-align: center;
+  background-color: #a8acad;
+}
+.CompanyInfoContainer {
+  height: 60%;
+  width: 100%;
+  background-color: #f1f2f5;
+}
+.ArrowDown {
+  height: 6sp;
+  horizontal-align: center;
+}
+.SserviceLogo {
+  height: 8sp;
+  margin-top: 5%;
+  horizontal-align: center;
+}
+.ProductVersion {
+  horizontal-align: center;
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  color: #a2a2aa;
+  width: 50%;
+  text-align: center;
+  white-space: nowrap;
+}
+.TranslateDeveloper {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  color: #a2a2aa;
+  width: 60%;
+  text-align: center;
+  white-space: nowrap;
+  horizontal-align: center;
+  margin-top: 5%;
+}
+.CompanyLogo {
+  height: 8sp;
+  margin-top: 5%;
+  horizontal-align: center;
+}
+.CompanySite {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  color: #a2a2aa;
+  width: 60%;
+  text-align: center;
+  white-space: nowrap;
+  horizontal-align: center;
+  margin-top: 4%;
+}
+.MainSocialLogoContainer {
+  height: auto;
+  width: 100%;
+}
+.HorizontalAlignLogoContainer {
+  height: 0sp auto;
+  width: 50%;
+  vertical-align: center;
+}
+.SocialLogoContainerLeft {
+  height: 0sp auto;
+  width: 0sp auto;
+  horizontal-align: right;
+  margin-right: 15%;
+}
+.SocialLogoContainerRight {
+  height: 0sp auto;
+  width: 0sp auto;
+  horizontal-align: left;
+  margin-left: 15%;
+}
+.SocialLogo {
+  height: 8sp;
+  horizontal-align: center;
+}
+.ReportLayout {
+  height: 30%;
+  width: 100%;
+}
+.ReportContainer {
+  height: auto;
+  width: 100%;
+  margin-top: 2sp;
+  horizontal-align: center;
+}
+.ExternalButtonContainer {
+  height: 100%;
+  width: 49%;
+}
+.VerticalLineContainer {
+  height: 100%;
+  width: 2%;
+}
+.VerticalLine {
+  height: 100%;
+  width: 0.15sp;
+  background-color: #f4f4f4;
+  horizontal-align: center;
+}
+.ButtonContainerHorizontalAlign {
+  height: 100%;
+  width: 0sp auto;
+  horizontal-align: center;
+}
+.ButtonContainerVerticalAlign {
+  height: 12sp;
+  width: 0sp auto;
+  vertical-align: center;
+}
+.ReportImage {
+  height: 4sp;
+  horizontal-align: center;
+}
+.ReportText {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  color: #51595b;
+  width: 30sp;
+  text-align: center;
+  white-space: normal;
+  margin-top: 1sp;
   horizontal-align: center;
 }
 /* End settings style*/

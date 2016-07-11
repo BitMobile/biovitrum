@@ -86,3 +86,6 @@ send_sms		Отправить сообщение
 send_email		Написать письмо
 allday		Весь день
 cancel		Отмена
+developer		РАЗРАБОТЧИК
+report_an_error		Сообщить об ошибке
+send_log		Отправить лог

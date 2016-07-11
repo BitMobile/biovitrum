@@ -1,6 +1,11 @@
 ﻿@import "defaults.less";
 @import "Components/TopInfoComponent.less";
 
+@default-company-info-text-color:#a2a2aa;
+@default-user-info-text-color:#51595b;
+@default-vertical-line-color:#f4f4f4;
+@default-verticzl-live-width: 0.15sp;
+
 /* Settings style */
 .MainInfoContainer {
     height: 100%;
@@ -8,60 +13,173 @@
 }
 
 .MainPartContainer {
-    .height-and-width(100%,100%);
+    .height-and-width(100% auto,100%);
 }
 
 .ExternalImageContainerExit {
-    .height-and-width(8%,8%);
-    horizontal-align: right;
-}
-
-.InternalImageContainerExit {
-    .image-container-HorizontalLayout(0sp auto,0sp auto);
+    .height-and-width(0sp auto,8% auto);
+    .horizontal-align(right);
+    margin-top: 3sp;
+    margin-right: 3sp;
 }
 
 .ExitImage {
-    .image-element(5sp);
+    .image-element(4sp);
+   .horizontal-align;
 }
 
 .UserInfo {
-    .height-and-width(40%,100%);
+    .height-and-width(40% auto,100%);
 }
 
-.UserInitialContainer {
-    .height-and-width(20%;20%);
-    border-radius: 200dp;
-    horizontal-align: center;
+.UserInfoContainerHorizontalAlign{
+    .height-and-width(100%,60%);
+    .horizontal-align;
 }
 
+.UserInfoContainerVerticalAlign{
+    .height-and-width(0sp auto,100%);
+    vertical-align: center;
+}
 .UserInitials {
-    .height-and-width(100%,100%);
-    font: @default-font-size + 1.5 arial;
-    padding-top: 25%;
-    text-align: center;
+    .text-view-style(@default-font-size * 1.5);
+    width:100%;
     white-space: nowrap;
-    horizontal-align: center;
-    color: #000000;
-    background-color: #ff0000;
+    color: @default-user-info-text-color;
+    .horizontal-align;
 }
 
 .UserFandLName {
-    .height-of-TextView(@default-font-size + 1.5);
-    width: 60%;
-    horizontal-align: center;
-    padding-top: 25%;
-    text-align: center;
+    .text-view-style(@default-font-size * 2);
+    width: 100%;
+    color:@default-user-info-text-color;
+    .horizontal-align;
     white-space: nowrap;
-    color: #000000;
 }
 
 .FatHorizontalLineLayout {
     .height-and-width(5dp,100%);
+    margin-top: 1sp;
 }
 
 .FatHorizontalLine {
-    .height-and-width(100%,5%);
-    horizontal-align: center;
+    .height-and-width(100%, 5sp);
+    .horizontal-align;
+    background-color:#a8acad;
+}
+
+.CompanyInfoContainer{
+    .height-and-width(60%,100%);
+    background-color:#f1f2f5;
+}
+
+.ArrowDown{
+    height:6sp;
+    .horizontal-align;
+}
+
+.SserviceLogo{
+    height: 8sp;
+    margin-top: 5%;
+    .horizontal-align;
+}
+
+.ProductVersion{
+    .horizontal-align;
+    .make-textview-style(@default-font-size, @default-company-info-text-color,
+    50%);
+}
+
+.TranslateDeveloper{
+    .make-textview-style(@default-font-size, @default-company-info-text-color, 60%);
+    .horizontal-align;
+    margin-top: 5%;
+}
+
+.CompanyLogo{
+    height: 8sp;
+    margin-top:5%;
+    .horizontal-align;
+}
+
+.CompanySite{
+    .make-textview-style(@default-font-size,@default-company-info-text-color,
+    60%);
+    .horizontal-align;
+    margin-top: 4%;
+}
+
+.MainSocialLogoContainer{
+    .height-and-width(auto,100%);
+}
+
+.HorizontalAlignLogoContainer{
+    .height-and-width(0sp auto, 50%);
+    vertical-align: center;
+}
+
+.SocialLogoContainerLeft{
+    .height-and-width(0sp auto,0sp auto);
+    .horizontal-align(right);
+    margin-right:15%;
+}
+
+.SocialLogoContainerRight{
+    .height-and-width(0sp auto,0sp auto);
+    .horizontal-align(left);
+    margin-left:15%;
+}
+
+.SocialLogo{
+    height: 8sp;
+    .horizontal-align;
+}
+
+.ReportLayout{
+    .height-and-width(30%,100%);
+}
+
+
+.ReportContainer{
+    .height-and-width(auto, 100%);
+    margin-top: 2sp;
+    .horizontal-align;
+}
+
+.ExternalButtonContainer{
+    .height-and-width(100%,49%);
+}
+
+.VerticalLineContainer{
+    .height-and-width(100%,2%);
+}
+
+.VerticalLine{
+    height:100%;
+    width:@default-verticzl-live-width;
+    background-color:@default-vertical-line-color;
+    .horizontal-align;
+}
+
+.ButtonContainerHorizontalAlign{
+    .height-and-width(100%, 0sp auto);
+    .horizontal-align;
+}
+
+.ButtonContainerVerticalAlign{
+    .height-and-width(12sp, 0sp auto);
+    vertical-align: center;
+}
+.ReportImage{
+    height: 4sp;
+    .horizontal-align;
+}
+
+.ReportText{
+    .make-textview-style(@default-font-size,@default-user-info-text-color,
+    30sp, center, normal);
+    margin-top: 1sp;
+    .horizontal-align;
 }
 /* End settings style*/
 /* Mix-in */
@@ -79,6 +197,19 @@
 .image-element(@_height, @_vertical-align: center) {
     height: @_height;
     vertical-align: @_vertical-align;
+}
+
+.horizontal-align(@_align: center){
+    horizontal-align: @_align;
+}
+
+.make-textview-style(@_text-view-style-font-size, @_color, @_width, @_text-align: center,
+ @_white-space: nowrap){
+    .text-view-style(@_text-view-style-font-size);
+    color: @_color;
+    width: @_width;
+    text-align: @_text-align;
+    white-space: @_white-space;
 }
 /* End of Mix-in*/
 /* Tab Bar style */

@@ -86,3 +86,6 @@ send_sms		Send SMS
 send_email		Send e-mail
 allday		All day
 cancel		Cancel
+developer		DEVELOPER
+report_an_error		Report an error
+send_log		Send Log
