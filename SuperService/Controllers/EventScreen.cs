@@ -12,6 +12,9 @@ namespace Test
         private Button _refuseButton;
         private DockLayout _rootLayout;
         private Button _startButton;
+        private TextView _taskCommentTextView;
+        private bool _taskCommentTextExpanded;
+        private Image _wrapUnwrapImage;
 
         private Button _startFinishButton;
 
@@ -36,9 +39,13 @@ namespace Test
             _topInfoComponent.LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") };
             _topInfoComponent.RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_info") };
 
+            _taskCommentTextView = (TextView)GetControl("EventCommentTextView", true);
+            _wrapUnwrapImage = (Image)GetControl("WrapUnwrapImage", true);
+
             var extraHorizontalLayout = new HorizontalLayout { CssClass = "ExtraHorizontalLayout" };
             var leftExtraLayout = new VerticalLayout { CssClass = "ExtraVerticalLayout" };
             var rightExtraLayout = new VerticalLayout { CssClass = "ExtraVerticalLayout" };
+
 
             _topInfoComponent.ExtraLayout.AddChild(extraHorizontalLayout);
             extraHorizontalLayout.AddChild(leftExtraLayout);
@@ -112,6 +119,24 @@ namespace Test
                     ChangeLayoutToStartedEvent();
                 }
             });
+        }
+
+        internal void WrapUnwrapButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            if (_taskCommentTextExpanded)
+            {
+                _taskCommentTextView.CssClass = "SubComment";
+                _wrapUnwrapImage.Source = ResourceManager.GetImage("longtext_expand");
+                _taskCommentTextExpanded = false;
+            }
+            else
+            {
+                _taskCommentTextView.CssClass = "SubCommentExpanded";
+                _wrapUnwrapImage.Source = ResourceManager.GetImage("longtext_close");
+                _taskCommentTextExpanded = true;
+            }
+            _taskCommentTextView.Refresh();
+            _rootLayout.Refresh();
         }
 
         private void ChangeLayoutToStartedEvent()
