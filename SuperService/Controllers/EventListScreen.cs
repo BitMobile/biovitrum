@@ -130,17 +130,18 @@ namespace Test
 
         internal string GetTimeCounter(string actualStartDate, string statusName)
         {
-            var actualTime = DateTime.Parse(actualStartDate); // .ToString("HH:mm");
+            var actualTime = DateTime.Parse(actualStartDate);
 
-            if ((actualTime != default(DateTime)) && statusName == "InWork")
-            {
-                var ans = DateTime.Now - actualTime; // .ToString(@"hh\:mm");
-                if (ans < TimeSpan.FromHours(1))
-                {
-                    return $"{ans.Minutes} мин.";
-                }
-            }
-            return "";
+            if ((actualTime == default(DateTime)) || statusName != "InWork")
+                return "";
+
+            var ans = DateTime.Now - actualTime;
+
+            if (ans < TimeSpan.FromHours(1))
+                return $"{ans.Minutes} {Translator.Translate("min.")}";
+            if (ans < TimeSpan.FromHours(24))
+                return $"{ans.Hours} {Translator.Translate("h.")} {ans.Minutes} {Translator.Translate("m.")}";
+            return $"{ans.Hours} {Translator.Translate("h.")}";
         }
 
         internal int SetTodayLayoutToFalse()

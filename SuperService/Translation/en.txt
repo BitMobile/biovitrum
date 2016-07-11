@@ -86,3 +86,6 @@ send_sms		Send SMS
 send_email		Send e-mail
 allday		All day
 cancel		Cancel
+min.		min.
+m.		m.
+h.		h.
