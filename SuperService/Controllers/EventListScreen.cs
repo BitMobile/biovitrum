@@ -60,7 +60,6 @@ namespace Test
         internal string GetStatusPicture(string importance, string status)
         {
             var pictureTag = @"eventlistscreen_";
-            DConsole.WriteLine($"importance = {importance}");
             switch (importance)
             {
                 case "Standart":
@@ -76,7 +75,6 @@ namespace Test
                     break;
             }
 
-            DConsole.WriteLine($"status = {status}");
             switch (status)
             {
                 case "Appointed":
