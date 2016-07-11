@@ -1,8 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  <c:VerticalLayout CssClass="RootLayout">
-  <c:TextView Text="EditScreen"/>
-  <c:Button Text="Back" OnClick="Back_OnClick"/>
-  </c:VerticalLayout>
+  <c:DockLayout CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:ScrollView CssClass="RootLayout">
+      <c:VerticalLayout>
+        <c:Button Text="#back#" OnClick="Back_OnClick" />
+        <c:TextView Text="#name#" />
+        <c:EditText Placeholder="#not_specified#" Text="$contact.Description" />
+        <c:TextView Text="#surname#" />
+        <c:EditText PlaceHolder="#not_specified" Text="$contact.Description" />
+        <c:TextView Text="#position#" />
+        <c:EditText Placeholder="#not_specified#" Text="$contact.Position" />
+        <c:TextView Text="#phone#" />
+        <c:EditText Placeholder="#not_specified#" Text="$contact.Tel" />
+        <c:TextView Text="#email#" />
+        <c:EditText Placeholder="#not_specified#" Text="$contact.EMail" />
+      </c:VerticalLayout>
+    </c:ScrollView>
+  </c:DockLayout>
 </c:Screen>

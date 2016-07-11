@@ -89,3 +89,7 @@ cancel		Отмена
 min.		мин.
 m.		м.
 h.		ч.
+name		Имя
+surname		Фамилия
+position		Должность
+save		Сохранить

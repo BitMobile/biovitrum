@@ -1,4 +1,6 @@
 ﻿using BitMobile.ClientModel3;
+using System.Collections.Generic;
+using Test.Catalog;
 
 namespace Test
 {
@@ -9,7 +11,16 @@ namespace Test
             DConsole.WriteLine("DB init...");
             DBHelper.Init();
             DConsole.WriteLine("Loading first screen");
-            Navigation.Move("AuthScreen");
+            Navigation.Move("EditContactScreen", new Dictionary<string, object>
+            {
+                ["contact"] = new Contacts()
+                {
+                    Description = "Один одиныч",
+                    Position = "Президентыч",
+                    Tel = "+1 (234) 567-89-00",
+                    EMail = "omg@example.huy"
+                }
+            });
         }
     }
 }

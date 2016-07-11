@@ -89,3 +89,7 @@ cancel		Cancel
 min.		min.
 m.		m.
 h.		h.
+name		Name
+surname		Surname
+position		Position
+save		Save
