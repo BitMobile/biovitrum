@@ -224,6 +224,7 @@ TopInfoButtonRight Image {
   font: 2.5sp arial;
   height: 2.775sp auto;
   color: #ffffff;
+  margin-top: 1sp;
 }
 .EventScreenMainLayout {
   dock-align: top;
