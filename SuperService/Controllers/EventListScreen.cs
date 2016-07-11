@@ -1,5 +1,4 @@
-﻿using BitMobile.Application;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
@@ -136,7 +135,10 @@ namespace Test
             if ((actualTime != default(DateTime)) && statusName == "InWork")
             {
                 var ans = DateTime.Now - actualTime; // .ToString(@"hh\:mm");
-                return ans.Days * 24 + ans.Hours + ":" + ans.Minutes; // @"hh\:mm");
+                if (ans < TimeSpan.FromHours(1))
+                {
+                    return $"{ans.Minutes} мин.";
+                }
             }
             return "";
         }
