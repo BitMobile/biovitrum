@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
+using System.Collections.Generic;
 
 namespace Test
 {
@@ -85,6 +85,8 @@ namespace Test
             {"contactscreen_phone", @"Image\ContactScreen\Phone.png"},
             {"contactscreen_sms"  , @"Image\ContactScreen\sms.png"},
             {"contactscreen_email", @"Image\ContactScreen\email.png"},
+            // EditContactScreen
+            {"editcontactscreen", @"Image\EditContactScreen\plus_img.png" },
         };
 
         public static string GetImage(string tag)
@@ -104,7 +106,7 @@ namespace Test
                 DConsole.WriteLine($"{tag}:{res} does not exists!");
                 return ImageNotFound;
             }
-            return (string) res;
+            return (string)res;
         }
     }
 }

@@ -208,3 +208,28 @@ TopInfoButtonRight Image {
 .TopInfoExtraLayout TextView {
   color: #ffffff;
 }
+hl {
+  height: 12.5sp;
+}
+.ContactFields {
+  height: 0sp auto;
+  width: 100%;
+}
+.ContactField {
+  horizontal-align: center;
+  width: 90%;
+}
+.ContactField TextView {
+  width: 40%;
+  vertical-align: center;
+  text-align: left;
+}
+.ContactField EditText {
+  width: 60%;
+  font: 2.5sp arial;
+  height: 3.75sp;
+  color: #8587b1;
+  placeholder-color: #9b9fa0;
+  vertical-align: center;
+  text-align: right;
+}

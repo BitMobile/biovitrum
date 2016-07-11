@@ -4,18 +4,36 @@
   <c:DockLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:ScrollView CssClass="RootLayout">
-      <c:VerticalLayout>
-        <c:Button Text="#back#" OnClick="Back_OnClick" />
-        <c:TextView Text="#name#" />
-        <c:EditText Placeholder="#not_specified#" Text="$contact.Description" />
-        <c:TextView Text="#surname#" />
-        <c:EditText PlaceHolder="#not_specified" Text="$contact.Description" />
-        <c:TextView Text="#position#" />
-        <c:EditText Placeholder="#not_specified#" Text="$contact.Position" />
-        <c:TextView Text="#phone#" />
-        <c:EditText Placeholder="#not_specified#" Text="$contact.Tel" />
-        <c:TextView Text="#email#" />
-        <c:EditText Placeholder="#not_specified#" Text="$contact.EMail" />
+      <c:VerticalLayout CssClass="RootLayout">
+        <c:HorizontalLayout CssClass="ContactField">
+          <c:TextView Text="#name#" />
+          <c:EditText Placeholder="#not_specified#" Text="$contact.Description" />
+        </c:HorizontalLayout>
+        <c:HorizontalLine />
+        <c:HorizontalLayout CssClass="ContactField">
+          <c:TextView Text="#surname#" />
+          <c:EditText PlaceHolder="#not_specified" Text="$contact.Description" />
+        </c:HorizontalLayout>
+        <c:HorizontalLine />
+        <c:HorizontalLayout CssClass="ContactField">
+          <c:TextView Text="#position#" />
+          <c:EditText Placeholder="#not_specified#" Text="$contact.Position" />
+        </c:HorizontalLayout>
+        <c:HorizontalLine />
+        <c:HorizontalLayout CssClass="ContactField">
+          <c:TextView Text="#phone#" />
+          <c:EditText Placeholder="#not_specified#" Text="$contact.Tel" />
+        </c:HorizontalLayout>
+        <c:HorizontalLine />
+        <c:HorizontalLayout CssClass="ContactField">
+          <c:TextView Text="#email#" />
+          <c:EditText Placeholder="#not_specified#" Text="$contact.EMail" />
+        </c:HorizontalLayout>
+        <c:VerticalLayout CssClass="EmptySpace2sp" />
+        <c:HorizontalLine CssClass="FullWidth" />
+        <c:HorizontalLayout>
+        </c:HorizontalLayout>
+        <c:HorizontalLine CssClass="FullWidth" />
       </c:VerticalLayout>
     </c:ScrollView>
   </c:DockLayout>

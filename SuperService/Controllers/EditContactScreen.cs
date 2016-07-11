@@ -39,10 +39,5 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
-
-        internal void Back_OnClick(object sender, EventArgs e)
-        {
-            Navigation.Back();
-        }
     }
 }
