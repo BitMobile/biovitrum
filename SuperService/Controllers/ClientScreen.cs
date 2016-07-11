@@ -46,7 +46,8 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            Navigation.Move("EditContactScreen");
+            // TODO: Поведение не описано в прототипе, переход на EditContactScreen не имеет смысла
+            //Navigation.Move("EditContactScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
@@ -61,12 +62,13 @@ namespace Test
 
         internal void GoToAddContact_OnClick(object sender, EventArgs e)
         {
-            Navigation.Move("AddContactScreen");
-        }
-
-        internal void GoToEditContact_OnClick(object sender, EventArgs e)
-        {
-            Navigation.Move("EditContactScreen");
+            Navigation.Move("EditContactScreen", new Dictionary<string, object>
+            {
+                [Parameters.Contact] = new Contacts
+                {
+                    Id = DbRef.CreateInstance("Catalog_Contacts", Guid.NewGuid()),
+                }
+            });
         }
 
         internal void EquipmentLayout_OnClick(object sender, EventArgs e)

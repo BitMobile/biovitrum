@@ -6,15 +6,11 @@ using Test.Components;
 
 namespace Test
 {
-    internal class EditContactScreen : Screen
+    public class EditContactScreen : Screen
     {
         private TopInfoComponent _topInfoComponent;
 
-        private Contacts Contact
-        {
-            get { return (Contacts)Variables[Parameters.Contact]; }
-            set { Variables[Parameters.Contact] = value; }
-        }
+        private Contacts Contact => (Contacts)Variables[Parameters.Contact];
 
         private HorizontalLayout AddPhoneButton => (HorizontalLayout)Variables["AddPhoneButton"];
         private HorizontalLayout AddEmailButton => (HorizontalLayout)Variables["AddEmailButton"];
