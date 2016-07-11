@@ -19,7 +19,7 @@ namespace Test
             {
                 Header = Translator.Translate("contact"),
                 RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_edit") },
-                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                LeftButtonControl = new TextView(Translator.Translate("edit")),
                 ArrowVisible = false
             };
         }
@@ -62,7 +62,7 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            DConsole.WriteLine("Должны перейти на экран редактирования контакта");
+            Navigation.Move("EditContactScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
