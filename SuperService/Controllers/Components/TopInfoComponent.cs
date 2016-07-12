@@ -1,6 +1,6 @@
-﻿using System;
-using BitMobile.ClientModel3.UI;
+﻿using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
+using System;
 
 namespace Test.Components
 {
@@ -112,7 +112,7 @@ namespace Test.Components
 
         private IWrappedControl3 GetIfNotEmpty(VerticalLayout layout)
         {
-            return layout.Controls.Length == 0 ? null : (IWrappedControl3) layout.Controls[0];
+            return layout.Controls.Length == 0 ? null : (IWrappedControl3)layout.Controls[0];
         }
 
         private static void AddIfNotEmpty(VerticalLayout verticalLayout, IWrappedControl3 control)
@@ -122,14 +122,14 @@ namespace Test.Components
 
         private void OnLoading()
         {
-            _leftButton = (VerticalLayout) _parentScreen.Variables["TopInfoLeftButton"];
-            _rightButton = (VerticalLayout) _parentScreen.Variables["TopInfoRightButton"];
-            _topInfoHeadingTextView = (TextView) _parentScreen.Variables["TopInfoHeadingTextView"];
-            _topInfoSubHeadingTextView = (TextView) _parentScreen.Variables["TopInfoSubHeadingTextView"];
-            _topInfoArrowImage = (Image) _parentScreen.Variables["TopInfoArrowImage"];
-            _topInfoImageLayout = (VerticalLayout) _parentScreen.Variables["TopInfoImageLayout"];
-            CommentLayout = (VerticalLayout) _parentScreen.Variables["TopInfoCommentLayout"];
-            ExtraLayout = (VerticalLayout) _parentScreen.Variables["TopInfoExtraLayout"];
+            _leftButton = (VerticalLayout)_parentScreen.Variables["TopInfoLeftButton"];
+            _rightButton = (VerticalLayout)_parentScreen.Variables["TopInfoRightButton"];
+            _topInfoHeadingTextView = (TextView)_parentScreen.Variables["TopInfoHeadingTextView"];
+            _topInfoSubHeadingTextView = (TextView)_parentScreen.Variables["TopInfoSubHeadingTextView"];
+            _topInfoArrowImage = (Image)_parentScreen.Variables["TopInfoArrowImage"];
+            _topInfoImageLayout = (VerticalLayout)_parentScreen.Variables["TopInfoImageLayout"];
+            CommentLayout = (VerticalLayout)_parentScreen.Variables["TopInfoCommentLayout"];
+            ExtraLayout = (VerticalLayout)_parentScreen.Variables["TopInfoExtraLayout"];
         }
 
         internal void Arrow_OnClick(object sender, EventArgs eventArgs)

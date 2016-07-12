@@ -134,12 +134,13 @@ namespace Test
                 return "";
 
             var ans = DateTime.Now - actualTime;
-
+            // TODO опасный код
+            var hours = Convert.ToInt32(ans.TotalHours);
             if (ans < TimeSpan.FromHours(1))
                 return $"{ans.Minutes} {Translator.Translate("min.")}";
             if (ans < TimeSpan.FromHours(24))
-                return $"{ans.Hours} {Translator.Translate("h.")} {ans.Minutes} {Translator.Translate("m.")}";
-            return $"{ans.Hours} {Translator.Translate("h.")}";
+                return $"{hours} {Translator.Translate("h.")} {ans.Minutes} {Translator.Translate("m.")}";
+            return $"{hours} {Translator.Translate("h.")}";
         }
 
         internal int SetTodayLayoutToFalse()

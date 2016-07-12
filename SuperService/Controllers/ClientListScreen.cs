@@ -20,7 +20,6 @@ namespace Test
                 Header = Translator.Translate("clients"),
                 ArrowVisible = false
             };
-
             _tabBarComponent = new TabBarComponent(this);
         }
 

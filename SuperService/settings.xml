@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration>
   <resource>
-    <version version="3.0.0.95" />
+    <version version="3.0.0.96" />
   </resource>
 
   <client>
@@ -9,6 +9,6 @@
   </client>
 
   <server>
-    <supportedMeta version="3.0.0.0"/>
+    <supportedMeta version="3.0.0.0" />
   </server>
 </configuration>

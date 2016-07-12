@@ -1,9 +1,10 @@
 ﻿namespace Test
 {
-    static class Parameters
+    internal static class Parameters
     {
         //Идентификаторы передаваемых между экранами параметров
         public const string IdCurrentEventId = "currentEventId";
+
         public const string IdScreenStateId = "screenState";
         public const string IdClientId = "clientId";
         public const string IdIsService = "isService";
@@ -12,8 +13,6 @@
         public const string IdEquipmentId = "idEquipmentId";
         public const string IdIsMaterialsRequest = "isMaterialsRequest";
         public const string Contact = "contact";
-
-
 
         //Представление пустой суммы для отобажения на экранах с отключенной настройкой отображения цен
         public const string EmptyPriceDescription = " -- ";

@@ -1,4 +1,7 @@
 ﻿using BitMobile.ClientModel3;
+using BitMobile.DbEngine;
+using System;
+using Test.Catalog;
 
 namespace Test
 {
