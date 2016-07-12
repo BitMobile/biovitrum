@@ -1,5 +1,6 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.DbEngine;
 using System;
 using Test.Catalog;
 using Test.Components;
@@ -11,6 +12,7 @@ namespace Test
         private TopInfoComponent _topInfoComponent;
 
         private Contacts Contact => (Contacts)Variables[Parameters.Contact];
+        private string _clientId;
 
         private HorizontalLayout AddPhoneButton => (HorizontalLayout)Variables["AddPhoneButton"];
         private HorizontalLayout AddEmailButton => (HorizontalLayout)Variables["AddEmailButton"];
@@ -44,6 +46,8 @@ namespace Test
             {
                 EmailLayout.CssClass = "NoHeight";
             }
+
+            _clientId = (string)Variables.GetValueOrDefault(Parameters.IdClientId);
         }
 
         internal void RemovePhoneButton_OnClick(object sender, EventArgs eventArgs)
@@ -107,7 +111,20 @@ namespace Test
             Contact.Position = position;
             Contact.Tel = phone;
             Contact.EMail = email;
+
             DBHelper.SaveEntity(Contact);
+
+            if (_clientId != null)
+            {
+                var clientContacts = new Client_Contacts
+                {
+                    Ref = DbRef.FromString(_clientId),
+                    Id = DbRef.CreateInstance("Catalog_Client_Contacts", Guid.NewGuid()),
+                    Contact = Contact.Id,
+                    Actual = false, // Actual на самом деле означает "уволен"
+                };
+                DBHelper.SaveEntity(clientContacts);
+            }
             Navigation.Back();
         }
 

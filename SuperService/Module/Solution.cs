@@ -1,4 +1,6 @@
 ﻿using BitMobile.ClientModel3;
+using BitMobile.DbEngine;
+using System;
 using System.Collections.Generic;
 using Test.Catalog;
 
@@ -15,6 +17,7 @@ namespace Test
             {
                 ["contact"] = new Contacts()
                 {
+                    Id = DbRef.CreateInstance("Catalog_Contacts", Guid.NewGuid()),
                     Description = "Один Одиныч",
                     Position = "Президентыч",
                     EMail = "omg@example.huy"

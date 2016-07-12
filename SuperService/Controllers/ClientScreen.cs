@@ -67,7 +67,8 @@ namespace Test
                 [Parameters.Contact] = new Contacts
                 {
                     Id = DbRef.CreateInstance("Catalog_Contacts", Guid.NewGuid()),
-                }
+                },
+                [Parameters.IdClientId] = _clientId
             });
         }
 
