@@ -95,6 +95,7 @@ position		Position
 save		Save
 add_phone		Add phone
 add_email		Add e-mail
+forgot_name		You forgot to enter a name
 cancel		Cancel
 developer		DEVELOPER
 report_an_error		Report an error

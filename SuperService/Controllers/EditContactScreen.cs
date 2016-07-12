@@ -109,6 +109,12 @@ namespace Test
             var phone = ((EditText)Variables["PhoneEditText"]).Text;
             var email = ((EditText)Variables["EMailEditText"]).Text;
             // TODO: Разбраться с Code
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                Dialog.Message(Translator.Translate("forgot_name"));
+                return;
+            }
+
             Contact.Description = $"{name} {surname}";
             Contact.Position = position;
             Contact.Tel = phone;

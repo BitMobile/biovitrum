@@ -95,7 +95,7 @@ position		Должность
 save		Сохранить
 add_phone		Добавить телефон
 add_email		Добавить e-mail
-
+forgot_name		Вы забыли ввести имя
 cancel		Отмена
 developer		РАЗРАБОТЧИК
 report_an_error		Сообщить об ошибке
