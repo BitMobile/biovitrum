@@ -68,12 +68,19 @@ namespace Test
 
         internal string GetVersion()
         {
-            using (var stream = Application.GetResourceStream("settings.xml"))
+            try
             {
-                var xDocument = new XmlDocument();
-                xDocument.Load(stream);
-                if (xDocument.DocumentElement != null)
-                    _version = xDocument.DocumentElement.ChildNodes[0].ChildNodes[0].Attributes?["version"].Value;
+                using (var stream = Application.GetResourceStream("settings.xml"))
+                {
+                    var xDocument = new XmlDocument();
+                    xDocument.Load(stream);
+                    if (xDocument.DocumentElement != null)
+                        _version = xDocument.DocumentElement.ChildNodes[0].ChildNodes[0].Attributes?["version"].Value;
+                }
+            }
+            catch (Exception)
+            {
+                DConsole.WriteLine($"File settings.xml Not Found");
             }
 
             return _version != null ? $"v. {_version}" : "v. 0.0.0.0";
