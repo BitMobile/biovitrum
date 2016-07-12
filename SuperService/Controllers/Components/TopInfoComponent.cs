@@ -1,4 +1,5 @@
-﻿using BitMobile.ClientModel3.UI;
+﻿using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
 using System;
 
@@ -16,6 +17,7 @@ namespace Test.Components
         private TextView _topInfoHeadingTextView;
         private VerticalLayout _topInfoImageLayout;
         private TextView _topInfoSubHeadingTextView;
+        private VerticalLayout _topInfoHeadingTextLayout;
 
         /// <summary>
         ///     Конструктор контроллера компонента с заголовком, двумя кнопками и доп. инфой
@@ -67,7 +69,10 @@ namespace Test.Components
         public IWrappedControl3 LeftButtonControl
         {
             get { return GetIfNotEmpty(_leftButton); }
-            set { AddIfNotEmpty(_leftButton, value); }
+            set
+            {
+                AddIfNotEmpty(_leftButton, value);
+            }
         }
 
         public IWrappedControl3 RightButtonControl
@@ -115,9 +120,21 @@ namespace Test.Components
             return layout.Controls.Length == 0 ? null : (IWrappedControl3)layout.Controls[0];
         }
 
-        private static void AddIfNotEmpty(VerticalLayout verticalLayout, IWrappedControl3 control)
+        private void AddIfNotEmpty(VerticalLayout verticalLayout, IWrappedControl3 control)
         {
             if (verticalLayout.Controls.Length == 0) verticalLayout.AddChild(control);
+            if (LeftButtonControl == null || RightButtonControl == null)
+                return;
+            if (LeftButtonControl.GetType().Name == nameof(Image) && RightButtonControl.GetType().Name == nameof(Image))
+            {
+                _leftButton.CssClass = "TopInfoButtonLeftWithPicOnly";
+                _rightButton.CssClass = "TopInfoButtonRightWithPicOnly";
+                _topInfoHeadingTextLayout.CssClass = "TopInfoHeadingTextLayoutWithPicOnly";
+                DConsole.WriteLine("They are both images!");
+                _leftButton.Refresh();
+                _rightButton.Refresh();
+                _topInfoHeadingTextLayout.Refresh();
+            }
         }
 
         private void OnLoading()
@@ -130,6 +147,7 @@ namespace Test.Components
             _topInfoImageLayout = (VerticalLayout)_parentScreen.Variables["TopInfoImageLayout"];
             CommentLayout = (VerticalLayout)_parentScreen.Variables["TopInfoCommentLayout"];
             ExtraLayout = (VerticalLayout)_parentScreen.Variables["TopInfoExtraLayout"];
+            _topInfoHeadingTextLayout = (VerticalLayout)_parentScreen.Variables["TopInfoHeadingTextLayout"];
         }
 
         internal void Arrow_OnClick(object sender, EventArgs eventArgs)

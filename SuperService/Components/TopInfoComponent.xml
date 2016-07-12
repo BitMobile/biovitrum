@@ -5,7 +5,7 @@
     <c:VerticalLayout CssClass="TopInfoLayout">
       <c:HorizontalLayout CssClass="TopInfoHeadingLayout">
         <c:VerticalLayout Id="TopInfoLeftButton" CssClass="TopInfoButtonLeft" OnClick="TopInfo_LeftButton_OnClick" />
-        <c:VerticalLayout CssClass="TopInfoHeadingTextLayout">
+        <c:VerticalLayout Id="TopInfoHeadingTextLayout" CssClass="TopInfoHeadingTextLayout">
           <c:TextView Id="TopInfoHeadingTextView" CssClass="TopInfoHeading" />
           <c:TextView Id="TopInfoSubHeadingTextView" CssClass="NoHeight" />
         </c:VerticalLayout>
