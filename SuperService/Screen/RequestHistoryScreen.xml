@@ -15,59 +15,17 @@
         <s:If Test="$NeedDateLayout($RequestHistory.Date)">
 
           <s:If Test="$DateIsToday($RequestHistory.Date)">
-          <s:Else>    
-              <!--c:HorizontalLine CssClass="RequestHistoryLongBreaker" /-->
-          </s:Else>
           </s:If>
-            
+          <s:Else>
+              <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />    
+          </s:Else>  
+
           <c:HorizontalLayout CssClass="RequestHistoryDateHL">
             <c:TextView Text="$GetDateHeaderDescription($RequestHistory.Date)" CssClass="RequestHistoryDateTV" />
           </c:HorizontalLayout>
           <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />
 
         </s:If>      
-        
-        <!--  -->
-        <!-- Проверка на необходимость плашки "Сегодня" -->
-        <!--
-        <s:If Test="$IsTodayLayoutNeed()">
-
-          <s:If Test="$IsDateEquals($LastRequestHistoryDate, $RequestHistory.Date)">
-            <c:HorizontalLayout CssClass="RequestHistoryDateHL">
-              <c:TextView Text="#todayUpper#" CssClass="RequestHistoryDateTV" />
-            </c:HorizontalLayout>
-            <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />
-
-            <s:Push Id="void" Value="$SetTodayLayoutBoolToFalse()" />
-          </s:If>
-        </s:If>
-        -->
-        <!-- Конец проверки на необходимость плашки "Сегодня" -->
-
-        <!-- Проверка на необходимость плашки с датой и брейкера-->
-        <!--
-        <s:If Test="$IsDateChanged($LastRequestHistoryDate, $RequestHistory.Date)">
-          <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />
-
-          <c:HorizontalLayout CssClass="RequestHistoryDateHL">
-            <c:TextView Text="$DateTimeToDateWithWeekCheck($RequestHistory.Date)" CssClass="RequestHistoryDateTV" />
-          </c:HorizontalLayout>
-
-          <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />
-        </s:If>
-
-        <s:Else>
-          <s:If Test="$IsTodayBreakerNeed()">
-            <s:Push Id="void" Value="$SetTodayBreakerToFalse()" />
-          </s:If>
-          <s:Else>
-            <c:HorizontalLine CssClass="RequestHistoryShortBreaker" />
-          </s:Else>
-        </s:Else>
-        -->
-        <!-- Конец проверки на необходимость плашки с датой и брейкера-->
-
-        
         
         
         <c:HorizontalLayout CssClass="RequestHistoryItemHL">
