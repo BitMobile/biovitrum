@@ -8,9 +8,9 @@ namespace Test
 {
     public class RequestHistoryScreen : Screen
     {
-        private bool _needTodayBreaker = Convert.ToBoolean("True");
-        private bool _needTodayLayout = Convert.ToBoolean("True");
         private TopInfoComponent _topInfoComponent;
+
+        private DateTime _previousDate = new DateTime(1,1,1);
 
         public override void OnLoading()
         {
@@ -24,36 +24,6 @@ namespace Test
             };
         }
 
-        internal bool IsTodayLayoutNeed()
-        {
-            if (_needTodayLayout)
-            {
-                return Convert.ToBoolean("True");
-            }
-            return Convert.ToBoolean("False");
-        }
-
-        internal bool IsTodayBreakerNeed()
-        {
-            if (_needTodayBreaker)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        internal int SetTodayLayoutBoolToFalse()
-        {
-            _needTodayLayout = Convert.ToBoolean("False");
-            return 0;
-        }
-
-        internal int SetTodayBreakerToFalse()
-        {
-            _needTodayBreaker = Convert.ToBoolean("False");
-            return 0;
-        }
-
         internal string GetDateNowRequestHistory()
         {
             return DateTime.Now.ToString("dddd dd MMMM");
@@ -64,52 +34,47 @@ namespace Test
             return DateTime.Parse(datetime).ToString("dddd dd MMMM");
         }
 
-        internal string DateTimeToDateWithWeekCheck(string datetime)
-        {
-            var workDate = DateTime.Parse(datetime).Date;
-            var currentDate = DateTime.Now.Date;
-
-            var workDateWeekNumber = (workDate.DayOfYear + 6) / 7;
-            if (workDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
-            {
-                ++workDateWeekNumber;
-            }
-
-            var currentDateWeekNumber = (currentDate.DayOfYear + 6) / 7;
-            if (currentDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
-            {
-                ++currentDateWeekNumber;
-            }
-
-            if (workDateWeekNumber == currentDateWeekNumber)
-            {
-                return DateTime.Parse(datetime).ToString("dddd, dd MMMM").ToUpper();
-            }
-            return DateTime.Parse(datetime).ToString("dd MMMM yyyy").ToUpper();
-        }
-
         internal string ToHoursMinutes(string datetime)
         {
             return TimeSpan.Parse(datetime).ToString(@"hh\:mm");
         }
 
-        internal bool IsDateChanged(string lastdate, string nowdate)
+
+        internal bool DateIsToday(string requestDate)
         {
-            if (DateTime.Parse(lastdate).Date > DateTime.Parse(nowdate).Date)
-            {
-                return true;
-            }
-            return false;
+            //DConsole.WriteLine();
+            return (DateTime.Parse(requestDate).Date == DateTime.Now.Date);
         }
 
-        internal bool IsDateEquals(string lastdate, string nowdate)
+        internal string GetDateHeaderDescription(string requestDate)
         {
-            if (DateTime.Parse(lastdate).Date == DateTime.Parse(nowdate).Date)
+            var mDate = DateTime.Parse(requestDate).Date;
+            var daysDelta = DateTime.Now.DayOfWeek==DayOfWeek.Sunday?6:(int)DateTime.Now.DayOfWeek - 1;
+
+            if (DateIsToday(requestDate))
             {
-                return true;
+                return Translator.Translate("todayUpper");
             }
-            return false;
+
+            if (mDate < DateTime.Now.Date && mDate >= DateTime.Now.Date.AddDays(-1 * daysDelta))
+            {
+                return mDate.ToString("dddd, dd MMMM").ToUpper();
+            }
+            return mDate.ToString("dd MMMM yyyy").ToUpper();
         }
+
+
+        internal bool NeedDateLayout(string requestDate)
+        {
+            var result = false;
+            if(_previousDate != DateTime.Parse(requestDate).Date)
+            {
+                _previousDate = DateTime.Parse(requestDate).Date;
+                result = true;
+            }
+            return result;
+        }
+
 
         internal IEnumerable GetNeedMats()
         {
