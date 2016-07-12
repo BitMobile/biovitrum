@@ -26,9 +26,9 @@ namespace Test
         /// <param name="eventSinceDate"> Дата начания с которой необходимо получить события</param>
         public static DbRecordset GetEvents(DateTime eventSinceDate)
         {
-            var queryString = @"select 
-                                 event.Id, 
-                                 event.StartDatePlan,  
+            var queryString = @"select
+                                 event.Id,
+                                 event.StartDatePlan,
                                  date(event.StartDatePlan) as startDatePlanDate, " + //date only
                               "  event.EndDatePlan, " +
                               "  ifnull(TypeDeparturesTable.description, '') as TypeDeparture, " +
@@ -93,29 +93,29 @@ namespace Test
         public static EventsStatistic GetEventsStatistic()
         {
             var statistic = new EventsStatistic();
-            var query = new Query(@"select 
-                                      TOTAL(CASE 
-                                           when StartDatePlan >= date('now','start of day') and StartDatePlan < date('now','start of day', '+1 day') then 1 
-                                           else 0  
-                                      End) as DayTotalAmount, 
-                                       TOTAL(CASE 
-                                           when Enum_StatusyEvents.name like 'Done' and StartDatePlan >= date('now','start of day') and StartDatePlan < date('now','start of day', '+1 day') then 1 
-                                           else 0 
-                                      End) as DayCompleteAmout, 
-                                      TOTAL(CASE 
-                                           when StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 
-                                           else 0 
-                                      End) as MonthCompleteAmout, 
-                                      TOTAL(CASE 
-                                           when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1 
-                                           else 0 
-                                      End) as MonthTotalAmount 
-                                     from 
-                                         Document_Event as event 
-                                          left join Enum_StatusyEvents 
-                                            on event.Status = Enum_StatusyEvents.Id 
-                                  
-                                   where 
+            var query = new Query(@"select
+                                      TOTAL(CASE
+                                           when StartDatePlan >= date('now','start of day') and StartDatePlan < date('now','start of day', '+1 day') then 1
+                                           else 0
+                                      End) as DayTotalAmount,
+                                       TOTAL(CASE
+                                           when Enum_StatusyEvents.name like 'Done' and StartDatePlan >= date('now','start of day') and StartDatePlan < date('now','start of day', '+1 day') then 1
+                                           else 0
+                                      End) as DayCompleteAmout,
+                                      TOTAL(CASE
+                                           when StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1
+                                           else 0
+                                      End) as MonthCompleteAmout,
+                                      TOTAL(CASE
+                                           when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1
+                                           else 0
+                                      End) as MonthTotalAmount
+                                     from
+                                         Document_Event as event
+                                          left join Enum_StatusyEvents
+                                            on event.Status = Enum_StatusyEvents.Id
+
+                                   where
                                         event.DeletionMark = 0");
             var result = query.Execute();
 
@@ -587,17 +587,17 @@ namespace Test
         /// <returns></returns>
         public static DbRecordset GetRIMByType(RIMType rimType)
         {
-            var query = new Query(@"select 
-                                      id, 
-                                      Description, 
-                                      Price, 
-                                      Unit, 
+            var query = new Query(@"select
+                                      id,
+                                      Description,
+                                      Price,
+                                      Unit,
                                       service
-                                  from 
-                                      Catalog_RIM 
-                                  where 
-                                      deletionMark = 0 
-                                      and isFolder = 0 
+                                  from
+                                      Catalog_RIM
+                                  where
+                                      deletionMark = 0
+                                      and isFolder = 0
                                       and service = @rim_type");
 
             DConsole.WriteLine("rimType = " + rimType);
@@ -899,7 +899,6 @@ namespace Test
             return dbResult.Next() ? dbResult.GetBoolean(0) : Convert.ToBoolean("False");
         }
 
-
         /// <summary>
         /// Получаем значение связанное с тем, включено ли отображение цен или нет
         /// возращяет булевское значение упакованное в object
@@ -914,13 +913,12 @@ namespace Test
 
             var dbResult = query.Execute();
 
-            // 
+            //
             /*dbResult.Next();
             var res1 = dbResult.GetBoolean(0);
             var res2 = (bool) dbResult["LogicValue"];
             DConsole.WriteLine("GetIsUsedCalculateMaterials() getBoolean = " + res1);
             DConsole.WriteLine("GetIsUsedCalculateMaterials() (bool) = " + res1);
-
 
             return true;*/
 
@@ -929,7 +927,7 @@ namespace Test
 
         public static DbRecordset GetRIMFromBag(RIMType type = RIMType.Material)
         {
-            var query = new Query(@"SELECT 
+            var query = new Query(@"SELECT
                                         _Catalog_RIM.Id as id,
                                         _Catalog_RIM.Description as Description,
                                         _Catalog_RIM.Price as Price,
@@ -955,15 +953,15 @@ namespace Test
         /// <param name="equipmentId">Идентификатор оборудования</param>
         public static DbRecordset GetEquipmentParametersById(string equipmentId)
         {
-            var queryText = @"select 
-                               param.Description as Parameter, 
-                               equipParam.val as Value 
-                            from 
-                               Catalog_Equipment_Parameters as equipParam 
-                                  left join Catalog_EquipmentOptions as param 
-                                     on equipParam.Ref = @equipId and equipParam.Parameter = param.Id 
-                            
-                                where 
+            var queryText = @"select
+                               param.Description as Parameter,
+                               equipParam.val as Value
+                            from
+                               Catalog_Equipment_Parameters as equipParam
+                                  left join Catalog_EquipmentOptions as param
+                                     on equipParam.Ref = @equipId and equipParam.Parameter = param.Id
+
+                                where
                                     equipParam.Ref = @equipId and param.DeletionMark = 0";
 
             var query = new Query(queryText);
@@ -1048,6 +1046,24 @@ namespace Test
                                         Ref = @ref and Required = 1");
 
             query.AddParameter("ref", eventId);
+
+            return query.Execute();
+        }
+
+        /// <summary>
+        /// Получаем Id и Description пользователя
+        /// по его UserName
+        /// </summary>
+        /// <param name="userName">UserName пользователя</param>
+        /// <returns>Возращяет DbRecordset с данными</returns>
+        public static DbRecordset GetUserInfoByUserName(string userName)
+        {
+            var query = new Query(@"select
+                                    Id,
+                                    Description
+                                    from _Catalog_User
+                                    where UserName like @userName");
+            query.AddParameter("userName", userName);
 
             return query.Execute();
         }

@@ -89,3 +89,4 @@ cancel		Отмена
 developer		РАЗРАБОТЧИК
 report_an_error		Сообщить об ошибке
 send_log		Отправить лог
+company_web_site		www.company.com

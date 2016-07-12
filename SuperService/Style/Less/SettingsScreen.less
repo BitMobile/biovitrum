@@ -1,10 +1,11 @@
 ﻿@import "defaults.less";
 @import "Components/TopInfoComponent.less";
 
-@default-company-info-text-color:#a2a2aa;
-@default-user-info-text-color:#51595b;
-@default-vertical-line-color:#f4f4f4;
+@default-company-info-text-color: #a2a2aa;
+@default-user-info-text-color: #51595b;
+@default-vertical-line-color: #f4f4f4;
 @default-verticzl-live-width: 0.15sp;
+@default-social-network-logo-margin: 15%;
 
 /* Settings style */
 .MainInfoContainer {
@@ -25,25 +26,26 @@
 
 .ExitImage {
     .image-element(4sp);
-   .horizontal-align;
+    .horizontal-align;
 }
 
 .UserInfo {
     .height-and-width(40% auto,100%);
 }
 
-.UserInfoContainerHorizontalAlign{
-    .height-and-width(100%,60%);
+.UserInfoContainerHorizontalAlign {
+    .height-and-width(100%,80%);
     .horizontal-align;
 }
 
-.UserInfoContainerVerticalAlign{
+.UserInfoContainerVerticalAlign {
     .height-and-width(0sp auto,100%);
     vertical-align: center;
 }
+
 .UserInitials {
     .text-view-style(@default-font-size * 1.5);
-    width:100%;
+    width: 50%;
     white-space: nowrap;
     color: @default-user-info-text-color;
     .horizontal-align;
@@ -52,7 +54,7 @@
 .UserFandLName {
     .text-view-style(@default-font-size * 2);
     width: 100%;
-    color:@default-user-info-text-color;
+    color: @default-user-info-text-color;
     .horizontal-align;
     white-space: nowrap;
 }
@@ -65,119 +67,116 @@
 .FatHorizontalLine {
     .height-and-width(100%, 5sp);
     .horizontal-align;
-    background-color:#a8acad;
+    background-color: #a8acad;
 }
 
-.CompanyInfoContainer{
+.CompanyInfoContainer {
     .height-and-width(60%,100%);
-    background-color:#f1f2f5;
+    background-color: #f1f2f5;
 }
 
-.ArrowDown{
-    height:6sp;
+.ArrowDown {
+    height: 6sp;
     .horizontal-align;
 }
 
-.SserviceLogo{
+.SserviceLogo {
     height: 8sp;
     margin-top: 5%;
     .horizontal-align;
 }
 
-.ProductVersion{
+.ProductVersion {
     .horizontal-align;
-    .make-textview-style(@default-font-size, @default-company-info-text-color,
-    50%);
+    .make-textview-style(@default-font-size, @default-company-info-text-color, 50%);
 }
 
-.TranslateDeveloper{
+.TranslateDeveloper {
     .make-textview-style(@default-font-size, @default-company-info-text-color, 60%);
     .horizontal-align;
     margin-top: 5%;
 }
 
-.CompanyLogo{
+.CompanyLogo {
     height: 8sp;
-    margin-top:5%;
+    margin-top: 5%;
     .horizontal-align;
 }
 
-.CompanySite{
-    .make-textview-style(@default-font-size,@default-company-info-text-color,
-    60%);
+.CompanySite {
+    .make-textview-style(@default-font-size, @default-company-info-text-color, 60%);
     .horizontal-align;
     margin-top: 4%;
 }
 
-.MainSocialLogoContainer{
+.MainSocialLogoContainer {
     .height-and-width(auto,100%);
 }
 
-.HorizontalAlignLogoContainer{
+.HorizontalAlignLogoContainer {
     .height-and-width(0sp auto, 50%);
     vertical-align: center;
 }
 
-.SocialLogoContainerLeft{
+.SocialTwitterContainer {
     .height-and-width(0sp auto,0sp auto);
     .horizontal-align(right);
-    margin-right:15%;
+    margin-right: @default-social-network-logo-margin;
 }
 
-.SocialLogoContainerRight{
+.SocialFacebookContainer {
     .height-and-width(0sp auto,0sp auto);
     .horizontal-align(left);
-    margin-left:15%;
+    margin-left: @default-social-network-logo-margin;
 }
 
-.SocialLogo{
+.SocialLogo {
     height: 8sp;
     .horizontal-align;
 }
 
-.ReportLayout{
+.ReportLayout {
     .height-and-width(30%,100%);
 }
 
-
-.ReportContainer{
+.ReportContainer {
     .height-and-width(auto, 100%);
     margin-top: 2sp;
     .horizontal-align;
 }
 
-.ExternalButtonContainer{
+.ExternalButtonContainer {
     .height-and-width(100%,49%);
 }
 
-.VerticalLineContainer{
+.VerticalLineContainer {
     .height-and-width(100%,2%);
 }
 
-.VerticalLine{
-    height:100%;
-    width:@default-verticzl-live-width;
-    background-color:@default-vertical-line-color;
+.VerticalLine {
+    height: 100%;
+    width: @default-verticzl-live-width;
+    background-color: @default-vertical-line-color;
     .horizontal-align;
 }
 
-.ButtonContainerHorizontalAlign{
+.ButtonContainerHorizontalAlign {
     .height-and-width(100%, 0sp auto);
     .horizontal-align;
 }
 
-.ButtonContainerVerticalAlign{
+.ButtonContainerVerticalAlign {
     .height-and-width(12sp, 0sp auto);
     vertical-align: center;
 }
-.ReportImage{
+
+.ReportImage {
     height: 4sp;
     .horizontal-align;
 }
 
-.ReportText{
-    .make-textview-style(@default-font-size,@default-user-info-text-color,
-    30sp, center, normal);
+.ReportText {
+    .make-textview-style(@default-font-size,@default-user-info-text-color, 30sp, center, normal);
     margin-top: 1sp;
     .horizontal-align;
 }
@@ -199,12 +198,11 @@
     vertical-align: @_vertical-align;
 }
 
-.horizontal-align(@_align: center){
+.horizontal-align(@_align: center) {
     horizontal-align: @_align;
 }
 
-.make-textview-style(@_text-view-style-font-size, @_color, @_width, @_text-align: center,
- @_white-space: nowrap){
+.make-textview-style(@_text-view-style-font-size, @_color, @_width, @_text-align: center, @_white-space: nowrap) {
     .text-view-style(@_text-view-style-font-size);
     color: @_color;
     width: @_width;

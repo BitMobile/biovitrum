@@ -5,12 +5,13 @@
   <c:DockLayout CssClass="RootLayout">
     <!-- Tab Bar-->
     <s:Include File="Components\TabBarСomponent.xml" />
+    <s:Push Id="init" Value="$Init()" />
 
     <c:ScrollView CssClass="MainInfoContainer">
       <c:VerticalLayout CssClass="MainPartContainer">
 
         <!--Кнопка выхода-->
-        <c:VerticalLayout CssClass="ExternalImageContainerExit">
+        <c:VerticalLayout Id="Logout" CssClass="ExternalImageContainerExit" OnClick="Logout_OnClick">
           <c:Image CssClass="ExitImage" Source="$GetResourceImage(settingsscreen_logout)" />
         </c:VerticalLayout>
         <!--Конец кнопки выхода-->
@@ -19,8 +20,8 @@
         <c:VerticalLayout CssClass="UserInfo">
           <c:HorizontalLayout CssClass="UserInfoContainerHorizontalAlign">
             <c:VerticalLayout CssClass="UserInfoContainerVerticalAlign">
-              <c:TextView CssClass="UserInitials" Text="Test" />
-              <c:TextView CssClass="UserFandLName" Text="Test Test" />
+              <c:TextView CssClass="UserInitials" Text="$GetUserInitials()" />
+              <c:TextView CssClass="UserFandLName" Text="$GetUserFirstAndLastName()" />
               <!--Толстая линия по центру-->
               <c:VerticalLayout CssClass="FatHorizontalLineLayout">
                 <c:HorizontalLine CssClass="FatHorizontalLine" />
@@ -28,15 +29,15 @@
             </c:VerticalLayout>
           </c:HorizontalLayout>
         </c:VerticalLayout>
+        <!--Конец информации о пользователе-->
+        <!--Стрелка-->
         <c:Image CssClass="ArrowDown" Source="$GetResourceImage(settingsscreen_grey_arrow)" />
-        <!--Конец информации о пользователе--><!--Информация о компании-->
+        <!--Информация о компании-->
         <c:VerticalLayout CssClass="CompanyInfoContainer">
-          <!--Стрелка-->
-          <!--<c:Image CssClass="ArrowDown" Source="$GetResourceImage(settingsscreen_grey_arrow)" />-->
           <!--Логотип SService-->
           <c:Image CssClass="SserviceLogo" Source="$GetResourceImage(settingsscreen_sservice_logo)" />
           <!--Версия-->
-          <c:TextView CssClass="ProductVersion" Text="v. 3.0.0.99" />
+          <c:TextView CssClass="ProductVersion" Text="$GetVersion()" />
           <!--Разработчик-->
           <c:TextView CssClass="TranslateDeveloper" Text="#developer#" />
           <!--Линия-->
@@ -46,32 +47,32 @@
           <!--Лого компании-->
           <c:Image CssClass="CompanyLogo" Source="$GetResourceImage(settingsscreen_company_logo)" />
           <!--Сайт компании-->
-          <c:TextView CssClass="CompanySite" Text="www.testsite.com" />
+          <c:TextView CssClass="CompanySite" Text="#company_web_site#" />
           <!-- Лого Твиттера-->
           <c:HorizontalLayout CssClass="MainSocialLogoContainer">
             <c:VerticalLayout CssClass="HorizontalAlignLogoContainer">
-              <c:VerticalLayout CssClass="SocialLogoContainerLeft">
+              <c:VerticalLayout Id="Twitter" CssClass="SocialTwitterContainer" OnClick="Twitter_OnClick">
                 <c:Image CssClass="SocialLogo" Source="$GetResourceImage(settingsscreen_twitter)" />
               </c:VerticalLayout>
             </c:VerticalLayout>
             <!-- Лого Фейсбука -->
             <c:VerticalLayout CssClass="HorizontalAlignLogoContainer">
-              <c:VerticalLayout CssClass="SocialLogoContainerRight">
+              <c:VerticalLayout Id="Facebook" CssClass="SocialFacebookContainer" OnClick="Facebook_OnClick">
                 <c:Image CssClass="SocialLogo" Source="$GetResourceImage(settingsscreen_facebook)" />
               </c:VerticalLayout>
             </c:VerticalLayout>
           </c:HorizontalLayout>
         </c:VerticalLayout>
         <!--Конец информации о компании-->
-        <!-- Кнопки отзыв и лог -->
         <!--Стрелка вниз серого цвета-->
+        <c:Image CssClass="ArrowDown" Source="$GetResourceImage(settingsscreen_white_arrow)" />
+        <!-- Кнопки отзыв и лог -->
         <c:VerticalLayout CssClass="ReportLayout">
-          <c:Image CssClass="ArrowDown" Source="$GetResourceImage(settingsscreen_white_arrow)" />
           <c:HorizontalLayout CssClass="ReportContainer">
             <!-- Сообщить об ошибке -->
             <c:VerticalLayout CssClass="ExternalButtonContainer">
               <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
-                <c:VerticalLayout CssClass="ButtonContainerVerticalAlign">
+                <c:VerticalLayout Id="SendErrorReport" CssClass="ButtonContainerVerticalAlign" OnClick="SendErrorReport_OnClick">
                   <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_error)" />
                   <c:TextView CssClass="ReportText" Text="#report_an_error#" />
                 </c:VerticalLayout>
@@ -84,7 +85,7 @@
             <!-- Отправить лог -->
             <c:VerticalLayout CssClass="ExternalButtonContainer">
               <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
-                <c:VerticalLayout CssClass="ButtonContainerVerticalAlign">
+                <c:VerticalLayout Id="SendLog" CssClass="ButtonContainerVerticalAlign" OnClick="SendLog_OnClick">
                   <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_log)" />
                   <c:TextView CssClass="ReportText" Text="#send_log" />
                 </c:VerticalLayout>

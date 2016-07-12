@@ -235,7 +235,7 @@ TopInfoButtonRight Image {
 }
 .UserInfoContainerHorizontalAlign {
   height: 100%;
-  width: 60%;
+  width: 80%;
   horizontal-align: center;
 }
 .UserInfoContainerVerticalAlign {
@@ -246,7 +246,7 @@ TopInfoButtonRight Image {
 .UserInitials {
   font: 3.75sp arial;
   height: 4.1625sp auto;
-  width: 100%;
+  width: 50%;
   white-space: nowrap;
   color: #51595b;
   horizontal-align: center;
@@ -327,13 +327,13 @@ TopInfoButtonRight Image {
   width: 50%;
   vertical-align: center;
 }
-.SocialLogoContainerLeft {
+.SocialTwitterContainer {
   height: 0sp auto;
   width: 0sp auto;
   horizontal-align: right;
   margin-right: 15%;
 }
-.SocialLogoContainerRight {
+.SocialFacebookContainer {
   height: 0sp auto;
   width: 0sp auto;
   horizontal-align: left;
