@@ -125,22 +125,22 @@ HorizontalLine {
   horizontal-align: left;
   margin-left: 5sp;
 }
-TopInfoButtonRight {
+.TopInfoButtonRight {
   width: 27.5%;
   height: 3.85698052sp;
   vertical-align: center;
 }
-TopInfoButtonRight Image {
+.TopInfoButtonRight Image {
   height: 3.85698052sp;
 }
-TopInfoButtonRight TextView {
+.TopInfoButtonRight TextView {
   color: #fd724c;
   font: 2.93130519sp arial;
   height: 3.25374876sp auto;
   margin-top: 0.07713961sp;
   horizontal-align: center;
 }
-TopInfoButtonRight Image {
+.TopInfoButtonRight Image {
   horizontal-align: right;
   margin-right: 5sp;
 }
@@ -207,6 +207,52 @@ TopInfoButtonRight Image {
 }
 .TopInfoExtraLayout TextView {
   color: #ffffff;
+}
+.TopInfoHeadingTextLayoutWithPicOnly {
+  height: 100% auto;
+  width: 45%;
+  vertical-align: center;
+  width: 70%;
+}
+.TopInfoButtonLeftWithPicOnly {
+  width: 15%;
+  height: 3.85698052sp;
+  vertical-align: center;
+  dock-align: left;
+}
+.TopInfoButtonLeftWithPicOnly Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonLeftWithPicOnly TextView {
+  color: #fd724c;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonLeftWithPicOnly Image {
+  horizontal-align: left;
+  margin-left: 5sp;
+}
+.TopInfoButtonRightWithPicOnly {
+  width: 15%;
+  height: 3.85698052sp;
+  vertical-align: center;
+  dock-align: right;
+}
+.TopInfoButtonRightWithPicOnly Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonRightWithPicOnly TextView {
+  color: #fd724c;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonRightWithPicOnly Image {
+  horizontal-align: right;
+  margin-right: 5sp;
 }
 .ContactDescription {
   font: 3.5sp arial bold italic;
@@ -281,6 +327,7 @@ TopInfoButtonRight Image {
   color: #fd724c;
   font: 3sp arial;
   height: 80%;
+  margin-left: 3%;
   padding-top: 22%;
   text-align: left;
   vertical-align: center;
