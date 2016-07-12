@@ -2,7 +2,6 @@
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
-using System.Text;
 using Test.Components;
 
 namespace Test
@@ -13,8 +12,6 @@ namespace Test
         private TopInfoComponent _topInfoComponent;
         private string[] _userFirstAndLastName;
         private string _version;
-
-        // TODO: Тут будет экран настроек
 
         public override void OnLoading()
         {
@@ -84,7 +81,7 @@ namespace Test
 
         internal string GetUserInitials()
         {
-            var result = String.Empty;
+            var result = string.Empty;
             foreach (var str in _userFirstAndLastName)
             {
                 result += $"{str.Substring(0, 1)}.";
@@ -115,7 +112,7 @@ namespace Test
 
                 var split = userDescription.Split(null);
                 _userFirstAndLastName = new string[split.Length >= 2 ? 2 : split.Length];
-                int i = 0;
+                var i = 0;
                 foreach (var str in split)
                 {
                     if (string.IsNullOrWhiteSpace(str)) continue;
@@ -132,7 +129,7 @@ namespace Test
             }
             else
             {
-                _userFirstAndLastName = new[] { String.Empty, String.Empty };
+                _userFirstAndLastName = new[] { string.Empty, string.Empty };
             }
 #if DEBUG
             foreach (var str in _userFirstAndLastName)
