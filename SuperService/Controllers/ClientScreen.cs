@@ -159,17 +159,7 @@ namespace Test
         internal void ContactLayout_OnClick(object sender, EventArgs eventArgs)
         {
             var id = ((HorizontalLayout)sender).Id;
-            var contact = DBHelper.GetContactById(id);
-            var contacts = new Contacts
-            {
-                Id = (DbRef)contact["Id"],
-                DeletionMark = (bool)contact["DeletionMark"],
-                Description = (string)contact["Description"],
-                Code = (string)contact["Code"],
-                Position = (string)contact["Position"],
-                Tel = (string)contact["Tel"],
-                EMail = (string)contact["EMail"]
-            };
+            var contacts = (Contacts)DbRef.FromString(id).GetObject();
 
             DConsole.WriteLine("мыло контакта =" + contacts.EMail);
             Navigation.Move("ContactScreen", new Dictionary<string, object>

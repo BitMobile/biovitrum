@@ -28,11 +28,20 @@
         </c:VerticalLayout>
       </c:HorizontalLayout>
       <c:HorizontalLine CssClass="LayoutBreaker" />
+      
+      
       <c:VerticalLayout CssClass="CommentLayout">
         <c:TextView Text="#comment#" CssClass="LightInfoTitle" />
-        <c:TextView Text="$event.DetailedDescription" Id="EventCommentTextView" CssClass="LightInfoContent" />
+        <c:TextView Text="$event.DetailedDescription" Id="EventCommentTextView" CssClass="SubComment" />
       </c:VerticalLayout>
-      <c:HorizontalLine CssClass="LayoutBreaker" />
+      
+      <c:HorizontalLayout Id="WrapUnwrapButton" CssClass="WrapUnwrapLayout" OnClick="WrapUnwrapButton_OnClick">
+        <c:HorizontalLine CssClass="WrapUnwrapLine" />
+        <c:Image Id="WrapUnwrapImage" Source="$GetResourceImage(longtext_expand)" CssClass="WrapUnwrapImage" />
+        <c:HorizontalLine CssClass="WrapUnwrapLine" />
+      </c:HorizontalLayout>
+      
+      
       <c:TextView Visible="False" />
       <s:If Test="$IsNotZero($event.equipmentTotal)">
         <c:HorizontalLayout CssClass="InfoLayout" OnClick="TaskCounterLayout_OnClick">
