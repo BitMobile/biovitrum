@@ -12,6 +12,8 @@ namespace Test
         private bool _needTodayLayout = Convert.ToBoolean("True");
         private TopInfoComponent _topInfoComponent;
 
+        private DateTime _previousDate = new DateTime(1,1,1);
+
         public override void OnLoading()
         {
             DConsole.WriteLine("RequestHistoryScreen init");
@@ -92,6 +94,35 @@ namespace Test
         {
             return TimeSpan.Parse(datetime).ToString(@"hh\:mm");
         }
+
+
+        internal bool DateIsToday(string requestDate)
+        {
+            return (DateTime.Parse(requestDate).Date == DateTime.Today);
+        }
+
+        internal string GetDateHeaderDescription(string requestDate)
+        {
+            /*if (DateIsToday(requestDate))
+            {
+                return Translator.Translate("todayUpper");
+            }*/
+
+            return requestDate;
+        }
+
+
+        internal bool NeedDateLayout(string requestDate)
+        {
+            var result = false;
+            if(_previousDate != DateTime.Parse(requestDate).Date)
+            {
+                _previousDate = DateTime.Parse(requestDate).Date;
+                result = true;
+            }
+            return result;
+        }
+
 
         internal bool IsDateChanged(string lastdate, string nowdate)
         {
