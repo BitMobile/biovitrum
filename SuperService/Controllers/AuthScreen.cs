@@ -20,11 +20,11 @@ namespace Test
 
         public override void OnShow()
         {
-            //TODO: когда появится нормальная авторизация - удалить.
+            //TODO: Опастно так хранить юзера. Потом удалить.
             var settings = ApplicationContext.Current.Settings;
             settings.UserName = "demo";
             settings.WriteSettings();
-            DConsole.WriteLine($"{settings.UserName}");
+            DConsole.WriteLine($"Вы залогинились под юзером: {settings.UserName}");
         }
 
         internal void CantSigningButton_OnClick(object sender, EventArgs e)

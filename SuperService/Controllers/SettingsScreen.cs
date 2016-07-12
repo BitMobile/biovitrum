@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
+using System.Collections;
 using Test.Components;
 
 namespace Test
@@ -9,32 +10,13 @@ namespace Test
     public class SettingsScreen : Screen
     {
         private TabBarComponent _tabBarComponent;
-        private TopInfoComponent _topInfoComponent;
-        private string[] _userFirstAndLastName;
+        private string _userDescription;
         private string _version;
 
         public override void OnLoading()
         {
             DConsole.WriteLine("SettingsScreen init");
-
-            _topInfoComponent = new TopInfoComponent(this)
-            {
-                Header = Translator.Translate("settings"),
-            };
-
             _tabBarComponent = new TabBarComponent(this);
-        }
-
-        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
-        {
-        }
-
-        internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
-        {
-        }
-
-        internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
-        {
         }
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
@@ -86,63 +68,70 @@ namespace Test
             return _version != null ? $"v. {_version}" : "v. 0.0.0.0";
         }
 
+        /// <summary>
+        /// Возращает подстрок из строки
+        /// </summary>
+        /// <param name="str"> Строка из которой будт извлекаться подстроки </param>
+        /// <param name="maxCount"> Максимальное кол-во извлекаемых подстрок </param>
+        /// <returns> Извлеченные подстроки </returns>
+        private ArrayList ReturnCountOfWords(string str, int maxCount)
+        {
+            var resultArrayList = new ArrayList();
+
+            var i = 0;
+            foreach (var item in str.Split(null))
+            {
+                if (string.IsNullOrWhiteSpace(item)) continue;
+                if (i < maxCount)
+                {
+                    resultArrayList.Add(item);
+                    ++i;
+                }
+                else
+                {
+                    return resultArrayList;
+                }
+            }
+
+            return resultArrayList;
+        }
+
         internal string GetUserInitials()
         {
-            var result = string.Empty;
-            foreach (var str in _userFirstAndLastName)
+            var result = "";
+            var strings = ReturnCountOfWords(_userDescription, 2);
+
+            foreach (var str in strings)
             {
-                result += $"{str.Substring(0, 1)}.";
+                result += $"{((string)str).Substring(0, 1)}.";
             }
+
             return result;
         }
 
-        internal string GetUserFirstAndLastName()
+        internal string GetUserDescription()
         {
-            var result = string.Empty;
+            var result = "";
 
-            foreach (var str in _userFirstAndLastName)
+            var strings = ReturnCountOfWords(_userDescription, 2);
+
+            foreach (var str in strings)
             {
                 result += $"{str} ";
             }
+
             return result.Trim();
         }
 
         internal bool Init()
         {
+            //TODO: Опасно брать юзера отсюда.
             var settings = ApplicationContext.Current.Settings;
             var result = DBHelper.GetUserInfoByUserName(settings.UserName);
-            var userDescription = string.Empty;
+            _userDescription = result.Next() ? (string)result["Description"] : "";
 
-            if (result.Next())
-            {
-                userDescription = (string)result["Description"];
-
-                var split = userDescription.Split(null);
-                _userFirstAndLastName = new string[split.Length >= 2 ? 2 : split.Length];
-                var i = 0;
-                foreach (var str in split)
-                {
-                    if (string.IsNullOrWhiteSpace(str)) continue;
-                    if (i < _userFirstAndLastName.Length)
-                    {
-                        _userFirstAndLastName[i] = str;
-                        ++i;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                _userFirstAndLastName = new[] { string.Empty, string.Empty };
-            }
 #if DEBUG
-            foreach (var str in _userFirstAndLastName)
-            {
-                DConsole.WriteLine(str);
-            }
+            DConsole.WriteLine(_userDescription);
 #endif
 
             return true;

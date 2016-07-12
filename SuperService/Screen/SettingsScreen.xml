@@ -21,7 +21,7 @@
           <c:HorizontalLayout CssClass="UserInfoContainerHorizontalAlign">
             <c:VerticalLayout CssClass="UserInfoContainerVerticalAlign">
               <c:TextView CssClass="UserInitials" Text="$GetUserInitials()" />
-              <c:TextView CssClass="UserFandLName" Text="$GetUserFirstAndLastName()" />
+              <c:TextView CssClass="UserFandLName" Text="$GetUserDescription()" />
               <!--Толстая линия по центру-->
               <c:VerticalLayout CssClass="FatHorizontalLineLayout">
                 <c:HorizontalLine CssClass="FatHorizontalLine" />
