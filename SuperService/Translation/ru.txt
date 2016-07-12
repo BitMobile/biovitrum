@@ -95,3 +95,9 @@ position		Должность
 save		Сохранить
 add_phone		Добавить телефон
 add_email		Добавить e-mail
+
+cancel		Отмена
+developer		РАЗРАБОТЧИК
+report_an_error		Сообщить об ошибке
+send_log		Отправить лог
+company_web_site		www.company.com

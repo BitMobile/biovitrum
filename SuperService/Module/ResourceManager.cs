@@ -88,6 +88,16 @@ namespace Test
             // EditContactScreen
             {"editcontactscreen_plus", @"Image\EditContactScreen\plus_img.png" },
             {"editcontactscreen_minus", @"Image\EditContactScreen\delete_img.png" },
+            // Settings Screen
+            {"settingsscreen_white_arrow",@"Image\SettingsScreen\bg_bottom.png" },
+            {"settingsscreen_grey_arrow",@"Image\SettingsScreen\bg_top.png" },
+            {"settingsscreen_company_logo",@"Image\SettingsScreen\Company.png" },
+            {"settingsscreen_send_error",@"Image\SettingsScreen\Error.png" },
+            {"settingsscreen_facebook",@"Image\SettingsScreen\FB.png" },
+            {"settingsscreen_send_log",@"Image\SettingsScreen\log.png" },
+            {"settingsscreen_sservice_logo",@"Image\SettingsScreen\logo.png" },
+            {"settingsscreen_logout",@"Image\SettingsScreen\logout.png" },
+            {"settingsscreen_twitter",@"Image\SettingsScreen\Twitter.png" },
         };
 
         public static string GetImage(string tag)

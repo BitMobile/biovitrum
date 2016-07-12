@@ -166,12 +166,5 @@
     "minify": {
       "enabled": false
     }
-  },
-  { 
-    "outputFile": "Style/EditContactScreen.css",
-	"inputFile": "Style/Less/EditContactScreen.less",
-	"minify": {
-	  "enabled": false
-	}
   }
 ]

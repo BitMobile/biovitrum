@@ -95,3 +95,8 @@ position		Position
 save		Save
 add_phone		Add phone
 add_email		Add e-mail
+cancel		Cancel
+developer		DEVELOPER
+report_an_error		Report an error
+send_log		Send Log
+company_web_site		www.company.com

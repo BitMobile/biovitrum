@@ -75,7 +75,6 @@ namespace Test
             return result;
         }
 
-
         internal IEnumerable GetNeedMats()
         {
             return DBHelper.GetNeedMats();
