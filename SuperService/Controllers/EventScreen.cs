@@ -33,7 +33,7 @@ namespace Test
         private void FillControls()
         {
             _topInfoComponent.Header =
-                ((string)_currentEventRecordset["clientDescription"]).CutForUIOutput(17, 2);
+                ((string)_currentEventRecordset["clientDescription"]).CutForUIOutput(8, 2);
             _topInfoComponent.CommentLayout.AddChild(new TextView(
                 ((string)_currentEventRecordset["clientAddress"]).CutForUIOutput(17, 2)));
             _topInfoComponent.LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") };
