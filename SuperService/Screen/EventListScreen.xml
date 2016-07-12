@@ -15,12 +15,14 @@
 
         <s:Push Id="EventListLastDate" Value="$GetDateNowEventList()" />
         <s:Push Id="EventListCurrentDate" Value="$GetDateNowEventList()" />
+        <s:Push Id="IsEmptyEventList" value="true" />
 
         <s:Iterator Id="EventList" Value="$GetEvents()" Status="Counter">
           <s:If Test="$Counter.Index == 0">
           </s:If>
           <s:Else>
 
+            <s:Push Id="IsEmptyEventList" value="false" />
             <!-- Проверка на необходимость плашки "Сегодня" -->
             <s:If Test="$IsTodayLayoutNeed()">
               <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $StartPlanDate)">
@@ -64,7 +66,6 @@
                   </s:Else>
                 </s:Else>
                 <!--Конец проверки на необходимость брейкера-->
-
               </c:VerticalLayout>
             </c:HorizontalLayout>
 
@@ -82,7 +83,6 @@
               </s:If>
             </s:Else>
             <!-- Конец проверки на необходимость плашки с датой-->
-
           </s:Else>
 
           <s:Push Id="EventID" Value="$EventList.Id" />
@@ -97,30 +97,30 @@
           <s:Push Id="Address" Value="$EventList.Address" />
 
           <s:Push Id="EventListLastDate" Value="$StartPlanDate" />
-
         </s:Iterator>
 
         <!--После итератора обрабатываем последний элемент-->
-        <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick" Id="$EventID">
+        <s:If Test="$IsEmptyEventList == false">
+          <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick" Id="$EventID">
 
-          <c:VerticalLayout CssClass="EventListTimeVL">
-            <c:TextView Text="$GetStartDate($StartPlan, $EndPlan)" CssClass="EventListTimeTV" />
-            <c:TextView Text="$GetTimeCounter($ActualStartDate, $StatusName)" CssClass="EventListCounterTV" />
-          </c:VerticalLayout>
+            <c:VerticalLayout CssClass="EventListTimeVL">
+              <c:TextView Text="$GetStartDate($StartPlan, $EndPlan)" CssClass="EventListTimeTV" />
+              <c:TextView Text="$GetTimeCounter($ActualStartDate, $StatusName)" CssClass="EventListCounterTV" />
+            </c:VerticalLayout>
 
-          <c:VerticalLayout CssClass="EventListStatusVL">
-            <c:VerticalLayout CssClass="EventListLineBeforeVL" />
-            <c:Image CssClass="EventListStatusIMG" Source="$GetStatusPicture($ImportanceName, $StatusName)" />
-            <c:VerticalLayout CssClass="EventListLineAfterVL" />
-          </c:VerticalLayout>
+            <c:VerticalLayout CssClass="EventListStatusVL">
+              <c:VerticalLayout CssClass="EventListLineBeforeVL" />
+              <c:Image CssClass="EventListStatusIMG" Source="$GetStatusPicture($ImportanceName, $StatusName)" />
+              <c:VerticalLayout CssClass="EventListLineAfterVL" />
+            </c:VerticalLayout>
 
-          <c:VerticalLayout CssClass="EventListDescriptionVL">
-            <c:TextView Text="$Description" CssClass="EventListItemName" />
-            <c:TextView Text="$Address" CssClass="EventListItemAddress" />
-            <c:TextView Text="$TypeDeparture" CssClass="EventListItemType" />
-          </c:VerticalLayout>
-
-        </c:HorizontalLayout>
+            <c:VerticalLayout CssClass="EventListDescriptionVL">
+              <c:TextView Text="$Description" CssClass="EventListItemName" />
+              <c:TextView Text="$Address" CssClass="EventListItemAddress" />
+              <c:TextView Text="$TypeDeparture" CssClass="EventListItemType" />
+            </c:VerticalLayout>
+          </c:HorizontalLayout>
+        </s:If>
         <!-- Конец обработки последнего элемента-->
       </c:VerticalLayout>
     </c:ScrollView>

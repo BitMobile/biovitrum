@@ -73,7 +73,7 @@ namespace Test
             if (!reload)
                 ModalMove(screenInfo, screen: nextScreen);
             else
-                ModalMove(screenInfo);
+                ModalMove(screenInfo, nextScreen.Variables);
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
+using System.Collections.Generic;
 using Test.Catalog;
 using Test.Components;
 
@@ -18,8 +19,8 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("contact"),
-                RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_edit") },
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                RightButtonControl = new TextView(Translator.Translate("edit")),
                 ArrowVisible = false
             };
         }
@@ -62,7 +63,10 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            DConsole.WriteLine("Должны перейти на экран редактирования контакта");
+            Navigation.Move("EditContactScreen", new Dictionary<string, object>
+            {
+                [Parameters.Contact] = _contact
+            });
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)

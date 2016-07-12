@@ -32,7 +32,7 @@ TextView {
 }
 HorizontalLine {
   background-color: #f4f4f5;
-  height: 2px;
+  height: 0.15sp;
   horizontal-align: center;
   width: 90%;
 }
@@ -281,7 +281,6 @@ TopInfoButtonRight Image {
   color: #fd724c;
   font: 3sp arial;
   height: 80%;
-  margin-left: 3%;
   padding-top: 22%;
   text-align: left;
   vertical-align: center;

@@ -60,31 +60,35 @@ namespace Test
         internal string GetStatusPicture(string importance, string status)
         {
             var pictureTag = @"eventlistscreen_";
+            switch (importance)
+            {
+                case "Standart":
+                    pictureTag += "blue";
+                    break;
 
-            if (importance == "Standart")
-            {
-                pictureTag += "blue";
-            }
-            else if (importance == "High")
-            {
-                pictureTag += "yellow";
-            }
-            else if (importance == "Critical")
-            {
-                pictureTag += "red";
+                case "High":
+                    pictureTag += "yellow";
+                    break;
+
+                case "Critical":
+                    pictureTag += "red";
+                    break;
             }
 
-            if (status == "Appointed")
+            switch (status)
             {
-                pictureTag += "border";
-            }
-            else if (status == "Done")
-            {
-                pictureTag += "done";
-            }
-            else if (status == "InWork")
-            {
-                pictureTag += "circle";
+                case "Appointed":
+                    pictureTag += "border";
+                    break;
+
+                case "Cancel":
+                case "Done":
+                    pictureTag += "done";
+                    break;
+
+                case "InWork":
+                    pictureTag += "circle";
+                    break;
             }
             return ResourceManager.GetImage(pictureTag);
         }
@@ -99,17 +103,10 @@ namespace Test
             var workDate = DateTime.Parse(datetime).Date;
             var currentDate = DateTime.Now.Date;
 
-            var workDateWeekNumber = (workDate.DayOfYear + 6) / 7;
-            if (workDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
-            {
-                ++workDateWeekNumber;
-            }
+            DConsole.WriteLine($"week = {currentDate.GetWeekNumber()}");
 
-            var currentDateWeekNumber = (currentDate.DayOfYear + 6) / 7;
-            if (currentDate.DayOfWeek < DateTime.Parse("1.1." + currentDate.Year).DayOfWeek)
-            {
-                ++currentDateWeekNumber;
-            }
+            var workDateWeekNumber = workDate.GetWeekNumber();
+            var currentDateWeekNumber = currentDate.GetWeekNumber();
 
             if (workDateWeekNumber == currentDateWeekNumber)
             {
@@ -131,14 +128,19 @@ namespace Test
 
         internal string GetTimeCounter(string actualStartDate, string statusName)
         {
-            var actualTime = DateTime.Parse(actualStartDate); // .ToString("HH:mm");
+            var actualTime = DateTime.Parse(actualStartDate);
 
-            if ((actualTime != default(DateTime)) && statusName == "Appointed")
-            {
-                var ans = DateTime.Now - actualTime; // .ToString(@"hh\:mm");
-                return ans.Days * 24 + ans.Hours + ":" + ans.Minutes; // @"hh\:mm");
-            }
-            return "";
+            if ((actualTime == default(DateTime)) || statusName != "InWork")
+                return "";
+
+            var ans = DateTime.Now - actualTime;
+            // TODO опасный код
+            var hours = Convert.ToInt32(ans.TotalHours);
+            if (ans < TimeSpan.FromHours(1))
+                return $"{ans.Minutes} {Translator.Translate("min.")}";
+            if (ans < TimeSpan.FromHours(24))
+                return $"{hours} {Translator.Translate("h.")} {ans.Minutes} {Translator.Translate("m.")}";
+            return $"{hours} {Translator.Translate("h.")}";
         }
 
         internal int SetTodayLayoutToFalse()

@@ -46,7 +46,8 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            Navigation.Move("EditContactScreen");
+            // TODO: Поведение не описано в прототипе, переход на EditContactScreen не имеет смысла
+            //Navigation.Move("EditContactScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
@@ -61,12 +62,14 @@ namespace Test
 
         internal void GoToAddContact_OnClick(object sender, EventArgs e)
         {
-            Navigation.Move("AddContactScreen");
-        }
-
-        internal void GoToEditContact_OnClick(object sender, EventArgs e)
-        {
-            Navigation.Move("EditContactScreen");
+            Navigation.Move("EditContactScreen", new Dictionary<string, object>
+            {
+                [Parameters.Contact] = new Contacts
+                {
+                    Id = DbRef.CreateInstance("Catalog_Contacts", Guid.NewGuid()),
+                },
+                [Parameters.IdClientId] = _clientId
+            });
         }
 
         internal void EquipmentLayout_OnClick(object sender, EventArgs e)
@@ -156,17 +159,7 @@ namespace Test
         internal void ContactLayout_OnClick(object sender, EventArgs eventArgs)
         {
             var id = ((HorizontalLayout)sender).Id;
-            var contact = DBHelper.GetContactById(id);
-            var contacts = new Contacts
-            {
-                Id = (DbRef)contact["Id"],
-                DeletionMark = (bool)contact["DeletionMark"],
-                Description = (string)contact["Description"],
-                Code = (string)contact["Code"],
-                Position = (string)contact["Position"],
-                Tel = (string)contact["Tel"],
-                EMail = (string)contact["EMail"]
-            };
+            var contacts = (Contacts)DbRef.FromString(id).GetObject();
 
             DConsole.WriteLine("мыло контакта =" + contacts.EMail);
             Navigation.Move("ContactScreen", new Dictionary<string, object>
