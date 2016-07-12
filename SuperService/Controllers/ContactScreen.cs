@@ -19,8 +19,8 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("contact"),
-                RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_edit") },
-                LeftButtonControl = new TextView(Translator.Translate("edit")),
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                RightButtonControl = new TextView(Translator.Translate("edit")),
                 ArrowVisible = false
             };
         }

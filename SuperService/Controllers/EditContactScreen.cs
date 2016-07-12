@@ -9,10 +9,10 @@ namespace Test
 {
     public class EditContactScreen : Screen
     {
+        private string _clientId;
         private TopInfoComponent _topInfoComponent;
 
         private Contacts Contact => (Contacts)Variables[Parameters.Contact];
-        private string _clientId;
 
         private HorizontalLayout AddPhoneButton => (HorizontalLayout)Variables["AddPhoneButton"];
         private HorizontalLayout AddEmailButton => (HorizontalLayout)Variables["AddEmailButton"];
@@ -86,13 +86,14 @@ namespace Test
 
         internal string GetName(string description)
         {
+            if (string.IsNullOrWhiteSpace(description)) return "";
             var words = description.Split(null);
-            return words[0];
+            return words.Length > 0 ? words[0] : "";
         }
 
         internal string GetSurname(string description)
         {
-            return description.Substring(GetName(description).Length + 1);
+            return string.IsNullOrWhiteSpace(description) ? "" : description.Substring(GetName(description).Length + 1);
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
@@ -107,6 +108,7 @@ namespace Test
             var position = ((EditText)Variables["PositionEditText"]).Text;
             var phone = ((EditText)Variables["PhoneEditText"]).Text;
             var email = ((EditText)Variables["EMailEditText"]).Text;
+            // TODO: Разбраться с Code
             Contact.Description = $"{name} {surname}";
             Contact.Position = position;
             Contact.Tel = phone;
@@ -116,12 +118,13 @@ namespace Test
 
             if (_clientId != null)
             {
+                // TODO Разобраться с LineNumber
                 var clientContacts = new Client_Contacts
                 {
                     Ref = DbRef.FromString(_clientId),
                     Id = DbRef.CreateInstance("Catalog_Client_Contacts", Guid.NewGuid()),
                     Contact = Contact.Id,
-                    Actual = false, // Actual на самом деле означает "уволен"
+                    Actual = false // Actual на самом деле означает "уволен"
                 };
                 DBHelper.SaveEntity(clientContacts);
             }
