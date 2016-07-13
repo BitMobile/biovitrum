@@ -15,69 +15,63 @@
     </s:If>
     <s:If Test="$event.statusName == Done">
     </s:If>
-    <c:SwipeVerticalLayout CssClass="EventScreenMainLayout">
-      <c:HorizontalLayout CssClass="LightInfoLayout">
-        <c:VerticalLayout CssClass="LightInfoBox">
-          <c:TextView Text="#time#" CssClass="LightInfoTitle" />
-          <c:TextView Text="$FormatEventStartDatePlanTime($event.StartDatePlanTime)" Id="StartTimeTextView"
-                      CssClass="LightInfoContent" />
+    <c:ScrollView CssClass="EventScreenMainLayout">
+      <c:VerticalLayout>
+        <c:HorizontalLayout CssClass="LightInfoLayout">
+          <c:VerticalLayout CssClass="LightInfoBox">
+            <c:TextView Text="#time#" CssClass="LightInfoTitle" />
+            <c:TextView Text="$FormatEventStartDatePlanTime($event.StartDatePlanTime)" Id="StartTimeTextView"
+                        CssClass="LightInfoContent" />
+          </c:VerticalLayout>
+          <c:VerticalLayout CssClass="LightInfoBox">
+            <c:TextView Text="#workType#" CssClass="LightInfoTitle" />
+            <c:TextView Text="$event.TypeDeparture" Id="DepartureTypeTextView" CssClass="LightInfoContent" />
+          </c:VerticalLayout>
+        </c:HorizontalLayout>
+        <c:HorizontalLine CssClass="LayoutBreaker" />
+
+        <c:VerticalLayout CssClass="CommentLayout">
+          <c:TextView Text="#comment#" CssClass="LightInfoTitle" />
+          <c:TextView Text="$event.DetailedDescription" Id="EventCommentTextView" CssClass="SubComment" />
         </c:VerticalLayout>
-        <c:VerticalLayout CssClass="LightInfoBox">
-          <c:TextView Text="#workType#" CssClass="LightInfoTitle" />
-          <c:TextView Text="$event.TypeDeparture" Id="DepartureTypeTextView" CssClass="LightInfoContent" />
-        </c:VerticalLayout>
-      </c:HorizontalLayout>
-      <c:HorizontalLine CssClass="LayoutBreaker" />
-      
-      
-      <c:VerticalLayout CssClass="CommentLayout">
-        <c:TextView Text="#comment#" CssClass="LightInfoTitle" />
-        <c:TextView Text="$event.DetailedDescription" Id="EventCommentTextView" CssClass="SubComment" />
+
+        <c:HorizontalLayout Id="WrapUnwrapButton" CssClass="WrapUnwrapLayout" OnClick="WrapUnwrapButton_OnClick">
+          <c:HorizontalLine CssClass="WrapUnwrapLine" />
+          <c:Image Id="WrapUnwrapImage" Source="$GetResourceImage(longtext_expand)" CssClass="WrapUnwrapImage" />
+          <c:HorizontalLine CssClass="WrapUnwrapLine" />
+        </c:HorizontalLayout>
+
+        <c:TextView Visible="False" />
+        <s:If Test="$IsNotZero($event.equipmentTotal)">
+          <c:HorizontalLayout CssClass="InfoLayout" OnClick="TaskCounterLayout_OnClick">
+            <c:Image Source="$GetResourceImage(eventscreen_tasks)" CssClass="InfoImage" />
+            <c:TextView Text="#tasks#" Id="TaskCounterNameTextView" CssClass="InfoTitle" />
+            <c:TextView Text="$GetStringPartOfTotal($event.equipmentAnswered, $event.equipmentTotal)"
+                        Id="TaskCounterTextView" CssClass="InfoContent" />
+          </c:HorizontalLayout>
+        </s:If>
+        <c:HorizontalLayout CssClass="InfoLayout" OnClick="GoToCOCScreen_OnClick">
+          <c:Image Source="$GetResourceImage(eventscreen_coc)" CssClass="InfoImage" />
+          <c:TextView Text="#coc#" Id="CertificateOfCompletionNameTextView" CssClass="InfoTitle" />
+          <c:TextView Text="$event.sumFact" Id="CertificateOfCompletionTextView" CssClass="InfoContent" />
+        </c:HorizontalLayout>
+
+        <s:If Test="$IsNotZero($event.checkListTotal)">
+          <c:HorizontalLayout CssClass="InfoLayout" OnClick="CheckListCounterLayout_OnClick">
+            <c:Image Source="$GetResourceImage(eventscreen_clist)" CssClass="InfoImage" />
+            <c:TextView Text="#clist#" Id="CheckListCounterNameTextView" CssClass="InfoTitle" />
+            <c:TextView Text="$GetStringPartOfTotal($event.checkListAnswered, $event.checkListTotal)"
+                        Id="CheckListCounterTextView" CssClass="InfoContent" />
+          </c:HorizontalLayout>
+        </s:If>
+
+        <s:If Test="$event.statusName == Appointed">
+          <c:HorizontalLayout CssClass="EmptySpace2sp" />
+          <c:Button Id="StartButton" Text="#start#" CssClass="StartButton" OnClick="StartButton_OnClick" />
+          <c:Button Id="RefuseButton" Text="#refuse#" CssClass="RefuseButton" OnClick="RefuseButton_OnClick" />
+          <c:HorizontalLayout CssClass="EmptySpace5sp" />
+        </s:If>
       </c:VerticalLayout>
-      
-      <c:HorizontalLayout Id="WrapUnwrapButton" CssClass="WrapUnwrapLayout" OnClick="WrapUnwrapButton_OnClick">
-        <c:HorizontalLine CssClass="WrapUnwrapLine" />
-        <c:Image Id="WrapUnwrapImage" Source="$GetResourceImage(longtext_expand)" CssClass="WrapUnwrapImage" />
-        <c:HorizontalLine CssClass="WrapUnwrapLine" />
-      </c:HorizontalLayout>
-      
-      
-      <c:TextView Visible="False" />
-      <s:If Test="$IsNotZero($event.equipmentTotal)">
-        <c:HorizontalLayout CssClass="InfoLayout" OnClick="TaskCounterLayout_OnClick">
-          <c:Image Source="$GetResourceImage(eventscreen_tasks)" CssClass="InfoImage" />
-          <c:TextView Text="#tasks#" Id="TaskCounterNameTextView" CssClass="InfoTitle" />
-          <c:TextView Text="$GetStringPartOfTotal($event.equipmentAnswered, $event.equipmentTotal)"
-                      Id="TaskCounterTextView" CssClass="InfoContent" />
-        </c:HorizontalLayout>
-      </s:If>
-      <c:HorizontalLayout CssClass="InfoLayout" OnClick="GoToCOCScreen_OnClick">
-        <c:Image Source="$GetResourceImage(eventscreen_coc)" CssClass="InfoImage" />
-        <c:TextView Text="#coc#" Id="CertificateOfCompletionNameTextView" CssClass="InfoTitle" />
-        <c:TextView Text="$event.sumFact" Id="CertificateOfCompletionTextView" CssClass="InfoContent" />
-      </c:HorizontalLayout>
-
-      <s:If Test="$IsNotZero($event.checkListTotal)">
-        <c:HorizontalLayout CssClass="InfoLayout" OnClick="CheckListCounterLayout_OnClick">
-          <c:Image Source="$GetResourceImage(eventscreen_clist)" CssClass="InfoImage" />
-          <c:TextView Text="#clist#" Id="CheckListCounterNameTextView" CssClass="InfoTitle" />
-          <c:TextView Text="$GetStringPartOfTotal($event.checkListAnswered, $event.checkListTotal)"
-                      Id="CheckListCounterTextView" CssClass="InfoContent" />
-        </c:HorizontalLayout>
-      </s:If>
-
-      <s:If Test="$event.statusName == Appointed">
-        <c:HorizontalLayout CssClass="EmptySpace2sp" />
-        <c:Button Id="StartButton" Text="#start#" CssClass="StartButton" OnClick="StartButton_OnClick" />
-        <c:Button Id="RefuseButton" Text="#refuse#" CssClass="RefuseButton" OnClick="RefuseButton_OnClick" />
-        <c:HorizontalLayout CssClass="EmptySpace5sp" />
-      </s:If>
-      <s:If Test="$event.statusName == Cancel">
-        <c:HorizontalLayout CssClass="EmptySpace2sp" />
-        <c:Button Id="StartButton" Text="#start#" CssClass="StartButton" OnClick="StartButton_OnClick" />
-        <c:Button Id="RefuseButton" Text="#refuse#" CssClass="RefuseButton" OnClick="RefuseButton_OnClick" />
-        <c:HorizontalLayout CssClass="EmptySpace5sp" />
-      </s:If>
-    </c:SwipeVerticalLayout>
+    </c:ScrollView>
   </c:DockLayout>
 </c:Screen>
