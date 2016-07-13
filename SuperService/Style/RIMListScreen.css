@@ -288,8 +288,10 @@ HorizontalLine {
 /*  CleintList */
 .RIMListLayout {
   height: auto;
-  margin-bottom: 0sp;
-  margin-top: 1sp;
+  width: 100%;
+}
+.RIMListInternalLayuot {
+  height: 0sp auto;
   width: 100%;
 }
 .RIMItemLayout {
@@ -297,18 +299,25 @@ HorizontalLine {
   horizontal-align: center;
   width: 90%;
 }
+.RIMItemAlignLayout {
+  height: 0sp auto;
+  width: 100%;
+  vertical-align: center;
+}
 .RIMItemDescription {
   color: #000000;
   font: 3sp arial;
+  height: 3.33sp auto;
   horizontal-align: left;
+  margin-top: 2sp;
   margin-left: 2sp;
-  margin-top: 0sp;
   text-align: left;
 }
 .RIMItemPrice {
   font: 2.5sp arial;
+  height: 2.775sp auto;
   horizontal-align: left;
-  margin-bottom: 1sp;
+  margin-bottom: 3sp;
   margin-left: 2sp;
   text-align: left;
 }
