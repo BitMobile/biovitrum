@@ -301,8 +301,10 @@ namespace Test
             if (isOk)
             {
                 var result = DateTime.Now - startActualDate;
+                var ours = (int)result.TotalHours;
+                var totalHours = ours < Convert.ToInt32(10) ? $"0{ours}" : $"{ours}";
                 DConsole.WriteLine($"Времени с начала наряда {result}");
-                return $"{Translator.Translate(translate)}\n{(int)result.TotalHours}:{result.ToString("mm")}";
+                return $"{Translator.Translate(translate)}\n{totalHours}:{result.ToString("mm")}";
             }
             throw new Exception("Parsing error");
         }
