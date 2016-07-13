@@ -27,7 +27,7 @@
             <c:Image Source="$GetResourceImage(editcontactscreen_minus)" CssClass="RemoveImage" />
           </c:VerticalLayout>
           <c:TextView Text="#phone#" />
-          <c:EditText Id="PhoneEditText" Placeholder="#not_specified#" Text="$contact.Tel" />
+          <c:EditText Keyboard="phone" Id="PhoneEditText" Placeholder="#not_specified#" Text="$contact.Tel" />
         </c:HorizontalLayout>
         <c:HorizontalLayout OnClick="AddPhoneButton_OnClick" Id="AddPhoneButton" CssClass="AddButton">
           <c:Image Source="$GetResourceImage(editcontactscreen_plus)" />
@@ -39,7 +39,7 @@
             <c:Image Source="$GetResourceImage(editcontactscreen_minus)" CssClass="RemoveImage" />
           </c:VerticalLayout>
           <c:TextView Text="#email#" />
-          <c:EditText Id="EMailEditText" Placeholder="#not_specified#" Text="$contact.EMail" />
+          <c:EditText Keyboard="email" Id="EMailEditText" Placeholder="#not_specified#" Text="$contact.EMail" />
         </c:HorizontalLayout>
         <c:HorizontalLayout OnClick="AddEmailButton_OnClick" Id="AddEmailButton" CssClass="AddButton">
           <c:Image Source="$GetResourceImage(editcontactscreen_plus)" />
