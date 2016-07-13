@@ -300,7 +300,9 @@ namespace Test
 
             if (isOk)
             {
-                return $"{Translator.Translate(translate)}\n{(DateTime.Now - startActualDate).ToString(@"hh\:mm")}";
+                var result = DateTime.Now - startActualDate;
+                DConsole.WriteLine($"Времени с начала наряда {result}");
+                return $"{Translator.Translate(translate)}\n{(int)result.TotalHours}:{result.ToString("mm")}";
             }
             throw new Exception("Parsing error");
         }

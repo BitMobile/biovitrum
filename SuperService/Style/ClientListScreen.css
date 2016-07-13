@@ -381,6 +381,7 @@ HorizontalLine {
   margin-top: 3sp;
   text-align: left;
   width: 90%;
+  white-space: nowrap;
 }
 .ClientListAddressTV {
   color: #9b9fa0;
@@ -391,6 +392,7 @@ HorizontalLine {
   margin-top: 1sp;
   text-align: left;
   width: 90%;
+  white-space: nowrap;
 }
 .ClientListBreaker {
   background-color: #f4f4f4;
