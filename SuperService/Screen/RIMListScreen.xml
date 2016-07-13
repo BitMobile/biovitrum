@@ -9,24 +9,25 @@
     <!---->
 
     <!-- Список контактов -->
-    <c:SwipeVerticalLayout CssClass="RIMListLayout">
-
-      <s:Push Id="void_ crutch" Value="$InitClassFields()" />
-      <s:If Test="$GetIsNotEmpty()">
-        <s:Iterator Id="rim" Value="$GetRIM()">
-          <c:VerticalLayout Id="$rim.Id" onClick="RIMLayout_OnClick" CssClass="RIMItemLayout">
-            <c:TextView Text="$rim.Description" CssClass="RIMItemDescription" />
-            <c:TextView Text="$GetPriceDescription($rim)" CssClass="RIMItemPrice" />
-            <c:HorizontalLine CssClass="RIMBreaker" />
-          </c:VerticalLayout>
-        </s:Iterator>
-      </s:If>
-      <s:Else>
-        <c:TextView Text="#bag_empty#"/>
-      </s:Else>
-      <c:VerticalLayout CssClass="EmptySpace2sp" />
-    </c:SwipeVerticalLayout>
-
+    <c:ScrollView CssClass="RIMListLayout">
+      <c:VerticalLayout CssClass="RIMListInternalLayuot">
+        <s:Push Id="void_ crutch" Value="$InitClassFields()" />
+        <s:If Test="$GetIsNotEmpty()">
+          <s:Iterator Id="rim" Value="$GetRIM()">
+            <c:HorizontalLayout Id="$rim.Id" OnClick="RIMLayout_OnClick" CssClass="RIMItemLayout">
+              <c:VerticalLayout CssClass="RIMItemAlignLayout">
+                <c:TextView Text="$rim.Description" CssClass="RIMItemDescription" />
+                <c:TextView Text="$GetPriceDescription($rim)" CssClass="RIMItemPrice" />
+                <c:HorizontalLine CssClass="RIMBreaker" />
+              </c:VerticalLayout>
+            </c:HorizontalLayout>
+          </s:Iterator>
+        </s:If>
+        <s:Else>
+          <c:TextView Text="#bag_empty#" />
+        </s:Else>
+        <c:VerticalLayout CssClass="EmptySpace2sp" />
+      </c:VerticalLayout>
+    </c:ScrollView>
   </c:DockLayout>
-
 </c:Screen>

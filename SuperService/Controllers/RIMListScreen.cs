@@ -73,7 +73,7 @@ namespace Test
 
         internal void RIMLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            var rimID = ((VerticalLayout)sender).Id;
+            var rimID = ((HorizontalLayout)sender).Id;
             if (_isMaterialRequest)
             {
                 //пришли из экрана заявки на материалы
