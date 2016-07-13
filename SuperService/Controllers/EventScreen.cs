@@ -100,8 +100,7 @@ namespace Test
 
         internal void RefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
-            DBHelper.UpdateCancelEventById((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
-            Navigation.Back();
+            Navigation.Move("CancelEventScreen");
         }
 
         internal string FormatEventStartDatePlanTime(string eventStartDatePlanTime)

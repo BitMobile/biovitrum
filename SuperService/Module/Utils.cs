@@ -73,7 +73,7 @@ namespace Test
             string res = null;
             foreach (var line in lines)
             {
-                res = res == null ? (string)line : $"{res} {line}";
+                res = res == null ? (string)line : $"{res}{Environment.NewLine}{line}";
             }
             return (bool)test ? res : $"{res?.TrimEnd()}...";
         }
