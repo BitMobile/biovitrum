@@ -376,3 +376,29 @@ HorizontalLine {
   white-space: normal;
   width: 100%;
 }
+.SubComment {
+  height: 9sp;
+  margin-top: 1.5sp;
+  width: 87%;
+}
+.SubCommentExpanded {
+  height: 9sp auto;
+  margin-top: 1.5sp;
+  width: 90%;
+}
+.WrapUnwrapLayout {
+  height: 6sp;
+  horizontal-align: center;
+  margin-top: 1sp;
+  width: 90%;
+}
+.WrapUnwrapLine {
+  vertical-align: center;
+  width: 45%;
+  background-color: #a4a8a9;
+  height: 0.1sp;
+}
+.WrapUnwrapImage {
+  vertical-align: center;
+  width: 10%;
+}
