@@ -13,7 +13,9 @@
 
           <!--Индикатор обязательности-->
           <s:If Test="$CheckList.Required">
+            <s:Push Id="void" Value="$IncTotalRequired()" />
             <s:If Test="$IsNotEmptyString($CheckList.Result)">
+              <s:Push Id="void" Value="$IncTotalAnswered()" />
               <c:VerticalLayout Id="$GenerateRequiredIndicatorId($CheckList.CheckListId)" CssClass="CheckListRequiredDoneVL" />
             </s:If>
             <s:Else>
@@ -115,7 +117,7 @@
             <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$CheckList.CheckListId">
               <c:EditText Enabled="true" Text="$CheckList.Result" Keyboard="numeric" Mask="^([0-9]*\.[0-9]+)$"
                           OnLostFocus="CheckListDecimal_OnLostFocus" Id="$CheckList.CheckListId"
-                          Placeholder="#not_specified#" CssClass="CheckListAnswerElement" OnGetFocus="CheckListDecimal_OnGetFocus"/>
+                          Placeholder="#not_specified#" CssClass="CheckListAnswerElement" OnGetFocus="CheckListDecimal_OnGetFocus" />
             </c:VerticalLayout>
           </s:If>
 
@@ -128,7 +130,7 @@
             <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$CheckList.CheckListId">
               <c:EditText Enabled="true" Text="$CheckList.Result" Keyboard="numeric" Mask="^[1-9]\d*$"
                           OnLostFocus="CheckListInteger_OnLostFocus" Id="$CheckList.CheckListId"
-                          Placeholder="#not_specified#" CssClass="CheckListAnswerElement" OnGetFocus="CheckListInteger_OnGetFocus"/>
+                          Placeholder="#not_specified#" CssClass="CheckListAnswerElement" OnGetFocus="CheckListInteger_OnGetFocus" />
             </c:VerticalLayout>
           </s:If>
 
@@ -137,7 +139,7 @@
             <c:VerticalLayout CssClass="CheckListStringVL" Id="$CheckList.CheckListId">
               <c:TextView Text="$CheckList.Description" CssClass="CheckListDescriptionTV" />
               <c:EditText Enabled="True" Text="$CheckList.Result" Placeholder="#text#" CssClass="CheckListStringET"
-                          OnLostFocus="CheckListString_OnLostFocus" Id="$CheckList.CheckListId" OnGetFocus="CheckListString_OnGetFocus"/>
+                          OnLostFocus="CheckListString_OnLostFocus" Id="$CheckList.CheckListId" OnGetFocus="CheckListString_OnGetFocus" />
             </c:VerticalLayout>
           </s:If>
         </c:HorizontalLayout>
