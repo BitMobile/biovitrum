@@ -179,7 +179,7 @@ namespace Test
             }
             else if ((_usedCalculateService && Convert.ToBoolean(rimLine["service"])) || (_usedCalculateMaterials && !Convert.ToBoolean(rimLine["service"])))
             {
-                result = rimLine["Price"].ToString();
+                result = GetFormatPriceDescription((float)rimLine["Price"], (string)rimLine["Unit"]);
             }
 
             return result;
@@ -196,6 +196,13 @@ namespace Test
             }
 
             return _isNotEmptyData;
+        }
+
+        private string GetFormatPriceDescription(float price, string unit)
+        {
+            return _isService
+                ? $"{Math.Round(price, 2)} {Translator.Translate("currency")}"
+                : $"{Math.Round(price, 2)} {Translator.Translate("currency")}/{unit}";
         }
     }
 }
