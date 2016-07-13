@@ -1,5 +1,6 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Common.Controls;
 using BitMobile.DbEngine;
 using System;
 using System.Collections.Generic;
@@ -156,12 +157,11 @@ namespace Test
             Navigation.Move("MapScreen", dictionary);
         }
 
-        internal void ContactLayout_OnClick(object sender, EventArgs eventArgs)
+        internal void ContactContainerLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            var id = ((HorizontalLayout)sender).Id;
+            var id = ((IHorizontalLayout3)((VerticalLayout)sender).Parent).Id;
             var contacts = (Contacts)DbRef.FromString(id).GetObject();
 
-            DConsole.WriteLine("мыло контакта =" + contacts.EMail);
             Navigation.Move("ContactScreen", new Dictionary<string, object>
             {
                 [Parameters.Contact] = contacts
