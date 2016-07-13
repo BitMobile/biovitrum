@@ -5,6 +5,7 @@ using BitMobile.DbEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using Test.Components;
 
 namespace Test
@@ -28,6 +29,10 @@ namespace Test
         // Для списка и даты
         private TextView _textView;
 
+        private int _totalRequired;
+
+        private int _totalAnswered;
+
         private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
@@ -37,8 +42,21 @@ namespace Test
             {
                 Header = Translator.Translate("clist"),
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
-                ArrowVisible = false
+                ArrowVisible = false,
+                SubHeader = string.Format(Translator.Translate("mandatory_questions_0_1"), _totalAnswered, _totalRequired)
             };
+        }
+
+        internal int IncTotalAnswered()
+        {
+            _totalAnswered++;
+            return 0;
+        }
+
+        internal int IncTotalRequired()
+        {
+            _totalRequired++;
+            return 0;
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
@@ -57,7 +75,7 @@ namespace Test
 
         internal string GenerateRequiredIndicatorId(DbRef id)
         {
-            return GenerateRequiredIndicatorId(id.ToString());
+            return GenerateRequiredIndicatorId(id.ToString(CultureInfo.CurrentCulture));
         }
 
         internal string GenerateRequiredIndicatorId(string id)
@@ -308,28 +326,45 @@ namespace Test
         }
 
         //TODO: КОСТЫЛЬ метод оставлен для совместимости. когда-нибудь, когда bool начнет работать как надо он опять начнет использоваться
-        private static void ChangeRequiredIndicator(VerticalLayout requiredIndecator, bool done)
+        // ReSharper disable once UnusedMember.Local
+        private void ChangeRequiredIndicator(VerticalLayout requiredIndecator, bool done)
         {
             if (requiredIndecator.CssClass == "CheckListNotRequiredVL")
                 return;
+
+            if (requiredIndecator.CssClass == "CheckListRequiredDoneVL" && !done)
+                _totalAnswered--;
+            if (requiredIndecator.CssClass == "CheckListRequiredVL" && done)
+                _totalAnswered++;
+
+            _topInfoComponent.SubHeader = string.Format(Translator.Translate("mandatory_questions_0_1"), _totalAnswered,
+                _totalRequired);
             requiredIndecator.CssClass = done ? "CheckListRequiredDoneVL" : "CheckListRequiredVL";
             requiredIndecator.Refresh();
         }
 
         //TODO: КОСТЫЛЬ: поскольку bool в платформе не работает метод заглушка, если когда-нибудь bool починят - заменить все вызовы на private static void ChangeRequiredIndicator(VerticalLayout requiredIndecator, bool done)
-        private static void ChangeRequiredIndicatorForDone(VerticalLayout requiredIndecator)
+        private void ChangeRequiredIndicatorForDone(VerticalLayout requiredIndecator)
         {
             if (requiredIndecator.CssClass == "CheckListNotRequiredVL")
                 return;
+            if (requiredIndecator.CssClass == "CheckListRequiredVL")
+                _totalAnswered++;
+            _topInfoComponent.SubHeader = string.Format(Translator.Translate("mandatory_questions_0_1"), _totalAnswered,
+                _totalRequired);
             requiredIndecator.CssClass = "CheckListRequiredDoneVL";
             requiredIndecator.Refresh();
         }
 
         //TODO: КОСТЫЛЬ: поскольку bool в платформе не работает метод заглушка, если когда-нибудь bool починят - заменить все вызовы на private static void ChangeRequiredIndicator(VerticalLayout requiredIndecator, bool done)
-        private static void ChangeRequiredIndicatorForRequired(VerticalLayout requiredIndecator)
+        private void ChangeRequiredIndicatorForRequired(VerticalLayout requiredIndecator)
         {
             if (requiredIndecator.CssClass == "CheckListNotRequiredVL")
                 return;
+            if (requiredIndecator.CssClass == "CheckListRequiredDoneVL")
+                _totalAnswered--;
+            _topInfoComponent.SubHeader = string.Format(Translator.Translate("mandatory_questions_0_1"), _totalAnswered,
+                _totalRequired);
             requiredIndecator.CssClass = "CheckListRequiredVL";
             requiredIndecator.Refresh();
         }
