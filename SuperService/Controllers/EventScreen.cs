@@ -32,10 +32,19 @@ namespace Test
 
         private void FillControls()
         {
-            _topInfoComponent.Header =
-                ((string)_currentEventRecordset["clientDescription"]).CutForUIOutput(13, 2);
-            _topInfoComponent.CommentLayout.AddChild(new TextView(
-                ((string)_currentEventRecordset["clientAddress"]).CutForUIOutput(17, 2)));
+            try
+            {
+                _topInfoComponent.Header =
+                    ((string)_currentEventRecordset["clientDescription"]).CutForUIOutput(13, 2);
+                _topInfoComponent.CommentLayout.AddChild(new TextView(
+                    ((string)_currentEventRecordset["clientAddress"]).CutForUIOutput(17, 2)));
+            }
+            catch (ArgumentException ex)
+            {
+                DConsole.WriteLine("First Try");
+                DConsole.WriteLine($"{ex.Message}{Environment.NewLine}{ex.StackTrace}");
+            }
+
             _topInfoComponent.LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") };
             _topInfoComponent.RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_info") };
 
@@ -66,18 +75,23 @@ namespace Test
                 CssClass = "TopInfoSideImage",
                 Source = ResourceManager.GetImage("topinfo_extra_person")
             });
-
-            var text = (string)_currentEventRecordset["ContactVisitingDescription"];
-            DConsole.WriteLine("text: " + text);
-            rightExtraLayout.AddChild(new TextView
+            try
             {
-                Text = ((string)_currentEventRecordset["ContactVisitingDescription"]).CutForUIOutput(12, 2),
-                CssClass = "TopInfoSideText"
-            });
+                var text = (string)_currentEventRecordset["ContactVisitingDescription"];
+                DConsole.WriteLine("text: " + text);
+                rightExtraLayout.AddChild(new TextView
+                {
+                    Text = ((string)_currentEventRecordset["ContactVisitingDescription"]).CutForUIOutput(12, 2),
+                    CssClass = "TopInfoSideText"
+                });
+            }
+            catch (ArgumentException ex)
+            {
+                DConsole.WriteLine("Second Try");
+                DConsole.WriteLine($"{ex.Message}{Environment.NewLine}{ex.StackTrace}");
+            }
 
-            DConsole.WriteLine("Добавлено событие перехода на карту");
             leftExtraLayout.OnClick += GoToMapScreen_OnClick;
-            DConsole.WriteLine("-----------------------------");
         }
 
         public override void OnShow()
