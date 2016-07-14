@@ -26,56 +26,54 @@ namespace Test
         /// <param name="eventSinceDate"> Дата начания с которой необходимо получить события</param>
         public static DbRecordset GetEvents(DateTime eventSinceDate)
         {
-            
-
-            var queryString = @"select 
-                                 event.Id, 
-                                 event.StartDatePlan,  
+            var queryString = @"select
+                                 event.Id,
+                                 event.StartDatePlan,
                                  date(event.StartDatePlan) as startDatePlanDate, --date only
-                                 event.EndDatePlan, 
-                                 ifnull(TypeDeparturesTable.description, '') as TypeDeparture, 
+                                 event.EndDatePlan,
+                                 ifnull(TypeDeparturesTable.description, '') as TypeDeparture,
                                  event.ActualStartDate as ActualStartDate, --4
-                                 ifnull(Enum_StatusImportance.Description, '') as Importance, 
-                                 ifnull(Enum_StatusImportance.Name, '') as ImportanceName, 
-                                 ifnull(client.Description, '') as Description, 
-                                 ifnull(client.Address, '') as Address, 
-                                 ifnull(Enum_StatusyEvents.Name, '') as statusName, 
+                                 ifnull(Enum_StatusImportance.Description, '') as Importance,
+                                 ifnull(Enum_StatusImportance.Name, '') as ImportanceName,
+                                 ifnull(client.Description, '') as Description,
+                                 ifnull(client.Address, '') as Address,
+                                 ifnull(Enum_StatusyEvents.Name, '') as statusName,
                               --//имя значения статуса (служебное имя)
-                                 ifnull(Enum_StatusyEvents.Description, '') as statusDescription 
+                                 ifnull(Enum_StatusyEvents.Description, '') as statusDescription
                               --//представление статуса
-                               from 
-                                 Document_Event as event 
-                                   left join Catalog_Client as client 
-                                   on event.client = client.Id 
-                                     left join 
-                                        (select 
-                                            Document_Event_TypeDepartures.Ref, 
-                                            Catalog_TypesDepartures.description 
-                                        from 
-                                           (select 
-                                               ref, 
-                                               min(lineNumber) as lineNumber 
-                                            from 
-                                               Document_Event_TypeDepartures 
-                                            where 
-                                               active = 1 
-                                            group by 
-                                               ref) as t1 
-                                                     left join Document_Event_TypeDepartures 
-                                                           on t1.ref= Document_Event_TypeDepartures.ref 
-                                                                   and t1.lineNumber = Document_Event_TypeDepartures.lineNumber 
-                                                     left join Catalog_TypesDepartures 
-                                                           on Document_Event_TypeDepartures.typeDeparture = Catalog_TypesDepartures.id) as TypeDeparturesTable 
-                                   on event.id = TypeDeparturesTable.Ref 
-                                        left join Enum_StatusImportance 
-                                             on event.Importance = Enum_StatusImportance.Id 
-                                
-                                left join Enum_StatusyEvents 
-                                    on event.status = Enum_StatusyEvents.Id 
-                                where 
-                                    event.DeletionMark = 0 
-                                    AND (event.StartDatePlan >= @eventDate OR (event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel))) 
-                               order by 
+                               from
+                                 Document_Event as event
+                                   left join Catalog_Client as client
+                                   on event.client = client.Id
+                                     left join
+                                        (select
+                                            Document_Event_TypeDepartures.Ref,
+                                            Catalog_TypesDepartures.description
+                                        from
+                                           (select
+                                               ref,
+                                               min(lineNumber) as lineNumber
+                                            from
+                                               Document_Event_TypeDepartures
+                                            where
+                                               active = 1
+                                            group by
+                                               ref) as t1
+                                                     left join Document_Event_TypeDepartures
+                                                           on t1.ref= Document_Event_TypeDepartures.ref
+                                                                   and t1.lineNumber = Document_Event_TypeDepartures.lineNumber
+                                                     left join Catalog_TypesDepartures
+                                                           on Document_Event_TypeDepartures.typeDeparture = Catalog_TypesDepartures.id) as TypeDeparturesTable
+                                   on event.id = TypeDeparturesTable.Ref
+                                        left join Enum_StatusImportance
+                                             on event.Importance = Enum_StatusImportance.Id
+
+                                left join Enum_StatusyEvents
+                                    on event.status = Enum_StatusyEvents.Id
+                                where
+                                    event.DeletionMark = 0
+                                    AND (event.StartDatePlan >= @eventDate OR (event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel)))
+                               order by
                                 event.StartDatePlan";
 
             var query = new Query(queryString);
@@ -348,16 +346,16 @@ namespace Test
         /// </summary>
         public static DbRecordset GetClients()
         {
-            var query = new Query(@"select 
-                                        Catalog_Client.Id, 
-                                        Catalog_Client.Description, 
-                                        Catalog_Client.Address, 
-                                        Catalog_Client.Latitude, 
-                                        Catalog_Client.Longitude 
-                                    from 
-                                        Catalog_Client 
-                                  
-                                  where 
+            var query = new Query(@"select
+                                        Catalog_Client.Id,
+                                        Catalog_Client.Description,
+                                        Catalog_Client.Address,
+                                        Catalog_Client.Latitude,
+                                        Catalog_Client.Longitude
+                                    from
+                                        Catalog_Client
+
+                                  where
                                       Catalog_Client.DeletionMark = 0");
 
             return query.Execute();
@@ -586,8 +584,9 @@ namespace Test
         ///     Возвращает список материалов и услуг по указанному типу
         /// </summary>
         /// <param name="rimType">необходимый тип элементов работы и услуги</param>
+        /// <param name="eventId"></param>
         /// <returns></returns>
-        public static DbRecordset GetRIMByType(RIMType rimType)
+        public static DbRecordset GetRIMByType(RIMType rimType, string eventId)
         {
             var query = new Query(@"select
                                       id,
@@ -600,13 +599,13 @@ namespace Test
                                   where
                                       deletionMark = 0
                                       and isFolder = 0
-                                      and service = @rim_type");
+                                      and service = @rim_type
+                                      and id not in " +
+                                      @"(select SKU from _Document_Event_ServicesMaterials where _Document_Event_ServicesMaterials.Ref = @eventId) ");
 
             DConsole.WriteLine("rimType = " + rimType);
-            if (rimType == RIMType.Material)
-                query.AddParameter("rim_type", 0);
-            else
-                query.AddParameter("rim_type", 1);
+            query.AddParameter("rim_type", rimType == RIMType.Material ? 0 : 1);
+            query.AddParameter("eventId", eventId);
 
             return query.Execute();
         }
@@ -731,19 +730,19 @@ namespace Test
         /// </returns>
         public static DbRecordset GetNeedMats()
         {
-            var queryText = @"select 
-                               _Document_NeedMat.id, 
-                               _Document_NeedMat.Date, 
+            var queryText = @"select
+                               _Document_NeedMat.id,
+                               _Document_NeedMat.Date,
                                Time(_Document_NeedMat.Date) as docTime,
-                               _Document_NeedMat.Number, 
-                               _Enum_StatsNeedNum.name as statusName, 
-                               _Enum_StatsNeedNum.Description as statusDescription 
-                             
-                            from 
-                               _Document_NeedMat 
-                                   left join _Enum_StatsNeedNum 
-                                       on _Document_NeedMat.StatsNeed = _Enum_StatsNeedNum.id 
-                            order by 
+                               _Document_NeedMat.Number,
+                               _Enum_StatsNeedNum.name as statusName,
+                               _Enum_StatsNeedNum.Description as statusDescription
+
+                            from
+                               _Document_NeedMat
+                                   left join _Enum_StatsNeedNum
+                                       on _Document_NeedMat.StatsNeed = _Enum_StatsNeedNum.id
+                            order by
                                _Document_NeedMat.Date desc";
 
             var query = new Query(queryText);
