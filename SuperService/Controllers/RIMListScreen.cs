@@ -141,7 +141,7 @@ namespace Test
             if (_isMaterialRequest)
             {
                 //при запросе из рюкзака отображаем все материалы
-                result = DBHelper.GetRIMByType(RIMType.Material);
+                result = DBHelper.GetRIMByType(RIMType.Material, _currentEventID);
             }
             else
             {
@@ -149,7 +149,7 @@ namespace Test
                 if (_isService)
                 {
                     //услуги всегда отображаем все
-                    result = DBHelper.GetRIMByType(RIMType.Service);
+                    result = DBHelper.GetRIMByType(RIMType.Service, _currentEventID);
                 }
                 else if (_isUseServiceBag)
                 {
@@ -162,7 +162,7 @@ namespace Test
                 else
                 {
                     //если рюкзак не используется - получаем все материалы
-                    result = DBHelper.GetRIMByType(RIMType.Material);
+                    result = DBHelper.GetRIMByType(RIMType.Material, _currentEventID);
                 }
             }
 
