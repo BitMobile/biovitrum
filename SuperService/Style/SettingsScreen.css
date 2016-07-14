@@ -303,7 +303,6 @@ HorizontalLine {
   width: 100%;
   color: #51595b;
   horizontal-align: center;
-  white-space: nowrap;
 }
 .FatHorizontalLineLayout {
   height: 5dp;

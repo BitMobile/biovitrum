@@ -75,9 +75,9 @@ namespace Test
                 CssClass = "TopInfoSideText"
             });
 
-            DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} before add");
+            DConsole.WriteLine("Добавлено событие перехода на карту");
             leftExtraLayout.OnClick += GoToMapScreen_OnClick;
-            DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} after");
+            DConsole.WriteLine("-----------------------------");
         }
 
         public override void OnShow()

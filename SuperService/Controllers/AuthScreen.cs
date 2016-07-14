@@ -22,7 +22,7 @@ namespace Test
         {
             //TODO: Опастно так хранить юзера. Потом удалить.
             var settings = ApplicationContext.Current.Settings;
-            settings.UserName = "demo";
+            settings.UserName = "Admin";
             settings.WriteSettings();
             DConsole.WriteLine($"Вы залогинились под юзером: {settings.UserName}");
         }
