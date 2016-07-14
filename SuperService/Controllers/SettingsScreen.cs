@@ -120,7 +120,7 @@ namespace Test
                 result += $"{str} ";
             }
 
-            return result.Trim();
+            return result.CutForUIOutput(10, 2, false);
         }
 
         internal bool Init()

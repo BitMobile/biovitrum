@@ -55,8 +55,10 @@ namespace Test
         /// <param name="str">Строка для красивого обрезания</param>
         /// <param name="outputLineLength">Длина одной строки в интерфейсе</param>
         /// <param name="outputLinesAmount">Количество строк в интерфейсе</param>
+        /// <param name="newLine">true если переносим с помощью Enviroment.NewLine, иначе переносим с
+        /// помощью пробельного символа.</param>
         /// <returns>Преобразованная строка</returns>
-        public static string CutForUIOutput(this string str, int outputLineLength, int outputLinesAmount)
+        public static string CutForUIOutput(this string str, int outputLineLength, int outputLinesAmount, bool newLine = true)
         {
             var split = str.Split(null);
             outputLineLength = Convert.ToInt32(outputLineLength);
@@ -73,7 +75,10 @@ namespace Test
             string res = null;
             foreach (var line in lines)
             {
-                res = res == null ? (string)line : $"{res}{Environment.NewLine}{line}";
+                if (newLine)
+                    res = res == null ? (string)line : $"{res}{Environment.NewLine}{line}";
+                else
+                    res = res == null ? (string)line : $"{res} {line}";
             }
             return (bool)test ? res : $"{res?.TrimEnd()}...";
         }
