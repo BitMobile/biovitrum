@@ -313,7 +313,8 @@ HorizontalLine {
   color: #feb3a3;
   margin-top: 4sp;
   font: 2sp arial;
-  width: 70%;
+  width: 85%;
+  text-align: center;
 }
 .EventListStatusVL {
   height: 11sp auto;
