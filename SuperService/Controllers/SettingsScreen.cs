@@ -103,7 +103,7 @@ namespace Test
 
             foreach (var str in strings)
             {
-                result += $"{((string)str).Substring(0, 1)}.";
+                result += $"{((string)str).Substring(0, 1).ToUpper()}.";
             }
 
             return result;
