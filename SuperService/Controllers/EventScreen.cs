@@ -75,21 +75,13 @@ namespace Test
                 CssClass = "TopInfoSideImage",
                 Source = ResourceManager.GetImage("topinfo_extra_person")
             });
-            try
+            var text = (string)_currentEventRecordset["ContactVisitingDescription"];
+            DConsole.WriteLine("text: " + text);
+            rightExtraLayout.AddChild(new TextView
             {
-                var text = (string)_currentEventRecordset["ContactVisitingDescription"];
-                DConsole.WriteLine("text: " + text);
-                rightExtraLayout.AddChild(new TextView
-                {
-                    Text = ((string)_currentEventRecordset["ContactVisitingDescription"]).CutForUIOutput(12, 2),
-                    CssClass = "TopInfoSideText"
-                });
-            }
-            catch (ArgumentException ex)
-            {
-                DConsole.WriteLine("Second Try");
-                DConsole.WriteLine($"{ex.Message}{Environment.NewLine}{ex.StackTrace}");
-            }
+                Text = ((string)_currentEventRecordset["ContactVisitingDescription"]).CutForUIOutput(12, 2),
+                CssClass = "TopInfoSideText"
+            });
 
             leftExtraLayout.OnClick += GoToMapScreen_OnClick;
         }

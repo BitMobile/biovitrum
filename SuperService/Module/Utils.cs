@@ -58,6 +58,8 @@ namespace Test
         /// <returns>Преобразованная строка</returns>
         public static string CutForUIOutput(this string str, int outputLineLength, int outputLinesAmount)
         {
+            if (IsNullOrWhiteSpace(str) || str.Length < outputLineLength)
+                return str;
             var split = str.Split(null);
             outputLineLength = Convert.ToInt32(outputLineLength);
             outputLinesAmount = Convert.ToInt32(outputLinesAmount);
