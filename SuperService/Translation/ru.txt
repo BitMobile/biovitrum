@@ -102,3 +102,5 @@ report_an_error		Сообщить об ошибке
 send_log		Отправить лог
 company_web_site		www.company.com
 mandatory_questions_0_1		Обязательных вопросов: {0}/{1}
+sync_success		Синхронизация успешна
+sync_fail		Не удалось синхронизироваться
