@@ -1,5 +1,6 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.DbEngine;
+using System;
 using System.Collections;
 using System.IO;
 using Database = BitMobile.ClientModel3.Database;
@@ -58,6 +59,40 @@ namespace Test
         public static void Commit()
         {
             _db.Commit();
+        }
+
+        public static void FullSync(ResultEventHandler<bool> resultEventHandler = null)
+        {
+            try
+            {
+                _db.PerformFullSyncAsync(Settings.Server, Settings.User, Settings.Password,
+                    SyncHandler + resultEventHandler,
+                    "Full");
+            }
+            catch (Exception)
+            {
+                SyncHandler("Full", new ResultEventArgs<bool>(false));
+            }
+        }
+
+        public static void Sync(ResultEventHandler<bool> resultEventHandler = null)
+        {
+            try
+            {
+                _db.PerformSyncAsync(Settings.Server, Settings.User, Settings.Password,
+                    SyncHandler + resultEventHandler,
+                    "Partial");
+            }
+            catch (Exception)
+            {
+                SyncHandler("Partial", new ResultEventArgs<bool>(false));
+            }
+        }
+
+        private static void SyncHandler(object state, ResultEventArgs<bool> resultEventArgs)
+        {
+            if (state.Equals("Full"))
+                Toast.MakeToast(Translator.Translate(resultEventArgs.Result ? "sync_success" : "sync_fail"));
         }
     }
 }

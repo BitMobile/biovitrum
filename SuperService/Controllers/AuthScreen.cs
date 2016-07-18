@@ -1,5 +1,4 @@
-﻿using BitMobile.Application;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
 
@@ -21,10 +20,7 @@ namespace Test
         public override void OnShow()
         {
             //TODO: Опастно так хранить юзера. Потом удалить.
-            var settings = ApplicationContext.Current.Settings;
-            settings.UserName = "Admin";
-            settings.WriteSettings();
-            DConsole.WriteLine($"Вы залогинились под юзером: {settings.UserName}");
+            Settings.User = "Admin";
         }
 
         internal void CantSigningButton_OnClick(object sender, EventArgs e)

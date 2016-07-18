@@ -102,3 +102,5 @@ report_an_error		Report an error
 send_log		Send Log
 company_web_site		www.company.com
 mandatory_questions_0_1		{0}/{1} mandatory questions
+sync_success		Sync successful
+sync_fail		Sync failed
