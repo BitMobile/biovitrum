@@ -18,6 +18,7 @@ namespace Test.Components
         private VerticalLayout _topInfoImageLayout;
         private TextView _topInfoSubHeadingTextView;
         private VerticalLayout _topInfoHeadingTextLayout;
+        private VerticalLayout _topInfoRootLayout;
 
         /// <summary>
         ///     Конструктор контроллера компонента с заголовком, двумя кнопками и доп. инфой
@@ -39,7 +40,6 @@ namespace Test.Components
                 _minimized = value;
                 UpdateArrowImage();
                 ExtraLayout.CssClass = value ? "NoHeight" : "TopInfoExtraLayout";
-                ExtraLayout.Refresh();
             }
         }
 
@@ -50,7 +50,6 @@ namespace Test.Components
             {
                 _arrowVisible = value;
                 _topInfoImageLayout.CssClass = value ? "TopInfoImageLayout" : "NoHeight";
-                _topInfoImageLayout.Refresh();
             }
         }
 
@@ -96,12 +95,10 @@ namespace Test.Components
                 if (string.IsNullOrEmpty(value))
                 {
                     _topInfoSubHeadingTextView.CssClass = "NoHeight";
-                    _topInfoSubHeadingTextView.Refresh();
                 }
                 else
                 {
                     _topInfoSubHeadingTextView.CssClass = "TopInfoSubHeading";
-                    _topInfoSubHeadingTextView.Refresh();
                 }
             }
         }
@@ -110,7 +107,6 @@ namespace Test.Components
         {
             string imageTag = $"topinfo_{(Minimized ? "down" : "up")}{(ArrowActive ? "" : "no")}arrow";
             _topInfoArrowImage.Source = ResourceManager.GetImage(imageTag);
-            _topInfoArrowImage.Refresh();
         }
 
         public VerticalLayout ExtraLayout { get; private set; }
@@ -131,9 +127,6 @@ namespace Test.Components
                 _rightButton.CssClass = "TopInfoButtonRightWithPicOnly";
                 _topInfoHeadingTextLayout.CssClass = "TopInfoHeadingTextLayoutWithPicOnly";
                 DConsole.WriteLine("They are both images!");
-                _leftButton.Refresh();
-                _rightButton.Refresh();
-                _topInfoHeadingTextLayout.Refresh();
             }
         }
 
@@ -148,12 +141,19 @@ namespace Test.Components
             CommentLayout = (VerticalLayout)_parentScreen.Variables["TopInfoCommentLayout"];
             ExtraLayout = (VerticalLayout)_parentScreen.Variables["TopInfoExtraLayout"];
             _topInfoHeadingTextLayout = (VerticalLayout)_parentScreen.Variables["TopInfoHeadingTextLayout"];
+            _topInfoRootLayout = (VerticalLayout)_parentScreen.Variables["TopInfoRootLayout"];
+        }
+
+        public void Refresh()
+        {
+            _topInfoRootLayout.Refresh();
         }
 
         internal void Arrow_OnClick(object sender, EventArgs eventArgs)
         {
             if (ArrowActive)
                 Minimized = !Minimized;
+            Refresh();
         }
     }
 }

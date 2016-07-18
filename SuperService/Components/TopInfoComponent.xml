@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <c:Component xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  <c:VerticalLayout>
+  <c:VerticalLayout Id="TopInfoRootLayout">
     <c:VerticalLayout CssClass="TopInfoLayout">
       <c:HorizontalLayout CssClass="TopInfoHeadingLayout">
         <c:VerticalLayout Id="TopInfoLeftButton" CssClass="TopInfoButtonLeft" OnClick="TopInfo_LeftButton_OnClick" />
