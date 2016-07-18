@@ -1,6 +1,4 @@
-﻿using System.Security.AccessControl;
-
-namespace Test
+﻿namespace Test
 {
     public static class Settings
     {
@@ -18,6 +16,17 @@ namespace Test
 
         public static void Init()
         {
+            Server = "";
+
+            var settings = DBHelper.GetSettings();
+            AllowGallery = (bool)settings["AllowGalery"];
+            PictureSize = (int)settings["PictureSize"];
+            EquipmentEnabled = (bool)settings["UsedEquipment"];
+            CheckListEnabled = (bool)settings["UsedCheckLists"];
+            COCEnabled = (bool)settings["UsedCalculate"];
+            BagEnabled = (bool)settings["UsedServiceBag"];
+            ShowServicePrice = (bool)settings["UsedCalculateService"];
+            ShowMaterialPrice = (bool)settings["UsedCalculateMaterials"];
         }
     }
 }
