@@ -4,8 +4,9 @@
   <c:DockLayout>
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:VerticalLayout>
-      <c:TextView  Text="#test#" Id="TestTextView" />
-      <c:TextView CssClass="AnotherTextView" Text="1234" />
+      <c:Indicator Id="Indicator" CssClass="NiceIndicator" />
+      <c:Button Text="Start" CssClass="NiceButton" OnClick="NiceStartButton_OnClick" />
+      <c:Button Text="Stop" CssClass="NiceButton" OnClick="NiceStopButton_OnClick" />
     </c:VerticalLayout>
   </c:DockLayout>
 </c:Screen>

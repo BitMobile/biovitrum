@@ -8,6 +8,7 @@ namespace Test
     public class TestScreen : Screen
     {
         private TopInfoComponent _topInfoComponent;
+        private Indicator _indicator;
 
         public override void OnLoading()
         {
@@ -22,6 +23,10 @@ namespace Test
 
             _topInfoComponent.ExtraLayout.AddChild(new TextView("Экстра инфо"));
             _topInfoComponent.ExtraLayout.AddChild(new TextView("Шамеймару, Марисса, Спелл Кард, Спелл Кард, Мастер Спарк, Экстра Фантазм"));
+
+            _indicator = (Indicator)Variables["Indicator"];
+            DConsole.WriteLine($"Yes, I loaded indicator ({_indicator})");
+            _indicator.Start();
         }
 
         public override void OnShow()
@@ -45,6 +50,16 @@ namespace Test
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
         {
             _topInfoComponent.Arrow_OnClick(sender, eventArgs);
+        }
+
+        internal void NiceStartButton_OnClick(object o, EventArgs eventArgs)
+        {
+            _indicator.Start();
+        }
+
+        internal void NiceStopButton_OnClick(object o, EventArgs eventArgs)
+        {
+            _indicator.Stop();
         }
     }
 }
