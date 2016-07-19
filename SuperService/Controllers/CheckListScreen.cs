@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Test.Components;
+using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 namespace Test
 {
@@ -34,6 +35,8 @@ namespace Test
         private int _totalAnswered;
 
         private TopInfoComponent _topInfoComponent;
+        private string _currentEventId;
+        private DbRecordset _currentEventDbRecordset;
 
         public override void OnLoading()
         {
@@ -45,6 +48,8 @@ namespace Test
                 ArrowVisible = false,
                 SubHeader = string.Format(Translator.Translate("mandatory_questions_0_1"), _totalAnswered, _totalRequired)
             };
+            _currentEventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
         }
 
         internal int IncTotalAnswered()

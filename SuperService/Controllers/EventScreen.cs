@@ -192,6 +192,7 @@ namespace Test
         {
             DBHelper.UpdateActualStartDateByEventId(DateTime.Now,
                 (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+            GetCurrentEvent();
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)

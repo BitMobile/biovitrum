@@ -18,6 +18,7 @@ namespace Test
         private string _currentEventId;
         private bool _usedCalculateService;
         private bool _usedCalculateMaterials;
+        private DbRecordset _currentEventDbRecordset;
 
         private bool _fieldsAreInitialized;
         private TextView _topInfoTotalTextView;
@@ -66,12 +67,24 @@ namespace Test
 
             _fieldsAreInitialized = true;
 
+            _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
+
             return 0;
         }
-        
+
         public override void OnShow()
         {
             GPS.StopTracking();
+            var eventStatus = (string)_currentEventDbRecordset["statusName"];
+
+            if (eventStatus.Equals(EventStatus.Appointed))
+            {
+                Dialog.Ask(Translator.Translate("start_event"), (sender, args) =>
+                {
+                    if (args.Result != Dialog.Result.Yes) return;
+                    ChangeEventStatus();
+                });
+            }
         }
 
         internal string GetResourceImage(string tag)
@@ -95,29 +108,52 @@ namespace Test
 
         internal void AddService_OnClick(object sender, EventArgs e)
         {
-            var dictionary = new Dictionary<string, object>
+            var eventStatus = (string)_currentEventDbRecordset["statusName"];
+
+            if (eventStatus.Equals(EventStatus.Appointed))
             {
-                {Parameters.IdIsService, true},
-                {Parameters.IdCurrentEventId, _currentEventId}
-            };
-            Navigation.Move("RIMListScreen", dictionary);
+                Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
+                {
+                    if (args.Result != Dialog.Result.Yes) return;
+                    ChangeEventStatus();
+                });
+            }
+            else
+            {
+                var dictionary = new Dictionary<string, object>
+                {
+                    {Parameters.IdIsService, true},
+                    {Parameters.IdCurrentEventId, _currentEventId}
+                };
+                Navigation.Move("RIMListScreen", dictionary);
+            }
         }
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
-            var dictionary = new Dictionary<string, object>
+            var eventStatus = (string)_currentEventDbRecordset["statusName"];
+
+            if (eventStatus.Equals(EventStatus.Appointed))
             {
-                {Parameters.IdIsService, false},
-                {Parameters.IdCurrentEventId, _currentEventId}
-            };
-            Navigation.Move("RIMListScreen", dictionary);
+                Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
+                {
+                    if (args.Result != Dialog.Result.Yes) return;
+                    ChangeEventStatus();
+                });
+            }
+            else
+            {
+                var dictionary = new Dictionary<string, object>
+                {
+                    {Parameters.IdIsService, false},
+                    {Parameters.IdCurrentEventId, _currentEventId}
+                };
+                Navigation.Move("RIMListScreen", dictionary);
+            }
         }
 
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
         {
-            /*TODO: Внимание не редактировать элементы до тех пор, пока не починят экран редактирования, а то
-             * приложение упадет
-             */
             var vl = (VerticalLayout)sender;
             var dictionary = new Dictionary<string, object>
             {
@@ -218,6 +254,12 @@ namespace Test
             }
 
             return DBHelper.GetMaterialsByEventId((string)eventId);
+        }
+
+        private void ChangeEventStatus()
+        {
+            DBHelper.UpdateActualStartDateByEventId(DateTime.Now, _currentEventId);
+            _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
         }
     }
 }
