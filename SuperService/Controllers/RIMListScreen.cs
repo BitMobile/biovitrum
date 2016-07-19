@@ -46,8 +46,6 @@ namespace Test
             _isUseServiceBag = DBHelper.GetIsUseServiceBag();
             _usedCalculateService = DBHelper.GetIsUsedCalculateService();
             _usedCalculateMaterials = DBHelper.GetIsUsedCalculateMaterials();
-
-            DConsole.WriteLine("InitClassFields() _isMaterialRequest=" + _isMaterialRequest + " _isService=" + _isService);
             _fieldsAreInitialized = true;
             return 0;
         }

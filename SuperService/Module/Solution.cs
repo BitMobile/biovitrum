@@ -10,7 +10,7 @@ namespace Test
             DBHelper.Init();
             DConsole.WriteLine("Settings init...");
             Settings.Init();
-            DConsole.WriteLine("Loading first screen");
+            DConsole.WriteLine("Loading first screen...");
             Navigation.Move(nameof(AuthScreen));
         }
     }

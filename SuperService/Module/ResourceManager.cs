@@ -75,7 +75,8 @@ namespace Test
             {"delete", @"Image\COCScreen\delete_img.png"},
             // EditServicesOrMaterialsScreen
             {"editservicesormaterialsscreen_plus", @"Image\EditServicesOrMaterialsScreen\Plus.png"},
-            {"editservicesormaterialsscreen_minus", @"Image\EditServicesOrMaterialsScreen\delete_img.png"},
+            {"editservicesormaterialsscreen_minus", @"Image\EditServicesOrMaterialsScreen\minus.png"},
+            {"editservicesormaterialsscreen_minusdisabled", @"Image\EditServicesOrMaterialsScreen\minus_disable.png"},
             {"editservicesormaterialsscreen_close", @"Image\EditServicesOrMaterialsScreen\close.png"},
             // AuthScreen
             {"authscreen_logo", @"Image\AuthScreen\logo.png"},
