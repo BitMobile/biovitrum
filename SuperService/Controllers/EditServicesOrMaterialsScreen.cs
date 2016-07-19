@@ -108,8 +108,8 @@ namespace Test
             BusinessProcess.GlobalVariables.Remove(_key);
 
             var rimDescription = (DbRecordset)Variables["rimDescription"];
-            AmountFact = (int)rimDescription["AmountFact"];
-            Price = (decimal)rimDescription["Price"];
+            AmountFact = (int)(float)rimDescription["AmountFact"];
+            Price = (decimal)(float)rimDescription["Price"];
         }
 
         public override void OnShow()
@@ -177,7 +177,8 @@ namespace Test
                 SumFact = Price * AmountFact,
                 SKU = DbRef.FromString(_rimId),
                 LineNumber =
-                    DBHelper.GetMaxNumberFromTableInColumn("Document_Event_ServicesMaterials", "LineNumber") + 1
+                    DBHelper.GetMaxNumberFromTableInColumn("Document_Event_ServicesMaterials", "LineNumber", "Ref",
+                        (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]) + 1
             };
             DBHelper.SaveEntity(line);
         }

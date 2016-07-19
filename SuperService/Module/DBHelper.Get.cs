@@ -601,7 +601,7 @@ namespace Test
                                       and isFolder = 0
                                       and service = @rim_type
                                       and id not in " +
-                                      @"(select SKU from _Document_Event_ServicesMaterials where _Document_Event_ServicesMaterials.Ref = @eventId) ");
+                                  @"(select SKU from _Document_Event_ServicesMaterials where _Document_Event_ServicesMaterials.Ref = @eventId) ");
 
             DConsole.WriteLine("rimType = " + rimType);
             query.AddParameter("rim_type", rimType == RIMType.Material ? 0 : 1);
@@ -1093,10 +1093,14 @@ namespace Test
         /// </summary>
         /// <param name="table">Имя таблицы</param>
         /// <param name="column">Имя колонки</param>
+        /// <param name="whereColumnName">Имя колонки, по которой будет поиск</param>
+        /// <param name="whereColumnValue">Значения колонки, по которой будет поиск</param>
         /// <returns>Максимальное число</returns>
-        public static int GetMaxNumberFromTableInColumn(string table, string column)
+        public static int GetMaxNumberFromTableInColumn(string table, string column, string whereColumnName,
+            string whereColumnValue)
         {
-            var query = new Query($"select max({column}) as max from {table}");
+            var query = new Query($"select max({column}) as max from {table} where {whereColumnName} = @where");
+            query.AddParameter("where", whereColumnValue);
             return (int)query.ExecuteScalar();
         }
     }
