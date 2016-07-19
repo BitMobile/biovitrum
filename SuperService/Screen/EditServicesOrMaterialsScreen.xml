@@ -18,7 +18,7 @@
     <c:VerticalLayout CssClass="EmptySpace3sp" />
     <c:HorizontalLayout CssClass="CounterLayout">
       <c:VerticalLayout CssClass="PlusMinusImageWrapper" Id="RemoveButton" OnClick="RemoveButton_OnClick">
-        <c:Image CssClass="PlusMinusImage" Source="$GetResourceImage(editservicesormaterialsscreen_minus)" />
+        <c:Image Id ="MinusImage" CssClass="PlusMinusImage" Source="$GetResourceImage(editservicesormaterialsscreen_minus)" />
       </c:VerticalLayout>
       <c:EditText Id="AmountFactEditText" Text="$rimDescription.AmountFact" Keyboard="numeric"
                   OnLostFocus="AmountFactEditText_OnLostFocus" />

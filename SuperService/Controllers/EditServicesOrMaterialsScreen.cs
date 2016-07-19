@@ -10,25 +10,25 @@ namespace Test
 {
     public class EditServicesOrMaterialsScreen : Screen
     {
+        private int _amountFact;
+        private EditText _amountFactEditText;
         private BehaviourEditServicesOrMaterialsScreen _behaviourEditServicesOrMaterialsScreen;
         private bool _isMaterialRequest; //признак того, что запрос пришел из рюкзака монтажника
         private bool _isService; //отображать услуги в противном случае материалы
-        private bool _usedCalculateService;
-        private bool _usedCalculateMaterials;
-        private EditText _amountFactEditText;
-        private bool _editPrices;
         private string _key;
         private string _lineId;
         private int _minimum;
-        private int _value;
+
+        private decimal _price;
 
         private EditText _priceEditText;
         private string _rimId;
 
-        private bool _showPrices;
         private TextView _totalPriceTextView;
-
-        private decimal _price;
+        private bool _usedCalculateMaterials;
+        private bool _usedCalculateService;
+        private int _value;
+        private Image _minusImage;
 
         private decimal Price
         {
@@ -43,14 +43,19 @@ namespace Test
             }
         }
 
-        private int _amountFact;
-
         private int AmountFact
         {
             get { return _amountFact; }
             set
             {
                 value = Math.Max(value, _minimum);
+                if (_minusImage != null)
+                {
+                    _minusImage.Source =
+                        ResourceManager.GetImage(value == _minimum
+                            ? "editservicesormaterialsscreen_minusdisabled"
+                            : "editservicesormaterialsscreen_minus");
+                }
                 _amountFact = value;
                 if (_amountFactEditText != null) _amountFactEditText.Text = value.ToString();
                 if (_totalPriceTextView != null)
@@ -65,10 +70,7 @@ namespace Test
             {
                 return Parameters.EmptyPriceDescription;
             }
-            else
-            {
-                return Price.ToString(CultureInfo.CurrentCulture);
-            }
+            return Price.ToString(CultureInfo.CurrentCulture);
         }
 
         internal string GetTotalPriceDescription()
@@ -94,8 +96,6 @@ namespace Test
 
             _key = (string)Variables.GetValueOrDefault("returnKey", "somNewValue");
             _minimum = (int)Variables.GetValueOrDefault("minimum", 1);
-            _showPrices = (bool)Variables.GetValueOrDefault("priceVisible", true);
-            _editPrices = (bool)Variables.GetValueOrDefault("priceEditable", false);
             _rimId = (string)Variables.GetValueOrDefault("rimId");
             _lineId = (string)Variables.GetValueOrDefault(Parameters.IdLineId);
             _value = (int)Variables.GetValueOrDefault("value", 0);
@@ -103,8 +103,13 @@ namespace Test
             _amountFactEditText = (EditText)Variables["AmountFactEditText"];
             _priceEditText = (EditText)Variables["PriceEditText"];
             _totalPriceTextView = (TextView)Variables["TotalPriceTextView"];
+            _minusImage = (Image)Variables["MinusImage"];
 
             BusinessProcess.GlobalVariables.Remove(_key);
+
+            var rimDescription = (DbRecordset)Variables["rimDescription"];
+            AmountFact = (int)rimDescription["AmountFact"];
+            Price = (decimal)rimDescription["Price"];
         }
 
         public override void OnShow()
@@ -163,21 +168,30 @@ namespace Test
 
         private void InsertIntoDb()
         {
-            //TODO: Переделать на объектную модель когда она будет починена (начнет работать метод GetObject())
-
-            DBHelper.InsertServiceMatherial((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId],
-                _rimId, Price,
-                AmountFact, Price * AmountFact);
+            var line = new Event_ServicesMaterials
+            {
+                Id = DbRef.CreateInstance("Document_Event_ServicesMaterials", Guid.NewGuid()),
+                Ref = DbRef.FromString((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]),
+                Price = Price,
+                AmountFact = AmountFact,
+                SumFact = Price * AmountFact,
+                SKU = DbRef.FromString(_rimId),
+                LineNumber =
+                    DBHelper.GetMaxNumberFromTableInColumn("Document_Event_ServicesMaterials", "LineNumber") + 1
+            };
+            DBHelper.SaveEntity(line);
         }
 
         internal void RemoveButton_OnClick(object sender, EventArgs eventArgs)
         {
             AmountFact--;
+            _minusImage.Refresh();
         }
 
         internal void AddButton_OnClick(object sender, EventArgs eventArgs)
         {
             AmountFact++;
+            _minusImage.Refresh();
         }
 
         internal void AmountFactEditText_OnLostFocus(object sender, EventArgs eventArgs)

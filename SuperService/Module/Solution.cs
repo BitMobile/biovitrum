@@ -14,8 +14,7 @@ namespace Test
             DConsole.WriteLine("Loading first screen");
             Navigation.Move(nameof(EditServicesOrMaterialsScreen), new Dictionary<string, object>
             {
-                ["lineId"] = "@ref[Document_Event_ServicesMaterials]:420f3e9c-9d3e-e611-80ee-485b39d77350",
-                ["value"] = 2
+                ["lineId"] = "@ref[Document_Event_ServicesMaterials]:440f3e9c-9d3e-e611-80ee-485b39d77350",
             });
         }
     }
