@@ -1,5 +1,4 @@
 ﻿using BitMobile.ClientModel3;
-using System.Collections.Generic;
 
 namespace Test
 {
@@ -11,11 +10,8 @@ namespace Test
             DBHelper.Init();
             DConsole.WriteLine("Settings init...");
             Settings.Init();
-            DConsole.WriteLine("Loading first screen");
-            Navigation.Move(nameof(EditServicesOrMaterialsScreen), new Dictionary<string, object>
-            {
-                ["lineId"] = "@ref[Document_Event_ServicesMaterials]:440f3e9c-9d3e-e611-80ee-485b39d77350",
-            });
+            DConsole.WriteLine("Loading first screen...");
+            Navigation.Move(nameof(AuthScreen));
         }
     }
 }

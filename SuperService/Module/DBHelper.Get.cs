@@ -1096,9 +1096,7 @@ namespace Test
         /// <returns>Максимальное число</returns>
         public static int GetMaxNumberFromTableInColumn(string table, string column)
         {
-            var query = new Query("select max(@column) as max from @table");
-            query.AddParameter("column", column);
-            query.AddParameter("table", table);
+            var query = new Query($"select max({column}) as max from {table}");
             return (int)query.ExecuteScalar();
         }
     }
