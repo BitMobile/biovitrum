@@ -780,14 +780,15 @@ namespace Test
         /// </summary>
         /// ///
         /// <param name="rimId">Идентификатор строки</param>
-        public static DbRecordset GetServiceMaterialPriceByRIMID(string rimId)
+        /// <param name="minimum">AmountFact по-умолчанию</param>
+        public static DbRecordset GetServiceMaterialPriceByRIMID(string rimId, int minimum = 1)
         {
             var query = new Query("select " +
                                   "      _Catalog_RIM.id, " +
                                   "      _Catalog_RIM.Description, " +
                                   "      _Catalog_RIM.Price, " +
                                   "      _Catalog_RIM.Unit,  " +
-                                  "      1 as AmountFact, " +
+                                  "      @minimum as AmountFact, " +
                                   "      _Catalog_RIM.Price as SumFact " +
                                   "from " +
                                   "    _Catalog_RIM " +
@@ -795,6 +796,7 @@ namespace Test
                                   "where " +
                                   "    _Catalog_RIM.id = @RIMId");
             query.AddParameter("RIMId", rimId);
+            query.AddParameter("minimum", minimum);
             return query.Execute();
         }
 
@@ -1084,6 +1086,20 @@ namespace Test
                                   limit 1");
 
             return query.Execute();
+        }
+
+        /// <summary>
+        /// Достать максимальное число из колонки таблицы
+        /// </summary>
+        /// <param name="table">Имя таблицы</param>
+        /// <param name="column">Имя колонки</param>
+        /// <returns>Максимальное число</returns>
+        public static int GetMaxNumberFromTableInColumn(string table, string column)
+        {
+            var query = new Query("select max(@column) as max from @table");
+            query.AddParameter("column", column);
+            query.AddParameter("table", table);
+            return (int)query.ExecuteScalar();
         }
     }
 }

@@ -1,14 +1,15 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.DbEngine;
 using System;
-using System.Collections;
 using System.Globalization;
+using Test.Document;
+using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 namespace Test
 {
     public class EditServicesOrMaterialsScreen : Screen
     {
-        private bool _fieldsAreInitialized = false;
         private BehaviourEditServicesOrMaterialsScreen _behaviourEditServicesOrMaterialsScreen;
         private bool _isMaterialRequest; //признак того, что запрос пришел из рюкзака монтажника
         private bool _isService; //отображать услуги в противном случае материалы
@@ -20,7 +21,6 @@ namespace Test
         private string _lineId;
         private int _minimum;
         private int _value;
-        private IEnumerable _serviceMaterialInfo;
 
         private EditText _priceEditText;
         private string _rimId;
@@ -28,7 +28,6 @@ namespace Test
         private bool _showPrices;
         private TextView _totalPriceTextView;
 
-        private string _description;
         private decimal _price;
 
         private decimal Price
@@ -38,7 +37,7 @@ namespace Test
             {
                 value = Math.Max(value, 0);
                 _price = value;
-                _priceEditText.Text = GetPriceDescription();
+                if (_priceEditText != null) _priceEditText.Text = GetPriceDescription();
                 if (_totalPriceTextView != null)
                     _totalPriceTextView.Text = GetTotalPriceDescription();
             }
@@ -53,60 +52,45 @@ namespace Test
             {
                 value = Math.Max(value, _minimum);
                 _amountFact = value;
-                _amountFactEditText.Text = value.ToString();
+                if (_amountFactEditText != null) _amountFactEditText.Text = value.ToString();
                 if (_totalPriceTextView != null)
                     _totalPriceTextView.Text = GetTotalPriceDescription();
             }
         }
 
-        internal string GetRIMDescription()
-        {
-            return _description;
-        }
-
-        internal string GetRIMAmountFact()
-        {
-            return AmountFact.ToString();
-        }
-
         internal string GetPriceDescription()
         {
-            if (_isMaterialRequest || (_isService && !_usedCalculateService) || (!_isService && !_usedCalculateMaterials))
+            if (_isMaterialRequest || (_isService && !_usedCalculateService) ||
+                (!_isService && !_usedCalculateMaterials))
             {
                 return Parameters.EmptyPriceDescription;
             }
             else
             {
-                return Price.ToString(CultureInfo.CurrentCulture);//     Price.ToString();
+                return Price.ToString(CultureInfo.CurrentCulture);
             }
         }
 
         internal string GetTotalPriceDescription()
         {
-            if (_isMaterialRequest || (_isService && !_usedCalculateService) || (!_isService && !_usedCalculateMaterials))
+            if (_isMaterialRequest || (_isService && !_usedCalculateService) ||
+                (!_isService && !_usedCalculateMaterials))
             {
                 return Parameters.EmptyPriceDescription;
             }
-            else
-            {
-                return (Price * AmountFact).ToString(CultureInfo.CurrentCulture);
-            }
+            return (Price * AmountFact).ToString(CultureInfo.CurrentCulture);
         }
 
-        public int InitClassFields()
+        public override void OnLoading()
         {
-            if (_fieldsAreInitialized)
-            {
-                return 0;
-            }
             _behaviourEditServicesOrMaterialsScreen =
-                    (BehaviourEditServicesOrMaterialsScreen)
-                        Variables.GetValueOrDefault(Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.None);
-            _isMaterialRequest = Convert.ToBoolean(Variables.GetValueOrDefault(Parameters.IdIsMaterialsRequest, Convert.ToBoolean("False")));
-            _isService = Convert.ToBoolean(Variables.GetValueOrDefault(Parameters.IdIsService, Convert.ToBoolean("False")));
+                (BehaviourEditServicesOrMaterialsScreen)
+                    Variables.GetValueOrDefault(Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.None);
+            _isMaterialRequest = (bool)Variables.GetValueOrDefault(Parameters.IdIsMaterialsRequest, false);
+            _isService = (bool)Variables.GetValueOrDefault(Parameters.IdIsService, false);
 
-            _usedCalculateService = DBHelper.GetIsUsedCalculateService();
-            _usedCalculateMaterials = DBHelper.GetIsUsedCalculateMaterials();
+            _usedCalculateService = Settings.ShowServicePrice;
+            _usedCalculateMaterials = Settings.ShowMaterialPrice;
 
             _key = (string)Variables.GetValueOrDefault("returnKey", "somNewValue");
             _minimum = (int)Variables.GetValueOrDefault("minimum", 1);
@@ -116,55 +100,19 @@ namespace Test
             _lineId = (string)Variables.GetValueOrDefault(Parameters.IdLineId);
             _value = (int)Variables.GetValueOrDefault("value", 0);
 
-            var queryResult = _lineId != null
-                ? DBHelper.GetServiceMaterialPriceByLineID(_lineId)
-                : DBHelper.GetServiceMaterialPriceByRIMID(_rimId);
-
-            queryResult.Next();
-            _description = (string)queryResult["Description"];
-            AmountFact = Convert.ToInt32(queryResult["AmountFact"]);
-            Price = Convert.ToDecimal(queryResult["Price"]);
+            _amountFactEditText = (EditText)Variables["AmountFactEditText"];
+            _priceEditText = (EditText)Variables["PriceEditText"];
+            _totalPriceTextView = (TextView)Variables["TotalPriceTextView"];
 
             BusinessProcess.GlobalVariables.Remove(_key);
-
-            _fieldsAreInitialized = true;
-
-            return 0;
-        }
-
-        public override void OnLoading()
-        {
-            InitClassFields();
-
-            _amountFactEditText = (EditText)GetControl("AmountFactEditText", true);
-            _priceEditText = (EditText)Variables["PriceEditText"];
-            _totalPriceTextView = (TextView)GetControl("TotalPriceTextView", true);
         }
 
         public override void OnShow()
         {
-            /*FindTextViewAndChangeVisibility("PriceTitleTextView", _showPrices);
-            /*FindTextViewAndChangeVisibility("TotalPriceTitleTextView", _showPrices);
-            FindTextViewAndChangeVisibility("TotalPriceTextView", _showPrices);
-
-            FindEditTextAndChangeVisibilityAndEditable("PriceEditText", _showPrices, _editPrices);
-            */
-            Price = _price;
+            Price = Converter.ToDecimal(((DbRecordset)Variables["rimDescription"])["Price"]);
 
             if (_value > 0)
                 _amountFactEditText.Text = $"{_value}";
-        }
-
-        private void FindTextViewAndChangeVisibility(string id, bool visibility)
-        {
-            ((TextView)Variables[id]).Visible = visibility;
-        }
-
-        private void FindEditTextAndChangeVisibilityAndEditable(string id, bool visibility, bool editable)
-        {
-            var et = (EditText)Variables[id];
-            et.Visible = visibility;
-            et.Enabled = editable;
         }
 
         internal void BackButton_OnClick(object sender, EventArgs e)
@@ -205,16 +153,20 @@ namespace Test
 
         private void UpdateDb()
         {
-            //TODO: Переделать на объектную модель когда она будет починена (начнет работать метод GetObject())
-
-            DBHelper.UpdateServiceMaterialAmount(_lineId, Price, AmountFact, Price * AmountFact);
+            var eventServicesMaterials =
+                (Event_ServicesMaterials)DbRef.FromString(_lineId).GetObject();
+            eventServicesMaterials.Price = Price;
+            eventServicesMaterials.AmountFact = AmountFact;
+            eventServicesMaterials.SumFact = Price * AmountFact;
+            DBHelper.SaveEntity(eventServicesMaterials);
         }
 
         private void InsertIntoDb()
         {
             //TODO: Переделать на объектную модель когда она будет починена (начнет работать метод GetObject())
 
-            DBHelper.InsertServiceMatherial((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId], _rimId, Price,
+            DBHelper.InsertServiceMatherial((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId],
+                _rimId, Price,
                 AmountFact, Price * AmountFact);
         }
 
@@ -233,21 +185,22 @@ namespace Test
             GetAndCheckCountEditText((EditText)sender);
         }
 
-        internal int SetPrice(decimal price)
+        internal DbRecordset GetDescriptionByLineId(string lineId)
         {
-            _price = Convert.ToDecimal(price);
-            return 0;
+            return DBHelper.GetServiceMaterialPriceByLineID(lineId);
+        }
+
+        internal DbRecordset GetDescriptionByRIMID(string rimId)
+        {
+            return DBHelper.GetServiceMaterialPriceByRIMID(rimId, (int)Variables.GetValueOrDefault("minimum", 1));
         }
 
         private void GetAndCheckCountEditText(EditText countEditText)
         {
-            int res = AmountFact;
-            if (int.TryParse(countEditText.Text, out res))
+            int res;
+            if (!int.TryParse(countEditText.Text, out res))
             {
-                res = Convert.ToInt32(res);
-            }
-            else
-            {
+                res = AmountFact;
                 DConsole.WriteLine($"Unparsed text = {countEditText.Text}");
             }
             if (res < _minimum)
