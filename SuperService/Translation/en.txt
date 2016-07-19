@@ -104,3 +104,6 @@ company_web_site		www.company.com
 mandatory_questions_0_1		{0}/{1} mandatory questions
 sync_success		Sync successful
 sync_fail		Sync failed
+start_event		Event will be launched. Continue?
+event_screen_event_not_start		Event is not started. The check-list will be available in read-only mode. Continue?
+check_list_readonly		The check-list is only available to view.

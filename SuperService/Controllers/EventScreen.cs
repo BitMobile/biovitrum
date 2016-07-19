@@ -12,13 +12,13 @@ namespace Test
         private Button _refuseButton;
         private DockLayout _rootLayout;
         private Button _startButton;
-        private TextView _taskCommentTextView;
-        private bool _taskCommentTextExpanded;
-        private Image _wrapUnwrapImage;
 
         private Button _startFinishButton;
+        private bool _taskCommentTextExpanded;
+        private TextView _taskCommentTextView;
 
         private TopInfoComponent _topInfoComponent;
+        private Image _wrapUnwrapImage;
 
         public override void OnLoading()
         {
@@ -32,18 +32,10 @@ namespace Test
 
         private void FillControls()
         {
-            try
-            {
-                _topInfoComponent.Header =
-                    ((string)_currentEventRecordset["clientDescription"]).CutForUIOutput(13, 2);
-                _topInfoComponent.CommentLayout.AddChild(new TextView(
-                    ((string)_currentEventRecordset["clientAddress"]).CutForUIOutput(17, 2)));
-            }
-            catch (ArgumentException ex)
-            {
-                DConsole.WriteLine("First Try");
-                DConsole.WriteLine($"{ex.Message}{Environment.NewLine}{ex.StackTrace}");
-            }
+            _topInfoComponent.Header =
+                ((string)_currentEventRecordset["clientDescription"]).CutForUIOutput(13, 2);
+            _topInfoComponent.CommentLayout.AddChild(new TextView(
+                ((string)_currentEventRecordset["clientAddress"]).CutForUIOutput(17, 2)));
 
             _topInfoComponent.LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") };
             _topInfoComponent.RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_info") };
@@ -164,7 +156,7 @@ namespace Test
                 (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
 
             var isActiveEvent = result.Next()
-                ? ((long)result["count"]) == 0
+                ? (long)result["count"] == 0
                 : Convert.ToBoolean("True");
 
             if (isActiveEvent)
@@ -192,6 +184,7 @@ namespace Test
         {
             DBHelper.UpdateActualStartDateByEventId(DateTime.Now,
                 (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+            GetCurrentEvent();
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
@@ -242,7 +235,29 @@ namespace Test
 
         internal void CheckListCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            Navigation.Move("CheckListScreen");
+            var statusName = (string)_currentEventRecordset["statusName"];
+            if (statusName.Equals(EventStatus.Appointed))
+            {
+                Dialog.Ask(Translator.Translate("event_screen_event_not_start"), (o, args) =>
+                {
+                    if (args.Result != Dialog.Result.Yes) return;
+                    Navigation.Move("CheckListScreen");
+                });
+            }
+            else
+            {
+                object eventId;
+                if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
+                {
+                    DConsole.WriteLine("Can't find current event ID, going to crash");
+                }
+
+                var dictinory = new Dictionary<string, object>
+                {
+                    {Parameters.IdCurrentEventId, (string) eventId}
+                };
+                Navigation.Move("CheckListScreen", dictinory);
+            }
         }
 
         internal DbRecordset GetCurrentEvent()

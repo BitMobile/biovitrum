@@ -11,14 +11,14 @@
 
     <c:HorizontalLayout CssClass="LoginPasswordContainerFirstHL">
       <c:Image CssClass="LoginPasswordImg" Source="$GetResourceImage(authscreen_username)" />
-      <!--<c:EditText Mask="^\d+$" Id="AuthScreenLoginET" Placeholder="#login#" />-->
+      <c:EditText Mask="^\d+$" Id="AuthScreenLoginET" Placeholder="#login#" />
     </c:HorizontalLayout>
     <c:VerticalLayout CssClass="BreakerContainerVL">
       <c:HorizontalLine CssClass="BreakerHL" />
     </c:VerticalLayout>
     <c:HorizontalLayout CssClass="LoginPasswordContainerSecondHL">
       <c:Image CssClass="LoginPasswordImg" Source="$GetResourceImage(authscreen_password)" />
-      <!--<c:EditText Id="AuthScreenPasswordET" Placeholder="#password#" />-->
+      <c:EditText Id="AuthScreenPasswordET" Placeholder="#password#" />
     </c:HorizontalLayout>
     <c:VerticalLayout CssClass="BreakerContainerVL">
       <c:HorizontalLine CssClass="BreakerHL" />
