@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration>
   <resource>
-    <version version="3.0.0.118" />
+    <version version="3.0.0.120" />
   </resource>
 
   <client>
-    <supportedCore version="3.0.112.0" />
+    <supportedCore version="3.0.137.0" />
   </client>
 
   <server>
