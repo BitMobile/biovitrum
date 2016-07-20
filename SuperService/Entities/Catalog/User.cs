@@ -16,7 +16,9 @@ namespace Test.Catalog
         public DbRef UserID { get; set; }
         public string Phone { get; set; }
         public string Role { get; set; }
-}
+        public string AspNetUserID { get; set; }
+    }
+
     public class User_Bag : DbEntity
     {
         public DbRef Id { get; set; }
@@ -24,8 +26,8 @@ namespace Test.Catalog
         public decimal Count { get; set; }
         public int LineNumber { get; set; }
         public DbRef Ref { get; set; }
+    }
 
-   }
     public class User_RemainsNorms : DbEntity
     {
         public DbRef Id { get; set; }
@@ -33,9 +35,5 @@ namespace Test.Catalog
         public decimal Count { get; set; }
         public int LineNumber { get; set; }
         public DbRef Ref { get; set; }
-
-   }
-
-
+    }
 }
-    

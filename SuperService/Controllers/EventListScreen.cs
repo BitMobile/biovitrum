@@ -9,8 +9,8 @@ namespace Test
 {
     public class EventListScreen : Screen
     {
-        private bool _needTodayBreaker = Convert.ToBoolean("True");
-        private bool _needTodayLayout = Convert.ToBoolean("True");
+        private bool _needTodayBreaker = true;
+        private bool _needTodayLayout = true;
         private TabBarComponent _tabBarComponent;
         private TopInfoComponent _topInfoComponent;
 
@@ -144,13 +144,13 @@ namespace Test
 
         internal int SetTodayLayoutToFalse()
         {
-            _needTodayLayout = Convert.ToBoolean("False");
+            _needTodayLayout = false;
             return 0;
         }
 
         internal int SetTodayBreakerToFalse()
         {
-            _needTodayBreaker = Convert.ToBoolean("False");
+            _needTodayBreaker = false;
             return 0;
         }
 
@@ -165,11 +165,7 @@ namespace Test
 
         internal bool IsDateEqualsOrLess(string lastdate, string nowdate)
         {
-            if (DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date)
-            {
-                return true;
-            }
-            return false;
+            return DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date;
         }
 
         internal bool IsDateChanged(string lastdate, string nowdate)
@@ -183,20 +179,12 @@ namespace Test
 
         internal bool IsTodayLayoutNeed()
         {
-            if (_needTodayLayout)
-            {
-                return Convert.ToBoolean("True");
-            }
-            return Convert.ToBoolean("False");
+            return _needTodayLayout;
         }
 
         internal bool IsTodayBreakerNeed()
         {
-            if (_needTodayBreaker)
-            {
-                return true;
-            }
-            return false;
+            return _needTodayBreaker;
         }
 
         internal string DateTimeToDate(string datetime)

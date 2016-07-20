@@ -1,5 +1,9 @@
-﻿using System;
-using BitMobile.ClientModel3.UI;
+﻿using BitMobile.ClientModel3.UI;
+using BitMobile.DbEngine;
+using System;
+using System.Collections;
+using Test.Document;
+using Test.Enum;
 
 namespace Test
 {
@@ -20,17 +24,17 @@ namespace Test
 
         public override void OnLoading()
         {
-            _wantToBuyButton = (HorizontalLayout) GetControl("WantToBuyButton", true);
-            _wantToBuyCommentLayout = (VerticalLayout) GetControl("WantToBuyCommentLayout", true);
-            _wantToBuyImage = (Image) GetControl("WantToBuyImage", true);
+            _wantToBuyButton = (HorizontalLayout)GetControl("WantToBuyButton", true);
+            _wantToBuyCommentLayout = (VerticalLayout)GetControl("WantToBuyCommentLayout", true);
+            _wantToBuyImage = (Image)GetControl("WantToBuyImage", true);
 
-            _problemButton = (HorizontalLayout) GetControl("ProblemButton", true);
-            _problemCommentLayout = (VerticalLayout) GetControl("ProblemCommentLayout", true);
-            _problemImage = (Image) GetControl("ProblemImage", true);
+            _problemButton = (HorizontalLayout)GetControl("ProblemButton", true);
+            _problemCommentLayout = (VerticalLayout)GetControl("ProblemCommentLayout", true);
+            _problemImage = (Image)GetControl("ProblemImage", true);
 
-            _wantToBuyCommentMemoEdit = (MemoEdit) GetControl("WantToBuyCommentMemoEdit", true);
-            _problemCommentMemoEdit = (MemoEdit) GetControl("ProblemCommentMemoEdit", true);
-            _commentaryMemoEdit = (MemoEdit) GetControl("CommentaryMemoEdit", true);
+            _wantToBuyCommentMemoEdit = (MemoEdit)GetControl("WantToBuyCommentMemoEdit", true);
+            _problemCommentMemoEdit = (MemoEdit)GetControl("ProblemCommentMemoEdit", true);
+            _commentaryMemoEdit = (MemoEdit)GetControl("CommentaryMemoEdit", true);
         }
 
         internal void WantToBuyButton_OnClick(object sender, EventArgs eventArgs)
@@ -61,7 +65,6 @@ namespace Test
             image.Refresh();
         }
 
-
         internal void ProblemButton_OnClick(object sender, EventArgs eventArgs)
         {
             if (!_problem)
@@ -80,17 +83,41 @@ namespace Test
 
         internal void FinishButton_OnClick(object sender, EventArgs eventArgs)
         {
-            string eventId = (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId];
+            var eventRef = DbRef.FromString((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+            var entitiesList = new ArrayList();
             if (_wantToBuy)
-                DBHelper.InsertClosingEventSale(eventId, _wantToBuyCommentMemoEdit.Text);
+            {
+                var reminder = CreateReminder(eventRef, _wantToBuyCommentMemoEdit.Text);
+                reminder.ViewReminder = FoReminders.GetDbRefFromEnum(FoRemindersEnum.Sale);
+                entitiesList.Add(reminder);
+            }
             if (_problem)
-                DBHelper.InsertClosingEventProblem(eventId, _problemCommentMemoEdit.Text);
+            {
+                var reminder = CreateReminder(eventRef, _problemCommentMemoEdit.Text);
+                reminder.ViewReminder = FoReminders.GetDbRefFromEnum(FoRemindersEnum.Problem);
+                entitiesList.Add(reminder);
+            }
 
             if (!string.IsNullOrEmpty(_commentaryMemoEdit.Text))
-                DBHelper.UpdateClosingEventComment(eventId, _commentaryMemoEdit.Text);
-
+            {
+                var @event = (Event)eventRef.GetObject();
+                @event.Comment = _commentaryMemoEdit.Text;
+                entitiesList.Add(@event);
+            }
+            DBHelper.SaveEntities(entitiesList);
             Navigation.CleanStack();
             Navigation.ModalMove("EventListScreen");
+        }
+
+        private Reminder CreateReminder(DbRef eventRef, string text)
+        {
+            return new Reminder
+            {
+                Id = DbRef.CreateInstance("Document_Reminder", Guid.NewGuid()),
+                Comment = text,
+                Date = DateTime.Now,
+                Reminders = eventRef,
+            };
         }
 
         internal string GetResourceImage(string tag)

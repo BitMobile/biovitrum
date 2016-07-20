@@ -1,10 +1,13 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
+using BitMobile.DbEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Test.Components;
+using Test.Document;
+using Test.Enum;
 
 namespace Test
 {
@@ -12,9 +15,8 @@ namespace Test
     public class MaterialsRequestScreen : Screen
     {
         private static ArrayList _data;
-        private static bool _isAdd = Convert.ToBoolean("False");
-        private static bool _isEdit = Convert.ToBoolean("False");
-        private bool _isEmptyList;
+        private static bool _isAdd = false;
+        private static bool _isEdit = false;
         private TopInfoComponent _topInfoComponent;
         private VerticalLayout _rootLayout;
 
@@ -65,7 +67,7 @@ namespace Test
                     }
                 }
                 BusinessProcess.GlobalVariables.Remove("newItem");
-                _isAdd = Convert.ToBoolean("False");
+                _isAdd = false;
             }
             else if (_isEdit)
             {
@@ -91,7 +93,7 @@ namespace Test
 #endif
                 }
                 BusinessProcess.GlobalVariables.Remove("editItem");
-                _isEdit = Convert.ToBoolean("False");
+                _isEdit = false;
             }
 
 #if DEBUG
@@ -173,13 +175,13 @@ namespace Test
             DConsole.WriteLine("GetIsEmptyList()");
             if (_data == null)
             {
-                _isAdd = _isEdit = Convert.ToBoolean("False");
+                _isAdd = _isEdit = false;
                 _data = new ArrayList();
             }
             else
                 GetValueFromOtherScreen();
 
-            return _isEmptyList = Convert.ToBoolean(_data.Count > 0 ? "False" : "True");
+            return _data.Count == 0;
         }
 
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
@@ -266,19 +268,40 @@ namespace Test
                 {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue}
             };
 
-            _isAdd = Convert.ToBoolean("True");
+            _isAdd = true;
 
             Navigation.Move("RIMListScreen", dictionary);
         }
 
         internal void SendData_OnClick(object sender, EventArgs e)
         {
-            //TODO: сохранения данных в БД.
-            DBHelper.CreateNeedMatDocument(_data);
+            var needMat = new NeedMat
+            {
+                Id = DbRef.CreateInstance("Document_NeedMat", Guid.NewGuid()),
+                Date = DateTime.Now,
+                StatsNeed = StatsNeedNum.GetDbRefFromEnum(StatsNeedNumEnum.New),
+                SR = DbRef.FromString(Settings.UserId),
+                DocIn = DbRef.CreateInstance("Document_Event", Guid.Empty)
+            };
+            var entitiesList = new ArrayList { needMat };
+            var line = 1;
+            foreach (Dictionary<string, object> neededMaterial in _data)
+            {
+                var matireals = new NeedMat_Matireals
+                {
+                    Id = DbRef.CreateInstance("Document_NeedMat_Matireals", Guid.NewGuid()),
+                    LineNumber = line++,
+                    SKU = DbRef.FromString((string)neededMaterial["SKU"]),
+                    Ref = needMat.Id,
+                    Count = (decimal)neededMaterial["Count"]
+                };
+                entitiesList.Add(matireals);
+            }
+            DBHelper.SaveEntities(entitiesList);
             _data = null;
-            _isAdd = _isEdit = Convert.ToBoolean("False");
+            _isAdd = _isEdit = false;
             DConsole.WriteLine("Data is saved");
-            Navigation.Back(true);
+            Navigation.Back();
         }
 
         internal void OnSwipe_Swipe(object sender, EventArgs e)
@@ -293,7 +316,7 @@ namespace Test
             {
                 {"returnKey", "editItem"},
                 {"rimId", vl.Id},
-                {"priceVisible", Convert.ToBoolean("False")},
+                {"priceVisible", false},
                 {"value", GetNumberOfTheItem(vl.Id)},
                 {"minimum", 1},
                 {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue}
@@ -301,7 +324,7 @@ namespace Test
 
             BusinessProcess.GlobalVariables[Parameters.IdIsService] = false;
             BusinessProcess.GlobalVariables[Parameters.IdIsMaterialsRequest] = true;
-            _isEdit = Convert.ToBoolean("True");
+            _isEdit = true;
             Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
         }
 

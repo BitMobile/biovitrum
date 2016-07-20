@@ -3,6 +3,7 @@ using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Test.Catalog;
 using Test.Components;
 
 namespace Test
@@ -12,13 +13,13 @@ namespace Test
         private WebMapGoogle _map;
         private ArrayList _location;
         private DbRecordset _data;
-        private bool _isClientScreen = Convert.ToBoolean("False");
-        private bool _isEventListScreen = Convert.ToBoolean("False");
-        private bool _isEventScreen = Convert.ToBoolean("False");
-        private bool _isInit = Convert.ToBoolean("False");
-        private bool _isNotEmptyLocationData = Convert.ToBoolean("False");
+        private bool _isClientScreen = false;
+        private bool _isEventListScreen = false;
+        private bool _isEventScreen = false;
+        private bool _isInit = false;
+        private bool _isNotEmptyLocationData = false;
         private TopInfoComponent _topInfoComponent;
-        private bool _isDefault = Convert.ToBoolean("False");
+        private bool _isDefault = false;
         private string _clientId;
         private decimal _clientLatitude;
         private decimal _clientLongitude;
@@ -93,7 +94,7 @@ namespace Test
                         _location.Add(dictionary);
                     }
 
-                    _isNotEmptyLocationData = Convert.ToBoolean(_location.Count > 0 ? "True" : "False");
+                    _isNotEmptyLocationData = _location.Count > 0;
                 }
                 else
                 {
@@ -128,13 +129,13 @@ namespace Test
             switch (state)
             {
                 case MapScreenStates.EventListScreen:
-                    _isEventListScreen = Convert.ToBoolean("True");
+                    _isEventListScreen = true;
                     DConsole.WriteLine("MapScreenStates = EventListScreen");
                     _data = DBHelper.GetEventsLocationToday();
                     break;
 
                 case MapScreenStates.ClientScreen:
-                    _isClientScreen = Convert.ToBoolean("True");
+                    _isClientScreen = true;
                     if (locationData != null)
                     {
                         _data = DBHelper.GetClientLocationByClientId((string)locationData);
@@ -143,7 +144,7 @@ namespace Test
                     break;
 
                 case MapScreenStates.EventScreen:
-                    _isEventScreen = Convert.ToBoolean("True");
+                    _isEventScreen = true;
                     if (locationData != null)
                     {
                         _data = DBHelper.GetClientLocationByClientId((string)locationData);
@@ -155,11 +156,11 @@ namespace Test
                     DConsole.WriteLine("is Default");
                     _data = null;
                     _location = null;
-                    _isDefault = Convert.ToBoolean("True");
+                    _isDefault = true;
                     break;
             }
 
-            _isInit = Convert.ToBoolean("True");
+            _isInit = true;
             IsNotEmptyCoordinate();
             DConsole.WriteLine("End " + nameof(Init));
             return true;
@@ -224,7 +225,10 @@ namespace Test
 
         internal void SaveClientLocation_OnClick(object sender, EventArgs e)
         {
-            DBHelper.UpdateClientCoordinate(_clientId, _clientLatitude, _clientLongitude);
+            var client = (Client)DBHelper.LoadEntity(_clientId);
+            client.Latitude = _clientLatitude;
+            client.Longitude = _clientLongitude;
+            DBHelper.SaveEntity(client);
             var btn = (Button)sender;
             btn.Text = Translator.Translate("get_coordinates");
             btn.OnClick -= SaveClientLocation_OnClick;

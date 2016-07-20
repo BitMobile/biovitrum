@@ -155,20 +155,20 @@ namespace Test
             var result = DBHelper.GetTotalFinishedRequireQuestionByEventId(
                 (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
 
-            var isActiveEvent = result.Next()
-                ? (long)result["count"] == 0
-                : Convert.ToBoolean("True");
+            var isActiveEvent = !result.Next() || (long)result["count"] == 0;
 
             if (isActiveEvent)
             {
                 Dialog.Alert(Translator.Translate("closeeventquestion"), (o, args) =>
                 {
-                    if (CheckEventBeforeClosing() && args.Result == 0)
-                    {
-                        DBHelper.UpdateActualEndDateByEventId(DateTime.Now,
-                            (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
-                        Navigation.Move("CloseEventScreen");
-                    }
+                    if (!CheckEventBeforeClosing() || args.Result != 0) return;
+                    var @event =
+                        (Document.Event)
+                            DBHelper.LoadEntity(
+                                (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+                    @event.ActualEndDate = DateTime.Now;
+                    DBHelper.SaveEntity(@event);
+                    Navigation.Move("CloseEventScreen");
                 }, null,
                     Translator.Translate("yes"), Translator.Translate("no"));
             }
@@ -182,8 +182,11 @@ namespace Test
 
         private void Event_OnStart()
         {
-            DBHelper.UpdateActualStartDateByEventId(DateTime.Now,
-                (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+            var @event =
+                (Document.Event)
+                    DBHelper.LoadEntity((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+            @event.ActualStartDate = DateTime.Now;
+            DBHelper.SaveEntity(@event);
             GetCurrentEvent();
         }
 
