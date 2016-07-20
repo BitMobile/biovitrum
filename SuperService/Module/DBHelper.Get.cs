@@ -16,7 +16,7 @@ namespace Test
         /// </summary>
         public static DbRecordset GetEvents()
         {
-            return GetEvents(new DateTime());
+            return GetEvents(DateTime.MinValue);
         }
 
         /// <summary>

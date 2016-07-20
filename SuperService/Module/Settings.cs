@@ -4,6 +4,7 @@ namespace Test
 {
     public static class Settings
     {
+        //TODO: неочень хорошо так хранить пользователя и пароль.
         public static string User
         {
             get { return ApplicationContext.Current.Settings.UserName; }

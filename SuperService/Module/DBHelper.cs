@@ -32,17 +32,17 @@ namespace Test
 
             DConsole.WriteLine("Creating DB");
             _db.CreateFromModel();
-            DConsole.WriteLine("Filling DB with demo data");
+            //DConsole.WriteLine("Filling DB with demo data");
 
-            string queryText;
-            using (var sql = Application.GetResourceStream("Model.main.sql"))
-            using (var reader = new StreamReader(sql))
-            {
-                queryText = reader.ReadToEnd();
-            }
-            var query = new Query(queryText);
-            query.Execute();
-            _db.Commit();
+            //string queryText;
+            //using (var sql = Application.GetResourceStream("Model.main.sql"))
+            //using (var reader = new StreamReader(sql))
+            //{
+            //    queryText = reader.ReadToEnd();
+            //}
+            //var query = new Query(queryText);
+            //query.Execute();
+            //_db.Commit();
         }
 
         public static void SaveEntity(DbEntity entity)
