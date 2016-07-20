@@ -1,10 +1,13 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
+using BitMobile.DbEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Test.Components;
+using Test.Document;
+using Test.Enum;
 
 namespace Test
 {
@@ -14,7 +17,6 @@ namespace Test
         private static ArrayList _data;
         private static bool _isAdd = Convert.ToBoolean("False");
         private static bool _isEdit = Convert.ToBoolean("False");
-        private bool _isEmptyList;
         private TopInfoComponent _topInfoComponent;
         private VerticalLayout _rootLayout;
 
@@ -179,7 +181,7 @@ namespace Test
             else
                 GetValueFromOtherScreen();
 
-            return _isEmptyList = Convert.ToBoolean(_data.Count > 0 ? "False" : "True");
+            return Convert.ToBoolean(_data.Count > 0 ? "False" : "True");
         }
 
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
@@ -273,12 +275,33 @@ namespace Test
 
         internal void SendData_OnClick(object sender, EventArgs e)
         {
-            //TODO: сохранения данных в БД.
-            DBHelper.CreateNeedMatDocument(_data);
+            var needMat = new NeedMat
+            {
+                Id = DbRef.CreateInstance("Document_NeedMat", Guid.NewGuid()),
+                Date = DateTime.Now,
+                StatsNeed = StatsNeedNum.GetDbRefFromEnum(StatsNeedNumEnum.New),
+                SR = DbRef.FromString(Settings.UserId),
+                DocIn = DbRef.CreateInstance("Document_Event", Guid.Empty)
+            };
+            var entitiesList = new ArrayList { needMat };
+            var line = 1;
+            foreach (Dictionary<string, object> neededMaterial in _data)
+            {
+                var matireals = new NeedMat_Matireals
+                {
+                    Id = DbRef.CreateInstance("Document_NeedMat_Matireals", Guid.NewGuid()),
+                    LineNumber = line++,
+                    SKU = DbRef.FromString((string)neededMaterial["SKU"]),
+                    Ref = needMat.Id,
+                    Count = (decimal)neededMaterial["Count"]
+                };
+                entitiesList.Add(matireals);
+            }
+            DBHelper.SaveEntities(entitiesList);
             _data = null;
             _isAdd = _isEdit = Convert.ToBoolean("False");
             DConsole.WriteLine("Data is saved");
-            Navigation.Back(true);
+            Navigation.Back();
         }
 
         internal void OnSwipe_Swipe(object sender, EventArgs e)
