@@ -94,5 +94,10 @@ namespace Test
             if (state.Equals("Full"))
                 Toast.MakeToast(Translator.Translate(resultEventArgs.Result ? "sync_success" : "sync_fail"));
         }
+
+        public static Database GetDatabase()
+        {
+            return _db;
+        }
     }
 }
