@@ -163,12 +163,14 @@ namespace Test
             {
                 Dialog.Alert(Translator.Translate("closeeventquestion"), (o, args) =>
                 {
-                    if (CheckEventBeforeClosing() && args.Result == 0)
-                    {
-                        DBHelper.UpdateActualEndDateByEventId(DateTime.Now,
-                            (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
-                        Navigation.Move("CloseEventScreen");
-                    }
+                    if (!CheckEventBeforeClosing() || args.Result != 0) return;
+                    var @event =
+                        (Document.Event)
+                            DBHelper.LoadEntity(
+                                (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+                    @event.ActualEndDate = DateTime.Now;
+                    DBHelper.SaveEntity(@event);
+                    Navigation.Move("CloseEventScreen");
                 }, null,
                     Translator.Translate("yes"), Translator.Translate("no"));
             }
