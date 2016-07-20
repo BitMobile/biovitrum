@@ -21,6 +21,10 @@ namespace Test
 
         private static Database _db;
 
+        public static string LastError => _db.LastError;
+        public static DateTime LastSyncTime => _db.LastSyncTime;
+        public static bool SuccessSync => _db.SuccessSync;
+
         public static void Init()
         {
             _db = new Database();
@@ -61,7 +65,7 @@ namespace Test
             _db.Commit();
         }
 
-        public static void FullSync(ResultEventHandler<bool> resultEventHandler = null)
+        public static void FullSyncAsync(ResultEventHandler<bool> resultEventHandler = null)
         {
             try
             {
@@ -95,9 +99,18 @@ namespace Test
                 Toast.MakeToast(Translator.Translate(resultEventArgs.Result ? "sync_success" : "sync_fail"));
         }
 
-        public static Database GetDatabase()
+        public static void FullSync(ResultEventHandler<bool> resultEventHandler = null)
         {
-            return _db;
+            try
+            {
+                _db.PerformFullSync(Settings.Server, Settings.User, Settings.Password,
+                    SyncHandler + resultEventHandler,
+                    "Full");
+            }
+            catch (Exception)
+            {
+                SyncHandler("Full", new ResultEventArgs<bool>(false));
+            }
         }
     }
 }

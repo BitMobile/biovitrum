@@ -27,6 +27,8 @@ namespace Test
         // TODO: Хранить сервер
         public static string Server { get; set; }
 
+        public static string Host { get; set; }
+
         public static string UserId { get; set; }
 
         public static bool AllowGallery { get; private set; }

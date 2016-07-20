@@ -105,3 +105,5 @@ mandatory_questions_0_1		Обязательных вопросов: {0}/{1}
 sync_success		Синхронизация успешна
 sync_fail		Не удалось синхронизироваться
 start_event		Наряд будет начат. Продолжить?
+successful_auth		Вы успешно авторизовались.
+unsuccessful_auth		Не удалось авторизоваться.

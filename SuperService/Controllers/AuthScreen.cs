@@ -21,6 +21,7 @@ namespace Test
         {
             //TODO: Опастно так хранить юзера. Потом удалить.
             Settings.Server = @"http://192.168.10.2/bitmobile/testsolution/device";
+            Settings.Host = @"http://192.168.10.2";
         }
 
         internal void CantSigningButton_OnClick(object sender, EventArgs e)
@@ -35,7 +36,7 @@ namespace Test
 
             var webRequest = new WebRequest
             {
-                Host = @"http://192.168.10.2",
+                Host = Settings.Host,
                 UserName = Settings.User,
                 Password = Settings.Password
             };
@@ -44,28 +45,19 @@ namespace Test
             {
                 if (args.Result.Success)
                 {
-                    Toast.MakeToast("Удачно");
                     DConsole.WriteLine($"{Settings.UserId = args.Result.Result}");
                     DBHelper.FullSync((sender1, eventArgs) =>
                     {
-                        if (eventArgs.Result)
-                        {
-                            DConsole.WriteLine($"Sync is OK");
-                            Dialog.Message("Синхронизация выполнена!", (o1, args1) =>
-                            {
-                                Navigation.ModalMove("EventListScreen");
-                            });
-                        }
+                        if (eventArgs.Result) Navigation.ModalMove("EventListScreen");
                     });
                 }
                 else
                 {
-                    Toast.MakeToast("Не удачно");
+                    Toast.MakeToast(Translator.Translate("unsuccessful_auth"));
                     DConsole.WriteLine($"{args.Result.Result}");
                 }
             });
 
-            //var db = DBHelper.GetDatabase();
             //Navigation.ModalMove("EventListScreen");
             // TODO: Сделать авторизацию когда она будет работать
             /*            var req = WebRequest.Create("http://bitmobile1.bt/bitmobileX/platform/device/GetClientMetadata");
