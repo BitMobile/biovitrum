@@ -182,5 +182,7 @@ namespace Test
                 $"{Math.Round(distanceInKm, 2)}" +
                 $" {Translator.Translate("uom_distance")}";
         }
+
+        internal bool ShowEquipment() => Settings.EquipmentEnabled;
     }
 }

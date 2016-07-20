@@ -79,28 +79,29 @@
         </c:HorizontalLayout>
       </c:VerticalLayout>
 
-      <c:HorizontalLine CssClass="WideLineHL" />
+      <s:If Test="$ShowEquipment()">
+        <c:HorizontalLine CssClass="WideLineHL" />
 
-      <c:TextView CssClass="EquipmentsTV" Text="#equipments#" />
-      <c:VerticalLayout CssClass="FatLineContainerVL">
-        <c:HorizontalLine CssClass="FatLineHL" />
-      </c:VerticalLayout>
+        <c:TextView CssClass="EquipmentsTV" Text="#equipments#" />
+        <c:VerticalLayout CssClass="FatLineContainerVL">
+          <c:HorizontalLine CssClass="FatLineHL" />
+        </c:VerticalLayout>
+        <c:VerticalLayout CssClass="EquipmentVL">
 
-      <c:VerticalLayout CssClass="EquipmentVL">
+          <s:Iterator Id="equipments" Value="$GetEquipments()">
 
-        <s:Iterator Id="equipments" Value="$GetEquipments()">
+            <c:VerticalLayout Id="$equipments.equipmentID" CssClass="EquipmentContainerVL"
+                              OnClick="EquipmentLayout_OnClick">
+              <c:TextView CssClass="EquipmentTypeTV" Text="Тип оборудования" />
+              <c:TextView CssClass="EquipmentNameTV" Text="$equipments.Description" />
+            </c:VerticalLayout>
 
-          <c:VerticalLayout Id="$equipments.equipmentID" CssClass="EquipmentContainerVL"
-                            OnClick="EquipmentLayout_OnClick">
-            <c:TextView CssClass="EquipmentTypeTV" Text="Тип оборудования" />
-            <c:TextView CssClass="EquipmentNameTV" Text="$equipments.Description" />
-          </c:VerticalLayout>
-
-          <c:VerticalLayout CssClass="ContainerLineSplitter">
-            <c:HorizontalLine CssClass="LineSplitter" />
-          </c:VerticalLayout>
-        </s:Iterator>
-      </c:VerticalLayout>
+            <c:VerticalLayout CssClass="ContainerLineSplitter">
+              <c:HorizontalLine CssClass="LineSplitter" />
+            </c:VerticalLayout>
+          </s:Iterator>
+        </c:VerticalLayout>
+      </s:If>
     </c:ScrollView>
   </c:VerticalLayout>
 </c:Screen>

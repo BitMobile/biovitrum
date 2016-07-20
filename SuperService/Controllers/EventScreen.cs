@@ -324,5 +324,7 @@ namespace Test
             }
             throw new Exception("Parsing error");
         }
+
+        internal bool ShowTaskButton() => Settings.EquipmentEnabled;
     }
 }
