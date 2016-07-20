@@ -238,25 +238,16 @@ namespace Test
             var statusName = (string)_currentEventRecordset["statusName"];
             if (statusName.Equals(EventStatus.Appointed))
             {
-                Dialog.Ask(Translator.Translate("event_screen_event_not_start"), (o, args) =>
+                Dialog.Ask(Translator.Translate("start_event"), (o, args) =>
                 {
                     if (args.Result != Dialog.Result.Yes) return;
+                    Event_OnStart();
                     Navigation.Move("CheckListScreen");
                 });
             }
             else
             {
-                object eventId;
-                if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
-                {
-                    DConsole.WriteLine("Can't find current event ID, going to crash");
-                }
-
-                var dictinory = new Dictionary<string, object>
-                {
-                    {Parameters.IdCurrentEventId, (string) eventId}
-                };
-                Navigation.Move("CheckListScreen", dictinory);
+                Navigation.Move("CheckListScreen");
             }
         }
 

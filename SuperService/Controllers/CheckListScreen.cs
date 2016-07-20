@@ -35,9 +35,6 @@ namespace Test
         private int _totalAnswered;
 
         private TopInfoComponent _topInfoComponent;
-        private string _currentEventId;
-        private DbRecordset _currentEventDbRecordset;
-        private bool _isNotReadOnlyMode;
 
         public override void OnLoading()
         {
@@ -49,13 +46,6 @@ namespace Test
                 ArrowVisible = false,
                 SubHeader = string.Format(Translator.Translate("mandatory_questions_0_1"), _totalAnswered, _totalRequired)
             };
-            _currentEventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
-            _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
-
-            var statusName = (string)_currentEventDbRecordset["statusName"];
-
-            if (statusName == null) return;
-            _isNotReadOnlyMode = statusName.Equals(EventStatus.InWork);
         }
 
         internal int IncTotalAnswered()
@@ -97,21 +87,14 @@ namespace Test
         // Камера
         internal void CheckListSnapshot_OnClick(object sender, EventArgs eventArgs)
         {
-            if (_isNotReadOnlyMode)
-            {
-                _currentCheckListItemID = ((VerticalLayout)sender).Id;
-                _newGuid = Guid.NewGuid().ToString();
-                _pathToImg = $@"\private\{_newGuid}.jpg";
+            _currentCheckListItemID = ((VerticalLayout)sender).Id;
+            _newGuid = Guid.NewGuid().ToString();
+            _pathToImg = $@"\private\{_newGuid}.jpg";
 
-                _imgToReplace = (Image)((VerticalLayout)sender).GetControl(0);
+            _imgToReplace = (Image)((VerticalLayout)sender).GetControl(0);
 
-                Camera.MakeSnapshot(_pathToImg, int.MaxValue, CameraCallback, sender);
-                // TODO: Ожидать фичи получения изображения с памяти устройства
-            }
-            else
-            {
-                Toast.MakeToast(Translator.Translate("check_list_readonly"));
-            }
+            Camera.MakeSnapshot(_pathToImg, int.MaxValue, CameraCallback, sender);
+            // TODO: Ожидать фичи получения изображения с памяти устройства
         }
 
         private void CameraCallback(object state, ResultEventArgs<bool> args)
@@ -132,28 +115,21 @@ namespace Test
         // Список
         internal void CheckListValList_OnClick(object sender, EventArgs e)
         {
-            if (_isNotReadOnlyMode)
-            {
-                _currentCheckListItemID = ((VerticalLayout)sender).Id;
-                _textView = (TextView)((VerticalLayout)sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout)sender).Id;
+            _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
-                var tv = GetTextView(sender);
+            var tv = GetTextView(sender);
 
-                var items = new Dictionary<object, string>
+            var items = new Dictionary<object, string>
                 {
                     {"", Translator.Translate("not_choosed")}
                 };
-                var temp = DBHelper.GetActionValuesList(_textView.Id);
-                while (temp.Next())
-                {
-                    items[temp["Id"].ToString()] = temp["Val"].ToString();
-                }
-                Dialog.Choose(tv.Text, items, ValListCallback);
-            }
-            else
+            var temp = DBHelper.GetActionValuesList(_textView.Id);
+            while (temp.Next())
             {
-                Toast.MakeToast(Translator.Translate("check_list_readonly"));
+                items[temp["Id"].ToString()] = temp["Val"].ToString();
             }
+            Dialog.Choose(tv.Text, items, ValListCallback);
         }
 
         private void ValListCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
@@ -173,17 +149,10 @@ namespace Test
         // Дата
         internal void CheckListDateTime_OnClick(object sender, EventArgs e)
         {
-            if (_isNotReadOnlyMode)
-            {
-                _currentCheckListItemID = ((VerticalLayout)sender).Id;
-                _textView = (TextView)((VerticalLayout)sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout)sender).Id;
+            _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
-                Dialog.DateTime(@"Выберите дату", DateTime.Now, DateCallback);
-            }
-            else
-            {
-                Toast.MakeToast(Translator.Translate("check_list_readonly"));
-            }
+            Dialog.DateTime(@"Выберите дату", DateTime.Now, DateCallback);
         }
 
         internal void DateCallback(object state, ResultEventArgs<DateTime> args)
@@ -198,25 +167,18 @@ namespace Test
         // Булево
         internal void CheckListBoolean_OnClick(object sender, EventArgs e)
         {
-            if (_isNotReadOnlyMode)
-            {
-                _currentCheckListItemID = ((VerticalLayout)sender).Id;
-                _textView = (TextView)((VerticalLayout)sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout)sender).Id;
+            _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
-                var tv = GetTextView(sender);
+            var tv = GetTextView(sender);
 
-                var items = new Dictionary<object, string>
+            var items = new Dictionary<object, string>
                 {
                     {"true", Translator.Translate("yes")},
                     {"false", Translator.Translate("no")},
                     {"", Translator.Translate("not_choosed")}
                 };
-                Dialog.Choose(tv.Text, items, BooleanCallback);
-            }
-            else
-            {
-                Toast.MakeToast(Translator.Translate("check_list_readonly"));
-            }
+            Dialog.Choose(tv.Text, items, BooleanCallback);
         }
 
         //TODO: Костыль, возможно измениться в будущем.
@@ -441,11 +403,6 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
-        }
-
-        internal bool GetIsNotReadOnlyMode()
-        {
-            return _isNotReadOnlyMode;
         }
     }
 }
