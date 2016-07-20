@@ -155,9 +155,7 @@ namespace Test
             var result = DBHelper.GetTotalFinishedRequireQuestionByEventId(
                 (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
 
-            var isActiveEvent = result.Next()
-                ? (long)result["count"] == 0
-                : Convert.ToBoolean("True");
+            var isActiveEvent = !result.Next() || (long)result["count"] == 0;
 
             if (isActiveEvent)
             {

@@ -145,7 +145,7 @@ namespace Test
                             //вид работ - выбирается одна из табличной части
                             "    event.ActualStartDate,  " + //фактическая дата начала
                             "    event.ActualEndDate,  " + // фактическая дата конца
-                            "    _Enum_StatusImportance.Description as Importance,  " + //важность
+                            "    Enum_StatusImportance.Description as Importance,  " + //важность
                             "    event.Comment,  " +
                             //"    100500 as sumFact, " +
                             "    docSUm.sumFact,  " +
@@ -173,37 +173,37 @@ namespace Test
                             "    Catalog_Contacts.Description as ContactVisitingDescription " +
                             "    " +
                             "from  " +
-                            "    _Document_Event as event  " +
-                            "        left join _Catalog_Client as client  " +
+                            "    Document_Event as event  " +
+                            "        left join Catalog_Client as client  " +
                             "        on  event.id = @id and event.client = client.Id  " +
                             "      " +
                             "        left join  " +
                             "            (select  " +
-                            "                  _Document_Event_TypeDepartures.Ref,   " +
-                            "                  _Catalog_TypesDepartures.description  " +
+                            "                  Document_Event_TypeDepartures.Ref,   " +
+                            "                  Catalog_TypesDepartures.description  " +
                             "             from  " +
                             "                 (select   " +
                             "                      ref,  " +
                             "                      min(lineNumber) as lineNumber  " +
                             "                  from  " +
-                            "                      _Document_Event_TypeDepartures  " +
+                            "                      Document_Event_TypeDepartures  " +
                             "                  where   " +
                             "                      ref = @id   " +
                             "                      and active = 1   " +
                             "                  group by " +
                             "                      ref) as t1  " +
                             "    " +
-                            "               left join _Document_Event_TypeDepartures " +
-                            "                    on t1.ref= _Document_Event_TypeDepartures.ref " +
-                            "                       and t1.lineNumber = _Document_Event_TypeDepartures.lineNumber  " +
-                            "               left join _Catalog_TypesDepartures  " +
-                            "                    on _Document_Event_TypeDepartures.typeDeparture =  _Catalog_TypesDepartures.id) as TypeDeparturesTable  " +
+                            "               left join Document_Event_TypeDepartures " +
+                            "                    on t1.ref= Document_Event_TypeDepartures.ref " +
+                            "                       and t1.lineNumber = Document_Event_TypeDepartures.lineNumber  " +
+                            "               left join Catalog_TypesDepartures  " +
+                            "                    on Document_Event_TypeDepartures.typeDeparture =  Catalog_TypesDepartures.id) as TypeDeparturesTable  " +
                             "        on event.id = TypeDeparturesTable.Ref  " +
                             "    " +
-                            "        left join _Enum_StatusImportance  " +
-                            "           on event.Importance = _Enum_StatusImportance.Id  " +
+                            "        left join Enum_StatusImportance  " +
+                            "           on event.Importance = Enum_StatusImportance.Id  " +
                             "    " +
-                            "        left join (select _Document_Event_ServicesMaterials.Ref, TOTAL(SumFact) as sumFact from _Document_Event_ServicesMaterials where _Document_Event_ServicesMaterials.Ref = @id group by _Document_Event_ServicesMaterials.Ref ) as docSum  " +
+                            "        left join (select Document_Event_ServicesMaterials.Ref, TOTAL(SumFact) as sumFact from Document_Event_ServicesMaterials where Document_Event_ServicesMaterials.Ref = @id group by Document_Event_ServicesMaterials.Ref ) as docSum  " +
                             "           on event.id = docSUm.ref " +
                             "    " +
                             "        left join (select " +
@@ -266,7 +266,7 @@ namespace Test
                                   "      left join Catalog_Equipment as equipment " +
                                   "       on tasks.Equipment = equipment.Id " +
                                   " " +
-                                  "      left join _Enum_ResultEvent as ResultEvent " +
+                                  "      left join Enum_ResultEvent as ResultEvent " +
                                   "       on tasks.Result = ResultEvent.Id " +
                                   "       " +
                                   " where " +
@@ -456,7 +456,7 @@ namespace Test
                                   " " +
                                   "from " +
                                   "    Document_Event_Equipments as tasks " +
-                                  "       left join _Catalog_Equipment as equipment " +
+                                  "       left join Catalog_Equipment as equipment " +
                                   "         on tasks.Id = @taskID " +
                                   "         and tasks.Equipment = equipment.Id " +
                                   " " +
@@ -512,9 +512,9 @@ namespace Test
                                   "    TOTAL(case when Service = 0 then SumFact else 0 end) as SumMaterials, " +
                                   "    TOTAL(case when Service = 1 then SumFact else 0 end) as SumServices " +
                                   "from " +
-                                  "    _Document_Event_ServicesMaterials " +
+                                  "    Document_Event_ServicesMaterials " +
                                   "    join Catalog_RIM " +
-                                  "        on _Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   "where Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
@@ -530,9 +530,9 @@ namespace Test
             // TODO: Написать запрос
 
             var query = new Query("select " +
-                                  "    _Document_Event_ServicesMaterials.Id," +
-                                  "    _Document_Event_ServicesMaterials.SKU," +
-                                  "    _Document_Event_ServicesMaterials.Price," +
+                                  "    Document_Event_ServicesMaterials.Id," +
+                                  "    Document_Event_ServicesMaterials.SKU," +
+                                  "    Document_Event_ServicesMaterials.Price," +
                                   "    AmountPlan," +
                                   "    SumPlan," +
                                   "    AmountFact," +
@@ -541,12 +541,12 @@ namespace Test
                                   "    Code," +
                                   "    Unit " +
                                   "from" +
-                                  "    _Document_Event_ServicesMaterials " +
+                                  "    Document_Event_ServicesMaterials " +
                                   "    join Catalog_RIM " +
-                                  "        on _Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   " where Catalog_RIM.Service = 0 and " +
-                                  " _Document_Event_ServicesMaterials.AmountFact != 0 and" +
-                                  "    _Document_Event_ServicesMaterials.Ref = @eventId");
+                                  " Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
         }
@@ -559,9 +559,9 @@ namespace Test
         public static DbRecordset GetServicesByEventId(string eventId)
         {
             var query = new Query("select " +
-                                  "    _Document_Event_ServicesMaterials.Id," +
-                                  "    _Document_Event_ServicesMaterials.SKU," +
-                                  "    _Document_Event_ServicesMaterials.Price," +
+                                  "    Document_Event_ServicesMaterials.Id," +
+                                  "    Document_Event_ServicesMaterials.SKU," +
+                                  "    Document_Event_ServicesMaterials.Price," +
                                   "    AmountPlan," +
                                   "    SumPlan," +
                                   "    AmountFact," +
@@ -570,12 +570,12 @@ namespace Test
                                   "    Code," +
                                   "    Unit " +
                                   "from" +
-                                  "    _Document_Event_ServicesMaterials " +
+                                  "    Document_Event_ServicesMaterials " +
                                   "       join Catalog_RIM" +
-                                  "        on _Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   " where Catalog_RIM.Service = 1 and " +
-                                  " _Document_Event_ServicesMaterials.AmountFact != 0 and" +
-                                  "    _Document_Event_ServicesMaterials.Ref = @eventId");
+                                  " Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
         }
@@ -601,7 +601,7 @@ namespace Test
                                       and isFolder = 0
                                       and service = @rim_type
                                       and id not in " +
-                                  @"(select SKU from _Document_Event_ServicesMaterials where _Document_Event_ServicesMaterials.Ref = @eventId) ");
+                                  @"(select SKU from Document_Event_ServicesMaterials where Document_Event_ServicesMaterials.Ref = @eventId) ");
 
             DConsole.WriteLine("rimType = " + rimType);
             query.AddParameter("rim_type", rimType == RIMType.Material ? 0 : 1);
@@ -635,10 +635,10 @@ namespace Test
                             "    SumFact, " +
                             "    isDirty " +
                             "from " +
-                            "    _Document_Event_ServicesMaterials " +
+                            "    Document_Event_ServicesMaterials " +
                             "where " +
-                            "    _Document_Event_ServicesMaterials.Ref = @EventDocRef " +
-                            "    and _Document_Event_ServicesMaterials.SKU = @SKUID";
+                            "    Document_Event_ServicesMaterials.Ref = @EventDocRef " +
+                            "    and Document_Event_ServicesMaterials.SKU = @SKUID";
 
             var query = new Query(queryText);
             query.AddParameter("EventDocRef", docEventID);
@@ -686,9 +686,9 @@ namespace Test
                               "    SumPlan, " +
                               "    SumFact " +
                               "from " +
-                              "  _Document_Event_ServicesMaterials " +
+                              "  Document_Event_ServicesMaterials " +
                               "where " +
-                              "   _Document_Event_ServicesMaterials.id = @lineId";
+                              "   Document_Event_ServicesMaterials.id = @lineId";
 
             var query = new Query(queryString);
             query.AddParameter("lineId", lineID);
@@ -706,16 +706,16 @@ namespace Test
         public static DbRecordset GetUserBagByUserId(string userID)
         {
             var queryString = "select " +
-                              "    _Catalog_RIM.id,  " +
-                              "    _Catalog_RIM.Description, " +
-                              "    _Catalog_RIM.Unit,   " +
-                              "    _Catalog_User_Bag.Count " +
+                              "    Catalog_RIM.id,  " +
+                              "    Catalog_RIM.Description, " +
+                              "    Catalog_RIM.Unit,   " +
+                              "    Catalog_User_Bag.Count " +
                               "  from " +
-                              "    _Catalog_User_Bag " +
-                              "        left join _Catalog_RIM " +
-                              "            on _Catalog_User_Bag.Materials = _Catalog_RIM.id " +
+                              "    Catalog_User_Bag " +
+                              "        left join Catalog_RIM " +
+                              "            on Catalog_User_Bag.Materials = Catalog_RIM.id " +
                               "  where " +
-                              "    _Catalog_User_Bag.Ref = @userId";
+                              "    Catalog_User_Bag.Ref = @userId";
             var query = new Query(queryString);
             query.AddParameter("userId", userID);
 
@@ -731,19 +731,19 @@ namespace Test
         public static DbRecordset GetNeedMats()
         {
             var queryText = @"select
-                               _Document_NeedMat.id,
-                               _Document_NeedMat.Date,
-                               Time(_Document_NeedMat.Date) as docTime,
-                               _Document_NeedMat.Number,
-                               _Enum_StatsNeedNum.name as statusName,
-                               _Enum_StatsNeedNum.Description as statusDescription
+                               Document_NeedMat.id,
+                               Document_NeedMat.Date,
+                               Time(Document_NeedMat.Date) as docTime,
+                               Document_NeedMat.Number,
+                               Enum_StatsNeedNum.name as statusName,
+                               Enum_StatsNeedNum.Description as statusDescription
 
                             from
-                               _Document_NeedMat
-                                   left join _Enum_StatsNeedNum
-                                       on _Document_NeedMat.StatsNeed = _Enum_StatsNeedNum.id
+                               Document_NeedMat
+                                   left join Enum_StatsNeedNum
+                                       on Document_NeedMat.StatsNeed = Enum_StatsNeedNum.id
                             order by
-                               _Document_NeedMat.Date desc";
+                               Document_NeedMat.Date desc";
 
             var query = new Query(queryText);
 
@@ -758,19 +758,19 @@ namespace Test
         public static DbRecordset GetServiceMaterialPriceByLineID(string lineId)
         {
             var query = new Query("select " +
-                                  "      _Document_Event_ServicesMaterials.Id, " +
-                                  "      _Document_Event_ServicesMaterials.SKU as RIMID, " +
-                                  "      _Catalog_RIM.Description, " +
-                                  "      _Document_Event_ServicesMaterials.Price, " +
-                                  "      _Document_Event_ServicesMaterials.AmountFact, " +
-                                  "      _Document_Event_ServicesMaterials.SumFact " +
+                                  "      Document_Event_ServicesMaterials.Id, " +
+                                  "      Document_Event_ServicesMaterials.SKU as RIMID, " +
+                                  "      Catalog_RIM.Description, " +
+                                  "      Document_Event_ServicesMaterials.Price, " +
+                                  "      Document_Event_ServicesMaterials.AmountFact, " +
+                                  "      Document_Event_ServicesMaterials.SumFact " +
                                   "from " +
-                                  "    _Document_Event_ServicesMaterials " +
-                                  "         left join _Catalog_RIM " +
-                                  "            on _Document_Event_ServicesMaterials.SKU = _Catalog_RIM.Id " +
+                                  "    Document_Event_ServicesMaterials " +
+                                  "         left join Catalog_RIM " +
+                                  "            on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   " " +
                                   "where " +
-                                  "    _Document_Event_ServicesMaterials.id = @lineId");
+                                  "    Document_Event_ServicesMaterials.id = @lineId");
             query.AddParameter("lineId", lineId);
             return query.Execute();
         }
@@ -784,17 +784,17 @@ namespace Test
         public static DbRecordset GetServiceMaterialPriceByRIMID(string rimId, int minimum = 1)
         {
             var query = new Query("select " +
-                                  "      _Catalog_RIM.id, " +
-                                  "      _Catalog_RIM.Description, " +
-                                  "      _Catalog_RIM.Price, " +
-                                  "      _Catalog_RIM.Unit,  " +
+                                  "      Catalog_RIM.id, " +
+                                  "      Catalog_RIM.Description, " +
+                                  "      Catalog_RIM.Price, " +
+                                  "      Catalog_RIM.Unit,  " +
                                   "      @minimum as AmountFact, " +
-                                  "      _Catalog_RIM.Price as SumFact " +
+                                  "      Catalog_RIM.Price as SumFact " +
                                   "from " +
-                                  "    _Catalog_RIM " +
+                                  "    Catalog_RIM " +
                                   " " +
                                   "where " +
-                                  "    _Catalog_RIM.id = @RIMId");
+                                  "    Catalog_RIM.id = @RIMId");
             query.AddParameter("RIMId", rimId);
             query.AddParameter("minimum", minimum);
             return query.Execute();
@@ -836,7 +836,7 @@ namespace Test
                                     client.Latitude as Latitude,
                                     client.Longitude as Longitude
                                 from
-                                    _Catalog_Client as client
+                                    Catalog_Client as client
                                 where
                                     client.Latitude != 0
                                     and client.Longitude != 0
@@ -854,8 +854,8 @@ namespace Test
                                         client.Latitude as Latitude,
                                         client.Longitude as Longitude
                                     from
-                                        _Document_Event as event
-                                    left join _Catalog_Client as client
+                                        Document_Event as event
+                                    left join Catalog_Client as client
                                         on event.client = client.id
                                     where
                                         event.DeletionMark = 0
@@ -877,12 +877,12 @@ namespace Test
         public static bool GetIsUseServiceBag()
         {
             var query = new Query(@"SELECT LogicValue
-                                    FROM _Catalog_SettingMobileApplication
+                                    FROM Catalog_SettingMobileApplication
                                     WHERE Description = 'UsedServiceBag' ");
 
             var dbResult = query.Execute();
 
-            return dbResult.Next() ? dbResult.GetBoolean(0) : Convert.ToBoolean("False");
+            return dbResult.Next() && dbResult.GetBoolean(0);
         }
 
         /// <summary>
@@ -894,12 +894,12 @@ namespace Test
         public static bool GetIsUsedCalculateService()
         {
             var query = new Query(@"SELECT LogicValue
-                                    FROM _Catalog_SettingMobileApplication
+                                    FROM Catalog_SettingMobileApplication
                                     WHERE Description = 'UsedCalculateService' ");
 
             var dbResult = query.Execute();
 
-            return dbResult.Next() ? dbResult.GetBoolean(0) : Convert.ToBoolean("False");
+            return dbResult.Next() && dbResult.GetBoolean(0);
         }
 
         /// <summary>
@@ -911,7 +911,7 @@ namespace Test
         public static bool GetIsUsedCalculateMaterials()
         {
             var query = new Query(@"SELECT LogicValue
-                                    FROM _Catalog_SettingMobileApplication
+                                    FROM Catalog_SettingMobileApplication
                                     WHERE Description = 'UsedCalculateMaterials' ");
 
             var dbResult = query.Execute();
@@ -925,23 +925,23 @@ namespace Test
 
             return true;*/
 
-            return dbResult.Next() ? dbResult.GetBoolean(0) : Convert.ToBoolean("False");
+            return dbResult.Next() && dbResult.GetBoolean(0);
         }
 
         public static DbRecordset GetRIMFromBag(RIMType type = RIMType.Material)
         {
             var query = new Query(@"SELECT
-                                        _Catalog_RIM.Id as id,
-                                        _Catalog_RIM.Description as Description,
-                                        _Catalog_RIM.Price as Price,
-                                        _Catalog_RIM.Unit as Unit,
-                                        _Catalog_RIM.service
+                                        Catalog_RIM.Id as id,
+                                        Catalog_RIM.Description as Description,
+                                        Catalog_RIM.Price as Price,
+                                        Catalog_RIM.Unit as Unit,
+                                        Catalog_RIM.service
                                     FROM
-                                           _Catalog_User_Bag
-                                              LEFT JOIN _Catalog_Rim
-                                                 ON _Catalog_User_Bag.Materials =  _Catalog_RIM.Id
-                                    WHERE _Catalog_RIM.IsFolder = 0 and
-                                          _Catalog_RIM.DeletionMark = 0 and
+                                           Catalog_User_Bag
+                                              LEFT JOIN Catalog_Rim
+                                                 ON Catalog_User_Bag.Materials =  Catalog_RIM.Id
+                                    WHERE Catalog_RIM.IsFolder = 0 and
+                                          Catalog_RIM.DeletionMark = 0 and
                                            service = @isService ");
 
             query.AddParameter("isService", (int)type);
@@ -985,12 +985,12 @@ namespace Test
             var queryText = "select " +
                             "   history.Period as Date, " +
                             "   history.Target as Description, " +
-                            "   _Enum_ResultEvent.Description as result, " +
-                            "   _Enum_ResultEvent.Name as ResultName " +
+                            "   Enum_ResultEvent.Description as result, " +
+                            "   Enum_ResultEvent.Name as ResultName " +
                             "from " +
-                            "   _Catalog_Equipment_EquiementsHistory as history " +
-                            "       left join _Enum_ResultEvent " +
-                            "            on history.Result = _Enum_ResultEvent.Id " +
+                            "   Catalog_Equipment_EquiementsHistory as history " +
+                            "       left join Enum_ResultEvent " +
+                            "            on history.Result = Enum_ResultEvent.Id " +
                             "where " +
                             "     history.Equiements = @equipmentId " +
                             "     and history.Period > date(@startDate) " +
@@ -1044,7 +1044,7 @@ namespace Test
                                         else 0
                                         end) as count
                                     from
-                                        _Document_Event_CheckList
+                                        Document_Event_CheckList
                                         where
                                         Ref = @ref and Required = 1");
 
@@ -1064,7 +1064,7 @@ namespace Test
             var query = new Query(@"select
                                     Id,
                                     Description
-                                    from _Catalog_User
+                                    from Catalog_User
                                     where UserName like @userName");
             query.AddParameter("userName", userName);
 

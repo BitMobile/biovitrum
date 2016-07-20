@@ -168,18 +168,21 @@ namespace Test
 
         private void InsertIntoDb()
         {
+            var @ref = (string)BusinessProcess.GlobalVariables.GetValueOrDefault(Parameters.IdCurrentEventId,
+                DbRef.CreateInstance("Document_Event", Guid.Empty).GetString());
             var line = new Event_ServicesMaterials
             {
                 Id = DbRef.CreateInstance("Document_Event_ServicesMaterials", Guid.NewGuid()),
-                Ref = DbRef.FromString((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]),
+                Ref = DbRef.FromString(@ref),
                 Price = Price,
                 AmountFact = AmountFact,
                 SumFact = Price * AmountFact,
                 SKU = DbRef.FromString(_rimId),
                 LineNumber =
                     DBHelper.GetMaxNumberFromTableInColumn("Document_Event_ServicesMaterials", "LineNumber", "Ref",
-                        (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]) + 1
+                        @ref) + 1
             };
+
             DBHelper.SaveEntity(line);
         }
 

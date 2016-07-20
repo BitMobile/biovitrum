@@ -15,8 +15,8 @@ namespace Test
     public class MaterialsRequestScreen : Screen
     {
         private static ArrayList _data;
-        private static bool _isAdd = Convert.ToBoolean("False");
-        private static bool _isEdit = Convert.ToBoolean("False");
+        private static bool _isAdd = false;
+        private static bool _isEdit = false;
         private TopInfoComponent _topInfoComponent;
         private VerticalLayout _rootLayout;
 
@@ -67,7 +67,7 @@ namespace Test
                     }
                 }
                 BusinessProcess.GlobalVariables.Remove("newItem");
-                _isAdd = Convert.ToBoolean("False");
+                _isAdd = false;
             }
             else if (_isEdit)
             {
@@ -93,7 +93,7 @@ namespace Test
 #endif
                 }
                 BusinessProcess.GlobalVariables.Remove("editItem");
-                _isEdit = Convert.ToBoolean("False");
+                _isEdit = false;
             }
 
 #if DEBUG
@@ -175,13 +175,13 @@ namespace Test
             DConsole.WriteLine("GetIsEmptyList()");
             if (_data == null)
             {
-                _isAdd = _isEdit = Convert.ToBoolean("False");
+                _isAdd = _isEdit = false;
                 _data = new ArrayList();
             }
             else
                 GetValueFromOtherScreen();
 
-            return Convert.ToBoolean(_data.Count > 0 ? "False" : "True");
+            return _data.Count == 0;
         }
 
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
@@ -268,7 +268,7 @@ namespace Test
                 {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue}
             };
 
-            _isAdd = Convert.ToBoolean("True");
+            _isAdd = true;
 
             Navigation.Move("RIMListScreen", dictionary);
         }
@@ -299,7 +299,7 @@ namespace Test
             }
             DBHelper.SaveEntities(entitiesList);
             _data = null;
-            _isAdd = _isEdit = Convert.ToBoolean("False");
+            _isAdd = _isEdit = false;
             DConsole.WriteLine("Data is saved");
             Navigation.Back();
         }
@@ -316,7 +316,7 @@ namespace Test
             {
                 {"returnKey", "editItem"},
                 {"rimId", vl.Id},
-                {"priceVisible", Convert.ToBoolean("False")},
+                {"priceVisible", false},
                 {"value", GetNumberOfTheItem(vl.Id)},
                 {"minimum", 1},
                 {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue}
@@ -324,7 +324,7 @@ namespace Test
 
             BusinessProcess.GlobalVariables[Parameters.IdIsService] = false;
             BusinessProcess.GlobalVariables[Parameters.IdIsMaterialsRequest] = true;
-            _isEdit = Convert.ToBoolean("True");
+            _isEdit = true;
             Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
         }
 

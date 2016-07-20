@@ -40,8 +40,8 @@ namespace Test
                 return 0;
             }
 
-            _isMaterialRequest = Convert.ToBoolean(Variables.GetValueOrDefault(Parameters.IdIsMaterialsRequest, Convert.ToBoolean("False")));
-            _isService = Convert.ToBoolean(Variables.GetValueOrDefault(Parameters.IdIsService, Convert.ToBoolean("False")));
+            _isMaterialRequest = (bool)Variables.GetValueOrDefault(Parameters.IdIsMaterialsRequest, false);
+            _isService = (bool)Variables.GetValueOrDefault(Parameters.IdIsService, false);
             _currentEventID = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
             _isUseServiceBag = DBHelper.GetIsUseServiceBag();
             _usedCalculateService = DBHelper.GetIsUsedCalculateService();
@@ -79,7 +79,7 @@ namespace Test
                 var dictionary = new Dictionary<string, object>
                 {
                     {"rimId", rimID},
-                    {"priceVisible", Convert.ToBoolean("False")},
+                    {"priceVisible", false},
                     {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue},
                     {"returnKey", key},
                     {Parameters.IdIsService, _isService},
@@ -175,7 +175,7 @@ namespace Test
                 //при запросе материалов в рюкзак цену не отображаем
                 result = "";
             }
-            else if ((_usedCalculateService && Convert.ToBoolean(rimLine["service"])) || (_usedCalculateMaterials && !Convert.ToBoolean(rimLine["service"])))
+            else if ((_usedCalculateService && (bool)rimLine["service"]) || (_usedCalculateMaterials && !(bool)rimLine["service"]))
             {
                 result = GetFormatPriceDescription((float)rimLine["Price"], (string)rimLine["Unit"]);
             }
@@ -189,7 +189,7 @@ namespace Test
 
             while (result.Next())
             {
-                _isNotEmptyData = Convert.ToBoolean("True");
+                _isNotEmptyData = true;
                 break;
             }
 
