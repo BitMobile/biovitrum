@@ -104,6 +104,4 @@ company_web_site		www.company.com
 mandatory_questions_0_1		Обязательных вопросов: {0}/{1}
 sync_success		Синхронизация успешна
 sync_fail		Не удалось синхронизироваться
-start_event		Наряд будет начат. Продолжить
-event_screen_event_not_start		Наряд не начат. Чек-лист будет доступен только для просмотра. Продолжить?
-check_list_readonly		Чек-лист доступен только для просмотра.
+start_event		Наряд будет начат. Продолжить?

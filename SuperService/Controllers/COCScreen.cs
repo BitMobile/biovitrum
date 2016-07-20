@@ -75,16 +75,6 @@ namespace Test
         public override void OnShow()
         {
             GPS.StopTracking();
-            var eventStatus = (string)_currentEventDbRecordset["statusName"];
-
-            if (eventStatus.Equals(EventStatus.Appointed))
-            {
-                Dialog.Ask(Translator.Translate("start_event"), (sender, args) =>
-                {
-                    if (args.Result != Dialog.Result.Yes) return;
-                    ChangeEventStatus();
-                });
-            }
         }
 
         internal string GetResourceImage(string tag)
