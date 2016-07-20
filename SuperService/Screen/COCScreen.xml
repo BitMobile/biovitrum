@@ -11,7 +11,7 @@
       <c:VerticalLayout Id="ServicesInfoVL" CssClass="TotalPriceInfoVL">
         <c:HorizontalLayout Id="ServicesInfoHL" CssClass="TotalPriceInfoHL">
           <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#services#" />
-        <c:TextView Id="RightInfoServicesTV" CssClass="RightInfoTV" Text="$GetFormatStringForServiceSums()" />
+          <c:TextView Id="RightInfoServicesTV" CssClass="RightInfoTV" Text="$GetFormatStringForServiceSums()" />
         </c:HorizontalLayout>
       </c:VerticalLayout>
 
@@ -97,12 +97,13 @@
             <c:TextView CssClass="AddTV" Text="#add_materials#" />
           </c:HorizontalLayout>
         </c:VerticalLayout>
+        <s:If Test="$ShowNotEnoughMaterials()">
+          <c:HorizontalLine CssClass="WideHL" />
 
-        <c:HorizontalLine CssClass="WideHL" />
-
-        <c:HorizontalLayout CssClass="BottomContainerHL" OnClick="ApplicatioMaterials_OnClick">
-          <c:TextView CssClass="BottomTV" Text="#do_not_have_enough_material#" />
-        </c:HorizontalLayout>
+          <c:HorizontalLayout CssClass="BottomContainerHL" OnClick="ApplicatioMaterials_OnClick">
+            <c:TextView CssClass="BottomTV" Text="#do_not_have_enough_material#" />
+          </c:HorizontalLayout>
+        </s:If>
       </c:VerticalLayout>
     </c:ScrollView>
   </c:VerticalLayout>

@@ -258,5 +258,7 @@ namespace Test
             DBHelper.SaveEntity(@event);
             _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
         }
+
+        internal bool ShowNotEnoughMaterials() => Settings.BagEnabled;
     }
 }

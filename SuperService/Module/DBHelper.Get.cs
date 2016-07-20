@@ -722,6 +722,14 @@ namespace Test
             return query.Execute();
         }
 
+        public static DbRecordset GetAllMaterials()
+        {
+            var query =
+                new Query(
+                    "select id, Description, Unit, 0 as Count from Catalog_RIM where Service = 0 and DeletionMark = 0");
+            return query.Execute();
+        }
+
         /// <summary>
         ///     Получает список документов заявка на материалы
         /// </summary>

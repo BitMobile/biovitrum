@@ -43,9 +43,9 @@ namespace Test
             _isMaterialRequest = (bool)Variables.GetValueOrDefault(Parameters.IdIsMaterialsRequest, false);
             _isService = (bool)Variables.GetValueOrDefault(Parameters.IdIsService, false);
             _currentEventID = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
-            _isUseServiceBag = DBHelper.GetIsUseServiceBag();
-            _usedCalculateService = DBHelper.GetIsUsedCalculateService();
-            _usedCalculateMaterials = DBHelper.GetIsUsedCalculateMaterials();
+            _isUseServiceBag = Settings.BagEnabled;
+            _usedCalculateService = Settings.ShowServicePrice;
+            _usedCalculateMaterials = Settings.ShowMaterialPrice;
             _fieldsAreInitialized = true;
             return 0;
         }

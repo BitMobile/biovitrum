@@ -17,11 +17,13 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("bag"),
-                LeftButtonControl = new Image { Source = ResourceManager.GetImage("baglistscreen_busket") },
-                RightButtonControl = new Image { Source = ResourceManager.GetImage("baglistscreen_plus") },
                 ArrowVisible = false
             };
-
+            if (Settings.BagEnabled)
+            {
+                _topInfoComponent.LeftButtonControl = new Image { Source = ResourceManager.GetImage("baglistscreen_busket") };
+                _topInfoComponent.RightButtonControl = new Image { Source = ResourceManager.GetImage("baglistscreen_plus") };
+            }
             _tabBarComponent = new TabBarComponent(this);
         }
 
@@ -32,12 +34,14 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            Navigation.Move("RequestHistoryScreen");
+            if (Settings.BagEnabled)
+                Navigation.Move("RequestHistoryScreen");
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            Navigation.Move("MaterialsRequestScreen");
+            if (Settings.BagEnabled)
+                Navigation.Move("MaterialsRequestScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
@@ -47,8 +51,7 @@ namespace Test
 
         internal IEnumerable GetUserBag()
         {
-            // TODO: сделать передачу Id юзера когда будет авторизация
-            return DBHelper.GetUserBagByUserId("@ref[Catalog_User]:838443ed-a3eb-11e5-8aad-f8a963e4bf15");
+            return Settings.BagEnabled ? DBHelper.GetUserBagByUserId(Settings.UserId) : DBHelper.GetAllMaterials();
         }
 
         internal string ConcatCountUnit(Single count, string unit)
@@ -84,5 +87,7 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
+
+        internal bool ShowCount() => Settings.BagEnabled;
     }
 }
