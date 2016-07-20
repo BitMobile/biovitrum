@@ -49,9 +49,6 @@ namespace Test
             BagEnabled = (bool)settings["UsedServiceBag"];
             ShowServicePrice = (bool)settings["UsedCalculateService"];
             ShowMaterialPrice = (bool)settings["UsedCalculateMaterials"];
-
-            BagEnabled = false;
-            EquipmentEnabled = false;
         }
     }
 }
