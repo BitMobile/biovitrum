@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Test.Components;
-using DbRecordset = BitMobile.ClientModel3.DbRecordset;
+using Test.Document;
 
 namespace Test
 {
@@ -46,6 +46,13 @@ namespace Test
                 ArrowVisible = false,
                 SubHeader = string.Format(Translator.Translate("mandatory_questions_0_1"), _totalAnswered, _totalRequired)
             };
+        }
+
+        private void UpdateChecklist(string id, string result)
+        {
+            var checkList = (Event_CheckList)DBHelper.LoadEntity(id);
+            checkList.Result = result;
+            DBHelper.SaveEntity(checkList);
         }
 
         internal int IncTotalAnswered()
@@ -135,8 +142,9 @@ namespace Test
         private void ValListCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
         {
             _textView.Text = args.Result.Value;
-            DBHelper.UpdateCheckListItem(_currentCheckListItemID,
+            UpdateChecklist(_currentCheckListItemID,
                 args.Result.Value == Translator.Translate("not_choosed") ? "" : _textView.Text);
+
             _textView.Refresh();
 
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result.Value != Translator.Translate("not_choosed"));
@@ -158,7 +166,7 @@ namespace Test
         internal void DateCallback(object state, ResultEventArgs<DateTime> args)
         {
             _textView.Text = args.Result.Date.ToString("dd MMMM yyyy");
-            DBHelper.UpdateCheckListItem(_currentCheckListItemID, _textView.Text);
+            UpdateChecklist(_currentCheckListItemID, _textView.Text);
             //ChangeRequiredIndicator(_lastClickedRequiredIndicatior, true);
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов ChangeRequiredIndicator(_lastClickedRequiredIndicatior, true);
             ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
@@ -194,7 +202,7 @@ namespace Test
         internal void BooleanCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
         {
             _textView.Text = args.Result.Value;
-            DBHelper.UpdateCheckListItem(_currentCheckListItemID,
+            UpdateChecklist(_currentCheckListItemID,
                 args.Result.Value == Translator.Translate("not_choosed") ? "" : _textView.Text);
 
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result.Value != Translator.Translate("not_choosed"));
@@ -212,7 +220,7 @@ namespace Test
             _editText = (EditText)sender;
             _currentCheckListItemID = ((EditText)sender).Id;
 
-            DBHelper.UpdateCheckListItem(_currentCheckListItemID, _editText.Text);
+            UpdateChecklist(_currentCheckListItemID, _editText.Text);
 
             _lastClickedRequiredIndicatior = (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
 
@@ -245,7 +253,7 @@ namespace Test
             //    vltarget.Refresh();
             //}
 
-            DBHelper.UpdateCheckListItem(_currentCheckListItemID, _editText.Text);
+            UpdateChecklist(_currentCheckListItemID, _editText.Text);
 
             _lastClickedRequiredIndicatior = (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
 
@@ -309,7 +317,7 @@ namespace Test
             //    }
             //}
             // TODO: Непонятное поведение Refresh(), из-за чего не можем оперативно сменить индикатор важности. Работает на android 4, не работает на android 6
-            DBHelper.UpdateCheckListItem(_currentCheckListItemID, _editText.Text);
+            UpdateChecklist(_currentCheckListItemID, _editText.Text);
 
             _lastClickedRequiredIndicatior = (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
 
