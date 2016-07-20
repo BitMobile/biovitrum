@@ -56,6 +56,11 @@ namespace Test
             _db.Commit();
         }
 
+        public static object LoadEntity(string id)
+        {
+            return DbRef.FromString(id).GetObject();
+        }
+
         public static void Commit()
         {
             _db.Commit();
