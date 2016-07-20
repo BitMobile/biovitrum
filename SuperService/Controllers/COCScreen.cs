@@ -248,7 +248,9 @@ namespace Test
 
         private void ChangeEventStatus()
         {
-            DBHelper.UpdateActualStartDateByEventId(DateTime.Now, _currentEventId);
+            var @event = (Document.Event)DBHelper.LoadEntity(_currentEventId);
+            @event.ActualStartDate = DateTime.Now;
+            DBHelper.SaveEntity(@event);
             _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
         }
     }

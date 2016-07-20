@@ -182,8 +182,11 @@ namespace Test
 
         private void Event_OnStart()
         {
-            DBHelper.UpdateActualStartDateByEventId(DateTime.Now,
-                (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+            var @event =
+                (Document.Event)
+                    DBHelper.LoadEntity((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+            @event.ActualStartDate = DateTime.Now;
+            DBHelper.SaveEntity(@event);
             GetCurrentEvent();
         }
 
