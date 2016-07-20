@@ -3,6 +3,7 @@ using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Test.Catalog;
 using Test.Components;
 
 namespace Test
@@ -224,7 +225,10 @@ namespace Test
 
         internal void SaveClientLocation_OnClick(object sender, EventArgs e)
         {
-            DBHelper.UpdateClientCoordinate(_clientId, _clientLatitude, _clientLongitude);
+            var client = (Client)DBHelper.LoadEntity(_clientId);
+            client.Latitude = _clientLatitude;
+            client.Longitude = _clientLongitude;
+            DBHelper.SaveEntity(client);
             var btn = (Button)sender;
             btn.Text = Translator.Translate("get_coordinates");
             btn.OnClick -= SaveClientLocation_OnClick;
