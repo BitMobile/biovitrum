@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using Test.Components;
 using Test.Document;
+using Test.Enum;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 // ReSharper disable SpecifyACultureInStringConversionExplicitly
@@ -251,8 +252,9 @@ namespace Test
 
         private void ChangeEventStatus()
         {
-            var @event = (Document.Event)DBHelper.LoadEntity(_currentEventId);
+            var @event = (Event)DBHelper.LoadEntity(_currentEventId);
             @event.ActualStartDate = DateTime.Now;
+            @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             DBHelper.SaveEntity(@event);
             _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
         }

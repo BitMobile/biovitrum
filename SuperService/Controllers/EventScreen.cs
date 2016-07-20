@@ -3,6 +3,7 @@ using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections.Generic;
 using Test.Components;
+using Test.Enum;
 
 namespace Test
 {
@@ -186,6 +187,7 @@ namespace Test
                 (Document.Event)
                     DBHelper.LoadEntity((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
             @event.ActualStartDate = DateTime.Now;
+            @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             DBHelper.SaveEntity(@event);
             GetCurrentEvent();
         }
