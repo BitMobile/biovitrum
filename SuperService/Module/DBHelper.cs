@@ -56,14 +56,15 @@ namespace Test
             _db.Commit();
         }
 
+        public static void DeleteByRef(DbRef @ref)
+        {
+            _db.Delete(@ref);
+            _db.Commit();
+        }
+
         public static object LoadEntity(string id)
         {
             return DbRef.FromString(id).GetObject();
-        }
-
-        public static void Commit()
-        {
-            _db.Commit();
         }
 
         public static void FullSync(ResultEventHandler<bool> resultEventHandler = null)

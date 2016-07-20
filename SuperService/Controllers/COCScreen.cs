@@ -1,9 +1,12 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
+using BitMobile.DbEngine;
 using System;
 using System.Collections.Generic;
 using Test.Components;
+using Test.Document;
+using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 // ReSharper disable SpecifyACultureInStringConversionExplicitly
 
@@ -172,7 +175,7 @@ namespace Test
         {
             //TODO: Обходной путь получения парента. Внимание!!!!!.
             var vl = (VerticalLayout)sender;
-            DBHelper.DeleteServiceOrMaterialById(vl.Id);
+            DBHelper.DeleteByRef(DbRef.FromString(vl.Id));
             var shl = (ISwipeHorizontalLayout3)vl.Parent;
             shl.CssClass = "NoHeight";
             var sums = GetSums();
