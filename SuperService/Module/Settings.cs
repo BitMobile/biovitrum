@@ -32,7 +32,6 @@ namespace Test
 
         public static string UserId { get; set; }
 
-        public static string UserId { get; set; }
         public static bool AllowGallery { get; private set; }
         public static int PictureSize { get; private set; }
         public static bool EquipmentEnabled { get; private set; }
