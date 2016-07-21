@@ -138,15 +138,17 @@ namespace Test
 
         internal void Logout_OnClick(object sender, EventArgs e)
         {
-            Settings.User = "";
+            Dialog.Ask(Translator.Translate("exit"), (o, args) =>
+            {
+                if (args.Result != Dialog.Result.Yes) return;
+                Logout();
+            });
+        }
+
+        private static void Logout()
+        {
+            DBHelper.Sync();
             Settings.Password = "";
-#if DEBUG
-            DConsole.WriteLine("Очистка кэша приложения");
-#endif
-            Application.ClearCache();
-#if DEBUG
-            DConsole.WriteLine("Очистка стека экранов");
-#endif
             Navigation.CleanStack();
             Navigation.ModalMove("AuthScreen");
         }
@@ -173,7 +175,7 @@ namespace Test
             DConsole.WriteLine($"Частичная синхронизация начата");
 #endif
             Toast.MakeToast(Translator.Translate("start_sync"));
-            DBHelper.Sync();
+            DBHelper.SyncAsync();
         }
     }
 }

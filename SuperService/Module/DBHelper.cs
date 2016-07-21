@@ -49,7 +49,7 @@ namespace Test
             entity.Save();
             _db.Commit();
             DConsole.WriteLine($"Начал частичную синхронизацию");
-            Sync();
+            SyncAsync();
         }
 
         public static void SaveEntities(IEnumerable entities)
@@ -60,7 +60,7 @@ namespace Test
             }
             _db.Commit();
             DConsole.WriteLine($"Начал частичную синхронизацию");
-            Sync();
+            SyncAsync();
         }
 
         public static void DeleteByRef(DbRef @ref)
@@ -89,11 +89,25 @@ namespace Test
             }
         }
 
-        public static void Sync(ResultEventHandler<bool> resultEventHandler = null)
+        public static void SyncAsync(ResultEventHandler<bool> resultEventHandler = null)
         {
             try
             {
                 _db.PerformSyncAsync(Settings.Server, Settings.User, Settings.Password,
+                    SyncHandler + resultEventHandler,
+                    "Partial");
+            }
+            catch (Exception)
+            {
+                SyncHandler("Partial", new ResultEventArgs<bool>(false));
+            }
+        }
+
+        public static void Sync(ResultEventHandler<bool> resultEventHandler = null)
+        {
+            try
+            {
+                _db.PerformSync(Settings.Server, Settings.User, Settings.Password,
                     SyncHandler + resultEventHandler,
                     "Partial");
             }

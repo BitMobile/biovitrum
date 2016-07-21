@@ -206,7 +206,7 @@ namespace Test
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
             Toast.MakeToast(Translator.Translate("start_sync"));
-            DBHelper.Sync();
+            DBHelper.SyncAsync();
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)

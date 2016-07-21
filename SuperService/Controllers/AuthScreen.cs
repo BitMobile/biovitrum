@@ -15,29 +15,34 @@ namespace Test
 
             _loginEditText = (EditText) GetControl("AuthScreenLoginET", true);
             _passwordEditText = (EditText) GetControl("AuthScreenPasswordET", true);
+
+            Settings.Server = @"http://192.168.107.3/bitmobile/testsolution/device";
+            Settings.Host = @"http://192.168.107.3";
+
+
         }
 
         public override void OnShow()
         {
-            Settings.Server = @"http://192.168.107.3/bitmobile/testsolution/device";
-            Settings.Host = @"http://192.168.107.3";
+            _loginEditText.Text = Settings.User;
+            _passwordEditText.Text = Settings.Password;
         }
 
         internal void CantSigningButton_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("Can't sign in?");
+            //TODO: В релизе удалить
+            Settings.User = "";
+            Settings.Password = "";
         }
 
         internal void connectButton_OnClick(object sender, EventArgs e)
         {
-            Settings.User = _loginEditText.Text;
-            Settings.Password = _passwordEditText.Text;
-
             var webRequest = new WebRequest
             {
                 Host = Settings.Host,
-                UserName = Settings.User,
-                Password = Settings.Password
+                UserName = Settings.User = _loginEditText.Text,
+                Password = Settings.Password = _passwordEditText.Text
             };
 
             webRequest.Get(Settings.Server + @"/GetUserId", (o, args) =>
@@ -57,6 +62,7 @@ namespace Test
                 }
                 else
                 {
+                    _passwordEditText.Text = Settings.Password = "";
                     Toast.MakeToast(Translator.Translate("unsuccessful_auth"));
 #if DEBUG
                     DConsole.WriteLine($"{args.Result.Result}{Environment.NewLine}" +

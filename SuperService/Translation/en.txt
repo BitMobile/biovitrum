@@ -108,3 +108,4 @@ start_event		Event will be launched. Continue?
 successful_auth		You have successfully logged in.
 unsuccessful_auth		Unable to login.
 start_sync		Start synchronization.
+exit		Exit?
