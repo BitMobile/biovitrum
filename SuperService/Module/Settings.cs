@@ -4,6 +4,7 @@ namespace Test
 {
     public static class Settings
     {
+        //TODO: неочень хорошо так хранить пользователя и пароль.
         public static string User
         {
             get { return ApplicationContext.Current.Settings.UserName; }
@@ -25,7 +26,11 @@ namespace Test
         }
 
         // TODO: Хранить сервер
-        public static string Server => ApplicationContext.Current.Settings.Url;
+        public static string Server { get; set; }
+
+        public static string Host { get; set; }
+
+        public static string UserId { get; set; }
 
         public static string UserId { get; set; }
         public static bool AllowGallery { get; private set; }

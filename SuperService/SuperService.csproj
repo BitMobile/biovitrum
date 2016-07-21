@@ -34,6 +34,10 @@
     <Reference Include="Application.W">
       <HintPath>..\SDK\Lib\Application.W.dll</HintPath>
     </Reference>
+    <Reference Include="BusinessProcess.W, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SDK\Lib\BusinessProcess.W.dll</HintPath>
+    </Reference>
     <Reference Include="ClientModel3.W">
       <HintPath>..\SDK\Lib\ClientModel3.W.dll</HintPath>
     </Reference>

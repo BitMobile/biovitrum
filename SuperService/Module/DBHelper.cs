@@ -21,6 +21,10 @@ namespace Test
 
         private static Database _db;
 
+        public static string LastError => _db.LastError;
+        public static DateTime LastSyncTime => _db.LastSyncTime;
+        public static bool SuccessSync => _db.SuccessSync;
+
         public static void Init()
         {
             _db = new Database();
@@ -28,17 +32,17 @@ namespace Test
 
             DConsole.WriteLine("Creating DB");
             _db.CreateFromModel();
-            DConsole.WriteLine("Filling DB with demo data");
+            //DConsole.WriteLine("Filling DB with demo data");
 
-            string queryText;
-            using (var sql = Application.GetResourceStream("Model.main.sql"))
-            using (var reader = new StreamReader(sql))
-            {
-                queryText = reader.ReadToEnd();
-            }
-            var query = new Query(queryText);
-            query.Execute();
-            _db.Commit();
+            //string queryText;
+            //using (var sql = Application.GetResourceStream("Model.main.sql"))
+            //using (var reader = new StreamReader(sql))
+            //{
+            //    queryText = reader.ReadToEnd();
+            //}
+            //var query = new Query(queryText);
+            //query.Execute();
+            //_db.Commit();
         }
 
         public static void SaveEntity(DbEntity entity)
@@ -67,7 +71,7 @@ namespace Test
             return DbRef.FromString(id).GetObject();
         }
 
-        public static void FullSync(ResultEventHandler<bool> resultEventHandler = null)
+        public static void FullSyncAsync(ResultEventHandler<bool> resultEventHandler = null)
         {
             try
             {
@@ -99,6 +103,20 @@ namespace Test
         {
             if (state.Equals("Full"))
                 Toast.MakeToast(Translator.Translate(resultEventArgs.Result ? "sync_success" : "sync_fail"));
+        }
+
+        public static void FullSync(ResultEventHandler<bool> resultEventHandler = null)
+        {
+            try
+            {
+                _db.PerformFullSync(Settings.Server, Settings.User, Settings.Password,
+                    SyncHandler + resultEventHandler,
+                    "Full");
+            }
+            catch (Exception)
+            {
+                SyncHandler("Full", new ResultEventArgs<bool>(false));
+            }
         }
     }
 }
