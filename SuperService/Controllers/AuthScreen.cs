@@ -1,7 +1,6 @@
-﻿using BitMobile.ClientModel3;
+﻿using System;
+using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
-using System;
-using System.Diagnostics.Eventing.Reader;
 
 namespace Test
 {
@@ -14,8 +13,8 @@ namespace Test
         {
             DConsole.WriteLine("AuthScreen init");
 
-            _loginEditText = (EditText)GetControl("AuthScreenLoginET", true);
-            _passwordEditText = (EditText)GetControl("AuthScreenPasswordET", true);
+            _loginEditText = (EditText) GetControl("AuthScreenLoginET", true);
+            _passwordEditText = (EditText) GetControl("AuthScreenPasswordET", true);
         }
 
         public override void OnShow()
@@ -26,7 +25,7 @@ namespace Test
 
         internal void CantSigningButton_OnClick(object sender, EventArgs e)
         {
-            DConsole.WriteLine("Can't signing?");
+            DConsole.WriteLine("Can't sign in?");
         }
 
         internal void connectButton_OnClick(object sender, EventArgs e)
@@ -45,7 +44,10 @@ namespace Test
             {
                 if (args.Result.Success)
                 {
-                    DConsole.WriteLine($"{Settings.UserId = args.Result.Result}");
+#if DEBUG
+                    DConsole.WriteLine(Translator.Translate("successful_auth"));
+                    DConsole.WriteLine($"{nameof(Settings.UserId)}->{Settings.UserId = args.Result.Result}");
+#endif
                     DBHelper.FullSync((sender1, eventArgs) =>
                     {
                         if (eventArgs.Result) Navigation.ModalMove("EventListScreen");
@@ -56,7 +58,10 @@ namespace Test
                 else
                 {
                     Toast.MakeToast(Translator.Translate("unsuccessful_auth"));
-                    DConsole.WriteLine($"{args.Result.Result}");
+#if DEBUG
+                    DConsole.WriteLine($"{args.Result.Result}{Environment.NewLine}" +
+                                       $"{Translator.Translate("unsuccessful_auth")}");
+#endif
                 }
             });
         }
