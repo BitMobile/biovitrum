@@ -1,8 +1,7 @@
-﻿using BitMobile.ClientModel3;
-using BitMobile.DbEngine;
-using System;
+﻿using System;
 using System.Collections;
-using System.IO;
+using BitMobile.ClientModel3;
+using BitMobile.DbEngine;
 using Database = BitMobile.ClientModel3.Database;
 
 namespace Test
@@ -49,6 +48,8 @@ namespace Test
         {
             entity.Save();
             _db.Commit();
+            DConsole.WriteLine($"Начал частичную синхронизацию");
+            Sync();
         }
 
         public static void SaveEntities(IEnumerable entities)
@@ -58,12 +59,15 @@ namespace Test
                 entity.Save();
             }
             _db.Commit();
+            DConsole.WriteLine($"Начал частичную синхронизацию");
+            Sync();
         }
 
         public static void DeleteByRef(DbRef @ref)
         {
             _db.Delete(@ref);
             _db.Commit();
+            //TODO: Возможно потребуется частичная синхронизация.
         }
 
         public static object LoadEntity(string id)
@@ -103,6 +107,14 @@ namespace Test
         {
             if (state.Equals("Full"))
                 Toast.MakeToast(Translator.Translate(resultEventArgs.Result ? "sync_success" : "sync_fail"));
+            else
+            {
+#if DEBUG
+                DConsole.WriteLine(Translator.Translate(resultEventArgs.Result ? "sync_success" : "sync_fail"));
+                DConsole.WriteLine($"{LastError}");
+                DConsole.WriteLine($"{nameof(resultEventArgs.Result)}={resultEventArgs.Result}");
+#endif
+            }
         }
 
         public static void FullSync(ResultEventHandler<bool> resultEventHandler = null)
