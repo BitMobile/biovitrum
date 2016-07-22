@@ -103,6 +103,7 @@ namespace Test
         {
             if (state.Equals("Full"))
                 Toast.MakeToast(Translator.Translate(resultEventArgs.Result ? "sync_success" : "sync_fail"));
+            Settings.Init();
         }
 
         public static void FullSync(ResultEventHandler<bool> resultEventHandler = null)
