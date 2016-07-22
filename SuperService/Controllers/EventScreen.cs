@@ -94,6 +94,10 @@ namespace Test
         public override void OnShow()
         {
             GPS.StartTracking();
+            if ((string)_currentEventRecordset["statusName"] == "Done")
+                Toast.MakeToast(Translator.Translate("event_finished_ro"));
+            if ((string)_currentEventRecordset["statusName"] == "Cancel")
+                Toast.MakeToast(Translator.Translate("event_canceled_ro"));
         }
 
         private void LoadControls()
