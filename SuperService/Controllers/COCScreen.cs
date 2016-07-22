@@ -163,6 +163,7 @@ namespace Test
 
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
         {
+            if ((bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, true)) return;
             var vl = (VerticalLayout)sender;
             var dictionary = new Dictionary<string, object>
             {

@@ -38,6 +38,9 @@ namespace Test
 
         private bool _readonly;
 
+        private static readonly Dictionary<string, object> ChecklistResults = new Dictionary<string, object>();
+        private static int _checklistResultThreshold = 4;
+
         public override void OnLoading()
         {
             DConsole.WriteLine("CheckListScreen init");
@@ -53,9 +56,24 @@ namespace Test
 
         private void UpdateChecklist(string id, string result)
         {
-            var checkList = (Event_CheckList)DBHelper.LoadEntity(id);
-            checkList.Result = result;
-            DBHelper.SaveEntity(checkList);
+            ChecklistResults[id] = result;
+            if (ChecklistResults.Count >= _checklistResultThreshold)
+                SaveChecklist();
+        }
+
+        private static void SaveChecklist()
+        {
+            var entities = new ArrayList();
+            foreach (var checklistResult in ChecklistResults)
+            {
+                var id = checklistResult.Key;
+                var result = (string)checklistResult.Value;
+                var checkList = (Event_CheckList)DBHelper.LoadEntity(id);
+                checkList.Result = result;
+                entities.Add(checkList);
+            }
+            DBHelper.SaveEntities(entities);
+            ChecklistResults.Clear();
         }
 
         internal int IncTotalAnswered()
@@ -72,6 +90,7 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
+            SaveChecklist();
             Navigation.Back();
         }
 
