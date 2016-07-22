@@ -179,6 +179,7 @@ namespace Test
                         (Document.Event)
                             DBHelper.LoadEntity(
                                 (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+                    @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Done);
                     @event.ActualEndDate = DateTime.Now;
                     DBHelper.SaveEntity(@event);
                     Navigation.Move("CloseEventScreen");
