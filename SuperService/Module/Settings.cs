@@ -32,6 +32,8 @@ namespace Test
 
         public static string UserId { get; set; }
 
+        public static string AuthUrl { get; set; }
+
         public static bool AllowGallery { get; private set; }
         public static int PictureSize { get; private set; }
         public static bool EquipmentEnabled { get; private set; }
@@ -53,6 +55,10 @@ namespace Test
             BagEnabled = (bool)settings["UsedServiceBag"];
             ShowServicePrice = (bool)settings["UsedCalculateService"];
             ShowMaterialPrice = (bool)settings["UsedCalculateMaterials"];
+
+            Server = @"http://192.168.107.3/bitmobile/testsolution/device";
+            Host = @"http://192.168.107.3";
+            AuthUrl = Server + @"/GetUserId";
         }
     }
 }

@@ -126,8 +126,7 @@ namespace Test
         internal bool Init()
         {
             //TODO: Опасно брать юзера отсюда.
-            var settings = ApplicationContext.Current.Settings;
-            var result = DBHelper.GetUserInfoByUserName(settings.UserName);
+            var result = DBHelper.GetUserInfoByUserName(Settings.User);
             _userDescription = result.Next() ? (string)result["Description"] : "";
 
 #if DEBUG
@@ -139,6 +138,17 @@ namespace Test
 
         internal void Logout_OnClick(object sender, EventArgs e)
         {
+            Dialog.Ask(Translator.Translate("exit"), (o, args) =>
+            {
+                if (args.Result != Dialog.Result.Yes) return;
+                Logout();
+            });
+        }
+
+        private static void Logout()
+        {
+            DBHelper.Sync();
+            Settings.Password = "";
             Navigation.CleanStack();
             Navigation.ModalMove("AuthScreen");
         }
@@ -161,6 +171,11 @@ namespace Test
         internal void SendLog_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine($"Лог отправлен");
+#if DEBUG
+            DConsole.WriteLine($"Частичная синхронизация начата");
+#endif
+            Toast.MakeToast(Translator.Translate("start_sync"));
+            DBHelper.SyncAsync();
         }
     }
 }

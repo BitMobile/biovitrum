@@ -107,3 +107,9 @@ sync_fail		Sync failed
 start_event		Event will be launched. Continue?
 successful_auth		You have successfully logged in.
 unsuccessful_auth		Unable to login.
+start_sync		Start synchronization.
+exit		Exit?
+uncorrect_login_or_pass		Uncorrect loging or password.
+сonnection_error		Connection error.
+unexpected_error		Unexpected error.
+
