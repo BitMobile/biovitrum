@@ -17,47 +17,14 @@ namespace Test
             _loginEditText = (EditText)GetControl("AuthScreenLoginET", true);
             _passwordEditText = (EditText)GetControl("AuthScreenPasswordET", true);
 
-            ConnectionInfo();
-
             if (_webRequest == null)
             {
                 _webRequest = new WebRequest
                 {
-                    Host = Settings.Host
+                    Host = Settings.Host,
+                    Timeout = new TimeSpan(0,0,5).ToString()
                 };
             }
-        }
-
-        private static void ConnectionInfo()
-        {
-            //Settings.Server = @"http://192.168.107.3/bitmobile/testsolution/device";
-            //Settings.Host = @"http://192.168.107.3";
-            Settings.Server = @"http://192.168.10.2/bitmobile/testsolution/device";
-            Settings.Host = @"http://192.168.10.2";
-            Settings.AuthUrl = Settings.Server + @"/GetUserId";
-        }
-
-        private bool FastAuthorization()
-        {
-            if ((Settings.User == "" || Settings.User == null)
-                && (Settings.Password == null || Settings.Password == ""))
-                return false;
-
-            DConsole.WriteLine("------------------------------");
-            DConsole.WriteLine($"{Settings.User == "" || Settings.User == null}");
-            DConsole.WriteLine($"{(Settings.Password == null || Settings.Password == "")}");
-            DConsole.WriteLine($"{(Settings.User == "" || Settings.User == null) && (Settings.Password == null || Settings.Password == "")}");
-
-            DConsole.WriteLine("Fast Auth");
-            _webRequest.UserName = Settings.User;
-            _webRequest.Password = Settings.Password;
-
-            DConsole.WriteLine($"User {_webRequest.UserName}");
-            DConsole.WriteLine($"Password {_webRequest.Password}");
-
-            _webRequest.Get(Settings.AuthUrl, (sender, args) => { Settings.UserId = args.Result.Result; });
-
-            return true;
         }
 
         public override void OnShow()
@@ -76,17 +43,6 @@ namespace Test
 
         internal void connectButton_OnClick(object sender, EventArgs e)
         {
-            DConsole.WriteLine($"User {Settings.User}");
-            DConsole.WriteLine($"Password {Settings.Password}");
-
-            if (FastAuthorization())
-            {
-                DConsole.WriteLine($"{nameof(FastAuthorization)} success");
-                DBHelper.SyncAsync();
-                Toast.MakeToast(Translator.Translate("successful_auth"));
-                NextScreen();
-            }
-
             if (string.IsNullOrEmpty(Settings.User))
             {
                 _webRequest.UserName = _loginEditText.Text;
@@ -102,10 +58,12 @@ namespace Test
                     else
                     {
                         _passwordEditText.Text = Settings.Password = "";
-                        Toast.MakeToast(Translator.Translate("unsuccessful_auth"));
+
+                        ErrorMessage(args);
 
                         DConsole.WriteLine($"{args.Result.Result}{Environment.NewLine}" +
-                                           $"{Translator.Translate("unsuccessful_auth")} Error {args.Result.Result} WebError {args.Result.Error.Message}");
+                                           $"{Translator.Translate("unsuccessful_auth")} " +
+                                           $"Error {args.Result.Result} WebError {args.Result.Error.Message}");
                     }
                 });
             }
@@ -135,12 +93,30 @@ namespace Test
                     else
                     {
                         _passwordEditText.Text = Settings.Password = "";
-                        Toast.MakeToast(Translator.Translate("unsuccessful_auth"));
+                       
+                        ErrorMessage(args);
 
                         DConsole.WriteLine($"{args.Result.Result}{Environment.NewLine}" +
-                                           $"{Translator.Translate("unsuccessful_auth")} Error {args.Result.Result} WebError {args.Result.Error.Message}");
+                                           $"{Translator.Translate("unsuccessful_auth")} " +
+                                           $"Error {args.Result.Result} WebError {args.Result.Error.Message}");
                     }
                 });
+            }
+        }
+
+        private static void ErrorMessage(ResultEventArgs<WebRequest.WebRequestResult> args)
+        {
+            switch (args.Result.Error.StatusCode)
+            {
+                case -1:
+                    Toast.MakeToast(Translator.Translate("сonnection_error"));
+                    break;
+                case 401:
+                    Toast.MakeToast(Translator.Translate("uncorrect_login_or_pass"));
+                    break;
+                default:
+                    Toast.MakeToast(Translator.Translate("unexpected_error"));
+                    break;
             }
         }
 
@@ -157,7 +133,7 @@ namespace Test
             });
         }
 
-        internal static void NextScreen()
+        private static void NextScreen()
         {
             Navigation.ModalMove("EventListScreen");
         }

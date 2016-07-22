@@ -109,3 +109,6 @@ successful_auth		Вы успешно авторизовались.
 unsuccessful_auth		Не удалось авторизоваться.
 start_sync		Синхронизация запущена.
 exit		Выйти?
+uncorrect_login_or_pass		Неверный логин или пароль.
+сonnection_error		Ошибка соединения.
+unexpected_error		Непредвиденная ошибка.

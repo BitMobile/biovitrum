@@ -55,6 +55,10 @@ namespace Test
             BagEnabled = (bool)settings["UsedServiceBag"];
             ShowServicePrice = (bool)settings["UsedCalculateService"];
             ShowMaterialPrice = (bool)settings["UsedCalculateMaterials"];
+
+            Server = @"http://192.168.107.3/bitmobile/testsolution/device";
+            Host = @"http://192.168.107.3";
+            AuthUrl = Server + @"/GetUserId";
         }
     }
 }
