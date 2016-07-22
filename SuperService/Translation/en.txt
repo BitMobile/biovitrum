@@ -112,4 +112,7 @@ exit		Exit?
 uncorrect_login_or_pass		Uncorrect loging or password.
 сonnection_error		Connection error.
 unexpected_error		Unexpected error.
-
+contact_not_present		Contact not present
+event_finished_ro		Order finished. Read-only mode.
+event_canceled_ro		Order canceled. Read-only mode.
+unfinished_business		There are unfinished mandatory actions in check-list

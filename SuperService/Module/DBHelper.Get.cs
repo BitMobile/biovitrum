@@ -170,7 +170,8 @@ namespace Test
                             "    Enum_StatusyEvents.Name as statusName, " + //наименование статуса (служебное имя)
                             "    Enum_StatusyEvents.Description as statusDescription, " + //представление статуса +
                             "    event.DetailedDescription, " + //описание события
-                            "    Catalog_Contacts.Description as ContactVisitingDescription " +
+                            "    Catalog_Contacts.Description as ContactVisitingDescription," +
+                            "    Catalog_Contacts.Id as contactId " +
                             "    " +
                             "from  " +
                             "    Document_Event as event  " +

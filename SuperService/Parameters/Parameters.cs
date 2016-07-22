@@ -12,6 +12,7 @@
         public const string IdLineId = "lineId";
         public const string IdEquipmentId = "idEquipmentId";
         public const string IdIsMaterialsRequest = "isMaterialsRequest";
+        public const string IdIsReadonly = "isReadonly";
         public const string Contact = "contact";
 
         //Представление пустой суммы для отобажения на экранах с отключенной настройкой отображения цен

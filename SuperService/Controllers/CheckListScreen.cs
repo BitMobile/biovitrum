@@ -36,6 +36,8 @@ namespace Test
 
         private TopInfoComponent _topInfoComponent;
 
+        private bool _readonly;
+
         public override void OnLoading()
         {
             DConsole.WriteLine("CheckListScreen init");
@@ -46,6 +48,7 @@ namespace Test
                 ArrowVisible = false,
                 SubHeader = string.Format(Translator.Translate("mandatory_questions_0_1"), _totalAnswered, _totalRequired)
             };
+            _readonly = (bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
         }
 
         private void UpdateChecklist(string id, string result)
@@ -94,6 +97,7 @@ namespace Test
         // Камера
         internal void CheckListSnapshot_OnClick(object sender, EventArgs eventArgs)
         {
+            if (_readonly) return;
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _newGuid = Guid.NewGuid().ToString();
             _pathToImg = $@"\private\{_newGuid}.jpg";
@@ -108,10 +112,10 @@ namespace Test
         {
             //Document.Order order = (Document.Order)state;
             //order.HasPhoto = args.Result;
-
+            DConsole.WriteLine("New image");
             _imgToReplace.Source = _pathToImg;
             //_imgToReplace.Refresh();
-
+            DConsole.WriteLine("Changing indicator");
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result);
             if (args.Result)
                 ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
@@ -122,6 +126,7 @@ namespace Test
         // Список
         internal void CheckListValList_OnClick(object sender, EventArgs e)
         {
+            if (_readonly) return;
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
@@ -157,6 +162,7 @@ namespace Test
         // Дата
         internal void CheckListDateTime_OnClick(object sender, EventArgs e)
         {
+            if (_readonly) return;
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
@@ -175,6 +181,7 @@ namespace Test
         // Булево
         internal void CheckListBoolean_OnClick(object sender, EventArgs e)
         {
+            if (_readonly) return;
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
@@ -406,6 +413,11 @@ namespace Test
             return DateTime.TryParse(datetime, out temp)
                 ? temp.ToString("dd MMMM yyyy")
                 : Translator.Translate("not_specified");
+        }
+
+        internal bool IsNotReadonly()
+        {
+            return !((bool)Variables[Parameters.IdIsReadonly]);
         }
 
         internal string GetResourceImage(string tag)

@@ -1,9 +1,14 @@
-﻿using BitMobile.ClientModel3;
+﻿using BitMobile.BusinessProcess.ClientModel;
+using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections.Generic;
+using Test.Catalog;
 using Test.Components;
 using Test.Enum;
+using Console = System.Console;
+using Converter = BitMobile.ClientModel3.Converter;
+using Dialog = BitMobile.ClientModel3.Dialog;
 
 namespace Test
 {
@@ -20,6 +25,7 @@ namespace Test
 
         private TopInfoComponent _topInfoComponent;
         private Image _wrapUnwrapImage;
+        private bool _readonly = false;
 
         public override void OnLoading()
         {
@@ -62,26 +68,47 @@ namespace Test
                 Text = Translator.Translate("onmap"),
                 CssClass = "TopInfoSideText"
             });
-
             rightExtraLayout.AddChild(new Image
             {
                 CssClass = "TopInfoSideImage",
                 Source = ResourceManager.GetImage("topinfo_extra_person")
             });
             var text = (string)_currentEventRecordset["ContactVisitingDescription"];
-            DConsole.WriteLine("text: " + text);
+            if (string.IsNullOrEmpty(text))
+                text = Translator.Translate("contact_not_present");
+            else
+                rightExtraLayout.OnClick += RightExtraLayoutOnOnClick;
+
             rightExtraLayout.AddChild(new TextView
             {
-                Text = ((string)_currentEventRecordset["ContactVisitingDescription"]).CutForUIOutput(12, 2),
+                Text = text.CutForUIOutput(12, 2),
                 CssClass = "TopInfoSideText"
             });
 
             leftExtraLayout.OnClick += GoToMapScreen_OnClick;
         }
 
+        private void RightExtraLayoutOnOnClick(object sender, EventArgs eventArgs)
+        {
+            Navigation.Move(nameof(ContactScreen), new Dictionary<string, object>
+            {
+                [Parameters.Contact] = (Contacts)DBHelper.LoadEntity(_currentEventRecordset["contactId"].ToString())
+            });
+        }
+
         public override void OnShow()
         {
             GPS.StartTracking();
+            if ((string)_currentEventRecordset["statusName"] == "Done")
+            {
+                Toast.MakeToast(Translator.Translate("event_finished_ro"));
+                _readonly = true;
+            }
+            if ((string)_currentEventRecordset["statusName"] == "Cancel")
+            {
+                Toast.MakeToast(Translator.Translate("event_canceled_ro"));
+                _readonly = true;
+            }
         }
 
         private void LoadControls()
@@ -167,11 +194,16 @@ namespace Test
                         (Document.Event)
                             DBHelper.LoadEntity(
                                 (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+                    @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Done);
                     @event.ActualEndDate = DateTime.Now;
                     DBHelper.SaveEntity(@event);
                     Navigation.Move("CloseEventScreen");
                 }, null,
                     Translator.Translate("yes"), Translator.Translate("no"));
+            }
+            else
+            {
+                Dialog.Message(Translator.Translate("unfinished_business"));
             }
         }
 
@@ -233,7 +265,8 @@ namespace Test
 
             var dictinory = new Dictionary<string, object>
             {
-                {Parameters.IdCurrentEventId, (string) eventId}
+                {Parameters.IdCurrentEventId, (string) eventId},
+                {Parameters.IdIsReadonly, _readonly}
             };
             Navigation.Move("COCScreen", dictinory);
         }
@@ -247,12 +280,18 @@ namespace Test
                 {
                     if (args.Result != Dialog.Result.Yes) return;
                     Event_OnStart();
-                    Navigation.Move("CheckListScreen");
+                    Navigation.Move("CheckListScreen", new Dictionary<string, object>
+                    {
+                        [Parameters.IdIsReadonly] = _readonly
+                    });
                 });
             }
             else
             {
-                Navigation.Move("CheckListScreen");
+                Navigation.Move("CheckListScreen", new Dictionary<string, object>
+                {
+                    [Parameters.IdIsReadonly] = _readonly
+                });
             }
         }
 
