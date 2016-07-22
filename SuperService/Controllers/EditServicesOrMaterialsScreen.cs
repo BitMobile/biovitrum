@@ -108,7 +108,7 @@ namespace Test
             BusinessProcess.GlobalVariables.Remove(_key);
 
             var rimDescription = (DbRecordset)Variables["rimDescription"];
-            AmountFact = (int)(float)rimDescription["AmountFact"];
+            AmountFact = (int)(decimal)rimDescription["AmountFact"];
             Price = (decimal)(float)rimDescription["Price"];
         }
 
