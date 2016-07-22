@@ -112,4 +112,4 @@ exit		Exit?
 uncorrect_login_or_pass		Uncorrect loging or password.
 сonnection_error		Connection error.
 unexpected_error		Unexpected error.
-
+contact_not_present		Contact not present

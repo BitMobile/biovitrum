@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections.Generic;
+using Test.Catalog;
 using Test.Components;
 using Test.Enum;
 
@@ -62,21 +63,32 @@ namespace Test
                 Text = Translator.Translate("onmap"),
                 CssClass = "TopInfoSideText"
             });
-
             rightExtraLayout.AddChild(new Image
             {
                 CssClass = "TopInfoSideImage",
                 Source = ResourceManager.GetImage("topinfo_extra_person")
             });
             var text = (string)_currentEventRecordset["ContactVisitingDescription"];
-            DConsole.WriteLine("text: " + text);
+            if (string.IsNullOrEmpty(text))
+                text = Translator.Translate("contact_not_present");
+            else
+                rightExtraLayout.OnClick += RightExtraLayoutOnOnClick;
+
             rightExtraLayout.AddChild(new TextView
             {
-                Text = ((string)_currentEventRecordset["ContactVisitingDescription"]).CutForUIOutput(12, 2),
+                Text = text.CutForUIOutput(12, 2),
                 CssClass = "TopInfoSideText"
             });
 
             leftExtraLayout.OnClick += GoToMapScreen_OnClick;
+        }
+
+        private void RightExtraLayoutOnOnClick(object sender, EventArgs eventArgs)
+        {
+            Navigation.Move(nameof(ContactScreen), new Dictionary<string, object>
+            {
+                [Parameters.Contact] = (Contacts)DBHelper.LoadEntity(_currentEventRecordset["contactId"].ToString())
+            });
         }
 
         public override void OnShow()
