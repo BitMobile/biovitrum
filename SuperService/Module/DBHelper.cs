@@ -67,7 +67,7 @@ namespace Test
         {
             _db.Delete(@ref);
             _db.Commit();
-            //TODO: Возможно потребуется частичная синхронизация.
+            SyncAsync();
         }
 
         public static object LoadEntity(string id)
