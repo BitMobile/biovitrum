@@ -1,10 +1,14 @@
-﻿using BitMobile.ClientModel3;
+﻿using BitMobile.BusinessProcess.ClientModel;
+using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections.Generic;
 using Test.Catalog;
 using Test.Components;
 using Test.Enum;
+using Console = System.Console;
+using Converter = BitMobile.ClientModel3.Converter;
+using Dialog = BitMobile.ClientModel3.Dialog;
 
 namespace Test
 {
@@ -21,6 +25,7 @@ namespace Test
 
         private TopInfoComponent _topInfoComponent;
         private Image _wrapUnwrapImage;
+        private bool _readonly = false;
 
         public override void OnLoading()
         {
@@ -95,9 +100,15 @@ namespace Test
         {
             GPS.StartTracking();
             if ((string)_currentEventRecordset["statusName"] == "Done")
+            {
                 Toast.MakeToast(Translator.Translate("event_finished_ro"));
+                _readonly = true;
+            }
             if ((string)_currentEventRecordset["statusName"] == "Cancel")
+            {
                 Toast.MakeToast(Translator.Translate("event_canceled_ro"));
+                _readonly = true;
+            }
         }
 
         private void LoadControls()
@@ -190,6 +201,10 @@ namespace Test
                 }, null,
                     Translator.Translate("yes"), Translator.Translate("no"));
             }
+            else
+            {
+                Dialog.Message(Translator.Translate("unfinished_business"));
+            }
         }
 
         private bool CheckEventBeforeClosing()
@@ -250,7 +265,8 @@ namespace Test
 
             var dictinory = new Dictionary<string, object>
             {
-                {Parameters.IdCurrentEventId, (string) eventId}
+                {Parameters.IdCurrentEventId, (string) eventId},
+                {Parameters.IdIsReadonly, _readonly}
             };
             Navigation.Move("COCScreen", dictinory);
         }
@@ -264,12 +280,18 @@ namespace Test
                 {
                     if (args.Result != Dialog.Result.Yes) return;
                     Event_OnStart();
-                    Navigation.Move("CheckListScreen");
+                    Navigation.Move("CheckListScreen", new Dictionary<string, object>
+                    {
+                        [Parameters.IdIsReadonly] = _readonly
+                    });
                 });
             }
             else
             {
-                Navigation.Move("CheckListScreen");
+                Navigation.Move("CheckListScreen", new Dictionary<string, object>
+                {
+                    [Parameters.IdIsReadonly] = _readonly
+                });
             }
         }
 

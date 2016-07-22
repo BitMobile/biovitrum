@@ -115,3 +115,4 @@ unexpected_error		Непредвиденная ошибка.
 contact_not_present		Контакт не указан
 event_finished_ro		Наряд завершен. Изменение данных невозможно.
 event_canceled_ro		Наряд отменен. Изменение данных невозможно.
+unfinished_business		Остались незаконченные действия в чек-листе
