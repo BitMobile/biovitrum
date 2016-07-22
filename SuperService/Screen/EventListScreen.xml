@@ -22,7 +22,6 @@
           </s:If>
           <s:Else>
 
-            <s:Push Id="IsEmptyEventList" value="false" />
             <!-- Проверка на необходимость плашки "Сегодня" -->
             <s:If Test="$IsTodayLayoutNeed()">
               <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $StartPlanDate)">
@@ -95,6 +94,7 @@
           <s:Push Id="ImportanceName" Value="$EventList.ImportanceName" />
           <s:Push Id="Description" Value="$EventList.Description" />
           <s:Push Id="Address" Value="$EventList.Address" />
+          <s:Push Id="IsEmptyEventList" value="false" />
 
           <s:Push Id="EventListLastDate" Value="$StartPlanDate" />
         </s:Iterator>
