@@ -10,21 +10,23 @@
     <!-- Tab Bar-->
     <s:Include File="Components\TabBarСomponent.xml" />
 
-    <c:SwipeVerticalLayout CssClass="BagListMainSVL">
-      <s:Iterator Id="UserBag" Value="$GetUserBag()">
+    <c:ScrollView CssClass="BagListMainSVL">
+      <c:VerticalLayout>
+        <s:Iterator Id="UserBag" Value="$GetUserBag()">
 
-        <c:HorizontalLayout CssClass ="BagListItemHL">
-          <c:VerticalLayout CssClass="BagListNameVL">
-            <c:TextView Text="$UserBag.Description" CssClass="BagListNameTV" />
-          </c:VerticalLayout>
-          <c:VerticalLayout CssClass="BagListAmountVL">
-            <s:If Test="$ShowCount()">
-              <c:TextView Text="$ConcatCountUnit($UserBag.Count, $UserBag.Unit)" CssClass="BagListAmountTV" />
-            </s:If>
-          </c:VerticalLayout>
-        </c:HorizontalLayout>
-        <c:HorizontalLine CssClass="BagListBreaker" />
-      </s:Iterator>
-    </c:SwipeVerticalLayout>
+          <c:HorizontalLayout CssClass ="BagListItemHL">
+            <c:VerticalLayout CssClass="BagListNameVL">
+              <c:TextView Text="$UserBag.Description" CssClass="BagListNameTV" />
+            </c:VerticalLayout>
+            <c:VerticalLayout CssClass="BagListAmountVL">
+              <s:If Test="$ShowCount()">
+                <c:TextView Text="$ConcatCountUnit($UserBag.Count, $UserBag.Unit)" CssClass="BagListAmountTV" />
+              </s:If>
+            </c:VerticalLayout>
+          </c:HorizontalLayout>
+          <c:HorizontalLine CssClass="BagListBreaker" />
+        </s:Iterator>
+      </c:VerticalLayout>
+    </c:ScrollView>
   </c:DockLayout>
 </c:Screen>
