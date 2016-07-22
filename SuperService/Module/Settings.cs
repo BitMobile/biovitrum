@@ -43,9 +43,12 @@ namespace Test
         public static bool ShowServicePrice { get; private set; }
         public static bool ShowMaterialPrice { get; private set; }
 
+        private static bool _initialized = false;
+
         public static void Init()
         {
-            ApplicationContext.Current.Settings.ReadSettings();
+            if (!_initialized)
+                ApplicationContext.Current.Settings.ReadSettings();
             var settings = DBHelper.GetSettings();
             AllowGallery = (bool)settings["AllowGalery"];
             PictureSize = (int)settings["PictureSize"];
@@ -59,6 +62,7 @@ namespace Test
             Server = @"http://nt0420.bt/bitmobile/testsolution/device";
             Host = @"http://nt0420.bt";
             AuthUrl = Server + @"/GetUserId";
+            _initialized = true;
         }
     }
 }
