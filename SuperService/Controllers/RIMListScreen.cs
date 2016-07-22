@@ -177,7 +177,7 @@ namespace Test
             }
             else if ((_usedCalculateService && (bool)rimLine["service"]) || (_usedCalculateMaterials && !(bool)rimLine["service"]))
             {
-                result = GetFormatPriceDescription((float)rimLine["Price"], (string)rimLine["Unit"]);
+                result = GetFormatPriceDescription((float)(decimal)rimLine["Price"], (string)rimLine["Unit"]);
             }
 
             return result;

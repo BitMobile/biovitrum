@@ -56,8 +56,8 @@ namespace Test
             ShowServicePrice = (bool)settings["UsedCalculateService"];
             ShowMaterialPrice = (bool)settings["UsedCalculateMaterials"];
 
-            Server = @"http://192.168.107.3/bitmobile/testsolution/device";
-            Host = @"http://192.168.107.3";
+            Server = @"http://nt0420.bt/bitmobile/testsolution/device";
+            Host = @"http://nt0420.bt";
             AuthUrl = Server + @"/GetUserId";
         }
     }
