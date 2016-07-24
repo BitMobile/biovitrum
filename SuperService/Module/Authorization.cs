@@ -72,7 +72,7 @@ namespace Test
                     if (string.Compare(Settings.User, userName, true) == 0)
                     {
 #if DEBUG
-                        DConsole.WriteLine($"Авторизировались пользователь сохранен в системе.");
+                        DConsole.WriteLine($"Авторизировались, пользователь сохранен в системе.");
                         DConsole.WriteLine("Сохраняем пароль");
 #endif
 
@@ -88,7 +88,7 @@ namespace Test
                     else
                     {
 #if DEBUG
-                        DConsole.WriteLine($"Авторизировались пользователь НЕ сохранен в системе.");
+                        DConsole.WriteLine($"Авторизировались, пользователь НЕ сохранен в системе.");
                         DConsole.WriteLine("Сохраняем пользователя и пароль в системе");
 #endif
                         Settings.User = userName;
