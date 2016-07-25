@@ -228,7 +228,7 @@ namespace Test
 
         internal void SaveClientLocation_OnClick(object sender, EventArgs e)
         {
-            var client = (Client)DBHelper.LoadEntity(_clientId);
+            var client = (Client)DBHelper.LoadEntity(_clientId.ToString());
             client.Latitude = _clientLatitude;
             client.Longitude = _clientLongitude;
             DBHelper.SaveEntity(client);
