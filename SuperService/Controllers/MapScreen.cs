@@ -173,11 +173,14 @@ namespace Test
             foreach (var element in _location)
             {
                 var item = (Dictionary<string, object>)element;
-                string description = (string)item["Description"];
-                double latitude = (double)item["Latitude"];
-                double longitude = (double)item["Longitude"];
+                var description = (string)item["Description"];
+                var latitude = (double)(decimal)item["Latitude"];
+                var longitude = (double)(decimal)item["Longitude"];
 
-                DConsole.WriteLine($"{nameof(description)}:{description} {Environment.NewLine} {nameof(latitude)}={latitude} {nameof(longitude)}={longitude}");
+                DConsole.WriteLine($"{nameof(description)}:{description} " +
+                                   $"{Environment.NewLine} " +
+                                   $"{nameof(latitude)}={latitude} " +
+                                   $"{nameof(longitude)}={longitude}");
 
                 _map.AddMarker(description, latitude, longitude, "red");
             }
@@ -199,8 +202,8 @@ namespace Test
             if (GPS.CurrentLocation.NotEmpty)
             {
 #if DEBUG
-                DConsole.WriteLine($"{nameof(GPS.CurrentLocation.Latitude)}:{GPS.CurrentLocation.Latitude}" +
-                                   $"{nameof(GPS.CurrentLocation.Longitude)}:{GPS.CurrentLocation.Longitude}");
+                DConsole.WriteLine($"{nameof(GPS.CurrentLocation.Latitude)} : {GPS.CurrentLocation.Latitude}" +
+                                   $"{nameof(GPS.CurrentLocation.Longitude)} : {GPS.CurrentLocation.Longitude}");
 #endif
 
                 _clientLatitude = Convert.ToDecimal(GPS.CurrentLocation.Latitude);
