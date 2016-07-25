@@ -52,7 +52,7 @@ namespace Test
             });
         }
 
-        public static void StartAuthorization(string userName, string password)
+        public static void StartAuthorization(string userName, string password, AuthScreen screen)
         {
             _webRequest.UserName = userName;
             _webRequest.Password = password;
@@ -106,7 +106,9 @@ namespace Test
 #if DEBUG
                     DConsole.WriteLine($"Авторизация не удалась. Сбрасываем пароль.");
 #endif
-                    Settings.Password = password = "";
+                    Settings.Password = "";
+                    screen.ClearPassword();
+
                     ErrorMessageWithToast(args);
                 }
             });

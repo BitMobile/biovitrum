@@ -33,12 +33,17 @@ namespace Test
 
         internal void СonnectButton_OnClick(object sender, EventArgs e)
         {
-            Authorization.StartAuthorization(_loginEditText.Text, _passwordEditText.Text);
+            Authorization.StartAuthorization(_loginEditText.Text, _passwordEditText.Text, this);
         }
 
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
+        }
+
+        public void ClearPassword()
+        {
+            _passwordEditText.Text = "";
         }
     }
 }
