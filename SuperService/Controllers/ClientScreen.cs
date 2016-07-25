@@ -29,8 +29,8 @@ namespace Test
             };
 
             _map = (WebMapGoogle)GetControl("MapClient", true);
-            _map.AddMarker((string)_client["Description"], (double)_client["Latitude"], (double)_client["Longitude"],
-                "red");
+            _map.AddMarker((string)_client["Description"], (double)(decimal)_client["Latitude"],
+                (double)(decimal)_client["Longitude"], "red");
 
             DConsole.WriteLine("Client end");
         }
@@ -177,7 +177,7 @@ namespace Test
         {
             var distanceInKm =
                 Utils.GetDistance(GPS.CurrentLocation.Latitude, GPS.CurrentLocation.Longitude,
-                    (double)_client["Latitude"], (double)_client["Longitude"]) / 1000;
+                    (double)(decimal)_client["Latitude"], (double)(decimal)_client["Longitude"]) / 1000;
             return
                 $"{Math.Round(distanceInKm, 2)}" +
                 $" {Translator.Translate("uom_distance")}";
