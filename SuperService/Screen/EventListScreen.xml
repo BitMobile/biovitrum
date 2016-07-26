@@ -108,6 +108,23 @@
 
         <!--После итератора обрабатываем последний элемент-->
         <s:If Test="$IsEmptyEventList == false">
+          <s:If Test="$IsTodayLayoutNeed()">
+            <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $StartPlanDate)">
+              <c:HorizontalLayout CssClass="EventListDateHL">
+                <c:TextView Text="#todayUpper#" CssClass="EventListDateTV" />
+              </c:HorizontalLayout>
+              <c:HorizontalLine CssClass="EventListLongBreaker" />
+            </s:If>
+            <s:Else>
+              <c:HorizontalLayout CssClass="EventListDateHL">
+                <c:TextView Text="$DateTimeToDateWithWeekCheck($StartPlanDate)"
+                            CssClass="EventListDateTV" />
+              </c:HorizontalLayout>
+              <c:HorizontalLine CssClass="EventListLongBreaker" />
+            </s:Else>
+            <s:Push Id="void" Value="$SetTodayLayoutToFalse()" />
+            <s:Push Id="void" Value="$SetTodayBreakerToFalse()" />
+          </s:If>
           <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick" Id="$EventID">
 
             <c:VerticalLayout CssClass="EventListTimeVL">
