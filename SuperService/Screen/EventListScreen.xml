@@ -30,6 +30,14 @@
                 </c:HorizontalLayout>
                 <c:HorizontalLine CssClass="EventListLongBreaker" />
               </s:If>
+              <s:Else>
+                <c:HorizontalLayout CssClass="EventListDateHL">
+                  <c:TextView Text="$DateTimeToDateWithWeekCheck($EventList.startDatePlanDate)"
+                              CssClass="EventListDateTV" />
+                </c:HorizontalLayout>
+                <c:HorizontalLine CssClass="EventListLongBreaker" />
+                <s:Push Id="StartPlanDate" Value="$EventList.startDatePlanDate" />
+              </s:Else>
               <s:Push Id="void" Value="$SetTodayLayoutToFalse()" />
               <s:Push Id="void" Value="$SetTodayBreakerToFalse()" />
             </s:If>
