@@ -1,9 +1,13 @@
-﻿using BitMobile.Application;
+﻿using System;
+using System.Collections.Generic;
+using BitMobile.Application;
+using BitMobile.ClientModel3;
 
 namespace Test
 {
     public static class Settings
     {
+        private static Dictionary<string, object> _settings;
         //TODO: неочень хорошо так хранить пользователя и пароль.
         public static string User
         {
@@ -50,14 +54,45 @@ namespace Test
             if (!_initialized)
                 ApplicationContext.Current.Settings.ReadSettings();
             var settings = DBHelper.GetSettings();
-            AllowGallery = (bool)settings["AllowGalery"];
-            PictureSize = (int)settings["PictureSize"];
-            EquipmentEnabled = (bool)settings["UsedEquipment"];
-            CheckListEnabled = (bool)settings["UsedCheckLists"];
-            COCEnabled = (bool)settings["UsedCalculate"];
-            BagEnabled = (bool)settings["UsedServiceBag"];
-            ShowServicePrice = (bool)settings["UsedCalculateService"];
-            ShowMaterialPrice = (bool)settings["UsedCalculateMaterials"];
+
+            if (_settings == null)
+            {
+                _settings = new Dictionary<string, object>();
+            }
+            else
+                _settings.Clear();
+
+           
+            while (settings.Next())
+            {
+                var dictionary = new Dictionary<string, object>(2)
+                {
+                    {"LogicValue", settings["LogicValue"]},
+                    {"NumericValue", settings["NumericValue"]}
+                };
+
+                _settings[(string)settings["Description"]] = dictionary;
+            }
+
+#if DEBUG
+            DConsole.WriteLine("-------------------------------------------");
+            foreach (var item in _settings)
+            {
+                var element = (Dictionary<string, object>)item.Value;
+                DConsole.WriteLine($"Description: {item.Key} LogicValue: {(bool)element["LogicValue"]}" +
+                                   $" NumericValue: {(int)element["NumericValue"]}");
+            }
+            DConsole.WriteLine($"-------------------------------------------{Environment.NewLine}");
+#endif
+
+            //AllowGallery = 
+            //PictureSize = (int)settings["PictureSize"];
+            //EquipmentEnabled = (bool)settings["UsedEquipment"];
+            //CheckListEnabled = (bool)settings["UsedCheckLists"];
+            //COCEnabled = (bool)settings["UsedCalculate"];
+            //BagEnabled = (bool)settings["UsedServiceBag"];
+            //ShowServicePrice = (bool)settings["UsedCalculateService"];
+            //ShowMaterialPrice = (bool)settings["UsedCalculateMaterials"];
 
             Server = @"http://nt0420.bt/bitmobile/testsolution/device";
             Host = @"http://nt0420.bt";

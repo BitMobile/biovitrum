@@ -1097,17 +1097,9 @@ namespace Test
 
         public static DbRecordset GetSettings()
         {
-            var query = new Query(@"select
-                                      (select LogicValue from Catalog_SettingMobileApplication where Description like 'AllowGalery') as AllowGalery,
-                                      (select NumericValue from Catalog_SettingMobileApplication where Description like 'PictureSize') as PictureSize,
-                                      (select LogicValue from Catalog_SettingMobileApplication where Description like 'UsedEquipment') as UsedEquipment,
-                                      (select LogicValue from Catalog_SettingMobileApplication where Description like 'UsedCheckLists') as UsedCheckLists,
-                                      (select LogicValue from Catalog_SettingMobileApplication where Description like 'UsedCalculate') as UsedCalculate,
-                                      (select LogicValue from Catalog_SettingMobileApplication where Description like 'UsedServiceBag') as UsedServiceBag,
-                                      (select LogicValue from Catalog_SettingMobileApplication where Description like 'UsedCalculateService') as UsedCalculateService,
-                                      (select LogicValue from Catalog_SettingMobileApplication where Description like 'UsedCalculateMaterials') as UsedCalculateMaterials
-                                  from Catalog_SettingMobileApplication
-                                  limit 1");
+            var query = new Query(@"select Description, LogicValue, NumericValue 
+                                    from Catalog_SettingMobileApplication
+                                    where DeletionMark = 0");
 
             return query.Execute();
         }
