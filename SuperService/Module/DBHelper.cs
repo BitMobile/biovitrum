@@ -48,7 +48,6 @@ namespace Test
         {
             entity.Save();
             _db.Commit();
-            DConsole.WriteLine($"Начал частичную синхронизацию");
             SyncAsync();
         }
 
@@ -59,7 +58,6 @@ namespace Test
                 entity.Save();
             }
             _db.Commit();
-            DConsole.WriteLine($"Начал частичную синхронизацию");
             SyncAsync();
         }
 
@@ -77,6 +75,20 @@ namespace Test
 
         public static void FullSyncAsync(ResultEventHandler<bool> resultEventHandler = null)
         {
+            if (_db.SyncIsActive)
+            {
+#if DEBUG
+                DConsole.WriteLine($"Синхронизация не запущена, происходит другая синхронизация." +
+                                   $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(FullSyncAsync)}");
+#endif
+                return;
+            }
+
+#if DEBUG   
+            DConsole.WriteLine($"Начинаю полную синхронизацию." +
+                               $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(FullSyncAsync)}");
+#endif
+
             try
             {
                 _db.PerformFullSyncAsync(Settings.Server, Settings.User, Settings.Password,
@@ -91,6 +103,20 @@ namespace Test
 
         public static void SyncAsync(ResultEventHandler<bool> resultEventHandler = null)
         {
+            if (_db.SyncIsActive)
+            {
+#if DEBUG
+                DConsole.WriteLine($"Синхронизация не запущена, происходит другая синхронизация." +
+                                   $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(SyncAsync)}");
+#endif
+                return;
+            }
+
+#if DEBUG   
+            DConsole.WriteLine($"Начинаю частичную синхронизацию." +
+                               $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(SyncAsync)}");
+#endif
+
             try
             {
                 _db.PerformSyncAsync(Settings.Server, Settings.User, Settings.Password,
@@ -105,6 +131,20 @@ namespace Test
 
         public static void Sync(ResultEventHandler<bool> resultEventHandler = null)
         {
+            if (_db.SyncIsActive)
+            {
+#if DEBUG
+                DConsole.WriteLine($"Синхронизация не запущена, происходит другая синхронизация." +
+                                   $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(Sync)}");
+#endif
+                return;
+            }
+
+#if DEBUG   
+            DConsole.WriteLine($"Начинаю частичную синхронизацию." +
+                               $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(Sync)}");
+#endif
+
             try
             {
                 _db.PerformSync(Settings.Server, Settings.User, Settings.Password,
@@ -134,6 +174,20 @@ namespace Test
 
         public static void FullSync(ResultEventHandler<bool> resultEventHandler = null)
         {
+            if (_db.SyncIsActive)
+            {
+#if DEBUG
+                DConsole.WriteLine($"Синхронизация не запущена, происходит другая синхронизация." +
+                                   $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(FullSync)}");
+#endif
+                return;
+            }
+
+#if DEBUG   
+            DConsole.WriteLine($"Начинаю полную синхронизацию." +
+                               $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(FullSync)}");
+#endif
+
             try
             {
                 _db.PerformFullSync(Settings.Server, Settings.User, Settings.Password,
