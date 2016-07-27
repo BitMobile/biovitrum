@@ -36,15 +36,15 @@ namespace Test
             if (string.IsNullOrEmpty(_loginEditText.Text)
                 && string.IsNullOrEmpty(_passwordEditText.Text))
             {
-                Toast.MakeToast("user_pass_empty");
+                Toast.MakeToast(Translator.Translate("user_pass_empty"));
             }
             else if (string.IsNullOrEmpty(_loginEditText.Text))
             {
-                Toast.MakeToast("user_empty");
+                Toast.MakeToast(Translator.Translate("user_empty"));
             }
             else if (string.IsNullOrEmpty(_passwordEditText.Text))
             {
-                Toast.MakeToast("password_empty");
+                Toast.MakeToast(Translator.Translate("password_empty"));
             }
             else
             {
