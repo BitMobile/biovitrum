@@ -149,6 +149,8 @@ namespace Test
                             "    event.Comment,  " +
                             //"    100500 as sumFact, " +
                             "    docSUm.sumFact,  " +
+                            "    docSUm.sumMaterials,  " +
+                            "    docSUm.sumServices,  " +
                             "    docCheckList.Total as checkListTotal,  " + //общее количество вопросов в чеклисте
                             "    docCheckList.Answered as checkListAnswered,  " +
                             //количество отвеченных вопросов в чеклисте
@@ -204,7 +206,20 @@ namespace Test
                             "        left join Enum_StatusImportance  " +
                             "           on event.Importance = Enum_StatusImportance.Id  " +
                             "    " +
-                            "        left join (select Document_Event_ServicesMaterials.Ref, TOTAL(SumFact) as sumFact from Document_Event_ServicesMaterials where Document_Event_ServicesMaterials.Ref = @id group by Document_Event_ServicesMaterials.Ref ) as docSum  " +
+                            "        left join (select Document_Event_ServicesMaterials.Ref, " +
+                            "                       TOTAL(SumFact) as sumFact," +
+                            "                       TOTAL(case when (select " +
+                            "                                          Catalog_RIM.Service " +
+                            "                                        from Catalog_RIM " +
+                            "                                        where Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id) = 1 " +
+                            "                             then SumFact else 0 end) as sumServices, " +
+                            "                       TOTAL(case when (select " +
+                            "                                          Catalog_RIM.Service " +
+                            "                                        from Catalog_RIM " +
+                            "                                        where Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id) = 0 " +
+                            "                             then SumFact else 0 end) as sumMaterials " +
+                            "                   from Document_Event_ServicesMaterials " +
+                            "                   where Document_Event_ServicesMaterials.Ref = @id group by Document_Event_ServicesMaterials.Ref ) as docSum  " +
                             "           on event.id = docSUm.ref " +
                             "    " +
                             "        left join (select " +

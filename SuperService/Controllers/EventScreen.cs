@@ -365,5 +365,16 @@ namespace Test
         }
 
         internal bool ShowTaskButton() => Settings.EquipmentEnabled;
+
+        internal string SelectAndShowRightPrice(double materials, double services)
+        {
+            if (!Settings.ShowMaterialPrice && !Settings.ShowServicePrice) return Parameters.EmptyPriceDescription;
+            decimal total = 0;
+            if (Settings.ShowMaterialPrice)
+                total += (decimal)materials;
+            if (Settings.ShowServicePrice)
+                total += (decimal)services;
+            return $"{total}{Translator.Translate("currency")}";
+        }
     }
 }
