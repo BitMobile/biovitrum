@@ -85,8 +85,7 @@ namespace Test
             DConsole.WriteLine($"{Parameters.Splitter}{Environment.NewLine}");
 #endif
 
-            //Host = @"http://nt0420.bt";
-            Host = @"http://192.168.10.2";
+            Host = @"http://nt0420.bt";
             Server = Host + @"/bitmobile/testsolution/device";
             AuthUrl = Server + @"/GetUserId";
             _initialized = true;
