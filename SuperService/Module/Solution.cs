@@ -1,4 +1,5 @@
-﻿using BitMobile.ClientModel3;
+﻿using System;
+using BitMobile.ClientModel3;
 
 namespace Test
 {
@@ -12,11 +13,26 @@ namespace Test
             Settings.Init();
             DConsole.WriteLine("Authorization init...");
             Authorization.Init();
-            //TODO: Если бытрая авторизация произойдёт то переходим на экран EventListScreen. Это пометка. Причины, читай комментарий ниже.
-            //Так как из WebRequest мы можем облажаться со статусом авторизации(из-за асинхронности), пришлось немного накостылять
-            Authorization.FastAuthorization();
-            DConsole.WriteLine("Loading first screen...");
-            Navigation.Move(nameof(AuthScreen));
+            if (Authorization.FastAuthorization())
+            {
+#if DEBUG
+                DConsole.WriteLine($"Логин и пароль были сохранены." +
+                                   $"{Environment.NewLine}" +
+                                   $"Login: {Settings.User} Password: {Settings.Password}{Environment.NewLine}");
+#endif
+                DConsole.WriteLine("Loading first screen...");
+                Navigation.Move(nameof(EventListScreen));
+            }
+            else
+            {
+#if DEBUG
+                DConsole.WriteLine($"Логин и пароль НЕ были сохранены." +
+                                   $"{Environment.NewLine}" +
+                                   $"Login: {Settings.User} Password: {Settings.Password} {Environment.NewLine}");
+#endif
+                DConsole.WriteLine("Loading first screen...");
+                Navigation.Move(nameof(AuthScreen));
+            }
         }
     }
 }

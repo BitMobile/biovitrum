@@ -78,15 +78,18 @@ namespace Test
             if (_db.SyncIsActive)
             {
 #if DEBUG
-                DConsole.WriteLine($"Синхронизация не запущена, происходит другая синхронизация." +
-                                   $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(FullSyncAsync)}");
+                DConsole.WriteLine($"---------------{Environment.NewLine}Синхронизация не запущена," +
+                                   $" происходит другая синхронизация." +
+                                   $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(FullSyncAsync)}" +
+                                   $"{Environment.NewLine}---------------");
 #endif
                 return;
             }
 
-#if DEBUG   
-            DConsole.WriteLine($"Начинаю полную синхронизацию." +
-                               $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(FullSyncAsync)}");
+#if DEBUG
+            DConsole.WriteLine($"---------------{Environment.NewLine}Начинаю полную синхронизацию." +
+                               $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(FullSyncAsync)}" +
+                               $"{Environment.NewLine}---------------");
 #endif
 
             try
@@ -106,15 +109,18 @@ namespace Test
             if (_db.SyncIsActive)
             {
 #if DEBUG
-                DConsole.WriteLine($"Синхронизация не запущена, происходит другая синхронизация." +
-                                   $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(SyncAsync)}");
+                DConsole.WriteLine($"---------------{Environment.NewLine}Синхронизация не запущена," +
+                                   $" происходит другая синхронизация." +
+                                   $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(SyncAsync)}" +
+                                   $"{Environment.NewLine}---------------");
 #endif
                 return;
             }
 
-#if DEBUG   
-            DConsole.WriteLine($"Начинаю частичную синхронизацию." +
-                               $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(SyncAsync)}");
+#if DEBUG
+            DConsole.WriteLine($"---------------{Environment.NewLine}Начинаю частичную синхронизацию." +
+                               $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(SyncAsync)}" +
+                               $"{Environment.NewLine}---------------");
 #endif
 
             try
@@ -134,15 +140,18 @@ namespace Test
             if (_db.SyncIsActive)
             {
 #if DEBUG
-                DConsole.WriteLine($"Синхронизация не запущена, происходит другая синхронизация." +
-                                   $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(Sync)}");
+                DConsole.WriteLine($"---------------{Environment.NewLine}Синхронизация не запущена," +
+                                   $" происходит другая синхронизация." +
+                                   $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(Sync)}" +
+                                   $"{Environment.NewLine}---------------");
 #endif
                 return;
             }
 
-#if DEBUG   
-            DConsole.WriteLine($"Начинаю частичную синхронизацию." +
-                               $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(Sync)}");
+#if DEBUG
+            DConsole.WriteLine($"---------------{Environment.NewLine}Начинаю частичную синхронизацию." +
+                               $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(Sync)}" +
+                               $"{Environment.NewLine}---------------");
 #endif
 
             try
@@ -164,9 +173,11 @@ namespace Test
             else
             {
 #if DEBUG
-                DConsole.WriteLine(Translator.Translate(resultEventArgs.Result ? "sync_success" : "sync_fail"));
-                DConsole.WriteLine($"{LastError}");
-                DConsole.WriteLine($"{nameof(resultEventArgs.Result)}={resultEventArgs.Result}");
+                DConsole.WriteLine($"---------------{Environment.NewLine}"
+                                   + Translator.Translate(resultEventArgs.Result ? "sync_success" : "sync_fail"));
+                DConsole.WriteLine($"Последняя ошибка: {LastError}");
+                DConsole.WriteLine($"Результат синхронизации {resultEventArgs.Result}" +
+                                   $"{Environment.NewLine}---------------");
 #endif
             }
             Settings.Init();
@@ -177,15 +188,18 @@ namespace Test
             if (_db.SyncIsActive)
             {
 #if DEBUG
-                DConsole.WriteLine($"Синхронизация не запущена, происходит другая синхронизация." +
-                                   $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(FullSync)}");
+                DConsole.WriteLine($"---------------{Environment.NewLine}Синхронизация не запущена," +
+                                   $" происходит другая синхронизация." +
+                                   $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(FullSync)}" +
+                                   $"{Environment.NewLine}---------------");
 #endif
                 return;
             }
 
-#if DEBUG   
-            DConsole.WriteLine($"Начинаю полную синхронизацию." +
-                               $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(FullSync)}");
+#if DEBUG
+            DConsole.WriteLine($"---------------{Environment.NewLine}Начинаю полную синхронизацию." +
+                               $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(FullSync)}" +
+                               $"{Environment.NewLine}---------------");
 #endif
 
             try

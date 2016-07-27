@@ -1,5 +1,5 @@
-﻿using BitMobile.ClientModel3;
-using System;
+﻿using System;
+using BitMobile.ClientModel3;
 
 namespace Test
 {
@@ -19,37 +19,16 @@ namespace Test
             Initialized = true;
         }
 
-        public static void FastAuthorization()
+        /// <summary>
+        ///     Быстрая авторизация.
+        /// </summary>
+        /// <returns>
+        ///     Возращает true если логин и пароль не пустые
+        ///     , иначе false
+        /// </returns>
+        public static bool FastAuthorization()
         {
-            if (string.IsNullOrEmpty(Settings.User)
-                && string.IsNullOrEmpty(Settings.Password)) return;
-
-            _webRequest.UserName = Settings.User;
-            _webRequest.Password = Settings.Password;
-
-            _webRequest.Get(Settings.AuthUrl, (sender, args) =>
-            {
-                if (args.Result.Success)
-                {
-                    Settings.UserId = args.Result.Result;
-#if DEBUG
-                    DConsole.WriteLine("Авторизация успешна");
-                    DConsole.WriteLine($"UserId - {Settings.UserId} Web Request Result - {args.Result.Result}");
-                    DConsole.WriteLine("Запустили частичную синхронизацию.");
-#endif
-                    DBHelper.SyncAsync();
-                    DConsole.WriteLine("Loading first screen...");
-                    Navigation.ModalMove("EventListScreen");
-                }
-                else
-                {
-#if DEBUG
-                    DConsole.WriteLine("Быстрая авторизация не удалась. Сбрасываем пароль.");
-#endif
-                    Settings.Password = "";
-                    ErrorInfo(args);
-                }
-            });
+            return !string.IsNullOrEmpty(Settings.User) && !string.IsNullOrEmpty(Settings.Password);
         }
 
         public static void StartAuthorization(string userName, string password, AuthScreen screen)
@@ -79,7 +58,7 @@ namespace Test
                         Settings.Password = password;
 
 #if DEBUG
-                        DConsole.WriteLine("Запустили частичную синхронизацию.");
+                        DConsole.WriteLine($"Запустили частичную синхронизацию. From class {nameof(Authorization)}");
 #endif
                         DBHelper.SyncAsync();
                         DConsole.WriteLine("Loading first screen...");
@@ -94,7 +73,7 @@ namespace Test
                         Settings.User = userName;
                         Settings.Password = password;
 #if DEBUG
-                        DConsole.WriteLine("Запустили полную синхронизацию.");
+                        DConsole.WriteLine($"Запустили полную синхронизацию. From class {nameof(Authorization)}");
 #endif
                         DBHelper.FullSync();
                         DConsole.WriteLine("Loading first screen...");
