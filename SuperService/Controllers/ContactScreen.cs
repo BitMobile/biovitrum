@@ -82,12 +82,12 @@ namespace Test
 
         internal void SendMessageButton_OnClick(object o, EventArgs e)
         {
-            Dialog.Message("Для отправки сообщения отправьте сообщение на номер 9441215. Стоимость смс 100500");
+            Dialog.Message(Translator.Translate("under_construction"));
         }
 
         internal void WriteEMailButton_OnClick(object o, EventArgs e)
         {
-            Dialog.Message("Для отправки мыла отправьте мыло на адрес 96115. стоимость мыла 100500");
+            Dialog.Message(Translator.Translate("under_construction"));
         }
 
         internal void BackButton_OnClick(object o, EventArgs e)

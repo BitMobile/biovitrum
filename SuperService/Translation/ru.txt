@@ -120,3 +120,5 @@ user_pass_empty		Имя пользователя и пароль не могут
 user_empty		Имя пользователя не может быть пустым.
 password_empty		Пароль не может быть пустым.
 service_empty		Не указаны услуги
+select_date		Выберите дату
+under_construction		В процессе разработки
