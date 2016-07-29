@@ -185,7 +185,7 @@ namespace Test
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
-            Dialog.DateTime(@"Выберите дату", DateTime.Now, DateCallback);
+            Dialog.DateTime(Translator.Translate("select_date"), DateTime.Now, DateCallback);
         }
 
         internal void DateCallback(object state, ResultEventArgs<DateTime> args)
