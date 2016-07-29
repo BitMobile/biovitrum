@@ -152,10 +152,7 @@ namespace Test
                 else if (_isUseServiceBag)
                 {
                     //Если используется рюкзак монтажника, то отображаются только те материалы, которые есть в рюкзаке
-                    //TODO: заменить на метод DBHelper.GetUserBagByUserId когда будет реализована работа с пользователями и ИД. Пока выводим все номенклатуры
-                    //DBHelper.GetUserBagByUserId("@ref[Catalog_User]:838443ed-a3eb-11e5-8aad-f8a963e4bf15");
-
-                    result = DBHelper.GetRIMFromBag();
+                    result = DBHelper.GetUserBagByUserId(Settings.UserId);
                 }
                 else
                 {

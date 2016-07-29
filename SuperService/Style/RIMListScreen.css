@@ -329,3 +329,8 @@ HorizontalLine {
   vertical-align: center;
   width: 90%;
 }
+.EmptyBagText {
+  margin-top: 20sp;
+  font: 5sp arial;
+  height: 5.55sp auto;
+}

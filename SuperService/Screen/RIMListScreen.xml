@@ -24,7 +24,12 @@
           </s:Iterator>
         </s:If>
         <s:Else>
-          <c:TextView Text="#bag_empty#" />
+          <s:If Test="$isService">
+            <c:TextView Text="#service_empty#" CssClass="EmptyBagText" />
+          </s:If>
+          <s:Else>
+            <c:TextView Text="#bag_empty#" CssClass="EmptyBagText" />
+          </s:Else>
         </s:Else>
         <c:VerticalLayout CssClass="EmptySpace2sp" />
       </c:VerticalLayout>
