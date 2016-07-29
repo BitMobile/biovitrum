@@ -1,22 +1,25 @@
 @import "defaults.less";
 @import "Components/TopInfoComponent.less";
 
-.CheckListRequiredVL {
-    background-color: #eb5040;
-    height: 9sp auto;
+.CheckListRequired() {
+    margin-bottom: 1sp;
+    height: 9sp;
     width: 1%;
+}
+
+.CheckListRequiredVL {
+    .CheckListRequired;
+    background-color: #eb5040;
 }
 
 .CheckListRequiredDoneVL {
+    .CheckListRequired;
     background-color: #8abf57;
-    height: 9sp auto;
-    width: 1%;
 }
 
 .CheckListNotRequiredVL {
+    .CheckListRequired;
     background-color: #ffffff;
-    height: 9sp auto;
-    width: 1%;
 }
 
 .CheckListMainSVL {

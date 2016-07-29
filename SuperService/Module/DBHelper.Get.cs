@@ -425,7 +425,8 @@ namespace Test
                                   "     ON checkList.ActionType = TypesDataParameters.Id " +
                                   "    " +
                                   "where " +
-                                  "    checkList.Ref = @eventId");
+                                  "    checkList.Ref = @eventId " +
+                                  "order by checkList.LineNumber asc");
 
             query.AddParameter("eventId", eventID);
             return query.Execute();

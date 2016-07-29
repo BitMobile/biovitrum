@@ -255,19 +255,22 @@ HorizontalLine {
   margin-right: 5sp;
 }
 .CheckListRequiredVL {
-  background-color: #eb5040;
-  height: 9sp auto;
+  margin-bottom: 1sp;
+  height: 9sp;
   width: 1%;
+  background-color: #eb5040;
 }
 .CheckListRequiredDoneVL {
-  background-color: #8abf57;
-  height: 9sp auto;
+  margin-bottom: 1sp;
+  height: 9sp;
   width: 1%;
+  background-color: #8abf57;
 }
 .CheckListNotRequiredVL {
-  background-color: #ffffff;
-  height: 9sp auto;
+  margin-bottom: 1sp;
+  height: 9sp;
   width: 1%;
+  background-color: #ffffff;
 }
 .CheckListMainSVL {
   background-color: #ffffff;
