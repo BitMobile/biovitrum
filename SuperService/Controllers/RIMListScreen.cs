@@ -197,7 +197,8 @@ namespace Test
         {
             return _isService
                 ? $"{Math.Round(price, 2)} {Translator.Translate("currency")}"
-                : $"{Math.Round(price, 2)} {Translator.Translate("currency")}/{unit}";
+                : $"{Math.Round(price, 2)} {Translator.Translate("currency")}" + 
+                (string.IsNullOrEmpty(unit) ? "" : $"/{unit}");
         }
     }
 }

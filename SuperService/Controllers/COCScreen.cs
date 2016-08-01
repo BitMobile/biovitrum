@@ -252,7 +252,8 @@ namespace Test
 
         internal string Concat(float amountFact, string price, string unit)
         {
-            return $"{amountFact} x {price} {Translator.Translate("currency")} / {unit}";
+            return $"{amountFact} x {price} {Translator.Translate("currency")} " +
+                   (string.IsNullOrEmpty(unit) ? "" : $"/ {unit}");
         }
 
         internal DbRecordset GetMaterials()
