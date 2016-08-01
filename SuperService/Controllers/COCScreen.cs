@@ -66,8 +66,8 @@ namespace Test
             }
 
             _currentEventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
-            _usedCalculateService = DBHelper.GetIsUsedCalculateService();
-            _usedCalculateMaterials = DBHelper.GetIsUsedCalculateMaterials();
+            _usedCalculateService = Settings.ShowServicePrice;
+            _usedCalculateMaterials = Settings.ShowMaterialPrice;
 
             GetSums();
 
