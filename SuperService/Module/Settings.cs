@@ -59,8 +59,6 @@ namespace Test
             {
                 _settings = new Dictionary<string, object>();
             }
-            else
-                _settings.Clear();
 
             while (settings.Next())
             {

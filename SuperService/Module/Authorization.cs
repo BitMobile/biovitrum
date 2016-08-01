@@ -77,10 +77,11 @@ namespace Test
 #endif
                         DBHelper.FullSync((o, eventArgs) =>
                         {
-                            if (!eventArgs.Result) return;
+                            if (!DBHelper.SuccessSync) return;
 #if DEBUG
                             DConsole.WriteLine(Parameters.Splitter);
                             DConsole.WriteLine("Синхронизация удачна");
+                            DConsole.WriteLine($"{nameof(DBHelper.SuccessSync)} - {DBHelper.SuccessSync}");
                             DConsole.WriteLine($"In Class {nameof(Authorization)} Method {nameof(StartAuthorization)}");
                             DConsole.WriteLine(Parameters.Splitter);
                             DConsole.WriteLine("Loading first screen...");
