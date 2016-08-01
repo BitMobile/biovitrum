@@ -75,9 +75,18 @@ namespace Test
 #if DEBUG
                         DConsole.WriteLine($"Запустили полную синхронизацию. From class {nameof(Authorization)}");
 #endif
-                        DBHelper.FullSync();
-                        DConsole.WriteLine("Loading first screen...");
-                        Navigation.ModalMove("EventListScreen");
+                        DBHelper.FullSync((o, eventArgs) =>
+                        {
+                            if (!eventArgs.Result) return;
+#if DEBUG
+                            DConsole.WriteLine(Parameters.Splitter);
+                            DConsole.WriteLine("Синхронизация удачна");
+                            DConsole.WriteLine($"In Class {nameof(Authorization)} Method {nameof(StartAuthorization)}");
+                            DConsole.WriteLine(Parameters.Splitter);
+                            DConsole.WriteLine("Loading first screen...");
+#endif
+                            Navigation.ModalMove("EventListScreen");
+                        });
                     }
                 }
                 else
