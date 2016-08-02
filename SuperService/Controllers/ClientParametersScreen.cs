@@ -43,6 +43,7 @@ namespace Test
                 ArrowVisible = false,
             };
             _readonly = (bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
+            _topInfoComponent.ActivateBackButton();
         }
 
         private void UpdateChecklist(string id, string result)
