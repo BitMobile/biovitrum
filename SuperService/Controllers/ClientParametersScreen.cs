@@ -46,7 +46,7 @@ namespace Test
             _topInfoComponent.ActivateBackButton();
         }
 
-        private void UpdateChecklist(string id, string result)
+        private static void UpdateChecklist(string id, string result)
         {
             ChecklistResults[id] = result;
             if (ChecklistResults.Count >= _checklistResultThreshold)
@@ -64,7 +64,8 @@ namespace Test
                 clientParameters.Val = result;
                 entities.Add(clientParameters);
             }
-            DBHelper.SaveEntities(entities);
+            if (entities.Count != 0)
+                DBHelper.SaveEntities(entities);
             ChecklistResults.Clear();
         }
 
