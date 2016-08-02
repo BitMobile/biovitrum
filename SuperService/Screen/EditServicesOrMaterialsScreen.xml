@@ -2,6 +2,7 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
+    <c:VerticalLayout CssClass="NoHeight" OnClick="ReturnToThePreviousScreen_OnClick" OnEvent="Back"/>
     <s:If Test="$lineId != null">
       <s:Push Id="rimDescription" Value="$GetDescriptionByLineId($lineId)" />
     </s:If>

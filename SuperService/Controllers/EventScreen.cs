@@ -30,7 +30,7 @@ namespace Test
         public override void OnLoading()
         {
             _topInfoComponent = new TopInfoComponent(this);
-
+            _topInfoComponent.ActivateBackButton();
             LoadControls();
             FillControls();
 

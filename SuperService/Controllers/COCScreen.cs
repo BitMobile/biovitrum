@@ -55,6 +55,7 @@ namespace Test
             _totalSumForServices = (TextView)GetControl("RightInfoServicesTV", true);
             _totalSumForMaterials = (TextView)GetControl("RightInfoMaterialsTV", true);
 
+            _topInfoComponent.ActivateBackButton();
             DConsole.WriteLine($"{Variables[Parameters.IdIsReadonly]}");
         }
 

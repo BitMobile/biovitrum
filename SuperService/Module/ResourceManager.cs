@@ -30,6 +30,7 @@ namespace Test
             {"topheading_map", @"Image\top_eventlist_map_button.png"},
             {"topheading_info", @"Image\top_info.png"},
             {"topheading_edit", @"Image\ClientScreen\top_ico_edit.png"},
+            {"topheading_sync", @"Image\EventListScreen\Sinc.png" },
             //
             {"closeevent_wtb", @"Image\CloseEvent\Pokupka.png"},
             {"closeevent_wtb_selected", @"Image\CloseEvent\Pokupka_Selected.png"},

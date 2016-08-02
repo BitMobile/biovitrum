@@ -21,6 +21,7 @@ namespace Test
                 Header = Translator.Translate("cancel"),
                 ArrowVisible = false
             };
+            _topInfoComponent.ActivateBackButton();
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs args)
