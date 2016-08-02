@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3.UI;
 using BitMobile.DbEngine;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Test.Document;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
@@ -230,6 +231,12 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
+        }
+
+        internal void ReturnToThePreviousScreen_OnClick(object sender, EventArgs e)
+        {
+            Navigation.ModalMove(nameof(RIMListScreen),
+                (IDictionary<string, object>)Variables.GetValueOrDefault(Parameters.PreviousScreen));
         }
     }
 

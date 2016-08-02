@@ -84,7 +84,8 @@ namespace Test
                     {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.ReturnValue},
                     {"returnKey", key},
                     {Parameters.IdIsService, _isService},
-                    {Parameters.IdIsMaterialsRequest, _isMaterialRequest }
+                    {Parameters.IdIsMaterialsRequest, _isMaterialRequest },
+                    {Parameters.PreviousScreen, Variables }
                 };
                 DConsole.WriteLine("Go to EditServicesOrMaterials is Material Request true");
                 Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
@@ -103,7 +104,8 @@ namespace Test
                         {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.InsertIntoDB},
                         {"rimId"    , rimID},
                         {Parameters.IdIsService, _isService},
-                        {Parameters.IdIsMaterialsRequest, _isMaterialRequest }
+                        {Parameters.IdIsMaterialsRequest, _isMaterialRequest },
+                        {Parameters.PreviousScreen, Variables }
                     };
 
                     Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
@@ -116,7 +118,8 @@ namespace Test
                         {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
                         {Parameters.IdLineId   , line.ID},
                         {Parameters.IdIsService, _isService},
-                        {Parameters.IdIsMaterialsRequest, _isMaterialRequest }
+                        {Parameters.IdIsMaterialsRequest, _isMaterialRequest },
+                        {Parameters.PreviousScreen, Variables }
                     };
 
                     Navigation.ModalMove("EditServicesOrMaterialsScreen", dictionary);
