@@ -432,6 +432,32 @@ namespace Test
             return query.Execute();
         }
 
+        public static DbRecordset GetClientParametersByClientId(string clientId)
+        {
+            var query = new Query("select " +
+                                  "   parameters.Id as Id, " +
+                                  "   parameters.Ref as ClientId, " +
+                                  "   parameters.Val as Result, " +
+                                  "   options.Id as OptionId, " + //значение результата
+                                  "   options.Description as Description, " +
+                                  "   typesDataParameters.Name as TypeName " +
+                                  "from " +
+                                  "   Catalog_Client_Parameters as parameters " +
+                                  "   left join Catalog_ClientOptions as options " +
+                                  "     ON parameters.Ref = @clientId " +
+                                  "       AND parameters.Parameter = options.Id " +
+                                  "    " +
+                                  "   left join Enum_TypesDataParameters as typesDataParameters " +
+                                  "     ON options.DataTypeParameter = TypesDataParameters.Id " +
+                                  "    " +
+                                  "where " +
+                                  "    parameters.Ref = @clientId " +
+                                  "order by parameters.LineNumber asc");
+
+            query.AddParameter("clientId", clientId);
+            return query.Execute();
+        }
+
         /// <summary>
         ///     Получает список вариантов ответов для действий (вопросов)  с типом результата "выбор из списка"
         /// </summary>
@@ -444,9 +470,24 @@ namespace Test
                                   "from " +
                                   "     Catalog_Actions_ValueList " +
                                   "where " +
-                                  /*"     Catalog_Actions_ValueList.DeletionMark = 0 " +
-                                  "     and "*/ "Catalog_Actions_ValueList.Ref = @actionID");
+                                  "     Catalog_Actions_ValueList.Ref = @actionID " +
+                                  "order by LineNumber asc");
             query.AddParameter("actionID", actionID);
+            return query.Execute();
+        }
+
+        public static DbRecordset GetClientOptionValuesList(string optionId)
+        {
+            DConsole.WriteLine($"{nameof(optionId)} = {optionId}");
+            var query = new Query("select " +
+                                  "     Catalog_ClientOptions_ListValues.Id, " + //идентификатор ответа
+                                  "     Catalog_ClientOptions_ListValues.Val " + //представление ответа
+                                  "from " +
+                                  "     Catalog_ClientOptions_ListValues " +
+                                  "where " +
+                                  "     Catalog_ClientOptions_ListValues.Ref = @actionID " +
+                                  "order by LineNumber asc");
+            query.AddParameter("actionID", optionId);
             return query.Execute();
         }
 
@@ -1098,7 +1139,7 @@ namespace Test
 
         public static DbRecordset GetSettings()
         {
-            var query = new Query(@"select Description, LogicValue, NumericValue 
+            var query = new Query(@"select Description, LogicValue, NumericValue
                                     from Catalog_SettingMobileApplication
                                     where DeletionMark = 0");
 

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.DbEngine;
+using System;
+using System.Collections;
 using Database = BitMobile.ClientModel3.Database;
 
 namespace Test

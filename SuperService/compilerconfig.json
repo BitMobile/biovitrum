@@ -171,6 +171,13 @@
     "outputFile": "Style/CancelEventScreen.css",
     "inputFile": "Style/Less/CancelEventScreen.less",
     "minify": {
+      "enabled": false  
+      }
+  },
+    {
+    "outputFile": "Style/ClientParametersScreen.css",
+    "inputFile": "Style/Less/ClientParametersScreen.less",
+    "minify": {
       "enabled": false
     }
   }

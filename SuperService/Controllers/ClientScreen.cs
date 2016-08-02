@@ -47,8 +47,10 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            // TODO: Поведение не описано в прототипе, переход на EditContactScreen не имеет смысла
-            //Navigation.Move("EditContactScreen");
+            Navigation.Move(nameof(ClientParametersScreen), new Dictionary<string, object>
+            {
+                [Parameters.IdClientId] = _clientId
+            });
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
