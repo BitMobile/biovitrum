@@ -82,6 +82,9 @@ namespace Test
                     break;
 
                 case "Cancel":
+                    pictureTag += "cancel";
+                    break;
+
                 case "Done":
                     pictureTag += "done";
                     break;
