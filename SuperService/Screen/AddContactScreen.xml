@@ -8,7 +8,7 @@
     <c:EditText Id="email" Placeholder="#add_contact_enter_email#" CssClass = "ContactInfoEditText"/>
 
     <c:Button Id="addButton" Text="#add_contact_add_button#" OnClick="AddContactButton_OnClick" CssClass = "AddButton"/>
-    <c:Button Id="exitButton" Text="#back#" OnClick="Back_OnClick" CssClass = "ExitButton"/>
+    <c:Button Id="exitButton" Text="#back#" OnClick="Back_OnClick" CssClass = "ExitButton" OnEvent="Back"/>
     <!--<s:Include File="Components\TabBarСomponent.xml" />-->
   </c:VerticalLayout>
 

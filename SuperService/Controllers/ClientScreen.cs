@@ -27,7 +27,7 @@ namespace Test
                 RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_edit") },
                 ArrowVisible = false
             };
-
+            _topInfoComponent.ActivateBackButton();
             _map = (WebMapGoogle)GetControl("MapClient", true);
             _map.AddMarker((string)_client["Description"], (double)(decimal)_client["Latitude"],
                 (double)(decimal)_client["Longitude"], "red");
