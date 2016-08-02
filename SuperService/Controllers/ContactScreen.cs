@@ -23,6 +23,7 @@ namespace Test
                 RightButtonControl = new TextView(Translator.Translate("edit")),
                 ArrowVisible = false
             };
+            _topInfoComponent.ActivateBackButton();
         }
 
         public int InitClassFields()

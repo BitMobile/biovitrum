@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3.UI;
 using BitMobile.DbEngine;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Test.Document;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
@@ -29,6 +30,7 @@ namespace Test
         private bool _usedCalculateService;
         private int _value;
         private Image _minusImage;
+        private bool _isEdit;
 
         private decimal Price
         {
@@ -104,6 +106,7 @@ namespace Test
             _priceEditText = (EditText)Variables["PriceEditText"];
             _totalPriceTextView = (TextView)Variables["TotalPriceTextView"];
             _minusImage = (Image)Variables["MinusImage"];
+            _isEdit = (bool) Variables.GetValueOrDefault(Parameters.IsEdit, false);
 
             BusinessProcess.GlobalVariables.Remove(_key);
 
@@ -230,6 +233,15 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
+        }
+
+        internal void ReturnToThePreviousScreen_OnClick(object sender, EventArgs e)
+        {
+            if(_isEdit)
+                Navigation.Back();
+            else
+            Navigation.ModalMove(nameof(RIMListScreen),
+                (IDictionary<string, object>)Variables.GetValueOrDefault(Parameters.PreviousScreen));
         }
     }
 

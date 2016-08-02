@@ -103,6 +103,11 @@ namespace Test.Components
             }
         }
 
+        public void ActivateBackButton()
+        {
+            _leftButton.OnEvent = "Back";
+        }
+
         private void UpdateArrowImage()
         {
             string imageTag = $"topinfo_{(Minimized ? "down" : "up")}{(ArrowActive ? "" : "no")}arrow";

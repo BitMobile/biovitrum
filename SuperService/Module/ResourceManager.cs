@@ -30,6 +30,7 @@ namespace Test
             {"topheading_map", @"Image\top_eventlist_map_button.png"},
             {"topheading_info", @"Image\top_info.png"},
             {"topheading_edit", @"Image\ClientScreen\top_ico_edit.png"},
+            {"topheading_sync", @"Image\EventListScreen\Sinc.png" },
             //
             {"closeevent_wtb", @"Image\CloseEvent\Pokupka.png"},
             {"closeevent_wtb_selected", @"Image\CloseEvent\Pokupka_Selected.png"},
@@ -43,12 +44,15 @@ namespace Test
             {"eventlistscreen_blueborder", @"Image\EventListScreen\blue_border.png"},
             {"eventlistscreen_bluecircle", @"Image\EventListScreen\blue_circle.png"},
             {"eventlistscreen_bluedone", @"Image\EventListScreen\blue_done.png"},
+            {"eventlistscreen_bluecancel", @"Image\EventListScreen\blue_cancel.png"},
             {"eventlistscreen_yellowborder", @"Image\EventListScreen\yellow_border.png"},
             {"eventlistscreen_yellowcircle", @"Image\EventListScreen\yellow_circle.png"},
             {"eventlistscreen_yellowdone", @"Image\EventListScreen\yellow_done.png"},
+            {"eventlistscreen_yellowcancel", @"Image\EventListScreen\yellow_cancel.png"},
             {"eventlistscreen_redborder", @"Image\EventListScreen\red_border.png"},
             {"eventlistscreen_redcircle", @"Image\EventListScreen\red_circle.png"},
             {"eventlistscreen_reddone", @"Image\EventListScreen\red_done.png"},
+            {"eventlistscreen_redcancel", @"Image\EventListScreen\red_cancel.png"},
             // EventScreen
             {"eventscreen_clist", @"Image\es_clist.png"},
             {"eventscreen_coc", @"Image\es_coc.png"},

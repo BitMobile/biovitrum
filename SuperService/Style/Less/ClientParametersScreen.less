@@ -1,4 +1,4 @@
-@import "defaults.less";
+﻿@import "defaults.less";
 @import "Components/TopInfoComponent.less";
 
 .CheckListRequired() {
@@ -24,7 +24,7 @@
 
 .CheckListMainSVL {
     background-color: #ffffff;
-    height: 100%;
+    .auto-height;
     width: 100%;
 }
 
@@ -135,4 +135,12 @@
     height: 2px;
     horizontal-align: center;
     width: 95%;
+}
+
+.EmptyParametersMessage {
+    .text-view-style(@default-font-size);
+    width: 80%;
+    horizontal-align: center;
+    margin-top: @default-font-size;
+    color: lighten(@default-text-color, 15%);
 }

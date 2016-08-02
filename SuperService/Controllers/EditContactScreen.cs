@@ -28,6 +28,7 @@ namespace Test
                 RightButtonControl = new TextView(Translator.Translate("save")),
                 ArrowVisible = false
             };
+            _topInfoComponent.ActivateBackButton();
 
             if (!string.IsNullOrWhiteSpace(Contact.Tel))
             {

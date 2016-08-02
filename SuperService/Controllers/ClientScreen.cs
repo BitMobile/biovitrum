@@ -27,7 +27,7 @@ namespace Test
                 RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_edit") },
                 ArrowVisible = false
             };
-
+            _topInfoComponent.ActivateBackButton();
             _map = (WebMapGoogle)GetControl("MapClient", true);
             _map.AddMarker((string)_client["Description"], (double)(decimal)_client["Latitude"],
                 (double)(decimal)_client["Longitude"], "red");
@@ -47,8 +47,10 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            // TODO: Поведение не описано в прототипе, переход на EditContactScreen не имеет смысла
-            //Navigation.Move("EditContactScreen");
+            Navigation.Move(nameof(ClientParametersScreen), new Dictionary<string, object>
+            {
+                [Parameters.IdClientId] = _clientId
+            });
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)

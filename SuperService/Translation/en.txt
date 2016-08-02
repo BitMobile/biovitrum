@@ -122,3 +122,5 @@ password_empty		Password can not be empty.
 service_empty		Service list is empty
 select_date		Select date
 under_construction		Under construction
+client_parameters		Client parameters
+client_parameters_empty		There are no client parameters

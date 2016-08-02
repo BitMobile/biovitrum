@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.DbEngine;
+using System;
+using System.Collections;
 using Database = BitMobile.ClientModel3.Database;
 
 namespace Test
@@ -176,10 +176,27 @@ namespace Test
                 DConsole.WriteLine($"---------------{Environment.NewLine}"
                                    + Translator.Translate(resultEventArgs.Result ? "sync_success" : "sync_fail"));
                 DConsole.WriteLine($"Последняя ошибка: {LastError}");
-                DConsole.WriteLine($"Результат синхронизации {resultEventArgs.Result}" +
+                DConsole.WriteLine($"Результат синхронизации в callback {resultEventArgs.Result}" +
+                                   $"{Environment.NewLine}{nameof(SuccessSync)}: {SuccessSync}" +
                                    $"{Environment.NewLine}---------------");
 #endif
             }
+            if (!resultEventArgs.Result)
+            {
+#if DEBUG
+                DConsole.WriteLine(Parameters.Splitter);
+                DConsole.WriteLine($"Новые данные не пришли," +
+                                   $"настройки не обновляем" +
+                                   $" {nameof(resultEventArgs.Result)} = {resultEventArgs.Result}");
+                DConsole.WriteLine(Parameters.Splitter);
+#endif
+                return;
+            }
+#if DEBUG
+            DConsole.WriteLine(Parameters.Splitter);
+            DConsole.WriteLine("Пришли новые настройки. Обновляем их");
+            DConsole.WriteLine(Parameters.Splitter);
+#endif
             Settings.Init();
         }
 

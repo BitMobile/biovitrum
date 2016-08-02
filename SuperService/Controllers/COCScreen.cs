@@ -55,6 +55,7 @@ namespace Test
             _totalSumForServices = (TextView)GetControl("RightInfoServicesTV", true);
             _totalSumForMaterials = (TextView)GetControl("RightInfoMaterialsTV", true);
 
+            _topInfoComponent.ActivateBackButton();
             DConsole.WriteLine($"{Variables[Parameters.IdIsReadonly]}");
         }
 
@@ -66,8 +67,8 @@ namespace Test
             }
 
             _currentEventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
-            _usedCalculateService = DBHelper.GetIsUsedCalculateService();
-            _usedCalculateMaterials = DBHelper.GetIsUsedCalculateMaterials();
+            _usedCalculateService = Settings.ShowServicePrice;
+            _usedCalculateMaterials = Settings.ShowMaterialPrice;
 
             GetSums();
 
@@ -168,7 +169,8 @@ namespace Test
             var dictionary = new Dictionary<string, object>
             {
                 {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
-                {Parameters.IdLineId, vl.Id}
+                {Parameters.IdLineId, vl.Id},
+                {Parameters.IsEdit, true }
             };
 
             Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
@@ -252,7 +254,8 @@ namespace Test
 
         internal string Concat(float amountFact, string price, string unit)
         {
-            return $"{amountFact} x {price} {Translator.Translate("currency")} / {unit}";
+            return $"{amountFact} x {price} {Translator.Translate("currency")} " +
+                   (string.IsNullOrEmpty(unit) ? "" : $"/ {unit}");
         }
 
         internal DbRecordset GetMaterials()

@@ -52,6 +52,7 @@ namespace Test
                 SubHeader = string.Format(Translator.Translate("mandatory_questions_0_1"), _totalAnswered, _totalRequired)
             };
             _readonly = (bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
+            _topInfoComponent.ActivateBackButton();
         }
 
         private void UpdateChecklist(string id, string result)

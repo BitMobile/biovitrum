@@ -274,7 +274,7 @@ HorizontalLine {
 }
 .CheckListMainSVL {
   background-color: #ffffff;
-  height: 100%;
+  height: 0sp auto;
   width: 100%;
 }
 .CheckListItemHL {
@@ -372,4 +372,12 @@ HorizontalLine {
   height: 2px;
   horizontal-align: center;
   width: 95%;
+}
+.EmptyParametersMessage {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  width: 80%;
+  horizontal-align: center;
+  margin-top: 2.5sp;
+  color: #758183;
 }

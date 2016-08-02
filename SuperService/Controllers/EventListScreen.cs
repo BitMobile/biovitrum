@@ -21,7 +21,7 @@ namespace Test
             _tabBarComponent = new TabBarComponent(this);
             _topInfoComponent = new TopInfoComponent(this)
             {
-                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_filter") },
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_sync") },
                 RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_map") },
                 Header = Translator.Translate("orders")
             };
@@ -82,6 +82,9 @@ namespace Test
                     break;
 
                 case "Cancel":
+                    pictureTag += "cancel";
+                    break;
+
                 case "Done":
                     pictureTag += "done";
                     break;
