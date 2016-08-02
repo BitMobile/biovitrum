@@ -169,7 +169,8 @@ namespace Test
             var dictionary = new Dictionary<string, object>
             {
                 {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
-                {Parameters.IdLineId, vl.Id}
+                {Parameters.IdLineId, vl.Id},
+                {Parameters.IsEdit, true }
             };
 
             Navigation.Move("EditServicesOrMaterialsScreen", dictionary);

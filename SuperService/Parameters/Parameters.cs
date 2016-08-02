@@ -14,11 +14,14 @@
         public const string IdIsMaterialsRequest = "isMaterialsRequest";
         public const string IdIsReadonly = "isReadonly";
         public const string Contact = "contact";
+
         /// <summary>
         /// Используется для передачи параметров на экран EditServiceOrMaterials,
         /// для того чтобы сохранить состояние экрана RIMScreen.
         /// </summary>
         public const string PreviousScreen = "previousScreen";
+
+        public const string IsEdit = "isEdit";
 
         //Представление пустой суммы для отобажения на экранах с отключенной настройкой отображения цен
         public const string EmptyPriceDescription = " -- ";

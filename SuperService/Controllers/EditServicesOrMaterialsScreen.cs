@@ -30,6 +30,7 @@ namespace Test
         private bool _usedCalculateService;
         private int _value;
         private Image _minusImage;
+        private bool _isEdit;
 
         private decimal Price
         {
@@ -105,6 +106,7 @@ namespace Test
             _priceEditText = (EditText)Variables["PriceEditText"];
             _totalPriceTextView = (TextView)Variables["TotalPriceTextView"];
             _minusImage = (Image)Variables["MinusImage"];
+            _isEdit = (bool) Variables.GetValueOrDefault(Parameters.IsEdit, false);
 
             BusinessProcess.GlobalVariables.Remove(_key);
 
@@ -235,6 +237,9 @@ namespace Test
 
         internal void ReturnToThePreviousScreen_OnClick(object sender, EventArgs e)
         {
+            if(_isEdit)
+                Navigation.Back();
+            else
             Navigation.ModalMove(nameof(RIMListScreen),
                 (IDictionary<string, object>)Variables.GetValueOrDefault(Parameters.PreviousScreen));
         }
