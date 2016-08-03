@@ -16,8 +16,9 @@ namespace Test
         private Button _refuseButton;
         private DockLayout _rootLayout;
         private Button _startButton;
+        private Image _statusImage;
 
-        private Button _startFinishButton;
+        private VerticalLayout _startFinishButton;
         private bool _taskCommentTextExpanded;
         private TextView _taskCommentTextView;
 
@@ -111,10 +112,11 @@ namespace Test
 
         private void LoadControls()
         {
-            _rootLayout = (DockLayout)GetControl("RootLayout");
-            _startFinishButton = (Button)GetControl("StartFinishButton", true);
-            _startButton = (Button)GetControl("StartButton", true);
-            _refuseButton = (Button)GetControl("RefuseButton", true);
+            _rootLayout = (DockLayout)Variables["RootLayout"];
+            _startFinishButton = (VerticalLayout)Variables.GetValueOrDefault("StartFinishButton");
+            _startButton = (Button)Variables.GetValueOrDefault("StartButton");
+            _refuseButton = (Button)Variables.GetValueOrDefault("RefuseButton");
+            _statusImage = (Image)Variables.GetValueOrDefault("StatusImage");
         }
 
         internal void ClientInfoButton_OnClick(object sender, EventArgs eventArgs)
@@ -127,9 +129,9 @@ namespace Test
             Navigation.Move("CancelEventScreen");
         }
 
-        internal string FormatEventStartDatePlanTime(string eventStartDatePlanTime)
+        internal string FormatEventStartDatePlanTime(string eventStartDatePlan)
         {
-            return eventStartDatePlanTime.Substring(0, 5);
+            return DateTime.Parse(eventStartDatePlan).ToString("HH:mm");
         }
 
         internal void StartButton_OnClick(object sender, EventArgs eventArgs)
@@ -170,8 +172,8 @@ namespace Test
             _refuseButton.Visible = false;
             _refuseButton.Refresh();
             _startFinishButton.CssClass = "FinishButton";
-            _startFinishButton?.Refresh();
-            _startFinishButton.Text = $"{Translator.Translate("finish")}\n{DateTime.Now.Date.ToString("HH:mm")}";
+            _startFinishButton.Refresh();
+            _statusImage.Source = GetStatusPicture((string)_currentEventRecordset["ImportanceName"], "InWork");
             _rootLayout.Refresh();
             Event_OnStart();
         }
@@ -385,20 +387,11 @@ namespace Test
             return Convert.ToInt64(count) != Convert.ToInt64(0L);
         }
 
-        internal string GetFormatString(string translate, object date)
+        internal string FormatTimer(string date)
         {
-            DateTime startActualDate;
-            var isOk = DateTime.TryParse((string)date, out startActualDate);
-
-            if (isOk)
-            {
-                var result = DateTime.Now - startActualDate;
-                var ours = (int)result.TotalHours;
-                var totalHours = ours < Convert.ToInt32(10) ? $"0{ours}" : $"{ours}";
-                DConsole.WriteLine($"Времени с начала наряда {result}");
-                return $"{Translator.Translate(translate)}\n{totalHours}:{result.ToString("mm")}";
-            }
-            throw new Exception("Parsing error");
+            var parsedDate = DateTime.Parse(date);
+            var result = DateTime.Now - parsedDate;
+            return $"{result.TotalHours:00}:{result.Minutes:00}";
         }
 
         internal bool ShowTaskButton() => Settings.EquipmentEnabled;

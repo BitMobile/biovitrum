@@ -39,8 +39,9 @@
 }
 
 .LightInfoBoxBreaker {
+    margin-top: @default-font-size / 4;
     width: 3px;
-    height: 100%;
+    height: auto;
     background-color: #f4f4f5;
 }
 
@@ -87,13 +88,13 @@
     height: 7.5sp auto;
 }
 
-@info-font-size: @default-font-size * sqrt(2);
+@info-font-size: @default-font-size * sqrt(3/2);
 
 .InfoLayout {
     border-color: #f4f4f5;
     border-style: solid;
     border-width: 3px;
-    height: @info-font-size * (8/3);
+    height: @info-font-size * 3;
     horizontal-align: center;
     margin-bottom: 2sp;
     width: 90%;
@@ -153,13 +154,24 @@
 }
 
 .FinishButton {
-    background-color: #fe9c81;
-    color: #fecbc0;
     dock-align: bottom;
-    font: 3.5sp arial;
+    background-color: #fe9c81;
+
+    TextView {
+        margin-top: @info-font-size * 1 / 2;
+        color: #fecbc0;
+        .text-view-style(@info-font-size);
+    }
+
     height: 10sp;
     white-space: normal;
     width: 100%;
+}
+
+.FinishTimer {
+    margin-top: 0.5sp;
+    .text-view-style(@default-font-size);
+    color: #ffffff;
 }
 
 .SubComment {

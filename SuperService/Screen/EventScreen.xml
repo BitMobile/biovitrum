@@ -5,11 +5,20 @@
     <s:Push Id="event" Value="$GetCurrentEvent()" />
     <s:Include File="Components\TopInfoComponent.xml" />
     <s:If Test="$event.statusName == InWork">
-      <c:Button Id="StartFinishButton" Text="$GetFormatString(finish, $event.ActualStartDate)" CssClass="FinishButton"
-                OnClick="StartFinishButton_OnClick" />
+      <c:VerticalLayout Id="StartFinishButton"
+                        CssClass="FinishButton"
+                        OnClick="StartFinishButton_OnClick">
+        <c:TextView Text="#finish#" />
+        <c:TextView Text="$FormatTimer($event.ActualStartDate)" CssClass="FinishTimer" />
+      </c:VerticalLayout>
     </s:If>
     <s:If Test="$event.statusName == Appointed">
-      <c:Button Id="StartFinishButton" Text="#finish#" CssClass="NoHeight" OnClick="StartFinishButton_OnClick" />
+      <c:VerticalLayout Id="StartFinishButton"
+                        CssClass="NoHeight"
+                        OnClick="StartFinishButton_OnClick">
+        <c:TextView Text="#finish#" />
+        <c:TextView Text="00:00" CssClass="FinishTimer" />
+      </c:VerticalLayout>
     </s:If>
     <s:If Test="$event.statusName == Cancel" />
     <s:If Test="$event.statusName == Done">
@@ -22,8 +31,9 @@
             <c:TextView Text="#time#" CssClass="LightInfoTitle" />
             <c:HorizontalLayout CssClass="LightInfoContentWithImage">
               <c:Image Source="$GetStatusPicture($event.ImportanceName, $event.statusName)"
+                       Id="StatusImage"
                        CssClass="LightInfoImage" />
-              <c:TextView Text="$FormatEventStartDatePlanTime($event.StartDatePlanTime)" Id="StartTimeTextView"
+              <c:TextView Text="$FormatEventStartDatePlanTime($event.StartDatePlan)" Id="StartTimeTextView"
                           CssClass="LightInfoContent" />
               <c:VerticalLayout CssClass="LightInfoImage" />
             </c:HorizontalLayout>

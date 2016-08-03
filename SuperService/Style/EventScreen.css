@@ -286,8 +286,9 @@ HorizontalLine {
   width: 49.5%;
 }
 .LightInfoBoxBreaker {
+  margin-top: 0.625sp;
   width: 3px;
-  height: 100%;
+  height: auto;
   background-color: #f4f4f5;
 }
 .LightInfoImage {
@@ -330,27 +331,27 @@ HorizontalLine {
   border-color: #f4f4f5;
   border-style: solid;
   border-width: 3px;
-  height: 9.42809042sp;
+  height: 9.18558654sp;
   horizontal-align: center;
   margin-bottom: 2sp;
   width: 90%;
 }
 .InfoImage {
-  height: 5.30330086sp;
+  height: 4.59279327sp;
   margin-left: 3%;
   vertical-align: center;
 }
 .InfoTitle {
-  font: 3.53553391sp arial;
-  height: 3.92444264sp auto;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
   margin-left: 2%;
   text-align: left;
   width: 35%;
   vertical-align: center;
 }
 .InfoContent {
-  font: 3.53553391sp arial;
-  height: 3.92444264sp auto;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
   color: #a4a8a9;
   margin-right: 3%;
   text-align: right;
@@ -382,13 +383,23 @@ HorizontalLine {
   width: 90%;
 }
 .FinishButton {
-  background-color: #fe9c81;
-  color: #fecbc0;
   dock-align: bottom;
-  font: 3.5sp arial;
+  background-color: #fe9c81;
   height: 10sp;
   white-space: normal;
   width: 100%;
+}
+.FinishButton TextView {
+  margin-top: 1.53093109sp;
+  color: #fecbc0;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+}
+.FinishTimer {
+  margin-top: 0.5sp;
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  color: #ffffff;
 }
 .SubComment {
   height: 9sp;
