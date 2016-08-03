@@ -28,15 +28,28 @@
 }
 
 .LightInfoLayout {
-    height: 5sp auto;
+    height: 6sp auto;
     horizontal-align: center;
     width: 90%;
 }
 
 .LightInfoBox {
-    height: 5sp auto;
-    margin-top: 1sp;
-    width: 50%;
+    height: 4sp auto;
+    width: 49.5%;
+}
+
+.LightInfoBoxBreaker {
+    margin-top: @default-font-size / 4;
+    width: 3px;
+    height: auto;
+    background-color: #f4f4f5;
+}
+
+.LightInfoImage {
+    width: 2.5sp;
+    margin-left: 2sp;
+    margin-right: 2sp;
+    vertical-align: center;
 }
 
 .LightInfoTitle {
@@ -45,8 +58,15 @@
     height: 3sp;
 }
 
+.LightInfoContentWithImage {
+    width: 20% auto;
+    .height-of-TextView(@default-font-size);
+    horizontal-align: center;
+}
+
 .LightInfoContent {
-    height: 4sp auto;
+    width: 0sp auto;
+    horizontal-align: center;
 }
 
 .LayoutBreaker {
@@ -68,41 +88,43 @@
     height: 7.5sp auto;
 }
 
+@info-font-size: @default-font-size * sqrt(3/2);
+
 .InfoLayout {
-    border-color: #a4a8a9;
+    border-color: #f4f4f5;
     border-style: solid;
-    border-width: 2px;
-    height: 10sp;
+    border-width: 3px;
+    height: @info-font-size * 3;
     horizontal-align: center;
     margin-bottom: 2sp;
-    padding-bottom: 2sp;
-    padding-top: 2sp;
     width: 90%;
 }
 
+@info-title-part: 35%;
+@info-image-part: 8%;
+@info-content-part: 100% - @info-title-part - @info-image-part;
+
 .InfoImage {
-    height: 80%;
-    margin-left: 5%;
+    height: @info-font-size * 1.5;
+    margin-left: 3%;
     vertical-align: center;
 }
 
 .InfoTitle {
-    font: 4sp arial;
-    height: 80%;
+    .text-view-style(@info-font-size);
     margin-left: 2%;
-    padding-top: 1sp;
     text-align: left;
-    width: 50%;
+    width: @info-title-part;
+    vertical-align: center;
 }
 
 .InfoContent {
+    .text-view-style(@info-font-size);
     color: #a4a8a9;
-    font: 4sp arial;
-    height: 80%;
-    margin-right: 5%;
-    padding-top: 1sp;
+    margin-right: 3%;
     text-align: right;
-    width: 35%;
+    width: @info-content-part;
+    vertical-align: center;
 }
 
 .StartButton {
@@ -132,13 +154,24 @@
 }
 
 .FinishButton {
-    background-color: #fe9c81;
-    color: #fecbc0;
     dock-align: bottom;
-    font: 3.5sp arial;
+    background-color: #fe9c81;
+
+    TextView {
+        margin-top: @info-font-size * 1 / 2;
+        color: #fecbc0;
+        .text-view-style(@info-font-size);
+    }
+
     height: 10sp;
     white-space: normal;
     width: 100%;
+}
+
+.FinishTimer {
+    margin-top: 0.5sp;
+    .text-view-style(@default-font-size);
+    color: #ffffff;
 }
 
 .SubComment {
@@ -163,8 +196,6 @@
 .WrapUnwrapLine {
     vertical-align: center;
     width: 45%;
-    background-color: #a4a8a9;
-    height: 0.1sp;
 }
 
 .WrapUnwrapImage {

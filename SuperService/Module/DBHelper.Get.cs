@@ -146,6 +146,7 @@ namespace Test
                             "    event.ActualStartDate,  " + //фактическая дата начала
                             "    event.ActualEndDate,  " + // фактическая дата конца
                             "    Enum_StatusImportance.Description as Importance,  " + //важность
+                            "    Enum_StatusImportance.Name as ImportanceName,  " + //важность
                             "    event.Comment,  " +
                             //"    100500 as sumFact, " +
                             "    docSUm.sumFact,  " +
