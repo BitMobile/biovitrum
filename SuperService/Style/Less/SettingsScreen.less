@@ -3,9 +3,11 @@
 
 @default-company-info-text-color: #a2a2aa;
 @default-user-info-text-color: #51595b;
-@default-vertical-line-color: #f4f4f4;
-@default-verticzl-live-width: 0.15sp;
+@default-vertical-line-color: #f3f3f3;
+@default-vertical-line-width: 0.15sp;
 @default-social-network-logo-margin: 15%;
+@report-text-color: #cfcfd4;
+@user-initials-text-color: #e3e3e5;
 
 /* Settings style */
 .MainInfoContainer {
@@ -44,15 +46,15 @@
 }
 
 .UserInitials {
-    .text-view-style(@default-font-size * 1.5);
-    width: 50%;
-    color: @default-user-info-text-color;
-    .horizontal-align;
+    .text-view-style(@default-font-size * 2.5);
+    width: 5sp auto;
+    color: @user-initials-text-color;
+    vertical-align: center;
     white-space: nowrap;
 }
 
 .UserFandLName {
-    .text-view-style(@default-font-size * 2);
+    .text-view-style(@default-font-size * 1.5);
     width: 100%;
     color: @default-user-info-text-color;
     .horizontal-align;
@@ -61,7 +63,7 @@
 
 .FatHorizontalLineLayout {
     .height-and-width(5dp,100%);
-    margin-top: 1sp;
+    margin-top: 2sp;
 }
 
 .FatHorizontalLine {
@@ -155,7 +157,7 @@
 
 .VerticalLine {
     height: 100%;
-    width: @default-verticzl-live-width;
+    width: @default-vertical-line-width;
     background-color: @default-vertical-line-color;
     .horizontal-align;
 }
@@ -176,8 +178,21 @@
 }
 
 .ReportText {
-    .make-textview-style(@default-font-size,@default-user-info-text-color, 30sp, center, normal);
+    .make-textview-style(@default-font-size, @report-text-color, 30sp, center, normal);
     margin-top: 1sp;
+    .horizontal-align;
+}
+
+.Userpic{
+    background-image: url(..\Image.SettingsScreen.Userpic_blank.png);
+    height: 15mm;
+    width: 15mm;
+    margin-bottom: 3sp;
+    .horizontal-align;
+}
+
+.UserpicAlign{
+    .height-and-width(100%, 0sp auto);
     .horizontal-align;
 }
 /* End settings style*/
