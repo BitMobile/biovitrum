@@ -329,16 +329,16 @@ HorizontalLine {
   height: 3.92444264sp auto;
   margin-left: 2%;
   text-align: left;
-  width: 50%;
+  width: 35%;
   vertical-align: center;
 }
 .InfoContent {
   font: 3.53553391sp arial;
   height: 3.92444264sp auto;
   color: #a4a8a9;
-  margin-right: 5%;
+  margin-right: 3%;
   text-align: right;
-  width: 42%;
+  width: 57%;
   vertical-align: center;
 }
 .StartButton {
