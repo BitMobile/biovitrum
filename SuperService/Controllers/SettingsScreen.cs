@@ -103,7 +103,7 @@ namespace Test
 
             foreach (var str in strings)
             {
-                result += $"{((string)str).Substring(0, 1).ToUpper()}.";
+                result += $"{((string)str).Substring(0, 1).ToUpper()}";
             }
 
             return result;
@@ -155,27 +155,18 @@ namespace Test
 
         internal void Twitter_OnClick(object sender, EventArgs e)
         {
-            DConsole.WriteLine($"Чирик чирик ты в твиттере");
         }
 
         internal void Facebook_OnClick(object sender, EventArgs e)
         {
-            DConsole.WriteLine($"Ты перешел на Лицокнигу");
         }
 
         internal void SendErrorReport_OnClick(object sender, EventArgs e)
         {
-            DConsole.WriteLine($"Отчет об ошибке отправлен");
         }
 
         internal void SendLog_OnClick(object sender, EventArgs e)
         {
-            DConsole.WriteLine($"Лог отправлен");
-#if DEBUG
-            DConsole.WriteLine($"Частичная синхронизация начата");
-#endif
-            Toast.MakeToast(Translator.Translate("start_sync"));
-            DBHelper.SyncAsync();
         }
     }
 }

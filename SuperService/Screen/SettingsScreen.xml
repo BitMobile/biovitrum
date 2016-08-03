@@ -20,7 +20,11 @@
         <c:VerticalLayout CssClass="UserInfo">
           <c:HorizontalLayout CssClass="UserInfoContainerHorizontalAlign">
             <c:VerticalLayout CssClass="UserInfoContainerVerticalAlign">
-              <c:TextView CssClass="UserInitials" Text="$GetUserInitials()" />
+              <c:VerticalLayout CssClass="Userpic">
+                <c:HorizontalLayout CssClass="UserpicAlign">
+                  <c:TextView CssClass="UserInitials" Text="$GetUserInitials()" />
+                </c:HorizontalLayout>
+              </c:VerticalLayout>
               <c:TextView CssClass="UserFandLName" Text="$GetUserDescription()" />
               <!--Толстая линия по центру-->
               <c:VerticalLayout CssClass="FatHorizontalLineLayout">
@@ -72,8 +76,9 @@
             <!-- Сообщить об ошибке -->
             <c:VerticalLayout CssClass="ExternalButtonContainer">
               <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
-                <c:VerticalLayout Id="SendErrorReport" CssClass="ButtonContainerVerticalAlign" OnClick="SendErrorReport_OnClick">
-                  <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_error)" />
+                <c:VerticalLayout Id="SendErrorReport" CssClass="ButtonContainerVerticalAlign"
+                                  OnClick="SendErrorReport_OnClick">
+                  <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_error_disable)" />
                   <c:TextView CssClass="ReportText" Text="#report_an_error#" />
                 </c:VerticalLayout>
               </c:HorizontalLayout>
@@ -86,7 +91,7 @@
             <c:VerticalLayout CssClass="ExternalButtonContainer">
               <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
                 <c:VerticalLayout Id="SendLog" CssClass="ButtonContainerVerticalAlign" OnClick="SendLog_OnClick">
-                  <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_log)" />
+                  <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_log_disable)" />
                   <c:TextView CssClass="ReportText" Text="#send_log" />
                 </c:VerticalLayout>
               </c:HorizontalLayout>

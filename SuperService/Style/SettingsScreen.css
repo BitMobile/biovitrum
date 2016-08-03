@@ -290,16 +290,16 @@ HorizontalLine {
   vertical-align: center;
 }
 .UserInitials {
-  font: 3.75sp arial;
-  height: 4.1625sp auto;
-  width: 50%;
-  color: #51595b;
-  horizontal-align: center;
+  font: 6.25sp arial;
+  height: 6.9375sp auto;
+  width: 5sp auto;
+  color: #e3e3e5;
+  vertical-align: center;
   white-space: nowrap;
 }
 .UserFandLName {
-  font: 5sp arial;
-  height: 5.55sp auto;
+  font: 3.75sp arial;
+  height: 4.1625sp auto;
   width: 100%;
   color: #51595b;
   horizontal-align: center;
@@ -308,7 +308,7 @@ HorizontalLine {
 .FatHorizontalLineLayout {
   height: 5dp;
   width: 100%;
-  margin-top: 1sp;
+  margin-top: 2sp;
 }
 .FatHorizontalLine {
   height: 100%;
@@ -410,7 +410,7 @@ HorizontalLine {
 .VerticalLine {
   height: 100%;
   width: 0.15sp;
-  background-color: #f4f4f4;
+  background-color: #f3f3f3;
   horizontal-align: center;
 }
 .ButtonContainerHorizontalAlign {
@@ -430,11 +430,23 @@ HorizontalLine {
 .ReportText {
   font: 2.5sp arial;
   height: 2.775sp auto;
-  color: #51595b;
+  color: #cfcfd4;
   width: 30sp;
   text-align: center;
   white-space: normal;
   margin-top: 1sp;
+  horizontal-align: center;
+}
+.Userpic {
+  background-image: url(Image.SettingsScreen.Userpic_blank.png);
+  height: 15mm;
+  width: 15mm;
+  margin-bottom: 3sp;
+  horizontal-align: center;
+}
+.UserpicAlign {
+  height: 100%;
+  width: 0sp auto;
   horizontal-align: center;
 }
 /* End settings style*/

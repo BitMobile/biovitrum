@@ -103,6 +103,9 @@ namespace Test
             {"settingsscreen_sservice_logo",@"Image\SettingsScreen\logo.png" },
             {"settingsscreen_logout",@"Image\SettingsScreen\logout.png" },
             {"settingsscreen_twitter",@"Image\SettingsScreen\Twitter.png" },
+            {"settingsscreen_send_error_disable",@"Image\SettingsScreen\Error_disable.png" },
+            {"settingsscreen_send_log_disable",@"Image\SettingsScreen\Log_Disable.png" },
+            {"settingsscreen_userpic",@"Image\SettingsScreen\Userpic_blank.png" },
         };
 
         public static string GetImage(string tag)
