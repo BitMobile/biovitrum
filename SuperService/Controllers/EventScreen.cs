@@ -1,12 +1,10 @@
-﻿using BitMobile.BusinessProcess.ClientModel;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections.Generic;
 using Test.Catalog;
 using Test.Components;
 using Test.Enum;
-using Console = System.Console;
 using Converter = BitMobile.ClientModel3.Converter;
 using Dialog = BitMobile.ClientModel3.Dialog;
 
@@ -374,7 +372,7 @@ namespace Test
                 total += (decimal)materials;
             if (Settings.ShowServicePrice)
                 total += (decimal)services;
-            return $"{total}{Translator.Translate("currency")}";
+            return $"{total:0.00} {Translator.Translate("currency")}";
         }
     }
 }
