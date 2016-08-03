@@ -151,17 +151,19 @@ namespace Test
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
             var tv = GetTextView(sender);
-
+            var startObject = "not_choosed";
             var items = new Dictionary<object, string>
                 {
-                    {"", Translator.Translate("not_choosed")}
+                    {"not_choosed", Translator.Translate("not_choosed")}
                 };
             var temp = DBHelper.GetActionValuesList(_textView.Id);
             while (temp.Next())
             {
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
+                if (temp["Val"].ToString() == _textView.Text)
+                    startObject = temp["Id"].ToString();
             }
-            Dialog.Choose(tv.Text, items, ValListCallback);
+            Dialog.Choose(tv.Text, items, startObject, ValListCallback);
         }
 
         private void ValListCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
@@ -185,8 +187,10 @@ namespace Test
             if (_readonly) return;
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
-
-            Dialog.DateTime(Translator.Translate("select_date"), DateTime.Now, DateCallback);
+            DateTime date;
+            var isDate = DateTime.TryParse(_textView.Text, out date);
+            date = isDate ? date : DateTime.Now;
+            Dialog.DateTime(Translator.Translate("select_date"), date, DateCallback);
         }
 
         internal void DateCallback(object state, ResultEventArgs<DateTime> args)
@@ -213,7 +217,10 @@ namespace Test
                     {"false", Translator.Translate("no")},
                     {"", Translator.Translate("not_choosed")}
                 };
-            Dialog.Choose(tv.Text, items, BooleanCallback);
+            var startKey = tv.Text == Translator.Translate("not_choosed")
+                ? ""
+                : tv.Text == Translator.Translate("yes") ? "true" : "false";
+            Dialog.Choose(tv.Text, items, startKey, BooleanCallback);
         }
 
         //TODO: Костыль, возможно измениться в будущем.

@@ -121,14 +121,19 @@ namespace Test
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
 
             var tv = GetTextView(sender);
-
-            var items = new Dictionary<object, string>();
-            var temp = DBHelper.GetClientOptionValuesList(_textView.Id);
+            var startObject = "not_choosed";
+            var items = new Dictionary<object, string>
+                {
+                    {"not_choosed", Translator.Translate("not_choosed")}
+                };
+            var temp = DBHelper.GetActionValuesList(_textView.Id);
             while (temp.Next())
             {
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
+                if (temp["Val"].ToString() == _textView.Text)
+                    startObject = temp["Id"].ToString();
             }
-            Dialog.Choose(tv.Text, items, ValListCallback);
+            Dialog.Choose(tv.Text, items, startObject, ValListCallback);
         }
 
         private void ValListCallback(object state, ResultEventArgs<KeyValuePair<object, string>> args)
@@ -146,8 +151,10 @@ namespace Test
             if (_readonly) return;
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
-
-            Dialog.DateTime(Translator.Translate("select_date"), DateTime.Now, DateCallback);
+            DateTime date;
+            var isDate = DateTime.TryParse(_textView.Text, out date);
+            date = isDate ? date : DateTime.Now;
+            Dialog.DateTime(Translator.Translate("select_date"), date, DateCallback);
         }
 
         internal void DateCallback(object state, ResultEventArgs<DateTime> args)
@@ -166,11 +173,12 @@ namespace Test
             var tv = GetTextView(sender);
 
             var items = new Dictionary<object, string>
-            {
-                {"true", Translator.Translate("yes")},
-                {"false", Translator.Translate("no")},
-            };
-            Dialog.Choose(tv.Text, items, BooleanCallback);
+                {
+                    {"true", Translator.Translate("yes")},
+                    {"false", Translator.Translate("no")},
+                };
+            var startKey = tv.Text == Translator.Translate("no") ? "false" : "true";
+            Dialog.Choose(tv.Text, items, startKey, BooleanCallback);
         }
 
         private ITextView3 GetTextView(object sender)
