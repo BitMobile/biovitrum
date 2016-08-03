@@ -28,15 +28,27 @@
 }
 
 .LightInfoLayout {
-    height: 5sp auto;
+    height: 6sp auto;
     horizontal-align: center;
     width: 90%;
 }
 
 .LightInfoBox {
-    height: 5sp auto;
-    margin-top: 1sp;
-    width: 50%;
+    height: 4sp auto;
+    width: 49.5%;
+}
+
+.LightInfoBoxBreaker {
+    width: 3px;
+    height: 100%;
+    background-color: #f4f4f5;
+}
+
+.LightInfoImage {
+    width: 2.5sp;
+    margin-left: 2sp;
+    margin-right: 2sp;
+    vertical-align: center;
 }
 
 .LightInfoTitle {
@@ -45,8 +57,15 @@
     height: 3sp;
 }
 
+.LightInfoContentWithImage {
+    width: 20% auto;
+    .height-of-TextView(@default-font-size);
+    horizontal-align: center;
+}
+
 .LightInfoContent {
-    height: 4sp auto;
+    width: 0sp auto;
+    horizontal-align: center;
 }
 
 .LayoutBreaker {

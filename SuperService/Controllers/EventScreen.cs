@@ -205,6 +205,45 @@ namespace Test
             }
         }
 
+        internal string GetStatusPicture(string importance, string status)
+        {
+            var pictureTag = @"eventlistscreen_";
+            switch (importance)
+            {
+                case "Standart":
+                    pictureTag += "blue";
+                    break;
+
+                case "High":
+                    pictureTag += "yellow";
+                    break;
+
+                case "Critical":
+                    pictureTag += "red";
+                    break;
+            }
+
+            switch (status)
+            {
+                case "Appointed":
+                    pictureTag += "border";
+                    break;
+
+                case "Cancel":
+                    pictureTag += "cancel";
+                    break;
+
+                case "Done":
+                    pictureTag += "done";
+                    break;
+
+                case "InWork":
+                    pictureTag += "circle";
+                    break;
+            }
+            return ResourceManager.GetImage(pictureTag);
+        }
+
         private bool CheckEventBeforeClosing()
         {
             // TODO: Здесь будет проверка наряда перед закрытием

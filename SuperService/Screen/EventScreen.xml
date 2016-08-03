@@ -11,25 +11,30 @@
     <s:If Test="$event.statusName == Appointed">
       <c:Button Id="StartFinishButton" Text="#finish#" CssClass="NoHeight" OnClick="StartFinishButton_OnClick" />
     </s:If>
-    <s:If Test="$event.statusName == Cancel">
-      <c:Button Id="StartFinishButton" Text="#finish#" CssClass="NoHeight" OnClick="StartFinishButton_OnClick" />
-    </s:If>
+    <s:If Test="$event.statusName == Cancel" />
     <s:If Test="$event.statusName == Done">
     </s:If>
     <c:ScrollView CssClass="EventScreenMainLayout">
       <c:VerticalLayout>
-        <c:VerticalLayout CssClass="EmptySpace1sp" />
+        <c:VerticalLayout CssClass="EmptySpace2sp" />
         <c:HorizontalLayout CssClass="LightInfoLayout">
           <c:VerticalLayout CssClass="LightInfoBox">
             <c:TextView Text="#time#" CssClass="LightInfoTitle" />
-            <c:TextView Text="$FormatEventStartDatePlanTime($event.StartDatePlanTime)" Id="StartTimeTextView"
-                        CssClass="LightInfoContent" />
+            <c:HorizontalLayout CssClass="LightInfoContentWithImage">
+              <c:Image Source="$GetStatusPicture($event.ImportanceName, $event.statusName)"
+                       CssClass="LightInfoImage" />
+              <c:TextView Text="$FormatEventStartDatePlanTime($event.StartDatePlanTime)" Id="StartTimeTextView"
+                          CssClass="LightInfoContent" />
+              <c:VerticalLayout CssClass="LightInfoImage" />
+            </c:HorizontalLayout>
           </c:VerticalLayout>
+          <c:VerticalLayout CssClass="LightInfoBoxBreaker" />
           <c:VerticalLayout CssClass="LightInfoBox">
             <c:TextView Text="#workType#" CssClass="LightInfoTitle" />
             <c:TextView Text="$event.TypeDeparture" Id="DepartureTypeTextView" CssClass="LightInfoContent" />
           </c:VerticalLayout>
         </c:HorizontalLayout>
+        <c:VerticalLayout CssClass="EmptySpace3sp" />
         <c:HorizontalLine />
 
         <c:VerticalLayout CssClass="CommentLayout">
