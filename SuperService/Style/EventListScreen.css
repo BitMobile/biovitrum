@@ -277,6 +277,7 @@ HorizontalLine {
   text-align: left;
   margin-top: 0sp;
   margin-left: 2sp;
+  padding-left: 2sp;
   vertical-align: center;
   horizontal-align: center;
 }
