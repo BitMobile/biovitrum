@@ -277,7 +277,7 @@ HorizontalLine {
   text-align: left;
   margin-top: 0sp;
   margin-left: 2sp;
-  padding-left: 2sp;
+  padding-left: 1.5sp;
   vertical-align: center;
   horizontal-align: center;
 }
@@ -293,7 +293,7 @@ HorizontalLine {
   horizontal-align: right;
   width: 100%;
   margin-left: 3sp;
-  margin-top: 1sp;
+  margin-top: 1.7sp;
   margin-right: 3sp;
 }
 .EventListItemHL {
@@ -306,13 +306,13 @@ HorizontalLine {
 }
 .EventListTimeTV {
   color: #51595b;
-  margin-top: 2sp;
-  font: 3sp arial;
+  margin-top: 1.5sp;
+  font: 3.3sp arial;
   width: 80%;
 }
 .EventListCounterTV {
   color: #feb3a3;
-  margin-top: 4sp;
+  margin-top: 5.2sp;
   font: 2sp arial;
   width: 85%;
   text-align: center;
@@ -329,11 +329,11 @@ HorizontalLine {
 }
 .EventListStatusIMG {
   horizontal-align: center;
-  height: 3sp;
+  height: 2sp;
 }
 .EventListLineAfterVL {
   horizontal-align: center;
-  height: 100%;
+  height: 100% auto;
   width: 3px;
   background-color: #f3f3f4;
 }
@@ -343,10 +343,10 @@ HorizontalLine {
 }
 .EventListItemName {
   color: #51595b;
-  margin-top: 2sp;
+  margin-top: 1.5sp;
   margin-left: 3sp;
   margin-right: 3sp;
-  font: 3sp arial;
+  font: 3.3sp arial;
   text-align: left;
   width: 100%;
   white-space: nowrap;
@@ -366,7 +366,7 @@ HorizontalLine {
   margin-top: 1sp;
   margin-left: 3sp;
   margin-right: 3sp;
-  font: 2sp arial;
+  font: 2.3sp arial;
   text-align: left;
   width: 100%;
   white-space: nowrap;
