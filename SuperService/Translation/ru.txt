@@ -124,3 +124,5 @@ select_date		Выберите дату
 under_construction		В процессе разработки
 client_parameters		Параметры клиента
 client_parameters_empty		Нет параметров клиента
+SERVICES		УСЛУГИ
+MATERIALS		МАТЕРИАЛЫ

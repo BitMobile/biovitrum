@@ -324,8 +324,8 @@ HorizontalLine {
 .ExtraInfo {
   background-color: #4a4b5e;
   color: #9595a3;
-  font: 3sp arial;
-  height: 50%;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
   text-align: center;
   width: 100%;
 }
@@ -333,7 +333,7 @@ HorizontalLine {
   background-color: #4a4b5e;
   color: #9595a3;
   font: 2sp arial;
-  height: 50%;
+  height: 2.22sp auto;
   text-align: center;
   width: 100%;
 }
@@ -343,33 +343,27 @@ HorizontalLine {
   width: 90%;
 }
 .ClientItemName {
-  font: 3sp arial;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
   horizontal-align: left;
   text-align: left;
-  color: #000000;
-  margin-top: 0sp;
-  margin-left: 2sp;
 }
 .ClientItemAddress {
   font: 2.5sp arial;
+  height: 2.775sp auto;
   horizontal-align: left;
   text-align: left;
   margin-bottom: 1sp;
-  margin-left: 2sp;
 }
 .ClientBreaker {
   background-color: #f3f3f4;
-  height: 3px;
-  margin-left: 2sp;
-  width: 95%;
-  horizontal-align: left;
+  width: 90%;
   vertical-align: center;
 }
 /* End of ClientList */
 /*  ClientList */
 .ClientListMainSVL {
   height: auto;
-  margin-bottom: 0sp;
   width: 100%;
 }
 .ClientListItemVL {
@@ -379,9 +373,10 @@ HorizontalLine {
 }
 .ClientListNameTV {
   color: #51595b;
-  font: 3sp arial;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
   horizontal-align: left;
-  margin-left: 5%;
+  margin-left: 5.5sp;
   margin-top: 3sp;
   text-align: left;
   width: 90%;
@@ -389,18 +384,16 @@ HorizontalLine {
 }
 .ClientListAddressTV {
   color: #9b9fa0;
-  font: 2.5sp arial;
+  font: 2sp arial;
+  height: 2.22sp auto;
   horizontal-align: left;
-  margin-bottom: 2.5sp;
-  margin-left: 5%;
-  margin-top: 1sp;
+  margin-bottom: 3sp;
+  margin-left: 5.5sp;
+  margin-top: 0.5sp;
   text-align: left;
   width: 90%;
   white-space: nowrap;
 }
 .ClientListBreaker {
-  background-color: #f4f4f4;
-  height: 2px;
-  margin-left: 5%;
   width: 90%;
 }
