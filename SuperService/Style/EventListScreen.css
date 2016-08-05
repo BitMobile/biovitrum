@@ -321,7 +321,7 @@ HorizontalLine {
   font: 2sp arial;
   height: 2.22sp auto;
   text-align: left;
-  margin-left: 4.5sp;
+  margin-left: 5.5sp;
   margin-top: 3sp;
   margin-bottom: 1sp;
 }
@@ -335,7 +335,7 @@ HorizontalLine {
   width: auto;
 }
 .EventListItemHL {
-  height: 13.7180484sp auto;
+  height: 13.1680484sp auto;
   width: 100%;
 }
 .EventListTimeVL {
@@ -351,7 +351,7 @@ HorizontalLine {
 }
 .EventListCounterTV {
   color: #fd724c;
-  margin-top: 5sp;
+  margin-top: 4.7180484sp;
   margin-left: 1.5sp;
   font: 2sp arial;
   height: 2.22sp auto;
@@ -379,7 +379,7 @@ HorizontalLine {
 }
 .EventListDescriptionVL {
   margin-left: 2sp;
-  height: 11.7180484sp auto;
+  height: 11.1680484sp auto;
   width: 77sp;
 }
 .EventListDescriptionVL TextView {
@@ -395,8 +395,8 @@ HorizontalLine {
 }
 .EventListItemAddress {
   margin-top: 0.8sp;
-  font: 2.5sp arial;
-  height: 2.775sp auto;
+  font: 2sp arial;
+  height: 2.22sp auto;
 }
 .EventListItemType {
   color: #9b9fa0;
