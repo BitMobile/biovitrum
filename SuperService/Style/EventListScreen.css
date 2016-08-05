@@ -322,6 +322,8 @@ HorizontalLine {
   height: 2.22sp auto;
   text-align: left;
   margin-left: 4.5sp;
+  margin-top: 3sp;
+  margin-bottom: 1sp;
 }
 .EventListLongBreaker {
   width: 100%;
