@@ -1,4 +1,6 @@
-﻿.TabBarMainVL {
+﻿@import "../defaults.less";
+
+.TabBarMainVL {
     background-color: #ffffff;
     dock-align: bottom;
     height: 9%;
@@ -35,7 +37,7 @@
     background-color: #ffffff;
     color: #ffffff;
     margin-top: 10%;
-    height: 50%;
+    height: 35%;
     horizontal-align: center;
     vertical-align: center;
 }
@@ -44,10 +46,12 @@
     background-color: #ffffff;
     color: #fd724c;
     text-align: center;
+    .text-view-style(@default-font-size * sqrt(2/3));
 }
 
 .TabTextViewNotActive {
     background-color: #ffffff;
     color: #9b9fa0;
     text-align: center;
+    .text-view-style(@default-font-size * sqrt(2/3));
 }
