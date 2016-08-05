@@ -321,11 +321,13 @@ HorizontalLine {
   width: 100%;
 }
 .EventListShortBreaker {
-  horizontal-align: right;
-  width: 100%;
+  margin-left: 2sp;
+  margin-right: 3sp;
+  margin-top: 1.3sp;
+  width: auto;
 }
 .EventListItemHL {
-  height: 0sp auto;
+  height: 13.7180484sp auto;
   width: 100%;
 }
 .EventListTimeVL {
@@ -335,22 +337,21 @@ HorizontalLine {
 }
 .EventListTimeTV {
   margin-top: 1.5sp;
-  margin-left: 1.25sp;
+  margin-left: 1.5sp;
   font: 2.5sp arial;
   height: 2.775sp auto;
 }
 .EventListCounterTV {
   color: #fd724c;
   margin-top: 5sp;
-  margin-left: 1.25sp;
+  margin-left: 1.5sp;
   font: 2sp arial;
   height: 2.22sp auto;
 }
 .EventListStatusVL {
   color: #ff0000;
-  height: 0sp auto;
-  width: 100%;
-  width: 2.5sp;
+  height: 100%;
+  width: 3sp;
 }
 .EventListLineBeforeVL {
   horizontal-align: center;
@@ -360,48 +361,40 @@ HorizontalLine {
 }
 .EventListStatusIMG {
   horizontal-align: center;
-  height: 2.5sp;
+  height: 7.5sp;
 }
 .EventListLineAfterVL {
-  height: 0sp auto;
-  width: 100%;
   horizontal-align: center;
   width: 3px;
   background-color: #f3f3f4;
+  height: 100% auto;
 }
 .EventListDescriptionVL {
-  height: 11sp auto;
-  width: 75%;
+  margin-left: 2sp;
+  height: 11.7180484sp auto;
+  width: 77sp;
+}
+.EventListDescriptionVL TextView {
+  text-align: left;
+  width: 100%;
+  white-space: nowrap;
+  margin-left: 2sp;
 }
 .EventListItemName {
-  color: #51595b;
-  margin-top: 1.5sp;
-  margin-left: 3sp;
-  margin-right: 3sp;
-  font: 3.3sp arial;
-  text-align: left;
-  width: 100%;
-  white-space: nowrap;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  margin-top: 1.3sp;
 }
 .EventListItemAddress {
-  color: #51595b;
-  margin-top: 1sp;
-  margin-left: 3sp;
-  margin-right: 3sp;
+  margin-top: 0.8sp;
   font: 2.5sp arial;
-  text-align: left;
-  width: 100%;
-  white-space: nowrap;
+  height: 2.775sp auto;
 }
 .EventListItemType {
   color: #9b9fa0;
-  margin-top: 1sp;
-  margin-left: 3sp;
-  margin-right: 3sp;
-  font: 2.3sp arial;
-  text-align: left;
-  width: 100%;
-  white-space: nowrap;
+  margin-top: 1.3sp;
+  font: 2sp arial;
+  height: 2.22sp auto;
 }
 /* --------------------------------------------- */
 /* Top Info Bar LeftExtraLayout and RightExtraLayout*/
