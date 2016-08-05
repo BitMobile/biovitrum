@@ -217,9 +217,9 @@ namespace Test
                     {"false", Translator.Translate("no")},
                     {"", Translator.Translate("not_choosed")}
                 };
-            var startKey = tv.Text == Translator.Translate("not_choosed")
+            var startKey = _textView.Text == Translator.Translate("not_choosed")
                 ? ""
-                : tv.Text == Translator.Translate("yes") ? "true" : "false";
+                : _textView.Text == Translator.Translate("yes") ? "true" : "false";
             Dialog.Choose(tv.Text, items, startKey, BooleanCallback);
         }
 
