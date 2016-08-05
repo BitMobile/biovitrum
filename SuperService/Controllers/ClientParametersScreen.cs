@@ -151,9 +151,7 @@ namespace Test
             if (_readonly) return;
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
-            DateTime date;
-            var isDate = DateTime.TryParse(_textView.Text, out date);
-            date = isDate ? date : DateTime.Now;
+            DateTime date = DateTime.Now;
             Dialog.DateTime(Translator.Translate("select_date"), date, DateCallback);
         }
 
