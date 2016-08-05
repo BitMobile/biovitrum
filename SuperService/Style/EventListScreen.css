@@ -310,119 +310,97 @@ HorizontalLine {
 .EventListMainSV {
   height: auto;
   width: 100%;
-  /*margin-top: 1sp;*/
-  margin-bottom: 0sp;
 }
 .EventListMainVL {
   height: 0% auto;
   width: 100%;
 }
-.EventListDateHL {
-  height: 3sp;
-  width: 100%;
-  margin-top: 2sp;
-  horizontal-align: center;
-}
 .EventListDateTV {
-  width: 95%;
+  width: 100%;
   color: #9b9fa0;
   font: 2sp arial;
+  height: 2.22sp auto;
   text-align: left;
-  margin-top: 0sp;
-  margin-left: 2sp;
-  padding-left: 1.5sp;
-  vertical-align: center;
-  horizontal-align: center;
+  margin-left: 4.5sp;
 }
 .EventListLongBreaker {
-  background-color: #f3f3f4;
-  height: 2px;
-  horizontal-align: center;
   width: 100%;
 }
 .EventListShortBreaker {
-  background-color: #f3f3f4;
-  height: 2px;
-  horizontal-align: right;
-  width: 100%;
-  margin-left: 3sp;
-  margin-top: 1.7sp;
+  margin-left: 2sp;
   margin-right: 3sp;
+  margin-top: 1.3sp;
+  width: auto;
 }
 .EventListItemHL {
-  height: 0% auto;
+  height: 13.7180484sp auto;
   width: 100%;
 }
 .EventListTimeVL {
-  height: 11sp auto;
-  width: 20%;
+  height: 0sp auto;
+  width: 100%;
+  width: 20sp;
 }
 .EventListTimeTV {
-  color: #51595b;
   margin-top: 1.5sp;
-  font: 3.3sp arial;
-  width: 80%;
+  margin-left: 1.5sp;
+  font: 2.5sp arial;
+  height: 2.775sp auto;
 }
 .EventListCounterTV {
-  color: #feb3a3;
-  margin-top: 5.2sp;
+  color: #fd724c;
+  margin-top: 5sp;
+  margin-left: 1.5sp;
   font: 2sp arial;
-  width: 85%;
-  text-align: center;
+  height: 2.22sp auto;
 }
 .EventListStatusVL {
-  height: 11sp auto;
-  width: 5%;
+  color: #ff0000;
+  height: 100%;
+  width: 3sp;
 }
 .EventListLineBeforeVL {
   horizontal-align: center;
-  height: 2sp;
   width: 3px;
   background-color: #f3f3f4;
+  height: 1.95833333sp;
 }
 .EventListStatusIMG {
   horizontal-align: center;
-  height: 2sp;
+  height: 7.5sp;
 }
 .EventListLineAfterVL {
   horizontal-align: center;
-  height: 100% auto;
   width: 3px;
   background-color: #f3f3f4;
+  height: 100% auto;
 }
 .EventListDescriptionVL {
-  height: 11sp auto;
-  width: 75%;
+  margin-left: 2sp;
+  height: 11.7180484sp auto;
+  width: 77sp;
+}
+.EventListDescriptionVL TextView {
+  text-align: left;
+  width: 100%;
+  white-space: nowrap;
+  margin-left: 2sp;
 }
 .EventListItemName {
-  color: #51595b;
-  margin-top: 1.5sp;
-  margin-left: 3sp;
-  margin-right: 3sp;
-  font: 3.3sp arial;
-  text-align: left;
-  width: 100%;
-  white-space: nowrap;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  margin-top: 1.3sp;
 }
 .EventListItemAddress {
-  color: #51595b;
-  margin-top: 1sp;
-  margin-left: 3sp;
-  margin-right: 3sp;
+  margin-top: 0.8sp;
   font: 2.5sp arial;
-  text-align: left;
-  width: 100%;
-  white-space: nowrap;
+  height: 2.775sp auto;
 }
 .EventListItemType {
   color: #9b9fa0;
-  margin-top: 1sp;
-  margin-left: 3sp;
-  margin-right: 3sp;
-  font: 2.3sp arial;
-  text-align: left;
-  width: 100%;
-  white-space: nowrap;
+  margin-top: 1.3sp;
+  font: 2sp arial;
+  height: 2.22sp auto;
 }
 /* --------------------------------------------- */
 /* Top Info Bar LeftExtraLayout and RightExtraLayout*/
