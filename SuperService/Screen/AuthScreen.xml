@@ -24,6 +24,7 @@
       <c:HorizontalLine CssClass="BreakerHL" />
     </c:VerticalLayout>
     <c:Button Text="#log_in#" OnClick="СonnectButton_OnClick" CssClass="AuthScreenConnectBTN" />
-    <c:Button Text="#cant_signing#" OnClick="CantSigningButton_OnClick" CssClass="AuthScreenResetPasswordBTN" />
+    <!--TODO: Кнопка временно отключена, так как пока невозможно реализовать её функционал.-->
+    <!--<c:Button Text="#cant_signing#" OnClick="CantSigningButton_OnClick" CssClass="AuthScreenResetPasswordBTN" />-->
   </c:VerticalLayout>
 </c:Screen>

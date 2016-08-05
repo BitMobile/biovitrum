@@ -10,8 +10,8 @@
     <s:Include File="Components\TabBarСomponent.xml" />
 
     <!-- Main SVL-->
-    <c:ScrollView CssClass="EventListMainSV">
-      <c:VerticalLayout CssClass="EventListMainVL">
+    <c:ScrollView CssClass="RootLayout">
+      <c:VerticalLayout>
 
         <s:Push Id="EventListLastDate" Value="$GetDateNowEventList()" />
         <s:Push Id="EventListCurrentDate" Value="$GetDateNowEventList()" />
@@ -25,16 +25,12 @@
             <!-- Проверка на необходимость плашки "Сегодня" -->
             <s:If Test="$IsTodayLayoutNeed()">
               <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $StartPlanDate)">
-                <c:HorizontalLayout CssClass="EventListDateHL">
-                  <c:TextView Text="#todayUpper#" CssClass="EventListDateTV" />
-                </c:HorizontalLayout>
+                <c:TextView Text="#todayUpper#" CssClass="EventListDateTV" />
                 <c:HorizontalLine CssClass="EventListLongBreaker" />
               </s:If>
               <s:Else>
-                <c:HorizontalLayout CssClass="EventListDateHL">
-                  <c:TextView Text="$DateTimeToDateWithWeekCheck($StartPlanDate)"
-                              CssClass="EventListDateTV" />
-                </c:HorizontalLayout>
+                <c:TextView Text="$DateTimeToDateWithWeekCheck($StartPlanDate)"
+                            CssClass="EventListDateTV" />
                 <c:HorizontalLine CssClass="EventListLongBreaker" />
               </s:Else>
               <s:Push Id="void" Value="$SetTodayLayoutToFalse()" />
@@ -81,10 +77,8 @@
             <s:Else>
               <s:If Test="$IsDateChanged($StartPlanDate, $EventList.startDatePlanDate)">
                 <c:HorizontalLine CssClass="EventListLongBreaker" />
-                <c:HorizontalLayout CssClass="EventListDateHL">
-                  <c:TextView Text="$DateTimeToDateWithWeekCheck($EventList.startDatePlanDate)"
-                              CssClass="EventListDateTV" />
-                </c:HorizontalLayout>
+                <c:TextView Text="$DateTimeToDateWithWeekCheck($EventList.startDatePlanDate)"
+                            CssClass="EventListDateTV" />
                 <c:HorizontalLine CssClass="EventListLongBreaker" />
               </s:If>
             </s:Else>
@@ -110,16 +104,12 @@
         <s:If Test="$IsEmptyEventList == false">
           <s:If Test="$IsTodayLayoutNeed()">
             <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $StartPlanDate)">
-              <c:HorizontalLayout CssClass="EventListDateHL">
-                <c:TextView Text="#todayUpper#" CssClass="EventListDateTV" />
-              </c:HorizontalLayout>
+              <c:TextView Text="#todayUpper#" CssClass="EventListDateTV" />
               <c:HorizontalLine CssClass="EventListLongBreaker" />
             </s:If>
             <s:Else>
-              <c:HorizontalLayout CssClass="EventListDateHL">
-                <c:TextView Text="$DateTimeToDateWithWeekCheck($StartPlanDate)"
-                            CssClass="EventListDateTV" />
-              </c:HorizontalLayout>
+              <c:TextView Text="$DateTimeToDateWithWeekCheck($StartPlanDate)"
+                          CssClass="EventListDateTV" />
               <c:HorizontalLine CssClass="EventListLongBreaker" />
             </s:Else>
             <s:Push Id="void" Value="$SetTodayLayoutToFalse()" />

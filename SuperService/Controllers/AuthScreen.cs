@@ -23,12 +23,9 @@ namespace Test
             _passwordEditText.Text = Settings.Password;
         }
 
+        //TODO: Кнопка временно отключена, так как пока невозможно реализовать её функционал.
         internal void CantSigningButton_OnClick(object sender, EventArgs e)
         {
-            DConsole.WriteLine("Can't sign in?");
-            //TODO: В релизе удалить
-            Settings.User = Settings.Password = "";
-            _loginEditText.Text = _passwordEditText.Text = "";
         }
 
         internal void СonnectButton_OnClick(object sender, EventArgs e)
