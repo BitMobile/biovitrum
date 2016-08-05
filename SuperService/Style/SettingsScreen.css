@@ -254,6 +254,59 @@ HorizontalLine {
   horizontal-align: right;
   margin-right: 5sp;
 }
+.TabBarMainVL {
+  background-color: #ffffff;
+  dock-align: bottom;
+  height: 9%;
+  horizontal-align: center;
+  width: 100%;
+}
+.TabBarHL {
+  background-color: #ffffff;
+  dock-align: bottom;
+  height: 100%;
+  horizontal-align: center;
+  width: 100%;
+}
+.TabBarBreaker {
+  background-color: #f3f3f4;
+  height: 1dp;
+  horizontal-align: center;
+  width: 100%;
+}
+.TabBarItemVL {
+  background-color: #ffffff;
+  color: #ffffff;
+  height: 100%;
+  horizontal-align: center;
+  margin-bottom: 0%;
+  vertical-align: center;
+  width: 25%;
+}
+.TabImage {
+  background-color: #ffffff;
+  color: #ffffff;
+  margin-top: 1.5sp;
+  height: 35%;
+  horizontal-align: center;
+  vertical-align: center;
+}
+.TabTextViewActive {
+  background-color: #ffffff;
+  color: #fd724c;
+  text-align: center;
+  font: 2.04124145sp arial;
+  height: 2.26577801sp auto;
+  margin-top: 1sp;
+}
+.TabTextViewNotActive {
+  background-color: #ffffff;
+  color: #9b9fa0;
+  text-align: center;
+  font: 2.04124145sp arial;
+  height: 2.26577801sp auto;
+  margin-top: 1sp;
+}
 /* Settings style */
 .MainInfoContainer {
   height: 100%;
@@ -452,52 +505,3 @@ HorizontalLine {
 /* End settings style*/
 /* Mix-in */
 /* End of Mix-in*/
-/* Tab Bar style */
-.TabBarMainVL {
-  background-color: #ffffff;
-  dock-align: bottom;
-  height: 9%;
-  horizontal-align: center;
-  width: 100%;
-}
-.TabBarHL {
-  background-color: #ffffff;
-  dock-align: bottom;
-  height: 100%;
-  horizontal-align: center;
-  width: 100%;
-}
-.TabBarBreaker {
-  background-color: #f3f3f4;
-  height: 1dp;
-  horizontal-align: center;
-  width: 100%;
-}
-.TabBarItemVL {
-  background-color: #ffffff;
-  color: #ffffff;
-  height: 100%;
-  horizontal-align: center;
-  margin-bottom: 0%;
-  vertical-align: center;
-  width: 25%;
-}
-.TabImage {
-  background-color: #ffffff;
-  color: #ffffff;
-  margin-top: 10%;
-  height: 50%;
-  horizontal-align: center;
-  vertical-align: center;
-}
-.TabTextViewActive {
-  background-color: #ffffff;
-  color: #fd724c;
-  text-align: center;
-}
-.TabTextViewNotActive {
-  background-color: #ffffff;
-  color: #9b9fa0;
-  text-align: center;
-}
-/* End of Tab Bar style */
