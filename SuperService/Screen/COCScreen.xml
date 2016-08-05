@@ -10,7 +10,7 @@
 
       <c:VerticalLayout Id="ServicesInfoVL" CssClass="TotalPriceInfoVL">
         <c:HorizontalLayout Id="ServicesInfoHL" CssClass="TotalPriceInfoHL">
-          <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#services#" />
+          <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#SERVICES#" />
           <c:TextView Id="RightInfoServicesTV" CssClass="RightInfoTV" Text="$GetFormatStringForServiceSums()" />
         </c:HorizontalLayout>
       </c:VerticalLayout>
@@ -39,21 +39,20 @@
               </c:VerticalLayout>
             </c:HorizontalLayout>
             <s:If Test="$isReadonly == false">
-              <c:VerticalLayout Id="$services.Id" CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
+              <c:HorizontalLayout Id="$services.Id" CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
                 <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
-              </c:VerticalLayout>
+              </c:HorizontalLayout>
             </s:If>
           </c:SwipeHorizontalLayout>
+          <c:HorizontalLine CssClass="MiddleHL" />
         </s:Iterator>
-
-        <c:HorizontalLine CssClass="MiddleHL" />
 
         <!-- Заканчивается здесь-->
         <s:If Test="$isReadonly == false">
           <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddService_OnClick">
-            <c:HorizontalLayout CssClass="AddContainerHL">
-              <c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)" />
-              <c:TextView CssClass="AddTV" Text="#add_service#" />
+            <c:HorizontalLayout CssClass="AddButton">
+              <c:Image Source="$GetResourceImage(cocscreen_plus)" />
+              <c:TextView Text="#add_service#" />
             </c:HorizontalLayout>
           </c:VerticalLayout>
         </s:If>
@@ -61,7 +60,7 @@
 
         <c:VerticalLayout Id="MaterialsInfoVL" CssClass="TotalPriceInfoVL">
           <c:HorizontalLayout Id="MaterialsInfoHL" CssClass="TotalPriceInfoHL">
-            <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#materials#" />
+            <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#MATERIALS#" />
             <c:TextView Id="RightInfoMaterialsTV" CssClass="RightInfoTV" Text="$GetFormatStringForMaterialSums()" />
           </c:HorizontalLayout>
         </c:VerticalLayout>
@@ -88,20 +87,19 @@
               </c:VerticalLayout>
             </c:HorizontalLayout>
             <s:If Test="$isReadonly == false">
-              <c:VerticalLayout Id="$materials.Id" CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
+              <c:HorizontalLayout Id="$materials.Id" CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
                 <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
-              </c:VerticalLayout>
+              </c:HorizontalLayout>
             </s:If>
           </c:SwipeHorizontalLayout>
+          <c:HorizontalLine CssClass="MiddleHL" />
         </s:Iterator>
-
-        <c:HorizontalLine CssClass="MiddleHL" />
 
         <s:If Test="$isReadonly == false">
           <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddMaterial_OnClick">
-            <c:HorizontalLayout CssClass="AddContainerHL">
-              <c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)" />
-              <c:TextView CssClass="AddTV" Text="#add_materials#" />
+            <c:HorizontalLayout CssClass="AddButton">
+              <c:Image Source="$GetResourceImage(cocscreen_plus)" />
+              <c:TextView Text="#add_materials#" />
             </c:HorizontalLayout>
           </c:VerticalLayout>
         </s:If>

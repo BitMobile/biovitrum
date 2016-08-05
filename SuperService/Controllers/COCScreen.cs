@@ -50,7 +50,7 @@ namespace Test
             };
 
             _topInfoComponent.CommentLayout.AddChild(new TextView($"{Translator.Translate("total")}"));
-            _topInfoTotalTextView = new TextView($"{totalSum} {Translator.Translate("currency")}");
+            _topInfoTotalTextView = new TextView($"{totalSum} {Translator.Translate("currency")}") { CssClass = "TotalPriceTV" };
             _topInfoComponent.CommentLayout.AddChild(_topInfoTotalTextView);
             _totalSumForServices = (TextView)GetControl("RightInfoServicesTV", true);
             _totalSumForMaterials = (TextView)GetControl("RightInfoMaterialsTV", true);

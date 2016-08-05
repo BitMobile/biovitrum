@@ -124,3 +124,5 @@ select_date		Select date
 under_construction		Under construction
 client_parameters		Client parameters
 client_parameters_empty		There are no client parameters
+SERVICES		SERVICES
+MATERIALS		MATERIALS

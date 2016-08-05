@@ -310,8 +310,6 @@ HorizontalLine {
 .BagListMainSVL {
   height: auto;
   width: 100%;
-  margin-top: 1sp;
-  margin-bottom: 0sp;
 }
 .BagListItemHL {
   height: 0% auto;
@@ -327,9 +325,10 @@ HorizontalLine {
 .BagListNameTV {
   width: 95%;
   color: #51595b;
-  font: 3sp arial;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
   margin-top: 3sp;
-  margin-left: 3sp;
+  margin-left: 5.5sp;
   margin-bottom: 3sp;
   text-align: left;
   vertical-align: center;
@@ -344,9 +343,10 @@ HorizontalLine {
 .BagListAmountTV {
   width: 95%;
   color: #8abf57;
-  font: 3sp arial;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
   margin-top: 3sp;
-  margin-right: 3sp;
+  margin-right: 5sp;
   margin-bottom: 3sp;
   text-align: right;
   vertical-align: top;
@@ -354,8 +354,7 @@ HorizontalLine {
 }
 .BagListBreaker {
   background-color: #f4f4f4;
-  height: 3px;
   horizontal-align: center;
-  width: 95%;
+  width: 90%;
 }
 /* End of BagList style */
