@@ -151,9 +151,7 @@ namespace Test
             if (_readonly) return;
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
-            DateTime date;
-            var isDate = DateTime.TryParse(_textView.Text, out date);
-            date = isDate ? date : DateTime.Now;
+            DateTime date = DateTime.Now;
             Dialog.DateTime(Translator.Translate("select_date"), date, DateCallback);
         }
 
@@ -177,7 +175,7 @@ namespace Test
                     {"true", Translator.Translate("yes")},
                     {"false", Translator.Translate("no")},
                 };
-            var startKey = tv.Text == Translator.Translate("no") ? "false" : "true";
+            var startKey = _textView.Text == Translator.Translate("no") ? "false" : "true";
             Dialog.Choose(tv.Text, items, startKey, BooleanCallback);
         }
 
