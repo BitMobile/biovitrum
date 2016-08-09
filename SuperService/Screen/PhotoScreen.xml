@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  <c:VerticalLayout>
+  <c:VerticalLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:ScrollView>
       <c:VerticalLayout>
-        <c:Image Source="$image" />
-        <c:HorizontalLayout>
+        <c:Image CssClass="BigPhoto" Source="$image" />
+        <c:HorizontalLayout CssClass="ButtonsHolder">
           <c:Button />
           <c:Button />
         </c:HorizontalLayout>

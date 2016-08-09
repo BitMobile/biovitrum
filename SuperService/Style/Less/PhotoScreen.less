@@ -1,2 +1,28 @@
 ﻿@import "defaults.less";
 @import "Components/TopInfoComponent.less";
+
+.BigPhoto {
+    width: 90%;
+}
+
+.nice-border() {
+    border-color: #f4f4f5;
+    border-style: solid;
+    border-width: 3px;
+}
+
+.ButtonsHolder {
+    .nice-border;
+    height: @big-title-font-size * 3;
+    horizontal-align: center;
+    margin-top: 2sp;
+    width: 90%;
+
+    Button {
+        .nice-border;
+        text-align: center;
+        .text-view-style(@big-title-font-size);
+        height: 100%;
+        width: 50%;
+    }
+}

@@ -254,3 +254,25 @@ HorizontalLine {
   horizontal-align: right;
   margin-right: 5sp;
 }
+.BigPhoto {
+  width: 90%;
+}
+.ButtonsHolder {
+  border-color: #f4f4f5;
+  border-style: solid;
+  border-width: 3px;
+  height: 9.18558654sp;
+  horizontal-align: center;
+  margin-top: 2sp;
+  width: 90%;
+}
+.ButtonsHolder Button {
+  border-color: #f4f4f5;
+  border-style: solid;
+  border-width: 3px;
+  text-align: center;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  height: 100%;
+  width: 50%;
+}
