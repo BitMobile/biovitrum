@@ -20,17 +20,19 @@ namespace Test
                 RightButtonControl = new Image { Visible = false },
                 ArrowVisible = false
             };
+            _topInfoComponent.ActivateBackButton();
             _photo = (Image)Variables["Photo"];
         }
 
         internal void DeleteButton_OnClick(object sender, EventArgs args)
         {
-            _photo.CssClass = "NoHeight";
-            _photo.Refresh();
-            var path = _photo.Source.StartsWith("~") ? _photo.Source.Substring(1) : _photo.Source;
-            if (!FileSystem.Delete(path)) return;
-            ChangePhotoInDB("");
-            Navigation.Back();
+            Dialog.Ask(Translator.Translate("areYouSure"), (o, eventArgs) =>
+            {
+                var path = _photo.Source.StartsWith("~") ? _photo.Source.Substring(1) : _photo.Source;
+                FileSystem.Delete(path);
+                ChangePhotoInDB("");
+                Navigation.Back();
+            });
         }
 
         internal void RetakeButton_OnClick(object sender, EventArgs args)

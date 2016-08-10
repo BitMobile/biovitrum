@@ -162,10 +162,11 @@ namespace Test
 
         internal void SendErrorReport_OnClick(object sender, EventArgs e)
         {
-            FileSystem.UploadPrivate(Settings.ImageServer, Settings.UserId, Settings.Password, (o, args) =>
+            Toast.MakeToast(Translator.Translate("start_sync"));
+            FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password, (o, args) =>
             {
-                if (args.Result)
-                    Toast.MakeToast(Translator.Translate("upload_finished"));
+                DConsole.WriteLine("Sync succesful? = " + args.Result);
+                Toast.MakeToast(Translator.Translate("upload_finished"));
             });
         }
 

@@ -119,13 +119,25 @@ namespace Test
         internal void CheckListSnapshot_OnClick(object sender, EventArgs eventArgs)
         {
             if (_readonly) return;
-            _currentCheckListItemID = ((VerticalLayout)sender).Id;
-            _newGuid = Guid.NewGuid().ToString();
-            _pathToImg = $@"\private\{_newGuid}.jpg";
-
             _imgToReplace = (Image)((VerticalLayout)sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout)sender).Id;
 
-            Camera.MakeSnapshot(_pathToImg, Settings.PictureSize, CameraCallback, _newGuid);
+            if (_imgToReplace.Source.StartsWith("~"))
+            {
+                SaveChecklist();
+                Navigation.Move(nameof(PhotoScreen), new Dictionary<string, object>
+                {
+                    [Parameters.IdImage] = _imgToReplace.Source,
+                    [nameof(CheckListScreen)] = _currentCheckListItemID
+                });
+            }
+            else
+            {
+                _newGuid = Guid.NewGuid().ToString();
+                _pathToImg = $@"\private\{_newGuid}.jpg";
+
+                Camera.MakeSnapshot(_pathToImg, Settings.PictureSize, CameraCallback, _newGuid);
+            }
         }
 
         private void CameraCallback(object state, ResultEventArgs<bool> args)
