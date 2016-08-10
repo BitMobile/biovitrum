@@ -93,6 +93,9 @@ namespace Test
             // EditContactScreen
             {"editcontactscreen_plus", @"Image\EditContactScreen\plus_img.png" },
             {"editcontactscreen_minus", @"Image\EditContactScreen\delete_img.png" },
+            // PhotoScreen
+            {"photoscreen_delete", @"Image\PhotoScreen\delete.png" },
+            {"photoscreen_retake", @"Image\PhotoScreen\reload.png" },
             // Settings Screen
             {"settingsscreen_white_arrow",@"Image\SettingsScreen\bg_bottom.png" },
             {"settingsscreen_grey_arrow",@"Image\SettingsScreen\bg_top.png" },

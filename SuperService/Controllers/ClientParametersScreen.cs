@@ -98,19 +98,36 @@ namespace Test
         internal void CheckListSnapshot_OnClick(object sender, EventArgs eventArgs)
         {
             if (_readonly) return;
-            _currentCheckListItemID = ((VerticalLayout)sender).Id;
-            _newGuid = Guid.NewGuid().ToString();
-            _pathToImg = $@"\private\{_newGuid}.jpg";
-
             _imgToReplace = (Image)((VerticalLayout)sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout)sender).Id;
 
-            Camera.MakeSnapshot(_pathToImg, int.MaxValue, CameraCallback, sender);
+            if (_imgToReplace.Source.StartsWith("~"))
+            {
+                SaveChecklist();
+                Navigation.Move(nameof(PhotoScreen), new Dictionary<string, object>
+                {
+                    [Parameters.IdImage] = _imgToReplace.Source,
+                    [nameof(ClientParametersScreen)] = _currentCheckListItemID
+                });
+            }
+            else
+            {
+                _newGuid = Guid.NewGuid().ToString();
+                _pathToImg = $@"\private\{_newGuid}.jpg";
+
+                Camera.MakeSnapshot(_pathToImg, Settings.PictureSize, CameraCallback, _newGuid);
+            }
         }
 
         private void CameraCallback(object state, ResultEventArgs<bool> args)
         {
             DConsole.WriteLine("New image");
-            _imgToReplace.Source = _pathToImg;
+            _imgToReplace.Source = "~" + _pathToImg;
+            if (args.Result)
+            {
+                DConsole.WriteLine("Updating");
+                UpdateChecklist(_currentCheckListItemID, state.ToString());
+            }
         }
 
         // Список
@@ -123,9 +140,9 @@ namespace Test
             var tv = GetTextView(sender);
             var startObject = "not_choosed";
             var items = new Dictionary<object, string>
-                {
-                    {"not_choosed", Translator.Translate("not_choosed")}
-                };
+            {
+                {"not_choosed", Translator.Translate("not_choosed")}
+            };
             var temp = DBHelper.GetActionValuesList(_textView.Id);
             while (temp.Next())
             {
@@ -171,10 +188,10 @@ namespace Test
             var tv = GetTextView(sender);
 
             var items = new Dictionary<object, string>
-                {
-                    {"true", Translator.Translate("yes")},
-                    {"false", Translator.Translate("no")},
-                };
+            {
+                {"true", Translator.Translate("yes")},
+                {"false", Translator.Translate("no")},
+            };
             var startKey = _textView.Text == Translator.Translate("no") ? "false" : "true";
             Dialog.Choose(tv.Text, items, startKey, BooleanCallback);
         }
@@ -239,6 +256,13 @@ namespace Test
 
         internal void CheckListElementLayout_OnClick(object sender, EventArgs e)
         {
+        }
+
+        internal string GetResultImage(string guid)
+        {
+            return !string.IsNullOrEmpty(guid) && FileSystem.Exists($@"\private\{guid}.jpg")
+                ? $@"~\private\{guid}.jpg"
+                : ResourceManager.GetImage("checklistscreen_photo");
         }
 
         internal IEnumerable GetParameters()
