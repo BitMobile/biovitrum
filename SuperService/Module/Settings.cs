@@ -86,9 +86,9 @@ namespace Test
 #endif
 
             Host = @"http://nt0420.bt";
-            var server = Host + @"/bitmobile/testsolution/";
-            Server = server + "device";
-            ImageServer = server + "webdav";
+            var server = Host + @"/bitmobile/testsolution";
+            Server = server + "/device";
+            ImageServer = server;
             AuthUrl = Server + @"/GetUserId";
             _initialized = true;
 
