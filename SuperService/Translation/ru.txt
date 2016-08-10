@@ -129,3 +129,5 @@ MATERIALS		МАТЕРИАЛЫ
 upload_pictures		Отправить фотографии
 upload_finished		Отправка завершена
 photo		Фото
+delete		Удалить
+retake_photo		Переснять

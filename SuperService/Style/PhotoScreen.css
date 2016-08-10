@@ -254,25 +254,37 @@ HorizontalLine {
   horizontal-align: right;
   margin-right: 5sp;
 }
+.OuterButtonLayout {
+  width: 45sp;
+  height: 100%;
+  border-color: #f4f4f5;
+  border-style: solid;
+  border-width: 3px;
+}
 .BigPhoto {
   width: 90%;
+  horizontal-align: center;
 }
 .ButtonsHolder {
-  border-color: #f4f4f5;
-  border-style: solid;
-  border-width: 3px;
   height: 9.18558654sp;
   horizontal-align: center;
-  margin-top: 2sp;
+  margin-top: 4sp;
   width: 90%;
 }
-.ButtonsHolder Button {
-  border-color: #f4f4f5;
-  border-style: solid;
-  border-width: 3px;
-  text-align: center;
+.ButtonLayout {
+  height: 100%;
+  horizontal-align: center;
+  width: 0sp auto;
+}
+.ButtonLayout Image {
+  height: 4.59279327sp;
+  vertical-align: center;
+}
+.ButtonLayout TextView {
   font: 3.06186218sp arial;
   height: 3.39866702sp auto;
-  height: 100%;
-  width: 50%;
+  vertical-align: center;
+  text-align: left;
+  width: 0sp auto;
+  margin-left: 2sp;
 }
