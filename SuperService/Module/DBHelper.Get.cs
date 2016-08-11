@@ -52,7 +52,7 @@ namespace Test
                                         from
                                            (select
                                                ref,
-                                               min(lineNumber) as lineNumber
+                                               min(ifnull(lineNumber,1)) as lineNumber
                                             from
                                                Document_Event_TypeDepartures
                                             where
