@@ -16,6 +16,7 @@ namespace Test
         private string _clientId;
         private WebMapGoogle _map;
         private TopInfoComponent _topInfoComponent;
+        private string _clientDesc;
 
         public override void OnLoading()
         {
@@ -32,6 +33,7 @@ namespace Test
             _map.AddMarker((string)_client["Description"], (double)(decimal)_client["Latitude"],
                 (double)(decimal)_client["Longitude"], "red");
 
+            _clientDesc = GetConstLenghtString(_client["Description"].ToString());
             DConsole.WriteLine("Client end");
         }
 
