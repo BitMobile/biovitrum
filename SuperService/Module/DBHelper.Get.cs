@@ -63,7 +63,7 @@ namespace Test
                                                            on t1.ref= Document_Event_TypeDepartures.ref
                                                                    and t1.lineNumber = Document_Event_TypeDepartures.lineNumber
                                                      left join Catalog_TypesDepartures
-                                                           on Document_Event_TypeDepartures.typeDeparture = Catalog_TypesDepartures.id Limit 1) as TypeDeparturesTable
+                                                           on Document_Event_TypeDepartures.typeDeparture = Catalog_TypesDepartures.id) as TypeDeparturesTable
                                    on event.id = TypeDeparturesTable.Ref
                                         left join Enum_StatusImportance
                                              on event.Importance = Enum_StatusImportance.Id
