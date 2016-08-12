@@ -9,7 +9,7 @@
 
     <c:VerticalLayout Id="ClientDescriptionVL" CssClass="ClientDescriptionVL">
       <c:TextView Id="ClientDescriptionTV" CssClass="ClientDescriptionTV"
-                  Text="$GetConstLenghtString($clientItem.Description)" />
+                  Text="$clientItem.Description" />
     </c:VerticalLayout>
 
     <c:ScrollView Id="ClientSV" CssClass="ClientSV">

@@ -5,20 +5,18 @@
 
 .ClientDescriptionVL {
     background-color: #626271;
-    border-style: none;
-    height: 10sp;
     width: 100%;
 }
 
 .ClientDescriptionTV {
     color: #ffffff;
     .text-view-style(@topheading-text-size);
-    height: 100%;
-    margin-left: 3%;
-    margin-right: 3%;
-    padding-top: 25%;
+    .auto-height;
+    margin-top: @topheading-text-size / 2;
+    margin-bottom: @topheading-text-size / 2;
+    horizontal-align: center;
     text-align: center;
-    width: 26% auto;
+    width: 80%;
 }
 
 .ClientSV {

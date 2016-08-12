@@ -257,20 +257,19 @@ HorizontalLine {
 /* Client Screen css class */
 .ClientDescriptionVL {
   background-color: #626271;
-  border-style: none;
-  height: 10sp;
   width: 100%;
 }
 .ClientDescriptionTV {
   color: #ffffff;
   font: 3.08558441sp arial;
   height: 3.4249987sp auto;
-  height: 100%;
-  margin-left: 3%;
-  margin-right: 3%;
-  padding-top: 25%;
+  height: 0sp auto;
+  width: 100%;
+  margin-top: 1.54279221sp;
+  margin-bottom: 1.54279221sp;
+  horizontal-align: center;
   text-align: center;
-  width: 26% auto;
+  width: 80%;
 }
 .ClientSV {
   background-color: #ffffff;
