@@ -263,7 +263,8 @@ namespace Test
 
                 try
                 {
-                    DConsole.WriteLine($"{string.IsNullOrEmpty(recordset["Id"].ToString())}");
+                    DConsole.WriteLine($"{recordset["Id"].ToString() == null} || {recordset["Id"].ToString().Length == 0}");
+                    //DConsole.WriteLine($"{string.IsNullOrEmpty(recordset["Id"].ToString())}");
                     //if (string.IsNullOrEmpty(recordset["Id"].ToString()))
                     //{
                     //    //DConsole.WriteLine($"ClientId = {(string)Variables[Parameters.IdClientId]}");
