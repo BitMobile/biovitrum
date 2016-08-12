@@ -144,6 +144,7 @@ namespace Test
         {
             DConsole.WriteLine("New image");
             _imgToReplace.Source = "~" + _pathToImg;
+            _imgToReplace.Refresh();
             if (args.Result)
             {
                 DConsole.WriteLine("Updating");
