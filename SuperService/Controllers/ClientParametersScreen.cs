@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using Test.Catalog;
 using Test.Components;
 
 namespace Test
@@ -126,7 +127,7 @@ namespace Test
                 {
                     {"not_choosed", Translator.Translate("not_choosed")}
                 };
-            var temp = DBHelper.GetActionValuesList(_textView.Id);
+            var temp = DBHelper.GetClientOptionValuesList(_textView.Id);
             while (temp.Next())
             {
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
@@ -243,7 +244,49 @@ namespace Test
 
         internal IEnumerable GetParameters()
         {
-            return DBHelper.GetClientParametersByClientId(Variables[Parameters.IdClientId].ToString());
+            var list = new ArrayList();
+            var recordset = DBHelper.GetClientParametersByClientId(Variables[Parameters.IdClientId].ToString());
+            DConsole.WriteLine("Before WHILE");
+            while (recordset.Next())
+            {
+                DConsole.WriteLine("BEFORE DICTIONARY");
+                var dictionary = new Dictionary<string,object>()
+                {
+                    {"TypeName", recordset["TypeName"] },
+                    {"Description", recordset["Description"] },
+                    {"Result", recordset["Result"] },
+                    {"ClientId",recordset["ClientId"] },
+                    {"Id", recordset["Id"] },
+                    {"OptionId", recordset["OptionId"] }
+                };
+                DConsole.WriteLine("AFTER DICTIONARY");
+
+                try
+                {
+                    DConsole.WriteLine($"{string.IsNullOrEmpty(recordset["Id"].ToString())}");
+                    //if (string.IsNullOrEmpty(recordset["Id"].ToString()))
+                    //{
+                    //    //DConsole.WriteLine($"ClientId = {(string)Variables[Parameters.IdClientId]}");
+                    //    //dictionary["ClientId"] = (string) Variables[Parameters.IdClientId];
+                    //    //DConsole.WriteLine(Parameters.Splitter);
+                    //    //DConsole.WriteLine("ID");
+                    //    //dictionary["Id"] = CreateNewEntity(recordset["OptionId"].ToString(),
+                    //    //    (string) Variables[Parameters.IdClientId]);
+                    //    //DConsole.WriteLine(Parameters.Splitter);
+                    //}
+                }
+                catch (Exception e)
+                {
+                    DConsole.WriteLine($"{e.Message}{Environment.NewLine}{e.StackTrace}");
+                }
+                DConsole.WriteLine("Before Add to ArrayList");
+                //list.Add(dictionary);
+                DConsole.WriteLine("Add dictionary to ArrayList");
+            }
+            DConsole.WriteLine("Before DConsole");
+            DConsole.WriteLine($"Count arraylist = {list.Count.ToString()}");
+            DConsole.WriteLine("After DConsole");
+            return list;
         }
 
         internal bool IsNotEmptyString(string item)
@@ -274,6 +317,20 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
+        }
+
+        private string CreateNewEntity(string optionId, string clientId)
+        {
+            DConsole.WriteLine("IN CREATENEWENTITY");
+            var entity = new Client_Parameters()
+            {
+                Id = DbRef.CreateInstance("Catalog_Client_Parameters", Guid.NewGuid()),
+                Ref = DbRef.FromString(clientId),
+                Parameter = DbRef.FromString(optionId)
+            }; 
+            //entity.Save(false);
+            DConsole.WriteLine("ERROR IN CREATENEWENTITI");
+            return entity.Id.ToString();
         }
     }
 }
