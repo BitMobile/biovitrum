@@ -21,7 +21,7 @@
 
             <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id"
                               OnClick="CheckListSnapshot_OnClick">
-              <c:Image Source="$GetResultImage($CheckList.Result)" Id="$CheckList.CheckListId"
+              <c:Image Source="$GetResultImage($Parameter.Result)" Id="$CheckList.CheckListId"
                       CssClass="CheckListAnswerImage" />
             </c:VerticalLayout>
           </s:If>

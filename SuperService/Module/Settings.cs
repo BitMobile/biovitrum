@@ -88,7 +88,7 @@ namespace Test
             Host = @"http://nt0420.bt";
             var server = Host + @"/bitmobile/testsolution";
             Server = server + "/device";
-            ImageServer = server;
+            ImageServer = server + "/";
             AuthUrl = Server + @"/GetUserId";
             _initialized = true;
 

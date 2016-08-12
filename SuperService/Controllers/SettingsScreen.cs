@@ -166,7 +166,7 @@ namespace Test
             FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password, (o, args) =>
             {
                 DConsole.WriteLine("Sync succesful? = " + args.Result);
-                Toast.MakeToast(Translator.Translate("upload_finished"));
+                Toast.MakeToast(Translator.Translate(args.Result ? "upload_finished" : "upload_failed"));
             });
         }
 

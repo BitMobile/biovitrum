@@ -42,6 +42,7 @@ namespace Test
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
                 ArrowVisible = false,
             };
+            _topInfoComponent.ActivateBackButton();
             _readonly = (bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
             _topInfoComponent.ActivateBackButton();
         }
@@ -123,6 +124,7 @@ namespace Test
         {
             DConsole.WriteLine("New image");
             _imgToReplace.Source = "~" + _pathToImg;
+            _imgToReplace.Refresh();
             if (args.Result)
             {
                 DConsole.WriteLine("Updating");
