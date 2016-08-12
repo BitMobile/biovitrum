@@ -39,12 +39,15 @@ namespace Test
         {
             var guid = Guid.NewGuid();
             string path = $@"\private\{guid}.jpg";
+            var oldPath = _photo.Source.StartsWith("~") ? _photo.Source.Substring(1) : _photo.Source;
             Camera.MakeSnapshot(path, Settings.PictureSize, (o, eventArgs) =>
             {
                 if (!eventArgs.Result) return;
+                FileSystem.Delete(oldPath);
                 _photo.Source = "~" + path;
                 _photo.Refresh();
                 ChangePhotoInDB(guid.ToString());
+                Navigation.Back();
             });
         }
 
