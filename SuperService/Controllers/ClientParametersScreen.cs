@@ -35,7 +35,7 @@ namespace Test
         private static readonly Dictionary<string, object> ChecklistResults = new Dictionary<string, object>();
         private static readonly int _checklistResultThreshold = 4;
 
-        private int _lineNumber;
+        private long _lineNumber;
 
         public override void OnLoading()
         {
@@ -250,8 +250,6 @@ namespace Test
             var recordset = DBHelper.GetClientParametersByClientId(Variables[Parameters.IdClientId].ToString());
             _lineNumber = DBHelper.GetMaxNumberFromTableInColumn("Catalog_Client_Parameters", "LineNumber", "Ref",
                 Variables[Parameters.IdClientId].ToString());
-
-            DConsole.WriteLine($"MaxLineNumber = {_lineNumber}");
 #if DEBUG
             var countEmptyEntitys = 0;
 #endif
@@ -318,25 +316,29 @@ namespace Test
 
         private string CreateNewEntity(DbRef optionId)
         {
-            DConsole.WriteLine($"lineNumber BEFORE = {_lineNumber}");
-            _lineNumber = _lineNumber + 1;
+
+//#if DEBUG
+//            DConsole.WriteLine($"Before lineNumber = {_lineNumber}");
+//#endif
             var entity = new Client_Parameters
             {
                 Id = DbRef.CreateInstance("Catalog_Client_Parameters", Guid.NewGuid()),
                 Ref = DbRef.FromString((string)Variables[Parameters.IdClientId]),
                 Parameter = optionId,
-                LineNumber = _lineNumber
+                LineNumber = (int)++_lineNumber
             };
+
 //#if DEBUG
-//            DConsole.WriteLine(Parameters.Splitter);
-//            DConsole.WriteLine($"Entity ID: {entity.Id.ToString()}");
-//            DConsole.WriteLine($"Ref: {entity.Ref.ToString()}");
-//            DConsole.WriteLine($"Parameter: {entity.Parameter.ToString()}");
-//            DConsole.WriteLine(Parameters.Splitter);
+//            DConsole.WriteLine($"After lineNumber = {_lineNumber}");
 //#endif
+            //#if DEBUG
+            //            DConsole.WriteLine(Parameters.Splitter);
+            //            DConsole.WriteLine($"Entity ID: {entity.Id.ToString()}");
+            //            DConsole.WriteLine($"Ref: {entity.Ref.ToString()}");
+            //            DConsole.WriteLine($"Parameter: {entity.Parameter.ToString()}");
+            //            DConsole.WriteLine(Parameters.Splitter);
+            //#endif
             entity.Save(false);
-            DConsole.WriteLine($"LineNumber Entity : {entity.LineNumber}");
-            DConsole.WriteLine($"lineNumber AFTER = {_lineNumber}");
             return entity.Id.ToString();
         }
     }

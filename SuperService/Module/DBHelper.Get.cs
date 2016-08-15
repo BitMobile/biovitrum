@@ -452,7 +452,7 @@ namespace Test
 			                            left join Enum_TypesDataParameters as typesDataParameters
 			                                on options.DataTypeParameter = typesDataParameters.Id
 
-                                  order by parameters.Parameter asc");
+                                  order by parameters.LineNumber asc");
 
             query.AddParameter("clientId", clientId);
             return query.Execute();
@@ -1159,7 +1159,7 @@ namespace Test
         {
             var query = new Query($"select max({column}) as max from {table} where {whereColumnName} = @where");
             query.AddParameter("where", whereColumnValue);
-            return (int)query.ExecuteScalar();
+            return (int) (query.ExecuteScalar() ?? 0);
         }
     }
 }
