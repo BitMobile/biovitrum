@@ -33,6 +33,7 @@ namespace Test
         private bool _readonly;
 
         private long _lineNumber;
+
         public override void OnLoading()
         {
             _topInfoComponent = new TopInfoComponent(this)
@@ -48,7 +49,7 @@ namespace Test
 
         private static void UpdateChecklist(string id, string result)
         {
-            var clientParameters = (Catalog.Client_Parameters)DBHelper.LoadEntity(id);
+            var clientParameters = (Client_Parameters)DBHelper.LoadEntity(id);
             clientParameters.Val = result;
             DBHelper.SaveEntity(clientParameters, false);
         }
@@ -104,14 +105,13 @@ namespace Test
 
         private void CameraCallback(object state, ResultEventArgs<bool> args)
         {
+            if (!args.Result) return;
+
             DConsole.WriteLine("New image");
             _imgToReplace.Source = "~" + _pathToImg;
             _imgToReplace.Refresh();
-            if (args.Result)
-            {
-                DConsole.WriteLine("Updating");
-                UpdateChecklist(_currentCheckListItemID, state.ToString());
-            }
+            DConsole.WriteLine("Updating");
+            UpdateChecklist(_currentCheckListItemID, state.ToString());
         }
 
         // Список
@@ -261,7 +261,7 @@ namespace Test
 
             while (recordset.Next())
             {
-                var dictionary = new Dictionary<string,object>()
+                var dictionary = new Dictionary<string, object>()
                 {
                     {"TypeName", recordset["TypeName"] },
                     {"Description", recordset["Description"] },
@@ -321,10 +321,9 @@ namespace Test
 
         private string CreateNewEntity(DbRef optionId)
         {
-
-//#if DEBUG
-//            DConsole.WriteLine($"Before lineNumber = {_lineNumber}");
-//#endif
+            //#if DEBUG
+            //            DConsole.WriteLine($"Before lineNumber = {_lineNumber}");
+            //#endif
             var entity = new Client_Parameters
             {
                 Id = DbRef.CreateInstance("Catalog_Client_Parameters", Guid.NewGuid()),
@@ -333,9 +332,9 @@ namespace Test
                 LineNumber = (int)++_lineNumber
             };
 
-//#if DEBUG
-//            DConsole.WriteLine($"After lineNumber = {_lineNumber}");
-//#endif
+            //#if DEBUG
+            //            DConsole.WriteLine($"After lineNumber = {_lineNumber}");
+            //#endif
             //#if DEBUG
             //            DConsole.WriteLine(Parameters.Splitter);
             //            DConsole.WriteLine($"Entity ID: {entity.Id.ToString()}");

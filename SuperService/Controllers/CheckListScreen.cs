@@ -123,19 +123,15 @@ namespace Test
 
         private void CameraCallback(object state, ResultEventArgs<bool> args)
         {
+            if (!args.Result) return;
+
             DConsole.WriteLine("New image");
             _imgToReplace.Source = "~" + _pathToImg;
             _imgToReplace.Refresh();
-            if (args.Result)
-            {
-                DConsole.WriteLine("Updating");
-                UpdateChecklist(_currentCheckListItemID, state.ToString());
-            }
+            DConsole.WriteLine("Updating");
+            UpdateChecklist(_currentCheckListItemID, state.ToString());
             DConsole.WriteLine("Changing indicator");
-            if (args.Result)
-                ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
-            else
-                ChangeRequiredIndicatorForRequired(_lastClickedRequiredIndicatior);
+            ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
         }
 
         // Список
