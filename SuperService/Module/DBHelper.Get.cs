@@ -224,7 +224,7 @@ namespace Test
                                     left join (select 
                                                    Document_Event_CheckList.Ref,  
                                                    count(Document_Event_CheckList.Ref) as Total,  
-                                                   TOTAL(case when result = '' then 0 else 1 end) as Answered, 
+                                                   TOTAL(case when result is null or result = '' then 0 else 1 end) as Answered, 
                                                    TOTAL(case when Required = 1 then 1 else 0 end) as Required, 
                                                    TOTAL(case when Required = 1 and result <> ''  then 1 else 0 end) as RequiredAnswered 
                                                from  
