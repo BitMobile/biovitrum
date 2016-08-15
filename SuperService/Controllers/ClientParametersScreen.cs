@@ -31,9 +31,6 @@ namespace Test
 
         private bool _readonly;
 
-        private static readonly Dictionary<string, object> ChecklistResults = new Dictionary<string, object>();
-        private static readonly int _checklistResultThreshold = 4;
-
         public override void OnLoading()
         {
             _topInfoComponent = new TopInfoComponent(this)
@@ -49,30 +46,14 @@ namespace Test
 
         private static void UpdateChecklist(string id, string result)
         {
-            ChecklistResults[id] = result;
-            if (ChecklistResults.Count >= _checklistResultThreshold)
-                SaveChecklist();
-        }
-
-        private static void SaveChecklist()
-        {
-            var entities = new ArrayList();
-            foreach (var checklistResult in ChecklistResults)
-            {
-                var id = checklistResult.Key;
-                var result = (string)checklistResult.Value;
-                var clientParameters = (Catalog.Client_Parameters)DBHelper.LoadEntity(id);
-                clientParameters.Val = result;
-                entities.Add(clientParameters);
-            }
-            if (entities.Count != 0)
-                DBHelper.SaveEntities(entities);
-            ChecklistResults.Clear();
+            var clientParameters = (Catalog.Client_Parameters)DBHelper.LoadEntity(id);
+            clientParameters.Val = result;
+            DBHelper.SaveEntity(clientParameters, false);
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            SaveChecklist();
+            DBHelper.SyncAsync();
             Navigation.Back();
         }
 
@@ -104,7 +85,6 @@ namespace Test
 
             if (_imgToReplace.Source.StartsWith("~"))
             {
-                SaveChecklist();
                 Navigation.Move(nameof(PhotoScreen), new Dictionary<string, object>
                 {
                     [Parameters.IdImage] = _imgToReplace.Source,
