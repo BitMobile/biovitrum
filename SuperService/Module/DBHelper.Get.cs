@@ -433,25 +433,24 @@ namespace Test
 
         public static DbRecordset GetClientParametersByClientId(string clientId)
         {
-            var query = new Query("select " +
-                                  "   parameters.Id as Id, " +
-                                  "   parameters.Ref as ClientId, " +
-                                  "   parameters.Val as Result, " +
-                                  "   options.Id as OptionId, " + //значение результата
-                                  "   options.Description as Description, " +
-                                  "   typesDataParameters.Name as TypeName " +
-                                  "from " +
-                                  "   Catalog_Client_Parameters as parameters " +
-                                  "   left join Catalog_ClientOptions as options " +
-                                  "     ON parameters.Ref = @clientId " +
-                                  "       AND parameters.Parameter = options.Id " +
-                                  "    " +
-                                  "   left join Enum_TypesDataParameters as typesDataParameters " +
-                                  "     ON options.DataTypeParameter = TypesDataParameters.Id " +
-                                  "    " +
-                                  "where " +
-                                  "    parameters.Ref = @clientId " +
-                                  "order by parameters.LineNumber asc");
+            var query = new Query(@"select 
+                                     parameters.Id as Id, 
+                                     parameters.Ref as ClientId, 
+                                     parameters.Val as Result, 
+                                     options.Id as OptionId, 
+                                     options.Description as Description, 
+                                     typesDataParameters.Name as TypeName
+                                  from 
+
+                                    Catalog_ClientOptions as options
+		                                left join Catalog_Client_Parameters as parameters
+			                                on  options.Id = parameters.Parameter 
+			                                and parameters.Ref = @clientId
+
+			                            left join Enum_TypesDataParameters as typesDataParameters
+			                                on options.DataTypeParameter = typesDataParameters.Id
+
+                                  order by parameters.LineNumber asc");
 
             query.AddParameter("clientId", clientId);
             return query.Execute();
@@ -1158,7 +1157,7 @@ namespace Test
         {
             var query = new Query($"select max({column}) as max from {table} where {whereColumnName} = @where");
             query.AddParameter("where", whereColumnValue);
-            return (int)query.ExecuteScalar();
+            return (int) (query.ExecuteScalar() ?? 0);
         }
     }
 }
