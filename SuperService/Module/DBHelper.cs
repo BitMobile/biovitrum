@@ -44,28 +44,31 @@ namespace Test
             //_db.Commit();
         }
 
-        public static void SaveEntity(DbEntity entity)
+        public static void SaveEntity(DbEntity entity, bool doSync = true)
         {
             entity.Save();
             _db.Commit();
-            SyncAsync();
+            if (doSync)
+                SyncAsync();
         }
 
-        public static void SaveEntities(IEnumerable entities)
+        public static void SaveEntities(IEnumerable entities, bool doSync = true)
         {
             foreach (DbEntity entity in entities)
             {
                 entity.Save();
             }
             _db.Commit();
-            SyncAsync();
+            if (doSync)
+                SyncAsync();
         }
 
-        public static void DeleteByRef(DbRef @ref)
+        public static void DeleteByRef(DbRef @ref, bool doSync = true)
         {
             _db.Delete(@ref);
             _db.Commit();
-            SyncAsync();
+            if (doSync)
+                SyncAsync();
         }
 
         public static object LoadEntity(string id)
