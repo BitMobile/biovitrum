@@ -246,47 +246,37 @@ namespace Test
         {
             var list = new ArrayList();
             var recordset = DBHelper.GetClientParametersByClientId(Variables[Parameters.IdClientId].ToString());
-            DConsole.WriteLine("Before WHILE");
+#if DEBUG
+            var countEmptyEntitys = 0;
+#endif
+
             while (recordset.Next())
             {
-                DConsole.WriteLine("BEFORE DICTIONARY");
                 var dictionary = new Dictionary<string,object>()
                 {
                     {"TypeName", recordset["TypeName"] },
                     {"Description", recordset["Description"] },
                     {"Result", recordset["Result"] },
-                    {"ClientId",recordset["ClientId"] },
-                    {"Id", recordset["Id"] },
-                    {"OptionId", recordset["OptionId"] }
+                    {"ClientId", recordset["ClientId"]?.ToString() ?? Variables[Parameters.IdClientId].ToString()},
+                    {"Id", recordset["Id"]?.ToString() ?? CreateNewEntity((DbRef)recordset["OptionId"])},
+                    {"OptionId", recordset["OptionId"].ToString() }
                 };
-                DConsole.WriteLine("AFTER DICTIONARY");
 
-                try
+#if DEBUG
+                if (recordset["Id"] == null)
                 {
-                    DConsole.WriteLine($"{recordset["Id"].ToString() == null} || {recordset["Id"].ToString().Length == 0}");
-                    //DConsole.WriteLine($"{string.IsNullOrEmpty(recordset["Id"].ToString())}");
-                    //if (string.IsNullOrEmpty(recordset["Id"].ToString()))
-                    //{
-                    //    //DConsole.WriteLine($"ClientId = {(string)Variables[Parameters.IdClientId]}");
-                    //    //dictionary["ClientId"] = (string) Variables[Parameters.IdClientId];
-                    //    //DConsole.WriteLine(Parameters.Splitter);
-                    //    //DConsole.WriteLine("ID");
-                    //    //dictionary["Id"] = CreateNewEntity(recordset["OptionId"].ToString(),
-                    //    //    (string) Variables[Parameters.IdClientId]);
-                    //    //DConsole.WriteLine(Parameters.Splitter);
-                    //}
+                    ++countEmptyEntitys;
                 }
-                catch (Exception e)
-                {
-                    DConsole.WriteLine($"{e.Message}{Environment.NewLine}{e.StackTrace}");
-                }
-                DConsole.WriteLine("Before Add to ArrayList");
-                //list.Add(dictionary);
-                DConsole.WriteLine("Add dictionary to ArrayList");
+#endif
+
+                list.Add(dictionary);
             }
-            DConsole.WriteLine("Before DConsole");
-            DConsole.WriteLine($"Count arraylist = {list.Count.ToString()}");
-            DConsole.WriteLine("After DConsole");
+#if DEBUG
+            DConsole.WriteLine(Parameters.Splitter);
+            DConsole.WriteLine($"Count arraylist = {list.Count}");
+            DConsole.WriteLine($"Total Entitys: {list.Count} Empty Entitys: {countEmptyEntitys}");
+            DConsole.WriteLine(Parameters.Splitter);
+#endif
             return list;
         }
 
@@ -320,17 +310,22 @@ namespace Test
             return ResourceManager.GetImage(tag);
         }
 
-        private string CreateNewEntity(string optionId, string clientId)
+        private string CreateNewEntity(DbRef optionId)
         {
-            DConsole.WriteLine("IN CREATENEWENTITY");
-            var entity = new Client_Parameters()
+            var entity = new Client_Parameters
             {
                 Id = DbRef.CreateInstance("Catalog_Client_Parameters", Guid.NewGuid()),
-                Ref = DbRef.FromString(clientId),
-                Parameter = DbRef.FromString(optionId)
-            }; 
-            //entity.Save(false);
-            DConsole.WriteLine("ERROR IN CREATENEWENTITI");
+                Ref = DbRef.FromString((string)Variables[Parameters.IdClientId]),
+                Parameter = optionId
+            };
+//#if DEBUG
+//            DConsole.WriteLine(Parameters.Splitter);
+//            DConsole.WriteLine($"Entity ID: {entity.Id.ToString()}");
+//            DConsole.WriteLine($"Ref: {entity.Ref.ToString()}");
+//            DConsole.WriteLine($"Parameter: {entity.Parameter.ToString()}");
+//            DConsole.WriteLine(Parameters.Splitter);
+//#endif
+            entity.Save(false);
             return entity.Id.ToString();
         }
     }

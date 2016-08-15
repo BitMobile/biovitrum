@@ -452,7 +452,7 @@ namespace Test
 			                            left join Enum_TypesDataParameters as typesDataParameters
 			                                on options.DataTypeParameter = typesDataParameters.Id
 
-                                  order by parameters.LineNumber asc");
+                                  order by parameters.Parameter asc");
 
             query.AddParameter("clientId", clientId);
             return query.Execute();
