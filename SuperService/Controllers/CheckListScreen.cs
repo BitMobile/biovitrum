@@ -74,7 +74,6 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            DBHelper.SyncAsync();
             Navigation.Back();
         }
 
