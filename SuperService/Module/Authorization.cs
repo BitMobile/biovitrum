@@ -1,5 +1,5 @@
-﻿using System;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
+using System;
 
 namespace Test
 {
@@ -86,6 +86,9 @@ namespace Test
                             DConsole.WriteLine(Parameters.Splitter);
                             DConsole.WriteLine("Loading first screen...");
 #endif
+                            FileSystem.ClearPrivate();
+                            FileSystem.ClearShared();
+                            FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password);
                             Navigation.ModalMove("EventListScreen");
                         });
                     }
