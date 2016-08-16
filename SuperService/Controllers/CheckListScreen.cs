@@ -111,7 +111,7 @@ namespace Test
                     [nameof(CheckListScreen)] = _currentCheckListItemID
                 });
             }
-            else
+            else if (_imgToReplace.Source == ResourceManager.GetImage("checklistscreen_photo"))
             {
                 _newGuid = Guid.NewGuid().ToString();
                 _pathToImg = $@"\private\{_newGuid}.jpg";
@@ -363,9 +363,13 @@ namespace Test
 
         internal string GetResultImage(string guid)
         {
-            return !string.IsNullOrEmpty(guid) && FileSystem.Exists($@"\private\{guid}.jpg")
-                ? $@"~\private\{guid}.jpg"
-                : ResourceManager.GetImage("checklistscreen_photo");
+            return string.IsNullOrEmpty(guid)
+                ? ResourceManager.GetImage("checklistscreen_photo")
+                : FileSystem.Exists($@"\private\{guid}.jpg")
+                    ? $@"~\private\{guid}.jpg"
+                    : FileSystem.Exists($@"\shared\{guid}.jpg")
+                        ? $@"~\shared\{guid}.jpg"
+                        : ResourceManager.GetImage("checklistscreen_nophoto");
         }
 
         internal IEnumerable GetCheckList()

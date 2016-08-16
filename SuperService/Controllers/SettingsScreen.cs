@@ -147,6 +147,7 @@ namespace Test
         private static void Logout()
         {
             DBHelper.Sync();
+            FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password);
             Settings.Password = "";
             Navigation.CleanStack();
             Navigation.ModalMove("AuthScreen");
