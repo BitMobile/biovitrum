@@ -324,9 +324,9 @@ namespace Test
 
         private string CreateNewEntity(DbRef optionId)
         {
-            //#if DEBUG
-            //            DConsole.WriteLine($"Before lineNumber = {_lineNumber}");
-            //#endif
+#if DEBUG
+            DConsole.WriteLine($"Before lineNumber = {_lineNumber}");
+#endif
             var entity = new Client_Parameters
             {
                 Id = DbRef.CreateInstance("Catalog_Client_Parameters", Guid.NewGuid()),
@@ -335,9 +335,9 @@ namespace Test
                 LineNumber = (int)++_lineNumber
             };
 
-            //#if DEBUG
-            //            DConsole.WriteLine($"After lineNumber = {_lineNumber}");
-            //#endif
+#if DEBUG
+            DConsole.WriteLine($"After lineNumber = {_lineNumber}");
+#endif
             //#if DEBUG
             //            DConsole.WriteLine(Parameters.Splitter);
             //            DConsole.WriteLine($"Entity ID: {entity.Id.ToString()}");
