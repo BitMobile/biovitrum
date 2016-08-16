@@ -1155,9 +1155,9 @@ namespace Test
         public static int GetMaxNumberFromTableInColumn(string table, string column, string whereColumnName,
             string whereColumnValue)
         {
-            var query = new Query($"select max({column}) as max from {table} where {whereColumnName} = @where");
+            var query = new Query($"select ifnull(max({column}), 0) as max from {table} where {whereColumnName} = @where");
             query.AddParameter("where", whereColumnValue);
-            return (int)(query.ExecuteScalar() ?? 0);
+            return (int)query.ExecuteScalar();
         }
     }
 }
