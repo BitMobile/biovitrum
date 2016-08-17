@@ -11,11 +11,7 @@
 
   <server>
     <supportedMeta version="3.0.0.0" />
-    <host>
-      http://nt0420.bt
-    </host>
-    <solutionPath>
-      /bitmobile/testsolution
-    </solutionPath>
+    <host url="http://nt0420.bt" />
+    <solutionPath url="/bitmobile/testsolution" />
   </server>
 </configuration>
