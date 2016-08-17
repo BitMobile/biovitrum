@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <configuration>
   <resource>
     <version version="3.0.0.167" />
@@ -10,5 +11,11 @@
 
   <server>
     <supportedMeta version="3.0.0.0" />
+    <host>
+      http://nt0420.bt
+    </host>
+    <solutionPath>
+      /bitmobile/testsolution
+    </solutionPath>
   </server>
 </configuration>
