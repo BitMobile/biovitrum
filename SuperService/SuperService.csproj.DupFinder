@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -9,9 +9,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Test</RootNamespace>
     <AssemblyName>SuperService</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,10 +32,6 @@
   <ItemGroup>
     <Reference Include="Application.W">
       <HintPath>..\SDK\Lib\Application.W.dll</HintPath>
-    </Reference>
-    <Reference Include="BusinessProcess.W, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SDK\Lib\BusinessProcess.W.dll</HintPath>
     </Reference>
     <Reference Include="ClientModel3.W">
       <HintPath>..\SDK\Lib\ClientModel3.W.dll</HintPath>
@@ -70,14 +65,19 @@
     <Compile Include="Parameters\**" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Screen\**" />
-    <EmbeddedResource Include="Style\*" />
+    <EmbeddedResource Include="Style\**" />
     <EmbeddedResource Include="Translation\**" />
-    <None Include="Style\Less\**" />
-    <EmbeddedResource Include="settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)..\SDK\BitMobileSDK\BitMobileSDK.exe $(TargetPath)
 echo $(TargetPath).zip &gt; "$(TargetDir)package.txt</PostBuildEvent>
   </PropertyGroup>
+  <Target Name="AfterBuild">
+  <Exec
+    WorkingDirectory=".."
+    Command="D:\Utils\ResharperCLI\dupFinder.exe /output=&quot;$(SolutionDir)\dupReport.xml&quot; /show-text &quot;$(SolutionDir)\SuperService.sln&quot;"/>
+  <XslTransformation XslInputPath="$(SolutionDir)\dupFinder.xsl" XmlInputPaths="$(SolutionDir)\dupReport.xml" OutputPaths="$(SolutionDir)\dupReport.html"/>
+</Target>
+
 </Project>

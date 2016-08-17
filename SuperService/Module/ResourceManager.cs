@@ -123,8 +123,7 @@ namespace Test
             }
             try
             {
-                var stream = Application.GetResourceStream(res.ToString());
-                stream.Close();
+                Application.GetResourceStream(res.ToString());
             }
             catch
             {
