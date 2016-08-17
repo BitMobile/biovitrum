@@ -77,7 +77,12 @@ namespace Test
 #endif
                         DBHelper.FullSync((o, eventArgs) =>
                         {
-                            if (!DBHelper.SuccessSync) return;
+                            if (!DBHelper.SuccessSync)
+                            {
+                                Settings.User = Settings.Password = "";
+                                screen.ClearPassword();
+                                return;
+                            }
 #if DEBUG
                             DConsole.WriteLine(Parameters.Splitter);
                             DConsole.WriteLine("Синхронизация удачна");
