@@ -122,6 +122,9 @@ namespace Test
             ImageServer = server + "/";
             AuthUrl = Server + @"/GetUserId";
 
+            DConsole.WriteLine($"Host = {Host}");
+            DConsole.WriteLine($"Server = {Server}");
+
             _initialized = true;
 
             //TODO: В релизе удалить. Это отлаточный вызов метода.
