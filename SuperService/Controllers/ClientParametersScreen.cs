@@ -126,7 +126,7 @@ namespace Test
             {
                 {"not_choosed", Translator.Translate("not_choosed")}
             };
-            var temp = DBHelper.GetActionValuesList(_textView.Id);
+            var temp = DBHelper.GetClientOptionValuesList(_textView.Id);
             while (temp.Next())
             {
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
