@@ -79,9 +79,8 @@ namespace Test
                         {
                             if (!DBHelper.SuccessSync)
                             {
-//                                Settings.User = "";
-//                                Settings.Password = "";
-//                                screen.ClearPassword();
+                                Settings.User = Settings.Password = "";
+                                screen.ClearPassword();
                                 return;
                             }
 #if DEBUG
