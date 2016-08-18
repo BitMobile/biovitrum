@@ -923,7 +923,6 @@ namespace Test
                                         on event.client = client.id
                                     where
                                         event.DeletionMark = 0
-                                        and event.ResultInteractions != '@ref[Enum_ResultEvent]:81270b2c-190a-faf2-440f-4a593042495e'
                                         and date(event.StartDatePlan) = date('now','start of day')
                                         and client.Latitude != 0
                                         and client.Longitude != 0");
