@@ -28,11 +28,11 @@ namespace Test
         {
             var queryString = @"select
                                  event.Id,
-                                 event.StartDatePlan,
-                                 date(event.StartDatePlan) as startDatePlanDate, --date only
-                                 event.EndDatePlan,
+                                 datetime(event.StartDatePlan, 'localtime') as StartDatePlan,
+                                 date(event.StartDatePlan, 'localtime') as startDatePlanDate, --date only
+                                 datetime(event.EndDatePlan, 'localtime') as EndDatePlan,
                                  ifnull(TypeDeparturesTable.description, '') as TypeDeparture,
-                                 event.ActualStartDate as ActualStartDate, --4
+                                 datetime(event.ActualStartDate, 'localtime') as ActualStartDate, --4
                                  ifnull(Enum_StatusImportance.Description, '') as Importance,
                                  ifnull(Enum_StatusImportance.Name, '') as ImportanceName,
                                  ifnull(client.Description, '') as Description,
@@ -95,7 +95,7 @@ namespace Test
             var statistic = new EventsStatistic();
             var query = new Query(@"select
                                       TOTAL(CASE
-                                           when StartDatePlan >= date('now','start of day') and StartDatePlan < date('now','start of day', '+1 day') then 1
+                                           when date(StartDatePlan, 'localtime') >= date('now','start of day') and date(StartDatePlan, 'localtime') < date('now','start of day', '+1 day') then 1
                                            else 0
                                       End) as DayTotalAmount,
                                        TOTAL(CASE
@@ -103,11 +103,11 @@ namespace Test
                                            else 0
                                       End) as DayCompleteAmout,
                                       TOTAL(CASE
-                                           when StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1
+                                           when date(StartDatePlan, 'localtime') > date('now', 'start of month') and date(StartDatePlan, 'localtime') < date('now', 'start of month', '+1 month') then 1
                                            else 0
                                       End) as MonthCompleteAmout,
                                       TOTAL(CASE
-                                           when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1
+                                           when Enum_StatusyEvents.name like 'Done' and date(StartDatePlan, 'localtime') > date('now', 'start of month') and date(StartDatePlan, 'localtime') < date('now', 'start of month', '+1 month') then 1
                                            else 0
                                       End) as MonthTotalAmount
                                      from
@@ -138,12 +138,12 @@ namespace Test
         {
             var queryText = @"select
                                 event.Id,                                         --гуид события
-                                event.StartDatePlan,                              --плановая дата начала
-                                Date(event.StartDatePlan) as StartDatePlanDate,
-                                Time(event.StartDatePlan) as StartDatePlanTime,
+                                datetime(event.StartDatePlan, 'localtime') as StartDatePlan,                              --плановая дата начала
+                                Date(event.StartDatePlan, 'localtime') as StartDatePlanDate,
+                                Time(event.StartDatePlan, 'localtime') as StartDatePlanTime,
                                 TypeDeparturesTable.description as TypeDeparture, --вид работ - выбирается одна из табличной части
-                                event.ActualStartDate,                            --фактическая дата начала
-                                event.ActualEndDate,                              --фактическая дата конца
+                                datetime(event.ActualStartDate, 'localtime') as ActualStartDate,                            --фактическая дата начала
+                                datetime(event.ActualEndDate, 'localtime') as ActualEndDate,                              --фактическая дата конца
                                 Enum_StatusImportance.Description as Importance,  --важность
                                 Enum_StatusImportance.Name as ImportanceName,     --важность
                                 event.Comment,
