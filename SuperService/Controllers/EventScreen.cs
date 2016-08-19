@@ -195,7 +195,7 @@ namespace Test
                             DBHelper.LoadEntity(
                                 (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
                     @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Done);
-                    @event.ActualEndDate = DateTime.UtcNow;
+                    @event.ActualEndDate = DateTime.Now;
                     DBHelper.SaveEntity(@event);
                     Navigation.Move("CloseEventScreen");
                 }, null,
@@ -257,7 +257,7 @@ namespace Test
             var @event =
                 (Document.Event)
                     DBHelper.LoadEntity((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
-            @event.ActualStartDate = DateTime.UtcNow;
+            @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             DBHelper.SaveEntity(@event);
             GetCurrentEvent();

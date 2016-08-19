@@ -273,7 +273,7 @@ namespace Test
         private void ChangeEventStatus()
         {
             var @event = (Event)DBHelper.LoadEntity(_currentEventId);
-            @event.ActualStartDate = DateTime.UtcNow;
+            @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             DBHelper.SaveEntity(@event);
             _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);

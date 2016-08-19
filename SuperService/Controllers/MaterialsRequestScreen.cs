@@ -278,7 +278,7 @@ namespace Test
             var needMat = new NeedMat
             {
                 Id = DbRef.CreateInstance("Document_NeedMat", Guid.NewGuid()),
-                Date = DateTime.UtcNow,
+                Date = DateTime.Now,
                 StatsNeed = StatsNeedNum.GetDbRefFromEnum(StatsNeedNumEnum.New),
                 SR = DbRef.FromString(Settings.UserId),
                 DocIn = DbRef.CreateInstance("Document_Event", Guid.Empty)
