@@ -260,9 +260,6 @@ namespace Test
             var recordset = DBHelper.GetClientParametersByClientId(Variables[Parameters.IdClientId].ToString());
             _lineNumber = DBHelper.GetMaxNumberFromTableInColumn("Catalog_Client_Parameters", "LineNumber", "Ref",
                 Variables[Parameters.IdClientId].ToString());
-#if DEBUG
-            var countEmptyEntitys = 0;
-#endif
 
             while (recordset.Next())
             {
@@ -276,21 +273,8 @@ namespace Test
                     {"OptionId", recordset["OptionId"].ToString() }
                 };
 
-#if DEBUG
-                if (recordset["Id"] == null)
-                {
-                    ++countEmptyEntitys;
-                }
-#endif
-
                 list.Add(dictionary);
             }
-#if DEBUG
-            DConsole.WriteLine(Parameters.Splitter);
-            DConsole.WriteLine($"Count arraylist = {list.Count}");
-            DConsole.WriteLine($"Total Entitys: {list.Count} Empty Entitys: {countEmptyEntitys}");
-            DConsole.WriteLine(Parameters.Splitter);
-#endif
             return list;
         }
 
@@ -326,9 +310,6 @@ namespace Test
 
         private string CreateNewEntity(DbRef optionId)
         {
-#if DEBUG
-            DConsole.WriteLine($"Before lineNumber = {_lineNumber}");
-#endif
             var entity = new Client_Parameters
             {
                 Id = DbRef.CreateInstance("Catalog_Client_Parameters", Guid.NewGuid()),
@@ -337,16 +318,6 @@ namespace Test
                 LineNumber = (int)++_lineNumber
             };
 
-#if DEBUG
-            DConsole.WriteLine($"After lineNumber = {_lineNumber}");
-#endif
-            //#if DEBUG
-            //            DConsole.WriteLine(Parameters.Splitter);
-            //            DConsole.WriteLine($"Entity ID: {entity.Id.ToString()}");
-            //            DConsole.WriteLine($"Ref: {entity.Ref.ToString()}");
-            //            DConsole.WriteLine($"Parameter: {entity.Parameter.ToString()}");
-            //            DConsole.WriteLine(Parameters.Splitter);
-            //#endif
             entity.Save(false);
             return entity.Id.ToString();
         }
