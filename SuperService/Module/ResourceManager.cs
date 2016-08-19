@@ -69,6 +69,7 @@ namespace Test
             {"cocscreen_plus", @"Image\COCScreen\plus_img.png"},
             //CheckListScreen
             {"checklistscreen_photo", @"Image\CheckListScreen\TakePhoto.png"},
+            {"checklistscreen_nophoto", @"Image\CheckListScreen\NoPhoto.png"},
             //BagListScreen
             {"baglistscreen_busket", @"Image\BagListScreen\BagBusket.png"},
             {"baglistscreen_plus", @"Image\BagListScreen\BagPlus.png"},

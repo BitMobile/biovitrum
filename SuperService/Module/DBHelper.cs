@@ -13,8 +13,6 @@ namespace Test
     /// </remarks>
     public static partial class DBHelper
     {
-        private const string DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
-
         private const string EventStatusDoneName = "Done";
         private const string EventStatusCancelName = "Cancel";
 
@@ -31,17 +29,6 @@ namespace Test
 
             DConsole.WriteLine("Creating DB");
             _db.CreateFromModel();
-            //DConsole.WriteLine("Filling DB with demo data");
-
-            //string queryText;
-            //using (var sql = Application.GetResourceStream("Model.main.sql"))
-            //using (var reader = new StreamReader(sql))
-            //{
-            //    queryText = reader.ReadToEnd();
-            //}
-            //var query = new Query(queryText);
-            //query.Execute();
-            //_db.Commit();
         }
 
         public static void SaveEntity(DbEntity entity, bool doSync = true)
@@ -172,7 +159,9 @@ namespace Test
         private static void SyncHandler(object state, ResultEventArgs<bool> resultEventArgs)
         {
             if (state.Equals("Full"))
+            {
                 Toast.MakeToast(Translator.Translate(resultEventArgs.Result ? "sync_success" : "sync_fail"));
+            }
             else
             {
 #if DEBUG

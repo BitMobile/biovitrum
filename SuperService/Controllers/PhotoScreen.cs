@@ -30,7 +30,7 @@ namespace Test
             {
                 var path = _photo.Source.StartsWith("~") ? _photo.Source.Substring(1) : _photo.Source;
                 FileSystem.Delete(path);
-                ChangePhotoInDB("");
+                ChangePhotoInDB(null);
                 Navigation.Back();
             });
         }

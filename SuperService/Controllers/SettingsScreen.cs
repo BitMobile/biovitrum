@@ -147,6 +147,7 @@ namespace Test
         private static void Logout()
         {
             DBHelper.Sync();
+            FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password);
             Settings.Password = "";
             Navigation.CleanStack();
             Navigation.ModalMove("AuthScreen");
@@ -167,6 +168,11 @@ namespace Test
             {
                 DConsole.WriteLine("Sync succesful? = " + args.Result);
                 Toast.MakeToast(Translator.Translate(args.Result ? "upload_finished" : "upload_failed"));
+                if (args.Result)
+                    FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password, (o1, args1) =>
+                    {
+                        Toast.MakeToast(Translator.Translate(args1.Result ? "sync_success" : "sync_fail"));
+                    });
             });
         }
 

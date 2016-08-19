@@ -74,7 +74,6 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            DBHelper.SyncAsync();
             Navigation.Back();
         }
 
@@ -112,7 +111,7 @@ namespace Test
                     [nameof(CheckListScreen)] = _currentCheckListItemID
                 });
             }
-            else
+            else if (_imgToReplace.Source == ResourceManager.GetImage("checklistscreen_photo"))
             {
                 _newGuid = Guid.NewGuid().ToString();
                 _pathToImg = $@"\private\{_newGuid}.jpg";
@@ -123,19 +122,15 @@ namespace Test
 
         private void CameraCallback(object state, ResultEventArgs<bool> args)
         {
+            if (!args.Result) return;
+
             DConsole.WriteLine("New image");
             _imgToReplace.Source = "~" + _pathToImg;
             _imgToReplace.Refresh();
-            if (args.Result)
-            {
-                DConsole.WriteLine("Updating");
-                UpdateChecklist(_currentCheckListItemID, state.ToString());
-            }
+            DConsole.WriteLine("Updating");
+            UpdateChecklist(_currentCheckListItemID, state.ToString());
             DConsole.WriteLine("Changing indicator");
-            if (args.Result)
-                ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
-            else
-                ChangeRequiredIndicatorForRequired(_lastClickedRequiredIndicatior);
+            ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
         }
 
         // Список
@@ -182,7 +177,9 @@ namespace Test
             if (_readonly) return;
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
-            DateTime date = DateTime.Now;
+            DateTime date;
+            var isDate = DateTime.TryParse(_textView.Text, out date);
+            date = isDate ? date : DateTime.Now;
             Dialog.DateTime(Translator.Translate("select_date"), date, DateCallback);
         }
 
@@ -368,9 +365,13 @@ namespace Test
 
         internal string GetResultImage(string guid)
         {
-            return !string.IsNullOrEmpty(guid) && FileSystem.Exists($@"\private\{guid}.jpg")
-                ? $@"~\private\{guid}.jpg"
-                : ResourceManager.GetImage("checklistscreen_photo");
+            return string.IsNullOrEmpty(guid)
+                ? ResourceManager.GetImage("checklistscreen_photo")
+                : FileSystem.Exists($@"\private\{guid}.jpg")
+                    ? $@"~\private\{guid}.jpg"
+                    : FileSystem.Exists($@"\shared\{guid}.jpg")
+                        ? $@"~\shared\{guid}.jpg"
+                        : ResourceManager.GetImage("checklistscreen_nophoto");
         }
 
         internal IEnumerable GetCheckList()

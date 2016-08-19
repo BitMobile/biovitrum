@@ -91,7 +91,6 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            DBHelper.SyncAsync();
             Navigation.Back();
         }
 
@@ -274,7 +273,7 @@ namespace Test
         private void ChangeEventStatus()
         {
             var @event = (Event)DBHelper.LoadEntity(_currentEventId);
-            @event.ActualStartDate = DateTime.Now;
+            @event.ActualStartDate = DateTime.UtcNow;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             DBHelper.SaveEntity(@event);
             _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
