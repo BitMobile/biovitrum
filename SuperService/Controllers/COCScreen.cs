@@ -38,8 +38,8 @@ namespace Test
             }
             else
             {
-                double total = (_usedCalculateService ? (double) _sums["SumServices"] : 0D) +
-                               (_usedCalculateMaterials ? (double) _sums["SumMaterials"] : 0D);
+                double total = (_usedCalculateService ? (double)_sums["SumServices"] : 0D) +
+                               (_usedCalculateMaterials ? (double)_sums["SumMaterials"] : 0D);
 
                 totalSum = $"{total:N2}";
             }
@@ -47,7 +47,7 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("coc"),
-                LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")},
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
                 ArrowActive = false
             };
 
@@ -57,8 +57,8 @@ namespace Test
                 CssClass = "TotalPriceTV"
             };
             _topInfoComponent.CommentLayout.AddChild(_topInfoTotalTextView);
-            _totalSumForServices = (TextView) GetControl("RightInfoServicesTV", true);
-            _totalSumForMaterials = (TextView) GetControl("RightInfoMaterialsTV", true);
+            _totalSumForServices = (TextView)GetControl("RightInfoServicesTV", true);
+            _totalSumForMaterials = (TextView)GetControl("RightInfoMaterialsTV", true);
 
             _topInfoComponent.ActivateBackButton();
             DConsole.WriteLine($"{Variables[Parameters.IdIsReadonly]}");
@@ -71,7 +71,7 @@ namespace Test
                 return 0;
             }
 
-            _currentEventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            _currentEventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
             _usedCalculateService = Settings.ShowServicePrice;
             _usedCalculateMaterials = Settings.ShowMaterialPrice;
 
@@ -110,7 +110,7 @@ namespace Test
 
         internal void AddService_OnClick(object sender, EventArgs e)
         {
-            var eventStatus = (string) _currentEventDbRecordset["statusName"];
+            var eventStatus = (string)_currentEventDbRecordset["statusName"];
 
             if (eventStatus.Equals(EventStatus.Appointed))
             {
@@ -140,7 +140,7 @@ namespace Test
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
-            var eventStatus = (string) _currentEventDbRecordset["statusName"];
+            var eventStatus = (string)_currentEventDbRecordset["statusName"];
 
             if (eventStatus.Equals(EventStatus.Appointed))
             {
@@ -169,8 +169,8 @@ namespace Test
 
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
         {
-            if ((bool) Variables.GetValueOrDefault(Parameters.IdIsReadonly, true)) return;
-            var vl = (VerticalLayout) sender;
+            if ((bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, true)) return;
+            var vl = (VerticalLayout)sender;
             var dictionary = new Dictionary<string, object>
             {
                 {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
@@ -189,24 +189,53 @@ namespace Test
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
         {
             //TODO: Обходной путь получения парента. Внимание!!!!! .
-            var vl = (VerticalLayout) sender;
-            var hl = (IHorizontalLayout3) vl.Parent;
-            var shl = (ISwipeHorizontalLayout3) hl.Parent;
+            var vl = (VerticalLayout)sender;
+            var hl = (IHorizontalLayout3)vl.Parent;
+            var shl = (ISwipeHorizontalLayout3)hl.Parent;
             ++shl.Index;
         }
 
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
-            var vl = (HorizontalLayout) sender;
-            DBHelper.DeleteByRef(DbRef.FromString(vl.Id), false);
-            var shl = (ISwipeHorizontalLayout3) vl.Parent;
-            var outerVl = (IVerticalLayout3) shl.Parent;
-            outerVl.CssClass = "NoHeight";
+            var vl = (HorizontalLayout)sender;
+            var deleted = CheckAndMaybeDelete(vl.Id);
+            if (deleted)
+            {
+                var shl = (ISwipeHorizontalLayout3)vl.Parent;
+                var outerVl = (IVerticalLayout3)shl.Parent;
+                outerVl.CssClass = "NoHeight";
+                outerVl.Refresh();
+            }
+            else
+            {
+                var shl = (ISwipeHorizontalLayout3)vl.Parent;
+                var hl = (IHorizontalLayout3)shl.Controls[0];
+                var priceContainer = (IVerticalLayout3)hl.Controls[1];
+                var priceTv = (ITextView3)priceContainer.Controls[1];
+                var sm = (Event_ServicesMaterials)DBHelper.LoadEntity(vl.Id);
+                var sku = (Catalog.RIM)sm.SKU.GetObject();
+                priceTv.Text = $"{sm.AmountFact} x {sm.Price} {Translator.Translate("currency")} {(string.IsNullOrEmpty(sku.Unit) ? "" : $"/ {sku.Unit}")}";
+                shl.Index = 0;
+            }
+
             var sums = GetSums();
             _totalSumForServices.Text = GetFormatStringForServiceSums();
             _totalSumForMaterials.Text = GetFormatStringForMaterialSums();
             _topInfoTotalTextView.Text = $"{sums["Sum"]:N2} {Translator.Translate("currency")}";
-            shl.Refresh();
+        }
+
+        private bool CheckAndMaybeDelete(string id)
+        {
+            var sm = (Event_ServicesMaterials)DBHelper.LoadEntity(id);
+            if (sm.AmountPlan == 0)
+            {
+                DBHelper.DeleteByRef(sm.Id, false);
+                return true;
+            }
+            sm.AmountFact = 0;
+            sm.SumFact = 0;
+            sm.Save(false);
+            return false;
         }
 
         internal string GetFormatStringForServiceSums()
@@ -230,8 +259,8 @@ namespace Test
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
-            var wasStarted = (bool) Variables[Parameters.IdWasEventStarted];
-            _sums = DBHelper.GetCocSumsByEventId((string) eventId, !wasStarted);
+            var wasStarted = (bool)Variables[Parameters.IdWasEventStarted];
+            _sums = DBHelper.GetCocSumsByEventId((string)eventId, !wasStarted);
 
             return _sums;
         }
@@ -244,17 +273,17 @@ namespace Test
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
 
-            return DBHelper.GetServicesByEventId((string) eventId);
+            return DBHelper.GetServicesByEventId((string)eventId);
         }
 
         internal string CreatePriceString(DbRecordset priceRecordset, string serviceString)
         {
-            var wasEventStarted = (bool) Variables[Parameters.IdWasEventStarted];
+            var wasEventStarted = (bool)Variables[Parameters.IdWasEventStarted];
             var isService = serviceString == "service";
             var showPrice = isService ? Settings.ShowServicePrice : Settings.ShowMaterialPrice;
-            var amount = (decimal) priceRecordset[wasEventStarted ? "AmountFact" : "AmountPlan"];
+            var amount = (decimal)priceRecordset[wasEventStarted ? "AmountFact" : "AmountPlan"];
             var price = showPrice ? $"{priceRecordset["Price"]:N2}" : Parameters.EmptyPriceDescription;
-            var unit = (string) priceRecordset["Unit"];
+            var unit = (string)priceRecordset["Unit"];
             return
                 $"{amount} x {price} {Translator.Translate("currency")} {(string.IsNullOrEmpty(unit) ? "" : $"/ {unit}")}";
         }
@@ -267,12 +296,12 @@ namespace Test
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
 
-            return DBHelper.GetMaterialsByEventId((string) eventId);
+            return DBHelper.GetMaterialsByEventId((string)eventId);
         }
 
         private void ChangeEventStatus()
         {
-            var @event = (Event) DBHelper.LoadEntity(_currentEventId);
+            var @event = (Event)DBHelper.LoadEntity(_currentEventId);
             @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             DBHelper.SaveEntity(@event);
