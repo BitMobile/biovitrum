@@ -305,7 +305,7 @@ namespace Test
 
             var @event = (Document.Event) DBHelper.LoadEntity(_currentEventRecordset["Id"].ToString());
             var status = ((Enum.StatusyEvents)@event.Status.GetObject()).GetEnum();
-            var wasStarted = status != StatusyEventsEnum.InWork && status != StatusyEventsEnum.Done;
+            var wasStarted = status == StatusyEventsEnum.InWork || status == StatusyEventsEnum.Done;
             var dictinory = new Dictionary<string, object>
             {
                 {Parameters.IdCurrentEventId, (string) eventId},

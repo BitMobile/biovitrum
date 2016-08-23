@@ -38,22 +38,27 @@ namespace Test
             }
             else
             {
-                totalSum =
-                    $"{Math.Round((_usedCalculateService ? (double)_sums["SumServices"] : 0) + (_usedCalculateMaterials ? (double)_sums["SumMaterials"] : 0), 2)}";
+                double total = (_usedCalculateService ? (double) _sums["SumServices"] : 0D) +
+                               (_usedCalculateMaterials ? (double) _sums["SumMaterials"] : 0D);
+
+                totalSum = $"{total:N2}";
             }
 
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("coc"),
-                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")},
                 ArrowActive = false
             };
 
             _topInfoComponent.CommentLayout.AddChild(new TextView($"{Translator.Translate("total")}"));
-            _topInfoTotalTextView = new TextView($"{totalSum} {Translator.Translate("currency")}") { CssClass = "TotalPriceTV" };
+            _topInfoTotalTextView = new TextView($"{totalSum} {Translator.Translate("currency")}")
+            {
+                CssClass = "TotalPriceTV"
+            };
             _topInfoComponent.CommentLayout.AddChild(_topInfoTotalTextView);
-            _totalSumForServices = (TextView)GetControl("RightInfoServicesTV", true);
-            _totalSumForMaterials = (TextView)GetControl("RightInfoMaterialsTV", true);
+            _totalSumForServices = (TextView) GetControl("RightInfoServicesTV", true);
+            _totalSumForMaterials = (TextView) GetControl("RightInfoMaterialsTV", true);
 
             _topInfoComponent.ActivateBackButton();
             DConsole.WriteLine($"{Variables[Parameters.IdIsReadonly]}");
@@ -66,7 +71,7 @@ namespace Test
                 return 0;
             }
 
-            _currentEventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            _currentEventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
             _usedCalculateService = Settings.ShowServicePrice;
             _usedCalculateMaterials = Settings.ShowMaterialPrice;
 
@@ -105,7 +110,7 @@ namespace Test
 
         internal void AddService_OnClick(object sender, EventArgs e)
         {
-            var eventStatus = (string)_currentEventDbRecordset["statusName"];
+            var eventStatus = (string) _currentEventDbRecordset["statusName"];
 
             if (eventStatus.Equals(EventStatus.Appointed))
             {
@@ -135,7 +140,7 @@ namespace Test
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
-            var eventStatus = (string)_currentEventDbRecordset["statusName"];
+            var eventStatus = (string) _currentEventDbRecordset["statusName"];
 
             if (eventStatus.Equals(EventStatus.Appointed))
             {
@@ -164,13 +169,13 @@ namespace Test
 
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
         {
-            if ((bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, true)) return;
-            var vl = (VerticalLayout)sender;
+            if ((bool) Variables.GetValueOrDefault(Parameters.IdIsReadonly, true)) return;
+            var vl = (VerticalLayout) sender;
             var dictionary = new Dictionary<string, object>
             {
                 {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
                 {Parameters.IdLineId, vl.Id},
-                {Parameters.IsEdit, true }
+                {Parameters.IsEdit, true}
             };
 
             Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
@@ -184,48 +189,38 @@ namespace Test
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
         {
             //TODO: Обходной путь получения парента. Внимание!!!!! .
-            var vl = (VerticalLayout)sender;
-            var hl = (IHorizontalLayout3)vl.Parent;
-            var shl = (ISwipeHorizontalLayout3)hl.Parent;
+            var vl = (VerticalLayout) sender;
+            var hl = (IHorizontalLayout3) vl.Parent;
+            var shl = (ISwipeHorizontalLayout3) hl.Parent;
             ++shl.Index;
         }
 
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
-            var vl = (HorizontalLayout)sender;
+            var vl = (HorizontalLayout) sender;
             DBHelper.DeleteByRef(DbRef.FromString(vl.Id), false);
-            var shl = (ISwipeHorizontalLayout3)vl.Parent;
-            var outerVl = (IVerticalLayout3)shl.Parent;
+            var shl = (ISwipeHorizontalLayout3) vl.Parent;
+            var outerVl = (IVerticalLayout3) shl.Parent;
             outerVl.CssClass = "NoHeight";
             var sums = GetSums();
             _totalSumForServices.Text = GetFormatStringForServiceSums();
             _totalSumForMaterials.Text = GetFormatStringForMaterialSums();
-            _topInfoTotalTextView.Text = $"{Math.Round((double)sums["Sum"], 2)} {Translator.Translate("currency")}";
+            _topInfoTotalTextView.Text = $"{sums["Sum"]:N2} {Translator.Translate("currency")}";
             shl.Refresh();
         }
 
         internal string GetFormatStringForServiceSums()
         {
-            var totalSum = Convert.ToDouble(_sums["SumServices"]).ToString();
+            var totalSum = $"{Convert.ToDouble(_sums["SumServices"]):N2}";
             return
                 $"\u2022 {(_usedCalculateService ? totalSum : Parameters.EmptyPriceDescription)} {Translator.Translate("currency")}";
         }
 
         internal string GetFormatStringForMaterialSums()
         {
-            var totalSum = Convert.ToDouble(_sums["SumMaterials"]).ToString();
+            var totalSum = $"{Convert.ToDouble(_sums["SumMaterials"]):N2}";
             return
                 $"\u2022 {(_usedCalculateMaterials ? totalSum : Parameters.EmptyPriceDescription)} {Translator.Translate("currency")}";
-        }
-
-        internal string GetServicePriceDescription(DbRecordset service)
-        {
-            return _usedCalculateService ? service["Price"].ToString() : Parameters.EmptyPriceDescription;
-        }
-
-        internal string GetMaterialPriceDescription(DbRecordset material)
-        {
-            return _usedCalculateMaterials ? material["Price"].ToString() : Parameters.EmptyPriceDescription;
         }
 
         internal DbRecordset GetSums()
@@ -235,8 +230,8 @@ namespace Test
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
-            DConsole.WriteLine("In to: " + nameof(GetSums));
-            _sums = DBHelper.GetCocSumsByEventId((string)eventId);
+            var wasStarted = (bool) Variables[Parameters.IdWasEventStarted];
+            _sums = DBHelper.GetCocSumsByEventId((string) eventId, !wasStarted);
 
             return _sums;
         }
@@ -249,13 +244,19 @@ namespace Test
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
 
-            return DBHelper.GetServicesByEventId((string)eventId);
+            return DBHelper.GetServicesByEventId((string) eventId);
         }
 
-        internal string Concat(float amountFact, string price, string unit)
+        internal string CreatePriceString(DbRecordset priceRecordset, string serviceString)
         {
-            return $"{amountFact} x {price} {Translator.Translate("currency")} " +
-                   (string.IsNullOrEmpty(unit) ? "" : $"/ {unit}");
+            var wasEventStarted = (bool) Variables[Parameters.IdWasEventStarted];
+            var isService = serviceString == "service";
+            var showPrice = isService ? Settings.ShowServicePrice : Settings.ShowMaterialPrice;
+            var amount = (decimal) priceRecordset[wasEventStarted ? "AmountFact" : "AmountPlan"];
+            var price = showPrice ? $"{priceRecordset["Price"]:N2}" : Parameters.EmptyPriceDescription;
+            var unit = (string) priceRecordset["Unit"];
+            return
+                $"{amount} x {price} {Translator.Translate("currency")} {(string.IsNullOrEmpty(unit) ? "" : $"/ {unit}")}";
         }
 
         internal DbRecordset GetMaterials()
@@ -266,12 +267,12 @@ namespace Test
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
 
-            return DBHelper.GetMaterialsByEventId((string)eventId);
+            return DBHelper.GetMaterialsByEventId((string) eventId);
         }
 
         private void ChangeEventStatus()
         {
-            var @event = (Event)DBHelper.LoadEntity(_currentEventId);
+            var @event = (Event) DBHelper.LoadEntity(_currentEventId);
             @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             DBHelper.SaveEntity(@event);
