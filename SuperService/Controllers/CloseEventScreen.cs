@@ -115,7 +115,7 @@ namespace Test
             {
                 Id = DbRef.CreateInstance("Document_Reminder", Guid.NewGuid()),
                 Comment = text,
-                Date = DateTime.UtcNow,
+                Date = DateTime.Now,
                 Reminders = eventRef,
             };
         }

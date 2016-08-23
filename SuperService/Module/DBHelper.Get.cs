@@ -28,11 +28,11 @@ namespace Test
         {
             var queryString = @"select
                                  event.Id,
-                                 datetime(event.StartDatePlan, 'localtime') as StartDatePlan,
-                                 date(event.StartDatePlan, 'localtime') as startDatePlanDate, --date only
-                                 datetime(event.EndDatePlan, 'localtime') as EndDatePlan,
+                                 event.StartDatePlan,
+                                 date(event.StartDatePlan) as startDatePlanDate, --date only
+                                 event.EndDatePlan,
                                  ifnull(TypeDeparturesTable.description, '') as TypeDeparture,
-                                 datetime(event.ActualStartDate, 'localtime') as ActualStartDate, --4
+                                 event.ActualStartDate as ActualStartDate, --4
                                  ifnull(Enum_StatusImportance.Description, '') as Importance,
                                  ifnull(Enum_StatusImportance.Name, '') as ImportanceName,
                                  ifnull(client.Description, '') as Description,
@@ -95,7 +95,7 @@ namespace Test
             var statistic = new EventsStatistic();
             var query = new Query(@"select
                                       TOTAL(CASE
-                                           when date(StartDatePlan, 'localtime') >= date('now','start of day') and date(StartDatePlan, 'localtime') < date('now','start of day', '+1 day') then 1
+                                           when StartDatePlan >= date('now','start of day') and StartDatePlan < date('now','start of day', '+1 day') then 1
                                            else 0
                                       End) as DayTotalAmount,
                                        TOTAL(CASE
@@ -103,11 +103,11 @@ namespace Test
                                            else 0
                                       End) as DayCompleteAmout,
                                       TOTAL(CASE
-                                           when date(StartDatePlan, 'localtime') > date('now', 'start of month') and date(StartDatePlan, 'localtime') < date('now', 'start of month', '+1 month') then 1
+                                           when StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1
                                            else 0
                                       End) as MonthCompleteAmout,
                                       TOTAL(CASE
-                                           when Enum_StatusyEvents.name like 'Done' and date(StartDatePlan, 'localtime') > date('now', 'start of month') and date(StartDatePlan, 'localtime') < date('now', 'start of month', '+1 month') then 1
+                                           when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1
                                            else 0
                                       End) as MonthTotalAmount
                                      from
@@ -138,12 +138,12 @@ namespace Test
         {
             var queryText = @"select
                                 event.Id,                                         --гуид события
-                                datetime(event.StartDatePlan, 'localtime') as StartDatePlan,                              --плановая дата начала
-                                Date(event.StartDatePlan, 'localtime') as StartDatePlanDate,
-                                Time(event.StartDatePlan, 'localtime') as StartDatePlanTime,
+                                event.StartDatePlan,                              --плановая дата начала
+                                Date(event.StartDatePlan) as StartDatePlanDate,
+                                Time(event.StartDatePlan) as StartDatePlanTime,
                                 TypeDeparturesTable.description as TypeDeparture, --вид работ - выбирается одна из табличной части
-                                datetime(event.ActualStartDate, 'localtime') as ActualStartDate,                            --фактическая дата начала
-                                datetime(event.ActualEndDate, 'localtime') as ActualEndDate,                              --фактическая дата конца
+                                event.ActualStartDate,                            --фактическая дата начала
+                                event.ActualEndDate,                              --фактическая дата конца
                                 Enum_StatusImportance.Description as Importance,  --важность
                                 Enum_StatusImportance.Name as ImportanceName,     --важность
                                 event.Comment,
@@ -433,24 +433,25 @@ namespace Test
 
         public static DbRecordset GetClientParametersByClientId(string clientId)
         {
-            var query = new Query(@"select
-                                     parameters.Id as Id,
-                                     parameters.Ref as ClientId,
-                                     parameters.Val as Result,
-                                     options.Id as OptionId,
-                                     options.Description as Description,
-                                     typesDataParameters.Name as TypeName
-                                  from
-
-                                    Catalog_ClientOptions as options
-                                        left join Catalog_Client_Parameters as parameters
-                                            on  options.Id = parameters.Parameter
-                                            and parameters.Ref = @clientId
-
-                                        left join Enum_TypesDataParameters as typesDataParameters
-                                            on options.DataTypeParameter = typesDataParameters.Id
-
-                                  order by parameters.LineNumber asc");
+            var query = new Query("select " +
+                                  "   parameters.Id as Id, " +
+                                  "   parameters.Ref as ClientId, " +
+                                  "   parameters.Val as Result, " +
+                                  "   options.Id as OptionId, " + //значение результата
+                                  "   options.Description as Description, " +
+                                  "   typesDataParameters.Name as TypeName " +
+                                  "from " +
+                                  "   Catalog_Client_Parameters as parameters " +
+                                  "   left join Catalog_ClientOptions as options " +
+                                  "     ON parameters.Ref = @clientId " +
+                                  "       AND parameters.Parameter = options.Id " +
+                                  "    " +
+                                  "   left join Enum_TypesDataParameters as typesDataParameters " +
+                                  "     ON options.DataTypeParameter = TypesDataParameters.Id " +
+                                  "    " +
+                                  "where " +
+                                  "    parameters.Ref = @clientId " +
+                                  "order by parameters.LineNumber asc");
 
             query.AddParameter("clientId", clientId);
             return query.Execute();
