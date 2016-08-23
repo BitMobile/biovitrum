@@ -303,7 +303,7 @@ namespace Test
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
 
-            var @event = (Document.Event) DBHelper.LoadEntity(_currentEventRecordset["Id"].ToString());
+            var @event = (Document.Event)DBHelper.LoadEntity(_currentEventRecordset["Id"].ToString());
             var status = ((Enum.StatusyEvents)@event.Status.GetObject()).GetEnum();
             var wasStarted = status == StatusyEventsEnum.InWork || status == StatusyEventsEnum.Done;
             var dictinory = new Dictionary<string, object>
@@ -353,6 +353,17 @@ namespace Test
         internal string GetStringPartOfTotal(long part, long total)
         {
             return Converter.ToDecimal(part) != 0 ? $"{part}/{total}" : $"{total}";
+        }
+
+        internal string GetPrice(DbRecordset eventRecordset)
+        {
+            var status = (string)eventRecordset["statusName"];
+            var sums = DBHelper.GetCocSumsByEventId(eventRecordset["Id"].ToString(), status != "Done" && status != "InWork");
+            var total = (double)sums["Sum"];
+            var services = (double)sums["SumServices"];
+            var materials = (double)sums["SumMaterials"];
+            if (!Settings.ShowMaterialPrice) return $"{services:N2} {Translator.Translate("currency")}";
+            return Settings.ShowServicePrice ? $"{total:N2} {Translator.Translate("currency")}" : $"{materials:N2} {Translator.Translate("currency")}";
         }
 
         internal bool IsEmptyDateTime(string dateTime)
