@@ -192,7 +192,6 @@ namespace Test
 
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
-            //TODO: Обходной путь получения парента. Внимание!!!!!.
             var vl = (HorizontalLayout)sender;
             DBHelper.DeleteByRef(DbRef.FromString(vl.Id), false);
             var shl = (ISwipeHorizontalLayout3)vl.Parent;
