@@ -1117,14 +1117,11 @@ namespace Test
         public static DbRecordset GetTotalFinishedRequireQuestionByEventId(string eventId)
         {
             var query = new Query(@"select
-                                        SUM(case
-                                        when result like '' then 1
-                                        else 0
-                                        end) as count
+                                        count(*) as count
                                     from
                                         Document_Event_CheckList
                                         where
-                                        Ref = @ref and Required = 1");
+                                        Ref = @ref and Required = 1 and ifnull(result, '') like '' ");
 
             query.AddParameter("ref", eventId);
 
