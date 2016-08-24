@@ -1,13 +1,12 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
-using BitMobile.DbEngine;
 using System;
 using System.Collections.Generic;
+using Test.Catalog;
 using Test.Components;
 using Test.Document;
 using Test.Enum;
-using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 // ReSharper disable SpecifyACultureInStringConversionExplicitly
 
@@ -38,8 +37,8 @@ namespace Test
             }
             else
             {
-                double total = (_usedCalculateService ? (double)_sums["SumServices"] : 0D) +
-                               (_usedCalculateMaterials ? (double)_sums["SumMaterials"] : 0D);
+                var total = (_usedCalculateService ? (double)_sums["SumServices"] : 0D) +
+                            (_usedCalculateMaterials ? (double)_sums["SumMaterials"] : 0D);
 
                 totalSum = $"{total:N2}";
             }
@@ -140,21 +139,25 @@ namespace Test
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
-            var eventStatus = (string)_currentEventDbRecordset["statusName"];
-
-            if (eventStatus.Equals(EventStatus.Appointed))
-            {
-                Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
-                {
-                    if (args.Result != Dialog.Result.Yes) return;
-                    ChangeEventStatus();
-                    AddMaterialArgument();
-                });
-            }
-            else
+            if (ChangeEventStatusValidation())
             {
                 AddMaterialArgument();
             }
+        }
+
+        private bool ChangeEventStatusValidation()
+        {
+            var eventStatus = (string)_currentEventDbRecordset["statusName"];
+
+            if (!eventStatus.Equals(EventStatus.Appointed)) return true;
+            var result = false;
+            Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
+            {
+                result = args.Result == Dialog.Result.Yes;
+                if (args.Result != Dialog.Result.Yes) return;
+                ChangeEventStatus();
+            });
+            return result;
         }
 
         private void AddMaterialArgument()
@@ -170,6 +173,7 @@ namespace Test
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
         {
             if ((bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, true)) return;
+            if (!ChangeEventStatusValidation()) return;
             var vl = (VerticalLayout)sender;
             var dictionary = new Dictionary<string, object>
             {
@@ -213,8 +217,9 @@ namespace Test
                 var priceContainer = (IVerticalLayout3)hl.Controls[1];
                 var priceTv = (ITextView3)priceContainer.Controls[1];
                 var sm = (Event_ServicesMaterials)DBHelper.LoadEntity(vl.Id);
-                var sku = (Catalog.RIM)sm.SKU.GetObject();
-                priceTv.Text = $"{sm.AmountFact} x {sm.Price} {Translator.Translate("currency")} {(string.IsNullOrEmpty(sku.Unit) ? "" : $"/ {sku.Unit}")}";
+                var sku = (RIM)sm.SKU.GetObject();
+                priceTv.Text =
+                    $"{sm.AmountFact} x {sm.Price} {Translator.Translate("currency")} {(string.IsNullOrEmpty(sku.Unit) ? "" : $"/ {sku.Unit}")}";
                 shl.Index = 0;
             }
 

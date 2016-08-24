@@ -420,7 +420,7 @@ namespace Test
                 total += (decimal)materials;
             if (Settings.ShowServicePrice)
                 total += (decimal)services;
-            return $"{total:0.00} {Translator.Translate("currency")}";
+            return $"{total:N2} {Translator.Translate("currency")}";
         }
     }
 }
