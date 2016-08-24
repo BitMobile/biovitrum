@@ -556,18 +556,20 @@ namespace Test
         ///     Возвращает суммы по АВР
         /// </summary>
         /// <param name="eventId">Идентификатор наряда</param>
+        /// <param name="isPlanSums">Собирать фактическую или плановую сумму</param>
         /// <returns>
         ///     DbRecordset со следующими полями:
         ///     Sum - сумма по наряду
         ///     SumMaterials - сумма только по материалам
         ///     SumServices - сумма только по услугам
         /// </returns>
-        public static DbRecordset GetCocSumsByEventId(string eventId)
+        public static DbRecordset GetCocSumsByEventId(string eventId, bool isPlanSums = false)
         {
+            var column = isPlanSums ? "SumPlan" : "SumFact";
             var query = new Query("select " +
-                                  "    TOTAL(SumFact) as Sum, " +
-                                  "    TOTAL(case when Service = 0 then SumFact else 0 end) as SumMaterials, " +
-                                  "    TOTAL(case when Service = 1 then SumFact else 0 end) as SumServices " +
+                                  $"    TOTAL({column}) as Sum, " +
+                                  $"    TOTAL(case when Service = 0 then {column} else 0 end) as SumMaterials, " +
+                                  $"    TOTAL(case when Service = 1 then {column} else 0 end) as SumServices " +
                                   "from " +
                                   "    Document_Event_ServicesMaterials " +
                                   "    join Catalog_RIM " +
@@ -602,7 +604,7 @@ namespace Test
                                   "    join Catalog_RIM " +
                                   "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   " where Catalog_RIM.Service = 0 and " +
-                                  " Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
                                   "    Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
@@ -631,8 +633,20 @@ namespace Test
                                   "       join Catalog_RIM" +
                                   "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   " where Catalog_RIM.Service = 1 and " +
-                                  " Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
                                   "    Document_Event_ServicesMaterials.Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+            return query.Execute();
+        }
+
+        /// <summary>
+        /// Возвращает список Id УиМ
+        /// </summary>
+        /// <param name="eventId">Идентификатор ивента</param>
+        /// <returns></returns>
+        public static DbRecordset GetServicesAndMaterialsByEventId(string eventId)
+        {
+            var query = new Query("select Id from Document_Event_ServicesMaterials where Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
         }
