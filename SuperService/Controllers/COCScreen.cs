@@ -1,12 +1,15 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
+using BitMobile.DbEngine;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Test.Catalog;
 using Test.Components;
 using Test.Document;
 using Test.Enum;
+using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 // ReSharper disable SpecifyACultureInStringConversionExplicitly
 
@@ -192,7 +195,6 @@ namespace Test
 
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
         {
-            //TODO: Обходной путь получения парента. Внимание!!!!! .
             var vl = (VerticalLayout)sender;
             var hl = (IHorizontalLayout3)vl.Parent;
             var shl = (ISwipeHorizontalLayout3)hl.Parent;
@@ -311,6 +313,16 @@ namespace Test
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             DBHelper.SaveEntity(@event);
             _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
+            var rimList = DBHelper.GetServicesAndMaterialsByEventId(_currentEventId);
+            var rimArrayList = new ArrayList();
+            while (rimList.Next())
+            {
+                var rim = (Event_ServicesMaterials)((DbRef)rimList["Id"]).GetObject();
+                rim.AmountFact = rim.AmountPlan;
+                rim.SumFact = rim.SumPlan;
+                rimArrayList.Add(rim);
+            }
+            DBHelper.SaveEntities(rimArrayList, false);
         }
 
         internal bool ShowNotEnoughMaterials() => Settings.BagEnabled;

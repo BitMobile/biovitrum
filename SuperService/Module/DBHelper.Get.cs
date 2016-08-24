@@ -640,6 +640,18 @@ namespace Test
         }
 
         /// <summary>
+        /// Возвращает список Id УиМ
+        /// </summary>
+        /// <param name="eventId">Идентификатор ивента</param>
+        /// <returns></returns>
+        public static DbRecordset GetServicesAndMaterialsByEventId(string eventId)
+        {
+            var query = new Query("select Id from Document_Event_ServicesMaterials where Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+            return query.Execute();
+        }
+
+        /// <summary>
         ///     Возвращает список материалов и услуг по указанному типу
         /// </summary>
         /// <param name="rimType">необходимый тип элементов работы и услуги</param>
