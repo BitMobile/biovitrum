@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Test</RootNamespace>
     <AssemblyName>SuperService</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,6 +33,10 @@
   <ItemGroup>
     <Reference Include="Application.W">
       <HintPath>..\SDK\Lib\Application.W.dll</HintPath>
+    </Reference>
+    <Reference Include="BusinessProcess.W, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SDK\Lib\BusinessProcess.W.dll</HintPath>
     </Reference>
     <Reference Include="ClientModel3.W">
       <HintPath>..\SDK\Lib\ClientModel3.W.dll</HintPath>
@@ -55,30 +60,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Module\BusinessProcess.cs" />
-    <Compile Include="Module\Solution.cs" />
+    <EmbeddedResource Include="Components\**" />
+    <Compile Include="Controllers\**" />
+    <Compile Include="Entities\**" />
+    <EmbeddedResource Include="Image\**" />
+    <EmbeddedResource Include="Model\**" />
+    <Compile Include="Module\**" />
+    <Compile Include="Objects\**" />
+    <Compile Include="Parameters\**" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BusinessProcess\" />
-    <Folder Include="Components\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Entities\" />
-    <Folder Include="Image\" />
-    <Folder Include="Model\" />
-    <Folder Include="Screen\" />
-    <Folder Include="Style\" />
+    <EmbeddedResource Include="Screen\**" />
+    <EmbeddedResource Include="Style\*" />
+    <EmbeddedResource Include="Translation\**" />
+    <None Include="Style\Less\**" />
+    <EmbeddedResource Include="settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)..\SDK\BitMobileSDK\BitMobileSDK.exe $(TargetPath)
 echo $(TargetPath).zip &gt; "$(TargetDir)package.txt</PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

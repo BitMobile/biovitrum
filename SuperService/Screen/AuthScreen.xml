@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+
+  <c:VerticalLayout CssClass="RootLayoutWithPattern">
+    <c:VerticalLayout CssClass="ImgContainerVL">
+      <c:HorizontalLayout CssClass="ImgContainerHL">
+        <c:Image CssClass="LogoImg" Source="$GetResourceImage(authscreen_logo)" />
+      </c:HorizontalLayout>
+    </c:VerticalLayout>
+
+    <c:HorizontalLayout CssClass="LoginPasswordContainerFirstHL">
+      <c:Image CssClass="LoginPasswordImg" Source="$GetResourceImage(authscreen_username)" />
+      <c:EditText Mask="^\d+$" Id="AuthScreenLoginET" Placeholder="#login#" />
+    </c:HorizontalLayout>
+    <c:VerticalLayout CssClass="BreakerContainerVL">
+      <c:HorizontalLine CssClass="BreakerHL" />
+    </c:VerticalLayout>
+    <c:HorizontalLayout CssClass="LoginPasswordContainerSecondHL">
+      <c:Image CssClass="LoginPasswordImg" Source="$GetResourceImage(authscreen_password)" />
+      <c:EditText Id="AuthScreenPasswordET" Placeholder="#password#" NeedSecure="true"/>
+    </c:HorizontalLayout>
+    <c:VerticalLayout CssClass="BreakerContainerVL">
+      <c:HorizontalLine CssClass="BreakerHL" />
+    </c:VerticalLayout>
+    <c:Button Text="#log_in#" OnClick="СonnectButton_OnClick" CssClass="AuthScreenConnectBTN" />
+    <!--TODO: Кнопка временно отключена, так как пока невозможно реализовать её функционал.-->
+    <!--<c:Button Text="#cant_signing#" OnClick="CantSigningButton_OnClick" CssClass="AuthScreenResetPasswordBTN" />-->
+  </c:VerticalLayout>
+</c:Screen>
