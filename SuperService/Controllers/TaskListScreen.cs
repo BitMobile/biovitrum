@@ -18,6 +18,7 @@ namespace Test
                 LeftButtonControl = new Image() { Source = ResourceManager.GetImage("topheading_back") },
                 ArrowVisible = false
             };
+            _topInfoComponent.ActivateBackButton();
         }
 
         public override void OnShow()
