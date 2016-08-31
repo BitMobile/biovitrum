@@ -142,7 +142,19 @@ namespace Test
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
-            if (ChangeEventStatusValidation())
+            var eventStatus = (string)_currentEventDbRecordset["statusName"];
+
+            if (eventStatus.Equals(EventStatus.Appointed))
+            {
+                Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
+                {
+                    if (args.Result != Dialog.Result.Yes) return;
+                    ChangeEventStatus();
+
+                    AddMaterialArgument();
+                });
+            }
+            else
             {
                 AddMaterialArgument();
             }
@@ -175,17 +187,38 @@ namespace Test
 
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
         {
-            if ((bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, true)) return;
-            if (!ChangeEventStatusValidation()) return;
-            var vl = (VerticalLayout)sender;
-            var dictionary = new Dictionary<string, object>
-            {
-                {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
-                {Parameters.IdLineId, vl.Id},
-                {Parameters.IsEdit, true}
-            };
+            var eventStatus = (string)_currentEventDbRecordset["statusName"];
 
-            Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
+            var vl = (VerticalLayout)sender;
+
+            if (eventStatus.Equals(EventStatus.Appointed))
+            {
+                Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
+                {
+                    if (args.Result != Dialog.Result.Yes) return;
+                    ChangeEventStatus();
+
+                    var dictionary = new Dictionary<string, object>
+                    {
+                        {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
+                        {Parameters.IdLineId, vl.Id},
+                        {Parameters.IsEdit, true}
+                    };
+
+                    Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
+                });
+            }
+            else
+            {
+                var dictionary = new Dictionary<string, object>
+                {
+                    {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
+                    {Parameters.IdLineId, vl.Id},
+                    {Parameters.IsEdit, true}
+                };
+
+                Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
+            }
         }
 
         internal void ApplicatioMaterials_OnClick(object sender, EventArgs e)
