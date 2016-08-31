@@ -11,7 +11,7 @@
 
   <server>
     <supportedMeta version="3.0.0.0" />
-    <host url="http://nt0420.bt" />
-    <solutionPath url="/bitmobile/testsolution" />
+    <host url="https://sstest.superagent.ru" />
+    <solutionPath url="/bitmobile3/superservice3test" />
   </server>
 </configuration>
