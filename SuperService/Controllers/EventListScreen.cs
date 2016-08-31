@@ -57,6 +57,11 @@ namespace Test
             _topInfoComponent.ExtraLayout.AddChild(extraHorizontalLayout);
         }
 
+        public override void OnShow()
+        {
+            GPS.StartTracking(500);
+        }
+
         internal string GetStatusPicture(string importance, string status)
         {
             var pictureTag = @"eventlistscreen_";
