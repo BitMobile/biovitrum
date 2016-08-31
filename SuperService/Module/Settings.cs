@@ -2,6 +2,9 @@
 using BitMobile.ClientModel3;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml;
+using XmlDocument = BitMobile.ClientModel3.XmlDocument;
 
 namespace Test
 {
@@ -84,12 +87,44 @@ namespace Test
             }
             DConsole.WriteLine($"{Parameters.Splitter}{Environment.NewLine}");
 #endif
+            XmlNode serverNode;
+            XmlNode solutionPathNode;
 
-            Host = @"https://sstest.superagent.ru";
-            var server = Host + @"/bitmobile3/superservice3test";
+            Stream stream = Stream.Null;
+            try
+            {
+                try
+                {
+                    stream = Application.GetResourceStream("customSettings.xml");
+                }
+                catch
+                {
+                    stream = Application.GetResourceStream("settings.xml");
+                }
+
+                var xmlDocument = new XmlDocument();
+                xmlDocument.Load(stream);
+                serverNode = xmlDocument.SelectSingleNode("/configuration/server/host");
+                DConsole.WriteLine("Настройки из XML");
+                DConsole.WriteLine($"{serverNode?.Name}:{serverNode?.Attributes?["url"]?.Value}");
+                solutionPathNode = xmlDocument.SelectSingleNode("/configuration/server/solutionPath");
+                DConsole.WriteLine($"{solutionPathNode?.Name}:{solutionPathNode?.Attributes?["url"]?.Value}");
+            }
+            finally
+            {
+                stream?.Close();
+            }
+
+            Host = serverNode?.Attributes?["url"]?.Value ?? "http://nt0420.bt";
+            var server = Host + (solutionPathNode?.Attributes?["url"]?.Value ?? "/bitmobile/testsolution");
+
             Server = server + "/device";
             ImageServer = server + "/";
             AuthUrl = Server + @"/GetUserId";
+
+            DConsole.WriteLine($"Host = {Host}");
+            DConsole.WriteLine($"Server = {Server}");
+
             _initialized = true;
 
             //TODO: В релизе удалить. Это отлаточный вызов метода.
