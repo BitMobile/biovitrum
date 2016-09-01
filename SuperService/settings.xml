@@ -2,11 +2,11 @@
 
 <configuration>
   <resource>
-    <version version="3.1.2.176" />
+    <version version="3.1.2.177" />
   </resource>
 
   <client>
-    <supportedCore version="3.0.186.0" />
+    <supportedCore version="3.0.191.0" />
   </client>
 
   <server>
