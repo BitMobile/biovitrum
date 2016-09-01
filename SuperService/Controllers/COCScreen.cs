@@ -160,21 +160,6 @@ namespace Test
             }
         }
 
-        private bool ChangeEventStatusValidation()
-        {
-            var eventStatus = (string)_currentEventDbRecordset["statusName"];
-
-            if (!eventStatus.Equals(EventStatus.Appointed)) return true;
-            var result = false;
-            Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
-            {
-                result = args.Result == Dialog.Result.Yes;
-                if (args.Result != Dialog.Result.Yes) return;
-                ChangeEventStatus();
-            });
-            return result;
-        }
-
         private void AddMaterialArgument()
         {
             var dictionary = new Dictionary<string, object>
