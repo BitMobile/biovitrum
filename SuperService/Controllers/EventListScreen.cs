@@ -202,7 +202,7 @@ namespace Test
 
         internal IEnumerable GetEvents()
         {
-            return DBHelper.GetEvents();
+            return DBHelper.GetEvents(DateTime.Now.Date);
         }
 
         internal string GetResourceImage(string tag)
