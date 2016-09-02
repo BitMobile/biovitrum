@@ -99,7 +99,7 @@ namespace Test
 
         public override void OnShow()
         {
-            GPS.StartTracking();
+            GpsTracking.Start();
             if ((string)_currentEventRecordset["statusName"] == "Done")
             {
                 Toast.MakeToast(Translator.Translate("event_finished_ro"));

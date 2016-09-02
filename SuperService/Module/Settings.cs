@@ -239,7 +239,7 @@ namespace Test
     public static class DefaultGpsTrackingParameters
     {
         public const bool IsBestAccuracy = true;
-        public const int MinInterval = 60;
+        public const int MinInterval = 5;
         public const int MinDistance = 10;
         public const int DistanceFilter = 5;
         public const int SendInterval = int.MaxValue;
