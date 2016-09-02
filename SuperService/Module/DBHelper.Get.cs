@@ -1170,5 +1170,15 @@ namespace Test
             query.AddParameter("where", whereColumnValue);
             return (int)query.ExecuteScalar();
         }
+
+        /// <summary>
+        /// Получить UserId из БД
+        /// </summary>
+        /// <returns>Возращается строка содержащая UserId, если в БД не найден UserId возращается пустая строка.</returns>
+        public static string GetUserId()
+        {
+            var result = new Query("SELECT UserId FROM ___UserInfo  LIMIT 1").Execute();
+            return result.Next() ? (string)result["UserId"] : "";
+        }
     }
 }
