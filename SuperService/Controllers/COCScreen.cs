@@ -88,7 +88,6 @@ namespace Test
 
         public override void OnShow()
         {
-            GPS.StopTracking();
         }
 
         internal string GetResourceImage(string tag)
