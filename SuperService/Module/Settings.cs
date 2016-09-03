@@ -252,4 +252,9 @@ namespace Test
         public const int DistanceFilter = 4;
         public const int SendInterval = 15;
     }
+
+    public static class TimeRangeCoordinate
+    {
+        public const uint DefaultTimeRange = 30U;
+    }
 }
