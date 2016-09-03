@@ -88,7 +88,6 @@ namespace Test
 
         public override void OnShow()
         {
-            GPS.StopTracking();
         }
 
         internal string GetResourceImage(string tag)
@@ -326,9 +325,14 @@ namespace Test
 
         private void ChangeEventStatus()
         {
+            var result = DBHelper.GetCoordinate(TimeRangeCoordinate.DefaultTimeRange);
+            var latitude = Converter.ToDouble(result["Latitude"]);
+            var longitude = Converter.ToDouble(result["Longitude"]);
             var @event = (Event)DBHelper.LoadEntity(_currentEventId);
             @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
+            @event.Latitude = Converter.ToDecimal(latitude);
+            @event.Longitude = Converter.ToDecimal(longitude);
             DBHelper.SaveEntity(@event);
             _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
             var rimList = DBHelper.GetServicesAndMaterialsByEventId(_currentEventId);

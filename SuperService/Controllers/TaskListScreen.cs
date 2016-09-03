@@ -23,7 +23,6 @@ namespace Test
 
         public override void OnShow()
         {
-            GPS.StopTracking();
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
