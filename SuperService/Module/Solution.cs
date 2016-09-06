@@ -34,5 +34,17 @@ namespace Test
                 Navigation.Move(nameof(AuthScreen));
             }
         }
+
+        public override void OnBackground()
+        {
+            var result = GpsTracking.Stop();
+            DConsole.WriteLine($"Свернули приложение. GpsTracking is stop: result = {result}");
+        }
+
+        public override void OnRestore()
+        {
+            var result = GpsTracking.Start();
+            DConsole.WriteLine($"Развернули приложение.GpsTracking is start: result = {result}");
+        }
     }
 }
