@@ -334,6 +334,7 @@ namespace Test
             @event.Latitude = Converter.ToDecimal(latitude);
             @event.Longitude = Converter.ToDecimal(longitude);
             DBHelper.SaveEntity(@event);
+            Variables[Parameters.IdWasEventStarted] = true;
             _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
             var rimList = DBHelper.GetServicesAndMaterialsByEventId(_currentEventId);
             var rimArrayList = new ArrayList();
