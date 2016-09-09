@@ -179,7 +179,8 @@ namespace Test
                 DConsole.WriteLine(Parameters.Splitter);
                 DConsole.WriteLine($"Новые данные не пришли," +
                                    $"настройки не обновляем" +
-                                   $" {nameof(resultEventArgs.Result)} = {resultEventArgs.Result}");
+                                   $" {nameof(resultEventArgs.Result)} = {resultEventArgs.Result}" +
+                                   $"{Environment.NewLine}Last Error {_db.LastError}");
                 DConsole.WriteLine(Parameters.Splitter);
 #endif
                 return;
