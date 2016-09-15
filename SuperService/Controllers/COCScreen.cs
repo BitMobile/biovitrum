@@ -28,6 +28,7 @@ namespace Test
         private TextView _totalSumForServices;
         private bool _usedCalculateMaterials;
         private bool _usedCalculateService;
+        private bool _isReadOnly;
 
         public override void OnLoading()
         {
@@ -88,7 +89,7 @@ namespace Test
 
         public override void OnShow()
         {
-            GPS.StopTracking();
+            _isReadOnly = (bool)Variables[Parameters.IdIsReadonly];
         }
 
         internal string GetResourceImage(string tag)
@@ -112,8 +113,9 @@ namespace Test
 
         internal void AddService_OnClick(object sender, EventArgs e)
         {
-            var eventStatus = (string)_currentEventDbRecordset["statusName"];
+            if(_isReadOnly) return;
 
+            var eventStatus = (string)_currentEventDbRecordset["statusName"];
             if (eventStatus.Equals(EventStatus.Appointed))
             {
                 Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
@@ -142,8 +144,9 @@ namespace Test
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
-            var eventStatus = (string)_currentEventDbRecordset["statusName"];
+            if (_isReadOnly) return;
 
+            var eventStatus = (string)_currentEventDbRecordset["statusName"];
             if (eventStatus.Equals(EventStatus.Appointed))
             {
                 Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
@@ -160,21 +163,6 @@ namespace Test
             }
         }
 
-        private bool ChangeEventStatusValidation()
-        {
-            var eventStatus = (string)_currentEventDbRecordset["statusName"];
-
-            if (!eventStatus.Equals(EventStatus.Appointed)) return true;
-            var result = false;
-            Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
-            {
-                result = args.Result == Dialog.Result.Yes;
-                if (args.Result != Dialog.Result.Yes) return;
-                ChangeEventStatus();
-            });
-            return result;
-        }
-
         private void AddMaterialArgument()
         {
             var dictionary = new Dictionary<string, object>
@@ -187,8 +175,9 @@ namespace Test
 
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
         {
-            var eventStatus = (string)_currentEventDbRecordset["statusName"];
+            if (_isReadOnly) return;
 
+            var eventStatus = (string)_currentEventDbRecordset["statusName"];
             var vl = (VerticalLayout)sender;
 
             if (eventStatus.Equals(EventStatus.Appointed))
@@ -236,6 +225,8 @@ namespace Test
 
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
+            if(_isReadOnly) return;
+
             var vl = (HorizontalLayout)sender;
             var deleted = CheckAndMaybeDelete(vl.Id);
             if (deleted)
@@ -341,10 +332,16 @@ namespace Test
 
         private void ChangeEventStatus()
         {
+            var result = DBHelper.GetCoordinate(TimeRangeCoordinate.DefaultTimeRange);
+            var latitude = Converter.ToDouble(result["Latitude"]);
+            var longitude = Converter.ToDouble(result["Longitude"]);
             var @event = (Event)DBHelper.LoadEntity(_currentEventId);
             @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
+            @event.Latitude = Converter.ToDecimal(latitude);
+            @event.Longitude = Converter.ToDecimal(longitude);
             DBHelper.SaveEntity(@event);
+            Variables[Parameters.IdWasEventStarted] = true;
             _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
             var rimList = DBHelper.GetServicesAndMaterialsByEventId(_currentEventId);
             var rimArrayList = new ArrayList();

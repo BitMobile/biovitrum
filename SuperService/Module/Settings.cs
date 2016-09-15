@@ -12,6 +12,7 @@ namespace Test
     {
         private static Dictionary<string, object> _settings;
         private static bool _initialized;
+        private static string _userId;
 
         //TODO: неочень хорошо так хранить пользователя и пароль.
         public static string User
@@ -41,10 +42,15 @@ namespace Test
 
         public static string Host { get; set; }
 
-        public static string UserId { get; set; }
+        public static string UserId
+        {
+            get { return _userId ?? DBHelper.GetUserId(); }
+            set { _userId = value; }
+        }
 
         public static string AuthUrl { get; set; }
 
+        public static string GPSSyncUrl { get; set; }
         public static bool AllowGallery => GetLogicValue(Parameters.AllowGallery);
         public static int PictureSize => GetNumericValue(Parameters.PictureSize, 2500);
         public static bool EquipmentEnabled => GetLogicValue(Parameters.EquipmentEnabled);
@@ -121,12 +127,14 @@ namespace Test
             Server = server + "/device";
             ImageServer = server + "/";
             AuthUrl = Server + @"/GetUserId";
+            GPSSyncUrl = server;
 
             DConsole.WriteLine($"Host = {Host}");
             DConsole.WriteLine($"Server = {Server}");
 
             _initialized = true;
 
+            GpsTrackingInit();
             //TODO: В релизе удалить. Это отлаточный вызов метода.
 #if DEBUG
             CheckAllProperty();
@@ -193,8 +201,60 @@ namespace Test
             DConsole.WriteLine($"{nameof(ShowServicePrice)}: {ShowServicePrice}");
             DConsole.WriteLine($"{nameof(ShowMaterialPrice)}: {ShowMaterialPrice}");
             DConsole.WriteLine($"{Parameters.Splitter}{Environment.NewLine}");
+            DConsole.WriteLine($"{nameof(UserId)}: {UserId}");
+            DConsole.WriteLine($"GPSTracking.{nameof(GpsTracking.IsBestAccuracy)}: {GpsTracking.IsBestAccuracy}");
+            DConsole.WriteLine($"GPSTracking.{nameof(GpsTracking.MinInterval)}: {GpsTracking.MinInterval}");
+            DConsole.WriteLine($"GPSTracking.{nameof(GpsTracking.DistanceFilter)}: {GpsTracking.DistanceFilter}");
+            DConsole.WriteLine($"GPSTracking.{nameof(GpsTracking.SendInterval)}: {GpsTracking.SendInterval}");
+            DConsole.WriteLine($"GPSTracking.{nameof(GpsTracking.SendUrl)}: {GpsTracking.SendUrl}");
+            DConsole.WriteLine($"GPSTracking.{nameof(GpsTracking.UserId)}: {GpsTracking.UserId}");
+            DConsole.WriteLine($"{Parameters.Splitter}{Environment.NewLine}");
         }
 
 #endif
+
+        private static void GpsTrackingInit()
+        {
+            GpsTracking.UserId = UserId;
+            GpsTracking.SendUrl = GPSSyncUrl;
+            GpsTracking.IsBestAccuracy = GetLogicValue(nameof(GpsTracking.IsBestAccuracy), DefaultGpsTrackingParameters.IsBestAccuracy);
+            GpsTracking.MinInterval = SetGpsTrackingParameter(nameof(GpsTracking.MinInterval),
+                MinGpsTrackingParameters.MinInterval, DefaultGpsTrackingParameters.MinInterval);
+            GpsTracking.MinDistance = SetGpsTrackingParameter(nameof(GpsTracking.MinDistance),
+                MinGpsTrackingParameters.MinDistance, DefaultGpsTrackingParameters.MinDistance);
+            GpsTracking.DistanceFilter = SetGpsTrackingParameter(nameof(GpsTracking.DistanceFilter),
+                MinGpsTrackingParameters.DistanceFilter, DefaultGpsTrackingParameters.DistanceFilter);
+            GpsTracking.SendInterval = SetGpsTrackingParameter(nameof(GpsTracking.SendInterval),
+                MinGpsTrackingParameters.SendInterval, DefaultGpsTrackingParameters.SendInterval);
+        }
+
+        private static int SetGpsTrackingParameter(string parameterName, int minValue, int defaultValue = 0)
+        {
+            var value = GetNumericValue(parameterName, defaultValue);
+
+            return value >= minValue ? value : minValue;
+        }
+    }
+
+    public static class DefaultGpsTrackingParameters
+    {
+        public const bool IsBestAccuracy = true;
+        public const int MinInterval = 5;
+        public const int MinDistance = 10;
+        public const int DistanceFilter = 5;
+        public const int SendInterval = int.MaxValue;
+    }
+
+    public static class MinGpsTrackingParameters
+    {
+        public const int MinInterval = 10;
+        public const int MinDistance = 8;
+        public const int DistanceFilter = 4;
+        public const int SendInterval = 15;
+    }
+
+    public static class TimeRangeCoordinate
+    {
+        public const uint DefaultTimeRange = 30U;
     }
 }

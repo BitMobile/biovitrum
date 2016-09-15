@@ -56,7 +56,6 @@ namespace Test
 
         public override void OnShow()
         {
-            GPS.StopTracking();
         }
 
         internal void TaskFinishedButton_OnClick(object sender, EventArgs eventArgs)

@@ -917,8 +917,9 @@ namespace Test
                                 from
                                     Catalog_Client as client
                                 where
-                                    client.Latitude != 0
-                                    and client.Longitude != 0
+                                    ifnull(client.Latitude, 0) != 0 and client.Latitude not like ''
+                                    and
+                                    ifnull(client.Longitude, 0) != 0 and client.Longitude not like ''
                                     and client.Id = @clientId");
 
             query.AddParameter("clientId", clientId);
@@ -1169,6 +1170,29 @@ namespace Test
             var query = new Query($"select ifnull(max({column}), 0) as max from {table} where {whereColumnName} = @where");
             query.AddParameter("where", whereColumnValue);
             return (int)query.ExecuteScalar();
+        }
+
+        /// <summary>
+        /// Получить UserId из БД
+        /// </summary>
+        /// <returns>Возращается строка содержащая UserId, если в БД не найден UserId возращается пустая строка.</returns>
+        public static string GetUserId()
+        {
+            var result = new Query("SELECT UserId FROM ___UserInfo  LIMIT 1").Execute();
+            return result.Next() ? (string)result["UserId"] : "";
+        }
+
+        /// <summary>
+        /// Получаем актуальные координаты.
+        /// </summary>
+        /// <param name="timeSpan">Указывает промежуток, который указывает,
+        ///  из какого временного диапазона выбирать актуальные координаты.
+        /// По умолчанию, координаты выбираются из всего временного диапазона.</param>
+        /// <returns>Возращяет координаты. Нулевые координаты указывают, что нет актуальных координат.</returns>
+        public static DbRecordset GetCoordinate(uint timeSpan = uint.MaxValue)
+        {
+            return new Query($@"select id, ifnull(Latitude, 0.0) as Latitude, ifnull(Longitude, 0.0) as Longitude, max(datetime(EndTime,'localtime')) as EndTime from ___DbLocations
+                                where datetime(EndTime, 'localtime') between datetime('now','localtime', '-{timeSpan} minutes') and datetime('now', 'localtime')").Execute();
         }
     }
 }
