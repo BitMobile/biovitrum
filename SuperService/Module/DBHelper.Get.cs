@@ -262,32 +262,38 @@ namespace Test
         /// <summary>
         ///     Получает список задач события
         /// </summary>
-        /// <param name="eventID"> Идентификатор события</param>
-        public static DbRecordset GetTasksByEventID(string eventID)
+        /// <param name="eventId"> Идентификатор события</param>
+        /// <param name="clientId"> Индетефикатор клиента</param>
+        public static DbRecordset GetTasksByEventIDOrClientID(string eventId, string clientId)
         {
-            var query = new Query("select " +
-                                  "    tasks.Id,  " + //ид задачи
-                                  "    tasks.Ref, " + //ид документа События
-                                  "    tasks.Terget, " + //цель
-                                  "    equipment.Description as equipmentDescription, " +
-                                  "    ResultEvent.Description as ResultEventDescription, " +
-                                  "    ResultEvent.Name as ResultEventName, " +
-                                  "    case  " +
-                                  "        when ResultEvent.Name like 'Done' then 1 " +
-                                  "        else 0 " +
-                                  "    end as isDone " +
-                                  "  from " +
-                                  "     Document_Event_Equipments as tasks " +
-                                  "      left join Catalog_Equipment as equipment " +
-                                  "       on tasks.Equipment = equipment.Id " +
-                                  " " +
-                                  "      left join Enum_ResultEvent as ResultEvent " +
-                                  "       on tasks.Result = ResultEvent.Id " +
-                                  "       " +
-                                  " where " +
-                                  "   tasks.Ref = @id  ");
-            query.AddParameter("id", eventID);
+            var query = new Query(@"SELECT
+                                      Task.Id AS Id,
+                                      Task.Description as Description,
+                                      Task.TaskType as TaskType,
+                                      Status.Name AS StatusName
+                                    FROM
+                                      _Document_Task AS Task
+                                    INNER JOIN
+                                      _Document_Task_Status AS Task_Status
+                                    ON Task_Status.Ref = Task.Id
+                                    INNER JOIN
+                                        _Enum_StatusTasks AS Status
+                                    ON Task_Status.Status = Status.Id
+                                    WHERE
+
+                                    CASE WHEN EXISTS(SELECT * FROM _Document_Task WHERE _Document_Task.Event LIKE @eventId)
+                                       THEN  Task.Event LIKE @eventId
+                                       ELSE Task.Client LIKE @clientId AND Task.Event LIKE '@ref[Document_Event]:00000000-0000-0000-0000-000000000000'
+                                    END");
+            query.AddParameter("eventId", eventId);
+            query.AddParameter("clientId", clientId);
             var result = query.Execute();
+
+            Utils.TraceMessage($"{Parameters.Splitter}{Environment.NewLine}" +
+                               $"Debug Info{Environment.NewLine}" +
+                               $"eventId: {eventId}" +
+                               $"{Environment.NewLine}" +
+                               $"clientId: {clientId}");
 
             return result;
         }

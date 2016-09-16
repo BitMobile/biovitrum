@@ -52,38 +52,8 @@ namespace Test
 
         internal IEnumerable GetTasks()
         {
-            //            return new ArrayList
-            //            {
-            //                new Dictionary<string, object>
-            //                {
-            //                    {"Id", "1"},
-            //                    {"Name", "Ремонт"},
-            //                    {"Comment", "Маршрутизатор"},
-            //                    {"Done", false}
-            //                },
-            //                new Dictionary<string, object>
-            //                {
-            //                    {"Id", "2"},
-            //                    {"Name", "Монтаж"},
-            //                    {"Comment", "Сервер"},
-            //                    {"Done", false}
-            //                },
-            //                new Dictionary<string, object>
-            //                {
-            //                    {"Id", "3"},
-            //                    {"Name", "Настройка"},
-            //                    {"Comment", "Роутер"},
-            //                    {"Done", true}
-            //                },
-            //                new Dictionary<string, object>
-            //                {
-            //                    {"Id", "4"},
-            //                    {"Name", "Монтаж"},
-            //                    {"Comment", "Сервер"},
-            //                    {"Done", false}
-            //                }
-            //            };
-            return DBHelper.GetTasksByEventID((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+            return DBHelper.GetTasksByEventIDOrClientID((string)Variables[Parameters.IdCurrentEventId],
+                (string)Variables[Parameters.IdClientId]);
         }
 
         internal string GetResourceImage(string tag)
