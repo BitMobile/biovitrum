@@ -3,6 +3,7 @@ using BitMobile.Common.Controls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using static System.String;
@@ -38,17 +39,17 @@ namespace Test
             lat2 = Convert.ToDouble(lat2);
             lon2 = Convert.ToDouble(lon2);
             const double r = 6371;
-            var f1 = lat1*Math.PI/180;
-            var f2 = lat2*Math.PI/180;
+            var f1 = lat1 * Math.PI / 180;
+            var f2 = lat2 * Math.PI / 180;
             var deltaf = f2 - f1;
-            var deltal = (lon2 - lon1)*Math.PI/180;
+            var deltal = (lon2 - lon1) * Math.PI / 180;
 
-            var a = Math.Pow(Math.Sin(deltaf/2), 2)
-                    + Math.Cos(f1)*Math.Cos(f2)*Math.Pow(Math.Sin(deltal/2), 2);
-            var c = 2*Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            var result = r*c;
+            var a = Math.Pow(Math.Sin(deltaf / 2), 2)
+                    + Math.Cos(f1) * Math.Cos(f2) * Math.Pow(Math.Sin(deltal / 2), 2);
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            var result = r * c;
 
-            return Math.Abs(result*1000);
+            return Math.Abs(result * 1000);
         }
 
         /// <summary>
@@ -77,23 +78,23 @@ namespace Test
             string res = null;
             foreach (var line in lines)
             {
-                res = res == null ? (string) line : $"{res}{Environment.NewLine}{line}";
+                res = res == null ? (string)line : $"{res}{Environment.NewLine}{line}";
             }
-            return (bool) test ? res : $"{res?.TrimEnd()}...";
+            return (bool)test ? res : $"{res?.TrimEnd()}...";
         }
 
         private static ArrayList CreateLinesFromWords(int outputLineLength, int outputLinesAmount, IList words,
             out bool fitAll)
         {
-            var lines = new ArrayList {""};
+            var lines = new ArrayList { "" };
             var lastLineNumber = 0;
             var currentWordNumber = 0;
             while (currentWordNumber < words.Count && lastLineNumber < outputLinesAmount)
             {
-                var word = (string) words[currentWordNumber];
-                if (((string) lines[lastLineNumber]).Length + 1 + word.Length <= outputLineLength)
+                var word = (string)words[currentWordNumber];
+                if (((string)lines[lastLineNumber]).Length + 1 + word.Length <= outputLineLength)
                 {
-                    lines[lastLineNumber] = IsNullOrEmpty((string) lines[lastLineNumber])
+                    lines[lastLineNumber] = IsNullOrEmpty((string)lines[lastLineNumber])
                         ? word
                         : $"{lines[lastLineNumber]} {word}";
                     currentWordNumber++;
@@ -101,10 +102,10 @@ namespace Test
                 }
                 if (word.Length >= outputLineLength)
                 {
-                    if (IsNullOrEmpty((string) lines[lastLineNumber]))
+                    if (IsNullOrEmpty((string)lines[lastLineNumber]))
                     {
-                        lines[lastLineNumber] = ((string) words[currentWordNumber]).Substring(0, outputLineLength);
-                        words[currentWordNumber] = ((string) words[currentWordNumber]).Substring(outputLineLength);
+                        lines[lastLineNumber] = ((string)words[currentWordNumber]).Substring(0, outputLineLength);
+                        words[currentWordNumber] = ((string)words[currentWordNumber]).Substring(outputLineLength);
                     }
                     lines.Add("");
                     lastLineNumber++;
@@ -116,7 +117,7 @@ namespace Test
                     lastLineNumber++;
                 }
             }
-            fitAll = currentWordNumber >= words.Count && ((string) words[words.Count - 1]).Length <= outputLineLength;
+            fitAll = currentWordNumber >= words.Count && ((string)words[words.Count - 1]).Length <= outputLineLength;
             if (lines.Count > outputLinesAmount)
                 lines[lines.Count - 1] = Empty;
 
@@ -138,7 +139,7 @@ namespace Test
                 throw new ArgumentException(
                     $"Индекс превышает количество элементов фактически содержащихся в {container.GetType().Name}");
 
-            ((ILayoutableContainer) ((IWrappedControl3) container).GetNativeControl()).Withdraw(index);
+            ((ILayoutableContainer)((IWrappedControl3)container).GetNativeControl()).Withdraw(index);
             DConsole.WriteLine($"Deleted");
         }
 
@@ -168,7 +169,7 @@ namespace Test
         {
             for (var i = 0; i < container.Controls.Length; i++)
             {
-                var id = (IIdentifiable) container.Controls[i];
+                var id = (IIdentifiable)container.Controls[i];
 
                 if (CompareOrdinal(childId, id.Id) == 0)
                 {
@@ -190,13 +191,13 @@ namespace Test
             DConsole.WriteLine($"Container Lenght = {container.Controls.Length}");
             foreach (var control in container.Controls)
             {
-                var item = (IIdentifiable) control;
+                var item = (IIdentifiable)control;
                 DConsole.WriteLine($"ID = {item.Id}");
             }
             DConsole.WriteLine("--------------");
             for (var i = 0; i < container.Controls.Length; i++)
             {
-                var id = (IIdentifiable) container.Controls[i];
+                var id = (IIdentifiable)container.Controls[i];
                 DConsole.WriteLine($"{id.Id}");
                 if (CompareOrdinal(childId, id.Id) == 0)
                 {
@@ -215,18 +216,19 @@ namespace Test
         /// </summary>
         public static int GetWeekNumber(this DateTime date)
         {
-            var thursday = date + new TimeSpan(3 - ((int) date.DayOfWeek + 6)%7, 0, 0, 0);
-            return 1 + (thursday.DayOfYear - 1)/7;
+            var thursday = date + new TimeSpan(3 - ((int)date.DayOfWeek + 6) % 7, 0, 0, 0);
+            return 1 + (thursday.DayOfYear - 1) / 7;
         }
 
         /// <summary>
         /// Метод, позволяет получить сведения о вызывающем объекте и подставляющий
-        /// их в необязательные параметры 
+        /// их в необязательные параметры
         /// </summary>
         /// <param name="message">Сообщение которое необходимо вывести.</param>
         /// <param name="memberName">авто параметер</param>
         /// <param name="filePath">авто параметер</param>
         /// <param name="sourceLineNumber">авто параметер</param>
+        [Conditional("DEBUG")]
         public static void TraceMessage(string message = "",
             [CallerMemberName] string memberName = "",
             [CallerFilePath] string filePath = "",
