@@ -10,8 +10,8 @@ namespace Test
 {
     public class TaskScreen : Screen
     {
-        private Event_Equipments _equipments;
-        private ResultEventEnum _resultEvent;
+        private Task_Status _taskStatus;
+        private StatusTasksEnum _resultTaskStatus;
 
         private bool _taskCommentTextExpanded;
         private TextView _taskCommentTextView;
@@ -60,14 +60,14 @@ namespace Test
 
         internal void TaskFinishedButton_OnClick(object sender, EventArgs eventArgs)
         {
-            switch (_resultEvent)
+            switch (_resultTaskStatus)
             {
-                case ResultEventEnum.NotDone:
-                case ResultEventEnum.New:
+                case StatusTasksEnum.Rejected:
+                case StatusTasksEnum.New:
                     ChangeTaskToDone();
                     break;
 
-                case ResultEventEnum.Done:
+                case StatusTasksEnum.Done:
                     ChangeTaskToNew();
                     break;
 
@@ -79,7 +79,7 @@ namespace Test
         private void ChangeTaskToNew()
         {
             _taskResult = "New";
-            _resultEvent = ResultEventEnum.New;
+            _resultTaskStatus = StatusTasksEnum.New;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonActiveText";
             _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_notdone");
@@ -93,7 +93,7 @@ namespace Test
         private void ChangeTaskToDone()
         {
             _taskResult = "Done";
-            _resultEvent = ResultEventEnum.Done;
+            _resultTaskStatus = StatusTasksEnum.Done;
             _taskFinishedButton.CssClass = "FinishedButtonPressed";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonPressedText";
             _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_done");
@@ -106,14 +106,14 @@ namespace Test
 
         internal void TaskRefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
-            switch (_resultEvent)
+            switch (_resultTaskStatus)
             {
-                case ResultEventEnum.Done:
-                case ResultEventEnum.New:
-                    ChangeTaskToNotDone();
+                case StatusTasksEnum.Done:
+                case StatusTasksEnum.New:
+                    ChangeTaskToNotRejected();
                     break;
 
-                case ResultEventEnum.NotDone:
+                case StatusTasksEnum.Rejected:
                     ChangeTaskToNew();
                     break;
 
@@ -122,10 +122,10 @@ namespace Test
             }
         }
 
-        private void ChangeTaskToNotDone()
+        private void ChangeTaskToNotRejected()
         {
-            _taskResult = "NotDone";
-            _resultEvent = ResultEventEnum.NotDone;
+            _taskResult = "Rejected";
+            _resultTaskStatus = StatusTasksEnum.Rejected;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonActiveText";
             _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_notdone");
@@ -167,10 +167,10 @@ namespace Test
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
             DConsole.WriteLine($"{_taskResult}");
-            _equipments.Comment = _taskCommentEditText.Text;
-            _equipments.Result = ResultEvent.GetDbRefFromEnum(_resultEvent);
+            _taskStatus.CommentContractor = _taskCommentEditText.Text;
+            _taskStatus.Status = StatusTasks.GetDbRefFromEnum(_resultTaskStatus);
 
-            DBHelper.SaveEntity(_equipments);
+            DBHelper.SaveEntity(_taskStatus);
 
             Navigation.Back();
         }
@@ -195,8 +195,8 @@ namespace Test
 
         internal object GetTask()
         {
-            string currentTaskId = (string)BusinessProcess.GlobalVariables["currentTaskId"];
-            _equipments = DBHelper.GetEventEquipmentsById(currentTaskId);
+            string currentTaskId = $"{Variables[Parameters.IdTaskId]}";
+            _taskStatus = DBHelper.GetTaskStatusByTaskId(currentTaskId);
             return DBHelper.GetTaskById(currentTaskId);
         }
 
@@ -211,22 +211,24 @@ namespace Test
             switch (resultName)
             {
                 case "New":
-                    _resultEvent = ResultEventEnum.New;
+                    _resultTaskStatus = StatusTasksEnum.New;
                     break;
 
-                case "NotDone":
-                    _resultEvent = ResultEventEnum.NotDone;
+                case "Rejected":
+                    _resultTaskStatus = StatusTasksEnum.Rejected;
                     break;
 
                 case "Done":
-                    _resultEvent = ResultEventEnum.Done;
+                    _resultTaskStatus = StatusTasksEnum.Done;
                     break;
 
                 default:
-                    _resultEvent = ResultEventEnum.New;
+                    _resultTaskStatus = StatusTasksEnum.New;
                     break;
             }
             return 0;
         }
+
+        internal string UpperCaseString(object @string) => @string.ToString().ToUpper();
     }
 }

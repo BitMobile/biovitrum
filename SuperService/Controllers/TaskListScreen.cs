@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Test.Components;
 
 namespace Test
@@ -36,8 +37,11 @@ namespace Test
 
         internal void TaskLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.GlobalVariables["currentTaskId"] = ((HorizontalLayout)sender).Id;
-            Navigation.Move("TaskScreen");
+            var dictionary = new Dictionary<string, object>()
+            {
+                {Parameters.IdTaskId, ((HorizontalLayout)sender).Id}
+            };
+            Navigation.Move("TaskScreen", dictionary);
         }
 
         internal void TopInfo_Arrow_OnClick(object sernder, EventArgs eventArgs)

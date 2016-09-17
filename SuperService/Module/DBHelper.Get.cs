@@ -504,55 +504,25 @@ namespace Test
         /// </param>
         public static DbRecordset GetTaskById(string taskID)
         {
-            var query = new Query("select  " +
-                                  "      tasks.id as taskID, " + //гуид задачи
-                                  "      tasks.Ref as EventID, " + //гуид наряда (события) к которому относится задача
-                                  "      tasks.terget as Target, " + //Цель
-                                  "      tasks.Comment as Comment, " + // комментарий
-                                  "      equipment.Id as EquipmentId, " + //идентификатор оборудования
-                                  "      equipment.Description as EquipmentDescription, " + //наименование оборудование
-                                  "      Enum_ResultEvent.Name as resultName, " + //результат имя
-                                  "      Enum_ResultEvent.Description as resultDescription, " +
-                                  //результат представление
-                                  "      TypeDeparturesTable.TypeDepartures " +
-                                  //вид работ - выбирается первая активная из списка наряда
-                                  " " +
-                                  "from " +
-                                  "    Document_Event_Equipments as tasks " +
-                                  "       left join Catalog_Equipment as equipment " +
-                                  "         on tasks.Id = @taskID " +
-                                  "         and tasks.Equipment = equipment.Id " +
-                                  " " +
-                                  "       left join Enum_ResultEvent " +
-                                  "          on tasks.Result = Enum_ResultEvent.Id " +
-                                  " " +
-                                  "        left join " +
-                                  "                (select " +
-                                  "                     Document_Event_TypeDepartures.Ref, " +
-                                  "                     Catalog_TypesDepartures.description as TypeDepartures " +
-                                  "                from " +
-                                  "                    (select " +
-                                  "                          ref, " +
-                                  "                          min(lineNumber) as lineNumber " +
-                                  "                     from " +
-                                  "                          Document_Event_TypeDepartures " +
-                                  "                     where " +
-                                  "                          ref = (select Ref from Document_Event_Equipments where id = @taskID limit 1) " +
-                                  "                          and active = 1 " +
-                                  "                     group by " +
-                                  "                          ref) as trueTypeDepartures " +
-                                  " " +
-                                  "                        left join Document_Event_TypeDepartures " +
-                                  "                             on trueTypeDepartures.ref = Document_Event_TypeDepartures.ref " +
-                                  "                                and trueTypeDepartures.lineNumber = Document_Event_TypeDepartures.lineNumber " +
-                                  " " +
-                                  "                        left join Catalog_TypesDepartures " +
-                                  "                             on Document_Event_TypeDepartures.typeDeparture = Catalog_TypesDepartures.id) as TypeDeparturesTable " +
-                                  " " +
-                                  "            on tasks.Ref = TypeDeparturesTable.Ref " +
-                                  " " +
-                                  "where " +
-                                  "      tasks.Id = @taskID");
+            var query = new Query(@"SELECT
+                                      Task.Id                       AS Id,
+                                      Task.Event                    AS Event,
+                                      Task.Description              AS Description,
+                                      Task.TaskType                 AS TaskType,
+                                      Status.Name                   AS Status,
+                                      Equipment.Description         AS Equipment,
+                                      Task_Status.CommentContractor AS Comment
+                                    FROM
+                                      _Document_Task AS Task
+                                      LEFT JOIN
+                                      _Document_Task_Status AS Task_Status
+                                        ON Task.Id = Task_Status.Ref
+                                      LEFT JOIN _Enum_StatusTasks AS Status
+                                        ON Task_Status.Status = Status.Id
+                                      LEFT JOIN _Catalog_Equipment AS Equipment
+                                        ON Task.Equipment = Equipment.Id
+                                    WHERE
+                                      Task.Id = @taskID");
             query.AddParameter("taskID", taskID);
 
             return query.Execute();
@@ -896,6 +866,8 @@ namespace Test
             return query.Execute();
         }
 
+        [Obsolete("В версии 3.1.3.0 больше не используется," +
+                  " поменялся механизм задач.")]
         public static Event_Equipments GetEventEquipmentsById(string id)
         {
             var query = new Query("select * from Document_Event_Equipments where id = @id");
@@ -1199,6 +1171,29 @@ namespace Test
         {
             return new Query($@"select id, ifnull(Latitude, 0.0) as Latitude, ifnull(Longitude, 0.0) as Longitude, max(datetime(EndTime,'localtime')) as EndTime from ___DbLocations
                                 where datetime(EndTime, 'localtime') between datetime('now','localtime', '-{timeSpan} minutes') and datetime('now', 'localtime')").Execute();
+        }
+
+        /// <summary>
+        /// Получить статус задачи.
+        /// </summary>
+        /// <param name="taskId">Индетификатор задачи.</param>
+        /// <returns></returns>
+        public static Task_Status GetTaskStatusByTaskId(string taskId)
+        {
+            var query = new Query(@"SELECT * FROM _Document_Task_Status WHERE Ref = @taskId");
+            query.AddParameter("taskId", taskId);
+
+            var result = query.Execute();
+            return new Task_Status()
+            {
+                Id = (DbRef)result[nameof(Task_Status.Id)],
+                ActualEndDate = (DateTime)result[nameof(Task_Status.ActualEndDate)],
+                CommentContractor = (string)result[nameof(Task_Status.CommentContractor)],
+                Ref = (DbRef)result[nameof(Task_Status.Ref)],
+                LineNumber = (int)result[nameof(Task_Status.LineNumber)],
+                Status = (DbRef)result[nameof(Task_Status.Status)],
+                UserMA = (DbRef)result[nameof(Task_Status.UserMA)]
+            };
         }
     }
 }
