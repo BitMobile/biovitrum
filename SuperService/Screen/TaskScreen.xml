@@ -31,12 +31,14 @@
           <c:HorizontalLine />
 
           <c:VerticalLayout  CssClass="EquipmentDescriptionLayout">
-            <c:HorizontalLayout Id ="$task.EquipmentId" CssClass="DescriptionCenterAlign">
-              <c:TextView Text="$task.Equipment" CssClass="EquipmentDescription" />
+            <c:HorizontalLayout Id ="$task.EquipmentId" CssClass="DescriptionHorizontalCenterAlign">
+              <c:VerticalLayout CssClass="DescriptionVerticalAlign">
+                <c:TextView Text="$task.Equipment" CssClass="EquipmentDescription" />
+              </c:VerticalLayout>
             </c:HorizontalLayout>
           </c:VerticalLayout>
 
-          <c:HorizontalLayout CssClass="EmptySpace2sp" />
+          <!--<c:HorizontalLayout CssClass="EmptySpace2sp" />-->
           <c:HorizontalLine />
         </s:If>
 

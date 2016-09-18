@@ -417,17 +417,22 @@ HorizontalLine {
   width: 80%;
 }
 .EquipmentDescriptionLayout {
-  height: 6sp auto;
+  height: 10sp auto;
   width: 100%;
 }
-.DescriptionCenterAlign {
+.DescriptionHorizontalCenterAlign {
   height: 100%;
   width: 90%;
   horizontal-align: center;
 }
+.DescriptionVerticalAlign {
+  height: 0sp auto;
+  width: 100%;
+  vertical-align: central;
+}
 .EquipmentDescription {
-  vertical-align: center;
+  horizontal-align: center;
   height: 2.775sp auto;
   white-space: nowrap;
-  margin-top: 2sp;
+  width: 100%;
 }
