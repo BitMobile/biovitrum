@@ -170,7 +170,7 @@ namespace Test
             _taskStatus.CommentContractor = _taskCommentEditText.Text;
             _taskStatus.Status = StatusTasks.GetDbRefFromEnum(_resultTaskStatus);
 
-            DBHelper.SaveEntity(_taskStatus);
+            DBHelper.SaveEntity(_taskStatus, false);
 
             Navigation.Back();
         }
@@ -231,7 +231,6 @@ namespace Test
 
         internal string UpperCaseString(object @string) => @string.ToString().ToUpper();
 
-        internal bool IsThereAnyEquipment(object equipment)
-            => !string.IsNullOrEmpty(equipment.ToString());
+        internal bool IsThereAnyEquipment(object equipment) => equipment != null;
     }
 }

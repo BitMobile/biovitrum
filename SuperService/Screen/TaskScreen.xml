@@ -6,12 +6,14 @@
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:ScrollView CssClass="RootLayout">
       <c:VerticalLayout CssClass="RootLayout">
+
         <!--<c:VerticalLayout Id="$task.EquipmentId" OnClick="EquipmentDescriptionLayout_OnClick">
           <c:TextView Text="$task.EquipmentDescription" CssClass="TargetTextView" />
           <c:TextView Text="" CssClass="EquipDescTextView" />
         </c:VerticalLayout>
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
         <c:HorizontalLine />-->
+
         <c:TextView Text="$UpperCaseString($task.TaskType)" CssClass="SubHeading" />
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
         <c:HorizontalLine />
@@ -21,6 +23,23 @@
           <c:Image Id="WrapUnwrapImage" Source="$GetResourceImage(longtext_expand)" CssClass="WrapUnwrapImage" />
           <c:HorizontalLine CssClass="WrapUnwrapLine" />
         </c:HorizontalLayout>
+
+        <s:If Test="$IsThereAnyEquipment($task.Equipment)">
+          <c:HorizontalLayout CssClass="EmptySpace2sp" />
+          <c:TextView Text="$UpperCaseString(#equipment#)" CssClass="SubHeading" />
+          <c:HorizontalLayout CssClass="EmptySpace2sp" />
+          <c:HorizontalLine />
+
+          <c:VerticalLayout  CssClass="EquipmentDescriptionLayout">
+            <c:HorizontalLayout Id ="$task.EquipmentId" CssClass="DescriptionCenterAlign">
+              <c:TextView Text="$task.Equipment" CssClass="EquipmentDescription" />
+            </c:HorizontalLayout>
+          </c:VerticalLayout>
+
+          <c:HorizontalLayout CssClass="EmptySpace2sp" />
+          <c:HorizontalLine />
+        </s:If>
+
         <c:VerticalLayout CssClass="CommentLayout">
           <c:MemoEdit Text="$task.Comment" Id="TaskCommentEditText" Placeholder="#comment...#"
                       CssClass="Comment" OnChange="TaskCommentEditText_OnChange" />

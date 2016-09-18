@@ -307,7 +307,7 @@ namespace Test
         {
             if (CheckBigButtonActive(sender))
             {
-                var dictionary = new Dictionary<string, object>()
+                var dictionary = new Dictionary<string, object>
                 {
                     {Parameters.IdClientId, _currentEventRecordset[Parameters.IdClientId]},
                     {Parameters.IdCurrentEventId, _currentEventRecordset["Id"]}
@@ -430,9 +430,7 @@ namespace Test
         }
 
         internal bool IsNotZero(long count)
-        {
-            return Convert.ToInt64(count) != Convert.ToInt64(0L);
-        }
+            => true; //Convert.ToInt64(count) != Convert.ToInt64(0L);
 
         internal string FormatTimer(string date)
         {

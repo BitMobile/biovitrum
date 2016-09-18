@@ -505,13 +505,14 @@ namespace Test
         public static DbRecordset GetTaskById(string taskID)
         {
             var query = new Query(@"SELECT
-                                      Task.Id                           AS Id,
-                                      Task.Event                        AS Event,
-                                      Task.Description                  AS Description,
-                                      Task.TaskType                     AS TaskType,
-                                      Status.Name                       AS Status,
-                                      ifnull(Equipment.Description, '') AS Equipment,
-                                      Task_Status.CommentContractor     AS Comment
+                                      Task.Id                       AS Id,
+                                      Task.Event                    AS Event,
+                                      Task.Description              AS Description,
+                                      Task.TaskType                 AS TaskType,
+                                      Task.Equipment                AS EquipmentId,
+                                      Status.Name                   AS Status,
+                                      Equipment.Description         AS Equipment,
+                                      Task_Status.CommentContractor AS Comment
                                     FROM
                                       _Document_Task AS Task
                                       LEFT JOIN
