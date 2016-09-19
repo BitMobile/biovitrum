@@ -30,17 +30,35 @@
           <c:HorizontalLayout CssClass="EmptySpace2sp" />
           <c:HorizontalLine />
 
-          <c:VerticalLayout  CssClass="EquipmentDescriptionLayout">
-            <c:HorizontalLayout Id ="$task.EquipmentId" CssClass="DescriptionHorizontalCenterAlign">
-              <c:VerticalLayout CssClass="DescriptionVerticalAlign">
+          <c:VerticalLayout CssClass="EquipmentDescriptionLayout">
+            <c:HorizontalLayout CssClass="DescriptionHorizontalCenterAlign">
+              <c:VerticalLayout Id="$task.EquipmentId" CssClass="DescriptionVerticalAlign" OnClick="Equipment_OnClick">
                 <c:TextView Text="$task.Equipment" CssClass="EquipmentDescription" />
               </c:VerticalLayout>
             </c:HorizontalLayout>
           </c:VerticalLayout>
-
-          <!--<c:HorizontalLayout CssClass="EmptySpace2sp" />-->
           <c:HorizontalLine />
         </s:If>
+
+        <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        <c:TextView Text="$UpperCaseString(#targets#)" CssClass="SubHeading" />
+        <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        <c:HorizontalLine CssClass="CommentEndLine" />
+
+        
+        
+        <s:Iterator Id="targets" Value="$GetTaskTargets()">
+          <c:HorizontalLayout Id="$targets.Id" CssClass="TargetContainer" OnClick="TaskTarget_OnClick">
+            <c:HorizontalLayout CssClass="StateContainer">
+                <c:Image Id="targetStatus" Source="$GetCurrentStatus($targets.IsDone)"
+                         CssClass="State" />
+            </c:HorizontalLayout>
+            <c:HorizontalLayout CssClass="TargetDescriptionContainer">
+              <c:TextView Id="GetText" Text="$targets.Description" CssClass="TargetDescription" />
+            </c:HorizontalLayout>
+          </c:HorizontalLayout>
+          <c:HorizontalLine />
+        </s:Iterator>
 
         <c:VerticalLayout CssClass="CommentLayout">
           <c:MemoEdit Text="$task.Comment" Id="TaskCommentEditText" Placeholder="#comment...#"

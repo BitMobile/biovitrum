@@ -1,6 +1,7 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.DbEngine;
 using System;
+using System.Security.Cryptography;
 using Test.Document;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
@@ -1196,5 +1197,20 @@ namespace Test
                 UserMA = (DbRef)result[nameof(Task_Status.UserMA)]
             };
         }
+
+        public static DbRecordset GetTaskTargetsByTaskId(object taskId)
+        {
+            var query = new Query(@"SELECT
+                                      Id,
+                                      Description,
+                                      IsDone
+                                    FROM _Document_Task_Targets
+                                    WHERE
+                                      Ref = @taskId");
+
+            query.AddParameter("taskId", taskId);
+
+            return query.Execute();
+        } 
     }
 }
