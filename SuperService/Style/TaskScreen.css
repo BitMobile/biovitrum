@@ -462,3 +462,7 @@ HorizontalLine {
   vertical-align: center;
   text-align: left;
 }
+.InternalScreenLayout {
+  height: 0sp auto;
+  width: 100%;
+}

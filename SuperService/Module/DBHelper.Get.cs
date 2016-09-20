@@ -289,13 +289,6 @@ namespace Test
             query.AddParameter("eventId", eventId);
             query.AddParameter("clientId", clientId);
             var result = query.Execute();
-
-            Utils.TraceMessage($"{Parameters.Splitter}{Environment.NewLine}" +
-                               $"Debug Info{Environment.NewLine}" +
-                               $"eventId: {eventId}" +
-                               $"{Environment.NewLine}" +
-                               $"clientId: {clientId}");
-
             return result;
         }
 

@@ -244,33 +244,40 @@ namespace Test
         internal DbRecordset GetTaskTargets()
             => DBHelper.GetTaskTargetsByTaskId(Variables[Parameters.IdTaskId]);
 
-        internal void TaskTarget_OnClick(object sender, EventArgs e)
+        internal void ChangeTaskTargetStatus_OnClick(object sender, EventArgs e)
         {
             var hl = (HorizontalLayout) sender;
 
             var targetStatus = (Image)hl.GetControl("targetStatus", true);
 
-            Utils.TraceMessage($"{targetStatus.Source}");
+            Utils.TraceMessage($"Time: {DateTime.Now.ToString("HH:mm:ss:ffff")}" +
+                               $"{Environment.NewLine}" +
+                               $"targetStatus.Source = {targetStatus.Source}");
 
             var target = (Task_Targets)DBHelper.LoadEntity(hl.Id);
 
-            Utils.TraceMessage($"IsDone: {target.IsDone}");
+            Utils.TraceMessage($"Time: {DateTime.Now.ToString("HH:mm:ss:ffff")}" +
+                               $"{Environment.NewLine}IsDone: {target.IsDone}");
 
-            if (target.IsDone)
-                targetStatus.Source = GetResourceImage("task_target_not_done");
-            else
-                targetStatus.Source = GetResourceImage("task_target_done");
+            targetStatus.Source = GetResourceImage(target.IsDone ? "task_target_not_done" : "task_target_done");
 
             target.IsDone = !target.IsDone;
 
-            Utils.TraceMessage($"targetStatus {targetStatus.Source}{Environment.NewLine}" +
-                               $"IsDone: {target.IsDone}");
+            Utils.TraceMessage($"Time: {DateTime.Now.ToString("HH:mm:ss:ffff")}" +
+                               $"{Environment.NewLine}targetStatus.Source = {targetStatus.Source}" +
+                               $"{Environment.NewLine}IsDone: {target.IsDone}");
 
             DBHelper.SaveEntity(target, false);
             targetStatus.Refresh();
         }
 
         internal string GetCurrentStatus(bool status)
-            => status ? GetResourceImage("task_target_done") : GetResourceImage("task_target_not_done");
+        {
+           var result = status ? GetResourceImage("task_target_done") 
+                : GetResourceImage("task_target_not_done");
+            Utils.TraceMessage($"Time: {DateTime.Now.ToString("HH:mm:ss:ffff")}" +
+                               $"{Environment.NewLine}In XML Target Status = {result}");
+            return result;
+        }
     }
 }
