@@ -430,7 +430,7 @@ namespace Test
         }
 
         internal bool IsNotZero(long count)
-            => true; //Convert.ToInt64(count) != Convert.ToInt64(0L);
+            => Convert.ToInt64(count) != Convert.ToInt64(0L);
 
         internal string FormatTimer(string date)
         {
