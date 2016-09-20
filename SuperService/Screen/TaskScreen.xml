@@ -38,17 +38,14 @@
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
         <c:HorizontalLine CssClass="CommentEndLine" />
 
-        
-        
+
         <s:Iterator Id="targets" Value="$GetTaskTargets()">
-          <c:HorizontalLayout Id="$targets.Id" CssClass="TargetContainer" OnClick="ChangeTaskTargetStatus_OnClick">
-            <c:HorizontalLayout CssClass="StateContainer">
-                <c:Image Id="targetStatus" Source="$GetCurrentStatus($targets.IsDone)"
-                         CssClass="State" />
+          <c:HorizontalLayout Id="$targets.Id" CssClass="TargetContainer">
+            <c:HorizontalLayout Id="$targets.Id" CssClass="StateContainer" OnClick="ChangeTaskTargetStatus_OnClick">
+              <c:Image Id="targetStatus" Source="$GetCurrentStatus($targets.IsDone)"
+                       CssClass="State" />
             </c:HorizontalLayout>
-            <c:HorizontalLayout CssClass="TargetDescriptionContainer">
-              <c:TextView Id="GetText" Text="$targets.Description" CssClass="TargetDescription" />
-            </c:HorizontalLayout>
+            <c:TextView Id="GetText" Text="$targets.Description" CssClass="TargetDescription" />
           </c:HorizontalLayout>
           <c:HorizontalLine />
         </s:Iterator>
@@ -114,7 +111,7 @@
 
         <c:HorizontalLayout CssClass="EmptySpace6sp" />
       </c:VerticalLayout>
-   
+
     </c:ScrollView>
   </c:DockLayout>
 </c:Screen>

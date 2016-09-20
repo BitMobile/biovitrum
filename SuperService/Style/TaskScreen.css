@@ -443,16 +443,12 @@ HorizontalLine {
   horizontal-align: center;
 }
 .StateContainer {
-  height: 100%;
-  width: 10sp;
+  width: 0sp auto;
+  vertical-align: center;
+  margin-right: 4sp;
 }
 .State {
   height: 4sp;
-  vertical-align: center;
-}
-.TargetDescriptionContainer {
-  height: 100%;
-  width: auto;
 }
 .TargetDescription {
   font: 2.5sp arial;
@@ -461,6 +457,8 @@ HorizontalLine {
   width: 10sp auto;
   vertical-align: center;
   text-align: left;
+  margin-top: 2sp;
+  margin-bottom: 2sp;
 }
 .InternalScreenLayout {
   height: 0sp auto;
