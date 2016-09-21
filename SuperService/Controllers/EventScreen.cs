@@ -378,10 +378,9 @@ namespace Test
             return _currentEventRecordset;
         }
 
-        internal string GetStringPartOfTotal(long part, long total)
-        {
-            return Converter.ToDecimal(part) != 0 ? $"{part}/{total}" : $"{total}";
-        }
+        internal string GetStringPartOfTotal(object part, object total)
+         => !part.Equals(0) ? $"{part}/{total}" : $"{total}";
+        
 
         internal string GetPrice(DbRecordset eventRecordset)
         {
@@ -451,5 +450,11 @@ namespace Test
                 total += (decimal)services;
             return $"{total:N2} {Translator.Translate("currency")}";
         }
+
+        internal long GetTotalTask(object eventId, object clientId)
+            => DBHelper.GetTotalTaskByEventIdOrClientId(eventId, clientId);
+
+        internal long GetTotalAnsweredTask(object eventId, object clientId)
+            => DBHelper.GetTotalTaskAnsweredByEventIdOrClientId(eventId, clientId);
     }
 }
