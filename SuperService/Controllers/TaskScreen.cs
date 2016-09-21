@@ -1,7 +1,7 @@
-﻿using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
 using Test.Components;
 using Test.Document;
 using Test.Enum;
@@ -10,64 +10,65 @@ namespace Test
 {
     public class TaskScreen : Screen
     {
-        private Event_Equipments _equipments;
-        private ResultEventEnum _resultEvent;
+        private StatusTasksEnum _resultTaskStatus;
 
-        private bool _taskCommentTextExpanded;
-        private TextView _taskCommentTextView;
-        private string _taskResult;
-        private TopInfoComponent _topInfoComponent;
-        private Image _wrapUnwrapImage;
-
-        private HorizontalLayout _taskFinishedButton;
-        private HorizontalLayout _taskRefuseButton;
-        private TextView _taskFinishedButtonTextView;
-        private TextView _taskRefuseButtonTextView;
-        private Image _taskFinishedButtonImage;
-        private Image _taskRefuseButtonImage;
+        private DockLayout _rootLayout;
 
         private MemoEdit _taskCommentEditText;
 
-        private DockLayout _rootLayout;
+        private bool _taskCommentTextExpanded;
+        private TextView _taskCommentTextView;
+
+        private HorizontalLayout _taskFinishedButton;
+        private Image _taskFinishedButtonImage;
+        private TextView _taskFinishedButtonTextView;
+        private HorizontalLayout _taskRefuseButton;
+        private Image _taskRefuseButtonImage;
+        private TextView _taskRefuseButtonTextView;
+        private string _taskResult;
+        private Task_Status _taskStatus;
+        private TopInfoComponent _topInfoComponent;
+        private Image _wrapUnwrapImage;
 
         public override void OnLoading()
         {
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("task"),
-                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")},
                 ArrowVisible = false
             };
 
-            _taskCommentTextView = (TextView)GetControl("TaskCommentTextView", true);
-            _wrapUnwrapImage = (Image)GetControl("WrapUnwrapImage", true);
+            _taskCommentTextView = (TextView) GetControl("TaskCommentTextView", true);
+            _wrapUnwrapImage = (Image) GetControl("WrapUnwrapImage", true);
 
-            _taskFinishedButton = (HorizontalLayout)GetControl("TaskFinishedButton", true);
-            _taskRefuseButton = (HorizontalLayout)GetControl("TaskRefuseButton", true);
-            _taskFinishedButtonTextView = (TextView)GetControl("TaskFinishedButtonTextView", true);
-            _taskRefuseButtonTextView = (TextView)GetControl("TaskRefuseButtonTextView", true);
-            _taskFinishedButtonImage = (Image)GetControl("TaskFinishedButtonImage", true);
-            _taskRefuseButtonImage = (Image)GetControl("TaskRefuseButtonImage", true);
+            _taskFinishedButton = (HorizontalLayout) GetControl("TaskFinishedButton", true);
+            _taskRefuseButton = (HorizontalLayout) GetControl("TaskRefuseButton", true);
+            _taskFinishedButtonTextView = (TextView) GetControl("TaskFinishedButtonTextView", true);
+            _taskRefuseButtonTextView = (TextView) GetControl("TaskRefuseButtonTextView", true);
+            _taskFinishedButtonImage = (Image) GetControl("TaskFinishedButtonImage", true);
+            _taskRefuseButtonImage = (Image) GetControl("TaskRefuseButtonImage", true);
 
-            _taskCommentEditText = (MemoEdit)GetControl("TaskCommentEditText", true);
-            _rootLayout = (DockLayout)Controls[0];
+            _taskCommentEditText = (MemoEdit) GetControl("TaskCommentEditText", true);
+            _rootLayout = (DockLayout) Controls[0];
             _topInfoComponent.ActivateBackButton();
         }
 
         public override void OnShow()
         {
+            Utils.TraceMessage($"{Variables[Parameters.IdTaskId]}");
         }
 
         internal void TaskFinishedButton_OnClick(object sender, EventArgs eventArgs)
         {
-            switch (_resultEvent)
+            switch (_resultTaskStatus)
             {
-                case ResultEventEnum.NotDone:
-                case ResultEventEnum.New:
+                case StatusTasksEnum.Rejected:
+                case StatusTasksEnum.New:
                     ChangeTaskToDone();
                     break;
 
-                case ResultEventEnum.Done:
+                case StatusTasksEnum.Done:
                     ChangeTaskToNew();
                     break;
 
@@ -79,7 +80,7 @@ namespace Test
         private void ChangeTaskToNew()
         {
             _taskResult = "New";
-            _resultEvent = ResultEventEnum.New;
+            _resultTaskStatus = StatusTasksEnum.New;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonActiveText";
             _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_notdone");
@@ -93,7 +94,7 @@ namespace Test
         private void ChangeTaskToDone()
         {
             _taskResult = "Done";
-            _resultEvent = ResultEventEnum.Done;
+            _resultTaskStatus = StatusTasksEnum.Done;
             _taskFinishedButton.CssClass = "FinishedButtonPressed";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonPressedText";
             _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_done");
@@ -106,14 +107,14 @@ namespace Test
 
         internal void TaskRefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
-            switch (_resultEvent)
+            switch (_resultTaskStatus)
             {
-                case ResultEventEnum.Done:
-                case ResultEventEnum.New:
-                    ChangeTaskToNotDone();
+                case StatusTasksEnum.Done:
+                case StatusTasksEnum.New:
+                    ChangeTaskToNotRejected();
                     break;
 
-                case ResultEventEnum.NotDone:
+                case StatusTasksEnum.Rejected:
                     ChangeTaskToNew();
                     break;
 
@@ -122,10 +123,10 @@ namespace Test
             }
         }
 
-        private void ChangeTaskToNotDone()
+        private void ChangeTaskToNotRejected()
         {
-            _taskResult = "NotDone";
-            _resultEvent = ResultEventEnum.NotDone;
+            _taskResult = "Rejected";
+            _resultTaskStatus = StatusTasksEnum.Rejected;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
             _taskFinishedButtonTextView.CssClass = "FinishedButtonActiveText";
             _taskFinishedButtonImage.Source = ResourceManager.GetImage("tasklist_notdone");
@@ -167,10 +168,10 @@ namespace Test
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
             DConsole.WriteLine($"{_taskResult}");
-            _equipments.Comment = _taskCommentEditText.Text;
-            _equipments.Result = ResultEvent.GetDbRefFromEnum(_resultEvent);
+            _taskStatus.CommentContractor = _taskCommentEditText.Text;
+            _taskStatus.Status = StatusTasks.GetDbRefFromEnum(_resultTaskStatus);
 
-            DBHelper.SaveEntity(_equipments);
+            DBHelper.SaveEntity(_taskStatus, false);
 
             Navigation.Back();
         }
@@ -179,9 +180,9 @@ namespace Test
         {
             // TODO(SUPS-718): Передавать информацию об оборудовании
 
-            var v1 = (VerticalLayout)sender;
+            var v1 = (VerticalLayout) sender;
 
-            var dictionary = new Dictionary<string, object>()
+            var dictionary = new Dictionary<string, object>
             {
                 {Parameters.IdEquipmentId, v1.Id}
             };
@@ -195,8 +196,8 @@ namespace Test
 
         internal object GetTask()
         {
-            string currentTaskId = (string)BusinessProcess.GlobalVariables["currentTaskId"];
-            _equipments = DBHelper.GetEventEquipmentsById(currentTaskId);
+            string currentTaskId = $"{Variables[Parameters.IdTaskId]}";
+            _taskStatus = DBHelper.GetTaskStatusByTaskId(currentTaskId);
             return DBHelper.GetTaskById(currentTaskId);
         }
 
@@ -211,22 +212,72 @@ namespace Test
             switch (resultName)
             {
                 case "New":
-                    _resultEvent = ResultEventEnum.New;
+                    _resultTaskStatus = StatusTasksEnum.New;
                     break;
 
-                case "NotDone":
-                    _resultEvent = ResultEventEnum.NotDone;
+                case "Rejected":
+                    _resultTaskStatus = StatusTasksEnum.Rejected;
                     break;
 
                 case "Done":
-                    _resultEvent = ResultEventEnum.Done;
+                    _resultTaskStatus = StatusTasksEnum.Done;
                     break;
 
                 default:
-                    _resultEvent = ResultEventEnum.New;
+                    _resultTaskStatus = StatusTasksEnum.New;
                     break;
             }
             return 0;
+        }
+
+        internal string UpperCaseString(object @string) => @string.ToString().ToUpper();
+
+        internal bool IsThereAnyEquipment(object equipment) => equipment != null;
+
+        internal void Equipment_OnClick(object sender, EventArgs e)
+        {
+            var equipmentId = ((VerticalLayout) sender).Id;
+            Navigation.Move(nameof(EquipmentScreen),
+                new Dictionary<string, object> {{Parameters.IdEquipmentId, equipmentId}});
+        }
+
+        internal DbRecordset GetTaskTargets()
+            => DBHelper.GetTaskTargetsByTaskId(Variables[Parameters.IdTaskId]);
+
+        internal void ChangeTaskTargetStatus_OnClick(object sender, EventArgs e)
+        {
+            var hl = (HorizontalLayout) sender;
+
+            var targetStatus = (Image)hl.GetControl("targetStatus", true);
+
+            Utils.TraceMessage($"Time: {DateTime.Now.ToString("HH:mm:ss:ffff")}" +
+                               $"{Environment.NewLine}" +
+                               $"targetStatus.Source = {targetStatus.Source}");
+
+            var target = (Task_Targets)DBHelper.LoadEntity(hl.Id);
+
+            Utils.TraceMessage($"Time: {DateTime.Now.ToString("HH:mm:ss:ffff")}" +
+                               $"{Environment.NewLine}IsDone: {target.IsDone}");
+
+            targetStatus.Source = GetResourceImage(target.IsDone ? "task_target_not_done" : "task_target_done");
+
+            target.IsDone = !target.IsDone;
+
+            Utils.TraceMessage($"Time: {DateTime.Now.ToString("HH:mm:ss:ffff")}" +
+                               $"{Environment.NewLine}targetStatus.Source = {targetStatus.Source}" +
+                               $"{Environment.NewLine}IsDone: {target.IsDone}");
+
+            DBHelper.SaveEntity(target, false);
+            targetStatus.Refresh();
+        }
+
+        internal string GetCurrentStatus(bool status)
+        {
+           var result = status ? GetResourceImage("task_target_done") 
+                : GetResourceImage("task_target_not_done");
+            Utils.TraceMessage($"Time: {DateTime.Now.ToString("HH:mm:ss:ffff")}" +
+                               $"{Environment.NewLine}In XML Target Status = {result}");
+            return result;
         }
     }
 }

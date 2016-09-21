@@ -306,7 +306,14 @@ namespace Test
         internal void TaskCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
             if (CheckBigButtonActive(sender))
-                Navigation.Move("TaskListScreen");
+            {
+                var dictionary = new Dictionary<string, object>
+                {
+                    {Parameters.IdClientId, _currentEventRecordset[Parameters.IdClientId]},
+                    {Parameters.IdCurrentEventId, _currentEventRecordset["Id"]}
+                };
+                Navigation.Move("TaskListScreen", dictionary);
+            }
         }
 
         private bool CheckBigButtonActive(object sender)
@@ -423,9 +430,7 @@ namespace Test
         }
 
         internal bool IsNotZero(long count)
-        {
-            return Convert.ToInt64(count) != Convert.ToInt64(0L);
-        }
+            => Convert.ToInt64(count) != Convert.ToInt64(0L);
 
         internal string FormatTimer(string date)
         {
