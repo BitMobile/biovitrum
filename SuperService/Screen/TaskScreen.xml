@@ -7,6 +7,7 @@
     <c:ScrollView CssClass="RootLayout">
       <c:VerticalLayout CssClass="InternalScreenLayout">
 
+        <c:HorizontalLayout CssClass="EmptySpace2sp" />
         <c:TextView Text="$UpperCaseString($task.TaskType)" CssClass="SubHeading" />
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
         <c:HorizontalLine />
