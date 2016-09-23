@@ -1018,19 +1018,28 @@ namespace Test
         /// <param name="equipmentId">Идентификатор оборудования</param>
         public static DbRecordset GetEquipmentParametersById(string equipmentId)
         {
-            var queryText = @"select
-                               param.Description as Parameter,
-                               equipParam.val as Value
-                            from
-                               Catalog_Equipment_Parameters as equipParam
-                                  left join Catalog_EquipmentOptions as param
-                                     on equipParam.Ref = @equipId and equipParam.Parameter = param.Id
+            var queryText = @"SELECT
+                                  parameters.Id AS Id,
+                                  parameters.Ref AS EquipmentId,
+                                  parameters.Val AS Result,
+                                  options.Id AS OptionId,
+                                  options.Description as Description,
+                                  typesDataParameters.Name AS TypeName
+                                FROM
+                                  _Catalog_Equipment_Parameters AS parameters
+                                LEFT JOIN _Catalog_EquipmentOptions AS options
+                                  ON parameters.Ref = @equipmentId
+                                    AND parameters.Parameter = options.Id
 
-                                where
-                                    equipParam.Ref = @equipId and param.DeletionMark = 0";
+                                LEFT JOIN Enum_TypesDataParameters AS typesDataParameters
+                                ON options.DataTypeParameter = typesDataParameters.Id
+
+                                WHERE
+                                  parameters.Ref = @equipmentId
+                                ORDER BY parameters.LineNumber ASC";
 
             var query = new Query(queryText);
-            query.AddParameter("equipId", equipmentId);
+            query.AddParameter("equipmentId", equipmentId);
 
             return query.Execute();
         }
@@ -1044,24 +1053,24 @@ namespace Test
         public static DbRecordset GetEquipmentHistoryById(string equpmentId, DateTime afterDate)
         {
             DConsole.WriteLine("GetEquipmentHistoryById");
-            var queryText = "select " +
-                            "   history.Period as Date, " +
-                            "   history.Target as Description, " +
-                            "   Enum_ResultEvent.Description as result, " +
-                            "   Enum_ResultEvent.Name as ResultName " +
-                            "from " +
-                            "   Catalog_Equipment_EquiementsHistory as history " +
-                            "       left join Enum_ResultEvent " +
-                            "            on history.Result = Enum_ResultEvent.Id " +
-                            "where " +
-                            "     history.Equiements = @equipmentId " +
-                            "     and history.Period > date(@startDate) " +
-                            " " +
-                            " order by Date desc";
+            var queryText = @"SELECT
+                                  history.Period               AS Date,
+                                  history.Target               AS Description,
+                                  Enum_ResultEvent.Description AS result,
+                                  Enum_ResultEvent.Name        AS ResultName
+                                FROM
+                                  Catalog_Equipment_EquiementsHistory AS history
+                                  LEFT JOIN Enum_ResultEvent
+                                    ON history.Result = Enum_ResultEvent.Id
+                                WHERE
+                                  history.Equiements = @equipmentId
+                                  AND history.Period > date(@startDate)
+                                ORDER BY Date
+                                  DESC";
 
             var query = new Query(queryText);
             query.AddParameter("equipmentId", equpmentId);
-            query.AddParameter("startDate", afterDate);
+            query.AddParameter("startDate", afterDate.ToString("yyyy-MM-dd"));
 
             DConsole.WriteLine("GetEquipmentHistoryById");
 
@@ -1260,6 +1269,21 @@ namespace Test
             var result = query.Execute();
 
             return (long) result["TaskAnswered"];
+        }
+
+        public static DbRecordset GetEquipmentOptionValueList(string optionId)
+        {
+            var query = new Query(@"SELECT
+                                      Catalog_EquipmentOptions_ListValues.Id,
+                                      Catalog_EquipmentOptions_ListValues.Val
+                                    FROM
+                                      Catalog_EquipmentOptions_ListValues
+                                    WHERE
+                                      Catalog_EquipmentOptions_ListValues.Ref = @optionId
+                                    ORDER BY LineNumber ASC");
+            query.AddParameter("optionId",optionId);
+
+            return query.Execute();
         }
     }
 }
