@@ -3,6 +3,7 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
+    <s:Push Id="void" Value="$InitClassFields()"/>
     <s:Push Id="emptyParameters" Value="true" />
     <c:ScrollView CssClass="CheckListMainSVL">
       <c:VerticalLayout>
@@ -132,9 +133,6 @@
           <c:HorizontalLine CssClass="CheckListBreaker" />
         </s:Iterator>
       </c:VerticalLayout>
-      <s:If Test="$emptyParameters">
-        <c:TextView Text="#client_parameters_empty#" CssClass="EmptyParametersMessage" />
-      </s:If>
     </c:ScrollView>
   </c:VerticalLayout>
 </c:Screen>

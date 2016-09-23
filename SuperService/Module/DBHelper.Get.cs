@@ -1270,5 +1270,20 @@ namespace Test
 
             return (long) result["TaskAnswered"];
         }
+
+        public static DbRecordset GetEquipmentOptionValueList(string optionId)
+        {
+            var query = new Query(@"SELECT
+                                      Catalog_EquipmentOptions_ListValues.Id,
+                                      Catalog_EquipmentOptions_ListValues.Val
+                                    FROM
+                                      Catalog_EquipmentOptions_ListValues
+                                    WHERE
+                                      Catalog_EquipmentOptions_ListValues.Ref = @optionId
+                                    ORDER BY LineNumber ASC");
+            query.AddParameter("optionId",optionId);
+
+            return query.Execute();
+        }
     }
 }
