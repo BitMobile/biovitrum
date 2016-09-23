@@ -3,10 +3,18 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
-    <s:Push Id="void" Value="$InitClassFields()"/>
+    <s:Push Id="void" Value="$InitClassFields()" />
     <s:Push Id="emptyParameters" Value="true" />
     <c:ScrollView CssClass="CheckListMainSVL">
       <c:VerticalLayout>
+
+        <c:TextView Text="$GetEquipmentDescription()" CssClass="HeadingTextView" />
+        <c:HorizontalLine CssClass="HeadingBreaker" />
+        <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        <c:TextView Text="#PARAMETERS#" CssClass="SubHeading" />
+        <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        <c:HorizontalLine CssClass="EndLine" />
+
         <s:Iterator Id="Parameter" Value="$GetParameters()">
           <s:Push Id="emptyParameters" Value="false" />
           <c:HorizontalLayout Id="$Parameter.Id" CssClass="CheckListItemHL"
@@ -132,6 +140,34 @@
           </c:HorizontalLayout>
           <c:HorizontalLine CssClass="CheckListBreaker" />
         </s:Iterator>
+
+        <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        <c:TextView Text="#SERVICEHISTORY#" CssClass="SubHeading" />
+        <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        <c:HorizontalLine CssClass="EndLine" />
+        <s:Iterator Id="history" Value="$GetHistory()">
+
+
+          <c:VerticalLayout CssClass="ListElement">
+            <c:HorizontalLayout CssClass="EmptySpace2sp" />
+            <c:HorizontalLayout>
+              <c:VerticalLayout CssClass="HistoryDescriptionResultLayout">
+                <c:TextView Text="$history.Description" CssClass="HistoryDescriptionView" />
+                <s:If Test="$history.ResultName == Done">
+                  <c:TextView Text="$history.Result" CssClass="HistoryResultViewDone" />
+                </s:If>
+                <s:Else>
+                  <c:TextView Text="$history.Result" CssClass="HistoryResultViewNotDone" />
+                </s:Else>
+              </c:VerticalLayout>
+              <c:TextView Text="$FormatDateString($history.Date)" CssClass="HistoryDateView" />
+            </c:HorizontalLayout>
+            <c:HorizontalLayout CssClass="EmptySpace2sp" />
+          </c:VerticalLayout>
+          <c:HorizontalLine />
+        </s:Iterator>
+
       </c:VerticalLayout>
     </c:ScrollView>
   </c:VerticalLayout>

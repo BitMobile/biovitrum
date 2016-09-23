@@ -103,7 +103,7 @@ namespace Test
 
         internal DbRecordset GetHistory()
         {
-            var res = DBHelper.GetEquipmentHistoryById(_equipmentId, new DateTime());
+            var res = DBHelper.GetEquipmentHistoryById(_equipmentId, DateTime.MinValue);
             return res;
         }
 
@@ -124,7 +124,7 @@ namespace Test
             return ResourceManager.GetImage(tag);
         }
 
-        #region CheckList Methods
+
 
         private static void UpdateChecklist(string id, string result)
         {
@@ -344,7 +344,5 @@ namespace Test
         {
             return true;
         }
-
-        #endregion
     }
 }

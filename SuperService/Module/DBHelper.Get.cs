@@ -1053,24 +1053,24 @@ namespace Test
         public static DbRecordset GetEquipmentHistoryById(string equpmentId, DateTime afterDate)
         {
             DConsole.WriteLine("GetEquipmentHistoryById");
-            var queryText = "select " +
-                            "   history.Period as Date, " +
-                            "   history.Target as Description, " +
-                            "   Enum_ResultEvent.Description as result, " +
-                            "   Enum_ResultEvent.Name as ResultName " +
-                            "from " +
-                            "   Catalog_Equipment_EquiementsHistory as history " +
-                            "       left join Enum_ResultEvent " +
-                            "            on history.Result = Enum_ResultEvent.Id " +
-                            "where " +
-                            "     history.Equiements = @equipmentId " +
-                            "     and history.Period > date(@startDate) " +
-                            " " +
-                            " order by Date desc";
+            var queryText = @"SELECT
+                                  history.Period               AS Date,
+                                  history.Target               AS Description,
+                                  Enum_ResultEvent.Description AS result,
+                                  Enum_ResultEvent.Name        AS ResultName
+                                FROM
+                                  Catalog_Equipment_EquiementsHistory AS history
+                                  LEFT JOIN Enum_ResultEvent
+                                    ON history.Result = Enum_ResultEvent.Id
+                                WHERE
+                                  history.Equiements = @equipmentId
+                                  AND history.Period > date(@startDate)
+                                ORDER BY Date
+                                  DESC";
 
             var query = new Query(queryText);
             query.AddParameter("equipmentId", equpmentId);
-            query.AddParameter("startDate", afterDate);
+            query.AddParameter("startDate", afterDate.ToString("yyyy-MM-dd"));
 
             DConsole.WriteLine("GetEquipmentHistoryById");
 
