@@ -271,10 +271,10 @@ namespace Test
         }
 
         /// <summary>
-        ///     Получает список задач события
+        ///     Получает список задач наряда или клиента.
         /// </summary>
-        /// <param name="eventId"> Идентификатор события</param>
-        /// <param name="clientId"> Индетефикатор клиента</param>
+        /// <param name="eventId"> Идентификатор наряда.</param>
+        /// <param name="clientId"> Индетефикатор клиента.</param>
         public static DbRecordset GetTasksByEventIDOrClientID(string eventId, string clientId)
         {
             var query = new Query(@"SELECT
@@ -295,7 +295,9 @@ namespace Test
                                     CASE WHEN EXISTS(SELECT * FROM _Document_Task WHERE _Document_Task.Event LIKE @eventId)
                                        THEN  Task.Event LIKE @eventId
                                        ELSE Task.Client LIKE @clientId AND Task.Event LIKE '@ref[Document_Event]:00000000-0000-0000-0000-000000000000'
-                                    END");
+                                    END
+
+                                    AND Task.DeletionMark == 0");
             query.AddParameter("eventId", eventId);
             query.AddParameter("clientId", clientId);
             var result = query.Execute();
