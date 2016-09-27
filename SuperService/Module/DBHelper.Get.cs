@@ -339,29 +339,29 @@ namespace Test
         public static DbRecordset GetEquipmentByClientID(string clientID)
         {
             var query = new Query("select " +
-                                  "    equipmentLastChangeDate.Equiement as equipmentID, " +
+                                  "    equipmentLastChangeDate.Equipment as equipmentID, " +
                                   "    equipmentLastChangeDate.period as lastChange, " +
                                   "    Catalog_Equipment.Description " +
                                   "" +
                                   "from " +
                                   "       (select " +
                                   "            clients, " +
-                                  "            Equiement, " +
+                                  "            Equipment, " +
                                   "            MAX(period) as period " +
                                   "        from " +
-                                  "            Catalog_Equipment_Equiements " +
+                                  "            Catalog_Equipment_Equipments " +
                                   "        where " +
                                   "            clients = @clientID " +
                                   "        group by " +
-                                  "            clients, Equiement) as equipmentLastChangeDate " +
+                                  "            clients, Equipment) as equipmentLastChangeDate " +
                                   "" +
-                                  "        left join Catalog_Equipment_Equiements " +
-                                  "        on equipmentLastChangeDate.clients = Catalog_Equipment_Equiements.clients " +
-                                  "        and equipmentLastChangeDate.Equiement = Catalog_Equipment_Equiements.Equiement " +
-                                  "        and equipmentLastChangeDate.Period = Catalog_Equipment_Equiements.Period " +
+                                  "        left join Catalog_Equipment_Equipments " +
+                                  "        on equipmentLastChangeDate.clients = Catalog_Equipment_Equipments.clients " +
+                                  "        and equipmentLastChangeDate.Equipment = Catalog_Equipment_Equipments.Equipment " +
+                                  "        and equipmentLastChangeDate.Period = Catalog_Equipment_Equipments.Period " +
                                   "" +
                                   "        left join Catalog_Equipment " +
-                                  "        on equipmentLastChangeDate.Equiement = Catalog_Equipment.id");
+                                  "        on equipmentLastChangeDate.Equipment = Catalog_Equipment.id");
 
             query.AddParameter("clientID", clientID);
 
