@@ -278,26 +278,23 @@ namespace Test
         public static DbRecordset GetTasksByEventIDOrClientID(string eventId, string clientId)
         {
             var query = new Query(@"SELECT
-                                      Task.Id AS Id,
-                                      Task.Description as Description,
-                                      Task.TaskType as TaskType,
-                                      Status.Name AS StatusName
+                                      Task.Id          AS Id,
+                                      Task.Description AS Description,
+                                      Task.TaskType    AS TaskType,
+                                      Status.Name      AS StatusName
                                     FROM
                                       _Document_Task AS Task
-                                    INNER JOIN
+                                      INNER JOIN
                                       _Document_Task_Status AS Task_Status
-                                    ON Task_Status.Ref = Task.Id
-                                    INNER JOIN
-                                        _Enum_StatusTasks AS Status
-                                    ON Task_Status.Status = Status.Id
+                                        ON Task_Status.Ref = Task.Id
+                                      INNER JOIN
+                                      _Enum_StatusTasks AS Status
+                                        ON Task_Status.Status = Status.Id
                                     WHERE
-
-                                    CASE WHEN EXISTS(SELECT * FROM _Document_Task WHERE _Document_Task.Event LIKE @eventId)
-                                       THEN  Task.Event LIKE @eventId
-                                       ELSE Task.Client LIKE @clientId AND Task.Event LIKE '@ref[Document_Event]:00000000-0000-0000-0000-000000000000'
-                                    END
-
-                                    AND Task.DeletionMark == 0");
+                                      (Task.Event LIKE @eventId AND Task.Client LIKE @clientId)
+                                      OR
+                                      (Task.Client LIKE @clientId AND Task.Event LIKE '@ref[Document_Event]:00000000-0000-0000-0000-000000000000')
+                                      AND Task.DeletionMark == 0");
             query.AddParameter("eventId", eventId);
             query.AddParameter("clientId", clientId);
             var result = query.Execute();
@@ -1078,7 +1075,6 @@ namespace Test
             query.AddParameter("equipmentId", equpmentId);
             query.AddParameter("startDate", afterDate.ToString("yyyy-MM-dd"));
 
-
             return query.Execute();
         }
 
@@ -1228,7 +1224,7 @@ namespace Test
             query.AddParameter("taskId", taskId);
 
             return query.Execute();
-        } 
+        }
 
         public static long GetTotalTaskByEventIdOrClientId(object eventId, object clientId)
         {
@@ -1246,7 +1242,7 @@ namespace Test
             query.AddParameter("clientId", clientId);
             var result = query.Execute();
 
-            return (long) result["TotalTask"];
+            return (long)result["TotalTask"];
         }
 
         public static long GetTotalTaskAnsweredByEventIdOrClientId(object eventId, object clientId)
@@ -1273,7 +1269,7 @@ namespace Test
 
             var result = query.Execute();
 
-            return (long) result["TaskAnswered"];
+            return (long)result["TaskAnswered"];
         }
 
         public static DbRecordset GetEquipmentOptionValueList(string optionId)
@@ -1286,7 +1282,7 @@ namespace Test
                                     WHERE
                                       Catalog_EquipmentOptions_ListValues.Ref = @optionId
                                     ORDER BY LineNumber ASC");
-            query.AddParameter("optionId",optionId);
+            query.AddParameter("optionId", optionId);
 
             return query.Execute();
         }
