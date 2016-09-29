@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using System;
+using System.Collections.Generic;
 using Test.Components;
 using Test.Document;
 using Test.Enum;
@@ -35,22 +35,22 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("task"),
-                LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")},
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
                 ArrowVisible = false
             };
 
-            _taskCommentTextView = (TextView) GetControl("TaskCommentTextView", true);
-            _wrapUnwrapImage = (Image) GetControl("WrapUnwrapImage", true);
+            _taskCommentTextView = (TextView)GetControl("TaskCommentTextView", true);
+            _wrapUnwrapImage = (Image)GetControl("WrapUnwrapImage", true);
 
-            _taskFinishedButton = (HorizontalLayout) GetControl("TaskFinishedButton", true);
-            _taskRefuseButton = (HorizontalLayout) GetControl("TaskRefuseButton", true);
-            _taskFinishedButtonTextView = (TextView) GetControl("TaskFinishedButtonTextView", true);
-            _taskRefuseButtonTextView = (TextView) GetControl("TaskRefuseButtonTextView", true);
-            _taskFinishedButtonImage = (Image) GetControl("TaskFinishedButtonImage", true);
-            _taskRefuseButtonImage = (Image) GetControl("TaskRefuseButtonImage", true);
+            _taskFinishedButton = (HorizontalLayout)GetControl("TaskFinishedButton", true);
+            _taskRefuseButton = (HorizontalLayout)GetControl("TaskRefuseButton", true);
+            _taskFinishedButtonTextView = (TextView)GetControl("TaskFinishedButtonTextView", true);
+            _taskRefuseButtonTextView = (TextView)GetControl("TaskRefuseButtonTextView", true);
+            _taskFinishedButtonImage = (Image)GetControl("TaskFinishedButtonImage", true);
+            _taskRefuseButtonImage = (Image)GetControl("TaskRefuseButtonImage", true);
 
-            _taskCommentEditText = (MemoEdit) GetControl("TaskCommentEditText", true);
-            _rootLayout = (DockLayout) Controls[0];
+            _taskCommentEditText = (MemoEdit)GetControl("TaskCommentEditText", true);
+            _rootLayout = (DockLayout)Controls[0];
             _topInfoComponent.ActivateBackButton();
         }
 
@@ -79,6 +79,7 @@ namespace Test
 
         private void ChangeTaskToNew()
         {
+            _taskStatus.ActualEndDate = DateTime.Now;
             _taskResult = "New";
             _resultTaskStatus = StatusTasksEnum.New;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
@@ -93,6 +94,7 @@ namespace Test
 
         private void ChangeTaskToDone()
         {
+            _taskStatus.ActualEndDate = DateTime.Now;
             _taskResult = "Done";
             _resultTaskStatus = StatusTasksEnum.Done;
             _taskFinishedButton.CssClass = "FinishedButtonPressed";
@@ -125,6 +127,7 @@ namespace Test
 
         private void ChangeTaskToNotRejected()
         {
+            _taskStatus.ActualEndDate = DateTime.Now;
             _taskResult = "Rejected";
             _resultTaskStatus = StatusTasksEnum.Rejected;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
@@ -180,7 +183,7 @@ namespace Test
         {
             // TODO(SUPS-718): Передавать информацию об оборудовании
 
-            var v1 = (VerticalLayout) sender;
+            var v1 = (VerticalLayout)sender;
 
             var dictionary = new Dictionary<string, object>
             {
@@ -236,9 +239,9 @@ namespace Test
 
         internal void Equipment_OnClick(object sender, EventArgs e)
         {
-            var equipmentId = ((VerticalLayout) sender).Id;
+            var equipmentId = ((VerticalLayout)sender).Id;
             Navigation.Move(nameof(EquipmentScreen),
-                new Dictionary<string, object> {{Parameters.IdEquipmentId, equipmentId}});
+                new Dictionary<string, object> { { Parameters.IdEquipmentId, equipmentId } });
         }
 
         internal DbRecordset GetTaskTargets()
@@ -246,7 +249,7 @@ namespace Test
 
         internal void ChangeTaskTargetStatus_OnClick(object sender, EventArgs e)
         {
-            var hl = (HorizontalLayout) sender;
+            var hl = (HorizontalLayout)sender;
 
             var targetStatus = (Image)hl.GetControl("targetStatus", true);
 
@@ -273,8 +276,8 @@ namespace Test
 
         internal string GetCurrentStatus(bool status)
         {
-           var result = status ? GetResourceImage("task_target_done") 
-                : GetResourceImage("task_target_not_done");
+            var result = status ? GetResourceImage("task_target_done")
+                 : GetResourceImage("task_target_not_done");
             Utils.TraceMessage($"Time: {DateTime.Now.ToString("HH:mm:ss:ffff")}" +
                                $"{Environment.NewLine}In XML Target Status = {result}");
             return result;
