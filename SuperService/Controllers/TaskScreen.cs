@@ -285,7 +285,7 @@ namespace Test
             return 0;
         }
 
-        internal string UpperCaseString(object @string) => @string.ToString().ToUpper();
+        internal string UpperCaseString(object @string) => @string?.ToString().ToUpper();
 
         internal bool IsThereAnyEquipment(object equipment) => equipment != null;
 
