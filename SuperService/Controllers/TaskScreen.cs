@@ -57,8 +57,6 @@ namespace Test
 
             _isReadOnly = (bool)Variables[Parameters.IdIsReadonly];
             _currentEvent = DBHelper.GetEventByID($"{Variables[Parameters.IdCurrentEventId]}");
-
-            _taskCommentEditText.Enabled = !_isReadOnly;
         }
 
         public override void OnShow()
@@ -69,7 +67,10 @@ namespace Test
                                $"ReadOnly {(bool)Variables[Parameters.IdIsReadonly]}");
 
             var eventStatus = (string)_currentEvent["statusName"];
-            _taskCommentEditText.Enabled = !eventStatus.Equals(EventStatus.Appointed);
+            if (_isReadOnly)
+                _taskCommentEditText.Enabled = !_isReadOnly;
+            else
+                _taskCommentEditText.Enabled = !eventStatus.Equals(EventStatus.Appointed);
         }
 
         internal void TaskFinishedButton_OnClick(object sender, EventArgs eventArgs)
