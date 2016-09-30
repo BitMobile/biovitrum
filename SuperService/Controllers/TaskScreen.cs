@@ -29,6 +29,8 @@ namespace Test
         private Task_Status _taskStatus;
         private TopInfoComponent _topInfoComponent;
         private Image _wrapUnwrapImage;
+        private bool _isReadOnly;
+        private DbRecordset _currentEvent;
 
         public override void OnLoading()
         {
@@ -52,14 +54,44 @@ namespace Test
             _taskCommentEditText = (MemoEdit)GetControl("TaskCommentEditText", true);
             _rootLayout = (DockLayout)Controls[0];
             _topInfoComponent.ActivateBackButton();
+
+            _isReadOnly = (bool)Variables[Parameters.IdIsReadonly];
+            _currentEvent = DBHelper.GetEventByID($"{Variables[Parameters.IdCurrentEventId]}");
+
+            _taskCommentEditText.Enabled = !_isReadOnly;
         }
 
         public override void OnShow()
         {
-            Utils.TraceMessage($"{Variables[Parameters.IdTaskId]}");
+            Utils.TraceMessage($"Task Id {Variables[Parameters.IdTaskId]}{Environment.NewLine}" +
+                               $"Event Id {Variables[Parameters.IdCurrentEventId]}{Environment.NewLine}" +
+                               $"Client Id {Variables[Parameters.IdClientId]}{Environment.NewLine}" +
+                               $"ReadOnly {(bool)Variables[Parameters.IdIsReadonly]}");
+
+            var eventStatus = (string)_currentEvent["statusName"];
+            _taskCommentEditText.Enabled = !eventStatus.Equals(EventStatus.Appointed);
         }
 
         internal void TaskFinishedButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            if (_isReadOnly) return;
+            var eventStatus = (string)_currentEvent["statusName"];
+
+            if (eventStatus.Equals(EventStatus.Appointed))
+            {
+                Dialog.Ask(Translator.Translate("start_event"), (o, args) =>
+                {
+                    if (args.Result != Dialog.Result.Yes) return;
+                    ChangeEventStatus();
+
+                    FinishedButtonAction();
+                });
+            }
+            else
+                FinishedButtonAction();
+        }
+
+        private void FinishedButtonAction()
         {
             switch (_resultTaskStatus)
             {
@@ -108,6 +140,25 @@ namespace Test
         }
 
         internal void TaskRefuseButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            if (_isReadOnly) return;
+            var eventStatus = (string)_currentEvent["statusName"];
+
+            if (eventStatus.Equals(EventStatus.Appointed))
+            {
+                Dialog.Ask(Translator.Translate("start_event"), (o, args) =>
+                {
+                    if (args.Result != Dialog.Result.Yes) return;
+                    ChangeEventStatus();
+
+                    RefuseButtonAction();
+                });
+            }
+            else
+                RefuseButtonAction();
+        }
+
+        private void RefuseButtonAction()
         {
             switch (_resultTaskStatus)
             {
@@ -249,6 +300,25 @@ namespace Test
 
         internal void ChangeTaskTargetStatus_OnClick(object sender, EventArgs e)
         {
+            if (_isReadOnly) return;
+            var eventStatus = (string)_currentEvent["statusName"];
+
+            if (eventStatus.Equals(EventStatus.Appointed))
+            {
+                Dialog.Ask(Translator.Translate("start_event"), (o, args) =>
+                {
+                    if (args.Result != Dialog.Result.Yes) return;
+                    ChangeEventStatus();
+
+                    TaskTargetStatusAction(sender);
+                });
+            }
+            else
+                TaskTargetStatusAction(sender);
+        }
+
+        private void TaskTargetStatusAction(object sender)
+        {
             var hl = (HorizontalLayout)sender;
 
             var targetStatus = (Image)hl.GetControl("targetStatus", true);
@@ -281,6 +351,25 @@ namespace Test
             Utils.TraceMessage($"Time: {DateTime.Now.ToString("HH:mm:ss:ffff")}" +
                                $"{Environment.NewLine}In XML Target Status = {result}");
             return result;
+        }
+
+        private void ChangeEventStatus()
+        {
+            var result = DBHelper.GetCoordinate(TimeRangeCoordinate.DefaultTimeRange);
+            var latitude = Converter.ToDouble(result["Latitude"]);
+            var longitude = Converter.ToDouble(result["Longitude"]);
+            var @event = (Event)DBHelper.LoadEntity($"{Variables[Parameters.IdCurrentEventId]}");
+            @event.ActualStartDate = DateTime.Now;
+            @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
+            @event.Latitude = Converter.ToDecimal(latitude);
+            @event.Longitude = Converter.ToDecimal(longitude);
+            DBHelper.SaveEntity(@event);
+            _currentEvent = DBHelper.GetEventByID($"{Variables[Parameters.IdCurrentEventId]}");
+            _taskCommentEditText.Enabled = true;
+        }
+
+        internal void CheckStartEvent_OnGetFocus(object sender, EventArgs e)
+        {
         }
     }
 }

@@ -310,7 +310,8 @@ namespace Test
                 var dictionary = new Dictionary<string, object>
                 {
                     {Parameters.IdClientId, _currentEventRecordset[Parameters.IdClientId]},
-                    {Parameters.IdCurrentEventId, _currentEventRecordset["Id"]}
+                    {Parameters.IdCurrentEventId, _currentEventRecordset["Id"]},
+                    {Parameters.IdIsReadonly, _readonly }
                 };
                 Navigation.Move("TaskListScreen", dictionary);
             }
@@ -380,7 +381,6 @@ namespace Test
 
         internal string GetStringPartOfTotal(object part, object total)
          => !part.Equals(0) ? $"{part}/{total}" : $"{total}";
-        
 
         internal string GetPrice(DbRecordset eventRecordset)
         {

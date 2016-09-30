@@ -39,7 +39,10 @@ namespace Test
         {
             var dictionary = new Dictionary<string, object>()
             {
-                {Parameters.IdTaskId, ((HorizontalLayout)sender).Id}
+                {Parameters.IdTaskId, ((HorizontalLayout)sender).Id},
+                {Parameters.IdCurrentEventId, $"{Variables[Parameters.IdCurrentEventId]}" },
+                {Parameters.IdClientId, $"{Variables[Parameters.IdClientId]}" },
+                {Parameters.IdIsReadonly, Variables[Parameters.IdIsReadonly] }
             };
             Navigation.Move("TaskScreen", dictionary);
         }

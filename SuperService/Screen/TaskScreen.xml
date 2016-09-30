@@ -39,7 +39,6 @@
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
         <c:HorizontalLine CssClass="CommentEndLine" />
 
-
         <s:Iterator Id="targets" Value="$GetTaskTargets()">
           <c:HorizontalLayout Id="$targets.Id" CssClass="TargetContainer">
             <c:HorizontalLayout Id="$targets.Id" CssClass="StateContainer" OnClick="ChangeTaskTargetStatus_OnClick">
@@ -53,7 +52,7 @@
 
         <c:VerticalLayout CssClass="CommentLayout">
           <c:MemoEdit Text="$task.Comment" Id="TaskCommentEditText" Placeholder="#comment...#"
-                      CssClass="Comment" OnChange="TaskCommentEditText_OnChange" />
+                      CssClass="Comment" OnChange="TaskCommentEditText_OnChange" OnGetFocus="CheckStartEvent_OnGetFocus" />
           <c:HorizontalLine CssClass="CommentEndLine" />
         </c:VerticalLayout>
 
@@ -112,7 +111,6 @@
 
         <c:HorizontalLayout CssClass="EmptySpace6sp" />
       </c:VerticalLayout>
-
     </c:ScrollView>
   </c:DockLayout>
 </c:Screen>

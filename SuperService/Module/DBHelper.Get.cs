@@ -1034,7 +1034,7 @@ namespace Test
                                 ON options.DataTypeParameter = typesDataParameters.Id
 
                                 WHERE
-                                  parameters.Ref = @equipmentId
+                                  parameters.Ref = @equipmentId AND options.DeletionMark = 0
                                 ORDER BY parameters.LineNumber ASC";
 
             var query = new Query(queryText);
