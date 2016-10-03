@@ -1,10 +1,12 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.DbEngine;
 using System;
 using System.Collections.Generic;
 using Test.Components;
 using Test.Document;
 using Test.Enum;
+using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 namespace Test
 {
@@ -253,6 +255,7 @@ namespace Test
         {
             string currentTaskId = $"{Variables[Parameters.IdTaskId]}";
             _taskStatus = DBHelper.GetTaskStatusByTaskId(currentTaskId);
+            _taskStatus.UserMA = (DbRef)DBHelper.GetUserInfoByUserName(Settings.User)["Id"];
             return DBHelper.GetTaskById(currentTaskId);
         }
 
