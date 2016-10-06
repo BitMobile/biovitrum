@@ -114,7 +114,9 @@ namespace Test
 
         private void ChangeTaskToNew()
         {
-            _taskStatus.ActualEndDate = DateTime.Now;
+            _taskStatus.ActualEndDate = DateTime.MinValue;
+            _taskStatus.CloseEvent = null;
+            _taskStatus.UserMA = null;
             _taskResult = "New";
             _resultTaskStatus = StatusTasksEnum.New;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
@@ -130,6 +132,7 @@ namespace Test
         private void ChangeTaskToDone()
         {
             _taskStatus.ActualEndDate = DateTime.Now;
+            _taskStatus.CloseEvent = (DbRef)_currentEvent["Id"];
             _taskResult = "Done";
             _resultTaskStatus = StatusTasksEnum.Done;
             _taskFinishedButton.CssClass = "FinishedButtonPressed";
@@ -182,6 +185,7 @@ namespace Test
         private void ChangeTaskToNotRejected()
         {
             _taskStatus.ActualEndDate = DateTime.Now;
+            _taskStatus.CloseEvent = (DbRef)_currentEvent["Id"];
             _taskResult = "Rejected";
             _resultTaskStatus = StatusTasksEnum.Rejected;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
