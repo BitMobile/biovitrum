@@ -117,8 +117,8 @@ namespace Test
         private void ChangeTaskToNew()
         {
             _taskStatus.ActualEndDate = DateTime.MinValue;
-            _taskStatus.CloseEvent = null;
-            _taskStatus.UserMA = null;
+            _taskStatus.CloseEvent = DbRef.CreateInstance(_taskStatus.CloseEvent.TableName, Guid.Empty);
+            _taskStatus.UserMA = DbRef.CreateInstance(_taskStatus.UserMA.TableName, Guid.Empty);
             _taskResult = "New";
             _resultTaskStatus = StatusTasksEnum.New;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
@@ -261,8 +261,13 @@ namespace Test
 
         internal object GetTask()
         {
-            string currentTaskId = $"{Variables[Parameters.IdTaskId]}";
+            string currentTaskId = $"{Variables[Parameters.IdTaskId].ToString().Trim()}";
             _taskStatus = DBHelper.GetTaskStatusByTaskId(currentTaskId);
+            Utils.TraceMessage($"{nameof(_taskStatus.Id)} => {_taskStatus.Id}{Environment.NewLine}" +
+                                   $"{nameof(_taskStatus.Ref)} => {_taskStatus.Ref}{Environment.NewLine}" +
+                                   $"{nameof(_taskStatus.ActualEndDate)} => {_taskStatus.ActualEndDate}{Environment.NewLine}" +
+                                   $"{nameof(_taskStatus.CloseEvent)} => {_taskStatus.CloseEvent}");
+
             return DBHelper.GetTaskById(currentTaskId);
         }
 

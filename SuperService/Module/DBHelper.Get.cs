@@ -1221,7 +1221,8 @@ namespace Test
                 Ref = (DbRef)result[nameof(Task_Status.Ref)],
                 LineNumber = (int)result[nameof(Task_Status.LineNumber)],
                 Status = (DbRef)result[nameof(Task_Status.Status)],
-                UserMA = (DbRef)result[nameof(Task_Status.UserMA)]
+                UserMA = (DbRef)result[nameof(Task_Status.UserMA)],
+                CloseEvent = (DbRef)result[nameof(Task_Status.CloseEvent)]
             };
         }
 
