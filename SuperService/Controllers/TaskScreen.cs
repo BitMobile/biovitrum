@@ -263,10 +263,6 @@ namespace Test
         {
             string currentTaskId = $"{Variables[Parameters.IdTaskId].ToString().Trim()}";
             _taskStatus = DBHelper.GetTaskStatusByTaskId(currentTaskId);
-            Utils.TraceMessage($"{nameof(_taskStatus.Id)} => {_taskStatus.Id}{Environment.NewLine}" +
-                                   $"{nameof(_taskStatus.Ref)} => {_taskStatus.Ref}{Environment.NewLine}" +
-                                   $"{nameof(_taskStatus.ActualEndDate)} => {_taskStatus.ActualEndDate}{Environment.NewLine}" +
-                                   $"{nameof(_taskStatus.CloseEvent)} => {_taskStatus.CloseEvent}");
 
             return DBHelper.GetTaskById(currentTaskId);
         }
