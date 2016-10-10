@@ -261,7 +261,7 @@ namespace Test
 
         internal object GetTask()
         {
-            string currentTaskId = $"{Variables[Parameters.IdTaskId].ToString().Trim()}";
+            string currentTaskId = $"{Variables[Parameters.IdTaskId]}";
             _taskStatus = DBHelper.GetTaskStatusByTaskId(currentTaskId);
 
             return DBHelper.GetTaskById(currentTaskId);
