@@ -190,9 +190,11 @@ namespace Test
             DConsole.WriteLine("Пришли новые настройки. Обновляем их");
             DConsole.WriteLine(Parameters.Splitter);
 #endif
-            GpsTracking.Stop();
+            Application.InvokeOnMainThread(() => GpsTracking.Stop());
+
             Settings.Init();
-            GpsTracking.Start();
+
+            Application.InvokeOnMainThread(() => GpsTracking.Start());
         }
 
         public static void FullSync(ResultEventHandler<bool> resultEventHandler = null)
