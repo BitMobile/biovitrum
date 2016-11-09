@@ -116,6 +116,21 @@ namespace Test
             var workDateWeekNumber = workDate.GetWeekNumber();
             var currentDateWeekNumber = currentDate.GetWeekNumber();
 
+            if (workDate.Equals(currentDate.AddDays(1)))
+            {
+                return Translator.Translate("tomorrowToUpper");
+            }
+
+            if (workDate.Equals(currentDate.AddDays(-1)))
+            {
+                return Translator.Translate("yesterdayToUpper");
+            }
+
+            if (workDate.Equals(currentDate))
+            {
+                return Translator.Translate("todayUpper");
+            }
+
             if (workDateWeekNumber == currentDateWeekNumber)
             {
                 return DateTime.Parse(datetime).ToString("dddd, dd MMMM").ToUpper();
@@ -202,7 +217,7 @@ namespace Test
 
         internal IEnumerable GetEvents()
         {
-            return DBHelper.GetEvents(DateTime.Now.Date);
+            return DBHelper.GetEvents(DateTime.Now.Date.AddDays(-31),DateTime.Now.Date.AddDays(31));
         }
 
         internal string GetResourceImage(string tag)

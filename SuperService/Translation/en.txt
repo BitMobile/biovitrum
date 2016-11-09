@@ -133,3 +133,5 @@ photo		Photo
 delete		Delete
 retake_photo		Retake
 targets		Targets
+yesterdayToUpper		YESTERDAY
+tomorrowToUpper		TOMORROW

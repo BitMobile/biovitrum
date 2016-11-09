@@ -133,3 +133,5 @@ photo		Фото
 delete		Удалить
 retake_photo		Переснять
 targets		Цели
+yesterdayToUpper		ВЧЕРА
+tomorrowToUpper		ЗАВТРА
