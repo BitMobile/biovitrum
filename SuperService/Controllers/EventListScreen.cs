@@ -1,5 +1,6 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using ClientModel3.MD;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,6 +61,8 @@ namespace Test
         public override void OnShow()
         {
             GpsTracking.Start();
+            PushService.Init();
+            DynamicScreenRefreshService.Init();
         }
 
         internal string GetStatusPicture(string importance, string status)
