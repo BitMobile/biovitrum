@@ -62,6 +62,7 @@ namespace Test
         {
             GpsTracking.Start();
             PushService.Init();
+            DynamicScreenRefreshService.Init();
         }
 
         internal string GetStatusPicture(string importance, string status)

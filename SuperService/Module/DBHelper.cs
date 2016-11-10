@@ -195,6 +195,8 @@ namespace Test
             Settings.Init();
 
             Application.InvokeOnMainThread(() => GpsTracking.Start());
+
+            DynamicScreenRefreshService.RefreshScreen();
         }
 
         public static void FullSync(ResultEventHandler<bool> resultEventHandler = null)
