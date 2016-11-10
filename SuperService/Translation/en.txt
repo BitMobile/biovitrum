@@ -135,3 +135,4 @@ retake_photo		Retake
 targets		Targets
 yesterdayToUpper		YESTERDAY
 tomorrowToUpper		TOMORROW
+notification		Notification

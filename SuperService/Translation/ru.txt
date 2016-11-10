@@ -135,3 +135,4 @@ retake_photo		Переснять
 targets		Цели
 yesterdayToUpper		ВЧЕРА
 tomorrowToUpper		ЗАВТРА
+notification		Уведомление
