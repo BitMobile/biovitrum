@@ -381,6 +381,7 @@
 				<Field AllowNull="true" Name="UserID" Type="Guid"/>
 				<Field AllowNull="true" Length="100" Name="Phone" Type="String"/>
 				<Field AllowNull="false" Name="Role" Type="Catalog.Roles"/>
+				<Field Length="5" Name="Language" Type="String"/>
 				<Field Length="128" Name="AspNetUserID" Type="String"/>
 			</Fields>
 			<TabularSections>
