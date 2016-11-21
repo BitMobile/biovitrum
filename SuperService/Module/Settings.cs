@@ -49,6 +49,9 @@ namespace Test
             set { _userId = value; }
         }
 
+        public static TimeSpan DefaultSyncTimeOut
+        { get; } = new TimeSpan(0, 0, 5, 0);
+
         public static string AuthUrl { get; set; }
 
         public static string GPSSyncUrl { get; set; }
