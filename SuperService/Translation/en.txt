@@ -16,7 +16,7 @@ closeeventquestion		Are you sure you want to close this order?
 yes		Yes
 no		No
 finishing		Finish
-comment...		Comment…
+comment...		Comment...
 wanttobuy		Need a proposal
 thereisaproblem		Have a problem 
 send		Send
@@ -110,7 +110,7 @@ unsuccessful_auth		Unable to login.
 start_sync		Sync started
 exit		Exit?
 uncorrect_login_or_pass		Uncorrect loging or password.
-ñonnection_error		Connection error.
+connection_error		Connection error.
 unexpected_error		Unexpected error.
 contact_not_present		no contact
 event_finished_ro		Order finished. Read-only mode.
