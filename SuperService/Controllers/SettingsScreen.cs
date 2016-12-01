@@ -179,7 +179,6 @@ namespace Test
         }
 
         internal void SendLog_OnClick(object sender, EventArgs e)
-        {
-        }
+            => Settings.SendDatabase();
     }
 }
