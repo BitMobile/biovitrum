@@ -82,6 +82,9 @@ namespace Test
                 else
                     _indicator.Stop();
             }
+
+            if (_enterButton != null)
+                _enterButton.Enabled = edit;
         }
     }
 }
