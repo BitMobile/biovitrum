@@ -13,9 +13,6 @@ namespace Test
     /// </remarks>
     public static partial class DBHelper
     {
-        private const string EventStatusDoneName = "Done";
-        private const string EventStatusCancelName = "Cancel";
-
         private static Database _db;
 
         public static string LastError => _db.LastError;

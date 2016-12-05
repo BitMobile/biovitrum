@@ -27,65 +27,71 @@ namespace Test
         /// <param name="eventSinceDate"> Дата начания с которой необходимо получить события</param>
         public static DbRecordset GetEvents(DateTime eventSinceDate,DateTime eventToDate)
         {
-            var queryString = @"select
-                                 event.Id,
-                                 event.StartDatePlan,
-                                 date(event.StartDatePlan) as startDatePlanDate, --date only
-                                 event.EndDatePlan,
-                                 ifnull(TypeDeparturesTable.description, '') as TypeDeparture,
-                                 event.ActualStartDate as ActualStartDate, --4
-                                 ifnull(Enum_StatusImportance.Description, '') as Importance,
-                                 ifnull(Enum_StatusImportance.Name, '') as ImportanceName,
-                                 ifnull(client.Description, '') as Description,
-                                 ifnull(client.Address, '') as Address,
-                                 ifnull(Enum_StatusyEvents.Name, '') as statusName,
-                              --//имя значения статуса (служебное имя)
-                                 ifnull(Enum_StatusyEvents.Description, '') as statusDescription
-                              --//представление статуса
-                               from
-                                 Document_Event as event
-                                   left join Catalog_Client as client
-                                   on event.client = client.Id
-                                     left join
-                                        (select
-                                            t1.Ref,
-                                            Catalog_TypesDepartures.description
-                                        from
-                                           (select
-                                               ref,
-                                               min(ifnull(lineNumber,1)) as lineNumber
-                                            from
-                                               Document_Event_TypeDepartures
-                                            where
-                                               active = 1
-                                            group by
-                                               ref) as t1
-                                                     left join Document_Event_TypeDepartures
-                                                           on t1.ref= Document_Event_TypeDepartures.ref
-                                                                   and t1.lineNumber = Document_Event_TypeDepartures.lineNumber
-                                                     left join Catalog_TypesDepartures
-                                                           on Document_Event_TypeDepartures.typeDeparture = Catalog_TypesDepartures.id) as TypeDeparturesTable
-                                   on event.id = TypeDeparturesTable.Ref
-                                        left join Enum_StatusImportance
-                                             on event.Importance = Enum_StatusImportance.Id
+            var queryString = @"SELECT
+                                  event.Id,
+                                  event.StartDatePlan,
+                                  date(event.StartDatePlan)                     AS startDatePlanDate,
+                                  --date only
+                                  event.EndDatePlan,
+                                  ifnull(TypeDeparturesTable.description, '')   AS TypeDeparture,
+                                  event.ActualStartDate                         AS ActualStartDate,
+                                  --4
+                                  ifnull(Enum_StatusImportance.Description, '') AS Importance,
+                                  ifnull(Enum_StatusImportance.Name, '')        AS ImportanceName,
+                                  ifnull(client.Description, '')                AS Description,
+                                  ifnull(client.Address, '')                    AS Address,
+                                  ifnull(Enum_StatusyEvents.Name, '')           AS statusName,
+                                  --//имя значения статуса (служебное имя)
+                                  ifnull(Enum_StatusyEvents.Description, '')    AS statusDescription
+                                --//представление статуса
+                                FROM
+                                  Document_Event AS event
+                                  LEFT JOIN Catalog_Client AS client
+                                    ON event.client = client.Id
+                                  LEFT JOIN
+                                  (SELECT
+                                     t1.Ref,
+                                     Catalog_TypesDepartures.description
+                                   FROM
+                                     (SELECT
+                                        ref,
+                                        min(ifnull(lineNumber, 1)) AS lineNumber
+                                      FROM
+                                        Document_Event_TypeDepartures
+                                      WHERE
+                                        active = 1
+                                      GROUP BY
+                                        ref) AS t1
+                                     LEFT JOIN Document_Event_TypeDepartures
+                                       ON t1.ref = Document_Event_TypeDepartures.ref
+                                          AND t1.lineNumber = Document_Event_TypeDepartures.lineNumber
+                                     LEFT JOIN Catalog_TypesDepartures
+                                       ON Document_Event_TypeDepartures.typeDeparture = Catalog_TypesDepartures.id) AS TypeDeparturesTable
+                                    ON event.id = TypeDeparturesTable.Ref
+                                  LEFT JOIN Enum_StatusImportance
+                                    ON event.Importance = Enum_StatusImportance.Id
 
-                                left join Enum_StatusyEvents
-                                    on event.status = Enum_StatusyEvents.Id
-                                where
-                                    event.DeletionMark = 0
-                                    AND (event.StartDatePlan BETWEEN @eventDate AND @EVD 
-                                        AND (Datetime(event.ActualEndDate) 
-                                            BETWEEN datetime ('now', 'start of day') AND date('now','start of day','+1 day')  
-                                                OR NOT(Enum_StatusyEvents.Name IN (@statusDone, @statusCancel))))
-                               order by
-                                event.StartDatePlan";
+                                  LEFT JOIN Enum_StatusyEvents
+                                    ON event.status = Enum_StatusyEvents.Id
+                                WHERE
+                                  event.DeletionMark = 0
+                                  AND (event.StartDatePlan BETWEEN @eventDate AND @EVD
+                                       AND (Datetime(event.ActualEndDate)
+                                            BETWEEN datetime('now', 'start of day') AND date('now', 'start of day', '+1 day')
+                                            OR NOT (Enum_StatusyEvents.Name IN
+                                                    (@statusDone, @statusCancel, @doneWithTrouble, @statusClose, @statusNotDone))))
+                                ORDER BY
+                                  event.StartDatePlan";
 
             var query = new Query(queryString);
 
             query.AddParameter("eventDate", eventSinceDate);
             query.AddParameter("EVD", eventToDate);
-            query.AddParameter("statusDone", EventStatusDoneName);
-            query.AddParameter("statusCancel", EventStatusCancelName);
+            query.AddParameter("statusDone", EventStatus.Done);
+            query.AddParameter("statusCancel", EventStatus.Cancel);
+            query.AddParameter("doneWithTrouble", EventStatus.DoneWithTrouble);
+            query.AddParameter("statusClose", EventStatus.Close);
+            query.AddParameter("statusNotDone", EventStatus.NotDone);
 
             return query.Execute();
         }
@@ -124,13 +130,12 @@ namespace Test
                                         event.DeletionMark = 0");
             var result = query.Execute();
 
-            if (result.Next())
-            {
-                statistic.DayTotalAmount = (int)result["DayTotalAmount"];
-                statistic.DayCompleteAmout = (int)result["DayCompleteAmout"];
-                statistic.MonthTotalAmount = (int)result["MonthCompleteAmout"];
-                statistic.MonthCompleteAmout = (int)result["MonthTotalAmount"];
-            }
+            if (!result.Next()) return statistic;
+
+            statistic.DayTotalAmount = (int)result["DayTotalAmount"];
+            statistic.DayCompleteAmout = (int)result["DayCompleteAmout"];
+            statistic.MonthTotalAmount = (int)result["MonthCompleteAmout"];
+            statistic.MonthCompleteAmout = (int)result["MonthTotalAmount"];
 
             return statistic;
         }

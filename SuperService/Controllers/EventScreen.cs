@@ -229,19 +229,21 @@ namespace Test
 
             switch (status)
             {
-                case "Appointed":
+                case EventStatus.Agreed:
+                case EventStatus.Accepted:
                     pictureTag += "border";
                     break;
 
-                case "Cancel":
+                case EventStatus.Cancel:
                     pictureTag += "cancel";
                     break;
 
-                case "Done":
+                case EventStatus.DoneWithTrouble:
+                case EventStatus.Done:
                     pictureTag += "done";
                     break;
 
-                case "InWork":
+                case EventStatus.InWork:
                     pictureTag += "circle";
                     break;
             }
@@ -347,7 +349,8 @@ namespace Test
         internal void CheckListCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
             var statusName = (string)_currentEventRecordset["statusName"];
-            if (statusName.Equals(EventStatus.Appointed))
+            if (statusName.Equals(EventStatus.Agreed, StringComparison.OrdinalIgnoreCase)
+                || statusName.Equals(EventStatus.Accepted, StringComparison.OrdinalIgnoreCase))
             {
                 Dialog.Ask(Translator.Translate("start_event"), (o, args) =>
                 {
