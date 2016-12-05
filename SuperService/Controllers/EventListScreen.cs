@@ -85,19 +85,21 @@ namespace Test
 
             switch (status)
             {
-                case "Appointed":
+                case EventStatus.Agreed:
+                case EventStatus.Accepted:
                     pictureTag += "border";
                     break;
 
-                case "Cancel":
+                case EventStatus.Cancel:
                     pictureTag += "cancel";
                     break;
 
-                case "Done":
+                case EventStatus.DoneWithTrouble:
+                case EventStatus.Done:
                     pictureTag += "done";
                     break;
 
-                case "InWork":
+                case EventStatus.InWork:
                     pictureTag += "circle";
                     break;
             }
