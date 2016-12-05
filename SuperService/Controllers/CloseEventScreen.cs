@@ -91,17 +91,21 @@ namespace Test
                 reminder.ViewReminder = FoReminders.GetDbRefFromEnum(FoRemindersEnum.Sale);
                 entitiesList.Add(reminder);
             }
+            var @event = (Event)eventRef.GetObject();
             if (_problem)
             {
+                @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.DoneWithTrouble);
+                DBHelper.SaveHistory(@event);
                 var reminder = CreateReminder(eventRef, _problemCommentMemoEdit.Text);
                 reminder.ViewReminder = FoReminders.GetDbRefFromEnum(FoRemindersEnum.Problem);
                 entitiesList.Add(reminder);
             }
-
             if (!string.IsNullOrEmpty(_commentaryMemoEdit.Text))
             {
-                var @event = (Event)eventRef.GetObject();
                 @event.CommentContractor = _commentaryMemoEdit.Text;
+            }
+            if (!string.IsNullOrEmpty(_commentaryMemoEdit.Text) || _problem)
+            {
                 entitiesList.Add(@event);
             }
             DBHelper.SaveEntities(entitiesList);

@@ -2,6 +2,7 @@
 using BitMobile.DbEngine;
 using System;
 using System.Collections;
+using Test.Document;
 using Database = BitMobile.ClientModel3.Database;
 
 namespace Test
@@ -37,6 +38,20 @@ namespace Test
             _db.Commit();
             if (doSync)
                 SyncAsync();
+        }
+        public static void SaveHistory(Event @event)
+        {
+            var hist = new EventHistory
+            {
+                Author = Settings.UserDetailedInfo.Id,
+                DeletionMark = false,
+                Date = DateTime.Now,
+                Event = @event.Id,
+                Id = DbRef.CreateInstance("Document_EventHistory", Guid.NewGuid()),
+                Status = @event.Status,
+                UserMA = @event.UserMA
+            };
+            SaveEntity(hist,false);
         }
 
         public static void SaveEntities(IEnumerable entities, bool doSync = true)

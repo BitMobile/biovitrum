@@ -27,6 +27,7 @@ namespace Test
 
         private TopInfoComponent _topInfoComponent;
         private Image _wrapUnwrapImage;
+        private bool _needSync;
 
         public override void OnLoading()
         {
@@ -36,8 +37,28 @@ namespace Test
             FillControls();
 
             IsEmptyDateTime((string)_currentEventRecordset["ActualStartDate"]);
+            _needSync = ReadEvent();
+            
         }
 
+        private bool ReadEvent()
+        {
+            var currentEventId = (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId];
+            var @event = (Event)DBHelper.LoadEntity(currentEventId);
+            if (!Equals(@event.Status, StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Accepted)))
+            {
+                @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Accepted);
+                DBHelper.SaveEntity(@event,false);
+                GetCurrentEvent();
+                //DConsole.WriteLine("WeSAveEv");
+                DBHelper.SaveHistory(@event);
+                //DConsole.WriteLine("WeSAveHist");
+                return true;
+            }
+            return false;
+        }
+
+       
         private void FillControls()
         {
             _topInfoComponent.Header =
@@ -110,6 +131,7 @@ namespace Test
                 Toast.MakeToast(Translator.Translate("event_canceled_ro"));
                 _readonly = true;
             }
+            
         }
 
         private void LoadControls()
@@ -199,6 +221,7 @@ namespace Test
                     @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Done);
                     @event.ActualEndDate = DateTime.Now;
                     DBHelper.SaveEntity(@event);
+                    DBHelper.SaveHistory(@event);
                     Navigation.Move("CloseEventScreen");
                 }, null,
                     Translator.Translate("yes"), Translator.Translate("no"));
@@ -273,6 +296,8 @@ namespace Test
             @event.Latitude = Converter.ToDecimal(latitude);
             @event.Longitude = Converter.ToDecimal(longitude);
             DBHelper.SaveEntity(@event);
+            DBHelper.SaveHistory(@event);
+            _needSync = false;
             var rimList = DBHelper.GetServicesAndMaterialsByEventId(currentEventId);
             var rimArrayList = new ArrayList();
             while (rimList.Next())
@@ -287,6 +312,10 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
+            if (_needSync)
+            {
+                DBHelper.SyncAsync();
+            }
             Navigation.Back();
         }
 

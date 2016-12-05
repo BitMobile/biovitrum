@@ -2,7 +2,7 @@
 
 <configuration>
   <resource>
-    <version version="3.1.5.211" />
+    <version version="3.1.5.212" />
   </resource>
 
   <client>
@@ -11,7 +11,7 @@
 
   <server>
     <supportedMeta version="3.0.0.0" />
-    <host url="https://ssdev.superagent.ru" />
-    <solutionPath url="/bitmobile3/superservice3dev" />
+    <host url="http://10.5.195.222" />
+    <solutionPath url="/bitmobile/mobileserver" />
   </server>
 </configuration>
