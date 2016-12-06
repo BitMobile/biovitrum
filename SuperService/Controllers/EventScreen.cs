@@ -45,7 +45,7 @@ namespace Test
         {
             var currentEventId = (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId];
             var @event = (Event)DBHelper.LoadEntity(currentEventId);
-            if (!Equals(@event.Status, StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Accepted)))
+            if (!@event.Status.Equals(StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Accepted)))
             {
                 @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Accepted);
                 DBHelper.SaveEntity(@event,false);
