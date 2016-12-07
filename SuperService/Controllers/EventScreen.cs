@@ -45,7 +45,7 @@ namespace Test
         {
             var currentEventId = (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId];
             var @event = (Event)DBHelper.LoadEntity(currentEventId);
-            if (!@event.Status.Equals(StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Accepted)))
+            if (@event.Status.Equals(StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Agreed)))
             {
                 @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Accepted);
                 DBHelper.SaveEntity(@event,false);
@@ -362,10 +362,10 @@ namespace Test
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
-
             var @event = (Event)DBHelper.LoadEntity(_currentEventRecordset["Id"].ToString());
-            var status = ((StatusyEvents)@event.Status.GetObject()).GetEnum();
-            var wasStarted = status == StatusyEventsEnum.InWork || status == StatusyEventsEnum.Done;
+            var status = ((StatusyEvents)@event.Status.GetObject()).Name;
+            var wasStarted = status == "InWork" || status == "Done";
+
             var dictinory = new Dictionary<string, object>
             {
                 {Parameters.IdCurrentEventId, (string) eventId},
