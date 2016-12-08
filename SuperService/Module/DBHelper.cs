@@ -36,9 +36,9 @@ namespace Test
             if (doSync)
                 SyncAsync();
         }
-        public static void SaveHistory(Event @event)
+        public static EventHistory CreateHistory(Event @event)
         {
-            var hist = new EventHistory
+            return new EventHistory
             {
                 Author = Settings.UserDetailedInfo.Id,
                 DeletionMark = false,
@@ -48,7 +48,6 @@ namespace Test
                 Status = @event.Status,
                 UserMA = @event.UserMA
             };
-            SaveEntity(hist,false);
         }
 
         public static void SaveEntities(IEnumerable entities, bool doSync = true)

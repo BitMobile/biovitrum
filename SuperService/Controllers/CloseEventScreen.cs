@@ -92,22 +92,24 @@ namespace Test
                 entitiesList.Add(reminder);
             }
             var @event = (Event)eventRef.GetObject();
+            @event.ActualEndDate = (DateTime)BusinessProcess.GlobalVariables[Parameters.DateEnd];
             if (_problem)
             {
                 @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.DoneWithTrouble);
-                DBHelper.SaveHistory(@event);
+                DBHelper.CreateHistory(@event);
                 var reminder = CreateReminder(eventRef, _problemCommentMemoEdit.Text);
                 reminder.ViewReminder = FoReminders.GetDbRefFromEnum(FoRemindersEnum.Problem);
                 entitiesList.Add(reminder);
+            }
+            else
+            {
+                @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Done);
             }
             if (!string.IsNullOrEmpty(_commentaryMemoEdit.Text))
             {
                 @event.CommentContractor = _commentaryMemoEdit.Text;
             }
-            if (!string.IsNullOrEmpty(_commentaryMemoEdit.Text) || _problem)
-            {
-                entitiesList.Add(@event);
-            }
+            entitiesList.Add(@event);
             DBHelper.SaveEntities(entitiesList);
             Navigation.CleanStack();
             Navigation.ModalMove("EventListScreen");

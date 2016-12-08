@@ -48,11 +48,12 @@ namespace Test
             if (@event.Status.Equals(StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Agreed)))
             {
                 @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Accepted);
-                DBHelper.SaveEntity(@event,false);
+                var entitesList = new ArrayList();
+                entitesList.Add(@event);
+                entitesList.Add(DBHelper.CreateHistory(@event));
+                DBHelper.SaveEntities(entitesList);
+                //DBHelper.SaveEntity(,false);
                 GetCurrentEvent();
-                //DConsole.WriteLine("WeSAveEv");
-                DBHelper.SaveHistory(@event);
-                //DConsole.WriteLine("WeSAveHist");
                 return true;
             }
             return false;
@@ -218,10 +219,11 @@ namespace Test
                         (Event)
                             DBHelper.LoadEntity(
                                 (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
-                    @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Done);
-                    @event.ActualEndDate = DateTime.Now;
-                    DBHelper.SaveEntity(@event);
-                    DBHelper.SaveHistory(@event);
+                    //@event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Done);
+                    //@event.ActualEndDate = DateTime.Now;
+                    //DBHelper.SaveEntity(@event);
+                    //DBHelper.CreateHistory(@event);
+                    BusinessProcess.GlobalVariables[Parameters.DateEnd] = DateTime.Now;
                     Navigation.Move("CloseEventScreen");
                 }, null,
                     Translator.Translate("yes"), Translator.Translate("no"));
@@ -297,8 +299,12 @@ namespace Test
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             @event.Latitude = Converter.ToDecimal(latitude);
             @event.Longitude = Converter.ToDecimal(longitude);
-            DBHelper.SaveEntity(@event);
-            DBHelper.SaveHistory(@event);
+            var enitylist = new ArrayList();
+            enitylist.Add(@event);
+            enitylist.Add(DBHelper.CreateHistory(@event));
+            DBHelper.SaveEntities(enitylist);
+            //DBHelper.SaveEntity(@event);
+            //DBHelper.CreateHistory(@event);
             _needSync = false;
             var rimList = DBHelper.GetServicesAndMaterialsByEventId(currentEventId);
             var rimArrayList = new ArrayList();
