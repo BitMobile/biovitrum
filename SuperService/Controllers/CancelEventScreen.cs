@@ -38,6 +38,7 @@ namespace Test
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Cancel);
             @event.ActualEndDate = DateTime.Now;
             DBHelper.SaveEntity(@event);
+            DBHelper.SaveHistory(@event);
             Navigation.CleanStack();
             Navigation.ModalMove("EventListScreen");
         }
