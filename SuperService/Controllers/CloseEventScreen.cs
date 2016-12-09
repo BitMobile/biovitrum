@@ -96,7 +96,6 @@ namespace Test
             if (_problem)
             {
                 @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.DoneWithTrouble);
-                DBHelper.CreateHistory(@event);
                 var reminder = CreateReminder(eventRef, _problemCommentMemoEdit.Text);
                 reminder.ViewReminder = FoReminders.GetDbRefFromEnum(FoRemindersEnum.Problem);
                 entitiesList.Add(reminder);
@@ -110,6 +109,7 @@ namespace Test
                 @event.CommentContractor = _commentaryMemoEdit.Text;
             }
             entitiesList.Add(@event);
+            entitiesList.Add(DBHelper.CreateHistory(@event));
             DBHelper.SaveEntities(entitiesList);
             Navigation.CleanStack();
             Navigation.ModalMove("EventListScreen");
