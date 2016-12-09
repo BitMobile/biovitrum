@@ -122,7 +122,8 @@ namespace Test
         public override void OnShow()
         {
             GpsTracking.Start();
-            if ((string)_currentEventRecordset["statusName"] == "Done")
+            if ((string)_currentEventRecordset["statusName"] == EventStatus.Done
+                || (string)_currentEventRecordset["statusName"] == EventStatus.DoneWithTrouble)
             {
                 Toast.MakeToast(Translator.Translate("event_finished_ro"));
                 _readonly = true;
@@ -370,7 +371,7 @@ namespace Test
             }
             var @event = (Event)DBHelper.LoadEntity(_currentEventRecordset["Id"].ToString());
             var status = ((StatusyEvents)@event.Status.GetObject()).Name;
-            var wasStarted = status == "InWork" || status == "Done";
+            var wasStarted = status == EventStatus.InWork || status == EventStatus.Done;
 
             var dictinory = new Dictionary<string, object>
             {
@@ -424,7 +425,7 @@ namespace Test
         {
             var status = (string)eventRecordset["statusName"];
             var sums = DBHelper.GetCocSumsByEventId(eventRecordset["Id"].ToString(),
-                status != "Done" && status != "InWork");
+                status != EventStatus.Done && status != EventStatus.InWork);
             var total = (double)sums["Sum"];
             var services = (double)sums["SumServices"];
             var materials = (double)sums["SumMaterials"];
