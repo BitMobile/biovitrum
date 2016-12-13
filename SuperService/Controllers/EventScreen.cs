@@ -51,7 +51,7 @@ namespace Test
                 var entitesList = new ArrayList();
                 entitesList.Add(@event);
                 entitesList.Add(DBHelper.CreateHistory(@event));
-                DBHelper.SaveEntities(entitesList);
+                DBHelper.SaveEntities(entitesList,false);
                 //DBHelper.SaveEntity(,false);
                 GetCurrentEvent();
                 return true;
