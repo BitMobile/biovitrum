@@ -79,7 +79,8 @@ namespace Test
                                        AND (Datetime(event.ActualEndDate)
                                             BETWEEN datetime('now', 'start of day') AND date('now', 'start of day', '+1 day')
                                             OR NOT (Enum_StatusyEvents.Name IN
-                                                    (@statusDone, @statusCancel, @doneWithTrouble, @statusClose, @statusNotDone))))
+                                                    (@statusDone, @statusCancel, @doneWithTrouble, @statusClose, @statusNotDone
+                                                        @statusOnTheApprovalOf))))
                                 ORDER BY
                                   event.StartDatePlan";
 
@@ -92,6 +93,7 @@ namespace Test
             query.AddParameter("doneWithTrouble", EventStatus.DoneWithTrouble);
             query.AddParameter("statusClose", EventStatus.Close);
             query.AddParameter("statusNotDone", EventStatus.NotDone);
+            query.AddParameter("statusOnTheApprovalOf", EventStatus.OnTheApprovalOf);
 
             return query.Execute();
         }

@@ -91,11 +91,13 @@ namespace Test
                     break;
 
                 case EventStatus.Cancel:
+                case EventStatus.NotDone:
                     pictureTag += "cancel";
                     break;
-
                 case EventStatus.DoneWithTrouble:
                 case EventStatus.Done:
+                case EventStatus.OnTheApprovalOf:
+                case EventStatus.Close:
                     pictureTag += "done";
                     break;
 
