@@ -253,25 +253,22 @@ namespace Test
                     break;
             }
 
-            switch (status)
+            if (status == EventStatus.Agreed || status == EventStatus.Accepted)
             {
-                case EventStatus.Agreed:
-                case EventStatus.Accepted:
-                    pictureTag += "border";
-                    break;
-
-                case EventStatus.Cancel:
-                    pictureTag += "cancel";
-                    break;
-
-                case EventStatus.DoneWithTrouble:
-                case EventStatus.Done:
-                    pictureTag += "done";
-                    break;
-
-                case EventStatus.InWork:
-                    pictureTag += "circle";
-                    break;
+                pictureTag += "border";
+            }
+            else if (status == EventStatus.Cancel || status == EventStatus.NotDone)
+            {
+                pictureTag += "cancel";
+            }
+            else if (status == EventStatus.DoneWithTrouble || status == EventStatus.Done ||
+                     status == EventStatus.OnTheApprovalOf || status == EventStatus.Close)
+            {
+                pictureTag += "done";
+            }
+            else if (status == EventStatus.InWork)
+            {
+                pictureTag += "circle";
             }
             return ResourceManager.GetImage(pictureTag);
         }
