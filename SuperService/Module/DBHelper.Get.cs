@@ -79,7 +79,7 @@ namespace Test
                                        AND (Datetime(event.ActualEndDate)
                                             BETWEEN datetime('now', 'start of day') AND date('now', 'start of day', '+1 day')
                                             OR NOT (Enum_StatusyEvents.Name IN
-                                                    (@statusDone, @statusCancel, @doneWithTrouble, @statusClose, @statusNotDone
+                                                    (@statusDone, @statusCancel, @doneWithTrouble, @statusClose, @statusNotDone,
                                                         @statusOnTheApprovalOf))))
                                 ORDER BY
                                   event.StartDatePlan";
