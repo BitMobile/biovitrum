@@ -205,7 +205,7 @@ namespace Test
             {
                 {"true", Translator.Translate("yes")},
                 {"false", Translator.Translate("no")},
-                {"", Translator.Translate("not_choosed")}
+                {"not_choosed", Translator.Translate("not_choosed")}
             };
             var startKey = _textView.Text == Translator.Translate("not_choosed")
                 ? ""
@@ -227,8 +227,8 @@ namespace Test
         {
             _textView.Text = args.Result.Value;
             UpdateChecklist(_currentCheckListItemID,
-                args.Result.Value == Translator.Translate("not_choosed") ? "" : _textView.Text);
-
+                ((string) args.Result.Key) == "not_choosed" ? "" : (string) args.Result.Key);
+            Utils.TraceMessage($"Boleean choose: Key {args.Result.Key} Value: {args.Result.Value}");
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result.Value != Translator.Translate("not_choosed"));
             if (args.Result.Value != Translator.Translate("not_choosed"))
                 ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
