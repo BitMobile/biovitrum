@@ -186,7 +186,7 @@ namespace Test
         internal void DateCallback(object state, ResultEventArgs<DateTime> args)
         {
             _textView.Text = args.Result.Date.ToString("dd MMMM yyyy");
-            UpdateChecklist(_currentCheckListItemID, _textView.Text);
+            UpdateChecklist(_currentCheckListItemID, args.Result.ToString("yyyy-MM-dd HH:mm:ss"));
             //ChangeRequiredIndicator(_lastClickedRequiredIndicatior, true);
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов ChangeRequiredIndicator(_lastClickedRequiredIndicatior, true);
             ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
