@@ -76,6 +76,7 @@ namespace Test
                                 WHERE
                                   event.UserMA = @userId 
                                   AND  event.DeletionMark = 0
+                                  AND  NOT (Enum_StatusyEvents.Name = @OnHarmonization)
                                   AND (event.StartDatePlan BETWEEN @eventDate AND @EVD
                                        AND (Datetime(event.ActualEndDate)
                                             BETWEEN datetime('now', 'start of day') AND date('now', 'start of day', '+1 day')
@@ -90,6 +91,7 @@ namespace Test
             query.AddParameter("eventDate", eventSinceDate);
             query.AddParameter("userId", Settings.UserDetailedInfo.Id);
             query.AddParameter("EVD", eventToDate);
+            query.AddParameter("OnHarmonization", EventStatus.OnHarmonization);
             query.AddParameter("statusDone", EventStatus.Done);
             query.AddParameter("statusCancel", EventStatus.Cancel);
             query.AddParameter("doneWithTrouble", EventStatus.DoneWithTrouble);
@@ -139,7 +141,8 @@ namespace Test
                                         ON event.Status = Enum_StatusyEvents.Id
 
                                     WHERE
-                                      event.DeletionMark = 0 AND event.UserMA = @userID");
+                                      event.DeletionMark = 0 AND event.UserMA = @userID AND NOT(Enum_StatusyEvents.Name = @OnHarmonization)");
+            query.AddParameter("OnHarmonization", EventStatus.OnHarmonization);
             query.AddParameter("userID",Settings.UserDetailedInfo.Id);
             var result = query.Execute();
 
