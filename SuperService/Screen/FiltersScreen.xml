@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:DockLayout Id="9d68303696d7440ba9d7dc098be3ebd1" CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:HorizontalLayout Id="StartFinishButton"
+                    CssClass="FinishButton"
+                    OnClick="SetButton_OnClick">
+      <c:TextView Text="#set#" />
+    </c:HorizontalLayout>
+    <c:ScrollView Id="c9c77e671ef64d128a4ecfea7cdf5bbf"
+                  CssClass="RootLayout">
+
+      <c:HorizontalLine CssClass="Line" />
+      <c:VerticalLayout>
+        <s:If Test="$ShowAdditionFilter()">
+          <!-- Our Task -->
+          <c:HorizontalLine CssClass="Line" />
+          <c:HorizontalLayout Id="OurTask" CssClass="ClientListItemVL" OnClick="SelectFilter_OnClick">
+            <c:Image Id="ImgOurTask" Source="$GetCurrentStatusForOur('OurTask')" CssClass="State" />
+            <c:VerticalLayout CssClass="VerticalLine" />
+            <c:TextView Text="Мои задачи" CssClass="ClientListNameTV" />
+          </c:HorizontalLayout>
+          <c:HorizontalLine CssClass="Line" />
+          <!-- Not our Task -->
+          <c:HorizontalLine CssClass="Line" />
+          <c:HorizontalLayout Id="NotOurTask" CssClass="ClientListItemVL" OnClick="SelectFilter_OnClick">
+            <c:Image Id="ImgNotOurTask" Source="$GetCurrentStatusForOur('NotOurTask')" CssClass="State" />
+            <c:VerticalLayout CssClass="VerticalLine" />
+            <c:TextView Text="Задачи подчиненных" CssClass="ClientListNameTV" />
+          </c:HorizontalLayout>
+        </s:If>
+        <!--All another filter-->
+        <s:Iterator Id="filters" Value="$GetFilters()">
+          <c:HorizontalLine CssClass="Line" />
+          <c:HorizontalLayout Id="$filters.Id" CssClass="ClientListItemVL" OnClick="SelectFilter_OnClick">
+            <c:Image Id="Img{$filters.Id}" Source="$GetCurrentStatus($filters.Id)" CssClass="State" />
+            <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
+            <c:TextView Text="$filters.Description" CssClass="ClientListNameTV" />
+          </c:HorizontalLayout>
+          <c:HorizontalLine CssClass="Line" />
+        </s:Iterator>
+      </c:VerticalLayout>
+    </c:ScrollView>
+  </c:DockLayout>
+</c:Screen>
